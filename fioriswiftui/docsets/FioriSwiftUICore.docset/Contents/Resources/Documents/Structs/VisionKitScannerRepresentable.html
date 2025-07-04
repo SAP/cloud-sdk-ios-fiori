@@ -49,7 +49,50 @@
 
                   </div>
                 </div>
-              <p>A SwiftUI view representable for displaying a VisionKit barcode scanner.</p>
+              <p>A SwiftUI <code>UIViewControllerRepresentable</code> that wraps a <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code> to display a VisionKit barcode scanner.</p>
+
+<p><code>VisionKitScannerRepresentable</code> integrates with <code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> to present a <code>DataScannerViewController</code> for barcode scanning on iOS devices (excluding Mac Catalyst). It handles the scanner&rsquo;s lifecycle, including permission checks, torch state synchronization, and control button visibility (cancel and flash buttons). If the scanner is unavailable (e.g., on Mac Catalyst or due to permission issues), it displays a placeholder view with a &ldquo;Scanner Unavailable&rdquo; message.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This view requires <code>VisionKit</code> and is only functional on iOS (not Mac Catalyst or visionOS). The <code>scannerManager</code> must have an active <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code> instance, typically activated via <code>scannerManager.setActiveScanner(.visionKit)</code>.
+
+</div>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>Initialize with a <code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> instance, a binding for torch state, and a cancel callback:</p>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isTorchOn</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@StateObject</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">scannerManager</span> <span class="o">=</span> <span class="kt">BarcodeScannerManager</span><span class="p">(</span>
+    <span class="nv">recognizedDataTypes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">barcode</span><span class="p">(</span><span class="nv">symbologies</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">qr</span><span class="p">,</span> <span class="o">.</span><span class="n">ean13</span><span class="p">])],</span>
+    <span class="nv">recognizesMultipleItems</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">)</span>
+
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">VisionKitScannerRepresentable</span><span class="p">(</span>
+        <span class="nv">scannerManager</span><span class="p">:</span> <span class="n">scannerManager</span><span class="p">,</span>
+        <span class="nv">isTorchOn</span><span class="p">:</span> <span class="err">$</span><span class="n">isTorchOn</span><span class="p">,</span>
+        <span class="nv">onCancelTapped</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">scannerManager</span><span class="o">.</span><span class="nf">stopMonitoring</span><span class="p">()</span>
+        <span class="p">},</span>
+        <span class="nv">showCancelButton</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nv">showFlashButton</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">ignoresSafeArea</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li>Ensure <code>scannerManager</code> is configured with <code><a href="../Enums/BarcodeDataType.html">BarcodeDataType</a></code> for barcode types.</li>
+<li>The <code>isTorchOn</code> binding syncs with the scanner&rsquo;s torch state.</li>
+<li>The <code>onCancelTapped</code> closure is called when the cancel button (if shown) is tapped.</li>
+</ul>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>iOS 15.0+.</li>
+<li><code>Vision</code> framework for <code>VNBarcodeSymbology</code> if specifying barcode symbologies.</li>
+<li><code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> and <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code>.</li>
+<li>Camera permissions must be granted for scanning to work.</li>
+</ul>
 
             </section>
             <section class="section task-group-section">
@@ -58,9 +101,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV7scanner14onCancelTapped9isTorchOnAcA0deF0C_yyc0B2UI7BindingVySbGtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(scanner:onCancelTapped:isTorchOn:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV7scanner14onCancelTapped9isTorchOnAcA0deF0C_yyc0B2UI7BindingVySbGtcfc">init(scanner:<wbr>onCancelTapped:<wbr>isTorchOn:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14scannerManagerAA07BarcodefI0Cvp"></a>
+                      <a name="//apple_ref/swift/Property/scannerManager" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14scannerManagerAA07BarcodefI0Cvp">scannerManager</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -68,14 +111,157 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Initializes the representable with a VisionKit scanner.</p>
+                          <p>The <code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> instance managing the active <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code>.</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">scanner</span><span class="p">:</span> <span class="kt"><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></span><span class="p">,</span> <span class="nv">onCancelTapped</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">isTorchOn</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">@ObservedObject</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">scannerManager</span><span class="p">:</span> <span class="kt"><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV9isTorchOnSbvp"></a>
+                      <a name="//apple_ref/swift/Property/isTorchOn" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV9isTorchOnSbvp">isTorchOn</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A binding to control and reflect the scanner&rsquo;s torch state.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Binding</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">isTorchOn</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14onCancelTappedyycvp"></a>
+                      <a name="//apple_ref/swift/Property/onCancelTapped" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14onCancelTappedyycvp">onCancelTapped</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A closure called when the cancel button (if shown) is tapped.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">onCancelTapped</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV16showCancelButtonSbvp"></a>
+                      <a name="//apple_ref/swift/Property/showCancelButton" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV16showCancelButtonSbvp">showCancelButton</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A Boolean indicating whether to show the cancel button in the scanner UI.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">showCancelButton</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV15showFlashButtonSbvp"></a>
+                      <a name="//apple_ref/swift/Property/showFlashButton" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV15showFlashButtonSbvp">showFlashButton</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A Boolean indicating whether to show the flash (torch) button in the scanner UI.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">showFlashButton</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14scannerManager9isTorchOn14onCancelTapped04showN6Button0p5FlashQ0AcA07BarcodefI0C_0B2UI7BindingVySbGyycS2btcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(scannerManager:isTorchOn:onCancelTapped:showCancelButton:showFlashButton:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14scannerManager9isTorchOn14onCancelTapped04showN6Button0p5FlashQ0AcA07BarcodefI0C_0B2UI7BindingVySbGyycS2btcfc">init(scannerManager:<wbr>isTorchOn:<wbr>onCancelTapped:<wbr>showCancelButton:<wbr>showFlashButton:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Initializes the <code>VisionKitScannerRepresentable</code> with a <code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> and configuration.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">scannerManager</span><span class="p">:</span> <span class="kt"><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></span><span class="p">,</span>
+    <span class="nv">isTorchOn</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">onCancelTapped</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+    <span class="nv">showCancelButton</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nv">showFlashButton</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -86,24 +272,12 @@
                               <tr>
                                 <td>
                                   <code>
-                                  <em>scanner</em>
+                                  <em>scannerManager</em>
                                   </code>
                                 </td>
                                 <td>
                                   <div>
-                                    <p>The <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code> instance to use for scanning.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>onCancelTapped</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>Closure called when the Cancel button is tapped.</p>
+                                    <p>The <code><a href="../Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> instance managing the <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code>.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -115,7 +289,43 @@
                                 </td>
                                 <td>
                                   <div>
-                                    <p>Binding to track the torch state.</p>
+                                    <p>A binding to control and observe the torch state.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>onCancelTapped</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A closure called when the cancel button is tapped.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>showCancelButton</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Whether to display the cancel button. Defaults to <code>true</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>showFlashButton</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Whether to display the flash button (if torch is available). Defaults to <code>true</code>.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -128,9 +338,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20makeUIViewController7context0dE004Dataf4ViewJ0C0B2UI0ijG7ContextVyACG_tF"></a>
-                      <a name="//apple_ref/swift/Method/makeUIViewController(context:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20makeUIViewController7context0dE004Dataf4ViewJ0C0B2UI0ijG7ContextVyACG_tF">makeUIViewController(context:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20UIViewControllerTypea"></a>
+                      <a name="//apple_ref/swift/Alias/UIViewControllerType" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20UIViewControllerTypea">UIViewControllerType</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -138,14 +348,46 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Creates and configures the <code>DataScannerViewController</code> for display.</p>
+                          <p>The type of <code>UIViewController</code> managed by this representable.</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeUIViewController</span><span class="p">(</span><span class="nv">context</span><span class="p">:</span> <span class="kt">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DataScannerViewController</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UIViewControllerType</span> <span class="o">=</span> <span class="kt">UIViewController</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20makeUIViewController7contextSo0iJ0C0B2UI0ijG7ContextVyACG_tF"></a>
+                      <a name="//apple_ref/swift/Method/makeUIViewController(context:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV20makeUIViewController7contextSo0iJ0C0B2UI0ijG7ContextVyACG_tF">makeUIViewController(context:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Creates the <code>UIViewController</code> for the scanner or a placeholder if unavailable.</p>
+
+<p>This method retrieves the <code><a href="../Classes/VisionKitScanner.html">VisionKitScanner</a></code> from the <code><a href="../Structs/VisionKitScannerRepresentable.html#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14scannerManagerAA07BarcodefI0Cvp">scannerManager</a></code>, checks permissions,
+and returns the scanner&rsquo;s <code>UIViewController</code> (typically a <code>DataScannerViewController</code>).
+If the scanner is unavailable (e.g., on Mac Catalyst or due to missing permissions),
+it returns a placeholder <code>UIViewController</code> with a &ldquo;Scanner Unavailable&rdquo; message.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeUIViewController</span><span class="p">(</span><span class="nv">context</span><span class="p">:</span> <span class="kt">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
 
                           </div>
                         </div>
@@ -170,7 +412,7 @@
                         </div>
                         <div>
                           <h4>Return Value</h4>
-                          <p>The <code>DataScannerViewController</code> to display the camera feed.</p>
+                          <p>A <code>UIViewController</code> containing the scanner UI or a placeholder.</p>
                         </div>
                       </section>
                     </div>
@@ -178,9 +420,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV22updateUIViewController_7contexty0dE004Dataf4ViewJ0C_0B2UI0ijG7ContextVyACGtF"></a>
+                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV22updateUIViewController_7contextySo0iJ0C_0B2UI0ijG7ContextVyACGtF"></a>
                       <a name="//apple_ref/swift/Method/updateUIViewController(_:context:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV22updateUIViewController_7contexty0dE004Dataf4ViewJ0C_0B2UI0ijG7ContextVyACGtF">updateUIViewController(_:<wbr>context:<wbr>)</a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV22updateUIViewController_7contextySo0iJ0C_0B2UI0ijG7ContextVyACGtF">updateUIViewController(_:<wbr>context:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -188,14 +430,18 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Updates the <code>DataScannerViewController</code> when the SwiftUI view updates.</p>
+                          <p>Updates the <code>UIViewController</code> with the latest configuration.</p>
+
+<p>This method syncs the scanner&rsquo;s properties (<code><a href="../Structs/VisionKitScannerRepresentable.html#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV16showCancelButtonSbvp">showCancelButton</a></code>, <code><a href="../Structs/VisionKitScannerRepresentable.html#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV15showFlashButtonSbvp">showFlashButton</a></code>, <code><a href="../Structs/VisionKitScannerRepresentable.html#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV14onCancelTappedyycvp">onCancelTapped</a></code>, and <code><a href="../Structs/VisionKitScannerRepresentable.html#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV9isTorchOnSbvp">isTorchOn</a></code>)
+with the representable&rsquo;s state. If the scanner is not active or unavailable, it attempts to activate it.
+If the torch state changes, it calls <code>toggleTorch()</code> to update the hardware state and syncs the binding.</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateUIViewController</span><span class="p">(</span><span class="n">_</span> <span class="nv">uiViewController</span><span class="p">:</span> <span class="kt">DataScannerViewController</span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Context</span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateUIViewController</span><span class="p">(</span><span class="n">_</span> <span class="nv">uiViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Context</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -211,7 +457,7 @@
                                 </td>
                                 <td>
                                   <div>
-                                    <p>The <code>DataScannerViewController</code> to update.</p>
+                                    <p>The <code>UIViewController</code> to update.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -224,64 +470,6 @@
                                 <td>
                                   <div>
                                     <p>The context provided by SwiftUI.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore29VisionKitScannerRepresentableV25dismantleUIViewController_11coordinatory0dE004Dataf4ViewJ0C_yttFZ"></a>
-                      <a name="//apple_ref/swift/Method/dismantleUIViewController(_:coordinator:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore29VisionKitScannerRepresentableV25dismantleUIViewController_11coordinatory0dE004Dataf4ViewJ0C_yttFZ">dismantleUIViewController(_:<wbr>coordinator:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Cleans up the <code>DataScannerViewController</code> when the SwiftUI view is dismantled.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">dismantleUIViewController</span><span class="p">(</span><span class="n">_</span> <span class="nv">uiViewController</span><span class="p">:</span> <span class="kt">DataScannerViewController</span><span class="p">,</span> <span class="nv">coordinator</span><span class="p">:</span> <span class="p">())</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>uiViewController</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The <code>DataScannerViewController</code> to clean up.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>coordinator</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The coordinator (not used in this implementation).</p>
                                   </div>
                                 </td>
                               </tr>
@@ -380,6 +568,9 @@
                   <a href="../Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
                 </li>
                 <li class="nav-group-task">
@@ -408,6 +599,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/BarcodeDataType.html">BarcodeDataType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/CardSkeletonLoadingPattern.html">CardSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/CardTests.html">CardTests</a>
@@ -474,6 +671,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectItemSkeletonLoadingPattern.html">ObjectItemSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectViewProperty.html">ObjectViewProperty</a>
@@ -558,6 +761,15 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UserConsentAlertType.html">UserConsentAlertType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAFeedbackResult.html">WAFeedbackResult</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAHelperAction.html">WAHelperAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAResult.html">WAResult</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/WelcomeScreenOption.html">WelcomeScreenOption</a>
@@ -725,6 +937,9 @@
                   <a href="../Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/BackActionStyle.html">BackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -831,6 +1046,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DoneActionStyle.html">DoneActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
@@ -1160,6 +1378,9 @@
                   <a href="../Protocols/RatingControlStyle.html">RatingControlStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/RedoActionStyle.html">RedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1394,6 +1615,9 @@
                   <a href="../Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/UndoActionStyle.html">UndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1437,6 +1661,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/XmarkStyle.html">XmarkStyle</a>
@@ -2051,6 +2281,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackAction.html">BackAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionBaseStyle.html">BackActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionConfiguration.html">BackActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionFioriStyle.html">BackActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionStyleModifier.html">BackActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMessage.html">BannerMessage</a>
@@ -2771,6 +3016,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneAction.html">DoneAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionBaseStyle.html">DoneActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionConfiguration.html">DoneActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionFioriStyle.html">DoneActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionStyleModifier.html">DoneActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DownVoteAction.html">DownVoteAction</a>
@@ -4609,6 +4869,21 @@
                   <a href="../Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/RedoAction.html">RedoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionBaseStyle.html">RedoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionConfiguration.html">RedoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionFioriStyle.html">RedoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionStyleModifier.html">RedoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -4994,6 +5269,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SingleView.html">SingleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SkeletonLoadingContainer.html">SkeletonLoadingContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
@@ -5731,6 +6009,21 @@
                   <a href="../Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/UndoAction.html">UndoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionBaseStyle.html">UndoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionConfiguration.html">UndoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionFioriStyle.html">UndoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionStyleModifier.html">UndoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UpVoteAction.html">UpVoteAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -5890,6 +6183,12 @@
                   <a href="../Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/WAError.html">WAError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WAMenu.html">WAMenu</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -5939,6 +6238,63 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/WindowReader.html">WindowReader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantAction.html">WritingAssistantAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionBaseStyle.html">WritingAssistantActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionFioriStyle.html">WritingAssistantActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionStyleModifier.html">WritingAssistantActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantForm.html">WritingAssistantForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBackActionStyle.html">WritingAssistantFormBackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBaseStyle.html">WritingAssistantFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCancelActionStyle.html">WritingAssistantFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCloseActionStyle.html">WritingAssistantFormCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDoneActionStyle.html">WritingAssistantFormDoneActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDownVoteActionStyle.html">WritingAssistantFormDownVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFioriStyle.html">WritingAssistantFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFootnoteStyle.html">WritingAssistantFormFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormRedoActionStyle.html">WritingAssistantFormRedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormStyleModifier.html">WritingAssistantFormStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUndoActionStyle.html">WritingAssistantFormUndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUpVoteActionStyle.html">WritingAssistantFormUpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Xmark.html">Xmark</a>
@@ -6142,7 +6498,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

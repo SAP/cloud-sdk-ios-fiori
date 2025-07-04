@@ -57,6 +57,247 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE11waTextInput_5menus11menuHandler15feedbackOptions0lK0QrAA7BindingVySSG_SaySayAD6WAMenuVGGAD8WAResultOAN_SStYacSaySSGAD16WAFeedbackResultOAD23AIUserFeedbackVoteStateO_AStYacSgtF"></a>
+                      <a name="//apple_ref/swift/Method/waTextInput(_:menus:menuHandler:feedbackOptions:feedbackHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE11waTextInput_5menus11menuHandler15feedbackOptions0lK0QrAA7BindingVySSG_SaySayAD6WAMenuVGGAD8WAResultOAN_SStYacSaySSGAD16WAFeedbackResultOAD23AIUserFeedbackVoteStateO_AStYacSgtF">waTextInput(_:<wbr>menus:<wbr>menuHandler:<wbr>feedbackOptions:<wbr>feedbackHandler:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>This modifier will support writing assistant in your <code>TextEditor</code>.</p>
+<h2 id='usage' class='heading'>Usage:</h2>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="c1">//A helper action need if you want to do some customization, like retry an operation, update the text directly, or navigate to a custom view.</span>
+    <span class="kd">@State</span> <span class="k">var</span> <span class="nv">helperAction</span> <span class="o">=</span> <span class="kt">WAHelperAction</span><span class="o">.</span><span class="k">none</span>
+    <span class="c1">// A binding text is also needed for W.A. that will help to update the text if needed.</span>
+    <span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">noteText</span> <span class="o">=</span> <span class="s">"Write your note here..."</span>
+
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="kt">NoteFormView</span><span class="p">()</span>
+            <span class="o">.</span><span class="nf">waTextInput</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">text</span><span class="p">,</span> <span class="nv">menus</span><span class="p">:</span> <span class="kt">WAMenu</span><span class="o">.</span><span class="n">availableMenus</span><span class="p">,</span> <span class="nv">menuHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">menu</span><span class="p">,</span> <span class="n">value</span> <span class="k">in</span>
+                <span class="k">await</span> <span class="k">self</span><span class="o">.</span><span class="nf">fetchData</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">menu</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="n">value</span><span class="p">)</span>
+            <span class="p">},</span> <span class="nv">feedbackOptions</span><span class="p">:</span> <span class="n">feedbackOptions</span><span class="p">,</span> <span class="nv">feedbackHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">state</span><span class="p">,</span> <span class="n">values</span> <span class="k">in</span>
+                <span class="k">await</span> <span class="k">self</span><span class="o">.</span><span class="nf">submitFeedback</span><span class="p">(</span><span class="nv">state</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span> <span class="nv">values</span><span class="p">:</span> <span class="n">values</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="o">.</span><span class="nf">waHelperAction</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">helperAction</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='error-handling' class='heading'>Error Handling:</h2>
+
+<p>A <code><a href="../Structs/WAError.html">WAError</a></code> is accepted by the <code>menuHandler</code> and <code>feedbackHandler</code>. If an error occurs, it will be used to display an <code><a href="../Structs/IllustratedMessage.html">IllustratedMessage</a></code> view.</p>
+<pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">submitFeedback</span><span class="p">(</span><span class="nv">state</span><span class="p">:</span> <span class="kt">AIUserFeedbackVoteState</span><span class="p">,</span> <span class="nv">values</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">WAFeedbackResult</span> <span class="p">{</span>
+   <span class="k">try</span><span class="p">?</span> <span class="k">await</span> <span class="kt">Task</span><span class="o">.</span><span class="nf">sleep</span><span class="p">(</span><span class="nv">nanoseconds</span><span class="p">:</span> <span class="mi">1500000000</span><span class="p">)</span>
+   <span class="k">if</span> <span class="k">self</span><span class="o">.</span><span class="n">errorOccurred</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="kt">WAError</span><span class="p">(</span><span class="nv">detailImage</span><span class="p">:</span> <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">illustrations</span><span class="o">.</span><span class="n">simpleConnectionSpot</span><span class="p">,</span> <span class="nv">title</span><span class="p">:</span> <span class="s">"Error Title"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="s">"Error Description"</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">illustratedMessageAction</span><span class="p">,</span> <span class="nv">detailImageSize</span><span class="p">:</span> <span class="o">.</span><span class="n">small</span><span class="p">))</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="o">.</span><span class="n">success</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">illustratedMessageAction</span><span class="p">:</span> <span class="kt">FioriButton</span> <span class="p">{</span>
+    <span class="kt">FioriButton</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">helperAction</span> <span class="o">=</span> <span class="o">.</span><span class="n">retry</span>
+    <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"Retry"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">waTextInput</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span>
+                 <span class="nv">menus</span><span class="p">:</span> <span class="p">[[</span><span class="kt"><a href="../Structs/WAMenu.html">WAMenu</a></span><span class="p">]],</span>
+                 <span class="nv">menuHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt"><a href="../Structs/WAMenu.html">WAMenu</a></span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/WAResult.html">WAResult</a></span><span class="p">),</span>
+                 <span class="nv">feedbackOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+                 <span class="nv">feedbackHandler</span><span class="p">:</span> <span class="p">((</span><span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span><span class="p">,</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/WAFeedbackResult.html">WAFeedbackResult</a></span><span class="p">)?)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>text</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Binding to the text input.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>menus</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A list of menus that can be used in the writing assistant.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>menuHandler</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A closure that handles the menu when it is selected. You can call your server to fetch necessary updated result for writing assistant.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>feedbackOptions</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>An optional list of feedback options that can be used in the writing assistant.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>feedbackHandler</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>An optional closure that handles the feedback. You can submit the feedback to your server or do any other necessary actions.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view that supports writing assistant.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE14waHelperActionyQrAA7BindingVyAD08WAHelperH0OGF"></a>
+                      <a name="//apple_ref/swift/Method/waHelperAction(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE14waHelperActionyQrAA7BindingVyAD08WAHelperH0OGF">waHelperAction(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Helper to trigger extra writing assistant actions.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">waHelperAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">waHelperAction</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/WAHelperAction.html">WAHelperAction</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>waHelperAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A binding action that can be triggered in the writing assistant.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the writing assistant action environment value set.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE20waSheetHeightUpdatedyQry14CoreFoundation7CGFloatVcSgF"></a>
+                      <a name="//apple_ref/swift/Method/waSheetHeightUpdated(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE20waSheetHeightUpdatedyQry14CoreFoundation7CGFloatVcSgF">waSheetHeightUpdated(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Call back for writing assistant sheet height updated.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">waSheetHeightUpdated</span><span class="p">(</span><span class="n">_</span> <span class="nv">block</span><span class="p">:</span> <span class="p">((</span><span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>height</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A block that will be called when the sheet height is updated.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the writing assistant sheet height updated environment value set.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE17defaultOperationsQryF"></a>
                       <a name="//apple_ref/swift/Method/defaultOperations()" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE17defaultOperationsQryF">defaultOperations()</a>
@@ -628,6 +869,101 @@
                         <div>
                           <h4>Return Value</h4>
                           <p>A view with the specified shadow effect configuration in the environment.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading11isTintColorQrSb_tF"></a>
+                      <a name="//apple_ref/swift/Method/skeletonLoading(isTintColor:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading11isTintColorQrSb_tF">skeletonLoading(isTintColor:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Applies a shimmer loading effect to the view.</p>
+
+<ul>
+<li><code>isTintColor</code>: A Boolean value indicating whether to use the tint color for the shimmer effect. Defaults to <code>false</code>.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">skeletonLoading</span><span class="p">(</span><span class="nv">isTintColor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12loadingStyleQryF"></a>
+                      <a name="//apple_ref/swift/Method/loadingStyle()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12loadingStyleQryF">loadingStyle()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Applies a shimmer loading effect to the view.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">loadingStyle</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE20imageSkeletonLoading02isH013skeletonImage5frameQrSb_AA0K0VSo6CGSizeVSgtF"></a>
+                      <a name="//apple_ref/swift/Method/imageSkeletonLoading(isLoading:skeletonImage:frame:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE20imageSkeletonLoading02isH013skeletonImage5frameQrSb_AA0K0VSo6CGSizeVSgtF">imageSkeletonLoading(isLoading:<wbr>skeletonImage:<wbr>frame:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Applies a skeleton loading style to an image.</p>
+
+<ul>
+<li><code>isLoading</code>: A Boolean value indicating whether the image is in a loading state.</li>
+<li><code>skeletonImage</code>: The image to display when loading. It is optional and defaults to a system photo icon.</li>
+<li><code>frame</code>: An optional size for the image frame. If not provided, the image will use its intrinsic size.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">imageSkeletonLoading</span><span class="p">(</span>
+    <span class="nv">isLoading</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">skeletonImage</span><span class="p">:</span> <span class="kt">Image</span> <span class="o">=</span> <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"photo"</span><span class="p">),</span>
+    <span class="nv">frame</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
                         </div>
                       </section>
                     </div>
@@ -4810,9 +5146,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreW07CGFloatVA_AA0R0VA_A1_AD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreW07CGFloatVA_AA0R0VA_A1_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreX07CGFloatVA1_AA0R0VA1_A3_A1_A3_AD0D11ShadowStyleOSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreX07CGFloatVA1_AA0R0VA1_A3_A1_A3_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -4837,6 +5173,8 @@ display.</p>
                   <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryFill</span><span class="p">),</span>
                   <span class="nv">borderWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
+                  <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
                   <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -4968,6 +5306,30 @@ display.</p>
                               <tr>
                                 <td>
                                   <code>
+                                  <em>borderWidthIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>1</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>borderColorIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>Color.preferredColor(.tertiaryLabel)</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
                                   <em>shadow</em>
                                   </code>
                                 </td>
@@ -4990,9 +5352,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAxA0R0VAxzD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAxA0R0VAxzD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -5017,6 +5379,8 @@ display.</p>
                   <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryFill</span><span class="p">),</span>
                   <span class="nv">borderWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
+                  <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
                   <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -5142,6 +5506,30 @@ display.</p>
                                 <td>
                                   <div>
                                     <p>The color of the border surrounding the toast message. The default value is <code>Color.clear</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>borderWidthIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>1</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>borderColorIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>Color.preferredColor(.tertiaryLabel)</code>.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -5170,9 +5558,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAxA0R0VAxzD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAxA0R0VAxzD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -5197,6 +5585,8 @@ display.</p>
                   <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryFill</span><span class="p">),</span>
                   <span class="nv">borderWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
+                  <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
                   <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -5322,6 +5712,30 @@ display.</p>
                                 <td>
                                   <div>
                                     <p>The color of the border surrounding the toast message. The default value is <code>Color.clear</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>borderWidthIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>1</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>borderColorIC</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is <code>Color.preferredColor(.tertiaryLabel)</code>.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -8756,6 +9170,73 @@ display.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/BackActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/BackActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/BackActionStyle"></a>
+                    <h3 class="section-name"><span>BackActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15backActionStyleyQrqd__AD04BackgH0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/backActionStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15backActionStyleyQrqd__AD04BackgH0Rd__lF">backActionStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">backActionStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/BackActionStyle.html">BackActionStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15backActionStyle7contentQrqd__AD04BackG13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/backActionStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15backActionStyle7contentQrqd__AD04BackG13ConfigurationVc_tAaBRd__lF">backActionStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">backActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/BackActionConfiguration.html">BackActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/BannerMessageStyle"></a>
                   <a name="//apple_ref/swift/Section/BannerMessageStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -10622,6 +11103,73 @@ display.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">disagreeActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/DisagreeActionConfiguration.html">DisagreeActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/DoneActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/DoneActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DoneActionStyle"></a>
+                    <h3 class="section-name"><span>DoneActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15doneActionStyleyQrqd__AD04DonegH0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/doneActionStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15doneActionStyleyQrqd__AD04DonegH0Rd__lF">doneActionStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">doneActionStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/DoneActionStyle.html">DoneActionStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15doneActionStyle7contentQrqd__AD04DoneG13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/doneActionStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15doneActionStyle7contentQrqd__AD04DoneG13ConfigurationVc_tAaBRd__lF">doneActionStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">doneActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/DoneActionConfiguration.html">DoneActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -15925,6 +16473,73 @@ display.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/RedoActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/RedoActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/RedoActionStyle"></a>
+                    <h3 class="section-name"><span>RedoActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15redoActionStyleyQrqd__AD04RedogH0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/redoActionStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15redoActionStyleyQrqd__AD04RedogH0Rd__lF">redoActionStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">redoActionStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/RedoActionStyle.html">RedoActionStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15redoActionStyle7contentQrqd__AD04RedoG13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/redoActionStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15redoActionStyle7contentQrqd__AD04RedoG13ConfigurationVc_tAaBRd__lF">redoActionStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">redoActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/RedoActionConfiguration.html">RedoActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/ReenterSignatureActionStyle"></a>
                   <a name="//apple_ref/swift/Section/ReenterSignatureActionStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -19476,6 +20091,73 @@ display.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/UndoActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/UndoActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/UndoActionStyle"></a>
+                    <h3 class="section-name"><span>UndoActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15undoActionStyleyQrqd__AD04UndogH0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/undoActionStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15undoActionStyleyQrqd__AD04UndogH0Rd__lF">undoActionStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">undoActionStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/UndoActionStyle.html">UndoActionStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15undoActionStyle7contentQrqd__AD04UndoG13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/undoActionStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15undoActionStyle7contentQrqd__AD04UndoG13ConfigurationVc_tAaBRd__lF">undoActionStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">undoActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/UndoActionConfiguration.html">UndoActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/UpVoteActionStyle"></a>
                   <a name="//apple_ref/swift/Section/UpVoteActionStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -20146,6 +20828,140 @@ display.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/WritingAssistantActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/WritingAssistantActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/WritingAssistantActionStyle"></a>
+                    <h3 class="section-name"><span>WritingAssistantActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE27writingAssistantActionStyleyQrqd__AD07WritingghI0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/writingAssistantActionStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE27writingAssistantActionStyleyQrqd__AD07WritingghI0Rd__lF">writingAssistantActionStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">writingAssistantActionStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE27writingAssistantActionStyle7contentQrqd__AD07WritinggH13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/writingAssistantActionStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE27writingAssistantActionStyle7contentQrqd__AD07WritinggH13ConfigurationVc_tAaBRd__lF">writingAssistantActionStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">writingAssistantActionStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/WritingAssistantFormStyle"></a>
+                  <a name="//apple_ref/swift/Section/WritingAssistantFormStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/WritingAssistantFormStyle"></a>
+                    <h3 class="section-name"><span>WritingAssistantFormStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE25writingAssistantFormStyleyQrqd__AD07WritingghI0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/writingAssistantFormStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE25writingAssistantFormStyleyQrqd__AD07WritingghI0Rd__lF">writingAssistantFormStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">writingAssistantFormStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE25writingAssistantFormStyle7contentQrqd__AD07WritinggH13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/writingAssistantFormStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE25writingAssistantFormStyle7contentQrqd__AD07WritinggH13ConfigurationVc_tAaBRd__lF">writingAssistantFormStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">writingAssistantFormStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/XmarkStyle"></a>
                   <a name="//apple_ref/swift/Section/XmarkStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -20298,6 +21114,9 @@ display.</p>
                   <a href="../Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
                 </li>
                 <li class="nav-group-task">
@@ -20326,6 +21145,12 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/BarcodeDataType.html">BarcodeDataType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/CardSkeletonLoadingPattern.html">CardSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/CardTests.html">CardTests</a>
@@ -20392,6 +21217,12 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectItemSkeletonLoadingPattern.html">ObjectItemSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectViewProperty.html">ObjectViewProperty</a>
@@ -20476,6 +21307,15 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UserConsentAlertType.html">UserConsentAlertType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAFeedbackResult.html">WAFeedbackResult</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAHelperAction.html">WAHelperAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAResult.html">WAResult</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/WelcomeScreenOption.html">WelcomeScreenOption</a>
@@ -20643,6 +21483,9 @@ display.</p>
                   <a href="../Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/BackActionStyle.html">BackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -20749,6 +21592,9 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DoneActionStyle.html">DoneActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
@@ -21078,6 +21924,9 @@ display.</p>
                   <a href="../Protocols/RatingControlStyle.html">RatingControlStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/RedoActionStyle.html">RedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -21312,6 +22161,9 @@ display.</p>
                   <a href="../Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/UndoActionStyle.html">UndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -21355,6 +22207,12 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/XmarkStyle.html">XmarkStyle</a>
@@ -21969,6 +22827,21 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackAction.html">BackAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionBaseStyle.html">BackActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionConfiguration.html">BackActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionFioriStyle.html">BackActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionStyleModifier.html">BackActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMessage.html">BannerMessage</a>
@@ -22689,6 +23562,21 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneAction.html">DoneAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionBaseStyle.html">DoneActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionConfiguration.html">DoneActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionFioriStyle.html">DoneActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionStyleModifier.html">DoneActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DownVoteAction.html">DownVoteAction</a>
@@ -24527,6 +25415,21 @@ display.</p>
                   <a href="../Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/RedoAction.html">RedoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionBaseStyle.html">RedoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionConfiguration.html">RedoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionFioriStyle.html">RedoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionStyleModifier.html">RedoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -24912,6 +25815,9 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SingleView.html">SingleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SkeletonLoadingContainer.html">SkeletonLoadingContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
@@ -25649,6 +26555,21 @@ display.</p>
                   <a href="../Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/UndoAction.html">UndoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionBaseStyle.html">UndoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionConfiguration.html">UndoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionFioriStyle.html">UndoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionStyleModifier.html">UndoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UpVoteAction.html">UpVoteAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -25808,6 +26729,12 @@ display.</p>
                   <a href="../Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/WAError.html">WAError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WAMenu.html">WAMenu</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -25857,6 +26784,63 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/WindowReader.html">WindowReader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantAction.html">WritingAssistantAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionBaseStyle.html">WritingAssistantActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionFioriStyle.html">WritingAssistantActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionStyleModifier.html">WritingAssistantActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantForm.html">WritingAssistantForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBackActionStyle.html">WritingAssistantFormBackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBaseStyle.html">WritingAssistantFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCancelActionStyle.html">WritingAssistantFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCloseActionStyle.html">WritingAssistantFormCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDoneActionStyle.html">WritingAssistantFormDoneActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDownVoteActionStyle.html">WritingAssistantFormDownVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFioriStyle.html">WritingAssistantFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFootnoteStyle.html">WritingAssistantFormFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormRedoActionStyle.html">WritingAssistantFormRedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormStyleModifier.html">WritingAssistantFormStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUndoActionStyle.html">WritingAssistantFormUndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUpVoteActionStyle.html">WritingAssistantFormUpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Xmark.html">Xmark</a>
@@ -26060,7 +27044,7 @@ display.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

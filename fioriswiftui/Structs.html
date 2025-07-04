@@ -49,6 +49,62 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore6WAMenuV"></a>
+                      <a name="//apple_ref/swift/Struct/WAMenu" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore6WAMenuV">WAMenu</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>WAMenu</code> represents a single menu in the writing assistant feature.</p>
+
+                          <a href="Structs/WAMenu.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WAMenu</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Identifiable</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore7WAErrorV"></a>
+                      <a name="//apple_ref/swift/Struct/WAError" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore7WAErrorV">WAError</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>WAError</code> represents an error in the writing assistant feature, providing details about the error and potential actions which will be used in <code><a href="Structs/IllustratedMessage.html">IllustratedMessage</a></code>.</p>
+
+                          <a href="Structs/WAError.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WAError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore20PhotosPickerMenuItemV"></a>
                       <a name="//apple_ref/swift/Struct/PhotosPickerMenuItem" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore20PhotosPickerMenuItemV">PhotosPickerMenuItem</a>
@@ -2472,6 +2528,35 @@ Selection is mutually exclusive.</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore24SkeletonLoadingContainerV"></a>
+                      <a name="//apple_ref/swift/Struct/SkeletonLoadingContainer" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24SkeletonLoadingContainerV">SkeletonLoadingContainer</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A container view that applies a skeleton loading style to its content when <code>isLoading</code> is true.
+It can also apply a tint color to the skeleton effect if ///</p>
+
+                          <a href="Structs/SkeletonLoadingContainer.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SkeletonLoadingContainer</span><span class="o">&lt;</span><span class="kt">Content</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">Content</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore14InlineModifierV"></a>
                       <a name="//apple_ref/swift/Struct/InlineModifier" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore14InlineModifierV">InlineModifier</a>
@@ -2566,7 +2651,50 @@ Selection is mutually exclusive.</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>A SwiftUI view representable for displaying a VisionKit barcode scanner.</p>
+                          <p>A SwiftUI <code>UIViewControllerRepresentable</code> that wraps a <code><a href="Classes/VisionKitScanner.html">VisionKitScanner</a></code> to display a VisionKit barcode scanner.</p>
+
+<p><code>VisionKitScannerRepresentable</code> integrates with <code><a href="Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> to present a <code>DataScannerViewController</code> for barcode scanning on iOS devices (excluding Mac Catalyst). It handles the scanner&rsquo;s lifecycle, including permission checks, torch state synchronization, and control button visibility (cancel and flash buttons). If the scanner is unavailable (e.g., on Mac Catalyst or due to permission issues), it displays a placeholder view with a &ldquo;Scanner Unavailable&rdquo; message.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This view requires <code>VisionKit</code> and is only functional on iOS (not Mac Catalyst or visionOS). The <code>scannerManager</code> must have an active <code><a href="Classes/VisionKitScanner.html">VisionKitScanner</a></code> instance, typically activated via <code>scannerManager.setActiveScanner(.visionKit)</code>.
+
+</div>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>Initialize with a <code><a href="Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> instance, a binding for torch state, and a cancel callback:</p>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isTorchOn</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@StateObject</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">scannerManager</span> <span class="o">=</span> <span class="kt">BarcodeScannerManager</span><span class="p">(</span>
+    <span class="nv">recognizedDataTypes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">barcode</span><span class="p">(</span><span class="nv">symbologies</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">qr</span><span class="p">,</span> <span class="o">.</span><span class="n">ean13</span><span class="p">])],</span>
+    <span class="nv">recognizesMultipleItems</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">)</span>
+
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">VisionKitScannerRepresentable</span><span class="p">(</span>
+        <span class="nv">scannerManager</span><span class="p">:</span> <span class="n">scannerManager</span><span class="p">,</span>
+        <span class="nv">isTorchOn</span><span class="p">:</span> <span class="err">$</span><span class="n">isTorchOn</span><span class="p">,</span>
+        <span class="nv">onCancelTapped</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">scannerManager</span><span class="o">.</span><span class="nf">stopMonitoring</span><span class="p">()</span>
+        <span class="p">},</span>
+        <span class="nv">showCancelButton</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nv">showFlashButton</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">ignoresSafeArea</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li>Ensure <code>scannerManager</code> is configured with <code><a href="Enums/BarcodeDataType.html">BarcodeDataType</a></code> for barcode types.</li>
+<li>The <code>isTorchOn</code> binding syncs with the scanner&rsquo;s torch state.</li>
+<li>The <code>onCancelTapped</code> closure is called when the cancel button (if shown) is tapped.</li>
+</ul>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>iOS 15.0+.</li>
+<li><code>Vision</code> framework for <code>VNBarcodeSymbology</code> if specifying barcode symbologies.</li>
+<li><code><a href="Classes/BarcodeScannerManager.html">BarcodeScannerManager</a></code> and <code><a href="Classes/VisionKitScanner.html">VisionKitScanner</a></code>.</li>
+<li>Camera permissions must be granted for scanning to work.</li>
+</ul>
 
                           <a href="Structs/VisionKitScannerRepresentable.html" class="slightly-smaller">See more</a>
                         </div>
@@ -6104,6 +6232,62 @@ Provides a standard layout for username and password Text fields</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore19BackActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/BackActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore19BackActionBaseStyleV">BackActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/BackActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BackActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BackActionStyle.html">BackActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore010BackActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/BackActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore010BackActionA5StyleV">BackActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/BackActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BackActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BackActionStyle.html">BackActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore22BannerMessageBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/BannerMessageBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore22BannerMessageBaseStyleV">BannerMessageBaseStyle</a>
@@ -7579,6 +7763,62 @@ Provides a standard layout for username and password Text fields</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DisagreeActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore19DoneActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DoneActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore19DoneActionBaseStyleV">DoneActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DoneActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DoneActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DoneActionStyle.html">DoneActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore010DoneActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DoneActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore010DoneActionA5StyleV">DoneActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DoneActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DoneActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DoneActionStyle.html">DoneActionStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -12119,6 +12359,62 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore19RedoActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/RedoActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore19RedoActionBaseStyleV">RedoActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/RedoActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RedoActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RedoActionStyle.html">RedoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore010RedoActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/RedoActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore010RedoActionA5StyleV">RedoActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/RedoActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RedoActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RedoActionStyle.html">RedoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore31ReenterSignatureActionBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/ReenterSignatureActionBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore31ReenterSignatureActionBaseStyleV">ReenterSignatureActionBaseStyle</a>
@@ -15049,6 +15345,62 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore19UndoActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/UndoActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore19UndoActionBaseStyleV">UndoActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/UndoActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UndoActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UndoActionStyle.html">UndoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore010UndoActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/UndoActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore010UndoActionA5StyleV">UndoActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/UndoActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UndoActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UndoActionStyle.html">UndoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore21UpVoteActionBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/UpVoteActionBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore21UpVoteActionBaseStyleV">UpVoteActionBaseStyle</a>
@@ -15511,6 +15863,90 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore31WritingAssistantActionBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantActionBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore31WritingAssistantActionBaseStyleV">WritingAssistantActionBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantActionBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantActionBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore022WritingAssistantActionA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantActionFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore022WritingAssistantActionA5StyleV">WritingAssistantActionFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantActionFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantActionFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore29WritingAssistantFormBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore29WritingAssistantFormBaseStyleV">WritingAssistantFormBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore14XmarkBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/XmarkBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore14XmarkBaseStyleV">XmarkBaseStyle</a>
@@ -15681,7 +16117,9 @@ Example usage:</p>
                           <p><code>AIUserFeedback</code> is used to display a feedback page with customizable title, description, navigation title, filter form view and key value form view.
 <code>AIUserFeedback</code> can be presented modally using .sheet, or pushed onto a navigation stack.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">filterFormViewSelectionValue</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">voteState</span><span class="p">:</span> <span class="kt">AIUserFeedbackVoteState</span> <span class="o">=</span> <span class="o">.</span><span class="n">notDetermined</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">submitButtonState</span><span class="p">:</span> <span class="kt">AIUserFeedbackSubmitButtonState</span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">filterFormViewSelectionValue</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">valueText</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
 <span class="k">let</span> <span class="nv">valueOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">AttributedString</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Inaccuraies"</span><span class="p">,</span> <span class="s">"Inappropriate Content"</span><span class="p">,</span> <span class="s">"Security Risks"</span><span class="p">,</span> <span class="s">"Slow Response"</span><span class="p">,</span> <span class="s">"Repetitive or Wordy"</span><span class="p">,</span> <span class="s">"Others"</span><span class="p">]</span>
 <span class="k">let</span> <span class="nv">filterFormView</span> <span class="o">=</span> <span class="kt">FilterFormView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Select all that apply"</span><span class="p">,</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">valueOptions</span><span class="p">,</span> <span class="nv">errorMessage</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">isEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">allowsMultipleSelection</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">allowsEmptySelection</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">filterFormViewSelectionValue</span><span class="p">,</span> <span class="nv">buttonSize</span><span class="p">:</span> <span class="o">.</span><span class="n">fixed</span><span class="p">,</span> <span class="nv">onValueChange</span><span class="p">:</span> <span class="p">{</span> <span class="n">value</span> <span class="k">in</span>
@@ -15703,7 +16141,8 @@ Example usage:</p>
 
             <span class="p">},</span> <span class="nv">onSubmit</span><span class="p">:</span> <span class="p">{</span> <span class="n">voteState</span><span class="p">,</span> <span class="n">feedbacks</span><span class="p">,</span> <span class="n">additional</span><span class="p">,</span> <span class="n">submitResult</span> <span class="k">in</span>
                 <span class="nf">submitResult</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-            <span class="p">},</span> <span class="nv">voteState</span><span class="p">:</span> <span class="o">.</span><span class="n">notDetermined</span><span class="p">)</span>
+            <span class="p">},</span> <span class="nv">voteState</span><span class="p">:</span> <span class="err">$</span><span class="n">voteState</span><span class="p">,</span>
+            <span class="nv">submitButtonState</span><span class="p">:</span> <span class="err">$</span><span class="n">submitButtonState</span><span class="p">)</span>
 </code></pre>
 
 <p>### Toggle:</p>
@@ -17457,6 +17896,64 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AvatarsTitleConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore10BackActionV"></a>
+                      <a name="//apple_ref/swift/Struct/BackAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10BackActionV">BackAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/BackAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BackAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BackAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BackAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23BackActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/BackActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23BackActionConfigurationV">BackActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/BackActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BackActionConfiguration</span></code></pre>
 
                           </div>
                         </div>
@@ -19465,6 +19962,64 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DisagreeActionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore10DoneActionV"></a>
+                      <a name="//apple_ref/swift/Struct/DoneAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10DoneActionV">DoneAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DoneAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DoneAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DoneAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DoneAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23DoneActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/DoneActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23DoneActionConfigurationV">DoneActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DoneActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DoneActionConfiguration</span></code></pre>
 
                           </div>
                         </div>
@@ -25071,6 +25626,64 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore10RedoActionV"></a>
+                      <a name="//apple_ref/swift/Struct/RedoAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10RedoActionV">RedoAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/RedoAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RedoAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RedoAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RedoAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23RedoActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/RedoActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23RedoActionConfigurationV">RedoActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/RedoActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RedoActionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore22ReenterSignatureActionV"></a>
                       <a name="//apple_ref/swift/Struct/ReenterSignatureAction" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore22ReenterSignatureActionV">ReenterSignatureAction</a>
@@ -28827,6 +29440,64 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore10UndoActionV"></a>
+                      <a name="//apple_ref/swift/Struct/UndoAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10UndoActionV">UndoAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/UndoAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UndoAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UndoAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UndoAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23UndoActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/UndoActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23UndoActionConfigurationV">UndoActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/UndoActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UndoActionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore12UpVoteActionV"></a>
                       <a name="//apple_ref/swift/Struct/UpVoteAction" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore12UpVoteActionV">UpVoteAction</a>
@@ -29626,6 +30297,150 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WelcomeScreenFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore22WritingAssistantActionV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantAction" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore22WritingAssistantActionV">WritingAssistantAction</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantAction.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantAction</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WritingAssistantAction</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WritingAssistantAction</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantActionConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantActionConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantActionConfigurationV">WritingAssistantActionConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantActionConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantActionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore20WritingAssistantFormV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantForm" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore20WritingAssistantFormV">WritingAssistantForm</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantForm.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantForm</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WritingAssistantForm</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WritingAssistantForm</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore33WritingAssistantFormConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore33WritingAssistantFormConfigurationV">WritingAssistantFormConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore020WritingAssistantFormA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore020WritingAssistantFormA5StyleV">WritingAssistantFormFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -39735,6 +40550,271 @@ Example usage:</p>
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/WritingAssistantFormStyle"></a>
+                  <a name="//apple_ref/swift/Section/WritingAssistantFormStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/WritingAssistantFormStyle"></a>
+                    <h3 class="section-name"><span>WritingAssistantFormStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore37WritingAssistantFormCancelActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormCancelActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore37WritingAssistantFormCancelActionStyleV">WritingAssistantFormCancelActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormCancelActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormCancelActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantFormDoneActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormDoneActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantFormDoneActionStyleV">WritingAssistantFormDoneActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormDoneActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormDoneActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore36WritingAssistantFormCloseActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormCloseActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore36WritingAssistantFormCloseActionStyleV">WritingAssistantFormCloseActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormCloseActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormCloseActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantFormBackActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormBackActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantFormBackActionStyleV">WritingAssistantFormBackActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormBackActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormBackActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantFormUndoActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormUndoActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantFormUndoActionStyleV">WritingAssistantFormUndoActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormUndoActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormUndoActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantFormRedoActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormRedoActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantFormRedoActionStyleV">WritingAssistantFormRedoActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormRedoActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormRedoActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore37WritingAssistantFormUpVoteActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormUpVoteActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore37WritingAssistantFormUpVoteActionStyleV">WritingAssistantFormUpVoteActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormUpVoteActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormUpVoteActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore39WritingAssistantFormDownVoteActionStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormDownVoteActionStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore39WritingAssistantFormDownVoteActionStyleV">WritingAssistantFormDownVoteActionStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormDownVoteActionStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormDownVoteActionStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore33WritingAssistantFormFootnoteStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormFootnoteStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore33WritingAssistantFormFootnoteStyleV">WritingAssistantFormFootnoteStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormFootnoteStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormFootnoteStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
                   <li class="item">
                     <div>
                       <code>
@@ -39782,6 +40862,7 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarStackStyle.html">AvatarStackStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarStackStyle.html">AvatarStackStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsStyle.html">AvatarsStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsStyle.html">AvatarsStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/BackActionStyle.html">BackActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/BackActionStyle.html">BackActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/BannerMessageStyle.html">BannerMessageStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/BannerMessageStyle.html">BannerMessageStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/BodyTextStyle.html">BodyTextStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/BodyTextStyle.html">BodyTextStyle</a></span></code></pre>
@@ -39810,6 +40891,7 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSegmentStyle.html">DimensionSegmentStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSegmentStyle.html">DimensionSegmentStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSelectorStyle.html">DimensionSelectorStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DimensionSelectorStyle.html">DimensionSelectorStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DoneActionStyle.html">DoneActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DoneActionStyle.html">DoneActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DurationPickerStyle.html">DurationPickerStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/EULAViewStyle.html">EULAViewStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/EULAViewStyle.html">EULAViewStyle</a></span></code></pre>
@@ -39889,6 +40971,7 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/RangeSliderControlStyle.html">RangeSliderControlStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/RangeSliderControlStyle.html">RangeSliderControlStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/RatingControlStyle.html">RatingControlStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/RatingControlStyle.html">RatingControlStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/RatingControlFormViewStyle.html">RatingControlFormViewStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/RatingControlFormViewStyle.html">RatingControlFormViewStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/RedoActionStyle.html">RedoActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/RedoActionStyle.html">RedoActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/ResetActionStyle.html">ResetActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/ResetActionStyle.html">ResetActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/ReviewCountLabelStyle.html">ReviewCountLabelStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/ReviewCountLabelStyle.html">ReviewCountLabelStyle</a></span></code></pre>
@@ -39942,6 +41025,7 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrailingAccessoryStyle.html">TrailingAccessoryStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrailingAccessoryStyle.html">TrailingAccessoryStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrendStyle.html">TrendStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrendStyle.html">TrendStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrendImageStyle.html">TrendImageStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/TrendImageStyle.html">TrendImageStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/UndoActionStyle.html">UndoActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/UndoActionStyle.html">UndoActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/UpperThumbStyle.html">UpperThumbStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/UpperThumbStyle.html">UpperThumbStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/UserConsentFormStyle.html">UserConsentFormStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/UserConsentFormStyle.html">UserConsentFormStyle</a></span></code></pre>
@@ -39952,6 +41036,8 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/ValuePickerStyle.html">ValuePickerStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/ValuePickerStyle.html">ValuePickerStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/WatermarkStyle.html">WatermarkStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/WatermarkStyle.html">WatermarkStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/XmarkStyle.html">XmarkStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/XmarkStyle.html">XmarkStyle</a></span></code></pre>
 
                           </div>
@@ -40978,6 +42064,47 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AvatarsTitleStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/BackActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/BackActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/BackActionStyle"></a>
+                    <h3 class="section-name"><span>BackActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23BackActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/BackActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23BackActionStyleModifierV">BackActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/BackActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BackActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BackActionStyle.html">BackActionStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -42126,6 +43253,47 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DisagreeActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/DoneActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/DoneActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DoneActionStyle"></a>
+                    <h3 class="section-name"><span>DoneActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23DoneActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/DoneActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23DoneActionStyleModifierV">DoneActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DoneActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DoneActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DoneActionStyle.html">DoneActionStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -45375,6 +46543,47 @@ Example usage:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/RedoActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/RedoActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/RedoActionStyle"></a>
+                    <h3 class="section-name"><span>RedoActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23RedoActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/RedoActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23RedoActionStyleModifierV">RedoActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/RedoActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RedoActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RedoActionStyle.html">RedoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/ReenterSignatureActionStyle"></a>
                   <a name="//apple_ref/swift/Section/ReenterSignatureActionStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -47548,6 +48757,47 @@ Example usage:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/UndoActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/UndoActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/UndoActionStyle"></a>
+                    <h3 class="section-name"><span>UndoActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23UndoActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/UndoActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23UndoActionStyleModifierV">UndoActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/UndoActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UndoActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UndoActionStyle.html">UndoActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/UpVoteActionStyle"></a>
                   <a name="//apple_ref/swift/Section/UpVoteActionStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -47958,6 +49208,88 @@ Example usage:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/WritingAssistantActionStyle"></a>
+                  <a name="//apple_ref/swift/Section/WritingAssistantActionStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/WritingAssistantActionStyle"></a>
+                    <h3 class="section-name"><span>WritingAssistantActionStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35WritingAssistantActionStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantActionStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35WritingAssistantActionStyleModifierV">WritingAssistantActionStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantActionStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantActionStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/WritingAssistantFormStyle2"></a>
+                  <a name="//apple_ref/swift/Section/WritingAssistantFormStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/WritingAssistantFormStyle2"></a>
+                    <h3 class="section-name"><span>WritingAssistantFormStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore33WritingAssistantFormStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/WritingAssistantFormStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore33WritingAssistantFormStyleModifierV">WritingAssistantFormStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/WritingAssistantFormStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WritingAssistantFormStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/XmarkStyle"></a>
                   <a name="//apple_ref/swift/Section/XmarkStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -48084,6 +49416,9 @@ Example usage:</p>
                   <a href="Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
                 </li>
                 <li class="nav-group-task">
@@ -48112,6 +49447,12 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/BarcodeDataType.html">BarcodeDataType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/CardSkeletonLoadingPattern.html">CardSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/CardTests.html">CardTests</a>
@@ -48178,6 +49519,12 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ObjectItemSkeletonLoadingPattern.html">ObjectItemSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/ObjectViewProperty.html">ObjectViewProperty</a>
@@ -48262,6 +49609,15 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/UserConsentAlertType.html">UserConsentAlertType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAFeedbackResult.html">WAFeedbackResult</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAHelperAction.html">WAHelperAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAResult.html">WAResult</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/WelcomeScreenOption.html">WelcomeScreenOption</a>
@@ -48429,6 +49785,9 @@ Example usage:</p>
                   <a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/BackActionStyle.html">BackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -48535,6 +49894,9 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/DoneActionStyle.html">DoneActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
@@ -48864,6 +50226,9 @@ Example usage:</p>
                   <a href="Protocols/RatingControlStyle.html">RatingControlStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/RedoActionStyle.html">RedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -49098,6 +50463,9 @@ Example usage:</p>
                   <a href="Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/UndoActionStyle.html">UndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -49141,6 +50509,12 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/XmarkStyle.html">XmarkStyle</a>
@@ -49755,6 +51129,21 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackAction.html">BackAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionBaseStyle.html">BackActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionConfiguration.html">BackActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionFioriStyle.html">BackActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionStyleModifier.html">BackActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/BannerMessage.html">BannerMessage</a>
@@ -50475,6 +51864,21 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneAction.html">DoneAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionBaseStyle.html">DoneActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionConfiguration.html">DoneActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionFioriStyle.html">DoneActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionStyleModifier.html">DoneActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DownVoteAction.html">DownVoteAction</a>
@@ -52313,6 +53717,21 @@ Example usage:</p>
                   <a href="Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/RedoAction.html">RedoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionBaseStyle.html">RedoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionConfiguration.html">RedoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionFioriStyle.html">RedoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionStyleModifier.html">RedoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -52698,6 +54117,9 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/SingleView.html">SingleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SkeletonLoadingContainer.html">SkeletonLoadingContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
@@ -53435,6 +54857,21 @@ Example usage:</p>
                   <a href="Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/UndoAction.html">UndoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionBaseStyle.html">UndoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionConfiguration.html">UndoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionFioriStyle.html">UndoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionStyleModifier.html">UndoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/UpVoteAction.html">UpVoteAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -53594,6 +55031,12 @@ Example usage:</p>
                   <a href="Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/WAError.html">WAError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WAMenu.html">WAMenu</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -53643,6 +55086,63 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/WindowReader.html">WindowReader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantAction.html">WritingAssistantAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionBaseStyle.html">WritingAssistantActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionFioriStyle.html">WritingAssistantActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionStyleModifier.html">WritingAssistantActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantForm.html">WritingAssistantForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormBackActionStyle.html">WritingAssistantFormBackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormBaseStyle.html">WritingAssistantFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormCancelActionStyle.html">WritingAssistantFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormCloseActionStyle.html">WritingAssistantFormCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormDoneActionStyle.html">WritingAssistantFormDoneActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormDownVoteActionStyle.html">WritingAssistantFormDownVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormFioriStyle.html">WritingAssistantFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormFootnoteStyle.html">WritingAssistantFormFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormRedoActionStyle.html">WritingAssistantFormRedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormStyleModifier.html">WritingAssistantFormStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormUndoActionStyle.html">WritingAssistantFormUndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormUpVoteActionStyle.html">WritingAssistantFormUpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/Xmark.html">Xmark</a>
@@ -53846,7 +55346,7 @@ Example usage:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

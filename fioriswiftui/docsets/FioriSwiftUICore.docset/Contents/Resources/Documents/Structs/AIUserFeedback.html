@@ -54,7 +54,9 @@
               <p><code>AIUserFeedback</code> is used to display a feedback page with customizable title, description, navigation title, filter form view and key value form view.
 <code>AIUserFeedback</code> can be presented modally using .sheet, or pushed onto a navigation stack.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">filterFormViewSelectionValue</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">voteState</span><span class="p">:</span> <span class="kt">AIUserFeedbackVoteState</span> <span class="o">=</span> <span class="o">.</span><span class="n">notDetermined</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">submitButtonState</span><span class="p">:</span> <span class="kt">AIUserFeedbackSubmitButtonState</span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">filterFormViewSelectionValue</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">valueText</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
 <span class="k">let</span> <span class="nv">valueOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">AttributedString</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Inaccuraies"</span><span class="p">,</span> <span class="s">"Inappropriate Content"</span><span class="p">,</span> <span class="s">"Security Risks"</span><span class="p">,</span> <span class="s">"Slow Response"</span><span class="p">,</span> <span class="s">"Repetitive or Wordy"</span><span class="p">,</span> <span class="s">"Others"</span><span class="p">]</span>
 <span class="k">let</span> <span class="nv">filterFormView</span> <span class="o">=</span> <span class="kt">FilterFormView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Select all that apply"</span><span class="p">,</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">valueOptions</span><span class="p">,</span> <span class="nv">errorMessage</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">isEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">allowsMultipleSelection</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">allowsEmptySelection</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">filterFormViewSelectionValue</span><span class="p">,</span> <span class="nv">buttonSize</span><span class="p">:</span> <span class="o">.</span><span class="n">fixed</span><span class="p">,</span> <span class="nv">onValueChange</span><span class="p">:</span> <span class="p">{</span> <span class="n">value</span> <span class="k">in</span>
@@ -76,7 +78,8 @@
 
             <span class="p">},</span> <span class="nv">onSubmit</span><span class="p">:</span> <span class="p">{</span> <span class="n">voteState</span><span class="p">,</span> <span class="n">feedbacks</span><span class="p">,</span> <span class="n">additional</span><span class="p">,</span> <span class="n">submitResult</span> <span class="k">in</span>
                 <span class="nf">submitResult</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-            <span class="p">},</span> <span class="nv">voteState</span><span class="p">:</span> <span class="o">.</span><span class="n">notDetermined</span><span class="p">)</span>
+            <span class="p">},</span> <span class="nv">voteState</span><span class="p">:</span> <span class="err">$</span><span class="n">voteState</span><span class="p">,</span>
+            <span class="nv">submitButtonState</span><span class="p">:</span> <span class="err">$</span><span class="n">submitButtonState</span><span class="p">)</span>
 </code></pre>
 
 <p>### Toggle:</p>
@@ -98,9 +101,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState19componentIdentifierAC0B2UI0Y0_pyXE_AZA__pyXEAZA__pyXEAZA__pyXEAZA__pyXEAA18IllustratedMessageV06DetailgM0OSgSbAZ010HorizontalR0VAZA__pyXEAZA__pyXE10Foundation16AttributedStringVSgAA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbAZA__pyXEyycSgA19_A19_yAA0dE9VoteStateO_SaySSGSSySbctcSgA21_SSSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(detailImage:title:description:action:secondaryAction:detailImageSize:isActionVerticallyAligned:contentAlignment:submitAction:cancelAction:navigationTitle:filterFormView:keyValueFormView:displayMode:isBackgroundInteractionEnabled:errorView:onCancel:onUpVote:onDownVote:onSubmit:voteState:componentIdentifier:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState19componentIdentifierAC0B2UI0Y0_pyXE_AZA__pyXEAZA__pyXEAZA__pyXEAZA__pyXEAA18IllustratedMessageV06DetailgM0OSgSbAZ010HorizontalR0VAZA__pyXEAZA__pyXE10Foundation16AttributedStringVSgAA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbAZA__pyXEyycSgA19_A19_yAA0dE9VoteStateO_SaySSGSSySbctcSgA21_SSSgtcfc">init(detailImage:<wbr>title:<wbr>description:<wbr>action:<wbr>secondaryAction:<wbr>detailImageSize:<wbr>isActionVerticallyAligned:<wbr>contentAlignment:<wbr>submitAction:<wbr>cancelAction:<wbr>navigationTitle:<wbr>filterFormView:<wbr>keyValueFormView:<wbr>displayMode:<wbr>isBackgroundInteractionEnabled:<wbr>errorView:<wbr>onCancel:<wbr>onUpVote:<wbr>onDownVote:<wbr>onSubmit:<wbr>voteState:<wbr>componentIdentifier:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState0S11ButtonState19componentIdentifierAC0B2UI0Y0_pyXE_A_A0__pyXEA_A0__pyXEA_A0__pyXEA_A0__pyXEAA18IllustratedMessageV06DetailgM0OSgSbA_010HorizontalR0VA_A0__pyXEA_A0__pyXE10Foundation16AttributedStringVSgAA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA_A0__pyXEyycSgA20_A20_yAA0dE9VoteStateO_SaySSGSSySbctcSgA_7BindingVyA22_GA26_yAA0dE17SubmitButtonStateOGSSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(detailImage:title:description:action:secondaryAction:detailImageSize:isActionVerticallyAligned:contentAlignment:submitAction:cancelAction:navigationTitle:filterFormView:keyValueFormView:displayMode:isBackgroundInteractionEnabled:errorView:onCancel:onUpVote:onDownVote:onSubmit:voteState:submitButtonState:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState0S11ButtonState19componentIdentifierAC0B2UI0Y0_pyXE_A_A0__pyXEA_A0__pyXEA_A0__pyXEA_A0__pyXEAA18IllustratedMessageV06DetailgM0OSgSbA_010HorizontalR0VA_A0__pyXEA_A0__pyXE10Foundation16AttributedStringVSgAA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA_A0__pyXEyycSgA20_A20_yAA0dE9VoteStateO_SaySSGSSySbctcSgA_7BindingVyA22_GA26_yAA0dE17SubmitButtonStateOGSSSgtcfc">init(detailImage:<wbr>title:<wbr>description:<wbr>action:<wbr>secondaryAction:<wbr>detailImageSize:<wbr>isActionVerticallyAligned:<wbr>contentAlignment:<wbr>submitAction:<wbr>cancelAction:<wbr>navigationTitle:<wbr>filterFormView:<wbr>keyValueFormView:<wbr>displayMode:<wbr>isBackgroundInteractionEnabled:<wbr>errorView:<wbr>onCancel:<wbr>onUpVote:<wbr>onDownVote:<wbr>onSubmit:<wbr>voteState:<wbr>submitButtonState:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -135,7 +138,8 @@
             <span class="nv">onUpVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">onDownVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">onSubmit</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">voteState</span><span class="p">:</span> <span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">feedbacks</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">_</span> <span class="nv">additional</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">submitResult</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">voteState</span><span class="p">:</span> <span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">notDetermined</span><span class="p">,</span>
+            <span class="nv">voteState</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span><span class="o">&gt;</span><span class="p">,</span>
+            <span class="nv">submitButtonState</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a></span><span class="o">&gt;</span><span class="p">,</span>
             <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">AIUserFeedback</span><span class="o">.</span><span class="n"><a href="../Structs/AIUserFeedback.html#/s:16FioriSwiftUICore14AIUserFeedbackV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
 
                           </div>
@@ -173,9 +177,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteStateAC0B2UI0G0VSg_10Foundation16AttributedStringVA3_SgAA0A6ButtonVSgA7_AA18IllustratedMessageV06DetailgM0OSgSbAY010HorizontalR0VA7_A7_A4_AA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA9_SgyycSgA24_A24_yAA0dE9VoteStateO_SaySSGSSySbctcSgA26_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(detailImage:title:description:action:secondaryAction:detailImageSize:isActionVerticallyAligned:contentAlignment:submitAction:cancelAction:navigationTitle:filterFormView:keyValueFormView:displayMode:isBackgroundInteractionEnabled:errorView:onCancel:onUpVote:onDownVote:onSubmit:voteState:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteStateAC0B2UI0G0VSg_10Foundation16AttributedStringVA3_SgAA0A6ButtonVSgA7_AA18IllustratedMessageV06DetailgM0OSgSbAY010HorizontalR0VA7_A7_A4_AA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA9_SgyycSgA24_A24_yAA0dE9VoteStateO_SaySSGSSySbctcSgA26_tcfc">init(detailImage:<wbr>title:<wbr>description:<wbr>action:<wbr>secondaryAction:<wbr>detailImageSize:<wbr>isActionVerticallyAligned:<wbr>contentAlignment:<wbr>submitAction:<wbr>cancelAction:<wbr>navigationTitle:<wbr>filterFormView:<wbr>keyValueFormView:<wbr>displayMode:<wbr>isBackgroundInteractionEnabled:<wbr>errorView:<wbr>onCancel:<wbr>onUpVote:<wbr>onDownVote:<wbr>onSubmit:<wbr>voteState:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState0S11ButtonStateAC0B2UI0G0VSg_10Foundation16AttributedStringVA4_SgAA0A6ButtonVSgA8_AA18IllustratedMessageV06DetailgM0OSgSbAZ010HorizontalR0VA8_A8_A5_AA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA10_SgyycSgA25_A25_yAA0dE9VoteStateO_SaySSGSSySbctcSgAZ7BindingVyA27_GA31_yAA0dE17SubmitButtonStateOGtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(detailImage:title:description:action:secondaryAction:detailImageSize:isActionVerticallyAligned:contentAlignment:submitAction:cancelAction:navigationTitle:filterFormView:keyValueFormView:displayMode:isBackgroundInteractionEnabled:errorView:onCancel:onUpVote:onDownVote:onSubmit:voteState:submitButtonState:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14AIUserFeedbackV11detailImage5title11description6action15secondaryAction0fG4Size02isL17VerticallyAligned16contentAlignment06submitL006cancelL015navigationTitle14filterFormView08keyValuexY011displayMode0N28BackgroundInteractionEnabled05errorY08onCancel8onUpVote10onDownVote8onSubmit9voteState0S11ButtonStateAC0B2UI0G0VSg_10Foundation16AttributedStringVA4_SgAA0A6ButtonVSgA8_AA18IllustratedMessageV06DetailgM0OSgSbAZ010HorizontalR0VA8_A8_A5_AA06FilterxY0VSgAA08KeyValuexY0VSgAA0dE11DisplayModeOSbA10_SgyycSgA25_A25_yAA0dE9VoteStateO_SaySSGSSySbctcSgAZ7BindingVyA27_GA31_yAA0dE17SubmitButtonStateOGtcfc">init(detailImage:<wbr>title:<wbr>description:<wbr>action:<wbr>secondaryAction:<wbr>detailImageSize:<wbr>isActionVerticallyAligned:<wbr>contentAlignment:<wbr>submitAction:<wbr>cancelAction:<wbr>navigationTitle:<wbr>filterFormView:<wbr>keyValueFormView:<wbr>displayMode:<wbr>isBackgroundInteractionEnabled:<wbr>errorView:<wbr>onCancel:<wbr>onUpVote:<wbr>onDownVote:<wbr>onSubmit:<wbr>voteState:<wbr>submitButtonState:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -210,7 +214,8 @@
      <span class="nv">onUpVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">onDownVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">onSubmit</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">voteState</span><span class="p">:</span> <span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">feedbacks</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">_</span> <span class="nv">additional</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">submitResult</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-     <span class="nv">voteState</span><span class="p">:</span> <span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">notDetermined</span><span class="p">)</span></code></pre>
+     <span class="nv">voteState</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a></span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="nv">submitButtonState</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -386,6 +391,9 @@
                   <a href="../Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
                 </li>
                 <li class="nav-group-task">
@@ -414,6 +422,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/BarcodeDataType.html">BarcodeDataType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/CardSkeletonLoadingPattern.html">CardSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/CardTests.html">CardTests</a>
@@ -480,6 +494,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectItemSkeletonLoadingPattern.html">ObjectItemSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectViewProperty.html">ObjectViewProperty</a>
@@ -564,6 +584,15 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UserConsentAlertType.html">UserConsentAlertType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAFeedbackResult.html">WAFeedbackResult</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAHelperAction.html">WAHelperAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/WAResult.html">WAResult</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/WelcomeScreenOption.html">WelcomeScreenOption</a>
@@ -731,6 +760,9 @@
                   <a href="../Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/BackActionStyle.html">BackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -837,6 +869,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DoneActionStyle.html">DoneActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
@@ -1166,6 +1201,9 @@
                   <a href="../Protocols/RatingControlStyle.html">RatingControlStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/RedoActionStyle.html">RedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1400,6 +1438,9 @@
                   <a href="../Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/UndoActionStyle.html">UndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1443,6 +1484,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/XmarkStyle.html">XmarkStyle</a>
@@ -2057,6 +2104,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackAction.html">BackAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionBaseStyle.html">BackActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionConfiguration.html">BackActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionFioriStyle.html">BackActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/BackActionStyleModifier.html">BackActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/BannerMessage.html">BannerMessage</a>
@@ -2777,6 +2839,21 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneAction.html">DoneAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionBaseStyle.html">DoneActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionConfiguration.html">DoneActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionFioriStyle.html">DoneActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DoneActionStyleModifier.html">DoneActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DownVoteAction.html">DownVoteAction</a>
@@ -4615,6 +4692,21 @@
                   <a href="../Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/RedoAction.html">RedoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionBaseStyle.html">RedoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionConfiguration.html">RedoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionFioriStyle.html">RedoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/RedoActionStyleModifier.html">RedoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -5000,6 +5092,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SingleView.html">SingleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SkeletonLoadingContainer.html">SkeletonLoadingContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
@@ -5737,6 +5832,21 @@
                   <a href="../Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/UndoAction.html">UndoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionBaseStyle.html">UndoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionConfiguration.html">UndoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionFioriStyle.html">UndoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UndoActionStyleModifier.html">UndoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/UpVoteAction.html">UpVoteAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -5896,6 +6006,12 @@
                   <a href="../Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/WAError.html">WAError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WAMenu.html">WAMenu</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -5945,6 +6061,63 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/WindowReader.html">WindowReader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantAction.html">WritingAssistantAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionBaseStyle.html">WritingAssistantActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionFioriStyle.html">WritingAssistantActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantActionStyleModifier.html">WritingAssistantActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantForm.html">WritingAssistantForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBackActionStyle.html">WritingAssistantFormBackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormBaseStyle.html">WritingAssistantFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCancelActionStyle.html">WritingAssistantFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormCloseActionStyle.html">WritingAssistantFormCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDoneActionStyle.html">WritingAssistantFormDoneActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormDownVoteActionStyle.html">WritingAssistantFormDownVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFioriStyle.html">WritingAssistantFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormFootnoteStyle.html">WritingAssistantFormFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormRedoActionStyle.html">WritingAssistantFormRedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormStyleModifier.html">WritingAssistantFormStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUndoActionStyle.html">WritingAssistantFormUndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/WritingAssistantFormUpVoteActionStyle.html">WritingAssistantFormUpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Xmark.html">Xmark</a>
@@ -6148,7 +6321,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

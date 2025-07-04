@@ -251,65 +251,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Manages various barcode scanner implementations, providing a unified interface for applications.</p>
-
-<p><code>BarcodeScannerManager</code> is an <code>ObservableObject</code> that allows SwiftUI views to react to changes
-in scanner status, received barcodes, and pairing QR codes. It acts as a facade, delegating
-operations to the currently active scanner instance (e.g., <code><a href="Classes/VisionKitScanner.html">VisionKitScanner</a></code>, <code><a href="Classes/ProGloveScanner.html">ProGloveScanner</a></code>).</p>
-<h2 id='overview' class='heading'>Overview</h2>
-
-<p>The manager holds instances of all supported scanner types. An application can select an active
-scanner type using <code>setActiveScanner(_:)</code>. Once a scanner is active, the manager proxies
-calls like <code>startMonitoring()</code>, <code>triggerScan()</code>, <code>getPairingQRCode()</code>, etc., to that instance.</p>
-
-<p>It also acts as a delegate (<code><a href="Protocols/BarcodeScannerDelegate.html">BarcodeScannerDelegate</a></code>) for the active scanner, receiving status updates
-and barcode data, which it then publishes for the application to consume via its <code>@Published</code> properties
-or callback closures (<code>onStatusChanged</code>, <code>onBarcodeScanned</code>).</p>
-<h2 id='usage' class='heading'>Usage</h2>
-<h3 id='initialization' class='heading'>Initialization</h3>
-
-<p>Typically, you would use the shared singleton instance:</p>
-<pre class="highlight swift"><code><span class="kd">@StateObject</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">scannerManager</span> <span class="o">=</span> <span class="kt">BarcodeScannerManager</span><span class="o">.</span><span class="n">shared</span>
-</code></pre>
-
-<p>Or, if you need custom configurations (e.g., for VisionKit):</p>
-<pre class="highlight swift"><code><span class="kd">@StateObject</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">scannerManager</span> <span class="o">=</span> <span class="kt">BarcodeScannerManager</span><span class="p">(</span>
-    <span class="nv">recognizedDataTypes</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">barcode</span><span class="p">(</span><span class="nv">symbologies</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">qr</span><span class="p">,</span> <span class="o">.</span><span class="n">ean13</span><span class="p">])],</span> <span class="c1">// Specify symbologies for VisionKit</span>
-    <span class="nv">recognizesMultipleItems</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// For VisionKit: stop after first scan</span>
-    <span class="nv">serviceUUID</span><span class="p">:</span> <span class="s">"YOUR_CUSTOM_IPC_SERVICE_UUID"</span> <span class="c1">// Optional: For IPCMobile custom service</span>
-<span class="p">)</span>
-</code></pre>
-<h3 id='setting-callbacks' class='heading'>Setting Callbacks</h3>
-
-<p>Assign closures to <code>onStatusChanged</code> and <code>onBarcodeScanned</code> to receive updates:</p>
-<pre class="highlight swift"><code><span class="o">.</span><span class="n">onAppear</span> <span class="p">{</span>
-    <span class="n">scannerManager</span><span class="o">.</span><span class="n">onStatusChanged</span> <span class="o">=</span> <span class="p">{</span> <span class="n">status</span> <span class="k">in</span>
-        <span class="c1">// Handle status change (e.g., update UI, show errors)</span>
-        <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">)</span> <span class="o">=</span> <span class="n">status</span> <span class="p">{</span>
-            <span class="k">self</span><span class="o">.</span><span class="n">errorMessage</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">scannerManager</span><span class="o">.</span><span class="n">onBarcodeScanned</span> <span class="o">=</span> <span class="p">{</span> <span class="n">barcodeValue</span> <span class="k">in</span>
-        <span class="c1">// Handle received barcode</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">scannedValue</span> <span class="o">=</span> <span class="n">barcodeValue</span>
-        <span class="c1">// If using VisionKit and it's a single scan, you might want to dismiss its view.</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
-<h3 id='selecting-and-activating-a-scanner' class='heading'>Selecting and Activating a Scanner</h3>
-
-<p>Before using a scanner, it must be activated:</p>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">activateMyScanner</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">ScannerType</span><span class="p">)</span> <span class="k">async</span> <span class="p">{</span>
-    <span class="k">do</span> <span class="p">{</span>
-        <span class="k">try</span> <span class="k">await</span> <span class="n">scannerManager</span><span class="o">.</span><span class="nf">setActiveScanner</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
-        <span class="c1">// Scanner is now active and its startMonitoring() has been called.</span>
-        <span class="c1">// Status should update to .idle, .ready, or an error.</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
-        <span class="c1">// Handle activation error (e.g., scanner.startMonitoring() failed)</span>
-        <span class="k">self</span><span class="o">.</span><span class="n">errorMessage</span> <span class="o">=</span> <span class="p">(</span><span class="n">error</span> <span class="k">as?</span> <span class="kt">ScannerError</span><span class="p">)?</span><span class="o">.</span><span class="n">message</span> <span class="p">??</span> <span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
+                          <p>Undocumented</p>
 
                           <a href="Classes/BarcodeScannerManager.html" class="slightly-smaller">See more</a>
                         </div>
@@ -478,7 +420,8 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">VisionKitScanner</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/BarcodeScanner.html">BarcodeScanner</a></span><span class="p">,</span> <span class="kt">DataScannerViewControllerDelegate</span></code></pre>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">VisionKitScanner</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/BarcodeScanner.html">BarcodeScanner</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VisionKitScanner</span><span class="p">:</span> <span class="kt">DataScannerViewControllerDelegate</span></code></pre>
 
                           </div>
                         </div>
@@ -602,6 +545,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Enums/AIUserFeedbackDisplayMode.html">AIUserFeedbackDisplayMode</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Enums/AIUserFeedbackSubmitButtonState.html">AIUserFeedbackSubmitButtonState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Enums/AIUserFeedbackVoteState.html">AIUserFeedbackVoteState</a>
                 </li>
                 <li class="nav-group-task">
@@ -630,6 +576,12 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/BannerMultiMessageType.html">BannerMultiMessageType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/BarcodeDataType.html">BarcodeDataType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/CardSkeletonLoadingPattern.html">CardSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/CardTests.html">CardTests</a>
@@ -696,6 +648,12 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ObjectItemSkeletonLoadingPattern.html">ObjectItemSkeletonLoadingPattern</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/ObjectViewProperty.html">ObjectViewProperty</a>
@@ -780,6 +738,15 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/UserConsentAlertType.html">UserConsentAlertType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAFeedbackResult.html">WAFeedbackResult</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAHelperAction.html">WAHelperAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/WAResult.html">WAResult</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/WelcomeScreenOption.html">WelcomeScreenOption</a>
@@ -947,6 +914,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Protocols/AvatarsTitleStyle.html">AvatarsTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/BackActionStyle.html">BackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/BannerMessageStyle.html">BannerMessageStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1053,6 +1023,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/DisagreeActionStyle.html">DisagreeActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/DoneActionStyle.html">DoneActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/DownVoteActionStyle.html">DownVoteActionStyle</a>
@@ -1382,6 +1355,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Protocols/RatingControlStyle.html">RatingControlStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/RedoActionStyle.html">RedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/ReenterSignatureActionStyle.html">ReenterSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1616,6 +1592,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Protocols/TrendStyle.html">TrendStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/UndoActionStyle.html">UndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/UpVoteActionStyle.html">UpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1659,6 +1638,12 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/WelcomeScreenStyle.html">WelcomeScreenStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/WritingAssistantActionStyle.html">WritingAssistantActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Protocols/WritingAssistantFormStyle.html">WritingAssistantFormStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Protocols/XmarkStyle.html">XmarkStyle</a>
@@ -2273,6 +2258,21 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/AvatarsTitleStyleModifier.html">AvatarsTitleStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackAction.html">BackAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionBaseStyle.html">BackActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionConfiguration.html">BackActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionFioriStyle.html">BackActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/BackActionStyleModifier.html">BackActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/BannerMessage.html">BannerMessage</a>
@@ -2993,6 +2993,21 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DocumentScannerView/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneAction.html">DoneAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionBaseStyle.html">DoneActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionConfiguration.html">DoneActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionFioriStyle.html">DoneActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DoneActionStyleModifier.html">DoneActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DownVoteAction.html">DownVoteAction</a>
@@ -4831,6 +4846,21 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Structs/RatingControlValueLabelStyle.html">RatingControlValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/RedoAction.html">RedoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionBaseStyle.html">RedoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionConfiguration.html">RedoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionFioriStyle.html">RedoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/RedoActionStyleModifier.html">RedoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/ReenterSignatureAction.html">ReenterSignatureAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -5216,6 +5246,9 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/SingleView.html">SingleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/SkeletonLoadingContainer.html">SkeletonLoadingContainer</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/SliderValueChangeHandler.html">SliderValueChangeHandler</a>
@@ -5953,6 +5986,21 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Structs/TrendStyleModifier.html">TrendStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/UndoAction.html">UndoAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionBaseStyle.html">UndoActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionConfiguration.html">UndoActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionFioriStyle.html">UndoActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/UndoActionStyleModifier.html">UndoActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/UpVoteAction.html">UpVoteAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -6112,6 +6160,12 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                   <a href="Structs/VisionKitScannerRepresentable.html">VisionKitScannerRepresentable</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/WAError.html">WAError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WAMenu.html">WAMenu</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/Watermark.html">Watermark</a>
                 </li>
                 <li class="nav-group-task">
@@ -6161,6 +6215,63 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/WindowReader.html">WindowReader</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantAction.html">WritingAssistantAction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionBaseStyle.html">WritingAssistantActionBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionConfiguration.html">WritingAssistantActionConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionFioriStyle.html">WritingAssistantActionFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantActionStyleModifier.html">WritingAssistantActionStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantForm.html">WritingAssistantForm</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormBackActionStyle.html">WritingAssistantFormBackActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormBaseStyle.html">WritingAssistantFormBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormCancelActionStyle.html">WritingAssistantFormCancelActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormCloseActionStyle.html">WritingAssistantFormCloseActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormConfiguration.html">WritingAssistantFormConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormDoneActionStyle.html">WritingAssistantFormDoneActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormDownVoteActionStyle.html">WritingAssistantFormDownVoteActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormFioriStyle.html">WritingAssistantFormFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormFootnoteStyle.html">WritingAssistantFormFootnoteStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormRedoActionStyle.html">WritingAssistantFormRedoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormStyleModifier.html">WritingAssistantFormStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormUndoActionStyle.html">WritingAssistantFormUndoActionStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/WritingAssistantFormUpVoteActionStyle.html">WritingAssistantFormUpVoteActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/Xmark.html">Xmark</a>
@@ -6364,7 +6475,7 @@ presented by the application (e.g., via a <code>UIViewControllerRepresentable</c
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-06-25)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
