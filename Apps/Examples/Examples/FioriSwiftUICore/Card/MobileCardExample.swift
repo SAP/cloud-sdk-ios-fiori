@@ -292,9 +292,7 @@ struct FioriCardFeaturedContent<Content: View>: View {
     }
 }
 
-public struct FioriCard<
-    Content: View,
->: View {
+public struct FioriCard<Content: View>: View {
     // MARK: - Elements of a card
 
     private let content: Content
@@ -307,9 +305,7 @@ public struct FioriCard<
     ///   - header: The header of the card.
     ///   - content: The content of the card.
     ///   - footer: The footer of the card.
-    public init(
-        @ViewBuilder content: () -> Content = { EmptyView() },
-    ) {
+    public init(@ViewBuilder content: () -> Content = { EmptyView() }) {
         self.content = content()
     }
 
