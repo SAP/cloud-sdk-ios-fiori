@@ -24,15 +24,6 @@ struct ContentView: View {
                 {
                     Text("Theme Manager")
                 }
-                
-                #if DEBUG
-                
-                    Section {
-                        NavigationLink("Date Range Picker") {
-                            DateRangePickerExample()
-                        }
-                    }
-                #endif
             }
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())
