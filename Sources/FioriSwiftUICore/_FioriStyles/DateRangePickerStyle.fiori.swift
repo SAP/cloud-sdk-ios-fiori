@@ -2,48 +2,12 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-// Base Layout style
-public struct DateRangePickerBaseStyle: DateRangePickerStyle {
-    @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+class DateRangePickerModelObject: ObservableObject {
+    @Published var selectedDates: Set<DateComponents> = []
     
-    @State var selectedDates: Set<DateComponents> = []
+    @Published var tapCount = 0
     
-    @State private var tapCount = 0
-    
-    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
-        VStack(spacing: 0) {
-            Group {
-                if self.dynamicTypeSize >= .accessibility3 {
-                    self.configureMainStack(configuration, isVertical: true)
-                } else {
-                    ViewThatFits(in: .horizontal) {
-                        self.configureMainStack(configuration, isVertical: false)
-                        self.configureMainStack(configuration, isVertical: true)
-                    }
-                }
-            }
-            .animation(nil, value: configuration.pickerVisible)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.top, 8)
-            
-            if configuration.pickerVisible, configuration.controlState != .disabled {
-                LazyVStack {
-                    Divider()
-                        .frame(height: 0.33)
-                        .foregroundStyle(Color.preferredColor(.separatorOpaque))
-                    self.showPicker(configuration)
-                }
-                .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
-            }
-        }
-        .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
-        .onAppear {
-            self.getDateComponentsFromDates(configuration)
-        }
-    }
-    
-    private let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .calendar]
+    let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .nanosecond, .calendar, .timeZone]
     
     func getDateComponentsFromDates(_ configuration: DateRangePickerConfiguration) {
         let calendar = Calendar.current
@@ -56,84 +20,6 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             
             let endDateComponents = calendar.dateComponents(self.components, from: endDate)
             self.handleDateSelection(configuration, newSelection: [startDateComponents, endDateComponents], isTapped: false)
-        }
-    }
-    
-    func configureMainStack(_ configuration: DateRangePickerConfiguration, isVertical: Bool) -> some View {
-        let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
-        return mainStack {
-            configuration.title
-            if !isVertical {
-                Spacer()
-            } else {
-                Divider().hidden()
-            }
-            
-            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
-                .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
-        }
-        .accessibilityElement(children: .combine)
-        .contentShape(Rectangle())
-        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
-            $0.onTapGesture(perform: {
-                configuration.pickerVisible.toggle()
-            })
-        }
-    }
-    
-    private func getValueAccessibilityLabelString(_ configuration: DateRangePickerConfiguration) -> String {
-        var valueStr = self.getValueLabel(configuration)
-        
-        if configuration.selectedRange == nil {
-            let dateRangeSetTips = NSLocalizedString("PressSpaceToSelectRangeKey", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-            valueStr += ", \(dateRangeSetTips)"
-        }
-        return valueStr
-    }
-    
-    private func getValueLabel(_ configuration: DateRangePickerConfiguration) -> String {
-        let result = self.selectedDates.sorted {
-            if let date1 = $0.date, let date2 = $1.date {
-                date1 < date2
-            } else {
-                true
-            }
-        }
-        
-        if self.tapCount > 1,
-           let startDate = result.first?.date,
-           let endDate = result.last?.date
-        {
-            var valueDescDateFormatter = DateFormatter()
-            if let customizedFormatter = configuration.rangeFormatter {
-                valueDescDateFormatter = customizedFormatter
-            } else {
-                valueDescDateFormatter.timeZone = Calendar.current.timeZone
-                valueDescDateFormatter.locale = Calendar.current.locale
-                valueDescDateFormatter.dateStyle = self.horizontalSizeClass == .compact ? .short : .long
-                valueDescDateFormatter.timeStyle = .none
-            }
-            let startDateStr = valueDescDateFormatter.string(from: startDate)
-            let endDateStr = valueDescDateFormatter.string(from: endDate)
-            
-            return "\(startDateStr) – \(endDateStr)"
-        } else {
-            return configuration.noRangeSelectedString ?? NSLocalizedString("No range selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        }
-    }
-    
-    func showPicker(_ configuration: DateRangePickerConfiguration) -> some View {
-        let selection: Binding<Set<DateComponents>> = Binding(
-            get: { self.selectedDates },
-            set: { self.handleDateSelection(configuration, newSelection: $0) }
-        )
-        
-        if let range = configuration.range {
-            return MultiDatePicker("", selection: selection, in: range)
-                .typeErased
-        } else {
-            return MultiDatePicker("", selection: selection)
-                .typeErased
         }
     }
     
@@ -205,6 +91,124 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             )!
         }
         return dates
+    }
+}
+
+// Base Layout style
+public struct DateRangePickerBaseStyle: DateRangePickerStyle {
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @StateObject var modelObject = DateRangePickerModelObject()
+    
+    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        VStack(spacing: 0) {
+            Group {
+                if self.dynamicTypeSize >= .accessibility3 {
+                    self.configureMainStack(configuration, isVertical: true)
+                } else {
+                    ViewThatFits(in: .horizontal) {
+                        self.configureMainStack(configuration, isVertical: false)
+                        self.configureMainStack(configuration, isVertical: true)
+                    }
+                }
+            }
+            .animation(nil, value: configuration.pickerVisible)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, 8)
+            
+            if configuration.pickerVisible, configuration.controlState != .disabled {
+                LazyVStack {
+                    Divider()
+                        .frame(height: 0.33)
+                        .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                    self.showPicker(configuration)
+                }
+                .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
+            }
+        }
+        .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
+        .onAppear {
+            self.modelObject.getDateComponentsFromDates(configuration)
+        }
+    }
+    
+    func configureMainStack(_ configuration: DateRangePickerConfiguration, isVertical: Bool) -> some View {
+        let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
+        return mainStack {
+            configuration.title
+            if !isVertical {
+                Spacer()
+            } else {
+                Divider().hidden()
+            }
+            
+            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
+        }
+        .accessibilityElement(children: .combine)
+        .contentShape(Rectangle())
+        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+            $0.onTapGesture(perform: {
+                configuration.pickerVisible.toggle()
+            })
+        }
+    }
+    
+    func getValueAccessibilityLabelString(_ configuration: DateRangePickerConfiguration) -> String {
+        var valueStr = self.getValueLabel(configuration)
+        
+        if configuration.selectedRange == nil {
+            let dateRangeSetTips = NSLocalizedString("PressSpaceToSelectRangeKey", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            valueStr += ", \(dateRangeSetTips)"
+        }
+        return valueStr
+    }
+    
+    func getValueLabel(_ configuration: DateRangePickerConfiguration) -> String {
+        let result = self.modelObject.selectedDates.sorted {
+            if let date1 = $0.date, let date2 = $1.date {
+                date1 < date2
+            } else {
+                true
+            }
+        }
+        
+        if self.modelObject.tapCount > 1,
+           let startDate = result.first?.date,
+           let endDate = result.last?.date
+        {
+            var valueDescDateFormatter = DateFormatter()
+            if let customizedFormatter = configuration.rangeFormatter {
+                valueDescDateFormatter = customizedFormatter
+            } else {
+                valueDescDateFormatter.timeZone = Calendar.current.timeZone
+                valueDescDateFormatter.locale = Calendar.current.locale
+                valueDescDateFormatter.dateStyle = self.horizontalSizeClass == .compact ? .short : .long
+                valueDescDateFormatter.timeStyle = .none
+            }
+            let startDateStr = valueDescDateFormatter.string(from: startDate)
+            let endDateStr = valueDescDateFormatter.string(from: endDate)
+            
+            return "\(startDateStr) – \(endDateStr)"
+        } else {
+            return configuration.noRangeSelectedString ?? NSLocalizedString("No range selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        }
+    }
+    
+    func showPicker(_ configuration: DateRangePickerConfiguration) -> some View {
+        let selection: Binding<Set<DateComponents>> = Binding(
+            get: { self.modelObject.selectedDates },
+            set: { self.modelObject.handleDateSelection(configuration, newSelection: $0) }
+        )
+        
+        if let range = configuration.range {
+            return MultiDatePicker("", selection: selection, in: range)
+                .typeErased
+        } else {
+            return MultiDatePicker("", selection: selection)
+                .typeErased
+        }
     }
 }
 

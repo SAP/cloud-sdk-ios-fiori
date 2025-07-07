@@ -72,8 +72,10 @@ struct DateRangePickerExample: View {
         List {
             Toggle("Mandatory Field", isOn: self.$isRequired)
                 .tint(Color.preferredColor(.tintColor))
-            Toggle("Customized Mandatory Indicator", isOn: self.$customizedMandatoryIndicator)
-                .tint(Color.preferredColor(.tintColor))
+            if self.isRequired {
+                Toggle("Customized Mandatory Indicator", isOn: self.$customizedMandatoryIndicator)
+                    .tint(Color.preferredColor(.tintColor))
+            }
             Toggle("Show Error/Hint message", isOn: self.$showsErrorMessage)
                 .tint(Color.preferredColor(.tintColor))
             Toggle("AI Notice", isOn: self.$showAINotice)
