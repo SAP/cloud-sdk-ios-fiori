@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.4.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.3...25.4.4) (2025-07-07)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-728] NoteFormView flashes ([#1092](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1092)) ([#1115](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1115)) ([6783ca8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6783ca877fbfa4857ecc87a4ce7e3ed08bfdedd3))
+* 🐛 [IOSSDKBUG-762]Add Customize Shadow Style API ([#1113](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1113)) ([b079567](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b0795671fff0a2142491bb85b85ba61412669925))
+* 🐛 [IOSSDKBUG-765]Pickers layout flashes when hiden ([#1128](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1128)) ([72ac9b4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/72ac9b47e05642279466cc262adff875a14ae0e1))
+* 🐛 [IOSSDKBUG-766]DurationPicker background in dark theme ([#1127](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1127)) ([bad9e73](https://github.com/SAP/cloud-sdk-ios-fiori/commit/bad9e73897d30abe02798a7088a9ada95a0b6136))
+* 🐛 [IOSSDKBUG-767] FioriButton DragGesture conflict ([#1132](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1132)) ([#1133](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1133)) ([48ed139](https://github.com/SAP/cloud-sdk-ios-fiori/commit/48ed139c91988a89bdfe4032eafc0db689d72d9e))
+* 🐛 extra top spacing for description in object item ([#1112](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1112)) ([12e1822](https://github.com/SAP/cloud-sdk-ios-fiori/commit/12e1822be40bf8878dcc4ed2d3de06719a31ed1f))
+* 🐛 OSSDKBUG-772 Fix Toast Message UI hang ([#1141](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1141)) ([bb494ef](https://github.com/SAP/cloud-sdk-ios-fiori/commit/bb494efc5e00e593446abcf9c0cc9739173d9b08))
+
 ### [25.4.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.4.3-20250513...25.4.3) (2025-06-16)
 
 
