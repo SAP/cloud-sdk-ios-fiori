@@ -174,6 +174,12 @@ extension AvatarsTitle: _ViewEmptyChecking {
     }
 }
 
+extension BackAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        backAction.isEmpty
+    }
+}
+
 extension BannerMessage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
@@ -406,6 +412,12 @@ extension DimensionSelector: _ViewEmptyChecking {
 extension DisagreeAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         disagreeAction.isEmpty
+    }
+}
+
+extension DoneAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        doneAction.isEmpty
     }
 }
 
@@ -979,6 +991,12 @@ extension RatingControlFormView: _ViewEmptyChecking {
     }
 }
 
+extension RedoAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        redoAction.isEmpty
+    }
+}
+
 extension ReenterSignatureAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         reenterSignatureAction.isEmpty
@@ -1354,6 +1372,12 @@ extension TrendImage: _ViewEmptyChecking {
     }
 }
 
+extension UndoAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        undoAction.isEmpty
+    }
+}
+
 extension UpVoteAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         upVoteAction.isEmpty
@@ -1428,6 +1452,26 @@ extension WelcomeScreen: _ViewEmptyChecking {
             headlineImage.isEmpty &&
             legalText.isEmpty &&
             footerText.isEmpty
+    }
+}
+
+extension WritingAssistantAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        writingAssistantAction.isEmpty
+    }
+}
+
+extension WritingAssistantForm: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        cancelAction.isEmpty &&
+            doneAction.isEmpty &&
+            closeAction.isEmpty &&
+            backAction.isEmpty &&
+            undoAction.isEmpty &&
+            redoAction.isEmpty &&
+            upVoteAction.isEmpty &&
+            downVoteAction.isEmpty &&
+            footnote.isEmpty
     }
 }
 

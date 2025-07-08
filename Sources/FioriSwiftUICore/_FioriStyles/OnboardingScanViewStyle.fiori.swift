@@ -29,7 +29,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                     .ignoresSafeArea()
                 #if !os(visionOS)
                     if self.scannerManager.status == ScannerStatus.ready || self.scannerManager.status == ScannerStatus.scanning, let visionKitScanner = scannerManager.getVisionKitScanner() {
-                        VisionKitScannerRepresentable(scanner: visionKitScanner, onCancelTapped: {}, isTorchOn: self.$isTorchOn)
+                        VisionKitScannerRepresentable(scannerManager: self.scannerManager, isTorchOn: self.$isTorchOn, onCancelTapped: {})
                             .ignoresSafeArea(.all)
                     }
                 #endif
@@ -134,21 +134,40 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
     }
     
     func switchFlash() {
-        if let device = AVCaptureDevice.default(for: AVMediaType.video), device.hasTorch {
-            do {
-                try device.lockForConfiguration()
-                if device.torchMode == .on {
-                    device.torchMode = .off
-                    self.isTorchOn = false
-                } else {
+        #if !os(visionOS) && !os(watchOS)
+            if let device = AVCaptureDevice.default(for: AVMediaType.video), device.hasTorch {
+                do {
+                    try device.lockForConfiguration()
+                    if device.torchMode == .on {
+                        device.torchMode = .off
+                        self.isTorchOn = false
+                    } else {
+                        do {
+                            try device.setTorchModeOn(level: 1.0)
+                            self.isTorchOn = true
+                        } catch {}
+                    }
+                    device.unlockForConfiguration()
+                } catch {}
+            }
+        #else
+            if #available(visionOS 2.1, *) {
+                if let device = AVCaptureDevice.default(for: AVMediaType.video), device.hasTorch {
                     do {
-                        try device.setTorchModeOn(level: 1.0)
-                        self.isTorchOn = true
+                        try device.lockForConfiguration()
+                        if device.torchMode == .on {
+                            device.torchMode = .off
+                            self.isTorchOn = false
+                        } else {
+                            self.isTorchOn = true
+                        }
+                        device.unlockForConfiguration()
                     } catch {}
                 }
-                device.unlockForConfiguration()
-            } catch {}
-        }
+            } else {
+                // Fallback on earlier versions
+            }
+        #endif
     }
     
     func checkPhotoLibraryAvailable() {
