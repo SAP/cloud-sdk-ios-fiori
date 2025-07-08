@@ -79,8 +79,26 @@ final class DateRangePickerTests: XCTestCase {
         modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
         XCTAssert(modelObject.tapCount == 2)
         XCTAssert(modelObject.selectedDates.count == 5)
+        if let selectedRange = configuration.selectedRange {
+            let rangeFormatter = DateFormatter()
+            XCTAssertEqual(rangeFormatter.string(from: selectedRange.lowerBound), rangeFormatter.string(from: startDate))
+            XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: endDate))
+        }
         
-        XCTAssertEqual(configuration.selectedRange?.lowerBound, startDate)
-        XCTAssertEqual(configuration.selectedRange?.upperBound, endDate)
+        // click any day to cancel the selection
+        modelObject.handleDateSelection(configuration, newSelection: [endNewSelection])
+        XCTAssert(modelObject.tapCount == 0)
+        XCTAssert(modelObject.selectedDates.count == 0)
+        XCTAssertEqual(configuration.selectedRange, nil)
+        
+        // select range in one day
+        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
+        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
+        XCTAssert(modelObject.selectedDates.count == 1)
+        if let selectedRange = configuration.selectedRange {
+            let rangeFormatter = DateFormatter()
+            XCTAssertEqual(rangeFormatter.string(from: selectedRange.lowerBound), rangeFormatter.string(from: startDate))
+            XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: startDate))
+        }
     }
 }
