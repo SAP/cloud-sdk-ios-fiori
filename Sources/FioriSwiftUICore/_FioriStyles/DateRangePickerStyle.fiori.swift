@@ -24,7 +24,7 @@ class DateRangePickerModelObject: ObservableObject {
     }
     
     func handleDateSelection(_ configuration: DateRangePickerConfiguration, newSelection: Set<DateComponents>, isTapped: Bool = true) {
-        if self.selectedDates.count == 0 {
+        if self.selectedDates.isEmpty {
             self.selectedDates = newSelection
             self.tapCount = 1
         } else if self.selectedDates.count == 1, self.tapCount < 2 {
@@ -86,9 +86,13 @@ class DateRangePickerModelObject: ObservableObject {
         var currentDate = startDate
         while currentDate <= endDate {
             dates.append(currentDate)
-            currentDate = Calendar.current.date(
+            if let date = Calendar.current.date(
                 byAdding: .day, value: 1, to: currentDate
-            )!
+            ) {
+                currentDate = date
+            } else {
+                break
+            }
         }
         return dates
     }

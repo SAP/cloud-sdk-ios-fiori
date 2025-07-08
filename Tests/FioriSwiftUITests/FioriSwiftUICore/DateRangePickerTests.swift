@@ -57,7 +57,7 @@ final class DateRangePickerTests: XCTestCase {
         let modelObject = DateRangePickerModelObject()
         modelObject.getDateComponentsFromDates(configuration)
         XCTAssert(modelObject.tapCount == 0)
-        XCTAssert(modelObject.selectedDates.count == 0)
+        XCTAssert(modelObject.selectedDates.isEmpty)
         XCTAssertEqual(configuration.selectedRange, nil)
         
         let startDate = Date.now
@@ -88,7 +88,7 @@ final class DateRangePickerTests: XCTestCase {
         // click any day to cancel the selection
         modelObject.handleDateSelection(configuration, newSelection: [endNewSelection])
         XCTAssert(modelObject.tapCount == 0)
-        XCTAssert(modelObject.selectedDates.count == 0)
+        XCTAssert(modelObject.selectedDates.isEmpty)
         XCTAssertEqual(configuration.selectedRange, nil)
         
         // select range in one day
