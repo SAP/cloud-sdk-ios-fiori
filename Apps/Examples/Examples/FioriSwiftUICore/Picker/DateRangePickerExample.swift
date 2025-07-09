@@ -105,11 +105,12 @@ struct DateRangePickerExample: View {
                     .informationViewStyle(.success)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 
-                DateRangePicker(title: "Custom Locale In Simple Chinese", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange4, pickerVisible: self.$pickerVisible4)
+                DateRangePicker(title: "Custom Locale & Calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange4, pickerVisible: self.$pickerVisible4)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
                     .informationViewStyle(.informational)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                     .environment(\.locale, Locale(identifier: "zh-Hans"))
+                    .environment(\.calendar, Calendar(identifier: .gregorian))
             
                 DateRangePicker(title: "Range Selection in Disabled Control State", mandatoryFieldIndicator: self.mandatoryFieldIndicator(true), isRequired: self.isRequired, controlState: .disabled, selectedRange: self.$selectedRange5, pickerVisible: self.$pickerVisible5)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
