@@ -33,7 +33,7 @@ struct DateRangePickerExample: View {
         }
     }
     
-    var masterPickerVisibleBinding: Binding<Bool> {
+    var managePickerVisibleBinding: Binding<Bool> {
         Binding {
             [self.pickerVisible0, self.pickerVisible1, self.pickerVisible2, self.pickerVisible3, self.pickerVisible4, self.pickerVisible5].allSatisfy { $0 }
         } set: { newValue in
@@ -80,7 +80,7 @@ struct DateRangePickerExample: View {
                 .tint(Color.preferredColor(.tintColor))
             Toggle("AI Notice", isOn: self.$showAINotice)
                 .tint(Color.preferredColor(.tintColor))
-            Toggle("Picker Visible", isOn: self.masterPickerVisibleBinding)
+            Toggle("Picker Visible", isOn: self.managePickerVisibleBinding)
                 .tint(Color.preferredColor(.tintColor))
             Section(header: Text("")) {
                 DateRangePicker(title: "Range Selection Long Title Long Title Long Title Long Title Long Title Long Title0", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange0, pickerVisible: self.$pickerVisible0)
