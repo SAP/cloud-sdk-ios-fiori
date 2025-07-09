@@ -594,6 +594,8 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     var selectedDate: Date { get }
+    /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    var dateFormatter: DateFormatter? { get }
     
     // sourcery: defaultValue = [.date, .hourAndMinute]
     /// The components shown in the date picker, default value shows date and time.
