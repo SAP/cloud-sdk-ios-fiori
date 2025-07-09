@@ -1,7 +1,6 @@
-#if canImport(SwiftUIIntrospect) && canImport(UIKit)
+#if canImport(UIKit)
     import SwiftUI
     import UIKit
-    @_spi(Advanced) import SwiftUIIntrospect
 
     @MainActor
     struct FioriIntrospectModifier<Target>: ViewModifier {
