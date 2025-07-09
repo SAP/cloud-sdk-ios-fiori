@@ -74,9 +74,16 @@ class WritingAssistantContext: NSObject, ObservableObject {
     let menuHandler: (WAMenu, String) async -> WAResult
     let feedbackOptions: [String]
     let feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
-    @Published var feedbackUpvoted: Bool = false
-    @Published var feedbackDownvoted: Bool = false
+    @Published var feedbackVoteState: AIUserFeedbackVoteState = .notDetermined
     @Published var feedbackSubmitButtonState: AIUserFeedbackSubmitButtonState = .normal
+    
+    var feedbackDownvoted: Bool {
+        self.feedbackVoteState == .downVote
+    }
+    
+    var feedbackUpvoted: Bool {
+        self.feedbackVoteState == .upVote
+    }
     
     @State private var task: Task<Void, Never>? = nil
     
@@ -154,9 +161,9 @@ class WritingAssistantContext: NSObject, ObservableObject {
         switch result {
         case .success:
             if voteState == .upVote {
-                self.feedbackUpvoted = true
+                self.feedbackVoteState = .upVote
             } else if voteState == .downVote {
-                self.feedbackDownvoted = true
+                self.feedbackVoteState = .downVote
             }
             self.showFeedbackSuccessToast.toggle()
         case .failure(let error):
@@ -298,7 +305,6 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.canResetSelectedRange = true
         self.customDestination = nil
         self.showFeedbackSuccessToast = false
-        self.feedbackUpvoted = false
-        self.feedbackDownvoted = false
+        self.feedbackVoteState = .notDetermined
     }
 }
