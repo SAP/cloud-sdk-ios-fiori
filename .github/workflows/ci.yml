@@ -11,14 +11,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14]
-        xcode: ['Xcode_15.3']
+        os: [macos-13]
+        xcode: ['Xcode_15.0.1']
     runs-on: ${{ matrix.os }}         
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install Apple WWDR Certificate
+      run: curl -O https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer
+            sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AppleWWDRCAG3.cer
+    - name: Resolve Swift package dependencies
+      run: xcodebuild -resolvePackageDependencies
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build test | xcpretty
     - name: Create code coverage report
