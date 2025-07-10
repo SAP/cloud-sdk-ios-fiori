@@ -620,13 +620,34 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 /// ```swift
 /// @State var isRequired = false
 /// @State var selectedRange1: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var selectedRange2: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var selectedRange3: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
 /// @State var pickerVisible1 = false
+/// @State var pickerVisible2 = false
+/// @State var pickerVisible3 = false
 /// @State var showsErrorMessage = false
 /// @State var showAINotice: Bool = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "dd-MM-yyyy"
+///     return formatter
+/// }()
 /// DateRangePicker(title: "Range Selection1", isRequired: isRequired, selectedRange: $selectedRange1, pickerVisible: $pickerVisible1)
 ///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
 ///     .informationViewStyle(.informational)
 ///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///
+/// DateRangePicker(title: "Customized Date Formatter", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange2, rangeFormatter: self.customizedDateFormatter, pickerVisible: self.$pickerVisible2)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
+///     .informationViewStyle(.success)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///
+/// DateRangePicker(title: "Custom Locale & Calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange3, pickerVisible: self.$pickerVisible3)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
+///     .informationViewStyle(.informational)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///     .environment(\.locale, Locale(identifier: "zh-Hans"))
+///     .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
 protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
