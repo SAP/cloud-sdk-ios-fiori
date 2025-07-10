@@ -19,12 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install Apple WWDR Certificate
-      run: |
-          wget https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -O AppleWWDRCAG3.cer
-          sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AppleWWDRCAG3.cer
-    - name: Resolve Swift package dependencies
-      run: xcodebuild -resolvePackageDependencies
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build test | xcpretty
     - name: Create code coverage report
