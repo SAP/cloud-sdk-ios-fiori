@@ -109,7 +109,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
-| Skeleton Loading | :x: |
+| Skeleton Loading | :white_check_mark: |
 | Value Picker | :white_check_mark: |
 | Hierarchy View | :x: |
 | Calendar | :x: |
