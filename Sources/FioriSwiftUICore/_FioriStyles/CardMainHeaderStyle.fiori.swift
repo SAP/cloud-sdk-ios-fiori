@@ -59,11 +59,11 @@ extension CardMainHeaderFioriStyle {
     
     struct TitleFioriStyle: TitleStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 // Add default style for Title
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
                 .environment(\.numberOfLines, 3)
         }
@@ -71,11 +71,11 @@ extension CardMainHeaderFioriStyle {
     
     struct SubtitleFioriStyle: SubtitleStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 // Add default style for Subtitle
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .font(.fiori(forTextStyle: .body))
                 .environment(\.numberOfLines, 2)
         }
@@ -83,23 +83,26 @@ extension CardMainHeaderFioriStyle {
     
     struct IconsFioriStyle: IconsStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
-            // Add default style for Icons
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
     struct DetailImageFioriStyle: DetailImageStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 .aspectRatio(contentMode: .fill)
                 .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
                 .clipped()
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
@@ -115,11 +118,11 @@ extension CardMainHeaderFioriStyle {
     
     struct CounterFioriStyle: CounterStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
                 // Add default style for Counter
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .tertiaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
                 .environment(\.numberOfLines, 1)
         }

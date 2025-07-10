@@ -5,18 +5,33 @@ import SwiftUI
 /// The base layout style for `NoteFormView`.
 public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @FocusState var isFocused: Bool
-
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
-            configuration._placeholderTextEditor
-                .focused(self.$isFocused)
-                .disabled(self.getDisabled(configuration))
+            SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                self.getPlaceholderTextEditor(configuration)
+                    .focused(self.$isFocused)
+                    .disabled(self.getDisabled(configuration))
+            }
         }
         .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
         .accessibilityElement(children: .combine)
         .accessibilityHint(configuration.controlState == .normal ? (self.isFocused ? NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing") : NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")) : "")
     }
 
+    func getPlaceholderTextEditor(_ configuration: NoteFormViewConfiguration) -> some View {
+        if self.isLoading {
+            if configuration.text.isEmpty, configuration.placeholder.isEmpty {
+                return PlaceholderTextEditor(.init(text: .constant(""), placeholder: .init(Text("NoteFormView skeleton loading").typeErased)), shouldApplyDefaultStyle: true).typeErased
+            } else {
+                return configuration._placeholderTextEditor.typeErased
+            }
+        } else {
+            return configuration._placeholderTextEditor.typeErased
+        }
+    }
+    
     func getDisabled(_ configuration: NoteFormViewConfiguration) -> Bool {
         !TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getEditable()
     }
@@ -38,7 +53,7 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
 extension NoteFormViewFioriStyle {
     struct ContentFioriStyle: NoteFormViewStyle {
         @FocusState var isFocused: Bool
-
+        @Environment(\.isLoading) var isLoading
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
@@ -89,7 +104,10 @@ extension NoteFormViewFioriStyle {
         }
 
         func getBackgroundColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
+            if self.isLoading {
+                return .clear
+            }
+            return TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
         }
 
         func getBorderWidth(_ configuration: NoteFormViewConfiguration) -> CGFloat {

@@ -10,6 +10,8 @@ struct DateTimePickerExample: View {
     @State var s5: Date = .now
     @State var s6: Date = .now
     @State var s7: Date = .now
+    @State var customizedDate: Date = .init()
+    @State var limitedDate: Date = .now
     @State var isRequired = false
     @State var showsErrorMessage = false
     @State var showAINotice: Bool = false
@@ -19,6 +21,11 @@ struct DateTimePickerExample: View {
     @State var pickerVisible3 = false
     @State var pickerVisible4 = false
     @State var pickerVisible5 = false
+    @State var customizedPickerVisible = false
+    @State var limitedDatePickerVisible = false
+    
+    // Limit the selectable dates from last seven days to next seven days
+    var limitDateRange: ClosedRange<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ... Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
     
     struct CustomTitleStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
@@ -56,6 +63,12 @@ struct DateTimePickerExample: View {
         return .text(indicator)
     }
     
+    let customizedDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+        return formatter
+    }()
+    
     var body: some View {
         List {
             Toggle("Mandatory Field", isOn: self.$isRequired)
@@ -82,6 +95,10 @@ struct DateTimePickerExample: View {
                 DateTimePicker(title: "Custom Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s6, pickerVisible: self.$pickerVisible5)
                     .titleStyle(CustomTitleStyle())
                     .valueLabelStyle(CustomValueLabelStyle())
+                
+                DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+                    .environment(\.locale, Locale(identifier: "zh-Hans"))
+                    .environment(\.calendar, Calendar(identifier: .gregorian))
             }
             Section(header: Text("Disabled")) {
                 DateTimePicker(title: "In Disabled Mode", controlState: .disabled, selectedDate: self.$s7, pickerVisible: self.$pickerVisible)
@@ -89,6 +106,12 @@ struct DateTimePickerExample: View {
             }
             Section(header: Text("Read Only")) {
                 DateTimePicker(title: "In Read-Only Mode", controlState: .readOnly, selectedDate: self.$s7, pickerComponents: [.date], pickerVisible: self.$pickerVisible)
+            }
+            Section {
+                DateTimePicker(title: "Limit Selectable Dates", range: self.limitDateRange, selectedDate: self.$limitedDate, pickerVisible: self.$limitedDatePickerVisible)
+            } header: {
+                Text("Range")
+                    .textCase(.none)
             }
         }
     }

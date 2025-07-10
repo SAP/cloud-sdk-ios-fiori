@@ -27,7 +27,9 @@ public struct DateTimePickerConfiguration {
     public let valueLabel: ValueLabel
     public let controlState: ControlState
     public let errorMessage: AttributedString?
+    public let range: ClosedRange<Date>?
     @Binding public var selectedDate: Date
+    public let dateFormatter: DateFormatter?
     public let pickerComponents: DatePicker.Components
     public let dateStyle: Date.FormatStyle.DateStyle
     public let timeStyle: Date.FormatStyle.TimeStyle

@@ -70,8 +70,8 @@ final class OrderPickerTests: XCTestCase {
             OrderPickerItemModel(criterion: "data1_criterion 1", isSelected: false, isAscending: true, ascendingText: "data1_asc 1", descendingText: "data1_des 1"),
             OrderPickerItemModel(criterion: "data1_criterion 2", isSelected: true, isAscending: false, ascendingText: "data1_asc 2", descendingText: "data1_des 2"),
             OrderPickerItemModel(criterion: "data1_criterion 3", isSelected: true, isAscending: true, ascendingText: customAsc, descendingText: customDesc),
-            OrderPickerItemModel(criterion: "data1_criterion 4", isSelected: false, isAscending: false, ascendingText: "data1_asc 4", descendingText: "data1_des 4", customStyle: CustomSortCriterionStyle()),
-            OrderPickerItemModel(criterion: "data1_criterion 5", isSelected: true, isAscending: false, ascendingText: "data1_asc 5", descendingText: "data1_des 5")
+            OrderPickerItemModel(criterion: "data1_criterion 4", isSelected: false, isAscending: false, ascendingText: "data1_asc 4", descendingText: "data1_des 4", customStyle: CustomSortCriterionStyle(), customListRowBackground: Color.green),
+            OrderPickerItemModel(criterion: "data1_criterion 5", isSelected: true, isAscending: false, ascendingText: "data1_asc 5", descendingText: "data1_des 5", customListRowBackground: Color.clear)
         ]
     }()
     
@@ -119,8 +119,8 @@ final class OrderPickerTests: XCTestCase {
     }
     
     func testSortCriterion() throws {
-        let orderPickerItemModel = OrderPickerItemModel(selectedIcon: Image(systemName: "checkmark.circle.fill"), criterion: "Price 1", isSelected: true, isAscending: false, ascendingText: "asc", descendingText: "des", customStyle: CustomSortCriterionStyle())
-        
+        let orderPickerItemModel = OrderPickerItemModel(selectedIcon: Image(systemName: "checkmark.circle.fill"), criterion: "Price 1", isSelected: true, isAscending: false, ascendingText: "asc", descendingText: "des", customStyle: CustomSortCriterionStyle(), customListRowBackground: Color.red)
+
         let sortCriterionView = SortCriterion(title: orderPickerItemModel.criterion, data: .constant(orderPickerItemModel))
         
         XCTAssertEqual(sortCriterionView.data.criterion, orderPickerItemModel.criterion)
@@ -130,6 +130,7 @@ final class OrderPickerTests: XCTestCase {
         XCTAssertEqual(sortCriterionView.data.descendingText, orderPickerItemModel.descendingText)
         
         XCTAssertEqual(sortCriterionView.data.selectedIcon, orderPickerItemModel.selectedIcon)
+        XCTAssertEqual(sortCriterionView.data.customListRowBackground, orderPickerItemModel.customListRowBackground)
         
         XCTAssertTrue(self.compareData(sortCriterionView.title, orderPickerItemModel.criterion))
     }
@@ -184,5 +185,8 @@ final class OrderPickerTests: XCTestCase {
         XCTAssertEqual(orderPickerView.data[2].isAscending, self.data1[2].isAscending)
         XCTAssertEqual(orderPickerView.data[2].ascendingText, self.data1[2].ascendingText)
         XCTAssertEqual(orderPickerView.data[2].descendingText, self.data1[2].descendingText)
+        
+        XCTAssertEqual(orderPickerView.data[3].customListRowBackground, self.data1[3].customListRowBackground)
+        XCTAssertEqual(orderPickerView.data[4].customListRowBackground, self.data1[4].customListRowBackground)
     }
 }

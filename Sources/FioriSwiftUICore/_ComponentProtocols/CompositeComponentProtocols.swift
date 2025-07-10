@@ -580,18 +580,35 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 ///
 /// ## Usage
 /// ```swift
-/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var customizedDate: Date = .init(timeIntervalSince1970: 0.0)
 /// @State var isRequired = false
 /// @State var showsErrorMessage = false
+/// @State var customizedPickerVisible = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+///     return formatter
+/// }()
+/// func mandatoryFieldIndicator() -> TextOrIcon {
+///     var indicator = AttributedString("*")
+///     indicator.font = .fiori(forTextStyle: .title3)
+///     indicator.foregroundColor = Color.preferredColor(.indigo7)
+///     return .text(indicator)
+/// }
+/// @State var customizedPickerVisible = false
 ///
-/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
-///    .informationViewStyle(.informational)
+/// DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+///    .environment(\.locale, Locale(identifier: "zh-Hans"))
+///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+    // The inclusive range of selectable dates.
+    var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     var selectedDate: Date { get }
+    /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    var dateFormatter: DateFormatter? { get }
     
     // sourcery: defaultValue = [.date, .hourAndMinute]
     /// The components shown in the date picker, default value shows date and time.
@@ -695,6 +712,12 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = Color.clear
     /// The color of the border surrounding the toast message. The default value is `Color.clear`.
     var borderColor: Color { get }
+    // sourcery: defaultValue = 1
+    /// The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    var borderWidthIC: CGFloat { get }
+    // sourcery: defaultValue = Color.preferredColor(.tertiaryLabel)
+    /// The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
+    var borderColorIC: Color { get }
     // sourcery: defaultValue = FioriShadowStyle.level3
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     var shadow: FioriShadowStyle? { get }
@@ -2233,6 +2256,8 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 /// `AIUserFeedback` can be presented modally using .sheet, or pushed onto a navigation stack.
 /// ## Usage
 /// ```swift
+/// @State var voteState: AIUserFeedbackVoteState = .notDetermined
+/// @State var submitButtonState: AIUserFeedbackSubmitButtonState = .normal
 /// @State var filterFormViewSelectionValue: [Int] = [0]
 /// @State var valueText: String = ""
 /// let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
@@ -2255,7 +2280,8 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 ///
 ///             }, onSubmit: { voteState, feedbacks, additional, submitResult in
 ///                 submitResult(true)
-///             }, voteState: .notDetermined)
+///             }, voteState: $voteState,
+///             submitButtonState: $submitButtonState)
 /// ```
 ///  ### Toggle:
 /// ```swift
@@ -2313,9 +2339,11 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     // sourcery: no_view
     var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? { get }
     
-    /// The state of vote. Default is `notDetermined`.
-    // sourcery: defaultValue = .notDetermined
+    // sourcery: @Binding
     var voteState: AIUserFeedbackVoteState { get }
+    
+    // sourcery: @Binding
+    var submitButtonState: AIUserFeedbackSubmitButtonState { get }
 }
 
 /// `OnboardingScanView` is used to display a scanner view to scan a QR code for app activation.
@@ -2386,4 +2414,14 @@ protocol _OnboardingScanViewComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var didTapContinue: (() -> Void)? { get }
+}
+
+// sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComponent, _CloseActionComponent, _BackActionComponent, _UndoActionComponent, _RedoActionComponent, _UpVoteActionComponent, _DownVoteActionComponent, _FootnoteComponent {
+    // sourcery: @Binding
+    // sourcery: no_view
+    var text: String { get }
+    
+    var menus: [[WAMenu]] { get }
 }

@@ -1,20 +1,19 @@
-#if !os(watchOS)
+#if canImport(UIKit)
     import SwiftUI
     import UIKit
-    @_spi(Advanced) import SwiftUIIntrospect
 
     @MainActor
     struct FioriIntrospectModifier<Target>: ViewModifier {
         let customize: (Target) -> Void
         let scope: IntrospectionScope?
-    
+
         init(scope: FioriIntrospectionScope? = nil,
              customize: @escaping (Target) -> Void)
         {
             self.scope = scope?.toIntrospectionScope()
             self.customize = customize
         }
-    
+
         func body(content: Content) -> some View {
             if Target.self == UIScrollView.self {
                 content.introspect(.scrollView, on: .iOS(.v17...), scope: self.scope) { view in
@@ -54,9 +53,38 @@
         init(rawValue: UInt) {
             self.rawValue = rawValue
         }
-    
+
         func toIntrospectionScope() -> IntrospectionScope {
             IntrospectionScope(rawValue: self.rawValue)
+        }
+    }
+   
+#else
+    import SwiftUI
+
+    @MainActor
+    struct FioriIntrospectModifier<Target>: ViewModifier {
+        let customize: (Target) -> Void
+        let scope: FioriIntrospectionScope?
+
+        init(scope: FioriIntrospectionScope? = nil,
+             customize: @escaping (Target) -> Void)
+        {
+            self.scope = scope
+            self.customize = customize
+        }
+
+        func body(content: Content) -> some View {
+            content
+        }
+    }
+
+    struct FioriIntrospectionScope: OptionSet, Sendable {
+        static let receiver = Self(rawValue: 1 << 0)
+        static let ancestor = Self(rawValue: 1 << 1)
+        let rawValue: UInt
+        init(rawValue: UInt) {
+            self.rawValue = rawValue
         }
     }
 #endif

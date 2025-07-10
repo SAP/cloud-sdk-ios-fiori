@@ -1,7 +1,9 @@
 import AVFoundation
 import OSLog
 import SwiftUI
-import VisionKit
+#if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+    import VisionKit
+#endif
 
 /// A barcode scanner implementation using Apple's VisionKit framework.
 ///
@@ -21,7 +23,7 @@ import VisionKit
 ///
 /// Ensure the `NSCameraUsageDescription` key is included in your app's `Info.plist`.
 @MainActor
-public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewControllerDelegate {
+public final class VisionKitScanner: NSObject, BarcodeScanner {
     /// The type of this scanner, `.visionKit`.
     public let type: ScannerType = .visionKit
     /// The delegate responsible for receiving status updates and scanned barcode data.
@@ -42,16 +44,28 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     }
 
     /// This is the view that shows the camera feed and performs the scanning.
-    public var visionScannerVC: DataScannerViewController?
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        public var visionScannerVC: DataScannerViewController?
+    #else
+        public var visionScannerVC: UIViewController?
+    #endif
     /// A flag to prevent race conditions when `triggerScan` is called multiple times rapidly.
     private var isAttemptingScanStart: Bool = false
     /// The data types (e.g., barcodes, text) that the scanner should recognize.
-    private let recognizedDataTypes: Set<DataScannerViewController.RecognizedDataType>
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        private let recognizedDataTypes: Set<DataScannerViewController.RecognizedDataType>
+    #else
+        private let recognizedDataTypes: Set<BarcodeDataType>
+    #endif
     /// A Boolean value indicating whether the scanner should continue scanning after finding an item,
     /// or stop after the first successful scan. This is passed to the `DataScannerViewController`.
     public let recognizesMultipleItems: Bool
     /// A Boolean indicating if `DataScannerViewController` is supported on the current device and OS version.
-    private var isSupportedOnDevice: Bool { DataScannerViewController.isSupported }
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        private var isSupportedOnDevice: Bool { DataScannerViewController.isSupported }
+    #else
+        private var isSupportedOnDevice: Bool { false }
+    #endif
     /// A cached value for camera permission status. Updated by `checkPermissionsAndUpdateStatus`.
     private var hasCameraPermission: Bool = false
     /// Whether to show the Cancel button in the scanning view. Defaults to true.
@@ -70,10 +84,14 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     ///   - recognizesMultipleItems: Whether the scanner should detect multiple items in a single session
     ///                              or stop after the first. Defaults to `false`.
     public init(
-        recognizedDataTypes: Set<DataScannerViewController.RecognizedDataType> = [.barcode()],
+        recognizedDataTypes: Set<BarcodeDataType> = [.barcode()],
         recognizesMultipleItems: Bool = false
     ) {
-        self.recognizedDataTypes = recognizedDataTypes
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.recognizedDataTypes = Set(recognizedDataTypes.map { $0.toVisionKitType() })
+        #else
+            self.recognizedDataTypes = recognizedDataTypes
+        #endif
         self.recognizesMultipleItems = recognizesMultipleItems
         super.init()
         let status = AVCaptureDevice.authorizationStatus(for: .video)
@@ -117,7 +135,9 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
         self.stopScanningInternal() // Stops the DataScannerViewController's scanning
         
         // De-initialize the VC to free resources and ensure a fresh start next time
-        self.visionScannerVC?.delegate = nil
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.visionScannerVC?.delegate = nil
+        #endif
         self.visionScannerVC?.removeFromParent() // Though SwiftUI Representable handles hierarchy, good practice if we nil it.
         self.visionScannerVC = nil
         self.logger.info("VisionScannerVC de-initialized.")
@@ -156,37 +176,45 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
 
         self.initializeScannerVCIfNeeded()
         
-        guard let vc = visionScannerVC else {
-            self.logger.error("VisionScannerVC is nil, cannot start scanning.")
-            self.currentStatus = .error(.initializationFailed)
-            throw ScannerError.initializationFailed
-        }
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            guard let vc = visionScannerVC else {
+                self.logger.error("VisionScannerVC is nil, cannot start scanning.")
+                self.currentStatus = .error(.initializationFailed)
+                throw ScannerError.initializationFailed
+            }
 
-        if vc.isScanning {
-            self.logger.info("DataScannerViewController is already scanning. Ensuring internal state matches.")
-            self.currentStatus = .scanning
-            return
-        }
+            if vc.isScanning {
+                self.logger.info("DataScannerViewController is already scanning. Ensuring internal state matches.")
+                self.currentStatus = .scanning
+                return
+            }
 
-        self.logger.info("Attempting to call DataScannerViewController.startScanning().")
-        self.isAttemptingScanStart = true
-        do {
-            try vc.startScanning()
-            self.currentStatus = .scanning
-            self.logger.info("DataScannerViewController.startScanning() succeeded. Status: Scanning.")
-        } catch {
-            self.logger.error("DataScannerViewController.startScanning() failed: \(error.localizedDescription)")
-            let scannerError = ScannerError(code: "vk_start_failed", message: "VisionKit failed to start scanning: \(error.localizedDescription)")
-            self.currentStatus = .error(scannerError)
-            throw scannerError
-        }
+            self.logger.info("Attempting to call DataScannerViewController.startScanning().")
+            self.isAttemptingScanStart = true
+            do {
+                try vc.startScanning()
+                self.currentStatus = .scanning
+                self.logger.info("DataScannerViewController.startScanning() succeeded. Status: Scanning.")
+            } catch {
+                self.logger.error("DataScannerViewController.startScanning() failed: \(error.localizedDescription)")
+                let scannerError = ScannerError(code: "vk_start_failed", message: "VisionKit failed to start scanning: \(error.localizedDescription)")
+                self.currentStatus = .error(scannerError)
+                throw scannerError
+            }
+        #else
+            self.logger.error("Scanning not supported on Mac Catalyst.")
+            self.currentStatus = .error(ScannerError(code: "camera_unsupported", message: "Scanning not supported on Mac Catalyst."))
+            throw ScannerError(code: "camera_unsupported", message: "Scanning not supported on Mac Catalyst.")
+        #endif
     }
 
     /// Resets the VisionKit scanner to its initial state.
     public func reset() {
         self.logger.info("Reset requested.")
         self.stopScanningInternal()
-        self.visionScannerVC?.delegate = nil
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.visionScannerVC?.delegate = nil
+        #endif
         self.visionScannerVC?.removeFromParent()
         self.visionScannerVC = nil
         self.hasCameraPermission = AVCaptureDevice.authorizationStatus(for: .video) == .authorized // Re-check
@@ -219,33 +247,41 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     
     // Torch Control
     public func toggleTorch() -> Bool {
-        guard self.isTorchAvailable else {
-            self.logger.warning("Torch is not available on this device.")
-            return false
-        }
-        do {
-            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-            guard let device else {
-                self.logger.warning("No back camera available.")
+        #if !os(visionOS) && !os(watchOS)
+            guard self.isTorchAvailable else {
+                self.logger.warning("Torch is not available on this device.")
                 return false
             }
-            try device.lockForConfiguration()
-            self.isTorchOn = !self.isTorchOn
-            device.torchMode = self.isTorchOn ? .on : .off
-            device.unlockForConfiguration()
-            self.logger.info("Torch toggled to: \(self.isTorchOn ? "On" : "Off")")
-            return true
-        } catch {
-            self.logger.error("Failed to toggle torch: \(error.localizedDescription)")
+            do {
+                let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+                guard let device else {
+                    self.logger.warning("No back camera available.")
+                    return false
+                }
+                try device.lockForConfiguration()
+                self.isTorchOn = !self.isTorchOn
+                device.torchMode = self.isTorchOn ? .on : .off
+                device.unlockForConfiguration()
+                self.logger.info("Torch toggled to: \(self.isTorchOn ? "On" : "Off")")
+                return true
+            } catch {
+                self.logger.error("Failed to toggle torch: \(error.localizedDescription)")
+                return false
+            }
+        #else
             return false
-        }
+        #endif
     }
     
     public var isTorchAvailable: Bool {
-        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        #if !os(visionOS) && !os(watchOS)
+            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+                return false
+            }
+            return device.hasTorch && device.isTorchAvailable
+        #else
             return false
-        }
-        return device.hasTorch && device.isTorchAvailable
+        #endif
     }
     
     // Provide SwiftUI button view
@@ -256,75 +292,77 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
     // MARK: - DataScannerViewControllerDelegate Callbacks
 
     /// Called by `DataScannerViewController` when new items (barcodes, text) are recognized.
-    public func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-        self.logger.info("DataScanner didAddItems. Count: \(addedItems.count). Recognizes multiple: \(self.recognizesMultipleItems)")
-        var receivedDataThisCall = false
-        for item in addedItems {
-            switch item {
-            case .barcode(let barcode):
-                let payload = barcode.payloadStringValue
-                self.logger.info("Detected barcode. Payload: \(payload ?? "NIL"). Observation: \(barcode.observation)")
-                if let payload, !payload.isEmpty {
-                    self.delegate?.barcodeScannerDidReceiveBarcode(payload, from: self)
-                    receivedDataThisCall = true
-                } else {
-                    self.logger.warning("Barcode payloadStringValue is nil or empty.")
+    #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+        public func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+            self.logger.info("DataScanner didAddItems. Count: \(addedItems.count). Recognizes multiple: \(self.recognizesMultipleItems)")
+            var receivedDataThisCall = false
+            for item in addedItems {
+                switch item {
+                case .barcode(let barcode):
+                    let payload = barcode.payloadStringValue
+                    self.logger.info("Detected barcode. Payload: \(payload ?? "NIL"). Observation: \(barcode.observation)")
+                    if let payload, !payload.isEmpty {
+                        self.delegate?.barcodeScannerDidReceiveBarcode(payload, from: self)
+                        receivedDataThisCall = true
+                    } else {
+                        self.logger.warning("Barcode payloadStringValue is nil or empty.")
+                    }
+                case .text(let text):
+                    self.logger.info("Detected text: \(text.transcript)")
+                    if self.recognizedDataTypes.contains(.text()) { // Only process if text was an expected type
+                        self.delegate?.barcodeScannerDidReceiveBarcode(text.transcript, from: self)
+                        receivedDataThisCall = true
+                    }
+                default:
+                    self.logger.warning("Unknown item type detected.")
                 }
-            case .text(let text):
-                self.logger.info("Detected text: \(text.transcript)")
-                if self.recognizedDataTypes.contains(.text()) { // Only process if text was an expected type
-                    self.delegate?.barcodeScannerDidReceiveBarcode(text.transcript, from: self)
-                    receivedDataThisCall = true
+                if receivedDataThisCall, !self.recognizesMultipleItems {
+                    break
                 }
-            default:
-                self.logger.warning("Unknown item type detected.")
             }
+
             if receivedDataThisCall, !self.recognizesMultipleItems {
-                break
+                self.logger.info("Single item received and processed. Stopping scan as recognizesMultipleItems is false.")
+                self.stopScanningInternal()
             }
         }
 
-        if receivedDataThisCall, !self.recognizesMultipleItems {
-            self.logger.info("Single item received and processed. Stopping scan as recognizesMultipleItems is false.")
-            self.stopScanningInternal()
+        /// Called by `DataScannerViewController` when items are removed from recognition (e.g., moved out of view).
+        public func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+            // logger.info("DataScanner didRemoveItems. Count: \(removedItems.count)")
+            // Usually not critical for simple barcode scanning unless you need to track items leaving the frame.
         }
-    }
 
-    /// Called by `DataScannerViewController` when items are removed from recognition (e.g., moved out of view).
-    public func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-        // logger.info("DataScanner didRemoveItems. Count: \(removedItems.count)")
-        // Usually not critical for simple barcode scanning unless you need to track items leaving the frame.
-    }
+        /// Called by `DataScannerViewController` when recognized items are updated (e.g., refined position).
+        public func dataScanner(_ dataScanner: DataScannerViewController, didUpdate updatedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+            // logger.info("DataScanner didUpdateItems. Count: \(updatedItems.count)")
+        }
 
-    /// Called by `DataScannerViewController` when recognized items are updated (e.g., refined position).
-    public func dataScanner(_ dataScanner: DataScannerViewController, didUpdate updatedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-        // logger.info("DataScanner didUpdateItems. Count: \(updatedItems.count)")
-    }
-
-    /// Called by `DataScannerViewController` if it becomes unavailable due to an error (e.g., system interruption).
-    public func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: Error) {
-        self.logger.error("DataScanner became unavailable with error: \(error.localizedDescription)")
-        self.isAttemptingScanStart = false // Reset flag
-        self.currentStatus = .error(ScannerError(code: "scanner_unavailable", message: error.localizedDescription))
-    }
+        /// Called by `DataScannerViewController` if it becomes unavailable due to an error (e.g., system interruption).
+        public func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: Error) {
+            self.logger.error("DataScanner became unavailable with error: \(error.localizedDescription)")
+            self.isAttemptingScanStart = false // Reset flag
+            self.currentStatus = .error(ScannerError(code: "scanner_unavailable", message: error.localizedDescription))
+        }
     
-    /// Called when the `DataScannerViewController`'s view becomes active (e.g., after `startScanning()` is successful).
-    public func dataScannerDidBecomeActive(_ dataScanner: DataScannerViewController) {
-        self.logger.info("DataScannerDidBecomeActive.")
-        if !self.isAttemptingScanStart, self.currentStatus != .scanning {
-            self.logger.info("Scanner became active, ensuring status is .scanning.")
-            self.currentStatus = .scanning
+        /// Called when the `DataScannerViewController`'s view becomes active (e.g., after `startScanning()` is successful).
+        public func dataScannerDidBecomeActive(_ dataScanner: DataScannerViewController) {
+            self.logger.info("DataScannerDidBecomeActive.")
+            if !self.isAttemptingScanStart, self.currentStatus != .scanning {
+                self.logger.info("Scanner became active, ensuring status is .scanning.")
+                self.currentStatus = .scanning
+            }
         }
-    }
 
-    /// Called when the `DataScannerViewController`'s view disappears or becomes inactive.
-    public func dataScannerViewDidDisappear(_ dataScanner: DataScannerViewController) {
-        self.logger.info("DataScannerViewDidDisappear.")
-        if self.currentStatus == .scanning {
-            self.logger.info("View disappeared while scanning, updating status. Consider calling stopScanningInternal.")
-            self.updateInternalStatus() // Re-evaluate status
+        /// Called when the `DataScannerViewController`'s view disappears or becomes inactive.
+        public func dataScannerViewDidDisappear(_ dataScanner: DataScannerViewController) {
+            self.logger.info("DataScannerViewDidDisappear.")
+            if self.currentStatus == .scanning {
+                self.logger.info("View disappeared while scanning, updating status. Consider calling stopScanningInternal.")
+                self.updateInternalStatus() // Re-evaluate status
+            }
         }
-    }
+    #endif
 
     // MARK: - Private Helper Methods
 
@@ -343,42 +381,51 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
             return
         }
 
-        self.logger.info("Initializing DataScannerViewController. Recognized types: \(self.recognizedDataTypes), MultipleItems: \(self.recognizesMultipleItems)")
-        let vc = DataScannerViewController(
-            recognizedDataTypes: recognizedDataTypes,
-            qualityLevel: .balanced, // .accurate can be slower but better for small/dense codes
-            recognizesMultipleItems: recognizesMultipleItems,
-            isHighFrameRateTrackingEnabled: false, // Set to true if needed, can consume more power
-            isGuidanceEnabled: true,
-            isHighlightingEnabled: true
-        )
-        vc.delegate = self
-        self.visionScannerVC = vc
-        self.logger.info("DataScannerViewController initialized and delegate set.")
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.logger.info("Initializing DataScannerViewController. Recognized types: \(self.recognizedDataTypes), MultipleItems: \(self.recognizesMultipleItems)")
+            let vc = DataScannerViewController(
+                recognizedDataTypes: recognizedDataTypes,
+                qualityLevel: .balanced, // .accurate can be slower but better for small/dense codes
+                recognizesMultipleItems: recognizesMultipleItems,
+                isHighFrameRateTrackingEnabled: false, // Set to true if needed, can consume more power
+                isGuidanceEnabled: true,
+                isHighlightingEnabled: true
+            )
+            vc.delegate = self
+            self.visionScannerVC = vc
+            self.logger.info("DataScannerViewController initialized and delegate set.")
+        #else
+            self.logger.info("Skipping DataScannerViewController initialization on Mac Catalyst.")
+            self.currentStatus = .error(ScannerError(code: "camera_unsupported", message: "Scanning not supported on Mac Catalyst."))
+        #endif
     }
 
     /// Stops the `DataScannerViewController`'s scanning process and updates internal state.
     private func stopScanningInternal() {
-        self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
-        guard let vc = visionScannerVC, vc.isScanning || isAttemptingScanStart else {
-            if self.isAttemptingScanStart {
-                self.isAttemptingScanStart = false
-                self.logger.info("Was attempting scan start, but VC not scanning or nil. Resetting flag.")
-            } else {
-                self.logger.info("Not currently scanning or attempting to scan, or VC is nil. stopScanningInternal is a no-op for VC.")
+        #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+            self.logger.info("stopScanningInternal called. Current VC scan state: \(self.visionScannerVC?.isScanning ?? false), Our isAttemptingScanStart: \(self.isAttemptingScanStart)")
+            guard let vc = visionScannerVC, vc.isScanning || isAttemptingScanStart else {
+                if self.isAttemptingScanStart {
+                    self.isAttemptingScanStart = false
+                    self.logger.info("Was attempting scan start, but VC not scanning or nil. Resetting flag.")
+                } else {
+                    self.logger.info("Not currently scanning or attempting to scan, or VC is nil. stopScanningInternal is a no-op for VC.")
+                }
+                // Ensure status is not .scanning if we are here.
+                if self.currentStatus == .scanning {
+                    self.updateInternalStatus()
+                }
+                return
             }
-            // Ensure status is not .scanning if we are here.
-            if self.currentStatus == .scanning {
-                self.updateInternalStatus()
-            }
-            return
-        }
 
-        if vc.isScanning {
-            self.logger.info("Calling DataScannerViewController.stopScanning().")
-            vc.stopScanning()
-        }
-        self.isAttemptingScanStart = false // Reset flag
+            if vc.isScanning {
+                self.logger.info("Calling DataScannerViewController.stopScanning().")
+                vc.stopScanning()
+            }
+        #else
+            self.logger.info("No scanning to stop on Mac Catalyst.")
+        #endif
+        self.isAttemptingScanStart = false
         self.updateInternalStatus()
         self.logger.info("Internal scan stopped. Status after updateInternalStatus: \(self.currentStatus.description)")
     }
@@ -492,13 +539,21 @@ public final class VisionKitScanner: NSObject, BarcodeScanner, DataScannerViewCo
             self.currentStatus = .error(ScannerError(code: "camera_unsupported", message: "Camera not supported."))
         } else if !self.hasCameraPermission {
             self.currentStatus = .error(.permissionDenied)
-        } else if self.visionScannerVC?.isScanning ?? false {
-            self.currentStatus = .scanning
-        } else if self.isAttemptingScanStart {
-            // Don't change status here, let startScanning resolve to .scanning or .error
         } else {
-            self.currentStatus = (self.visionScannerVC != nil) ? .ready : .idle
+            #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+                if (self.visionScannerVC as? DataScannerViewController)?.isScanning ?? false {
+                    self.currentStatus = .scanning
+                } else {
+                    self.currentStatus = (self.visionScannerVC != nil) ? .ready : .idle
+                }
+            #else
+                self.currentStatus = .error(ScannerError(code: "camera_unsupported", message: "Camera not supported."))
+            #endif
         }
         self.logger.info("updateInternalStatus: Final status: \(self.currentStatus.description)")
     }
 }
+
+#if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
+    extension VisionKitScanner: DataScannerViewControllerDelegate {}
+#endif
