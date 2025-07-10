@@ -20,8 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install Apple WWDR Certificate
-      run: curl -O https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer
-            sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AppleWWDRCAG3.cer
+      run: |
+          wget https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -O AppleWWDRCAG3.cer
+          sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain AppleWWDRCAG3.cer
     - name: Resolve Swift package dependencies
       run: xcodebuild -resolvePackageDependencies
     - name: Build and Test
