@@ -103,6 +103,10 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Illustration Message | :white_check_mark: |
 | Slider(single and range) | :white_check_mark: |
 | Attachment | :white_check_mark: |
+| FilterFeedbackBar | :white_check_mark: |
+| Switch FormCell | :white_check_mark: |
+| Onboarding Scan View | :white_check_mark: |
+| Section Header | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
 | BarcodeScanner | :x: |
