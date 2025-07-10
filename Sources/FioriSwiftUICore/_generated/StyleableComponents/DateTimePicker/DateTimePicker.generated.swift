@@ -7,13 +7,26 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var customizedDate: Date = .init(timeIntervalSince1970: 0.0)
 /// @State var isRequired = false
 /// @State var showsErrorMessage = false
+/// @State var customizedPickerVisible = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+///     return formatter
+/// }()
+/// func mandatoryFieldIndicator() -> TextOrIcon {
+///     var indicator = AttributedString("*")
+///     indicator.font = .fiori(forTextStyle: .title3)
+///     indicator.foregroundColor = Color.preferredColor(.indigo7)
+///     return .text(indicator)
+/// }
+/// @State var customizedPickerVisible = false
 ///
-/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
-///    .informationViewStyle(.informational)
+/// DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+///    .environment(\.locale, Locale(identifier: "zh-Hans"))
+///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 public struct DateTimePicker {
     let title: any View
