@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Disable Swift Package Collection certificate validation
+      run: defaults write com.apple.dt.Xcode IDEDisablePackageCollectionCertificateValidation -bool YES
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' clean build test | xcpretty
     - name: Create code coverage report
