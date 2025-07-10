@@ -734,6 +734,23 @@ public extension View {
     }
 }
 
+// MARK: DateRangePickerStyle
+
+public extension View {
+    func dateRangePickerStyle(_ style: some DateRangePickerStyle) -> some View {
+        self.transformEnvironment(\.dateRangePickerStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func dateRangePickerStyle(@ViewBuilder content: @escaping (DateRangePickerConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.dateRangePickerStyleStack) { stack in
+            let style = AnyDateRangePickerStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 public extension View {
