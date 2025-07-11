@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.8.0-20250711](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250709...25.8.0-20250711) (2025-07-11)
+
+
+### Features
+
+* 🎸 [HCPSDKFIORIUIKIT-2962] Date Range Picker ([#1152](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1152)) ([5d19c0c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5d19c0cd766e32eb2a5c8b398ff8efd283206408))
+* add fiori.link.external icon ([#1159](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1159)) ([d165c58](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d165c581454fcdf937b9de381cb4dac6a8f98d2c)), closes [#782](https://github.com/SAP/cloud-sdk-ios-fiori/issues/782) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#796](https://github.com/SAP/cloud-sdk-ios-fiori/issues/796) [#798](https://github.com/SAP/cloud-sdk-ios-fiori/issues/798) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#790](https://github.com/SAP/cloud-sdk-ios-fiori/issues/790)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-791] DateTimePicker Enhancement ([#1154](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1154)) ([cf8147c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cf8147c0a1fb4bf8eaf8bf3c1e7a0eb467c0cfb5))
+* 🐛 keep only one vote state in W.A. feedback flow ([#1155](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1155)) ([064f3e7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/064f3e7eb7dd75a07eff0ef860949d8d74618d65))
+
 ## [4.4.0-20250407](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250308...4.4.0-20250407) (2025-04-07)
 
 
