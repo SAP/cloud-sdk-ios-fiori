@@ -580,13 +580,26 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
 ///
 /// ## Usage
 /// ```swift
-/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var customizedDate: Date = .init(timeIntervalSince1970: 0.0)
 /// @State var isRequired = false
 /// @State var showsErrorMessage = false
+/// @State var customizedPickerVisible = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+///     return formatter
+/// }()
+/// func mandatoryFieldIndicator() -> TextOrIcon {
+///     var indicator = AttributedString("*")
+///     indicator.font = .fiori(forTextStyle: .title3)
+///     indicator.foregroundColor = Color.preferredColor(.indigo7)
+///     return .text(indicator)
+/// }
+/// @State var customizedPickerVisible = false
 ///
-/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
-///    .informationViewStyle(.informational)
+/// DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+///    .environment(\.locale, Locale(identifier: "zh-Hans"))
+///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
@@ -594,6 +607,8 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     var selectedDate: Date { get }
+    /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    var dateFormatter: DateFormatter? { get }
     
     // sourcery: defaultValue = [.date, .hourAndMinute]
     /// The components shown in the date picker, default value shows date and time.
@@ -612,6 +627,60 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     
     // sourcery: @Binding
     /// This property indicates whether the picker is to be displayed.
+    var pickerVisible: Bool { get set }
+}
+
+/// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
+/// ## Usage
+/// ```swift
+/// @State var isRequired = false
+/// @State var selectedRange1: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var selectedRange2: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var selectedRange3: ClosedRange<Date>? = Date.now...Date.init(timeIntervalSinceNow: 24 * 60 * 60 * 2)
+/// @State var pickerVisible1 = false
+/// @State var pickerVisible2 = false
+/// @State var pickerVisible3 = false
+/// @State var showsErrorMessage = false
+/// @State var showAINotice: Bool = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "dd-MM-yyyy"
+///     return formatter
+/// }()
+/// DateRangePicker(title: "Range Selection1", isRequired: isRequired, selectedRange: $selectedRange1, pickerVisible: $pickerVisible1)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
+///     .informationViewStyle(.informational)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///
+/// DateRangePicker(title: "Customized Date Formatter", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange2, rangeFormatter: self.customizedDateFormatter, pickerVisible: self.$pickerVisible2)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
+///     .informationViewStyle(.success)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///
+/// DateRangePicker(title: "Custom Locale & Calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange3, pickerVisible: self.$pickerVisible3)
+///     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
+///     .informationViewStyle(.informational)
+///     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+///     .environment(\.locale, Locale(identifier: "zh-Hans"))
+///     .environment(\.calendar, Calendar(identifier: .gregorian))
+/// ```
+// sourcery: CompositeComponent
+protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
+    /// The inclusive range of selectable dates.
+    var range: Range<Date>? { get }
+    // sourcery: @Binding
+    // sourcery: defaultValue = ".constant(nil)"
+    /// The range of selected dates. Default is nil. It's continuous in ascending order.
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
+    var rangeFormatter: DateFormatter? { get }
+    
+    /// The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
+    var noRangeSelectedString: String? { get }
+    
+    // sourcery: @Binding
+    /// This property indicates whether the picker is to be displayed or not.
     var pickerVisible: Bool { get set }
 }
 
