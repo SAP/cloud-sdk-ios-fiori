@@ -1,3 +1,4 @@
+import Combine
 import FioriThemeManager
 import Foundation
 import os.log
@@ -35,11 +36,12 @@ struct WAErrorModel: Equatable {
 }
 
 class WritingAssistantContext: NSObject, ObservableObject {
+    var selectionKVO: NSKeyValueObservation?
     var textView: UITextView?
     var textField: UITextField?
     
-    @Published var originalValue: String
-    @Published var displayedValue: String
+    @Published var originalValue: String = ""
+    @Published var displayedValue: String = ""
     
     var originalSelectedRange: NSRange? = nil
     var selectedRange: NSRange? = nil
@@ -52,6 +54,13 @@ class WritingAssistantContext: NSObject, ObservableObject {
     @Published var customDestination: CustomDestination? = nil
 
     var rewriteTextSet: [(range: NSRange, value: String)] = []
+    
+    @Published var isInWAFlow: Bool = false
+    var logKeyboardChanged = true
+    
+    func updateInWAFlow(_ showKeyboard: Bool) {
+        self.isInWAFlow = showKeyboard && self.textView?.isFirstResponder ?? false
+    }
     
     @Published var selection: WAMenu? = nil
     @Published var lastSelection: WAMenu? = nil
@@ -66,14 +75,14 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.errorModel.isFeedbackError && !self.errorModel.isInMenuView && self.errorModel.error != nil
     }
     
-    var indexOfCurrentValue: Int
+    var indexOfCurrentValue: Int = 0
     var rangeChangedShouldBeMonitored: Bool = true
     var lastFeedbackInformation: (voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool)? = nil
+    var menus: [[WAMenu]] = []
+    var menuHandler: ((WAMenu, String) async -> WAResult)!
+    var feedbackOptions: [String] = []
+    var feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
     
-    let menus: [[WAMenu]]
-    let menuHandler: (WAMenu, String) async -> WAResult
-    let feedbackOptions: [String]
-    let feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
     @Published var feedbackVoteState: AIUserFeedbackVoteState = .notDetermined
     @Published var feedbackSubmitButtonState: AIUserFeedbackSubmitButtonState = .normal
     
@@ -95,11 +104,11 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.errorModel = WAErrorModel(isFeedbackError: isFeedbackError, isInMenuView: isInMenuView, error: error)
     }
     
-    init(originalValue: String,
-         menus: [[WAMenu]],
-         menuHandler: @escaping (WAMenu, String) async -> WAResult,
-         feedbackOptions: [String],
-         feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?)
+    func reset(originalValue: String,
+               menus: [[WAMenu]],
+               menuHandler: @escaping (WAMenu, String) async -> WAResult,
+               feedbackOptions: [String],
+               feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?)
     {
         self.originalValue = originalValue
         self.menus = menus
@@ -112,10 +121,15 @@ class WritingAssistantContext: NSObject, ObservableObject {
     }
     
     func startMenuTask(menu: WAMenu) {
+        guard let menuHandler else {
+            os_log("Menu handler is not set", log: .default, type: .error)
+            return
+        }
         self.errorModel.error = nil
         self.inProgress = true
+        self.logKeyboardChanged = false
         self.task = Task {
-            let result = await self.menuHandler(menu, self.displayedValue)
+            let result = await menuHandler(menu, self.displayedValue)
             await MainActor.run {
                 self.updateMenuResult(menu, result)
             }
@@ -133,6 +147,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         case .failure(let error):
             self.setError(error, isFeedbackError: false, isInMenuView: true)
         }
+        self.logKeyboardChanged = true
     }
     
     func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
@@ -306,5 +321,6 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.customDestination = nil
         self.showFeedbackSuccessToast = false
         self.feedbackVoteState = .notDetermined
+        self.logKeyboardChanged = true
     }
 }

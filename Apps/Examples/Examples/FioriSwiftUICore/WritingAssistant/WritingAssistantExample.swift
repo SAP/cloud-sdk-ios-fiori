@@ -30,6 +30,8 @@ struct WritingAssistantExample: View {
     @State var helperAction = WAHelperAction.none
     @State var errorOccurred = false
     @State var waSheetHeight: CGFloat = 0
+    @State var isLoading = false
+    @FocusState var isFocused: Bool
     
     @ViewBuilder
     var customDestination: some View {
@@ -39,13 +41,17 @@ struct WritingAssistantExample: View {
     
     private func fetchData(for menu: WAMenu, value: String) async -> WAResult {
         if self.errorOccurred {
+            self.isLoading = true
             try? await Task.sleep(nanoseconds: 1500000000)
+            self.isLoading = false
             return .failure(WAError(detailImage: FioriIcon.illustrations.simpleConnectionSpot, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
         } else {
             if menu == .analyzeText {
                 return .customDestination(self.customDestination)
             } else {
+                self.isLoading = true
                 try? await Task.sleep(nanoseconds: 1500000000)
+                self.isLoading = false
                 return .success("Mock Async Value - \(menu.title)")
             }
         }
@@ -74,7 +80,7 @@ struct WritingAssistantExample: View {
         List {
             Toggle("Show Error", isOn: self.$errorOccurred)
             
-            NoteFormView(text: self.$text, placeholder: "NoteFormView", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
+            NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
                 .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
@@ -83,14 +89,15 @@ struct WritingAssistantExample: View {
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
             
-            NoteFormView(text: self.$text2, placeholder: "NoteFormView", allowsBeyondLimit: false)
-                .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
+            NoteFormView(text: self.$text2, placeholder: "NoteFormView2", allowsBeyondLimit: false)
+                .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
                     await self.submitFeedback(state: state, values: values)
                 })
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
+            
             Spacer()
         }
         .padding()
