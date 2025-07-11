@@ -125,35 +125,54 @@ import SwiftUI
  */
                         
 struct ShimmerViewModifier: ViewModifier {
+    let isLoading: Bool
     @State private var phase: CGFloat = -1
     @State var isTintColor: Bool = false
-
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(Color.preferredColor(self.isTintColor ? .tintColor : .separator))
-            .redacted(reason: .placeholder)
-            .overlay(
-                GeometryReader { geometry in
-                    let width = geometry.size.width
-                    ZStack {
-                        Color.preferredColor(self.isTintColor ? .tintColor : .base2)
-                            .blendMode(.plusLighter)
-                            .mask(content)
-                        self.getLinearGradient(self.isTintColor)
-                            .offset(x: self.phase * width, y: 0)
-                            .blendMode(.plusLighter)
-                            .mask(content)
-                    }
-                }
-                .allowsHitTesting(false)
-            )
-            .onAppear {
-                self.phase = -1
-                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
-                    self.phase = 1
+    
+    var redactedForegroundColor: Color {
+        if self.isLoading {
+            return Color.preferredColor(self.isTintColor ? .tintColor : .separator)
+        } else {
+            return Color.clear
+        }
+    }
+    
+    @ViewBuilder func redactedOverlay(content: Content) -> some View {
+        if self.isLoading {
+            GeometryReader { geometry in
+                let width = geometry.size.width
+                ZStack {
+                    Color.preferredColor(self.isTintColor ? .tintColor : .base2)
+                        .blendMode(.plusLighter)
+                        .mask(content)
+                    self.getLinearGradient(self.isTintColor)
+                        .offset(x: self.phase * width, y: 0)
+                        .blendMode(.plusLighter)
+                        .mask(content)
                 }
             }
             .allowsHitTesting(false)
+        } else {
+            EmptyView()
+        }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(self.redactedForegroundColor)
+            .redacted(reason: self.isLoading ? .placeholder : [])
+            .overlay(
+                self.redactedOverlay(content: content)
+            )
+            .onAppear {
+                if self.isLoading {
+                    self.phase = -1
+                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
+                        self.phase = 1
+                    }
+                }
+            }
+            .allowsHitTesting(self.isLoading ? false : true)
     }
         
     func getLinearGradient(_ isTintColor: Bool) -> LinearGradient {
@@ -210,8 +229,8 @@ public extension View {
     /// Applies a shimmer loading effect to the view.
     /// - Parameters:
     /// - `isTintColor`: A Boolean value indicating whether to use the tint color for the shimmer effect. Defaults to `false`.
-    func skeletonLoading(isTintColor: Bool = false) -> some View {
-        self.modifier(ShimmerViewModifier(isTintColor: isTintColor))
+    func skeletonLoading(isLoading: Bool = true, isTintColor: Bool = false) -> some View {
+        self.modifier(ShimmerViewModifier(isLoading: isLoading, isTintColor: isTintColor))
     }
 }
 
@@ -247,17 +266,21 @@ public struct SkeletonLoadingContainer<Content: View>: View {
     var isLoading: Bool = false
     var isTintColor: Bool = false
     let content: () -> Content
-
+    
+    var redactedForegroundColor: Color {
+        if self.isLoading {
+            return Color.preferredColor(.separator)
+        } else {
+            return Color.clear
+        }
+    }
+    
     public var body: some View {
         Group {
-            if self.isLoading {
-                self.content()
-                    .foregroundColor(Color.preferredColor(.separator))
-                    .redacted(reason: .placeholder)
-                    .skeletonLoading(isTintColor: self.isTintColor)
-            } else {
-                self.content()
-            }
+            self.content()
+                .foregroundColor(self.redactedForegroundColor)
+                .redacted(reason: self.isLoading ? .placeholder : [])
+                .skeletonLoading(isLoading: self.isLoading, isTintColor: self.isTintColor)
         }
     }
 }
