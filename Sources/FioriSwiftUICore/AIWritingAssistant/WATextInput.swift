@@ -70,18 +70,15 @@ public extension View {
 struct WATextInputModifier: ViewModifier {
     @Binding var text: String
     
-    @StateObject var context = WritingAssistantContext()
+    @StateObject var context: WritingAssistantContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @FocusState private var isTextInputFocused: Bool
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
+    @Environment(\.isLoading) var isLoading
     
     var formView: WritingAssistantForm
     let waAction = WritingAssistantAction()
-    let menus: [[WAMenu]]
-    let menuHandler: (WAMenu, String) async -> WAResult
-    let feedbackOptions: [String]
-    let feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
     
     init(text: Binding<String>,
          menus: [[WAMenu]],
@@ -90,11 +87,13 @@ struct WATextInputModifier: ViewModifier {
          feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?)
     {
         self._text = text
+        let context = WritingAssistantContext(originalValue: text.wrappedValue,
+                                              menus: menus,
+                                              menuHandler: menuHandler,
+                                              feedbackOptions: feedbackOptions,
+                                              feedbackHandler: feedbackHandler)
+        self._context = StateObject(wrappedValue: context)
         self.formView = WritingAssistantForm(text: text, menus: menus)
-        self.menus = menus
-        self.menuHandler = menuHandler
-        self.feedbackOptions = feedbackOptions
-        self.feedbackHandler = feedbackHandler
     }
     
     // swiftlint:disable function_body_length cyclomatic_complexity
@@ -103,7 +102,6 @@ struct WATextInputModifier: ViewModifier {
             .modifier(
                 FioriIntrospectModifier<UITextView> { textView in
                     self.context.textView = textView
-                    self.context.textField = nil
                     self.context.observeSelectionChange(for: textView)
                 }
             )
@@ -222,13 +220,6 @@ struct WATextInputModifier: ViewModifier {
                     )
                     .onDisappear {
                         self.waSheetHeightUpdated?(0)
-                    }
-                    .task {
-                        self.context.reset(originalValue: self.text,
-                                           menus: self.menus,
-                                           menuHandler: self.menuHandler,
-                                           feedbackOptions: self.feedbackOptions,
-                                           feedbackHandler: self.feedbackHandler)
                     }
             }
     }

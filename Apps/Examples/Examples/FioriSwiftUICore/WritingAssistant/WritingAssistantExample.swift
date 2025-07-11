@@ -81,6 +81,8 @@ struct WritingAssistantExample: View {
             Toggle("Show Error", isOn: self.$errorOccurred)
             
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
+                .environment(\.isAILoading, self.isLoading)
+                .environment(\.isLoading, self.isLoading)
                 .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
