@@ -1212,6 +1212,34 @@ public extension CounterStyle {
     }
 }
 
+// MARK: DateRangePickerStyle
+
+extension ModifiedStyle: DateRangePickerStyle where Style: DateRangePickerStyle {
+    public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        DateRangePicker(configuration)
+            .dateRangePickerStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DateRangePickerStyleModifier<Style: DateRangePickerStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.dateRangePickerStyle(self.style)
+    }
+}
+
+public extension DateRangePickerStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DateRangePickerStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DateRangePickerStyle) -> some DateRangePickerStyle {
+        style.modifier(DateRangePickerStyleModifier(style: self))
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 extension ModifiedStyle: DateTimePickerStyle where Style: DateTimePickerStyle {
