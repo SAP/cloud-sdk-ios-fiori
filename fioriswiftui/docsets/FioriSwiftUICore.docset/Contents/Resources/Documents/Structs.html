@@ -7135,6 +7135,34 @@ Provides a standard layout for username and password Text fields</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore24DateRangePickerBaseStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerBaseStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore24DateRangePickerBaseStyleV">DateRangePickerBaseStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerBaseStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore23DateTimePickerBaseStyleV"></a>
                       <a name="//apple_ref/swift/Struct/DateTimePickerBaseStyle" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore23DateTimePickerBaseStyleV">DateTimePickerBaseStyle</a>
@@ -19229,6 +19257,124 @@ Example usage:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore15DateRangePickerV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePicker" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore15DateRangePickerV">DateRangePicker</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p><code>DateRangePicker</code>  provides a title and value label with Fiori styling and a <code>MultiDatePicker</code>.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">isRequired</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">selectedRange1</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kt">Date</span><span class="o">.</span><span class="n">now</span><span class="o">...</span><span class="kt">Date</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSinceNow</span><span class="p">:</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">selectedRange2</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kt">Date</span><span class="o">.</span><span class="n">now</span><span class="o">...</span><span class="kt">Date</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSinceNow</span><span class="p">:</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">selectedRange3</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kt">Date</span><span class="o">.</span><span class="n">now</span><span class="o">...</span><span class="kt">Date</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSinceNow</span><span class="p">:</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">pickerVisible1</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">pickerVisible2</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">pickerVisible3</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">showsErrorMessage</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">showAINotice</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">let</span> <span class="nv">customizedDateFormatter</span><span class="p">:</span> <span class="kt">DateFormatter</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">formatter</span> <span class="o">=</span> <span class="kt">DateFormatter</span><span class="p">()</span>
+    <span class="n">formatter</span><span class="o">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="s">"dd-MM-yyyy"</span>
+    <span class="k">return</span> <span class="n">formatter</span>
+<span class="p">}()</span>
+<span class="kt">DateRangePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Range Selection1"</span><span class="p">,</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedRange</span><span class="p">:</span> <span class="err">$</span><span class="n">selectedRange1</span><span class="p">,</span> <span class="nv">pickerVisible</span><span class="p">:</span> <span class="err">$</span><span class="n">pickerVisible1</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">informationView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showsErrorMessage</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"This is information hint message."</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">informational</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">aiNoticeView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showAINotice</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="s">"AI Notice"</span><span class="p">)</span>
+
+<span class="kt">DateRangePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Customized Date Formatter"</span><span class="p">,</span> <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="nf">mandatoryFieldIndicator</span><span class="p">(),</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedRange</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selectedRange2</span><span class="p">,</span> <span class="nv">rangeFormatter</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">customizedDateFormatter</span><span class="p">,</span> <span class="nv">pickerVisible</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">pickerVisible2</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">informationView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showsErrorMessage</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"This is information success message."</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">success</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">aiNoticeView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showAINotice</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="s">"AI Notice"</span><span class="p">)</span>
+
+<span class="kt">DateRangePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Custom Locale &amp; Calendar"</span><span class="p">,</span> <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="nf">mandatoryFieldIndicator</span><span class="p">(),</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedRange</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selectedRange3</span><span class="p">,</span> <span class="nv">pickerVisible</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">pickerVisible3</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">informationView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showsErrorMessage</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"This is information hint message."</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">informational</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">aiNoticeView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showAINotice</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="s">"AI Notice"</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="kt">Locale</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"zh-Hans"</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="kt">Calendar</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="o">.</span><span class="n">gregorian</span><span class="p">))</span>
+</code></pre>
+
+                          <a href="Structs/DateRangePicker.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePicker</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DateRangePicker</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DateRangePicker</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore28DateRangePickerConfigurationV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerConfiguration" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore28DateRangePickerConfigurationV">DateRangePickerConfiguration</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerConfiguration.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore015DateRangePickerA5StyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerFioriStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore015DateRangePickerA5StyleV">DateRangePickerFioriStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerFioriStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore14DateTimePickerV"></a>
                       <a name="//apple_ref/swift/Struct/DateTimePicker" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore14DateTimePickerV">DateTimePicker</a>
@@ -19241,13 +19387,26 @@ Example usage:</p>
                         <div class="abstract">
                           <p><code>DateTimePicker</code>  provides a title and value label with Fiori styling and a <code>DatePicker</code>.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">selection</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSince1970</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedDate</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSince1970</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">isRequired</span> <span class="o">=</span> <span class="kc">false</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">showsErrorMessage</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedPickerVisible</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">let</span> <span class="nv">customizedDateFormatter</span><span class="p">:</span> <span class="kt">DateFormatter</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">formatter</span> <span class="o">=</span> <span class="kt">DateFormatter</span><span class="p">()</span>
+    <span class="n">formatter</span><span class="o">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="s">"MM/dd/yyyy HH:mm:ss"</span>
+    <span class="k">return</span> <span class="n">formatter</span>
+<span class="p">}()</span>
+<span class="kd">func</span> <span class="nf">mandatoryFieldIndicator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextOrIcon</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">indicator</span> <span class="o">=</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"*"</span><span class="p">)</span>
+    <span class="n">indicator</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="o">.</span><span class="nf">fiori</span><span class="p">(</span><span class="nv">forTextStyle</span><span class="p">:</span> <span class="o">.</span><span class="n">title3</span><span class="p">)</span>
+    <span class="n">indicator</span><span class="o">.</span><span class="n">foregroundColor</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">indigo7</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="n">indicator</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedPickerVisible</span> <span class="o">=</span> <span class="kc">false</span>
 
-<span class="kt">DateTimePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Default"</span><span class="p">,</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedDate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection</span><span class="p">)</span>
-   <span class="o">.</span><span class="nf">informationView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showsErrorMessage</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"The Date should be before December."</span><span class="p">))</span>
-   <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">informational</span><span class="p">)</span>
+<span class="kt">DateTimePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Customized Date Formatter, locale and calendar"</span><span class="p">,</span> <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="nf">mandatoryFieldIndicator</span><span class="p">(),</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedDate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">customizedDate</span><span class="p">,</span> <span class="nv">dateFormatter</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">customizedDateFormatter</span><span class="p">,</span> <span class="nv">pickerVisible</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">customizedPickerVisible</span><span class="p">)</span>
+   <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="kt">Locale</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"zh-Hans"</span><span class="p">))</span>
+   <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="kt">Calendar</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="o">.</span><span class="n">gregorian</span><span class="p">))</span>
 </code></pre>
 
                           <a href="Structs/DateTimePicker.html" class="slightly-smaller">See more</a>
@@ -33250,6 +33409,103 @@ Example usage:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/DateRangePickerStyle"></a>
+                  <a name="//apple_ref/swift/Section/DateRangePickerStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DateRangePickerStyle"></a>
+                    <h3 class="section-name"><span>DateRangePickerStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore25DateRangePickerTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore25DateRangePickerTitleStyleV">DateRangePickerTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore30DateRangePickerValueLabelStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerValueLabelStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore30DateRangePickerValueLabelStyleV">DateRangePickerValueLabelStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerValueLabelStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerValueLabelStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore28DateRangePickerFormViewStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerFormViewStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore28DateRangePickerFormViewStyleV">DateRangePickerFormViewStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerFormViewStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerFormViewStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/DateTimePickerStyle"></a>
                   <a name="//apple_ref/swift/Section/DateTimePickerStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -40880,6 +41136,7 @@ Example usage:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/CloseActionStyle.html">CloseActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/CloseActionStyle.html">CloseActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/ContactItemStyle.html">ContactItemStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/ContactItemStyle.html">ContactItemStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/CounterStyle.html">CounterStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/CounterStyle.html">CounterStyle</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DateTimePickerStyle.html">DateTimePickerStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DateTimePickerStyle.html">DateTimePickerStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DecrementActionStyle.html">DecrementActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DecrementActionStyle.html">DecrementActionStyle</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ModifiedStyle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DenyActionStyle.html">DenyActionStyle</a></span> <span class="k">where</span> <span class="kt">Style</span><span class="p">:</span> <span class="kt"><a href="Protocols/DenyActionStyle.html">DenyActionStyle</a></span></code></pre>
@@ -42802,6 +43059,47 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CounterStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CounterStyle.html">CounterStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/DateRangePickerStyle2"></a>
+                  <a name="//apple_ref/swift/Section/DateRangePickerStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/DateRangePickerStyle2"></a>
+                    <h3 class="section-name"><span>DateRangePickerStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore28DateRangePickerStyleModifierV"></a>
+                      <a name="//apple_ref/swift/Struct/DateRangePickerStyleModifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore28DateRangePickerStyleModifierV">DateRangePickerStyleModifier</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/DateRangePickerStyleModifier.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -49857,6 +50155,9 @@ Example usage:</p>
                   <a href="Protocols/DataItem.html">DataItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Protocols/DateTimePickerStyle.html">DateTimePickerStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -51669,6 +51970,30 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DataTimeItem.html">DataTimeItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePicker.html">DateRangePicker</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerBaseStyle.html">DateRangePickerBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerConfiguration.html">DateRangePickerConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerFioriStyle.html">DateRangePickerFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerFormViewStyle.html">DateRangePickerFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerStyleModifier.html">DateRangePickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerTitleStyle.html">DateRangePickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/DateRangePickerValueLabelStyle.html">DateRangePickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/DateTimePicker.html">DateTimePicker</a>
@@ -55346,7 +55671,7 @@ Example usage:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-09)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

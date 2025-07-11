@@ -53,13 +53,26 @@
                 </div>
               <p><code>DateTimePicker</code>  provides a title and value label with Fiori styling and a <code>DatePicker</code>.</p>
 <h2 id='usage' class='heading'>Usage</h2>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">selection</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSince1970</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedDate</span><span class="p">:</span> <span class="kt">Date</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">timeIntervalSince1970</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">isRequired</span> <span class="o">=</span> <span class="kc">false</span>
 <span class="kd">@State</span> <span class="k">var</span> <span class="nv">showsErrorMessage</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedPickerVisible</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">let</span> <span class="nv">customizedDateFormatter</span><span class="p">:</span> <span class="kt">DateFormatter</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">formatter</span> <span class="o">=</span> <span class="kt">DateFormatter</span><span class="p">()</span>
+    <span class="n">formatter</span><span class="o">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="s">"MM/dd/yyyy HH:mm:ss"</span>
+    <span class="k">return</span> <span class="n">formatter</span>
+<span class="p">}()</span>
+<span class="kd">func</span> <span class="nf">mandatoryFieldIndicator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TextOrIcon</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">indicator</span> <span class="o">=</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"*"</span><span class="p">)</span>
+    <span class="n">indicator</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="o">.</span><span class="nf">fiori</span><span class="p">(</span><span class="nv">forTextStyle</span><span class="p">:</span> <span class="o">.</span><span class="n">title3</span><span class="p">)</span>
+    <span class="n">indicator</span><span class="o">.</span><span class="n">foregroundColor</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">indigo7</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">.</span><span class="nf">text</span><span class="p">(</span><span class="n">indicator</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">@State</span> <span class="k">var</span> <span class="nv">customizedPickerVisible</span> <span class="o">=</span> <span class="kc">false</span>
 
-<span class="kt">DateTimePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Default"</span><span class="p">,</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedDate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">selection</span><span class="p">)</span>
-   <span class="o">.</span><span class="nf">informationView</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">showsErrorMessage</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"The Date should be before December."</span><span class="p">))</span>
-   <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">informational</span><span class="p">)</span>
+<span class="kt">DateTimePicker</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Customized Date Formatter, locale and calendar"</span><span class="p">,</span> <span class="nv">mandatoryFieldIndicator</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="nf">mandatoryFieldIndicator</span><span class="p">(),</span> <span class="nv">isRequired</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isRequired</span><span class="p">,</span> <span class="nv">selectedDate</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">customizedDate</span><span class="p">,</span> <span class="nv">dateFormatter</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">customizedDateFormatter</span><span class="p">,</span> <span class="nv">pickerVisible</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">customizedPickerVisible</span><span class="p">)</span>
+   <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="kt">Locale</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="s">"zh-Hans"</span><span class="p">))</span>
+   <span class="o">.</span><span class="nf">environment</span><span class="p">(\</span><span class="o">.</span><span class="n">calendar</span><span class="p">,</span> <span class="kt">Calendar</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="o">.</span><span class="n">gregorian</span><span class="p">))</span>
 </code></pre>
 
             </section>
@@ -69,9 +82,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel12controlState12errorMessage5range08selectedD016pickerComponents9dateStyle04timeS002noD14SelectedString0P7Visible19componentIdentifierAC0B2UI4View_pyXE_ApQ_pyXEAA07ControlK0V10Foundation010AttributedW0VSgSNyAT0D0VGSgAP7BindingVyAYGAP0dfQ0VAY06FormatS0V0dS0VA6_0eS0VSSSgA1_ySbGA11_tcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:valueLabel:controlState:errorMessage:range:selectedDate:pickerComponents:dateStyle:timeStyle:noDateSelectedString:pickerVisible:componentIdentifier:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel12controlState12errorMessage5range08selectedD016pickerComponents9dateStyle04timeS002noD14SelectedString0P7Visible19componentIdentifierAC0B2UI4View_pyXE_ApQ_pyXEAA07ControlK0V10Foundation010AttributedW0VSgSNyAT0D0VGSgAP7BindingVyAYGAP0dfQ0VAY06FormatS0V0dS0VA6_0eS0VSSSgA1_ySbGA11_tcfc">init(title:<wbr>valueLabel:<wbr>controlState:<wbr>errorMessage:<wbr>range:<wbr>selectedDate:<wbr>pickerComponents:<wbr>dateStyle:<wbr>timeStyle:<wbr>noDateSelectedString:<wbr>pickerVisible:<wbr>componentIdentifier:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel12controlState12errorMessage5range08selectedD013dateFormatter16pickerComponents0P5Style04timeT002noD14SelectedString0R7Visible19componentIdentifierAC0B2UI4View_pyXE_AqR_pyXEAA07ControlK0V10Foundation010AttributedX0VSgSNyAU0D0VGSgAQ7BindingVyAZGSo06NSDateQ0CSgAQ0dfS0VAZ06FormatT0V0dT0VA10_0eT0VSSSgA2_ySbGA15_tcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:valueLabel:controlState:errorMessage:range:selectedDate:dateFormatter:pickerComponents:dateStyle:timeStyle:noDateSelectedString:pickerVisible:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel12controlState12errorMessage5range08selectedD013dateFormatter16pickerComponents0P5Style04timeT002noD14SelectedString0R7Visible19componentIdentifierAC0B2UI4View_pyXE_AqR_pyXEAA07ControlK0V10Foundation010AttributedX0VSgSNyAU0D0VGSgAQ7BindingVyAZGSo06NSDateQ0CSgAQ0dfS0VAZ06FormatT0V0dT0VA10_0eT0VSSSgA2_ySbGA15_tcfc">init(title:<wbr>valueLabel:<wbr>controlState:<wbr>errorMessage:<wbr>range:<wbr>selectedDate:<wbr>dateFormatter:<wbr>pickerComponents:<wbr>dateStyle:<wbr>timeStyle:<wbr>noDateSelectedString:<wbr>pickerVisible:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -92,6 +105,7 @@
             <span class="nv">errorMessage</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">range</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">selectedDate</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">,</span>
+            <span class="nv">dateFormatter</span><span class="p">:</span> <span class="kt">DateFormatter</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">pickerComponents</span><span class="p">:</span> <span class="kt">DatePicker</span><span class="o">.</span><span class="kt">Components</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="o">.</span><span class="n">hourAndMinute</span><span class="p">],</span>
             <span class="nv">dateStyle</span><span class="p">:</span> <span class="kt">Date</span><span class="o">.</span><span class="kt">FormatStyle</span><span class="o">.</span><span class="kt">DateStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">abbreviated</span><span class="p">,</span>
             <span class="nv">timeStyle</span><span class="p">:</span> <span class="kt">Date</span><span class="o">.</span><span class="kt">FormatStyle</span><span class="o">.</span><span class="kt">TimeStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">shortened</span><span class="p">,</span>
@@ -134,9 +148,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel23mandatoryFieldIndicator10isRequired12controlState12errorMessage5range08selectedD016pickerComponents9dateStyle04timeX002noD14SelectedString0U7VisibleAC10Foundation16AttributedStringV_ASSgAA10TextOrIconOSgSbAA07ControlP0VATSNyAQ0D0VGSg0B2UI7BindingVyA_GA2_0dfV0VA_06FormatX0V0dX0VA9_0eX0VSSSgA4_ySbGtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:valueLabel:mandatoryFieldIndicator:isRequired:controlState:errorMessage:range:selectedDate:pickerComponents:dateStyle:timeStyle:noDateSelectedString:pickerVisible:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel23mandatoryFieldIndicator10isRequired12controlState12errorMessage5range08selectedD016pickerComponents9dateStyle04timeX002noD14SelectedString0U7VisibleAC10Foundation16AttributedStringV_ASSgAA10TextOrIconOSgSbAA07ControlP0VATSNyAQ0D0VGSg0B2UI7BindingVyA_GA2_0dfV0VA_06FormatX0V0dX0VA9_0eX0VSSSgA4_ySbGtcfc">init(title:<wbr>valueLabel:<wbr>mandatoryFieldIndicator:<wbr>isRequired:<wbr>controlState:<wbr>errorMessage:<wbr>range:<wbr>selectedDate:<wbr>pickerComponents:<wbr>dateStyle:<wbr>timeStyle:<wbr>noDateSelectedString:<wbr>pickerVisible:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel23mandatoryFieldIndicator10isRequired12controlState12errorMessage5range08selectedD013dateFormatter16pickerComponents0U5Style04timeY002noD14SelectedString0W7VisibleAC10Foundation16AttributedStringV_ATSgAA10TextOrIconOSgSbAA07ControlP0VAUSNyAR0D0VGSg0B2UI7BindingVyA0_GSo06NSDateV0CSgA3_0dfX0VA0_06FormatY0V0dY0VA13_0eY0VSSSgA5_ySbGtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:valueLabel:mandatoryFieldIndicator:isRequired:controlState:errorMessage:range:selectedDate:dateFormatter:pickerComponents:dateStyle:timeStyle:noDateSelectedString:pickerVisible:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore14DateTimePickerV5title10valueLabel23mandatoryFieldIndicator10isRequired12controlState12errorMessage5range08selectedD013dateFormatter16pickerComponents0U5Style04timeY002noD14SelectedString0W7VisibleAC10Foundation16AttributedStringV_ATSgAA10TextOrIconOSgSbAA07ControlP0VAUSNyAR0D0VGSg0B2UI7BindingVyA0_GSo06NSDateV0CSgA3_0dfX0VA0_06FormatY0V0dY0VA13_0eY0VSSSgA5_ySbGtcfc">init(title:<wbr>valueLabel:<wbr>mandatoryFieldIndicator:<wbr>isRequired:<wbr>controlState:<wbr>errorMessage:<wbr>range:<wbr>selectedDate:<wbr>dateFormatter:<wbr>pickerComponents:<wbr>dateStyle:<wbr>timeStyle:<wbr>noDateSelectedString:<wbr>pickerVisible:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -159,6 +173,7 @@
      <span class="nv">errorMessage</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">range</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">selectedDate</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Date</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="nv">dateFormatter</span><span class="p">:</span> <span class="kt">DateFormatter</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">pickerComponents</span><span class="p">:</span> <span class="kt">DatePicker</span><span class="o">.</span><span class="kt">Components</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="o">.</span><span class="n">hourAndMinute</span><span class="p">],</span>
      <span class="nv">dateStyle</span><span class="p">:</span> <span class="kt">Date</span><span class="o">.</span><span class="kt">FormatStyle</span><span class="o">.</span><span class="kt">DateStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">abbreviated</span><span class="p">,</span>
      <span class="nv">timeStyle</span><span class="p">:</span> <span class="kt">Date</span><span class="o">.</span><span class="kt">FormatStyle</span><span class="o">.</span><span class="kt">TimeStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">shortened</span><span class="p">,</span>
@@ -778,6 +793,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DataItem.html">DataItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DateTimePickerStyle.html">DateTimePickerStyle</a>
@@ -2592,6 +2610,30 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DataTimeItem.html">DataTimeItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePicker.html">DateRangePicker</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerBaseStyle.html">DateRangePickerBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerConfiguration.html">DateRangePickerConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerFioriStyle.html">DateRangePickerFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerFormViewStyle.html">DateRangePickerFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerStyleModifier.html">DateRangePickerStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerTitleStyle.html">DateRangePickerTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateRangePickerValueLabelStyle.html">DateRangePickerValueLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DateTimePicker.html">DateTimePicker</a>
@@ -6269,7 +6311,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-09)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

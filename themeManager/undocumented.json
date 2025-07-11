@@ -394,161 +394,161 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 544,
+      "line": 546,
       "symbol": "FioriIcon.arrows",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 717,
+      "line": 719,
       "symbol": "FioriIcon.calendars",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 750,
+      "line": 752,
       "symbol": "FioriIcon.callout",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 779,
+      "line": 781,
       "symbol": "FioriIcon.charts",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 934,
+      "line": 936,
       "symbol": "FioriIcon.clipboards",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 959,
+      "line": 961,
       "symbol": "FioriIcon.devices",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1014,
+      "line": 1016,
       "symbol": "FioriIcon.documents",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1111,
+      "line": 1113,
       "symbol": "FioriIcon.folder",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1134,
+      "line": 1136,
       "symbol": "FioriIcon.form",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1151,
+      "line": 1153,
       "symbol": "FioriIcon.medical",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1192,
+      "line": 1194,
       "symbol": "FioriIcon.money",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1255,
+      "line": 1257,
       "symbol": "FioriIcon.objects",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1698,
+      "line": 1700,
       "symbol": "FioriIcon.people",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1819,
+      "line": 1821,
       "symbol": "FioriIcon.places",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1874,
+      "line": 1876,
       "symbol": "FioriIcon.shopping",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 1899,
+      "line": 1901,
       "symbol": "FioriIcon.status",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2036,
+      "line": 2038,
       "symbol": "FioriIcon.tables",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2101,
+      "line": 2103,
       "symbol": "FioriIcon.text",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2160,
+      "line": 2162,
       "symbol": "FioriIcon.things",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2287,
+      "line": 2289,
       "symbol": "FioriIcon.time",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2322,
+      "line": 2324,
       "symbol": "FioriIcon.transport",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2361,
+      "line": 2363,
       "symbol": "FioriIcon.travel",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2404,
+      "line": 2406,
       "symbol": "FioriIcon.illustrations",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
