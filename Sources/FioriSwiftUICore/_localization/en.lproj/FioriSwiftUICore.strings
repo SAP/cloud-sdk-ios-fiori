@@ -395,9 +395,6 @@
 /* XBUT: Attachment deletion confirmation button */
 "Delete" = "Delete";
 
-/* XBUT: Attachment Deletion cancel button */
-"Cancel" = "Cancel";
-
 /* XBUT: Attachment add button */
 "Add attachment" = "Add attachment";
 
