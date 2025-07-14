@@ -278,7 +278,7 @@ extension TextFieldFormViewFioriStyle {
                 }
             }
             
-            self.rawInput = processedInput
+            self.rawInput = textString
             
             // Update the bound raw data
             if processedInput != configuration.text {
@@ -304,8 +304,11 @@ extension TextFieldFormViewFioriStyle {
             }
             
             let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
+            let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
             
-            if let number = Double(self.rawInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
+            let processedInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
+            self.rawInput = processedInput
+            if let number = Double(processedInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
                 self.displayText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? self.rawInput
             } else {
                 self.displayText = self.rawInput
