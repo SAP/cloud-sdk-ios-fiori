@@ -906,6 +906,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DateRangePickerStyle
+
+struct DateRangePickerStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DateRangePickerStyle] = []
+}
+
+extension EnvironmentValues {
+    var dateRangePickerStyle: any DateRangePickerStyle {
+        self.dateRangePickerStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var dateRangePickerStyleStack: [any DateRangePickerStyle] {
+        get {
+            self[DateRangePickerStyleStackKey.self]
+        }
+        set {
+            self[DateRangePickerStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 struct DateTimePickerStyleStackKey: EnvironmentKey {

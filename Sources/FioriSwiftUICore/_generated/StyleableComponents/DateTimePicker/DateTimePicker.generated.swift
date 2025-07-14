@@ -7,13 +7,26 @@ import SwiftUI
 ///
 /// ## Usage
 /// ```swift
-/// @State var selection: Date = .init(timeIntervalSince1970: 0.0)
+/// @State var customizedDate: Date = .init(timeIntervalSince1970: 0.0)
 /// @State var isRequired = false
 /// @State var showsErrorMessage = false
+/// @State var customizedPickerVisible = false
+/// let customizedDateFormatter: DateFormatter = {
+///     let formatter = DateFormatter()
+///     formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+///     return formatter
+/// }()
+/// func mandatoryFieldIndicator() -> TextOrIcon {
+///     var indicator = AttributedString("*")
+///     indicator.font = .fiori(forTextStyle: .title3)
+///     indicator.foregroundColor = Color.preferredColor(.indigo7)
+///     return .text(indicator)
+/// }
+/// @State var customizedPickerVisible = false
 ///
-/// DateTimePicker(title: "Default", isRequired: self.isRequired, selectedDate: self.$selection)
-///    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
-///    .informationViewStyle(.informational)
+/// DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+///    .environment(\.locale, Locale(identifier: "zh-Hans"))
+///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 public struct DateTimePicker {
     let title: any View
@@ -24,6 +37,8 @@ public struct DateTimePicker {
     let errorMessage: AttributedString?
     let range: ClosedRange<Date>?
     @Binding var selectedDate: Date
+    /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    let dateFormatter: DateFormatter?
     /// The components shown in the date picker, default value shows date and time.
     let pickerComponents: DatePicker.Components
     /// The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
@@ -47,6 +62,7 @@ public struct DateTimePicker {
                 errorMessage: AttributedString? = nil,
                 range: ClosedRange<Date>? = nil,
                 selectedDate: Binding<Date>,
+                dateFormatter: DateFormatter? = nil,
                 pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
                 dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
                 timeStyle: Date.FormatStyle.TimeStyle = .shortened,
@@ -60,6 +76,7 @@ public struct DateTimePicker {
         self.errorMessage = errorMessage
         self.range = range
         self._selectedDate = selectedDate
+        self.dateFormatter = dateFormatter
         self.pickerComponents = pickerComponents
         self.dateStyle = dateStyle
         self.timeStyle = timeStyle
@@ -82,6 +99,7 @@ public extension DateTimePicker {
          errorMessage: AttributedString? = nil,
          range: ClosedRange<Date>? = nil,
          selectedDate: Binding<Date>,
+         dateFormatter: DateFormatter? = nil,
          pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
          dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
          timeStyle: Date.FormatStyle.TimeStyle = .shortened,
@@ -90,7 +108,7 @@ public extension DateTimePicker {
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible)
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible)
     }
 }
 
@@ -106,6 +124,7 @@ public extension DateTimePicker {
         self.errorMessage = configuration.errorMessage
         self.range = configuration.range
         self._selectedDate = configuration.$selectedDate
+        self.dateFormatter = configuration.dateFormatter
         self.pickerComponents = configuration.pickerComponents
         self.dateStyle = configuration.dateStyle
         self.timeStyle = configuration.timeStyle
@@ -121,7 +140,7 @@ extension DateTimePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible)).typeErased
                 .transformEnvironment(\.dateTimePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -139,7 +158,7 @@ private extension DateTimePicker {
     }
 
     func defaultStyle() -> some View {
-        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible))
+        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)
             .dateTimePickerStyle(DateTimePickerFioriStyle.ContentFioriStyle())
             .typeErased
