@@ -113,6 +113,9 @@ extension TextFieldFormViewFioriStyle {
                                         // Initialize the currency field
                                         self.initializeCurrencyField(configuration)
                                     }
+                                    .onChange(of: self.rawInput) {
+                                        self.rawInput = self.validateText()
+                                    }
                             }
                             .setOnChange(of: configuration.text, action1: { s in
                                 self.handleTextChange(configuration, textString: s)
@@ -228,6 +231,26 @@ extension TextFieldFormViewFioriStyle {
             return NSLocalizedString("Custom Action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Custom Action")
         }
         
+        // Validate Text
+        private func validateText() -> String {
+            // Filter out non-numeric characters and special symbols
+            let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
+            let validCharSet = CharacterSet(charactersIn: "-0123456789\(decimalSeparator)")
+            var processedInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
+            
+            // Handle the situation of multiple decimal points
+            if processedInput.components(separatedBy: decimalSeparator).count > 2 {
+                processedInput.removeLast()
+            }
+            
+            // Handle multiple minus
+            if let firstChar = processedInput.first, firstChar == "-", processedInput.components(separatedBy: "-").count > 2 {
+                processedInput.removeLast()
+            }
+            
+            return processedInput
+        }
+        
         // Handle text changes for both currency and non-currency fields
         private func handleTextChange(_ configuration: TextFieldFormViewConfiguration, textString: String) {
             if !self.currencyFieldConfiguration.isCurrencyField {
@@ -259,17 +282,7 @@ extension TextFieldFormViewFioriStyle {
         
         // Process the raw input and only clean invalid characters during the input process.
         private func processRawInput(_ configuration: TextFieldFormViewConfiguration, textString: String) {
-            let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
-            let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
-            
-            // Clean up invalid characters
-            var processedInput = textString.components(separatedBy: validCharSet.inverted).joined()
-            
-            // Limit to at most one decimal point
-            let parts = processedInput.components(separatedBy: decimalSeparator)
-            if parts.count > 2 {
-                processedInput = parts[0] + decimalSeparator + parts[1]
-            }
+            var processedInput = self.validateText()
             
             // Apply maximum length limit
             if let maxTextLength = configuration.maxTextLength, maxTextLength > 0 {
@@ -277,7 +290,6 @@ extension TextFieldFormViewFioriStyle {
                     processedInput = String(processedInput.prefix(maxTextLength))
                 }
             }
-            
             self.rawInput = textString
             
             // Update the bound raw data
@@ -302,13 +314,8 @@ extension TextFieldFormViewFioriStyle {
                 self.displayText = ""
                 return
             }
-            
-            let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
-            let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
-            
-            let processedInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
-            self.rawInput = processedInput
-            if let number = Double(processedInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
+            let processedInput = self.validateText()
+            if let number = Double(processedInput) {
                 self.displayText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? self.rawInput
             } else {
                 self.displayText = self.rawInput
