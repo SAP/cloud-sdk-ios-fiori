@@ -1,6 +1,8 @@
 import Photos
 import SwiftUI
 
+@available(watchOS, unavailable)
+@available(visionOS, unavailable)
 public struct CameraView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) private var presentationMode
     var onSaveImage: (UIImage?) -> Void

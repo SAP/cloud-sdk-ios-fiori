@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "No date selected";
 
+/* Default value for DateRangePicker */
+"No range selected" = "No range selected";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "press space to set a range value";
+
 /* XBUT: calendar time component label */
 "Time" = "Time";
 
@@ -367,3 +373,147 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Suggested by AI. Verify before use. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Photos";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Files";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Camera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Scan";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Preview";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Delete Attachment?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Delete";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Add attachment";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Double tap to add attachment";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Thumbnail";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Sign In";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "username";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "password";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Submit";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Submission failed";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "An error has occurred. Please try again later.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Retry";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positive feedback";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negative feedback";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "enabled";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Scan Unsuccessful";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Please select a QR code image.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Invalid QR Code";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "The QR code was not recognized.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Allow Access to Photos";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "To choose a QR code image, please give access to your photos in your device's privacy settings.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Allow Access to Camera";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "To scan using the camera, please give access to your camera in your device's privacy settings.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Settings";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "down arrow";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "up arrow";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash deactivated";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash activated";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Photo %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Scan succeeded. You will be connected to:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Continue";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Writing Assistant";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Version %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Undo";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Redo";
+
+/* XTIT: Writing assistant cancel alert title */
+"Close Writing Assistant without saving changes?" = "Close Writing Assistant without saving changes?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Keep Working";
+
+/* XBUT: Writing assistant cancel alert action title for close */
+"Close" = "Close";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Thank you for your feedback";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "What didn’t you like about this version?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Please rate your experience to help us improve.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Feedback";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "How was this response?";

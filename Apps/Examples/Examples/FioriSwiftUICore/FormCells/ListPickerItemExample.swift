@@ -45,21 +45,28 @@ struct ListPickerItemExample: View {
     @State var state: ControlState = .normal
     @State var showsErrorMessage = false
     @State var showsPrompt = false
-
+    @State var showAINotice: Bool = false
+    
     var body: some View {
         List {
             Group {
                 if self.dataType == .frameworks || self.dataType == .text {
                     // Use default Value
-                    ListPickerItem(title: {
-                        Text("Title")
-                    }, isRequired: self.isRequired, controlState: self.state, axis: self.axis,
-                    destination: {
-                        self.destinationViewGroup()
-                    })
+                    ListPickerItem(title: "Title", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
+                                   destination: {
+                                       self.destinationViewGroup()
+                                   })
                 } else {
                     // Use custom Value
-                    ListPickerItem(title: { Text("Title") }, value: { self.valueView }, isRequired: self.isRequired, controlState: self.state, axis: self.axis, destination: {
+                    ListPickerItem(title: {
+                        HStack(spacing: 0) {
+                            Text("Title")
+                            if self.isRequired {
+                                TextOrIconView(.text("*"))
+                            }
+                            Spacer()
+                        }
+                    }, value: { self.valueView }, controlState: self.state, axis: self.axis, destination: {
                         self.destinationViewGroup()
                     })
                 }
@@ -82,6 +89,7 @@ struct ListPickerItemExample: View {
             }
             .informationView(isPresented: self.$showsErrorMessage, description: "Validation message")
             .informationViewStyle(.informational)
+            .aiNoticeView(isPresented: self.$showAINotice)
             .disabled(self.state == .disabled)
             
             Section("Pannel") {
@@ -122,6 +130,8 @@ struct ListPickerItemExample: View {
                     Text("Disabled").tag(ControlState.disabled)
                     Text("Readonly").tag(ControlState.readOnly)
                 }
+                
+                Toggle("AI Notice", isOn: self.$showAINotice)
             }
         }
         .navigationTitle("List Picker Item")

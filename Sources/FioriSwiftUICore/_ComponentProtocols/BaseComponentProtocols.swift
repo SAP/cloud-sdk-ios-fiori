@@ -20,19 +20,6 @@ protocol _SubtitleComponent {
 }
 
 // sourcery: BaseComponent
-protocol _MandatoryFieldIndicatorComponent {
-    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = TextOrIconView
-    // sourcery: defaultValue = .text("*")
-    // sourcery: resultBuilder.defaultValue = "{ Text("*") }"
-    var mandatoryFieldIndicator: TextOrIcon? { get }
-}
- 
-protocol _MandatoryField: _MandatoryFieldIndicatorComponent {
-    // sourcery: defaultValue = false
-    var isRequired: Bool { get }
-}
-
-// sourcery: BaseComponent
 protocol _TagsComponent {
     // sourcery: resultBuilder.name = @TagBuilder, resultBuilder.backingComponent = TagStack
     var tags: [AttributedString] { get }
@@ -730,4 +717,95 @@ protocol _DisagreeActionComponent {
     // sourcery: defaultValue = "FioriButton { _ in Text("Disagree".localizedFioriString()) }"
     // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Disagree".localizedFioriString()) } }"
     var disagreeAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _AuthInputComponent {
+    @ViewBuilder
+    var authInput: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SignInActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Sign In".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Sign In".localizedFioriString()) } }"
+    var signInAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CheckmarkComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "Image(systemName: "checkmark")"
+    // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "checkmark") }"
+    var checkmark: Image? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _UpVoteActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.thumbUp }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.thumbUp } }"
+    var upVoteAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _DownVoteActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in FioriIcon.actions.thumbDown }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in FioriIcon.actions.thumbDown } }"
+    var downVoteAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SubmitActionComponent {
+    // sourcery: @ViewBuilder
+    var submitAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _UndoActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._undoButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._undoButton }"
+    var undoAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _RedoActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._redoButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._redoButton }"
+    var redoAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _DoneActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in Text("Done".localizedFioriString()) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Text("Done".localizedFioriString()) } }"
+    var doneAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _WritingAssistantActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._writingAssistantButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._writingAssistantButton }"
+    var writingAssistantAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _BackActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton._backButton"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton._backButton }"
+    var backAction: FioriButton? { get }
 }

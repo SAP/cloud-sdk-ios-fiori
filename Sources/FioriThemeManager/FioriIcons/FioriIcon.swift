@@ -76,6 +76,8 @@ public enum FioriIcon {
         ///
         public static let chainLink = Image(fioriName: "fiori.chain.link")
         ///
+        public static let linkExternal = Image(fioriName: "fiori.link.external")
+        ///
         public static let clearFilter = Image(fioriName: "fiori.clear.filter")
         ///
         public static let collapseGroup = Image(fioriName: "fiori.collapse.group")
@@ -480,7 +482,11 @@ public enum FioriIcon {
         ///
         public static let thumbDown = Image(fioriName: "fiori.thumb.down")
         ///
+        public static let thumbDownFill = Image(fioriName: "fiori.thumb.down.fill")
+        ///
         public static let thumbUp = Image(fioriName: "fiori.thumb.up")
+        ///
+        public static let thumbUpFill = Image(fioriName: "fiori.thumb.up.fill")
         ///
         public static let toasterDown = Image(fioriName: "fiori.toaster.down")
         ///

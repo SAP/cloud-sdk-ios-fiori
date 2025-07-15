@@ -7,6 +7,8 @@ public struct AttachmentBaseStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             AttachmentThumbnail(url: configuration.url, controlState: configuration.controlState)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(NSLocalizedString("Thumbnail", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Thumbnail"))
                 .id(UUID().uuidString)
             VStack(alignment: .leading, spacing: 2) {
                 configuration.attachmentTitle
@@ -14,7 +16,7 @@ public struct AttachmentBaseStyle: AttachmentStyle {
                 configuration.attachmentFootnote
             }
         }
-        .frame(width: AttachmentConstants.cellWidth)
+        .frame(width: AttachmentConstants.thumbnailWidth)
     }
 }
 

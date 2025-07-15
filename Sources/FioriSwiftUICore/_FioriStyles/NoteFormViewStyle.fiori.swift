@@ -5,18 +5,33 @@ import SwiftUI
 /// The base layout style for `NoteFormView`.
 public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @FocusState var isFocused: Bool
-
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
-            configuration._placeholderTextEditor
-                .focused(self.$isFocused)
-                .disabled(self.getDisabled(configuration))
+            SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                self.getPlaceholderTextEditor(configuration)
+                    .focused(self.$isFocused)
+                    .disabled(self.getDisabled(configuration))
+            }
         }
         .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
         .accessibilityElement(children: .combine)
         .accessibilityHint(configuration.controlState == .normal ? (self.isFocused ? NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing") : NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")) : "")
     }
 
+    func getPlaceholderTextEditor(_ configuration: NoteFormViewConfiguration) -> some View {
+        if self.isLoading {
+            if configuration.text.isEmpty, configuration.placeholder.isEmpty {
+                return PlaceholderTextEditor(.init(text: .constant(""), placeholder: .init(Text("NoteFormView skeleton loading").typeErased)), shouldApplyDefaultStyle: true).typeErased
+            } else {
+                return configuration._placeholderTextEditor.typeErased
+            }
+        } else {
+            return configuration._placeholderTextEditor.typeErased
+        }
+    }
+    
     func getDisabled(_ configuration: NoteFormViewConfiguration) -> Bool {
         !TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getEditable()
     }
@@ -38,7 +53,7 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
 extension NoteFormViewFioriStyle {
     struct ContentFioriStyle: NoteFormViewStyle {
         @FocusState var isFocused: Bool
-
+        @Environment(\.isLoading) var isLoading
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
@@ -61,7 +76,6 @@ extension NoteFormViewFioriStyle {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
                         )
-                        .cornerRadius(8)
                         .setOnChange(of: configuration.text, action1: { s in
                             self.checkCharCount(configuration, textString: s)
                         }) { _, s in
@@ -90,7 +104,10 @@ extension NoteFormViewFioriStyle {
         }
 
         func getBackgroundColor(_ configuration: NoteFormViewConfiguration) -> Color {
-            TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
+            if self.isLoading {
+                return .clear
+            }
+            return TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getBackgroundColor()
         }
 
         func getBorderWidth(_ configuration: NoteFormViewConfiguration) -> CGFloat {
@@ -106,15 +123,14 @@ extension NoteFormViewFioriStyle {
         }
 
         func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-            // TextEditor will add some other views that the minHeight is 16pt higher than the specified. Use this to adjust.
-            let minHeightAdjustment = 16.0
             guard let minHeight = configuration.minTextEditorHeight else {
-                return 88 - minHeightAdjustment
+                return 88
             }
             guard minHeight > 44 else {
-                return 88 - minHeightAdjustment
+                return 88
             }
-            return minHeight - minHeightAdjustment
+            return minHeight
+            // The min or max height is just for editor but not the form view, there are extra vertical padding or message view added.
         }
 
         func getMaxHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {

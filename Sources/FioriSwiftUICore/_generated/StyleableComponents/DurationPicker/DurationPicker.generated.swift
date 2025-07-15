@@ -14,15 +14,22 @@ import SwiftUI
 ///     formatter.unitOptions = .providedUnit
 ///     return formatter
 /// }
-/// DurationPicker(selection: self.$selection, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
-///     .measurementFormatter(self.formatter)
+/// DurationPicker(title: "Measurement Formatter", selection: self.$selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
+///    .measurementFormatter(self.formatter)
 /// ```
 public struct DurationPicker {
+    let title: any View
+    let valueLabel: any View
+    /// The `ControlState` of the form view. The default is `normal`
+    let controlState: ControlState
+    /// The error message of the form view.
+    let errorMessage: AttributedString?
     @Binding var selection: Int
     var maximumMinutes: Int
     var minimumMinutes: Int
     var minuteInterval: Int
     var measurementFormatter: MeasurementFormatter
+    @Binding var pickerVisible: Bool
 
     @Environment(\.durationPickerStyle) var style
 
@@ -30,18 +37,28 @@ public struct DurationPicker {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(selection: Binding<Int>,
+    public init(@ViewBuilder title: () -> any View,
+                @ViewBuilder valueLabel: () -> any View = { EmptyView() },
+                controlState: ControlState = .normal,
+                errorMessage: AttributedString? = nil,
+                selection: Binding<Int>,
                 maximumMinutes: Int = 1439,
                 minimumMinutes: Int = 0,
                 minuteInterval: Int = 1,
                 measurementFormatter: MeasurementFormatter = MeasurementFormatter(),
+                pickerVisible: Binding<Bool>,
                 componentIdentifier: String? = DurationPicker.identifier)
     {
+        self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.valueLabel = ValueLabel(valueLabel: valueLabel, componentIdentifier: componentIdentifier)
+        self.controlState = controlState
+        self.errorMessage = errorMessage
         self._selection = selection
         self.maximumMinutes = maximumMinutes
         self.minimumMinutes = minimumMinutes
         self.minuteInterval = minuteInterval
         self.measurementFormatter = measurementFormatter
+        self._pickerVisible = pickerVisible
         self.componentIdentifier = componentIdentifier ?? DurationPicker.identifier
     }
 }
@@ -51,16 +68,41 @@ public extension DurationPicker {
 }
 
 public extension DurationPicker {
+    init(title: AttributedString,
+         valueLabel: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         selection: Binding<Int>,
+         maximumMinutes: Int = 1439,
+         minimumMinutes: Int = 0,
+         minuteInterval: Int = 1,
+         measurementFormatter: MeasurementFormatter = MeasurementFormatter(),
+         pickerVisible: Binding<Bool>)
+    {
+        self.init(title: {
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, selection: selection, maximumMinutes: maximumMinutes, minimumMinutes: minimumMinutes, minuteInterval: minuteInterval, measurementFormatter: measurementFormatter, pickerVisible: pickerVisible)
+    }
+}
+
+public extension DurationPicker {
     init(_ configuration: DurationPickerConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
     internal init(_ configuration: DurationPickerConfiguration, shouldApplyDefaultStyle: Bool) {
+        self.title = configuration.title
+        self.valueLabel = configuration.valueLabel
+        self.controlState = configuration.controlState
+        self.errorMessage = configuration.errorMessage
         self._selection = configuration.$selection
         self.maximumMinutes = configuration.maximumMinutes
         self.minimumMinutes = configuration.minimumMinutes
         self.minuteInterval = configuration.minuteInterval
         self.measurementFormatter = configuration.measurementFormatter
+        self._pickerVisible = configuration.$pickerVisible
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -71,7 +113,7 @@ extension DurationPicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, selection: self.$selection, maximumMinutes: self.maximumMinutes, minimumMinutes: self.minimumMinutes, minuteInterval: self.minuteInterval, measurementFormatter: self.measurementFormatter)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, selection: self.$selection, maximumMinutes: self.maximumMinutes, minimumMinutes: self.minimumMinutes, minuteInterval: self.minuteInterval, measurementFormatter: self.measurementFormatter, pickerVisible: self.$pickerVisible)).typeErased
                 .transformEnvironment(\.durationPickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -89,7 +131,7 @@ private extension DurationPicker {
     }
 
     func defaultStyle() -> some View {
-        DurationPicker(.init(componentIdentifier: self.componentIdentifier, selection: self.$selection, maximumMinutes: self.maximumMinutes, minimumMinutes: self.minimumMinutes, minuteInterval: self.minuteInterval, measurementFormatter: self.measurementFormatter))
+        DurationPicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, selection: self.$selection, maximumMinutes: self.maximumMinutes, minimumMinutes: self.minimumMinutes, minuteInterval: self.minuteInterval, measurementFormatter: self.measurementFormatter, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)
             .durationPickerStyle(DurationPickerFioriStyle.ContentFioriStyle())
             .typeErased

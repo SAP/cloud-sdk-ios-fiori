@@ -46,6 +46,7 @@ struct OnBoardingWelcomeScreenExamples: View {
     @State private var isDemoAvailable: Bool = true
     
     @State private var isLegalAgreementRequired = false
+    @State var valuePickerVisible = false
     
     var body: some View {
         List {
@@ -86,7 +87,7 @@ struct OnBoardingWelcomeScreenExamples: View {
                 self.showDifferentWelcomeScreen(.mdmAndDemoNotAvailable)
             }
             
-            ValuePicker(title: "Header Image", isRequired: false, options: self.headerImageOptions, selectedIndex: self.$headerImageSelectIndex, isTrackingLiveChanges: true, alwaysShowPicker: false, controlState: .normal)
+            ValuePicker(title: "Header Image", isRequired: false, options: self.headerImageOptions, selectedIndex: self.$headerImageSelectIndex, isTrackingLiveChanges: true, alwaysShowPicker: false, controlState: .normal, pickerVisible: self.$valuePickerVisible)
             
             Toggle(isOn: self.$showLegalAgreement) {
                 Text("Show Legal Agreement")

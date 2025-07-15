@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct BannerMultiMessageSheet {
     let title: any View
     let closeAction: any View
@@ -26,7 +28,7 @@ public struct BannerMultiMessageSheet {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
+                @ViewBuilder closeAction: () -> any View = { FioriIcon.status.error },
                 dismissAction: (() -> Void)? = nil,
                 removeAction: ((String, UUID?) -> Void)? = nil,
                 viewDetailAction: ((UUID) -> Void)? = nil,
@@ -36,7 +38,7 @@ public struct BannerMultiMessageSheet {
                 componentIdentifier: String? = BannerMultiMessageSheet.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.closeAction = CloseAction(closeAction: closeAction, componentIdentifier: componentIdentifier)
+        self.closeAction = closeAction()
         self.dismissAction = dismissAction
         self.removeAction = removeAction
         self.viewDetailAction = viewDetailAction
@@ -53,7 +55,7 @@ public extension BannerMultiMessageSheet {
 
 public extension BannerMultiMessageSheet {
     init(title: AttributedString,
-         closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
+         @ViewBuilder closeAction: () -> any View = { FioriIcon.status.error },
          dismissAction: (() -> Void)? = nil,
          removeAction: ((String, UUID?) -> Void)? = nil,
          viewDetailAction: ((UUID) -> Void)? = nil,
@@ -61,7 +63,7 @@ public extension BannerMultiMessageSheet {
          @ViewBuilder messageItemView: @escaping (UUID) -> any View = { _ in EmptyView() },
          bannerMultiMessages: Binding<[BannerMessageListModel]>)
     {
-        self.init(title: { Text(title) }, closeAction: { closeAction }, dismissAction: dismissAction, removeAction: removeAction, viewDetailAction: viewDetailAction, turnOnSectionHeader: turnOnSectionHeader, messageItemView: messageItemView, bannerMultiMessages: bannerMultiMessages)
+        self.init(title: { Text(title) }, closeAction: closeAction, dismissAction: dismissAction, removeAction: removeAction, viewDetailAction: viewDetailAction, turnOnSectionHeader: turnOnSectionHeader, messageItemView: messageItemView, bannerMultiMessages: bannerMultiMessages)
     }
 }
 

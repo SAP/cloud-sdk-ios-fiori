@@ -53,6 +53,7 @@ struct HeaderChartExample: ListDataProtocol {
             }, chart: {
                 ChartView(chartModel)
             })
+            .listRowSeparator(.hidden)
             
             return AnyView(hc)
             

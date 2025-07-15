@@ -1,4 +1,5 @@
 import Foundation
+import OSLog
 import PDFKit
 import PhotosUI
 import SwiftUI
@@ -64,6 +65,7 @@ public struct DefaultOperationsModifier: ViewModifier {
                 self.context.upload(photoPickerItems: self.selectedPhotos)
                 self.selectedPhotos.removeAll()
             }
+        #if os(iOS)
             .sheet(isPresented: self.showCamera) {
                 CameraView { uiImage in
                     self.context.upload(images: [uiImage])
@@ -74,6 +76,7 @@ public struct DefaultOperationsModifier: ViewModifier {
             .sheet(isPresented: self.showPdfScanner) {
                 self.pdfScanner
             }
+        #endif
             .onChange(of: self.pdfDocument) { _, _ in
                 if let pdfDocument = self.pdfDocument {
                     self.context.upload(pdfDocument: pdfDocument)
@@ -106,7 +109,7 @@ public struct DefaultOperationsModifier: ViewModifier {
                 file.stopAccessingSecurityScopedResource()
             }
         case .failure(let error):
-            print(error)
+            os_log("Upload error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
         }
     }
     
@@ -125,7 +128,7 @@ public struct DefaultOperationsModifier: ViewModifier {
             
             file.stopAccessingSecurityScopedResource()
         case .failure(let error):
-            print(error)
+            os_log("Upload error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
         }
     }
     
@@ -148,9 +151,9 @@ public struct DefaultOperationsModifier: ViewModifier {
                 break
             case .success(.pdf(let pdf)):
                 self.pdfDocument = pdf
-                print("Scanned PDF: \(pdf)")
+                os_log("Scanned PDF: %@", log: OSLog.coreLogger, type: .debug, "\(pdf)")
             case .failure(let error):
-                print("Failed to scan: \(error)")
+                os_log("Scan document error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
             }
         }, outputFormat: .pdf)
             .edgesIgnoringSafeArea(.all)
@@ -161,11 +164,11 @@ public struct DefaultOperationsModifier: ViewModifier {
             switch result {
             case .success(.images(let images)):
                 self.scannedImages = images
-                print("Scanned Images: \(images.count)")
+                os_log("Scanned Images: %d", log: OSLog.coreLogger, type: .error, images.count)
             case .success(.pdf(_)):
                 break
             case .failure(let error):
-                print("Failed to scan: \(error)")
+                os_log("Scan image error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
             }
         }, outputFormat: .images)
             .edgesIgnoringSafeArea(.all)

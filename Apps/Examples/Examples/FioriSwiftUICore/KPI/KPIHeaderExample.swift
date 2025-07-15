@@ -2,115 +2,72 @@ import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
-class World: _KPIItemModel, Identifiable {
-    var kpi: String? {
-        "Hello World"
-    }
-    
-    var subtitle: String? {
-        "World subtitle"
-    }
-}
+struct KPISubItemModelImpl: KPISubItemModel {
+    let id: UUID
+    let kPISubItemValue: TextOrIcon
+    let kPISubItemType: KPISubitemType
 
-class Galaxy: _KPIProgressItemModel, Identifiable {
-    var kpi: String? {
-        "Hello Galaxy"
-    }
-    
-    var footnote: String? {
-        "Galaxy footnote"
-    }
-    
-    var subtitle: String? {
-        "What's outside"
-    }
-}
-
-class Space: _KPIItemModel, Identifiable {
-    var kpi: String? {
-        let formatter = MeasurementFormatter()
-        formatter.unitStyle = MeasurementFormatter.UnitStyle.medium
-        let distanceInMiles = Measurement(value: 321, unit: UnitLength.miles)
-        return formatter.string(from: distanceInMiles)
-    }
-    
-    var subtitle: String? {
-        "Space subtitle"
-    }
-}
-
-class Universe: _KPIItemModel, Identifiable {
-    var kpi: String? {
-        let number = NSNumber(value: 99.9)
-        let formattedValue = self.formatter.string(from: number)
-        return formattedValue ?? "Hello Universe"
-    }
-    
-    var subtitle: String? {
-        "Universe subtitle"
-    }
-
-    var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        formatter.maximumFractionDigits = 2
-        return formatter
+    init(id: UUID = UUID(), kPISubItemValue: TextOrIcon, kPISubItemType: KPISubitemType) {
+        self.id = id
+        self.kPISubItemValue = kPISubItemValue
+        self.kPISubItemType = kPISubItemType
     }
 }
 
 struct KPIHeaderExample: View {
-    var data: [KPIHeaderItemModel] = [World(), Galaxy(), Space(), Universe()]
-
+    var data: [KPIHeaderItemModel] = [
+        KPIItem(kpiCaption: "small", items: [KPISubItemModelImpl(kPISubItemValue: .text("123"), kPISubItemType: .metric)], proposedViewSize: .small, alignment: .center),
+        KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.65))),
+        KPIItem(kpiCaption: "Big caption and very very very very very very long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
+        KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)
+    ]
+    
+    var customViewData: [KPIHeaderItemModel] = [
+        TestView(width: 120),
+        TestView(width: 200),
+        TestView(width: 400),
+        TestView(width: 200)
+    ]
+    
+    @State var isPresentedBanner: Bool = true
+    
     var body: some View {
         ScrollView {
             VStack {
-                ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
-                KPIHeader {
-                    _KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
-                    _KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
-                        .disabled(true)
-                    _KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
-                    _KPIProgressItem(data: .percent(0.66), footnote: "Completed")
-                }
-                KPIHeader(self.data)
-                KPIHeader {
-                    self.createItem(120)
-                    self.createItem(200)
-                    self.createItem(400)
-                    self.createItem(200)
-                }
-                .frame(height: 100)
-                Text("Group may break the max count limitation and pages organization")
-                KPIHeader {
-                    self.createItem(120)
-                    Group {
-                        self.createItem(200)
-                        self.createItem(400)
-                        self.createItem(200)
-                        self.createItem(222)
+                KPIHeader(items: self.data, isItemOrderForced: false, isPresented: .constant(false))
+                
+                Text("BannerMessage is displayed")
+                KPIHeader(items: self.data, bannerMessage: BannerMessage(icon: {
+                    Image(systemName: "info.circle")
+                }, title: {
+                    Text("This is a banner message")
+                }, closeAction: {
+                    FioriButton { state in
+                        if state == .normal {
+                            self.isPresentedBanner.toggle()
+                        }
+                    } label: { _ in
+                        Image(fioriName: "fiori.decline")
                     }
-                }
-                .frame(height: 100)
+                }), isItemOrderForced: true, isPresented: self.$isPresentedBanner)
+
+                Text("Init with custom views")
+                KPIHeader(items: self.customViewData, isPresented: .constant(false))
                 Spacer()
             }
         }
     }
-    
-    @ViewBuilder
-    private func createItem(_ width: CGFloat) -> some View {
+}
+
+private struct TestView: View {
+    var width: CGFloat
+    var body: some View {
         ZStack {
             Color.random
-            Text(String(format: "width: %.1f", width))
+            Text(String(format: "width: %.1f", self.width))
         }
-        .frame(width: width)
+        .frame(width: self.width)
     }
 }
 
-struct KPIHeaderExample_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            KPIHeaderExample()
-        }
-    }
-}
+extension TestView: KPIHeaderItemModel {}

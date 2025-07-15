@@ -262,6 +262,11 @@ public struct Carousel<Content>: View where Content: View {
             .onPreferenceChange(CarouselContentSizePreferenceKey.self) { size in
                 DispatchQueue.main.async {
                     self.contentSize = size
+                    let finalX = self.calculateContentOffsetX(from: self.contentOffset.x)
+                    if abs(finalX.distance(to: self.contentOffset.x)) > 0.1 {
+                        self.contentOffset.x = finalX
+                        self.preContentOffset = self.contentOffset
+                    }
                 }
             }
             .contentShape(Rectangle())
@@ -272,30 +277,39 @@ public struct Carousel<Content>: View where Content: View {
                     }
                     .onEnded { value in
                         withAnimation(.easeOut(duration: 0.5)) {
-                            let maxX = max(0, contentSize.width - self.viewSize.width)
                             let expectedX = max(0, preContentOffset.x + (self.layoutDirection == .leftToRight ? -1 : 1) * value.predictedEndTranslation.width)
-                            var finalX = min(maxX, expectedX)
-                            
-                            if self.isSnapping {
-                                let itemWidth: CGFloat = (viewSize.width - self.contentInsets.horizontal - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
-                                let index = ((expectedX - self.contentInsets.leading) / (itemWidth + self.spacing)).rounded()
-                                let idealX = index * itemWidth + max(0, index - 1) * self.spacing + (index == 0 ? 0 : self.contentInsets.leading)
-                                finalX = max(0, min(maxX, idealX))
-                            }
-                            
+                            let finalX = self.calculateContentOffsetX(from: expectedX)
                             self.contentOffset.x = finalX
                             self.preContentOffset = self.contentOffset
                         }
                     }
             )
         }
-        .clipped()
         .modifier(CarouselSizeModifier())
         .onPreferenceChange(CarouselSizePreferenceKey.self) { size in
             DispatchQueue.main.async {
                 self.viewSize = size
+                let finalX = self.calculateContentOffsetX(from: self.contentOffset.x)
+                if abs(finalX.distance(to: self.contentOffset.x)) > 0.1 {
+                    self.contentOffset.x = finalX
+                    self.preContentOffset = self.contentOffset
+                }
             }
         }
+    }
+    
+    func calculateContentOffsetX(from x: CGFloat) -> CGFloat {
+        let maxX = max(0, contentSize.width - self.viewSize.width)
+        var finalX = min(maxX, x)
+        
+        if self.isSnapping {
+            let itemWidth: CGFloat = (viewSize.width - self.contentInsets.horizontal - CGFloat(self.numberOfColumns + 2) * self.spacing) / CGFloat(self.numberOfColumns)
+            let index = ((x - self.contentInsets.leading) / (itemWidth + self.spacing)).rounded()
+            let idealX = index * itemWidth + max(0, index - 1) * self.spacing + (index == 0 ? 0 : self.contentInsets.leading)
+            finalX = max(0, min(maxX, idealX))
+        }
+        
+        return finalX
     }
 }
 

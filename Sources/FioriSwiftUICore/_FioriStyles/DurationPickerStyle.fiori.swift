@@ -13,15 +13,75 @@ import SwiftUI
 
 // Base Layout style
 public struct DurationPickerBaseStyle: DurationPickerStyle {
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
     public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
-        // Add default layout here
+        VStack {
+            if self.dynamicTypeSize >= .accessibility3 {
+                self.configureMainStack(configuration, isVertical: true)
+            } else {
+                ViewThatFits(in: .horizontal) {
+                    self.configureMainStack(configuration, isVertical: false)
+                    self.configureMainStack(configuration, isVertical: true)
+                }
+            }
+            if configuration.pickerVisible {
+                Divider()
+                    .frame(height: 0.33)
+                    .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                self.showPicker(configuration)
+            }
+        }
+    }
+    
+    func configureMainStack(_ configuration: DurationPickerConfiguration, isVertical: Bool) -> some View {
+        let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
+        return mainStack {
+            configuration.title
+            if !isVertical {
+                Spacer()
+            } else {
+                Divider().hidden()
+            }
+            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                .foregroundStyle(self.getFontColor(configuration))
+                .font(.fiori(forTextStyle: .body))
+                .accessibilityLabel(self.getValueLabel(configuration))
+        }
+        .accessibilityElement(children: .combine)
+        .contentShape(Rectangle())
+        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+            $0.onTapGesture(perform: {
+                configuration.pickerVisible.toggle()
+            })
+        }
+    }
+
+    func getValueLabel(_ configuration: DurationPickerConfiguration) -> String {
+        let formatter = NSLocalizedString("%d Hrs %d Min", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let hour = configuration.selection / 60
+        let minute = configuration.selection % 60
+
+        return String(format: formatter, hour, minute)
+    }
+    
+    func getFontColor(_ configuration: DurationPickerConfiguration) -> Color {
+        if configuration.controlState == .disabled {
+            return .preferredColor(.separator)
+        } else if configuration.pickerVisible {
+            return .preferredColor(.tintColor)
+        } else {
+            return .preferredColor(.primaryLabel)
+        }
+    }
+    
+    func showPicker(_ configuration: DurationPickerConfiguration) -> some View {
         DurationPickerViewWrapper(selection: configuration.$selection, maximumMinutes: configuration.maximumMinutes, minimumMinutes: configuration.minimumMinutes, minuteInterval: configuration.minuteInterval, measurementFormatter: configuration.measurementFormatter)
-            .frame(width: 232, height: 204)
-            .background(Color.preferredColor(.primaryBackground))
+            .frame(height: 204)
             .foregroundColor(Color.preferredColor(.primaryLabel))
-            .cornerRadius(18)
-            .shadow(color: Color.preferredColor(.cardShadow), radius: 5)
-            .shadow(color: Color.preferredColor(.cardShadow), radius: 20)
+            .setOnChange(of: configuration.selection) {
+                _ = self.getValueLabel(configuration)
+            }
     }
 }
 
@@ -32,6 +92,38 @@ extension DurationPickerFioriStyle {
             DurationPicker(configuration)
             // Add default style for its content
             // .background()
+        }
+    }
+    
+    struct TitleFioriStyle: TitleStyle {
+        let durationPickerConfiguration: DurationPickerConfiguration
+        
+        func makeBody(_ configuration: TitleConfiguration) -> some View {
+            Title(configuration)
+                .foregroundStyle(Color.preferredColor(self.durationPickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+        }
+    }
+    
+    struct ValueLabelFioriStyle: ValueLabelStyle {
+        let durationPickerConfiguration: DurationPickerConfiguration
+
+        func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
+            ValueLabel(configuration)
+            // Add default style for ValueLabel
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+
+    struct FormViewFioriStyle: FormViewStyle {
+        let durationPickerConfiguration: DurationPickerConfiguration
+
+        func makeBody(_ configuration: FormViewConfiguration) -> some View {
+            FormView(configuration)
+            // Add default style for FormView
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }

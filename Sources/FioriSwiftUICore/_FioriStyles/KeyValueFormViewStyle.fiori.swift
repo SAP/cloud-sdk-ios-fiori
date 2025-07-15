@@ -4,18 +4,23 @@ import SwiftUI
 
 /// The base layout style for `KeyValueFormView`.
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
-        VStack(alignment: .leading) {
-            HStack(spacing: 0) {
-                configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
-                Spacer()
+        SkeletonLoadingContainer(isLoading: self.isLoading) {
+            VStack(alignment: .leading) {
+                self.getTitle(configuration)
+                configuration._noteFormView
             }
-            configuration._noteFormView
+            .accessibilityElement(children: .combine)
         }
-        .accessibilityElement(children: .combine)
+    }
+    
+    func getTitle(_ configuration: KeyValueFormViewConfiguration) -> some View {
+        if self.isLoading {
+            return Text("KeyValueFormView title").typeErased
+        } else {
+            return configuration.title.typeErased
+        }
     }
 }
     
@@ -28,11 +33,6 @@ extension KeyValueFormViewFioriStyle {
                 .titleStyle { titleConf in
                     Title(titleConf)
                         .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
-                .mandatoryFieldIndicatorStyle { indicatorConf in
-                    MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .focused(self.$isFocused)
@@ -92,18 +92,6 @@ extension KeyValueFormViewFioriStyle {
         
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.keyValueFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                .padding(.bottom, -4)
-                .padding(.top, 11)
         }
     }
 }

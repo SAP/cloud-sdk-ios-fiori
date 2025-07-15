@@ -4,19 +4,51 @@ import SwiftUI
 
 /// The base layout style for `TextFieldFormView`.
 public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 0) {
-                configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
+        if self.isLoading, self.isAILoading {
+            return AnyView(
+                VStack(alignment: .leading, spacing: 4) {
+                    self.getTitle(configuration)
+                    SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                        self.getTextInput(configuration)
+                        //                        .skeletonLoading(isTintColor: true)
+                    }
                 }
-                Spacer()
-            }
-            configuration._titleFormView
+                .padding(.top, -1)
+                .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+            )
+        } else {
+            return AnyView(
+                SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        self.getTitle(configuration)
+                        self.getTextInput(configuration)
+                    }
+                    .padding(.top, -1)
+                    .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+                }
+            )
         }
-        .padding(.top, -1)
-        .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
+    }
+    
+    func getTitle(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        if self.isLoading, !self.isAILoading {
+            return Text("TextFieldFormView title")
+                .typeErased
+        } else {
+            return configuration.title.typeErased
+        }
+    }
+    
+    func getTextInput(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        if self.isLoading, !self.isAILoading {
+            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
+                .typeErased
+        } else {
+            return configuration._titleFormView.typeErased
+        }
     }
 
     func isInfoViewNeeded(_ configuration: TextFieldFormViewConfiguration) -> Bool {
@@ -27,28 +59,69 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
 // Default fiori styles
 extension TextFieldFormViewFioriStyle {
     struct ContentFioriStyle: TextFieldFormViewStyle {
+        @Environment(\.currencyField) private var currencyFieldConfiguration
         @FocusState var isFocused: Bool
         @State var isEditing: Bool = false
-
+        @State private var formattedText: String = ""
+        @State private var rawInput: String = ""
+        @Environment(\.isLoading) var isLoading
+        @Environment(\.isAILoading) var isAILoading
+        
         func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
             TextFieldFormView(configuration)
                 .titleStyle { titleConf in
                     Title(titleConf)
-                        .foregroundStyle(self.getTitleColor(configuration))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                }
-                .mandatoryFieldIndicatorStyle { indicatorConf in
-                    MandatoryFieldIndicator(indicatorConf)
-                        .foregroundStyle(self.getMandatoryIndicatorColor(configuration))
+                        .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTitleColor(configuration))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
                         PlaceholderTextField(config)
-                            .foregroundStyle(self.getTextColor(configuration))
+                            .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
                             .focused(self.$isFocused)
+                            .ifApply(self.currencyFieldConfiguration.isCurrencyField) { content in
+                                content
+                                    .keyboardType(.decimalPad)
+                                    .onChange(of: configuration.text) {
+                                        if configuration.text != self.formattedText, configuration.text != self.rawInput {
+                                            if self.isFocused {
+                                                // In typing mode, just store the raw input with decimal limit
+                                                self.processRawInput(configuration, textString: configuration.text)
+                                            } else {
+                                                // In non-typing mode, apply full formatting
+                                                self.formatCurrencyInput(configuration)
+                                            }
+                                        }
+                                    }
+                                    .onChange(of: self.isFocused) {
+                                        if !self.isFocused {
+                                            // When focus is lost, apply formatting
+                                            self.formatCurrencyInput(configuration)
+                                        } else {
+                                            // When focus is gained, show the raw input for easier editing
+                                            if !self.formattedText.isEmpty, self.rawInput != configuration.text {
+                                                DispatchQueue.main.async {
+                                                    configuration.text = self.rawInput
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .onAppear {
+                                        // Initialize values - only if not already set
+                                        if configuration.text.isEmpty {
+                                            self.rawInput = ""
+                                            self.formattedText = ""
+                                        } else {
+                                            self.rawInput = configuration.text
+                                            // Only format non-empty initial values
+                                            if !self.rawInput.isEmpty {
+                                                self.formatCurrencyInput(configuration)
+                                            }
+                                        }
+                                    }
+                            }
                             .setOnChange(of: configuration.text, action1: { s in
                                 self.checkCharCount(configuration, textString: s)
                             }) { _, s in
@@ -67,7 +140,7 @@ extension TextFieldFormViewFioriStyle {
                             }
                         }
                     }
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.getBackgroundColor(configuration)))
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.isLoading ? .clear : self.getBackgroundColor(configuration)))
                     .cornerRadius(8)
                 }
                 .textInputInfoViewStyle { config in
@@ -162,6 +235,95 @@ extension TextFieldFormViewFioriStyle {
             }
             return NSLocalizedString("Custom Action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Custom Action")
         }
+        
+        // Process raw input during typing, only removing invalid characters and respecting maxTextLength
+        private func processRawInput(_ configuration: TextFieldFormViewConfiguration, textString: String) {
+            // Skip processing for empty string
+            if textString.isEmpty {
+                self.rawInput = ""
+                return
+            }
+            
+            // If configuration text is different from what we have, update our raw input
+            if textString != self.rawInput {
+                let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
+                let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
+                
+                // Only filter invalid characters, don't limit decimal places during typing
+                var processedInput = textString.components(separatedBy: validCharSet.inverted).joined()
+                
+                // Only apply maxTextLength if specified
+                if let maxTextLength = configuration.maxTextLength, maxTextLength > 0 {
+                    if !(configuration.allowsBeyondLimit == true), processedInput.count > maxTextLength {
+                        processedInput = String(processedInput.prefix(maxTextLength))
+                    }
+                }
+                
+                // Store the processed input
+                self.rawInput = processedInput
+                
+                // Update UI with the processed raw input only if it changed
+                if processedInput != textString {
+                    // Avoid unnecessary updates that could trigger loops
+                    DispatchQueue.main.async {
+                        // Set directly to avoid triggering onChange again
+                        configuration.text = processedInput
+                    }
+                }
+            }
+        }
+        
+        // Format the currency input when typing is complete
+        private func formatCurrencyInput(_ configuration: TextFieldFormViewConfiguration) {
+            // Skip formatting for empty string
+            if self.rawInput.isEmpty {
+                if self.formattedText != "" {
+                    self.formattedText = ""
+                    // Only update if necessary to avoid loops
+                    if configuration.text != "" {
+                        DispatchQueue.main.async {
+                            configuration.text = ""
+                        }
+                    }
+                }
+                return
+            }
+            
+            // When focus is lost, apply full formatting including decimal place limits
+            if !self.isFocused {
+                // First clean up the input (just removing invalid chars, not limiting decimals yet)
+                let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
+                let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
+                let cleanInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
+                
+                // Then convert to number and let NumberFormatter handle the decimal places
+                if let number = Double(cleanInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
+                    let newFormattedText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? cleanInput
+                    
+                    // Always update when losing focus to ensure formatting is applied
+                    self.formattedText = newFormattedText
+                    
+                    // Always update UI when focus is lost to ensure formatting
+                    DispatchQueue.main.async {
+                        configuration.text = self.formattedText
+                    }
+                } else {
+                    // If conversion fails, just use cleaned input
+                    self.formattedText = cleanInput
+                    
+                    DispatchQueue.main.async {
+                        configuration.text = cleanInput
+                    }
+                }
+            } else {
+                // In editing mode, ensure raw input is displayed
+                if configuration.text != self.rawInput {
+                    DispatchQueue.main.async {
+                        configuration.text = self.rawInput
+                    }
+                }
+            }
+        }
     }
 
     struct TitleFioriStyle: TitleStyle {
@@ -193,15 +355,6 @@ extension TextFieldFormViewFioriStyle {
         
         func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
             TitleFormView(configuration)
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let textFieldFormViewConfiguration: TextFieldFormViewConfiguration
-        
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.textFieldFormViewConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
 }

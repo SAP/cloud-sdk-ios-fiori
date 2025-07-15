@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct ToastMessage {
     let icon: any View
     let title: any View
@@ -20,6 +22,10 @@ public struct ToastMessage {
     let borderWidth: CGFloat
     /// The color of the border surrounding the toast message. The default value is `Color.clear`.
     let borderColor: Color
+    /// The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    let borderWidthIC: CGFloat
+    /// The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
+    let borderColorIC: Color
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     let shadow: FioriShadowStyle?
 
@@ -38,6 +44,8 @@ public struct ToastMessage {
                 backgroundColor: Color = Color.preferredColor(.tertiaryFill),
                 borderWidth: CGFloat = 0,
                 borderColor: Color = Color.clear,
+                borderWidthIC: CGFloat = 1,
+                borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
                 shadow: FioriShadowStyle? = FioriShadowStyle.level3,
                 componentIdentifier: String? = ToastMessage.identifier)
     {
@@ -50,6 +58,8 @@ public struct ToastMessage {
         self.backgroundColor = backgroundColor
         self.borderWidth = borderWidth
         self.borderColor = borderColor
+        self.borderWidthIC = borderWidthIC
+        self.borderColorIC = borderColorIC
         self.shadow = shadow
         self.componentIdentifier = componentIdentifier ?? ToastMessage.identifier
     }
@@ -69,9 +79,11 @@ public extension ToastMessage {
          backgroundColor: Color = Color.preferredColor(.tertiaryFill),
          borderWidth: CGFloat = 0,
          borderColor: Color = Color.clear,
+         borderWidthIC: CGFloat = 1,
+         borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
          shadow: FioriShadowStyle? = FioriShadowStyle.level3)
     {
-        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position, spacing: spacing, cornerRadius: cornerRadius, backgroundColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, shadow: shadow)
+        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position, spacing: spacing, cornerRadius: cornerRadius, backgroundColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, borderWidthIC: borderWidthIC, borderColorIC: borderColorIC, shadow: shadow)
     }
 }
 
@@ -90,6 +102,8 @@ public extension ToastMessage {
         self.backgroundColor = configuration.backgroundColor
         self.borderWidth = configuration.borderWidth
         self.borderColor = configuration.borderColor
+        self.borderWidthIC = configuration.borderWidthIC
+        self.borderColorIC = configuration.borderColorIC
         self.shadow = configuration.shadow
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
@@ -101,7 +115,7 @@ extension ToastMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, shadow: self.shadow)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow)).typeErased
                 .transformEnvironment(\.toastMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -119,7 +133,7 @@ private extension ToastMessage {
     }
 
     func defaultStyle() -> some View {
-        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, shadow: self.shadow))
+        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())
             .typeErased

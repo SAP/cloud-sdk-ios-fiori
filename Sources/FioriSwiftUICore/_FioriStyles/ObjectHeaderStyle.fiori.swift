@@ -6,7 +6,8 @@ import SwiftUI
 public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @Environment(\.sizeCategory) var sizeCategory
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
+    @Environment(\.headerSeparator) private var separatorConfiguration
+    @Environment(\.isLoading) var isLoading
     @State var rightViewSize: CGSize = .init(width: 120, height: 0)
     @State var currentTabIndex: Int = 0
     @State var leftViewSize: CGSize = .init(width: 740, height: 0)
@@ -15,13 +16,30 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @State var middleViewSize: CGSize = .init(width: 312, height: 0)
     
     public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
-        Group {
-            if self.horizontalSizeClass == .compact {
-                self.compactView(configuration)
-            } else {
-                self.regularView(configuration)
-                    .padding(.vertical, 18)
+        SkeletonLoadingContainer(isLoading: self.isLoading) {
+            Group {
+                if self.horizontalSizeClass == .compact {
+                    self.compactView(configuration)
+                        .ifApply(self.separatorConfiguration.showSeparator) { content in
+                            VStack(spacing: 16) {
+                                content
+                                self.separatorConfiguration.color
+                                    .frame(height: self.separatorConfiguration.lineWidth)
+                            }
+                        }
+                } else {
+                    self.regularView(configuration)
+                        .ifApply(self.separatorConfiguration.showSeparator) { content in
+                            VStack(spacing: 16) {
+                                content
+                                self.separatorConfiguration.color
+                                    .frame(height: self.separatorConfiguration.lineWidth)
+                            }
+                        }
+                        .padding(.vertical, 18)
+                }
             }
+            .foregroundColor(.preferredColor(.separator))
         }
     }
     
@@ -378,98 +396,171 @@ extension ObjectHeaderFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        @Environment(\.isLoading) var isLoading
         let objectHeaderConfiguration: ObjectHeaderConfiguration
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .title3))
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel))
         }
     }
     
     struct SubtitleFioriStyle: SubtitleStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 .font(.fiori(forTextStyle: .body))
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel))
         }
     }
     
     struct TagsFioriStyle: TagsStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TagsConfiguration) -> some View {
             Tags(configuration)
+                .ifApply(self.isLoading) { content in
+                    content
+                        .foregroundColor(.preferredColor(.separator))
+                }
         }
     }
     
     struct BodyTextFioriStyle: BodyTextStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: BodyTextConfiguration) -> some View {
             BodyText(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(.preferredColor(.secondaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .secondaryLabel))
         }
     }
     
     struct FootnoteFioriStyle: FootnoteStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteConfiguration) -> some View {
             Footnote(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(.preferredColor(.secondaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .lineLimit(1)
         }
     }
     
     struct DescriptionTextFioriStyle: DescriptionTextStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DescriptionTextConfiguration) -> some View {
             DescriptionText(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel))
         }
     }
     
     struct StatusFioriStyle: StatusStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(.preferredColor(.secondaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .secondaryLabel))
         }
     }
     
     struct SubstatusFioriStyle: SubstatusStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(.preferredColor(.secondaryLabel))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .secondaryLabel))
         }
     }
     
     struct DetailImageFioriStyle: DetailImageStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
+                .ifApply(self.isLoading) { content in
+                    content
+                        .foregroundColor(.preferredColor(.separator))
+                }
         }
     }
     
     struct DetailContentFioriStyle: DetailContentStyle {
         let objectHeaderConfiguration: ObjectHeaderConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DetailContentConfiguration) -> some View {
             DetailContent(configuration)
+                .ifApply(self.isLoading) { content in
+                    content
+                        .foregroundColor(.preferredColor(.separator))
+                }
         }
     }
+}
+
+/// ObjectHeaderSkeletonLoadingPattern provides predefined patterns for ObjectHeader skeleton loading.
+public enum ObjectHeaderSkeletonLoadingPattern {
+    /// Provides a pattern with all fields populated.
+    public static let allField = ObjectHeader(title: {
+        Text("Object Header Title")
+    }, subtitle: {
+        Text("Object Header Subtitle")
+    }, tags: {
+        Tag("Tag1")
+        Tag("Tag2")
+        Tag("Tag3")
+    }, bodyText: {
+        Text("Object Header body text")
+    }, footnote: {
+        Text("footnote text")
+    }, status: {
+        Text("Status")
+    }, substatus: {
+        Text("substatus")
+    }, detailImage: {
+        Image("rw").resizable()
+    })
+    
+    /// Provides a pattern without detail image.
+    public static let noDetailImage = ObjectHeader(title: {
+        Text("Object Header Title")
+    }, subtitle: {
+        Text("Object Header Subtitle")
+    }, tags: {
+        Tag("Tag1")
+        Tag("Tag2")
+        Tag("Tag3")
+    }, bodyText: {
+        Text("Object Header body text")
+    }, footnote: {
+        Text("footnote text")
+    }, status: {
+        Text("Status")
+    }, substatus: {
+        Text("substatus")
+    })
+    
+    /// Provides a pattern without tags.
+    public static let noTag = ObjectHeader(title: {
+        Text("Object Header Title")
+    }, subtitle: {
+        Text("Object Header Subtitle")
+    }, bodyText: {
+        Text("Object Header body text")
+    }, footnote: {
+        Text("footnote text")
+    }, status: {
+        Text("Status")
+    }, substatus: {
+        Text("substatus")
+    }, detailImage: {
+        Image("rw").resizable()
+    })
 }

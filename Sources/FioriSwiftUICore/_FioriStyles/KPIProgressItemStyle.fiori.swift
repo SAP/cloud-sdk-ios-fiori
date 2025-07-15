@@ -25,7 +25,7 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
         .environment(\.isPressed, self.isPressed)
         .frame(width: self.getFrameWidth(configuration: configuration))
         .contentShape(.rect)
-        .gesture(self.createGesture())
+        .simultaneousGesture(self.createGesture())
     }
     
     private func getFrameWidth(configuration: KPIProgressItemConfiguration) -> CGFloat {

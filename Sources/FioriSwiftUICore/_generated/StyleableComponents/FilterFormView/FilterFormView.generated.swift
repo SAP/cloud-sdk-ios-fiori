@@ -5,8 +5,6 @@ import SwiftUI
 
 public struct FilterFormView {
     let title: any View
-    let mandatoryFieldIndicator: any View
-    let isRequired: Bool
     let options: [AttributedString]
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
@@ -24,6 +22,8 @@ public struct FilterFormView {
     let isSingleLine: Bool
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     let onValueChange: (([Int]) -> Void)?
+    ///  This image view is to be displayed on selected item.
+    let checkmarkImage: any View
 
     @Environment(\.filterFormViewStyle) var style
 
@@ -32,8 +32,6 @@ public struct FilterFormView {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder mandatoryFieldIndicator: () -> any View = { Text("*") },
-                isRequired: Bool = false,
                 options: [AttributedString] = [],
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
@@ -44,11 +42,10 @@ public struct FilterFormView {
                 buttonSize: FilterButtonSize = .fixed,
                 isSingleLine: Bool = true,
                 onValueChange: (([Int]) -> Void)? = nil,
+                @ViewBuilder checkmarkImage: () -> any View = { Image(systemName: "checkmark") },
                 componentIdentifier: String? = FilterFormView.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.mandatoryFieldIndicator = MandatoryFieldIndicator(mandatoryFieldIndicator: mandatoryFieldIndicator, componentIdentifier: componentIdentifier)
-        self.isRequired = isRequired
         self.options = options
         self.controlState = controlState
         self.errorMessage = errorMessage
@@ -59,6 +56,7 @@ public struct FilterFormView {
         self.buttonSize = buttonSize
         self.isSingleLine = isSingleLine
         self.onValueChange = onValueChange
+        self.checkmarkImage = checkmarkImage()
         self.componentIdentifier = componentIdentifier ?? FilterFormView.identifier
     }
 }
@@ -80,9 +78,12 @@ public extension FilterFormView {
          value: Binding<[Int]>,
          buttonSize: FilterButtonSize = .fixed,
          isSingleLine: Bool = true,
-         onValueChange: (([Int]) -> Void)? = nil)
+         onValueChange: (([Int]) -> Void)? = nil,
+         @ViewBuilder checkmarkImage: () -> any View = { Image(systemName: "checkmark") })
     {
-        self.init(title: { Text(title) }, mandatoryFieldIndicator: { TextOrIconView(mandatoryFieldIndicator) }, isRequired: isRequired, options: options, controlState: controlState, errorMessage: errorMessage, isEnabled: isEnabled, allowsMultipleSelection: allowsMultipleSelection, allowsEmptySelection: allowsEmptySelection, value: value, buttonSize: buttonSize, isSingleLine: isSingleLine, onValueChange: onValueChange)
+        self.init(title: {
+            TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
+        }, options: options, controlState: controlState, errorMessage: errorMessage, isEnabled: isEnabled, allowsMultipleSelection: allowsMultipleSelection, allowsEmptySelection: allowsEmptySelection, value: value, buttonSize: buttonSize, isSingleLine: isSingleLine, onValueChange: onValueChange, checkmarkImage: checkmarkImage)
     }
 }
 
@@ -93,8 +94,6 @@ public extension FilterFormView {
 
     internal init(_ configuration: FilterFormViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
-        self.mandatoryFieldIndicator = configuration.mandatoryFieldIndicator
-        self.isRequired = configuration.isRequired
         self.options = configuration.options
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
@@ -105,6 +104,7 @@ public extension FilterFormView {
         self.buttonSize = configuration.buttonSize
         self.isSingleLine = configuration.isSingleLine
         self.onValueChange = configuration.onValueChange
+        self.checkmarkImage = configuration.checkmarkImage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -115,7 +115,7 @@ extension FilterFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange, checkmarkImage: .init(self.checkmarkImage))).typeErased
                 .transformEnvironment(\.filterFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -133,7 +133,7 @@ private extension FilterFormView {
     }
 
     func defaultStyle() -> some View {
-        FilterFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), mandatoryFieldIndicator: .init(self.mandatoryFieldIndicator), isRequired: self.isRequired, options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange))
+        FilterFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, onValueChange: self.onValueChange, checkmarkImage: .init(self.checkmarkImage)))
             .shouldApplyDefaultStyle(false)
             .filterFormViewStyle(FilterFormViewFioriStyle.ContentFioriStyle())
             .typeErased

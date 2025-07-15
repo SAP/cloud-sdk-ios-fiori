@@ -50,7 +50,7 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
 /// An object that provides Fiori primary button style for `Button`.
 public struct PrimaryButtonStyle: PrimitiveButtonStyle {
     let isSelectionPersistent: Bool
-    
+    @Environment(\.isLoading) var isLoading
     public init(isSelectionPersistent: Bool = false) {
         self.isSelectionPersistent = isSelectionPersistent
     }
@@ -63,7 +63,7 @@ public struct PrimaryButtonStyle: PrimitiveButtonStyle {
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
-            FioriButtonStyleProvider.getPrimaryButtonStyle(state: state)
+            FioriButtonStyleProvider.getPrimaryButtonStyle(state: state, isLoading: self.isLoading)
         }
     }
 }
@@ -72,7 +72,7 @@ public struct PrimaryButtonStyle: PrimitiveButtonStyle {
 public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     let colorStyle: FioriButtonColorStyle
     let isSelectionPersistent: Bool
-    
+    @Environment(\.isLoading) var isLoading
     public init(colorStyle: FioriButtonColorStyle = .tint, isSelectionPersistent: Bool = false) {
         self.colorStyle = colorStyle
         self.isSelectionPersistent = isSelectionPersistent
@@ -86,7 +86,7 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
-            FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: state)
+            FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: state, isLoading: self.isLoading)
         }
     }
 }
@@ -95,6 +95,7 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
 public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     let colorStyle: FioriButtonColorStyle
     let isSelectionPersistent: Bool
+    @Environment(\.isLoading) var isLoading
     
     public init(colorStyle: FioriButtonColorStyle = .tint, isSelectionPersistent: Bool = false) {
         self.colorStyle = colorStyle
@@ -109,7 +110,7 @@ public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
-            FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: state)
+            FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: state, isLoading: self.isLoading)
         }
     }
 }
