@@ -45,9 +45,7 @@ struct ProfileHeaderSkeletonLoading: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .cornerRadius(10)
-                            .ifApply(self.isLoading) { view in
-                                view.loadingStyle()
-                            }
+                            .skeletonLoading(isLoading: self.isLoading)
                     }
                 } header: {
                     self.profileHeader

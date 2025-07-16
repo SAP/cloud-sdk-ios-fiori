@@ -80,7 +80,7 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
     
     @ViewBuilder
     public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
+        SkeletonLoadingContainer {
             Group {
                 switch self.horizontalSizeClass {
                 case .regular:

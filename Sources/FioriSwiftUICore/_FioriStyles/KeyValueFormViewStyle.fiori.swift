@@ -6,7 +6,7 @@ import SwiftUI
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
     @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
+        SkeletonLoadingContainer {
             VStack(alignment: .leading) {
                 self.getTitle(configuration)
                 configuration._noteFormView

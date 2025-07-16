@@ -39,19 +39,19 @@ struct WritingAssistantExample: View {
             .navigationTitle("Analyze Text")
     }
     
-    private func fetchData(for menu: WAMenu, value: String) async -> WAResult {
+    private func fetchData(for menu: WAMenu, value: String, withLoading: Bool = false) async -> WAResult {
         if self.errorOccurred {
-            self.isLoading = true
+            if withLoading { self.isLoading = true }
             try? await Task.sleep(nanoseconds: 1500000000)
-            self.isLoading = false
+            if withLoading { self.isLoading = false }
             return .failure(WAError(detailImage: FioriIcon.illustrations.simpleConnectionSpot, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
         } else {
             if menu == .analyzeText {
                 return .customDestination(self.customDestination)
             } else {
-                self.isLoading = true
+                if withLoading { self.isLoading = true }
                 try? await Task.sleep(nanoseconds: 1500000000)
-                self.isLoading = false
+                if withLoading { self.isLoading = false }
                 return .success("Mock Async Value - \(menu.title)")
             }
         }
@@ -79,12 +79,11 @@ struct WritingAssistantExample: View {
     var body: some View {
         List {
             Toggle("Show Error", isOn: self.$errorOccurred)
-            
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
-                .environment(\.isAILoading, self.isLoading)
                 .environment(\.isLoading, self.isLoading)
+                .environment(\.isAILoading, self.isLoading)
                 .waTextInput(self.$text, menus: WAMenu.availableMenus, menuHandler: { menu, value in
-                    await self.fetchData(for: menu, value: value)
+                    await self.fetchData(for: menu, value: value, withLoading: true)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
                     await self.submitFeedback(state: state, values: values)
                 })

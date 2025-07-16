@@ -9,7 +9,7 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
-            SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+            SkeletonLoadingContainer {
                 self.getPlaceholderTextEditor(configuration)
                     .focused(self.$isFocused)
                     .disabled(self.getDisabled(configuration))
