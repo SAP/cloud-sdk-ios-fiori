@@ -494,14 +494,17 @@
 /* XBUT: Writing assistant redo action title */
 "Redo" = "Redo";
 
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?";
+
 /* XTIT: Writing assistant cancel alert title */
-"Close Writing Assistant without saving changes?" = "Close Writing Assistant without saving changes?";
+"Discard all changes?" = "Discard all changes?"
 
 /* XBUT: Writing assistant cancel alert action title for keep working */
 "Keep Working" = "Keep Working";
 
-/* XBUT: Writing assistant cancel alert action title for close */
-"Close" = "Close";
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Discard";
 
 /* XMSG: A success toast message for feedback flow in writing assistant */
 "Thank you for your feedback" = "Thank you for your feedback";

@@ -149,7 +149,7 @@ public struct FioriButton: View {
 
     /// The content of the button.
     public var body: some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
+        SkeletonLoadingContainer {
             // For menu use case, fioriButton should be based on Button
             Button {
                 // This will be called when tapped for use case in Menu component

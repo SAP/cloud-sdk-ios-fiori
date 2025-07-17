@@ -24,7 +24,7 @@ public struct CardBaseStyle: CardStyle {
     
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
+        SkeletonLoadingContainer {
             CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
                 if !configuration._cardHeader.isEmpty {
                     configuration._cardHeader
