@@ -48,7 +48,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
         
-        return SkeletonLoadingContainer(isLoading: self.isLoading) {
+        return SkeletonLoadingContainer {
             Group {
                 if !configuration.action.isEmpty {
                     // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.

@@ -11,17 +11,17 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
             return AnyView(
                 VStack(alignment: .leading, spacing: 4) {
                     self.getTitle(configuration)
-                    SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                    SkeletonLoadingContainer {
                         self.getTextInput(configuration)
-                        //                        .skeletonLoading(isTintColor: true)
                     }
+                    .environment(\.isLoading, self.isLoading)
                 }
                 .padding(.top, -1)
                 .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
             )
         } else {
             return AnyView(
-                SkeletonLoadingContainer(isLoading: self.isLoading, isTintColor: self.isAILoading) {
+                SkeletonLoadingContainer {
                     VStack(alignment: .leading, spacing: 4) {
                         self.getTitle(configuration)
                         self.getTextInput(configuration)
@@ -29,6 +29,7 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
                     .padding(.top, -1)
                     .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 1)
                 }
+                .environment(\.isLoading, self.isLoading)
             )
         }
     }
