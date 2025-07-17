@@ -63,8 +63,8 @@ extension TextFieldFormViewFioriStyle {
         @Environment(\.currencyField) private var currencyFieldConfiguration
         @FocusState var isFocused: Bool
         @State var isEditing: Bool = false
-        @State private var formattedText: String = ""
         @State private var rawInput: String = ""
+        @State private var displayText: String = ""
         @Environment(\.isLoading) var isLoading
         @Environment(\.isAILoading) var isAILoading
         
@@ -77,7 +77,26 @@ extension TextFieldFormViewFioriStyle {
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
-                        PlaceholderTextField(config)
+                        PlaceholderTextField(text: Binding(
+                            get: {
+                                // In currency field mode, display formatted text or raw input
+                                if self.currencyFieldConfiguration.isCurrencyField {
+                                    return self.isFocused ? self.rawInput : self.displayText
+                                } else {
+                                    return configuration.text
+                                }
+                            },
+                            set: { newValue in
+                                if self.currencyFieldConfiguration.isCurrencyField {
+                                    // In the currency field mode, handle the input
+                                    if self.isFocused {
+                                        self.processRawInput(configuration, textString: newValue)
+                                    }
+                                } else {
+                                    configuration.text = newValue
+                                }
+                            }
+                        ), isSecureEnabled: config.isSecureEnabled, placeholder: { config.placeholder.body })
                             .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
@@ -85,48 +104,24 @@ extension TextFieldFormViewFioriStyle {
                             .ifApply(self.currencyFieldConfiguration.isCurrencyField) { content in
                                 content
                                     .keyboardType(.decimalPad)
-                                    .onChange(of: configuration.text) {
-                                        if configuration.text != self.formattedText, configuration.text != self.rawInput {
-                                            if self.isFocused {
-                                                // In typing mode, just store the raw input with decimal limit
-                                                self.processRawInput(configuration, textString: configuration.text)
-                                            } else {
-                                                // In non-typing mode, apply full formatting
-                                                self.formatCurrencyInput(configuration)
-                                            }
-                                        }
-                                    }
                                     .onChange(of: self.isFocused) {
                                         if !self.isFocused {
-                                            // When focus is lost, apply formatting
-                                            self.formatCurrencyInput(configuration)
-                                        } else {
-                                            // When focus is gained, show the raw input for easier editing
-                                            if !self.formattedText.isEmpty, self.rawInput != configuration.text {
-                                                DispatchQueue.main.async {
-                                                    configuration.text = self.rawInput
-                                                }
-                                            }
+                                            // When losing focus, update the formatted display text and the original data.
+                                            self.updateCurrencyFormatting(configuration)
                                         }
                                     }
                                     .onAppear {
-                                        // Initialize values - only if not already set
-                                        if configuration.text.isEmpty {
-                                            self.rawInput = ""
-                                            self.formattedText = ""
-                                        } else {
-                                            self.rawInput = configuration.text
-                                            // Only format non-empty initial values
-                                            if !self.rawInput.isEmpty {
-                                                self.formatCurrencyInput(configuration)
-                                            }
-                                        }
+                                        // Initialize the currency field
+                                        self.initializeCurrencyField(configuration)
+                                    }
+                                    .onChange(of: self.rawInput) {
+                                        self.rawInput = self.validateText()
                                     }
                             }
                             .setOnChange(of: configuration.text, action1: { s in
-                                self.checkCharCount(configuration, textString: s)
+                                self.handleTextChange(configuration, textString: s)
                             }) { _, s in
-                                self.checkCharCount(configuration, textString: s)
+                                self.handleTextChange(configuration, textString: s)
                             }
                             .frame(minHeight: 44)
                             .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
@@ -237,92 +232,94 @@ extension TextFieldFormViewFioriStyle {
             return NSLocalizedString("Custom Action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Custom Action")
         }
         
-        // Process raw input during typing, only removing invalid characters and respecting maxTextLength
-        private func processRawInput(_ configuration: TextFieldFormViewConfiguration, textString: String) {
-            // Skip processing for empty string
-            if textString.isEmpty {
-                self.rawInput = ""
-                return
+        // Validate Text
+        private func validateText() -> String {
+            // Filter out non-numeric characters and special symbols
+            let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
+            let validCharSet = CharacterSet(charactersIn: "-0123456789\(decimalSeparator)")
+            var processedInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
+            
+            // Handle the situation of multiple decimal points
+            if processedInput.components(separatedBy: decimalSeparator).count > 2 {
+                processedInput.removeLast()
             }
             
-            // If configuration text is different from what we have, update our raw input
-            if textString != self.rawInput {
-                let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
-                let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
-                
-                // Only filter invalid characters, don't limit decimal places during typing
-                var processedInput = textString.components(separatedBy: validCharSet.inverted).joined()
-                
-                // Only apply maxTextLength if specified
-                if let maxTextLength = configuration.maxTextLength, maxTextLength > 0 {
-                    if !(configuration.allowsBeyondLimit == true), processedInput.count > maxTextLength {
-                        processedInput = String(processedInput.prefix(maxTextLength))
-                    }
-                }
-                
-                // Store the processed input
-                self.rawInput = processedInput
-                
-                // Update UI with the processed raw input only if it changed
-                if processedInput != textString {
-                    // Avoid unnecessary updates that could trigger loops
-                    DispatchQueue.main.async {
-                        // Set directly to avoid triggering onChange again
-                        configuration.text = processedInput
-                    }
-                }
+            // Handle multiple minus
+            if let firstChar = processedInput.first, firstChar == "-", processedInput.components(separatedBy: "-").count > 2 {
+                processedInput.removeLast()
+            }
+            
+            return processedInput
+        }
+        
+        // Handle text changes for both currency and non-currency fields
+        private func handleTextChange(_ configuration: TextFieldFormViewConfiguration, textString: String) {
+            if !self.currencyFieldConfiguration.isCurrencyField {
+                self.checkCharCount(configuration, textString: textString)
+            } else {
+                self.syncRawInput(textString)
             }
         }
         
-        // Format the currency input when typing is complete
-        private func formatCurrencyInput(_ configuration: TextFieldFormViewConfiguration) {
-            // Skip formatting for empty string
-            if self.rawInput.isEmpty {
-                if self.formattedText != "" {
-                    self.formattedText = ""
-                    // Only update if necessary to avoid loops
-                    if configuration.text != "" {
-                        DispatchQueue.main.async {
-                            configuration.text = ""
-                        }
-                    }
+        // Initialize the currency field
+        private func initializeCurrencyField(_ configuration: TextFieldFormViewConfiguration) {
+            if configuration.text.isEmpty {
+                self.rawInput = ""
+                self.displayText = ""
+            } else {
+                // Assume the initial value is the original numerical value
+                self.rawInput = configuration.text
+                self.updateDisplayText(configuration)
+            }
+        }
+        
+        // Sync the raw input data
+        private func syncRawInput(_ newValue: String) {
+            if !self.isFocused, newValue != self.displayText {
+                // When the bound value is modified externally, synchronize it to rawInput
+                self.rawInput = newValue
+            }
+        }
+        
+        // Process the raw input and only clean invalid characters during the input process.
+        private func processRawInput(_ configuration: TextFieldFormViewConfiguration, textString: String) {
+            var processedInput = self.validateText()
+            
+            // Apply maximum length limit
+            if let maxTextLength = configuration.maxTextLength, maxTextLength > 0 {
+                if !(configuration.allowsBeyondLimit == true), processedInput.count > maxTextLength {
+                    processedInput = String(processedInput.prefix(maxTextLength))
                 }
+            }
+            self.rawInput = textString
+            
+            // Update the bound raw data
+            if processedInput != configuration.text {
+                configuration.text = processedInput
+            }
+        }
+        
+        // Update the currency formatting while keeping the original data unchanged
+        private func updateCurrencyFormatting(_ configuration: TextFieldFormViewConfiguration) {
+            self.updateDisplayText(configuration)
+            
+            // Ensure that the bound text remains as the original numerical value
+            if self.rawInput != configuration.text {
+                configuration.text = self.rawInput
+            }
+        }
+        
+        // Update the display text
+        private func updateDisplayText(_ configuration: TextFieldFormViewConfiguration) {
+            if self.rawInput.isEmpty {
+                self.displayText = ""
                 return
             }
-            
-            // When focus is lost, apply full formatting including decimal place limits
-            if !self.isFocused {
-                // First clean up the input (just removing invalid chars, not limiting decimals yet)
-                let decimalSeparator = self.currencyFieldConfiguration.formatter.locale.decimalSeparator ?? "."
-                let validCharSet = CharacterSet(charactersIn: "0123456789\(decimalSeparator)")
-                let cleanInput = self.rawInput.components(separatedBy: validCharSet.inverted).joined()
-                
-                // Then convert to number and let NumberFormatter handle the decimal places
-                if let number = Double(cleanInput.replacingOccurrences(of: decimalSeparator, with: ".")) {
-                    let newFormattedText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? cleanInput
-                    
-                    // Always update when losing focus to ensure formatting is applied
-                    self.formattedText = newFormattedText
-                    
-                    // Always update UI when focus is lost to ensure formatting
-                    DispatchQueue.main.async {
-                        configuration.text = self.formattedText
-                    }
-                } else {
-                    // If conversion fails, just use cleaned input
-                    self.formattedText = cleanInput
-                    
-                    DispatchQueue.main.async {
-                        configuration.text = cleanInput
-                    }
-                }
+            let processedInput = self.validateText()
+            if let number = Double(processedInput) {
+                self.displayText = self.currencyFieldConfiguration.formatter.format(Decimal(number)) ?? self.rawInput
             } else {
-                // In editing mode, ensure raw input is displayed
-                if configuration.text != self.rawInput {
-                    DispatchQueue.main.async {
-                        configuration.text = self.rawInput
-                    }
-                }
+                self.displayText = self.rawInput
             }
         }
     }
