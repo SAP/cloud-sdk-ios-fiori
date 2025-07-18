@@ -25,7 +25,9 @@ struct ObjectHeaderTestApp: View {
             Tag("I am selected")
                 .tagStyle(MyCustomTagStyle())
             Tag("Tag1")
+                .tagStyle(.fiori)
             Tag("Tag2")
+                .tagStyle(.outlined)
         }, bodyText: {
             Text("1000-Hamburg, MECHANIK")
         }, footnote: {

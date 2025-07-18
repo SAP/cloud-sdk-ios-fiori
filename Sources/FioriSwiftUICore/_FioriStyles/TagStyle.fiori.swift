@@ -7,37 +7,26 @@ public struct TagBaseStyle: TagStyle {
     @ViewBuilder
     public func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration.tag
-            .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
+            .padding(EdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4))
     }
 }
 
 // Default fiori styles
 public struct TagFioriStyle: TagStyle {
     @Environment(\.tagLimit) var tagLimit
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.isLoading) var isLoading
+    @Environment(\.tagStyle) var tagStyle
     @ViewBuilder
     public func makeBody(_ configuration: TagConfiguration) -> some View {
-        let isLight = self.colorScheme == .light
-        let background = isLight ? RoundedRectangle(cornerRadius: 8).stroke(Color.preferredColor(.quaternaryLabel), lineWidth: 0.5).typeErased : RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tertiaryLabel)).typeErased
-        
         Tag(configuration)
             .font(.fiori(forTextStyle: .footnote))
-            .foregroundStyle(self.getTextColor(configuration: configuration))
+            .foregroundStyle(Color.preferredColor(.accentLabel10))
             .lineLimit(self.tagLimit)
-            .background(background)
-            .ifApply(self.isLoading) {
-                $0.foregroundStyle(Color.preferredColor(.separator))
-            }
-    }
-    
-    func getTextColor(configuration: TagConfiguration) -> Color {
-        let isLight = self.colorScheme == .light
-        if self.isLoading {
-            return Color.preferredColor(.separator)
-        } else {
-            return isLight ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel, background: .darkConstant)
-        }
+            .ifApply(!(self.tagStyle is OutlinedTagStyle), content: {
+                $0.background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.preferredColor(.accentBackground10))
+                )
+            })
     }
 }
 
@@ -84,6 +73,27 @@ public struct DarkTagStyle: TagStyle {
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .lineLimit(1)
             .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tertiaryLabel)))
+    }
+}
+
+public struct OutlinedTagStyle: TagStyle {
+    /// :nodoc:
+    public init() {}
+    public func makeBody(_ configuration: TagConfiguration) -> some View {
+        Tag(configuration)
+            .foregroundStyle(Color.preferredColor(.secondaryLabel))
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.preferredColor(.tertiaryLabel), lineWidth: 0.5)
+            )
+    }
+}
+
+/// :nodoc:
+public extension TagStyle where Self == OutlinedTagStyle {
+    /// Outlined tag style
+    static var outlined: OutlinedTagStyle {
+        OutlinedTagStyle()
     }
 }
 
