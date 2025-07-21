@@ -2162,7 +2162,7 @@ public enum FioriIcon {
         ///
         public static let textAlignRight = Image(fioriName: "fiori.text.align.right")
         ///
-        public static let textColor = Image(fioriName: "fiori.text.color")
+        public static let textColor = Image(fioriName: "fiori.text.colour")
         ///
         public static let textFormatting = Image(fioriName: "fiori.text.formatting")
         ///
