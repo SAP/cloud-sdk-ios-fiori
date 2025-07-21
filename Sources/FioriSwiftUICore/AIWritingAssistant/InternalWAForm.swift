@@ -50,22 +50,23 @@ struct InternalWAForm: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("", isPresented: self.$context.showCancelAlert, actions: {
-            Button {
+        .alert("Discard all changes?", isPresented: self.$context.showCancelAlert, actions: {
+            Button(role: .cancel) {
                 self.context.showCancelAlert = false
             } label: {
                 Text("Keep Working")
+                    .font(.fiori(forTextStyle: .caption1))
             }
             
-            Button {
+            Button(role: .destructive) {
                 self.context.showCancelAlert = false
                 self.context.cancelAction()
                 self.context.isPresented = false
             } label: {
-                Text("Close")
+                Text("Discard")
             }
         }, message: {
-            Text("Close Writing Assistant without saving changes?")
+            Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?")
         })
     }
     
@@ -83,8 +84,6 @@ struct InternalWAForm: View {
                             .textCase(nil)
                             .frame(height: 60)
                             .listRowInsets(EdgeInsets())
-                    } else {
-                        EmptyView()
                     }
                 } footer: {
                     if section.id == sections.last?.id, self.isTopLevel {
@@ -93,22 +92,14 @@ struct InternalWAForm: View {
                 }
             }
         }
+        .contentMargins(.top, 10)
+        .listSectionSpacing(10)
         .onAppear {
             self.context.customDestination = nil
             self.waHelperAction.wrappedValue = .none
         }
         .navigationDestination(item: self.$context.customDestination) { customDestination in
             customDestination.destination.typeErased
-        }
-    }
-    
-    func actionButton(title: String?) -> FioriButton? {
-        if let actionTitle = title {
-            return FioriButton(label: { _ in
-                Text(actionTitle)
-            })
-        } else {
-            return nil
         }
     }
     
@@ -218,6 +209,4 @@ struct InternalWAForm: View {
             .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
             .font(.fiori(forTextStyle: .caption1))
     }
-    
-    @State var filterFormViewSelectionValue: [Int] = [0]
 }

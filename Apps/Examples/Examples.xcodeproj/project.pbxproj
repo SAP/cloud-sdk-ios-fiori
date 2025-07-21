@@ -50,6 +50,7 @@
 		6D10F8A02C7DB3F50071DD3E /* BannerMultiMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */; };
 		6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */; };
 		6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */; };
+		6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */; };
 		6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */; };
 		6D6E25672D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E25662D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift */; };
 		6D6E256D2D378025009A62CA /* FilterFormViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E256C2D378025009A62CA /* FilterFormViewExamples.swift */; };
@@ -320,6 +321,7 @@
 		6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageExample.swift; sourceTree = "<group>"; };
 		6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageCustomInitExample.swift; sourceTree = "<group>"; };
 		6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCellEnhancementExample.swift; sourceTree = "<group>"; };
+		6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerExample.swift; sourceTree = "<group>"; };
 		6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemExample.swift; sourceTree = "<group>"; };
 		6D6E25662D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingWelcomeScreenExamples.swift; sourceTree = "<group>"; };
 		6D6E256C2D378025009A62CA /* FilterFormViewExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFormViewExamples.swift; sourceTree = "<group>"; };
@@ -1076,6 +1078,7 @@
 				5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */,
 				6432FF9F2C5164F8008ECE89 /* SegmentedControlExample.swift */,
 				64905D082C7693970062AAD4 /* DateTimePickerExample.swift */,
+				6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */,
 			);
 			path = Picker;
 			sourceTree = "<group>";
@@ -1480,6 +1483,7 @@
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
 				9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */,
+				6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */,
 				6DEC31F82C47B7850084DD20 /* FioriButtonStyleToggleExample.swift in Sources */,
 				B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */,
 				6D6E256D2D378025009A62CA /* FilterFormViewExamples.swift in Sources */,

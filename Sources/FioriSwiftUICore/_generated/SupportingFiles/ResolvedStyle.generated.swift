@@ -691,6 +691,22 @@ extension CounterStyle {
     }
 }
 
+// MARK: DateRangePickerStyle
+
+struct ResolvedDateRangePickerStyle<Style: DateRangePickerStyle>: View {
+    let style: Style
+    let configuration: DateRangePickerConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension DateRangePickerStyle {
+    func resolve(configuration: DateRangePickerConfiguration) -> some View {
+        ResolvedDateRangePickerStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DateTimePickerStyle
 
 struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {

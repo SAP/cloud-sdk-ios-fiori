@@ -1,0 +1,534 @@
+/* XMSG: Placeholder text in chart when there is no data */
+"No Data" = "Nema podataka";
+
+/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Save" = "Sačuvaj";
+
+/* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Re-enter Signature" = "Ponovo unesi potpis";
+
+/* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Clear" = "Poništi";
+
+/* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Cancel" = "Odustani";
+
+/* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Signature" = "Potpis";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Tap to Sign" = "Dodirnite da biste potpisali";
+
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Oblast potpisa";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Dodirnite dvaput i prevucite da potpišete";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Slika potpisa";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Red potpisa";
+
+/* XACT: The accessibility label for the mandatory field */
+"Required Field" = "Polje obaveznog unosa";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "Otkazano";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "Sljedeće";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "OK";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "Status";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "Korisnik otkazao integraciju";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "Bez saglasnosti nećete moći da nastavite integraciju.";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "Dajte saglasnost";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "Izađi";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Back" = "Nazad";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Step" = "Korak";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"of" = "od";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Are you sure you want to quit the onboarding process?" = "Da li sigurno želite da napustite proces integracije?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "Da li želite privatnost podataka?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "Budite oprezni sa vašim podacima";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "Ne sada";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "Dozvoli";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "Odbij";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "Saglašavam se";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "Ne saglašavam se";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Učitavanje...";
+
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "Nema još ništa za prikaz";
+
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d sata/i %d min.";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Izvršeno";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "%d grešaka u tabeli podataka.";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "zaglavlje reda";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "red %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "kolona %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "vodeći dodatak";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "prateći dodatak";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "tekst";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "slika";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "datum";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "vrijeme";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "trajanje";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "stavka liste";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "odabrano";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "nije odabrano";
+
+/* Default value for DateTimePicker */
+"No date selected" = "Datum nije odabran";
+
+/* Default value for DateRangePicker */
+"No range selected" = "Raspon nije odabran";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "pritisni space da postaviš vrijednost raspona";
+
+/* XBUT: calendar time component label */
+"Time" = "Vrijeme";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Vrijednost: %d";
+
+/* XMSG: a toast message for read-only cell in DataTable */
+"Tapped cell is read-only." = "Dodirnuta ćelija je samo za čitanje.";
+
+/* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
+"Read-only field" = "Polje samo za čitanje";
+
+/* Default error text for when the character count reaches the maximum limit for NoteFormView and TextFieldFormView */
+"No more characters remaining" = "Nema preostalih znakova";
+
+/* Default error text for when the character count exceeds the maximum limit for NoteFormView and TextFieldFormView */
+"Reduce the number of characters" = "Smanji broj znakova";
+
+/* XBUT: voice over label for decrement action in stepper */
+"Stepper decrease" = "Smanjenje regulatora vrijednosti";
+
+/* XBUT: voice over description for decrement action in stepper */
+"Decrease the value by %d" = "Smanji vrijednost za %d";
+
+/* XBUT: voice over label for increment action in stepper */
+"Stepper increase" = "Povećanje regulatora vrijednosti";
+
+/* XBUT: voice over description for increment action in stepper */
+"Increase the value by %d" = "Povećaj vrijednost za %d";
+
+/* XBUT: voice over label for test field in stepper */
+"Select specific value" = "Odaberi određenu vrijednost";
+
+/* XBUT: View all action in MenuSelection */
+"View All (%d)" = "Prikaži sve (%d)";
+
+/* XACT: RatingControl accessibility label */
+"%d out of %d stars" = "%d od %d zvjezdica";
+
+/* XBUT: timeline preview component see all label */
+"See All (%d)" = "Prikaži sve (%d)";
+
+/* XACT: Timeline preview item accessibility label */
+"Item %d of %d" = "Stavka %d od %d";
+
+/* XBUT: timeline preview component timestamp label */
+"Today, %d" = "Danas, %d";
+
+/* XFLD: RatingControl value label format */
+"%d of %d" = "%d od %d";
+
+/* XFLD: RatingControl review count format */
+"%d reviews" = "%d pregleda";
+
+/* XFLD: RatingControl review count over ceiling format */
+"%d+ reviews" = "%d+ pregleda";
+
+/* XACT: RatingControl accessibility label */
+"Rating Control %d of %d" = "Kontrola vrednovanja %d od %d";
+
+/* XACT: read-only RatingControl accessibility label: rating with review count */
+"Rating Control, rating %d of %d, %d reviews" = "Kontrola vrednovanja, vrednovanje %d od %d, %d pregleda";
+
+/* XACT: read-only RatingControl accessibility label: average rating only */
+"Rating Control, average rating %.1f of %d" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count */
+"Rating Control, average rating %.1f of %d, %d reviews" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d, %d pregleda";
+
+/* XACT: read-only RatingControl accessibility label: average rating with review count over ceiling */
+"Rating Control, average rating %.1f of %d, %d plus reviews" = "Kontrola vrednovanja, prosječno vrednovanje %.1f od %d, %d plus pregledi";
+
+/* XBUT: View all messages in message banner sheet */
+"All" = "Sve";
+
+/* XBUT: messages count in the message banner sheet */
+"Messages (%d)" = "Poruke (%d)";
+
+/* XBUT: view details in the message banner */
+"View Details" = "Prikaži detalje";
+
+/* XBUT: view different message in the message banner sheet item */
+"View %@" = "Prikaži %@";
+
+/* XBUT: banner message type desc, message */
+"message" = "poruku";
+
+/* XBUT: banner message type desc, information */
+"information" = "informaciju";
+
+/* XBUT: banner message type desc, confirmation */
+"confirmation" = "potvrdu";
+
+/* XBUT: banner message type desc, warning */
+"warning" = "upozorenje";
+
+/* XBUT: banner message type desc, error */
+"error" = "grešku";
+
+/* XBUT: banner message type desc in plural form, messages */
+"messages" = "poruka";
+
+/* XBUT: banner message type desc in plural form, informations */
+"informations" = "informacije";
+
+/* XBUT: banner message type desc in plural form, confirmations */
+"confirmations" = "potvrda";
+
+/* XBUT: banner message type desc in plural form, warnings */
+"warnings" = "upozorenja";
+
+/* XBUT: banner message type desc in plural form, errors */
+"errors" = "grešaka";
+
+/* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Reset" = "Poništi";
+
+/* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
+"Apply" = "Primijeni";
+
+/* XTIT: The alert message for `ListPickerDestination` pulldown dismissal */
+"Are you sure you want to discard your selections?" = "Da li zaista želite da odbacite odabire?";
+
+/* XBUT: The alert Discard Changes action title for `ListPickerDestination` pulldown dismissal */
+"Discard Changes" = "Odbaci promjene";
+
+/* XBUT: The alert Keep Editing action title for `ListPickerDestination` pulldown dismissal */
+"Keep Editing" = "Nastavi uređivanje";
+
+/* XBUT: The \"Select All\" button title on the List Picker header */
+"Select All" = "Odaberi sve";
+
+/* XBUT: The \"Deselect All\" button title on the List Picker header */
+"Deselect All" = "Poništi sve odabire";
+
+/* XBUT: The \"Selected\" title on the List Picker header */
+"Selected" = "Odabrano";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"Text field, Double tap to edit" = "Polje teksta, dodirnite dvaput za uređivanje";
+
+/* XACT: The accessibility hint for Text Input Views, editing */
+"Text field, is editing" = "Polje teksta, uređuje se";
+
+/* XACT: The accessibility hint for Text Input Views, editing, with clear button */
+"Text field, is editing. Double tap to clear text" = "Polje teksta, uređuje se. Dodirnite dvaput za brisanje teksta";
+
+/* XACT: The default accessibility label for the custom action in TextFieldFormView if none was specified */
+"Custom Action" = "Korisnički definisana radnja";
+
+/* XBUT: Error messages shown to users in DocumentScannerView */
+"Failed to create PDF page from images" = "Kreiranje PDF stranice na osnovu slika nije uspjelo.";
+
+/* XBUT: Cancel message shown to users in DocumentScannerView */
+"User cancelled the scan" = "Korisnik je otkazao skeniranje.";
+
+/* Progress Indicator accessibility label: processing */
+"Processing" = "Obrada";
+
+/* Progress Indicator accessibility label: loading pausable with indicator progress */
+"In progress with option to pause, %.0f" = "U toku sa opcijom pauziranja, %.0f";
+
+/* Progress Indicator accessibility label: loading stoppable with indicator progress */
+"In progress with option to stop, %.0f" = "U toku sa opcijom zaustavljanja, %.0f";
+
+/* Progress Indicator accessibility label: progress halted with indicator progress */
+"Progress halted, %.0f" = "Napredak zaustavljen, %.0f";
+
+/* XACT: Slider accessibility label */
+"This is %@ slider whose maximum value is %@ and minimum value is %@" = "Ovo je %@ klizač čija je maksimalna vrijednost %@, a minimalna vrijednost je %@";
+
+/* XACT: Slider accessibility value */
+"Current value is %@" = "Trenutna vrijednost je %@";
+
+/* XACT: Range Slider lower thumb accessibility label */
+"lower range slider thumb, current value is" = "klizač na kliznom pokazivaču nižeg raspona, trenutna vrijednost je";
+
+/* XACT: Range Slider lower thumb accessibility hint */
+"you can swipe up or down to change the lower value" = "možete da prevučete gore ili dolje da biste promijenili nižu vrijednost";
+
+/* XACT: Range Slider upper thumb accessibility label */
+"upper range slider thumb, current value is" = "klizač na kliznom pokazivaču gornjeg raspona, trenutna vrijednost je";
+
+/* XACT: Range Slider upper thumb accessibility hint */
+"you can swipe up or down to change the upper value" = "možete da prevučete gore ili dolje da biste promijenili višu vrijednost";
+
+/* XACT: Single editable Slider thumb accessibility label */
+"slider thumb, current value is" = "klizač na kliznom pokazivaču, trenutna vrijednost je";
+
+/* XACT: Single editable Slider thumb accessibility hint */
+"you can swipe up or down to change the value" = "možete da prevučete gore ili dolje da biste promijenili vrijednost";
+
+/* XACT: Single Slider accessibility label */
+"This is a slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range Slider accessibility label */
+"This is a range slider, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona, minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider accessibility label */
+"This is a slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač koji se može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single non-editable Slider accessibility label */
+"This is a slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač koji se ne može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range editable Slider accessibility label */
+"This is a range slider that is editable, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Range non-editable Slider accessibility label */
+"This is a range slider that can't be edited, the minimum value is %@ and the maximum value is %@" = "Ovo je klizač raspona koji se ne može uređivati; minimalna vrijednost je %@, a maksimalna vrijednost je %@";
+
+/* XACT: Single editable Slider Text Field accessibility label */
+"slider value text field" = "polje teksta vrijednosti klizača";
+
+/* XACT: Range editable Slider Lower Value Text Field accessibility label */
+"lower value text field" = "polje teksta niže vrijednosti";
+
+/* XACT: Range editable Slider Upper Value Text Field accessibility label */
+"upper value text field" = "polje teksta više vrijednosti";
+
+/* XACT: Editable Slider Text Field accessibility hint */
+"You can double tap to input a specific value" = "Možete dodirnuti dvaput da biste unijeli specifičnu vrijednost";
+
+/* XACT: Editable Slider Text Field accessibility value */
+"current value is %@" = "trenutna vrijednost je %@";
+
+/* XACT: Range Editable Slider accessibility value */
+"current lower value is %@, upper value is %@" = "trenutna niža vrijednost je %@, viša vrijednost je %@";
+
+/* XTIT: Title of step progress indicator, see https://experience.sap.com/fiori-design-ios/article/step-progress-indicator/#adaptive-design */
+"All Steps" = "Svi koraci";
+
+/* XMSG: AI Notice message */
+"Suggested by AI. Verify before use. " = "Prijedlog vještačke inteligencije. Potvrdite prije upotrebe.  ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotografije";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Fajlovi";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skeniraj";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Prethodno prikaži";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Izbrisati dodatak?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Izbriši";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Dodaj dodatak";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Dvaput dodirni da dodaš dodatak";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Sličica";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Prijavi se";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "Korisničko ime";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "Lozinka";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Podnesi";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Podnošenje nije uspjelo";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Došlo je do greške. Pokušajte ponovo kasnije.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Ponovo pokušaj";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Pozitivne povratne informacije";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negativne povratne informacije";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "aktivirano";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skeniranje nije uspješno";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Odaberite sliku QR šifre.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Nevažeća QR šifra";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR šifra nije prepoznata.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Dozvolite pristup fotografijama";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Za odabir slike QR šifre omogućite pristup vašim fotografijama u vašim privatnim podešavanjima uređaja.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Dozvolite pristup kameri";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Za skeniranje pomoću kamere omogućite pristup vašoj kameri u vašim privatnim podešavanjima uređaja.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Podešavanja";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "Strelica dolje";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "Strelica gore";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash deaktiviran";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash aktiviran";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotografija %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skeniranje uspješno. Bićete povezani na:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Nastavi";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Pomoćnik pri pisanju";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Verzija %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Poništi";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Ponovi";
+
+/* XTIT: Writing assistant cancel alert title */
+"Close Writing Assistant without saving changes?" = "Zatvoriti pomoćnika pri pisanju bez snimanja promjena?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Nastavi sa radom";
+
+/* XBUT: Writing assistant cancel alert action title for close */
+"Close" = "Zatvori";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Hvala na povratnim informacijama";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Šta vam se nije svidjelo u vezi sa ovom verzijom?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Ocijenite svoje iskustvo da biste nam pomogli da napredujemo.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Povratne informacije";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Kakav je bio ovaj odgovor?";
+

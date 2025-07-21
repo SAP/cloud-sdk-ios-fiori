@@ -16,7 +16,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @State var middleViewSize: CGSize = .init(width: 312, height: 0)
     
     public func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
-        SkeletonLoadingContainer(isLoading: self.isLoading) {
+        SkeletonLoadingContainer {
             Group {
                 if self.horizontalSizeClass == .compact {
                     self.compactView(configuration)

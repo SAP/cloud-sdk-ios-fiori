@@ -76,6 +76,8 @@ public enum FioriIcon {
         ///
         public static let chainLink = Image(fioriName: "fiori.chain.link")
         ///
+        public static let linkExternal = Image(fioriName: "fiori.link.external")
+        ///
         public static let clearFilter = Image(fioriName: "fiori.clear.filter")
         ///
         public static let collapseGroup = Image(fioriName: "fiori.collapse.group")
@@ -520,6 +522,8 @@ public enum FioriIcon {
         ///
         public static let valueHelp = Image(fioriName: "fiori.value.help")
         ///
+        public static let verified = Image(fioriName: "fiori.verified")
+        ///
         public static let verticalGrip = Image(fioriName: "fiori.vertical.grip")
         ///
         public static let video = Image(fioriName: "fiori.video")
@@ -552,6 +556,10 @@ public enum FioriIcon {
         public static let arrowRight = Image(fioriName: "fiori.arrow.right")
         ///
         public static let arrowTop = Image(fioriName: "fiori.arrow.top")
+        ///
+        public static let arrowTopLeft = Image(fioriName: "fiori.arrow.top.left")
+        ///
+        public static let arrowTopRight = Image(fioriName: "fiori.arrow.top.right")
         ///
         public static let backToTop = Image(fioriName: "fiori.back.to.top")
         ///
@@ -705,6 +713,8 @@ public enum FioriIcon {
         ///
         public static let undo = Image(fioriName: "fiori.undo")
         ///
+        public static let unsynchronize = Image(fioriName: "fiori.unsynchronize")
+        ///
         public static let up = Image(fioriName: "fiori.up")
         ///
         public static let upload = Image(fioriName: "fiori.upload")
@@ -712,6 +722,8 @@ public enum FioriIcon {
         public static let uploadToCloud = Image(fioriName: "fiori.upload.to.cloud")
         ///
         public static let visits = Image(fioriName: "fiori.visits")
+        ///
+        public static let walkMe = Image(fioriName: "fiori.walk.me")
     }
 
     public enum calendars {
@@ -1272,6 +1284,8 @@ public enum FioriIcon {
         ///
         public static let badge = Image(fioriName: "fiori.badge")
         ///
+        public static let badgeNew = Image(fioriName: "fiori.badge.new")
+        ///
         public static let barCode = Image(fioriName: "fiori.bar.code")
         ///
         public static let bbydActiveSales = Image(fioriName: "fiori.bbyd.active.sales")
@@ -1611,6 +1625,8 @@ public enum FioriIcon {
         public static let shelf = Image(fioriName: "fiori.shelf")
         ///
         public static let shield = Image(fioriName: "fiori.shield")
+        ///
+        public static let shield2 = Image(fioriName: "fiori.shield.2")
         ///
         public static let simulate = Image(fioriName: "fiori.simulate")
         ///

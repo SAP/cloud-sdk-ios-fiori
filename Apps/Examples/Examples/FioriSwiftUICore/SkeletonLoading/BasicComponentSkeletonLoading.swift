@@ -15,9 +15,7 @@ struct BasicComponentSkeletonLoading: View {
                 .italic()
             
             Text("Text skeleton loading for one line")
-                .ifApply(self.isLoading) {
-                    $0.loadingStyle()
-                }
+                .skeletonLoading(isLoading: self.isLoading)
             
             Text("TextFieldFormView")
                 .italic()
@@ -63,9 +61,7 @@ struct BasicComponentSkeletonLoading: View {
                             .fill(Color.preferredColor(.tertiaryFill))
                             .frame(width: 80, height: 80)
                     )
-                    .ifApply(self.isLoading) {
-                        $0.skeletonLoading()
-                    }
+                    .skeletonLoading(isLoading: self.isLoading)
                
                 Image(fioriName: "fiori.person.placeholder")
                     .resizable()
@@ -77,9 +73,7 @@ struct BasicComponentSkeletonLoading: View {
                             .fill(Color.preferredColor(.tertiaryFill))
                             .frame(width: 60, height: 60)
                     )
-                    .ifApply(self.isLoading) {
-                        $0.skeletonLoading()
-                    }
+                    .skeletonLoading(isLoading: self.isLoading)
                 
                 Image("flower")
                     .resizable()

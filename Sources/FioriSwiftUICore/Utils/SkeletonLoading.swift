@@ -30,14 +30,6 @@ import SwiftUI
  ```swift
  func skeletonLoading(isTintColor: Bool = false) -> some View
  ```
- 
- ### loadingStyle()
-
- Applies a default skeleton loading style (placeholder and shimmer) to the view.
-
- ```swift
- func loadingStyle() -> some View
- ```
 
  ### imageSkeletonLoading(isLoading:skeletonImage:frame:)
 
@@ -53,15 +45,13 @@ import SwiftUI
 
  ## SkeletonLoadingContainer
 
- A container view that applies a skeleton loading style to its content when `isLoading` is true.
+ A container view that applies a skeleton loading style to its content when environment key `isLoading` is true.
 
  ```swift
  public struct SkeletonLoadingContainer<Content: View>: View
  ```
 
  **Parameters:**
- - `isLoading`: `Bool` — Whether to show the skeleton loading effect.
- - `isTintColor`: `Bool` — Use tint color for shimmer effect.
  - `content`: Closure returning the content view.
 
  ## Environment Keys
@@ -101,24 +91,23 @@ import SwiftUI
  ### Using SkeletonLoadingContainer
 
  ```swift
- SkeletonLoadingContainer(isLoading: true) {
+ SkeletonLoadingContainer {
      VStack {
          Text("Title")
          Text("Subtitle")
      }
  }
+ .environment(\.isLoading, isLoading)
  ```
 
  ### Using Environment Keys
 
  ```swift
  struct ContentView: View {
-     @Environment(\.isLoading) var isLoading
+     @State var isLoading
      var body: some View {
          Text(isLoading ? "Loading..." : "Loaded")
-            .ifApply(self.isLoading) {
-                $0.skeletonLoading()
-            }
+            .skeletonLoading(isLoading: isLoading)
      }
  }
  ```
@@ -126,34 +115,70 @@ import SwiftUI
                         
 struct ShimmerViewModifier: ViewModifier {
     @State private var phase: CGFloat = -1
-    @State var isTintColor: Bool = false
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isTintColor
 
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(Color.preferredColor(self.isTintColor ? .tintColor : .separator))
-            .redacted(reason: .placeholder)
-            .overlay(
-                GeometryReader { geometry in
-                    let width = geometry.size.width
-                    ZStack {
-                        Color.preferredColor(self.isTintColor ? .tintColor : .base2)
-                            .blendMode(.plusLighter)
-                            .mask(content)
-                        self.getLinearGradient(self.isTintColor)
-                            .offset(x: self.phase * width, y: 0)
-                            .blendMode(.plusLighter)
-                            .mask(content)
-                    }
-                }
-                .allowsHitTesting(false)
-            )
-            .onAppear {
-                self.phase = -1
-                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
-                    self.phase = 1
+    var redactedForegroundColor: Color? {
+        if self.isLoading {
+            return Color.preferredColor(self.isTintColor ? .tintColor : .separator)
+        } else {
+            return nil
+        }
+    }
+    
+    @ViewBuilder func redactedOverlay(content: Content) -> some View {
+        if self.isLoading {
+            GeometryReader { geometry in
+                let width = geometry.size.width
+                ZStack {
+                    Color.preferredColor(self.isTintColor ? .tintColor : .base2)
+                        .blendMode(.plusLighter)
+                        .mask(content)
+                    self.getLinearGradient(self.isTintColor)
+                        .offset(x: self.phase * width, y: 0)
+                        .blendMode(.plusLighter)
+                        .mask(content)
+                        .animation(self.isLoading
+                            ? Animation.linear(duration: 2).repeatForever(autoreverses: false)
+                            : .default, value: self.phase)
                 }
             }
             .allowsHitTesting(false)
+        } else {
+            EmptyView()
+        }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(self.redactedForegroundColor)
+            .redacted(reason: self.isLoading ? .placeholder : [])
+            .overlay(
+                self.redactedOverlay(content: content)
+            )
+            .onChange(of: self.isLoading) {
+                if self.isLoading {
+                    self.startShimmer()
+                } else {
+                    self.stopShimmer()
+                }
+            }
+            .onAppear {
+                if self.isLoading {
+                    self.startShimmer()
+                } else {
+                    self.stopShimmer()
+                }
+            }
+            .allowsHitTesting(self.isLoading ? false : true)
+    }
+    
+    private func startShimmer() {
+        self.phase = 1
+    }
+    
+    private func stopShimmer() {
+        self.phase = -1
     }
         
     func getLinearGradient(_ isTintColor: Bool) -> LinearGradient {
@@ -209,19 +234,16 @@ struct SkeletonImageModifier: ViewModifier {
 public extension View {
     /// Applies a shimmer loading effect to the view.
     /// - Parameters:
+    /// - `isLoading`: A Boolean value indicating whether the view is in a loading state. Defaults to `true`.
     /// - `isTintColor`: A Boolean value indicating whether to use the tint color for the shimmer effect. Defaults to `false`.
-    func skeletonLoading(isTintColor: Bool = false) -> some View {
-        self.modifier(ShimmerViewModifier(isTintColor: isTintColor))
+    func skeletonLoading(isLoading: Bool = true, isTintColor: Bool = false) -> some View {
+        self.modifier(ShimmerViewModifier())
+            .environment(\.isLoading, isLoading)
+            .environment(\.isAILoading, isTintColor)
     }
-}
-
-/// A view modifier that applies a shimmer effect to the view, indicating a loading state.
-public extension View {
-    /// Applies a shimmer loading effect to the view.
-    func loadingStyle() -> some View {
-        self.foregroundColor(Color.preferredColor(.separator))
-            .redacted(reason: .placeholder)
-            .skeletonLoading()
+    
+    internal func containerSkeletonLoading() -> some View {
+        self.modifier(ShimmerViewModifier())
     }
 }
 
@@ -244,21 +266,15 @@ public extension View {
 /// A container view that applies a skeleton loading style to its content when `isLoading` is true.
 /// It can also apply a tint color to the skeleton effect if ///
 public struct SkeletonLoadingContainer<Content: View>: View {
-    var isLoading: Bool = false
-    var isTintColor: Bool = false
     let content: () -> Content
-
+    @Environment(\.isLoading) var isLoading
+    @Environment(\.isAILoading) var isAILoading
+    
     public var body: some View {
-        Group {
-            if self.isLoading {
-                self.content()
-                    .foregroundColor(Color.preferredColor(.separator))
-                    .redacted(reason: .placeholder)
-                    .skeletonLoading(isTintColor: self.isTintColor)
-            } else {
-                self.content()
-            }
-        }
+        self.content()
+            .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : nil)
+            .redacted(reason: self.isLoading ? .placeholder : [])
+            .skeletonLoading(isLoading: self.isLoading, isTintColor: self.isAILoading)
     }
 }
 

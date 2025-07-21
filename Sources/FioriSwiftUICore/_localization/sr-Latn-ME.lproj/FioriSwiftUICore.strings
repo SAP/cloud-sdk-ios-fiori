@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Datum nije odabran";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Raspon nije odabran";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "pritisni space da postaviš vrijednost raspona";
+
 /* XBUT: calendar time component label */
 "Time" = "Vrijeme";
 
@@ -382,3 +388,146 @@
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Prijedlog vještačke inteligencije. Potvrdite prije upotrebe.  ";
 
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotografije";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Fajlovi";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skeniraj";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Prethodno prikaži";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Izbrisati dodatak?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Izbriši";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Dodaj dodatak";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Dvaput dodirni da dodaš dodatak";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Sličica";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Prijavi se";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "Korisničko ime";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "Lozinka";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Podnesi";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Podnošenje nije uspjelo";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Došlo je do greške. Pokušajte ponovo kasnije.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Ponovo pokušaj";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Pozitivne povratne informacije";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negativne povratne informacije";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "aktivirano";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skeniranje nije uspješno";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Odaberite sliku QR šifre.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Nevažeća QR šifra";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR šifra nije prepoznata.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Dozvolite pristup fotografijama";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Za odabir slike QR šifre omogućite pristup vašim fotografijama u vašim privatnim podešavanjima uređaja.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Dozvolite pristup kameri";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Za skeniranje pomoću kamere omogućite pristup vašoj kameri u vašim privatnim podešavanjima uređaja.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Podešavanja";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "Strelica dolje";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "Strelica gore";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash deaktiviran";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash aktiviran";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotografija %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skeniranje uspješno. Bićete povezani na:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Nastavi";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Pomoćnik pri pisanju";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Verzija %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Poništi";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Ponovi";
+
+/* XTIT: Writing assistant cancel alert title */
+"Close Writing Assistant without saving changes?" = "Zatvoriti pomoćnika pri pisanju bez snimanja promjena?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Nastavi sa radom";
+
+/* XBUT: Writing assistant cancel alert action title for close */
+"Close" = "Zatvori";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Hvala na povratnim informacijama";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Šta vam se nije svidjelo u vezi sa ovom verzijom?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Ocijenite svoje iskustvo da biste nam pomogli da napredujemo.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Povratne informacije";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Kakav je bio ovaj odgovor?";
