@@ -24,6 +24,28 @@ struct ContentView: View {
                 {
                     Text("Theme Manager")
                 }
+                
+                Section {
+                    NavigationLink("Calendar") {
+                        let firstDayOfWeek: Date = {
+                            var calendar = Calendar.current
+                            calendar.firstWeekday = 1 // Week starts from Sunday
+                            let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+                            let firstDayOfWeek = calendar.date(from: components)!
+                            return firstDayOfWeek
+                        }()
+                        
+                        WeekView(dates: [
+                            firstDayOfWeek,
+                            Calendar.current.date(byAdding: .day, value: 1, to: firstDayOfWeek)!,
+                            Calendar.current.date(byAdding: .day, value: 2, to: firstDayOfWeek)!,
+                            Calendar.current.date(byAdding: .day, value: 3, to: firstDayOfWeek)!,
+                            Calendar.current.date(byAdding: .day, value: 4, to: firstDayOfWeek)!,
+                            Calendar.current.date(byAdding: .day, value: 5, to: firstDayOfWeek)!,
+                            Calendar.current.date(byAdding: .day, value: 6, to: firstDayOfWeek)!
+                        ], isEventIndicatorVisible: true, showWeekNumber: true)
+                    }
+                }
             }
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())
