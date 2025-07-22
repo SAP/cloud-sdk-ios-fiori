@@ -66,20 +66,35 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
                 .onAppear {
                     let initialText = configuration.$text.wrappedValue
-                    let validatedText = self.validateAndUpdateText(
-                        for: initialText,
-                        configuration: configuration,
-                        enforceMinimum: true
-                    )
-                    self.pendingText = validatedText
-                    configuration.text = validatedText
-                    self.previousValue = validatedText
+                    if !self.isValidValue(initialText, configuration: configuration) {
+                        let validatedText = self.validateAndUpdateText(
+                            for: initialText,
+                            configuration: configuration,
+                            enforceMinimum: true
+                        )
+                        self.pendingText = validatedText
+                        configuration.text = validatedText
+                        self.previousValue = validatedText
+                    } else {
+                        self.previousValue = initialText
+                        self.pendingText = initialText
+                    }
                 }
             configuration.incrementAction
                 .onSimultaneousTapGesture {
                     self.adjustValue(by: configuration.step, configuration: configuration)
                 }
         }
+    }
+    
+    private func isValidValue(_ text: String, configuration: StepperFieldConfiguration) -> Bool {
+        guard let decimalValue = Decimal(string: text) else {
+            return false
+        }
+        
+        let range = configuration.stepRange
+        return decimalValue >= Decimal(range.lowerBound) &&
+            decimalValue <= Decimal(range.upperBound)
     }
     
     private func adjustValue(by step: Double, configuration: StepperFieldConfiguration) {
