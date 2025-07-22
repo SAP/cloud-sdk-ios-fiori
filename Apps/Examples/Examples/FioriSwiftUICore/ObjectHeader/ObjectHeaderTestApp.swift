@@ -22,11 +22,10 @@ struct ObjectHeaderTestApp: View {
         }, subtitle: {
             Text("Job 819701")
         }, tags: {
-            Tag("I am selected")
+            Tag("Tag custom style")
                 .tagStyle(MyCustomTagStyle())
-            Tag("Tag1")
-                .tagStyle(.fiori)
-            Tag("Tag2")
+            Tag("Tag default style .filled")
+            Tag("Tag .outlined style")
                 .tagStyle(.outlined)
         }, bodyText: {
             Text("1000-Hamburg, MECHANIK")
