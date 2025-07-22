@@ -422,3 +422,61 @@ extension BannerMultiMessageSheetFioriStyle {
         }
     }
 }
+
+struct BannerMultiMessageSheetModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    let title: () -> any View
+    let closeAction: () -> any View
+    /// callback when this component want to dismiss itself
+    let dismissAction: (() -> Void)?
+    /// callback when category or single item is removed
+    let removeAction: ((String, UUID?) -> Void)?
+    /// callback when the link button is clicked
+    let viewDetailAction: ((UUID) -> Void)?
+    /// the mark to turn on section header or not
+    let turnOnSectionHeader: Bool
+    /// view for each item under the category
+    let messageItemView: (UUID) -> any View
+    /// the data source for banner multi-message sheet
+    @Binding var bannerMultiMessages: [BannerMessageListModel]
+    
+    func body(content: Content) -> some View {
+        content
+            .popover(isPresented: self.$isPresented, content: {
+                BannerMultiMessageSheet(title: self.title, closeAction: self.closeAction, dismissAction: {
+                    self.isPresented = false
+                    self.dismissAction?()
+                }, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages)
+                    .presentationDetents([.medium, .large])
+            })
+    }
+}
+
+//
+
+public extension View {
+    /// To show the BannerMultiMessageSheet in gentle way.
+    /// - Parameters:
+    ///   - isPresented: A binding to a Boolean value that determines whether to present the popover content that you return from the modifier’s content closure.
+    ///   - title: The title at the top-left area.
+    ///   - closeAction: The close action at the top-right area.
+    ///   - dismissAction: Callback when this component want to dismiss itself.
+    ///   - removeAction: Callback when category or single item is removed.
+    ///   - viewDetailAction: Callback when the link button is clicked
+    ///   - turnOnSectionHeader: The mark to turn on section header or not
+    ///   - messageItemView: View for each item under the category
+    ///   - bannerMultiMessages: The data source for banner multi-message sheet
+    /// - Returns: A new `View` with banner multi message sheet.
+    func bannerMultiMessageSheet(isPresented: Binding<Bool>,
+                                 @ViewBuilder title: @escaping () -> any View,
+                                 @ViewBuilder closeAction: @escaping () -> any View = { FioriIcon.status.error },
+                                 dismissAction: (() -> Void)? = nil,
+                                 removeAction: ((String, UUID?) -> Void)? = nil,
+                                 viewDetailAction: ((UUID) -> Void)? = nil,
+                                 turnOnSectionHeader: Bool = true,
+                                 @ViewBuilder messageItemView: @escaping (UUID) -> any View = { _ in EmptyView() },
+                                 bannerMultiMessages: Binding<[BannerMessageListModel]>) -> some View
+    {
+        self.modifier(BannerMultiMessageSheetModifier(isPresented: isPresented, title: title, closeAction: closeAction, dismissAction: dismissAction, removeAction: removeAction, viewDetailAction: viewDetailAction, turnOnSectionHeader: turnOnSectionHeader, messageItemView: messageItemView, bannerMultiMessages: bannerMultiMessages))
+    }
+}
