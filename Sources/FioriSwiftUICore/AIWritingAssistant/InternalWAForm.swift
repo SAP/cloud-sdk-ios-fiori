@@ -84,8 +84,6 @@ struct InternalWAForm: View {
                             .textCase(nil)
                             .frame(height: 60)
                             .listRowInsets(EdgeInsets())
-                    } else {
-                        EmptyView()
                     }
                 } footer: {
                     if section.id == sections.last?.id, self.isTopLevel {
@@ -94,6 +92,8 @@ struct InternalWAForm: View {
                 }
             }
         }
+        .contentMargins(.top, 10)
+        .listSectionSpacing(10)
         .onAppear {
             self.context.customDestination = nil
             self.waHelperAction.wrappedValue = .none
