@@ -23,6 +23,12 @@ struct BannerMessageExample: View {
             } label: {
                 Text("Multi-Message Handling Banner - customized")
             }
+            
+            NavigationLink {
+                BannerMultiMessageModifierExample()
+            } label: {
+                Text("Multi-Message Handling Banner - Modifier")
+            }
         }
     }
 }
