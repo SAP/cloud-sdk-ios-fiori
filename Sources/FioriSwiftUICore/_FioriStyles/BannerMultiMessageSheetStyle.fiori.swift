@@ -455,14 +455,14 @@ struct BannerMultiMessageSheetModifier: ViewModifier {
 //
 
 public extension View {
-    /// To show the BannerMultiMessageSheet in gentle way.
+    /// Control the BannerMultiMessageSheet to be shown or not.
     /// - Parameters:
-    ///   - isPresented: A binding to a Boolean value that determines whether to present the popover content that you return from the modifier’s content closure.
-    ///   - title: The title at the top-left area.
-    ///   - closeAction: The close action at the top-right area.
-    ///   - dismissAction: Callback when this component want to dismiss itself.
-    ///   - removeAction: Callback when category or single item is removed.
-    ///   - viewDetailAction: Callback when the link button is clicked
+    ///   - isPresented: A binding to a Boolean value that determines whether to present the popover content that is returned by the modifier’s content closure.
+    ///   - title: The title at the top leading area.
+    ///   - closeAction: The close action at the top trailing area.
+    ///   - dismissAction: Callback when this component is dismissed.
+    ///   - removeAction: Callback when a category or an item is removed.
+    ///   - viewDetailAction: Callback when the detail button is clicked
     ///   - turnOnSectionHeader: The mark to turn on section header or not
     ///   - messageItemView: View for each item under the category
     ///   - bannerMultiMessages: The data source for banner multi-message sheet
