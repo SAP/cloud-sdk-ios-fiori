@@ -382,6 +382,8 @@ public enum FioriIcon {
         ///
         public static let shield = Image(fioriName: "fiori.shield")
         ///
+        public static let shield2 = Image(fioriName: "fiori.shield.2")
+        ///
         public static let shortcut = Image(fioriName: "fiori.shortcut")
         ///
         public static let show = Image(fioriName: "fiori.show")
@@ -1283,8 +1285,6 @@ public enum FioriIcon {
         public static let background = Image(fioriName: "fiori.background")
         ///
         public static let badge = Image(fioriName: "fiori.badge")
-        ///
-        public static let badgeNew = Image(fioriName: "fiori.badge.new")
         ///
         public static let barCode = Image(fioriName: "fiori.bar.code")
         ///
