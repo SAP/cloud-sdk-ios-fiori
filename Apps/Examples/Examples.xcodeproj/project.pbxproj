@@ -49,6 +49,8 @@
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
 		6D10F8A02C7DB3F50071DD3E /* BannerMultiMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */; };
 		6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */; };
+		6D2EF2C82E30BDDD00415EED /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2EF2C72E30BDDD00415EED /* MonthView.swift */; };
+		6D2EFA6D2E30E81300415EED /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2EFA6C2E30E81300415EED /* CalendarView.swift */; };
 		6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */; };
 		6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */; };
 		6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */; };
@@ -322,6 +324,8 @@
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
 		6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageExample.swift; sourceTree = "<group>"; };
 		6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageCustomInitExample.swift; sourceTree = "<group>"; };
+		6D2EF2C72E30BDDD00415EED /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
+		6D2EFA6C2E30E81300415EED /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCellEnhancementExample.swift; sourceTree = "<group>"; };
 		6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerExample.swift; sourceTree = "<group>"; };
 		6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemExample.swift; sourceTree = "<group>"; };
@@ -786,6 +790,8 @@
 				8A55795A24C1286E0098003A /* ContentView.swift */,
 				6DFFED9F2E2DDB620036054A /* DayView.swift */,
 				6DFFEDA12E2E1A280036054A /* WeekView.swift */,
+				6D2EF2C72E30BDDD00415EED /* MonthView.swift */,
+				6D2EFA6C2E30E81300415EED /* CalendarView.swift */,
 				8AB6C01328DF6583002F32BE /* LazyView.swift */,
 				8A55796124C1286F0098003A /* LaunchScreen.storyboard */,
 				B8D4376725EEC5E80024EE7D /* Assets.xcassets */,
@@ -1388,6 +1394,7 @@
 				99658F882B7C359D0026A743 /* LinearProgressIndicatorExample.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
+				6D2EF2C82E30BDDD00415EED /* MonthView.swift in Sources */,
 				B88CB6122B716C0300013B37 /* MobileCardExample.swift in Sources */,
 				6DEC31FE2C48FAA50084DD20 /* InPlaceLoadingContentView.swift in Sources */,
 				1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */,
@@ -1493,6 +1500,7 @@
 				9D0086692BA8F6820004BE15 /* TitleFormViewExample.swift in Sources */,
 				6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */,
 				6DEC31F82C47B7850084DD20 /* FioriButtonStyleToggleExample.swift in Sources */,
+				6D2EFA6D2E30E81300415EED /* CalendarView.swift in Sources */,
 				B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */,
 				6D6E256D2D378025009A62CA /* FilterFormViewExamples.swift in Sources */,
 				5A80A5ED2DE706A100950E40 /* AIUserFeedbackExample.swift in Sources */,

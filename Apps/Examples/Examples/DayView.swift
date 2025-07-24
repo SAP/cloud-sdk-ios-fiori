@@ -54,11 +54,11 @@ private extension UIContentSizeCategory {
     }
 }
 
-struct DayView: View {
+public struct DayView: View {
     var title: String
     var subtitle: String?
     
-    var weekNumber: String?
+    var weekNumber: Int?
     var weekNumberViewWidth: CGFloat = 0
     
     var isMultiSelect: Bool = false
@@ -87,10 +87,10 @@ struct DayView: View {
         return subtitle.count > 0
     }
     
-    var body: some View {
+    public var body: some View {
         HStack(alignment: .titleFirstTextBaseline, spacing: 0, content: {
             if let weekNumber {
-                Text(weekNumber)
+                Text("\(weekNumber)")
                     .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
                     .foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.6))
                     .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
@@ -125,9 +125,11 @@ struct DayView: View {
     }
     
     var scaleForSizeChange: Double {
-        self.sizeEnumToValue(limitMaxCategory: .accessibilityMedium)
+        sizeEnumToValue(limitMaxCategory: .accessibilityMedium)
     }
-    
+}
+
+extension View {
     func sizeEnumToValue(sizeCategory: UIContentSizeCategory = UIApplication.shared.preferredContentSizeCategory,
                          limitMinCategory: UIContentSizeCategory = .extraSmall,
                          limitMaxCategory: UIContentSizeCategory = .accessibilityExtraExtraExtraLarge) -> Double
@@ -146,7 +148,7 @@ struct DayView: View {
 
 #Preview {
     HStack {
-        DayView(title: "6", subtitle: "12", weekNumber: "29", weekNumberViewWidth: 20)
+        DayView(title: "6", subtitle: "12", weekNumber: 29, weekNumberViewWidth: 20)
         DayView(title: "7", subtitle: "13", isEventIndicatorVisible: true)
         DayView(title: "8", subtitle: "14")
         DayView(title: "9", subtitle: "15", isEventIndicatorVisible: true)
