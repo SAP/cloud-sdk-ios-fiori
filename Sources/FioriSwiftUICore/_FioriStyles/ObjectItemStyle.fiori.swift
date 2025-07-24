@@ -77,6 +77,9 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
                 }
             }
         }
+        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+            dimensions[.leading]
+        }
     }
 }
 
@@ -95,7 +98,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -139,6 +141,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.action
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -147,7 +150,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             if self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
@@ -171,6 +173,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             } else {
                 HStack(alignment: .center) {
                     HStack(alignment: .iconStackAlignmentGuide) {
@@ -226,6 +229,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             }
         }
     }
@@ -236,7 +240,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -251,6 +254,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.status
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -259,7 +263,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -300,6 +303,7 @@ extension ObjectItemBaseStyle {
                     }
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -308,7 +312,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -339,6 +342,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.objectItemButton
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -348,7 +352,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .center, spacing: 0) {
@@ -379,6 +382,7 @@ extension ObjectItemBaseStyle {
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
         }
@@ -534,6 +538,14 @@ extension ObjectItemBaseStyle {
         } else {
             EmptyView()
         }
+    }
+}
+
+private struct ObjectItemContentLeadingPadding: ViewModifier {
+    var isIconsEmpty: Bool
+    public func body(content: Content) -> some View {
+        content
+            .padding(.leading, self.isIconsEmpty ? 0 : 22)
     }
 }
 
