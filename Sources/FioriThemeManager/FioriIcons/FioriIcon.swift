@@ -1205,6 +1205,103 @@ public enum FioriIcon {
         ///
         public static let survey = Image(fioriName: "fiori.survey")
     }
+    
+    public enum message {
+        ///
+        public static let appearOffline = Image(fioriName: "fiori.appear.offline")
+        ///
+        public static let away = Image(fioriName: "fiori.away")
+        ///
+        public static let badge = Image(fioriName: "fiori.badge")
+        ///
+        public static let bookmark = Image(fioriName: "fiori.bookmark")
+        ///
+        public static let brokenLink = Image(fioriName: "fiori.broken.link")
+        ///
+        public static let busy = Image(fioriName: "fiori.busy")
+        ///
+        public static let cancelMaintenance = Image(fioriName: "fiori.cancel.maintenance")
+        ///
+        public static let cancelShare = Image(fioriName: "fiori.cancel.share")
+        ///
+        public static let cancel = Image(fioriName: "fiori.cancel")
+        ///
+        public static let connected = Image(fioriName: "fiori.connected")
+        ///
+        public static let disconnected = Image(fioriName: "fiori.disconnected")
+        ///
+        public static let employeeRejections = Image(fioriName: "fiori.employee.rejections")
+        ///
+        public static let error = Image(fioriName: "fiori.error")
+        ///
+        public static let goal = Image(fioriName: "fiori.goal")
+        ///
+        public static let highPriority = Image(fioriName: "fiori.high.priority")
+        ///
+        public static let hrApproval = Image(fioriName: "fiori.hr.approval")
+        ///
+        public static let incident = Image(fioriName: "fiori.incident")
+        ///
+        public static let information = Image(fioriName: "fiori.information")
+        ///
+        public static let leadOutdated = Image(fioriName: "fiori.lead.outdated")
+        ///
+        public static let locked = Image(fioriName: "fiori.locked")
+        ///
+        public static let messageError = Image(fioriName: "fiori.message.error")
+        ///
+        public static let messageInformation = Image(fioriName: "fiori.message.information")
+        ///
+        public static let messagePopup = Image(fioriName: "fiori.message.popup")
+        ///
+        public static let messageSuccess = Image(fioriName: "fiori.message.success")
+        ///
+        public static let messageWarning = Image(fioriName: "fiori.message.warning")
+        ///
+        public static let permission = Image(fioriName: "fiori.permission")
+        ///
+        public static let `private` = Image(fioriName: "fiori.private")
+        ///
+        public static let qualityIssue = Image(fioriName: "fiori.quality.issue")
+        ///
+        public static let questionMark = Image(fioriName: "fiori.question.mark")
+        ///
+        public static let role = Image(fioriName: "fiori.role")
+        ///
+        public static let statusCritical = Image(fioriName: "fiori.status.critical")
+        ///
+        public static let statusInactive = Image(fioriName: "fiori.status.inactive")
+        ///
+        public static let statusNegative = Image(fioriName: "fiori.status.negative")
+        ///
+        public static let statusPositive = Image(fioriName: "fiori.status.positive")
+        ///
+        public static let sysCancel2 = Image(fioriName: "fiori.sys.cancel.2")
+        ///
+        public static let sysCancel = Image(fioriName: "fiori.sys.cancel")
+        ///
+        public static let sysEnter2 = Image(fioriName: "fiori.sys.enter.2")
+        ///
+        public static let sysEnter = Image(fioriName: "fiori.sys.enter")
+        ///
+        public static let sysHelp2 = Image(fioriName: "fiori.sys.help.2")
+        ///
+        public static let sysHelp = Image(fioriName: "fiori.sys.help")
+        ///
+        public static let toBeReviewed = Image(fioriName: "fiori.to.be.reviewed")
+        ///
+        public static let travelRequest = Image(fioriName: "fiori.travel.request")
+        ///
+        public static let tripReport = Image(fioriName: "fiori.trip.report")
+        ///
+        public static let unlocked = Image(fioriName: "fiori.unlocked")
+        ///
+        public static let validate = Image(fioriName: "fiori.validate")
+        ///
+        public static let verified = Image(fioriName: "fiori.verified")
+        ///
+        public static let warning2 = Image(fioriName: "fiori.warning2")
+    }
 
     public enum medical {
         ///
