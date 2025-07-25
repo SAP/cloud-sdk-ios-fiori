@@ -17,11 +17,44 @@ struct MobileCardExample: View {
                 }
                 .cardStyle(.card)
                 .listStyle(.plain)
-                .navigationBarTitle("Cards", displayMode: .inline)
+                .navigationBarTitle("Cards in List", displayMode: .inline)
             } label: {
-                Text("Cards")
+                Text("Cards in List")
             }
             
+            NavigationLink {
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                            CardTests.cardSamples[i]
+                        }
+                        .background(Color.preferredColor(.primaryGroupedBackground))
+                    }
+                }
+                .cardStyle(.card)
+                .navigationBarTitle("Cards in VStack", displayMode: .inline)
+            } label: {
+                Text("Cards in VStack")
+            }
+            
+            NavigationLink {
+                ScrollView(.horizontal) {
+                    HStack(alignment: .top, spacing: 8) {
+                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                            CardTests.cardSamples[i]
+                                .cardStyle(.card)
+                                .cardStyle(.intrinsicHeightCard)
+                                .padding()
+                        }
+                        .background(Color.preferredColor(.primaryGroupedBackground))
+                    }
+                }
+                .cardStyle(.card)
+                .navigationBarTitle("Cards in HStack", displayMode: .inline)
+            } label: {
+                Text("Cards in HStack")
+            }
+
             NavigationLink {
                 List {
                     ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
