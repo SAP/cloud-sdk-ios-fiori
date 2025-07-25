@@ -32,7 +32,10 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 self.titleSubtitleDescription(configuration)
             }
             
-            configuration.activityItems
+            if !configuration.activityItems.isEmpty {
+                Spacer().frame(width: 24)
+                configuration.activityItems
+            }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -45,11 +48,10 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 configuration.subtitle
             }
             
-            Spacer().frame(width: 24)
-            
-            configuration.description
-            
-            Spacer().frame(width: 24)
+            if !configuration.description.isEmpty {
+                Spacer().frame(width: 24)
+                configuration.description
+            }
             
             Spacer(minLength: 0)
         }
@@ -57,22 +59,23 @@ public struct ContactItemBaseStyle: ContactItemStyle {
     
     func titleSubtitleDescriptionWithSplitPercent(_ configuration: ContactItemConfiguration, splitPercent: CGFloat) -> some View {
         HStack(alignment: .center, spacing: 0) {
+            let targetSplitPercent = configuration.description.isEmpty ? 1 : splitPercent
+            
             HStack(alignment: .center, spacing: 0) {
                 Spacer().frame(width: 4)
                 VStack(alignment: .leading, spacing: 3) {
                     configuration.title
                     configuration.subtitle
                 }
-                
-                Spacer(minLength: 24)
             }
-            .frame(width: self.mainViewSize.width * splitPercent)
+            .frame(width: self.mainViewSize.width * targetSplitPercent)
             
-            HStack(alignment: .center, spacing: 0) {
-                configuration.description
-                
-                Spacer(minLength: 24)
-            }.frame(width: self.mainViewSize.width * (1 - splitPercent))
+            if !configuration.description.isEmpty {
+                HStack(alignment: .center, spacing: 0) {
+                    Spacer(minLength: 24)
+                    configuration.description
+                }.frame(width: self.mainViewSize.width * (1 - targetSplitPercent))
+            }
         }
         .frame(minWidth: 0, maxWidth: .infinity)
         .modifier(SizeModifier())
@@ -94,7 +97,10 @@ public struct ContactItemBaseStyle: ContactItemStyle {
             
             Spacer(minLength: 0)
             
-            configuration.activityItems
+            if !configuration.activityItems.isEmpty {
+                Spacer().frame(width: 24)
+                configuration.activityItems
+            }
         }
     }
     
@@ -105,7 +111,6 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 configuration.title
                 configuration.subtitle
             }
-            Spacer().frame(width: 24)
         }
     }
 }
