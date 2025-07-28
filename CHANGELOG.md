@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.8.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250711...25.8.0) (2025-07-28)
+
+
+### Features
+
+* 🎸 Add Fiori icon category ([#1180](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1180)) ([a061c93](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a061c93e20806b11a085ba7fd7edff6b76157fdb))
+* 🎸 Update Fiori Icons ([#1167](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1167)) ([9dbca68](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9dbca6883c97685486703614d06750633bcb8a66))
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-709] BannerMultiMessageSheet modifier support ([#1176](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1176)) ([71d2595](https://github.com/SAP/cloud-sdk-ios-fiori/commit/71d25954f24765598e641225582d905c272e03db))
+* 🐛 [IOSSDKBUG-811] Tag component adjustment ([#1169](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1169)) ([3aa1509](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3aa15095be6bf8c4dba575ca914784aec66176fe))
+* 🐛 [IOSSDKBUG-813] remove extra section padding in W.A ([#1173](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1173)) ([7e9761d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7e9761d3157ffb85c25ae279770684dc550627fb))
+* 🐛 Card layout return small height some times ([#1182](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1182)) ([1e1f304](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1e1f3047f2c1593a8841136725887e9fa43406b1))
+* 🐛 Fix incorrect formatting of binding value in getter ([#1157](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1157)) ([12d8a10](https://github.com/SAP/cloud-sdk-ios-fiori/commit/12d8a10a9330063d3ef9d648effe750205fa1c42))
+* 🐛 remove extra padding in stepper and apply it in example ([#1170](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1170)) ([edae68e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/edae68eacc06023aa6c701f777d69c7126b2212e))
+* 🐛 Rename fiori icon fiori.text.color to fiori.text.colour ([#1175](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1175)) ([ce39838](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ce3983867614099f3e9ff7ffd54bc86d9ec3df7b))
+* 🐛 StepperView binding calling the didSet of the property ([#1174](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1174)) ([7dafaa4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7dafaa4e4ad3f618292fe2b8f75e26e3e57343fa))
+* 🐛 update illustration again ([#1165](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1165)) ([ce6b64c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ce6b64c9fe582b325e101853ce38f96422ee8592))
+* 🐛 writing assistant keyboard input failure ([#1156](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1156)) ([50890b9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/50890b9dafd47b84d043304babfa50ecbe908e39))
+
 ## [25.8.0-20250711](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250709...25.8.0-20250711) (2025-07-11)
 
 
