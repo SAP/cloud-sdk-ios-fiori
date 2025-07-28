@@ -876,9 +876,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading11isTintColorQrSb_tF"></a>
-                      <a name="//apple_ref/swift/Method/skeletonLoading(isTintColor:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading11isTintColorQrSb_tF">skeletonLoading(isTintColor:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading02isG00H9TintColorQrSb_SbtF"></a>
+                      <a name="//apple_ref/swift/Method/skeletonLoading(isLoading:isTintColor:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15skeletonLoading02isG00H9TintColorQrSb_SbtF">skeletonLoading(isLoading:<wbr>isTintColor:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -889,6 +889,7 @@
                           <p>Applies a shimmer loading effect to the view.</p>
 
 <ul>
+<li><code>isLoading</code>: A Boolean value indicating whether the view is in a loading state. Defaults to <code>true</code>.</li>
 <li><code>isTintColor</code>: A Boolean value indicating whether to use the tint color for the shimmer effect. Defaults to <code>false</code>.</li>
 </ul>
 
@@ -897,34 +898,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">skeletonLoading</span><span class="p">(</span><span class="nv">isTintColor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12loadingStyleQryF"></a>
-                      <a name="//apple_ref/swift/Method/loadingStyle()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12loadingStyleQryF">loadingStyle()</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Applies a shimmer loading effect to the view.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">loadingStyle</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">skeletonLoading</span><span class="p">(</span><span class="nv">isLoading</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">isTintColor</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -4602,6 +4576,160 @@
                         <div>
                           <h4>Return Value</h4>
                           <p>A new <code>View</code> with banner message.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE23bannerMultiMessageSheet11isPresented5title11closeAction07dismissN006removeN0010viewDetailN019turnOnSectionHeader011messageItemC00fG8MessagesQrAA7BindingVySbG_AaB_pycAaB_pycyycSgySS_10Foundation4UUIDVSgtcSgyAUcSgSbAaB_pAUcAPySayAD06BannerH9ListModelCGGtF"></a>
+                      <a name="//apple_ref/swift/Method/bannerMultiMessageSheet(isPresented:title:closeAction:dismissAction:removeAction:viewDetailAction:turnOnSectionHeader:messageItemView:bannerMultiMessages:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE23bannerMultiMessageSheet11isPresented5title11closeAction07dismissN006removeN0010viewDetailN019turnOnSectionHeader011messageItemC00fG8MessagesQrAA7BindingVySbG_AaB_pycAaB_pycyycSgySS_10Foundation4UUIDVSgtcSgyAUcSgSbAaB_pAUcAPySayAD06BannerH9ListModelCGGtF">bannerMultiMessageSheet(isPresented:<wbr>title:<wbr>closeAction:<wbr>dismissAction:<wbr>removeAction:<wbr>viewDetailAction:<wbr>turnOnSectionHeader:<wbr>messageItemView:<wbr>bannerMultiMessages:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Control the BannerMultiMessageSheet to be shown or not.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">bannerMultiMessageSheet</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+                             <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+                             <span class="kd">@ViewBuilder</span> <span class="nv">closeAction</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">error</span> <span class="p">},</span>
+                             <span class="nv">dismissAction</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                             <span class="nv">removeAction</span><span class="p">:</span> <span class="p">((</span><span class="kt">String</span><span class="p">,</span> <span class="kt">UUID</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                             <span class="nv">viewDetailAction</span><span class="p">:</span> <span class="p">((</span><span class="kt">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                             <span class="nv">turnOnSectionHeader</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                             <span class="kd">@ViewBuilder</span> <span class="nv">messageItemView</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+                             <span class="nv">bannerMultiMessages</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Classes/BannerMessageListModel.html">BannerMessageListModel</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>isPresented</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A binding to a Boolean value that determines whether to present the popover content that is returned by the modifier’s content closure.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>title</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The title at the top leading area.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>closeAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The close action at the top trailing area.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>dismissAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Callback when this component is dismissed.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>removeAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Callback when a category or an item is removed.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>viewDetailAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Callback when the detail button is clicked</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>turnOnSectionHeader</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The mark to turn on section header or not</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>messageItemView</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>View for each item under the category</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>bannerMultiMessages</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The data source for banner multi-message sheet</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A new <code>View</code> with banner multi message sheet.</p>
                         </div>
                       </section>
                     </div>
@@ -25197,6 +25325,9 @@ display.</p>
                   <a href="../Structs/OuterCircleStyleModifier.html">OuterCircleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/OutlinedTagStyle.html">OutlinedTagStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/OverflowAction.html">OverflowAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -27138,7 +27269,7 @@ display.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-11)</p>
+          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-07-28)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
