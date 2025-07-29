@@ -80,20 +80,18 @@ struct CardLayout: Layout {
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
         self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
         let finalWidth = max(proposal.width ?? 0, cache.maxWidth)
-        
         return CGSize(width: finalWidth, height: cache.height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
-
         for (i, subview) in subviews.enumerated() {
             let item = cache.rows[i]
             
             var pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
             /// If it is the footer and there is exessive height for the card then the footer is moved to the bottom
-            if self.useProposedHeight, subview.priority == 3, item.origin.y + item.size.height < cache.height {
-                pt.y = cache.height - item.size.height + bounds.origin.y
+            if subview.priority == 3, item.origin.y + item.size.height < bounds.size.height {
+                pt.y = bounds.size.height - item.size.height + bounds.origin.y
             }
             subview.place(at: pt, proposal: ProposedViewSize(width: item.size.width, height: nil))
         }
@@ -105,11 +103,9 @@ struct CardLayout: Layout {
     
     func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         let containerWidth = proposal.width
-        
         let height: CGFloat
-        
-        if self.useProposedHeight {
-            height = proposal.height ?? (cache.rows.last?.maxY ?? 0)
+        if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
+            height = max(value, cache.height)
         } else {
             height = cache.rows.last?.maxY ?? 0
         }
@@ -141,8 +137,8 @@ struct CardLayout: Layout {
         }
         
         cache.height = cache.rows.last?.maxY ?? 0
-        if self.useProposedHeight, let value = proposal.height {
-            cache.height = value
+        if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
+            cache.height = max(value, cache.height)
         }
     }
 }
@@ -584,7 +580,9 @@ public enum CardTests {
         }
     } cardBody: {
         HStack(alignment: .center, spacing: 4) {
-            ChartView(CardTests.chartModel).frame(height: 168)
+            ChartView(CardTests.chartModel)
+                .frame(minWidth: 128)
+                .frame(height: 168)
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {

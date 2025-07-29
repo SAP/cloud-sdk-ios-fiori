@@ -65,6 +65,7 @@ extension CardMainHeaderFioriStyle {
                 // Add default style for Title
                 .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
+                .multilineTextAlignment(.leading)
                 .environment(\.numberOfLines, 3)
         }
     }
@@ -77,6 +78,7 @@ extension CardMainHeaderFioriStyle {
                 // Add default style for Subtitle
                 .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .font(.fiori(forTextStyle: .body))
+                .multilineTextAlignment(.leading)
                 .environment(\.numberOfLines, 2)
         }
     }
