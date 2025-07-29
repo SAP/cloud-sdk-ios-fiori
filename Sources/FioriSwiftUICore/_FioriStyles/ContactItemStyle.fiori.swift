@@ -9,12 +9,16 @@ public struct ContactItemBaseStyle: ContactItemStyle {
     
     @State var mainViewSize: CGSize = .zero
     
+    @State var compactBodyWidth: CGFloat = 0
+    
     public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
         Group {
-            if self.horizontalSizeClass == .some(.regular) {
-                self.bodyInRegular(configuration)
-            } else {
+            if self.horizontalSizeClass == .some(.compact)
+                || self.compactBodyWidth <= 375.0
+            {
                 self.bodyInCompact(configuration)
+            } else {
+                self.bodyInRegular(configuration)
             }
         }
     }
@@ -101,6 +105,9 @@ public struct ContactItemBaseStyle: ContactItemStyle {
                 Spacer().frame(width: 24)
                 configuration.activityItems
             }
+        }
+        .sizeReader { size in
+            self.compactBodyWidth = size.width
         }
     }
     
