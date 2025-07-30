@@ -5,6 +5,19 @@ import SwiftUI
 
 import FioriThemeManager
 
+/// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.
+///
+/// ## Usage
+/// ```swift
+/// Attachment {
+///   AttachmentThumbnail(url: fileURL)
+/// } attachmentTitle: {
+///   Text("Leaf")
+/// } attachmentSubtitle: {
+///   Text("15MB")
+/// } attachmentFootnote: {
+///   Text("Aug 15, 2024")
+/// }
 public struct AttachmentThumbnail {
     /// /  URL of document for rendering thumbnail
     let url: URL

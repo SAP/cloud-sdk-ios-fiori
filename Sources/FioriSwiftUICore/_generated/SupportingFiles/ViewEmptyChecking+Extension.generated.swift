@@ -9,6 +9,19 @@ extension AINotice: _ViewEmptyChecking {
     }
 }
 
+extension AIUserFeedback: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            submitAction.isEmpty &&
+            cancelAction.isEmpty &&
+            errorView.isEmpty
+    }
+}
+
 extension AccessoryIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         accessoryIcon.isEmpty
@@ -18,6 +31,17 @@ extension AccessoryIcon: _ViewEmptyChecking {
 extension Action: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty
+    }
+}
+
+extension ActivationScreen: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            descriptionText.isEmpty &&
+            footnote.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            illustratedMessage.isEmpty
     }
 }
 
@@ -115,6 +139,22 @@ extension Attribute: _ViewEmptyChecking {
     }
 }
 
+extension AuthInput: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        authInput.isEmpty
+    }
+}
+
+extension Authentication: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty &&
+            authInput.isEmpty &&
+            signInAction.isEmpty
+    }
+}
+
 extension AvatarStack: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty &&
@@ -131,6 +171,12 @@ extension Avatars: _ViewEmptyChecking {
 extension AvatarsTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatarsTitle.isEmpty
+    }
+}
+
+extension BackAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        backAction.isEmpty
     }
 }
 
@@ -246,6 +292,12 @@ extension CardMedia: _ViewEmptyChecking {
     }
 }
 
+extension Checkmark: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty
+    }
+}
+
 extension CheckoutIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
@@ -280,11 +332,17 @@ extension Counter: _ViewEmptyChecking {
     }
 }
 
+extension DateRangePicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            valueLabel.isEmpty
+    }
+}
+
 extension DateTimePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
@@ -357,9 +415,22 @@ extension DisagreeAction: _ViewEmptyChecking {
     }
 }
 
+extension DoneAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        doneAction.isEmpty
+    }
+}
+
+extension DownVoteAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        downVoteAction.isEmpty
+    }
+}
+
 extension DurationPicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        false
+        title.isEmpty &&
+            valueLabel.isEmpty
     }
 }
 
@@ -403,7 +474,7 @@ extension FilterFeedbackBarItem: _ViewEmptyChecking {
 extension FilterFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            checkmarkImage.isEmpty
     }
 }
 
@@ -515,6 +586,16 @@ extension IncrementAction: _ViewEmptyChecking {
     }
 }
 
+extension InfoView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            descriptionText.isEmpty &&
+            action.isEmpty &&
+            secondaryAction.isEmpty &&
+            loadingIndicator.isEmpty
+    }
+}
+
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty &&
@@ -541,6 +622,13 @@ extension JouleWelcomeScreen: _ViewEmptyChecking {
 extension KPIContent: _ViewEmptyChecking {
     public var isEmpty: Bool {
         kPIContent.isEmpty
+    }
+}
+
+extension KPIHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        items.isEmpty &&
+            bannerMessage.isEmpty
     }
 }
 
@@ -575,8 +663,7 @@ extension Key: _ViewEmptyChecking {
 extension KeyValueFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
     }
 }
 
@@ -654,7 +741,6 @@ extension ListPickerItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             value.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             destination.isEmpty
     }
 }
@@ -669,12 +755,6 @@ extension LoadingIndicator: _ViewEmptyChecking {
 extension LowerThumb: _ViewEmptyChecking {
     public var isEmpty: Bool {
         lowerThumb.isEmpty
-    }
-}
-
-extension MandatoryFieldIndicator: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        mandatoryFieldIndicator.isEmpty
     }
 }
 
@@ -786,6 +866,12 @@ extension OnStarImage: _ViewEmptyChecking {
     }
 }
 
+extension OnboardingScanView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        scanConfirmationView.isEmpty
+    }
+}
+
 extension OptionalTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         optionalTitle.isEmpty
@@ -795,6 +881,12 @@ extension OptionalTitle: _ViewEmptyChecking {
 extension Options: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false
+    }
+}
+
+extension OrderPicker: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        optionalTitle.isEmpty
     }
 }
 
@@ -896,6 +988,12 @@ extension RatingControlFormView: _ViewEmptyChecking {
             halfStarImage.isEmpty &&
             reviewCountLabel.isEmpty &&
             subtitle.isEmpty
+    }
+}
+
+extension RedoAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        redoAction.isEmpty
     }
 }
 
@@ -1002,10 +1100,15 @@ extension SideBarListItem: _ViewEmptyChecking {
     }
 }
 
+extension SignInAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        signInAction.isEmpty
+    }
+}
+
 extension SignatureCaptureView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            mandatoryFieldIndicator.isEmpty &&
             startSignatureAction.isEmpty &&
             reenterSignatureAction.isEmpty &&
             cancelAction.isEmpty &&
@@ -1022,6 +1125,14 @@ extension SingleStep: _ViewEmptyChecking {
             node.isEmpty &&
             line.isEmpty &&
             substeps.isEmpty
+    }
+}
+
+extension SortCriterion: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        checkmark.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty
     }
 }
 
@@ -1078,6 +1189,12 @@ extension SubAttribute: _ViewEmptyChecking {
     }
 }
 
+extension SubmitAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        submitAction.isEmpty
+    }
+}
+
 extension Substatus: _ViewEmptyChecking {
     public var isEmpty: Bool {
         substatus.isEmpty
@@ -1123,8 +1240,7 @@ extension TertiaryAction: _ViewEmptyChecking {
 extension TextFieldFormView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            placeholder.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            placeholder.isEmpty
     }
 }
 
@@ -1256,6 +1372,18 @@ extension TrendImage: _ViewEmptyChecking {
     }
 }
 
+extension UndoAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        undoAction.isEmpty
+    }
+}
+
+extension UpVoteAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        upVoteAction.isEmpty
+    }
+}
+
 extension UpperThumb: _ViewEmptyChecking {
     public var isEmpty: Bool {
         upperThumb.isEmpty
@@ -1302,8 +1430,7 @@ extension ValueLabel: _ViewEmptyChecking {
 extension ValuePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty &&
-            mandatoryFieldIndicator.isEmpty
+            valueLabel.isEmpty
     }
 }
 
@@ -1325,6 +1452,26 @@ extension WelcomeScreen: _ViewEmptyChecking {
             headlineImage.isEmpty &&
             legalText.isEmpty &&
             footerText.isEmpty
+    }
+}
+
+extension WritingAssistantAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        writingAssistantAction.isEmpty
+    }
+}
+
+extension WritingAssistantForm: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        cancelAction.isEmpty &&
+            doneAction.isEmpty &&
+            closeAction.isEmpty &&
+            backAction.isEmpty &&
+            undoAction.isEmpty &&
+            redoAction.isEmpty &&
+            upVoteAction.isEmpty &&
+            downVoteAction.isEmpty &&
+            footnote.isEmpty
     }
 }
 

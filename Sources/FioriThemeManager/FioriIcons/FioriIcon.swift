@@ -58,6 +58,8 @@ public enum FioriIcon {
         ///
         public static let bookmark = Image(fioriName: "fiori.bookmark")
         ///
+        public static let bookmark2 = Image(fioriName: "fiori.bookmark.2")
+        ///
         public static let bulletTextFill = Image(fioriName: "fiori.bullet.text.fill")
         ///
         public static let bulletText = Image(fioriName: "fiori.bullet.text")
@@ -75,6 +77,8 @@ public enum FioriIcon {
         public static let cause = Image(fioriName: "fiori.cause")
         ///
         public static let chainLink = Image(fioriName: "fiori.chain.link")
+        ///
+        public static let clearAll = Image(fioriName: "fiori.clear.all")
         ///
         public static let clearFilter = Image(fioriName: "fiori.clear.filter")
         ///
@@ -106,6 +110,8 @@ public enum FioriIcon {
         ///
         public static let customize = Image(fioriName: "fiori.customize")
         ///
+        public static let darkMode = Image(fioriName: "fiori.dark.mode")
+        ///
         public static let decline = Image(fioriName: "fiori.decline")
         ///
         public static let decreaseLineHeight = Image(fioriName: "fiori.decrease.line.height")
@@ -113,6 +119,10 @@ public enum FioriIcon {
         public static let deleteFill = Image(fioriName: "fiori.delete.fill")
         ///
         public static let delete = Image(fioriName: "fiori.delete")
+        ///
+        public static let detailLess = Image(fioriName: "fiori.detail.less")
+        ///
+        public static let detailMore = Image(fioriName: "fiori.detail.more")
         ///
         public static let detailView = Image(fioriName: "fiori.detail.view")
         ///
@@ -168,11 +178,15 @@ public enum FioriIcon {
         ///
         public static let feed = Image(fioriName: "fiori.feed")
         ///
+        public static let feedback = Image(fioriName: "fiori.feedback")
+        ///
         public static let filterFill = Image(fioriName: "fiori.filter.fill")
         ///
         public static let filter = Image(fioriName: "fiori.filter")
         ///
         public static let flag = Image(fioriName: "fiori.flag")
+        ///
+        public static let flag2 = Image(fioriName: "fiori.flag.2")
         ///
         public static let fullScreen = Image(fioriName: "fiori.full.screen")
         ///
@@ -191,6 +205,10 @@ public enum FioriIcon {
         public static let heading2 = Image(fioriName: "fiori.heading2")
         ///
         public static let heading3 = Image(fioriName: "fiori.heading3")
+        ///
+        public static let heart = Image(fioriName: "fiori.heart")
+        ///
+        public static let heart2 = Image(fioriName: "fiori.heart.2")
         ///
         public static let hide = Image(fioriName: "fiori.hide")
         ///
@@ -237,6 +255,10 @@ public enum FioriIcon {
         public static let legend = Image(fioriName: "fiori.legend")
         ///
         public static let less = Image(fioriName: "fiori.less")
+        ///
+        public static let lightMode = Image(fioriName: "fiori.light.mode")
+        ///
+        public static let linkExternal = Image(fioriName: "fiori.link.external")
         ///
         public static let list = Image(fioriName: "fiori.list")
         ///
@@ -306,6 +328,8 @@ public enum FioriIcon {
         ///
         public static let paging = Image(fioriName: "fiori.paging")
         ///
+        public static let paintBucket = Image(fioriName: "fiori.paint.bucket")
+        ///
         public static let paperPlane = Image(fioriName: "fiori.paper.plane")
         ///
         public static let paste = Image(fioriName: "fiori.paste")
@@ -366,6 +390,8 @@ public enum FioriIcon {
         ///
         public static let restart = Image(fioriName: "fiori.restart")
         ///
+        public static let rotate = Image(fioriName: "fiori.rotate")
+        ///
         public static let save = Image(fioriName: "fiori.save")
         ///
         public static let scissors = Image(fioriName: "fiori.scissors")
@@ -380,9 +406,13 @@ public enum FioriIcon {
         ///
         public static let shield = Image(fioriName: "fiori.shield")
         ///
+        public static let shield2 = Image(fioriName: "fiori.shield.2")
+        ///
         public static let shortcut = Image(fioriName: "fiori.shortcut")
         ///
         public static let show = Image(fioriName: "fiori.show")
+        ///
+        public static let showEdit = Image(fioriName: "fiori.show.edit")
         ///
         public static let signature = Image(fioriName: "fiori.signature")
         ///
@@ -413,6 +443,8 @@ public enum FioriIcon {
         public static let step = Image(fioriName: "fiori.step")
         ///
         public static let stop = Image(fioriName: "fiori.stop")
+        ///
+        public static let sum = Image(fioriName: "fiori.sum")
         ///
         public static let switchClasses = Image(fioriName: "fiori.switch.classes")
         ///
@@ -480,7 +512,11 @@ public enum FioriIcon {
         ///
         public static let thumbDown = Image(fioriName: "fiori.thumb.down")
         ///
+        public static let thumbDownFill = Image(fioriName: "fiori.thumb.down.fill")
+        ///
         public static let thumbUp = Image(fioriName: "fiori.thumb.up")
+        ///
+        public static let thumbUpFill = Image(fioriName: "fiori.thumb.up.fill")
         ///
         public static let toasterDown = Image(fioriName: "fiori.toaster.down")
         ///
@@ -492,6 +528,8 @@ public enum FioriIcon {
         ///
         public static let trendUp = Image(fioriName: "fiori.trend.up")
         ///
+        public static let triState = Image(fioriName: "fiori.tri.state")
+        ///
         public static let uiNotifications = Image(fioriName: "fiori.ui.notifications")
         ///
         public static let underlineText = Image(fioriName: "fiori.underline.text")
@@ -501,6 +539,8 @@ public enum FioriIcon {
         public static let unfavorite = Image(fioriName: "fiori.unfavorite")
         ///
         public static let unlocked = Image(fioriName: "fiori.unlocked")
+        ///
+        public static let unsynchronize = Image(fioriName: "fiori.unsynchronize")
         ///
         public static let up = Image(fioriName: "fiori.up")
         ///
@@ -516,11 +556,15 @@ public enum FioriIcon {
         ///
         public static let valueHelp = Image(fioriName: "fiori.value.help")
         ///
+        public static let verified = Image(fioriName: "fiori.verified")
+        ///
         public static let verticalGrip = Image(fioriName: "fiori.vertical.grip")
         ///
         public static let video = Image(fioriName: "fiori.video")
         ///
         public static let visits = Image(fioriName: "fiori.visits")
+        ///
+        public static let walkMe = Image(fioriName: "fiori.walk.me")
         ///
         public static let webCam = Image(fioriName: "fiori.web.cam")
         ///
@@ -549,6 +593,10 @@ public enum FioriIcon {
         ///
         public static let arrowTop = Image(fioriName: "fiori.arrow.top")
         ///
+        public static let arrowTopLeft = Image(fioriName: "fiori.arrow.top.left")
+        ///
+        public static let arrowTopRight = Image(fioriName: "fiori.arrow.top.right")
+        ///
         public static let backToTop = Image(fioriName: "fiori.back.to.top")
         ///
         public static let begin = Image(fioriName: "fiori.begin")
@@ -564,6 +612,10 @@ public enum FioriIcon {
         public static let collapseGroup = Image(fioriName: "fiori.collapse.group")
         ///
         public static let combine = Image(fioriName: "fiori.combine")
+        ///
+        public static let commandLineInterfaces = Image(fioriName: "fiori.command.line.interfaces")
+        ///
+        public static let directionArrows = Image(fioriName: "fiori.direction.arrows")
         ///
         public static let down = Image(fioriName: "fiori.down")
         ///
@@ -620,6 +672,8 @@ public enum FioriIcon {
         public static let mediaReverse = Image(fioriName: "fiori.media.reverse")
         ///
         public static let mediaRewind = Image(fioriName: "fiori.media.rewind")
+        ///
+        public static let megamenu = Image(fioriName: "fiori.megamenu")
         ///
         public static let move = Image(fioriName: "fiori.move")
         ///
@@ -701,6 +755,8 @@ public enum FioriIcon {
         ///
         public static let undo = Image(fioriName: "fiori.undo")
         ///
+        public static let unsynchronize = Image(fioriName: "fiori.unsynchronize")
+        ///
         public static let up = Image(fioriName: "fiori.up")
         ///
         public static let upload = Image(fioriName: "fiori.upload")
@@ -708,6 +764,8 @@ public enum FioriIcon {
         public static let uploadToCloud = Image(fioriName: "fiori.upload.to.cloud")
         ///
         public static let visits = Image(fioriName: "fiori.visits")
+        ///
+        public static let walkMe = Image(fioriName: "fiori.walk.me")
     }
 
     public enum calendars {
@@ -1108,6 +1166,8 @@ public enum FioriIcon {
         ///
         public static let batchPayments = Image(fioriName: "fiori.batch.payments")
         ///
+        public static let browseFolder = Image(fioriName: "fiori.browse.folder")
+        ///
         public static let curriculum = Image(fioriName: "fiori.curriculum")
         ///
         public static let fallback = Image(fioriName: "fiori.fallback")
@@ -1141,7 +1201,106 @@ public enum FioriIcon {
         ///
         public static let receipt = Image(fioriName: "fiori.receipt")
         ///
+        public static let showEdit = Image(fioriName: "fiori.show.edit")
+        ///
         public static let survey = Image(fioriName: "fiori.survey")
+    }
+    
+    public enum message {
+        ///
+        public static let appearOffline = Image(fioriName: "fiori.appear.offline")
+        ///
+        public static let away = Image(fioriName: "fiori.away")
+        ///
+        public static let badge = Image(fioriName: "fiori.badge")
+        ///
+        public static let bookmark = Image(fioriName: "fiori.bookmark")
+        ///
+        public static let brokenLink = Image(fioriName: "fiori.broken.link")
+        ///
+        public static let busy = Image(fioriName: "fiori.busy")
+        ///
+        public static let cancelMaintenance = Image(fioriName: "fiori.cancel.maintenance")
+        ///
+        public static let cancelShare = Image(fioriName: "fiori.cancel.share")
+        ///
+        public static let cancel = Image(fioriName: "fiori.cancel")
+        ///
+        public static let connected = Image(fioriName: "fiori.connected")
+        ///
+        public static let disconnected = Image(fioriName: "fiori.disconnected")
+        ///
+        public static let employeeRejections = Image(fioriName: "fiori.employee.rejections")
+        ///
+        public static let error = Image(fioriName: "fiori.error")
+        ///
+        public static let goal = Image(fioriName: "fiori.goal")
+        ///
+        public static let highPriority = Image(fioriName: "fiori.high.priority")
+        ///
+        public static let hrApproval = Image(fioriName: "fiori.hr.approval")
+        ///
+        public static let incident = Image(fioriName: "fiori.incident")
+        ///
+        public static let information = Image(fioriName: "fiori.information")
+        ///
+        public static let leadOutdated = Image(fioriName: "fiori.lead.outdated")
+        ///
+        public static let locked = Image(fioriName: "fiori.locked")
+        ///
+        public static let messageError = Image(fioriName: "fiori.message.error")
+        ///
+        public static let messageInformation = Image(fioriName: "fiori.message.information")
+        ///
+        public static let messagePopup = Image(fioriName: "fiori.message.popup")
+        ///
+        public static let messageSuccess = Image(fioriName: "fiori.message.success")
+        ///
+        public static let messageWarning = Image(fioriName: "fiori.message.warning")
+        ///
+        public static let permission = Image(fioriName: "fiori.permission")
+        ///
+        public static let `private` = Image(fioriName: "fiori.private")
+        ///
+        public static let qualityIssue = Image(fioriName: "fiori.quality.issue")
+        ///
+        public static let questionMark = Image(fioriName: "fiori.question.mark")
+        ///
+        public static let role = Image(fioriName: "fiori.role")
+        ///
+        public static let statusCritical = Image(fioriName: "fiori.status.critical")
+        ///
+        public static let statusInactive = Image(fioriName: "fiori.status.inactive")
+        ///
+        public static let statusNegative = Image(fioriName: "fiori.status.negative")
+        ///
+        public static let statusPositive = Image(fioriName: "fiori.status.positive")
+        ///
+        public static let sysCancel2 = Image(fioriName: "fiori.sys.cancel.2")
+        ///
+        public static let sysCancel = Image(fioriName: "fiori.sys.cancel")
+        ///
+        public static let sysEnter2 = Image(fioriName: "fiori.sys.enter.2")
+        ///
+        public static let sysEnter = Image(fioriName: "fiori.sys.enter")
+        ///
+        public static let sysHelp2 = Image(fioriName: "fiori.sys.help.2")
+        ///
+        public static let sysHelp = Image(fioriName: "fiori.sys.help")
+        ///
+        public static let toBeReviewed = Image(fioriName: "fiori.to.be.reviewed")
+        ///
+        public static let travelRequest = Image(fioriName: "fiori.travel.request")
+        ///
+        public static let tripReport = Image(fioriName: "fiori.trip.report")
+        ///
+        public static let unlocked = Image(fioriName: "fiori.unlocked")
+        ///
+        public static let validate = Image(fioriName: "fiori.validate")
+        ///
+        public static let verified = Image(fioriName: "fiori.verified")
+        ///
+        public static let warning2 = Image(fioriName: "fiori.warning2")
     }
 
     public enum medical {
@@ -1608,6 +1767,8 @@ public enum FioriIcon {
         ///
         public static let shield = Image(fioriName: "fiori.shield")
         ///
+        public static let shield2 = Image(fioriName: "fiori.shield.2")
+        ///
         public static let simulate = Image(fioriName: "fiori.simulate")
         ///
         public static let soccer = Image(fioriName: "fiori.soccer")
@@ -1751,6 +1912,8 @@ public enum FioriIcon {
         ///
         public static let familyProtection = Image(fioriName: "fiori.family.protection")
         ///
+        public static let feedback = Image(fioriName: "fiori.feedback")
+        ///
         public static let female = Image(fioriName: "fiori.female")
         ///
         public static let genderMaleAndFemale = Image(fioriName: "fiori.gender.male.and.female")
@@ -1840,6 +2003,8 @@ public enum FioriIcon {
         ///
         public static let locateMe = Image(fioriName: "fiori.locate.me")
         ///
+        public static let locateMe2 = Image(fioriName: "fiori.locate.me.2")
+        ///
         public static let map2 = Image(fioriName: "fiori.map.2")
         ///
         public static let map3Fill = Image(fioriName: "fiori.map.3.fill")
@@ -1861,6 +2026,8 @@ public enum FioriIcon {
         public static let pool = Image(fioriName: "fiori.pool")
         ///
         public static let retailStore = Image(fioriName: "fiori.retail.store")
+        ///
+        public static let spaceNavigation = Image(fioriName: "fiori.space.navigation")
         ///
         public static let theater = Image(fioriName: "fiori.theater")
         ///
@@ -1966,6 +2133,8 @@ public enum FioriIcon {
         ///
         public static let messageWarning = Image(fioriName: "fiori.message.warning")
         ///
+        public static let notEditable = Image(fioriName: "fiori.not.editable")
+        ///
         public static let notificationFill = Image(fioriName: "fiori.notification.fill")
         ///
         public static let notification = Image(fioriName: "fiori.notification")
@@ -1996,6 +2165,8 @@ public enum FioriIcon {
         ///
         public static let sysCancel = Image(fioriName: "fiori.sys.cancel")
         ///
+        public static let sysCancel2 = Image(fioriName: "fiori.sys.cancel.2")
+        ///
         public static let sysEnter2 = Image(fioriName: "fiori.sys.enter.2")
         ///
         public static let sysEnterFill = Image(fioriName: "fiori.sys.enter.fill")
@@ -2023,6 +2194,8 @@ public enum FioriIcon {
         public static let unlocked = Image(fioriName: "fiori.unlocked")
         ///
         public static let validate = Image(fioriName: "fiori.validate")
+        ///
+        public static let verified = Image(fioriName: "fiori.verified")
         ///
         public static let warning = Image(fioriName: "fiori.warning")
         ///
@@ -2293,6 +2466,8 @@ public enum FioriIcon {
         public static let future = Image(fioriName: "fiori.future")
         ///
         public static let history = Image(fioriName: "fiori.history")
+        ///
+        public static let inProgress = Image(fioriName: "fiori.in.progress")
         ///
         public static let instance = Image(fioriName: "fiori.instance")
         ///

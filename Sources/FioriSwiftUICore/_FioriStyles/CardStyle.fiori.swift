@@ -17,36 +17,38 @@ public struct CardBaseStyle: CardStyle {
     /// It means a Card's height use the proposal's height over its intrinsic height if it is true.
     /// `CarouselLayout` with `isSameHeight` `true` requires `useProposedHeight` to be `true`.
     let useProposedHeight: Bool
-    
+    @Environment(\.isLoading) var isLoading
     init(useProposedHeight: Bool = true) {
         self.useProposedHeight = useProposedHeight
     }
     
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         // Add default layout here
-        CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
-            if !configuration._cardHeader.isEmpty {
-                configuration._cardHeader
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
-            } else {
-                Spacer().frame(width: 1, height: 10)
+        SkeletonLoadingContainer {
+            CardLayout(lineSpacing: 0, useProposedHeight: self.useProposedHeight) {
+                if !configuration._cardHeader.isEmpty {
+                    configuration._cardHeader
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 6, trailing: 0))
+                } else {
+                    Spacer().frame(width: 1, height: 10)
+                }
+                
+                if !configuration.cardBody.isEmpty {
+                    configuration.cardBody
+                        .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                }
+                
+                if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty &&
+                    configuration._cardFooter.tertiaryAction.isEmpty)
+                {
+                    configuration._cardFooter
+                        .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                        .layoutPriority(3) // Mark this as the footer in CardLayout
+                }
             }
-            
-            if !configuration.cardBody.isEmpty {
-                configuration.cardBody
-                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-            }
-            
-            if !(configuration._cardFooter.action.isEmpty && configuration._cardFooter.secondaryAction.isEmpty &&
-                configuration._cardFooter.tertiaryAction.isEmpty)
-            {
-                configuration._cardFooter
-                    .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                    .layoutPriority(3) // Mark this as the footer in CardLayout
-            }
+            .clipped()
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
         }
-        .clipped()
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
     }
 }
 
@@ -78,20 +80,18 @@ struct CardLayout: Layout {
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
         self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
         let finalWidth = max(proposal.width ?? 0, cache.maxWidth)
-        
         return CGSize(width: finalWidth, height: cache.height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
-
         for (i, subview) in subviews.enumerated() {
             let item = cache.rows[i]
             
             var pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
             /// If it is the footer and there is exessive height for the card then the footer is moved to the bottom
-            if self.useProposedHeight, subview.priority == 3, item.origin.y + item.size.height < cache.height {
-                pt.y = cache.height - item.size.height + bounds.origin.y
+            if subview.priority == 3, item.origin.y + item.size.height < bounds.size.height {
+                pt.y = bounds.size.height - item.size.height + bounds.origin.y
             }
             subview.place(at: pt, proposal: ProposedViewSize(width: item.size.width, height: nil))
         }
@@ -103,11 +103,9 @@ struct CardLayout: Layout {
     
     func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         let containerWidth = proposal.width
-        
         let height: CGFloat
-        
-        if self.useProposedHeight {
-            height = proposal.height ?? (cache.rows.last?.maxY ?? 0)
+        if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
+            height = max(value, cache.height)
         } else {
             height = cache.rows.last?.maxY ?? 0
         }
@@ -139,8 +137,8 @@ struct CardLayout: Layout {
         }
         
         cache.height = cache.rows.last?.maxY ?? 0
-        if self.useProposedHeight, let value = proposal.height {
-            cache.height = value
+        if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
+            cache.height = max(value, cache.height)
         }
     }
 }
@@ -376,6 +374,7 @@ extension CardFioriStyle {
 }
 
 public struct CardCardStyle: CardStyle {
+    @Environment(\.shadowEffect) private var shadowEffectConfiguration
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         Card(configuration)
             .background(Color.preferredColor(.secondaryGroupedBackground))
@@ -385,7 +384,9 @@ public struct CardCardStyle: CardStyle {
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .shadow(color: Color.preferredColor(.cardShadow).opacity(0.92), radius: 8, x: 0, y: 2)
+            .ifApply(self.shadowEffectConfiguration.showShadow) { content in
+                content.shadow(self.shadowEffectConfiguration.style ?? .level2)
+            }
     }
 }
 
@@ -511,6 +512,7 @@ public enum CardTests {
                                        readableScaleEnabled: false,
                                        categoryAxis: ChartCategoryAxisAttributes(gridlines: gridLine, formatter: nil, abbreviatedFormatter: nil, labelLayoutStyle: .range),
                                        numericAxis: ChartNumericAxisAttributes(baseline: baseLine, formatter: nil, abbreviatedFormatter: nil))
+    static var isLoading: Bool = false
     
     static let sampleCard1 = Card {
         Image("card_image")
@@ -578,7 +580,9 @@ public enum CardTests {
         }
     } cardBody: {
         HStack(alignment: .center, spacing: 4) {
-            ChartView(CardTests.chartModel).frame(height: 168)
+            ChartView(CardTests.chartModel)
+                .frame(minWidth: 128)
+                .frame(height: 168)
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
@@ -1080,6 +1084,54 @@ public enum CardTests {
     public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
     public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20]
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
+}
+
+/// Provides reusable skeleton loading patterns for `Card` components.
+/// These static properties offer placeholder card layouts to display while content is loading,
+/// ensuring a consistent and visually appealing loading state across the UI.
+public enum CardSkeletonLoadingPattern {
+    /// Provides a header-only card skeleton with a title.
+    public static let oneLineCard = Card {
+        Text("Title text for loading")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    }
+
+    /// Provides a two-line card skeleton with a title, subtitle, and detail image.
+    public static let twoLineCard = Card {
+        Text("Title text")
+    } subtitle: {
+        Text("Subtitle text that goes to multiple lines")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    }
+    
+    /// Provides a three-line card skeleton with a title, subtitle, detail image, and actions.
+    public static let multipleLineCard = Card {
+        Text("Title text for loading")
+    } subtitle: {
+        Text("Subtitle text that goes to multiple lines")
+    } detailImage: {
+        Image("ProfilePic")
+    } headerAction: {
+        FioriButton(title: "header")
+    } action: {
+        FioriButton(title: "Primary")
+    } secondaryAction: {
+        FioriButton(title: "Secondary")
+    }
+
+    /// Provides a generic card skeleton with a title, subtitle, icons, header action, and overflow action.
+    public static let genericCard = Card(title: "Title",
+                                         subtitle: "Subtitle that goes to multiple lines before truncating just like that",
+                                         icons: [TextOrIcon.icon(Image(systemName: "circle.fill")), TextOrIcon.icon(Image(systemName: "paperclip")), TextOrIcon.text("1")],
+                                         headerAction: FioriButton(title: "..."),
+                                         tertiaryAction: FioriButton(title: "Tertiary"),
+                                         overflowAction: FioriButton(title: "Overflow"))
 }
 
 #Preview {

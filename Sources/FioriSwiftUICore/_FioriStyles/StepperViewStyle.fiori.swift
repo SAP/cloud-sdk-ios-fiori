@@ -7,7 +7,7 @@ public struct StepperViewBaseStyle: StepperViewStyle {
     public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
         @State var showDescription = !configuration.description.isEmpty
         return VStack(spacing: 0) {
-            ViewThatFits {
+            ViewThatFits(in: .horizontal) {
                 HStack(spacing: 0) {
                     configuration.title
                     Spacer().layoutPriority(1)
@@ -16,7 +16,7 @@ public struct StepperViewBaseStyle: StepperViewStyle {
                 VStack(alignment: .leading, spacing: 0) {
                     configuration.title
                     HStack {
-                        Spacer()
+                        Spacer().layoutPriority(1)
                         configuration._stepperField
                     }
                 }
@@ -35,12 +35,10 @@ public struct StepperViewBaseStyle: StepperViewStyle {
 extension StepperViewFioriStyle {
     struct ContentFioriStyle: StepperViewStyle {
         @Environment(\.isEnabled) var isEnabled: Bool
-        @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
         @FocusState var isFocused: Bool
 
         func makeBody(_ configuration: StepperViewConfiguration) -> some View {
             StepperView(configuration)
-                .padding(EdgeInsets(top: 9, leading: self.getPadding(), bottom: 11, trailing: self.getPadding()))
                 .titleStyle(content: { titleConfiguration in
                     Title(titleConfiguration)
                         .foregroundColor(.preferredColor(self.isEnabled ? (self.isFocused ? .tintColor : .primaryLabel) : .separator))
@@ -55,12 +53,6 @@ extension StepperViewFioriStyle {
                         )
                         .focused(self.$isFocused)
                 }
-        }
-        
-        // Compact, regular, and full-width regular containers have leading and trailing padding of 16pt, 24pt, and 48pt, respectively. Fiori defines containers exceeding 768pt in width as full-width regular.
-        func getPadding() -> CGFloat {
-            let padding: CGFloat = self.horizontalSizeClass == .compact ? 16 : (self.horizontalSizeClass == .regular ? (Screen.bounds.width > 768 ? 48 : 24) : 16)
-            return padding
         }
     }
 

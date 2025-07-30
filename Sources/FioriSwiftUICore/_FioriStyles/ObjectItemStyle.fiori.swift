@@ -19,7 +19,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
     @Environment(\.splitPercent) var splitPercent
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.footnoteIconsTextPosition) var footnoteIconsTextPosition
-
+    @Environment(\.isLoading) var isLoading
     @State var mainViewSize: CGSize = .zero
     
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
@@ -38,41 +38,49 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
             }
         }
         
+        var isCompact: Bool {
+            self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact)
+        }
+        
         var isCenterAligned: Bool {
-            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty
+            configuration.subtitle.isEmpty && configuration.footnote.isEmpty && configuration.tags.isEmpty && (configuration.description.isEmpty || !isCompact || !configuration.showsDescriptionInCompact)
         }
         
         let context = Context(configuration: configuration, shouldShowAvatar: shouldShowAvatar, avatarView: avatarView)
         
-        // FIXME: check if VStack causes any problem.
-        return VStack {
-            if !configuration.action.isEmpty {
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeOneLineSingleActionView(context)
-                } else {
-                    self.makeRegularSingleActionView(context)
-                }
-            } else if self.horizontalSizeClass == nil || self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeCompactOneLineView(context)
-                }
-                // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
-                // The headline must maintain the 8 px padding with the status.
-                else if configuration.substatus.isEmpty {
-                    self.makeCompactOneStatusView(context)
-                } else {
-                    self.makeCompactGeneralView(context)
-                }
-            } else { // horizontalSizeClass is Regular
-                // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isCenterAligned {
-                    self.makeRegularCenterView(context)
-                } else {
-                    self.makeRegularGeneralView(context)
+        return SkeletonLoadingContainer {
+            Group {
+                if !configuration.action.isEmpty {
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeOneLineSingleActionView(context)
+                    } else {
+                        self.makeRegularSingleActionView(context)
+                    }
+                } else if isCompact || self.splitPercent == nil {
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeCompactOneLineView(context)
+                    }
+                    // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
+                    // The headline must maintain the 8 px padding with the status.
+                    else if configuration.substatus.isEmpty {
+                        self.makeCompactOneStatusView(context)
+                    } else {
+                        self.makeCompactGeneralView(context)
+                    }
+                } else { // horizontalSizeClass is Regular
+                    // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
+                    if isCenterAligned {
+                        self.makeRegularCenterView(context)
+                    } else {
+                        self.makeRegularGeneralView(context)
+                    }
                 }
             }
+        }
+        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+            dimensions[.leading]
         }
     }
 }
@@ -92,7 +100,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -136,6 +143,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.action
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -144,7 +152,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             if self.horizontalSizeClass == .some(.compact) || self.splitPercent == nil {
@@ -168,6 +175,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             } else {
                 HStack(alignment: .center) {
                     HStack(alignment: .iconStackAlignmentGuide) {
@@ -223,6 +231,7 @@ extension ObjectItemBaseStyle {
                     
                     context.configuration.action
                 }
+                .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             }
         }
     }
@@ -233,7 +242,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack {
@@ -248,6 +256,7 @@ extension ObjectItemBaseStyle {
                 
                 context.configuration.status
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -256,7 +265,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -281,6 +289,9 @@ extension ObjectItemBaseStyle {
                             context.configuration.footnote
                             context.configuration.tags
                             self.footnoteIconsView(context)
+                            if context.configuration.showsDescriptionInCompact {
+                                context.configuration.description
+                            }
                         }
                         Spacer(minLength: 0)
                     }
@@ -294,6 +305,7 @@ extension ObjectItemBaseStyle {
                     }
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -302,7 +314,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .top) {
@@ -311,12 +322,18 @@ extension ObjectItemBaseStyle {
                     Spacer().frame(width: 12)
                 }
                 
-                VStack(alignment: .leading, spacing: 3) {
-                    context.configuration.title.lineLimit(2)
-                    context.configuration.subtitle
-                    context.configuration.footnote
-                    context.configuration.tags
-                    self.footnoteIconsView(context)
+                VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        context.configuration.title.lineLimit(2)
+                        context.configuration.subtitle
+                        context.configuration.footnote
+                        context.configuration.tags
+                        self.footnoteIconsView(context)
+                    }
+                    
+                    if context.configuration.showsDescriptionInCompact {
+                        context.configuration.description
+                    }
                 }
                 
                 Spacer(minLength: 8)
@@ -327,6 +344,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.objectItemButton
                 }
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
     }
     
@@ -336,7 +354,6 @@ extension ObjectItemBaseStyle {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
                     .environment(\.numberOfLines, 1)
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .center, spacing: 0) {
@@ -367,6 +384,7 @@ extension ObjectItemBaseStyle {
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
         }
@@ -377,7 +395,6 @@ extension ObjectItemBaseStyle {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
-                    .offset(x: -22, y: 0)
             }
             
             HStack(alignment: .iconStackAlignmentGuide) {
@@ -431,6 +448,7 @@ extension ObjectItemBaseStyle {
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
+            .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
             .overlayPreferenceValue(MyViewPreferenceKey.self) { preferences in
@@ -525,6 +543,14 @@ extension ObjectItemBaseStyle {
     }
 }
 
+private struct ObjectItemContentLeadingPadding: ViewModifier {
+    var isIconsEmpty: Bool
+    public func body(content: Content) -> some View {
+        content
+            .padding(.leading, self.isIconsEmpty ? 0 : 22)
+    }
+}
+
 // Default fiori styles
 extension ObjectItemFioriStyle {
     struct ContentFioriStyle: ObjectItemStyle {
@@ -538,130 +564,153 @@ extension ObjectItemFioriStyle {
     
     struct TitleFioriStyle: TitleStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(.baseBlack))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .baseBlack))
         }
     }
 
     struct SubtitleFioriStyle: SubtitleStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .lineLimit(1)
         }
     }
 
     struct FootnoteFioriStyle: FootnoteStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteConfiguration) -> some View {
             Footnote(configuration)
-                // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
                 .lineLimit(1)
         }
     }
 
     struct DescriptionFioriStyle: DescriptionStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
             // Add default style here
         }
     }
 
     struct StatusFioriStyle: StatusStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct SubstatusFioriStyle: SubstatusStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
                 .lineLimit(1)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
                 // Add default style here
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .clipped()
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct IconsFioriStyle: IconsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: IconsConfiguration) -> some View {
             Icons(configuration)
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .tertiaryLabel))
         }
     }
 
     struct AvatarsFioriStyle: AvatarsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: AvatarsConfiguration) -> some View {
             Avatars(configuration)
-                // Add default style here
                 .clipped()
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct FootnoteIconsFioriStyle: FootnoteIconsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
             FootnoteIcons(configuration)
-            // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
     struct FootnoteIconsTextFioriStyle: FootnoteIconsTextStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
             FootnoteIconsText(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .lineLimit(1)
         }
     }
 
     struct TagsFioriStyle: TagsStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TagsConfiguration) -> some View {
             Tags(configuration)
-            // Add default style here
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 
     struct ActionFioriStyle: ActionStyle {
         let objectItemConfiguration: ObjectItemConfiguration
-        
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
                 // Add default style here
                 .fioriButtonStyle(FioriPlainButtonStyle())
                 .lineLimit(2)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 }
@@ -892,4 +941,57 @@ struct AvatarsAndTextLayout: Layout {
             }
         }
     }
+}
+
+/// `ObjectItemSkeletonLoadingPattern` provides a set of predefined skeleton loading patterns for ObjectItem.
+public enum ObjectItemSkeletonLoadingPattern {
+    /// Predefined skeleton loading patterns for ObjectItem with one line.
+    public static let oneLine = ObjectItem(title: {
+        Text("Object Item Title")
+    }, status: {
+        Text("Status Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
+    })
+    
+    /// Predefined skeleton loading patterns for ObjectItem with two lines.
+    public static let twoLines = ObjectItem(title: {
+        Text("Object Item title text")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, status: {
+        Text("Status Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45).clipShape(Circle())
+    })
+    
+    /// Predefined skeleton loading patterns for ObjectItem with multiple lines.
+    public static let multiLines = ObjectItem(title: {
+        Text("Object Item Title")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, footnote: {
+        Text("Object Item footnote text")
+    }, description: {
+        Text("Object Item description text that goes to multiple lines. It is a long text that should be truncated if it is too long to fit in the available space.")
+    }, status: {
+        Text("Status Text")
+    }, substatus: {
+        Text("substatus Text")
+    }, detailImage: {
+        Image("rw").resizable().frame(width: 45, height: 45)
+    })
+    
+    /// Predefined skeleton loading patterns for ObjectItem with generic content.
+    public static let generic = ObjectItem(title: {
+        Text("Object Item Title")
+    }, subtitle: {
+        Text("Object Item subtitle text")
+    }, footnote: {
+        Text("Object Item footnote text")
+    }, description: {
+        Text("Object Item description text that goes to multiple lines. It is a long text that should be truncated if it is too long to fit in the available space.")
+    }, status: {
+        Text("Status Text")
+    })
 }

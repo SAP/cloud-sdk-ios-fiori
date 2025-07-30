@@ -94,7 +94,9 @@ struct AttachmentGroupExample: View {
                         
                         Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
                         
-                        Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        #if os(iOS)
+                            Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                        #endif
                         
                         Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
                         
@@ -156,28 +158,32 @@ struct AttachmentGroupExample: View {
                 AttachmentButtonImage(controlState: self.state)
                     .ifApply(self.opsAsMenu) {
                         $0.operationsMenu {
-                            AttachmentMenuItems.photos(filter: self.photoFilters)
-                            AttachmentMenuItems.files(filter: self.fileFilters)
-                            AttachmentMenuItems.camera
-                            AttachmentMenuItems.pdfScanner
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Compose", systemImage: "square.and.pencil")
-                            }
+                            PhotosPickerMenuItem(filter: self.photoFilters)
+                            FilesPickerMenuItem(filter: self.fileFilters)
+                            #if os(iOS)
+                                CameraMenuItem()
+                                PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
+                            #endif
                         }
                     }
                     .ifApply(!self.opsAsMenu) {
                         $0.operationsDialog {
-                            AttachmentMenuItems.photos(filter: self.photoFilters)
-                            AttachmentMenuItems.files(filter: self.fileFilters)
-                            AttachmentMenuItems.camera
-                            AttachmentMenuItems.pdfScanner
-                            Button {
-                                self.showWriteAndUploadView.toggle()
-                            } label: {
-                                Label("Compose", systemImage: "square.and.pencil")
-                            }
+                            PhotosPickerMenuItem(filter: self.photoFilters)
+                            FilesPickerMenuItem(filter: self.fileFilters)
+                            #if os(iOS)
+                                CameraMenuItem()
+                                PdfScannerMenuItem()
+                                Button {
+                                    self.showWriteAndUploadView.toggle()
+                                } label: {
+                                    Label("Custom:Compose", systemImage: "square.and.pencil")
+                                }
+                            #endif
                         }
                     }
             },
@@ -186,6 +192,7 @@ struct AttachmentGroupExample: View {
                 self.previewURL = newValue
             }
         )
+        #if os(iOS)
         .ifApply(!self.defaultPreview) {
             $0.fullScreenCover(isPresented: self.shouldShowPreview) {
                 AttachmentPreview(
@@ -200,6 +207,7 @@ struct AttachmentGroupExample: View {
                 }
             }
         }
+        #endif
         .ifApply(!self.defaultThumbnail) {
             $0.attachmentStyle(MyAttachmentStyle())
         }
@@ -209,7 +217,7 @@ struct AttachmentGroupExample: View {
 struct MyAttachmentStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack {
-            RoundedRectangle(cornerRadius: AttachmentConstants.cellCornerRadius)
+            RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius)
                 .fill(
                     Color(
                         red: .random(in: 0 ... 1),
@@ -218,7 +226,7 @@ struct MyAttachmentStyle: AttachmentStyle {
                         opacity: .random(in: 0 ... 1)
                     )
                 )
-                .frame(width: AttachmentConstants.cellWidth, height: AttachmentConstants.cellHeight)
+                .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
 
             Text("* < Not  Visible> *")
                 .font(.caption)

@@ -32,6 +32,8 @@ public struct ToastMessageConfiguration {
     public let backgroundColor: Color
     public let borderWidth: CGFloat
     public let borderColor: Color
+    public let borderWidthIC: CGFloat
+    public let borderColorIC: Color
     public let shadow: FioriShadowStyle?
 
     public typealias Icon = ConfigurationViewWrapper

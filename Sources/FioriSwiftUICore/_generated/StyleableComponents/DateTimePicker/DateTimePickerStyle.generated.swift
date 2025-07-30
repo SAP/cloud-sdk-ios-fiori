@@ -25,19 +25,19 @@ public struct DateTimePickerConfiguration {
     public var componentIdentifier: String = "fiori_datetimepicker_component"
     public let title: Title
     public let valueLabel: ValueLabel
-    public let mandatoryFieldIndicator: MandatoryFieldIndicator
-    public let isRequired: Bool
     public let controlState: ControlState
     public let errorMessage: AttributedString?
+    public let range: ClosedRange<Date>?
     @Binding public var selectedDate: Date
+    public let dateFormatter: DateFormatter?
     public let pickerComponents: DatePicker.Components
     public let dateStyle: Date.FormatStyle.DateStyle
     public let timeStyle: Date.FormatStyle.TimeStyle
     public let noDateSelectedString: String?
+    @Binding public var pickerVisible: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
-    public typealias MandatoryFieldIndicator = ConfigurationViewWrapper
 }
 
 extension DateTimePickerConfiguration {
@@ -51,7 +51,6 @@ public struct DateTimePickerFioriStyle: DateTimePickerStyle {
         DateTimePicker(configuration)
             .titleStyle(TitleFioriStyle(dateTimePickerConfiguration: configuration))
             .valueLabelStyle(ValueLabelFioriStyle(dateTimePickerConfiguration: configuration))
-            .mandatoryFieldIndicatorStyle(MandatoryFieldIndicatorFioriStyle(dateTimePickerConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(dateTimePickerConfiguration: configuration))
     }
 }

@@ -50,7 +50,8 @@ import SwiftUI
 // Base Layout style
 public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+    @Environment(\.headerSeparator) private var separatorConfiguration
+    @Environment(\.isLoading) var isLoading
     @StateObject var viewModel = ProfileHeaderViewModel()
     @State var subtitleSize: CGSize = .zero
     @State var titleSize: CGSize = .zero
@@ -79,28 +80,43 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
     
     @ViewBuilder
     public func makeBody(_ configuration: ProfileHeaderConfiguration) -> some View {
-        // Add default layout here
-        Group {
-            switch self.horizontalSizeClass {
-            case .regular:
-                self.regularView(configuration)
-            case .compact, .none, .some:
-                self.compactView(configuration)
-            }
-        }.modifier(FioriIntrospectModifier<UIScrollView>(introspection: { scrollView in
-            DispatchQueue.main.async {
-                self.viewModel.adjustedContentInsetTop = scrollView.adjustedContentInset.top
-            }
-            self.viewModel.animatable = configuration.animatable
-            if self.viewModel.contentOffsetSubscription == nil {
-                self.viewModel.contentOffsetSubscription = scrollView.publisher(for: \.contentOffset)
-                    .sink { [weak viewModel] contentOffset in
-                        DispatchQueue.main.async {
-                            viewModel?.contentYOffset = contentOffset.y
+        SkeletonLoadingContainer {
+            Group {
+                switch self.horizontalSizeClass {
+                case .regular:
+                    self.regularView(configuration)
+                        .ifApply(self.separatorConfiguration.showSeparator) { content in
+                            VStack(spacing: 16) {
+                                content
+                                self.separatorConfiguration.color
+                                    .frame(height: self.separatorConfiguration.lineWidth)
+                            }
                         }
-                    }
-            }
-        }))
+                case .compact, .none, .some:
+                    self.compactView(configuration)
+                        .ifApply(self.separatorConfiguration.showSeparator) { content in
+                            VStack(spacing: 16) {
+                                content
+                                self.separatorConfiguration.color
+                                    .frame(height: self.separatorConfiguration.lineWidth)
+                            }
+                        }
+                }
+            }.modifier(FioriIntrospectModifier<UIScrollView>(scope: .ancestor) { scrollView in
+                DispatchQueue.main.async {
+                    self.viewModel.adjustedContentInsetTop = scrollView.adjustedContentInset.top
+                }
+                self.viewModel.animatable = configuration.animatable
+                if self.viewModel.contentOffsetSubscription == nil {
+                    self.viewModel.contentOffsetSubscription = scrollView.publisher(for: \.contentOffset)
+                        .sink { [weak viewModel] contentOffset in
+                            DispatchQueue.main.async {
+                                viewModel?.contentYOffset = contentOffset.y
+                            }
+                        }
+                }
+            })
+        }
     }
     
     @ViewBuilder
@@ -191,30 +207,36 @@ extension ProfileHeaderFioriStyle {
     }
     
     struct TitleFioriStyle: TitleStyle {
+        @Environment(\.isLoading) var isLoading
         let profileHeaderConfiguration: ProfileHeaderConfiguration
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
         }
     }
     
     struct SubtitleFioriStyle: SubtitleStyle {
+        @Environment(\.isLoading) var isLoading
         let profileHeaderConfiguration: ProfileHeaderConfiguration
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .font(.fiori(forTextStyle: .headline))
         }
     }
     
     struct DescriptionFioriStyle: DescriptionStyle {
+        @Environment(\.isLoading) var isLoading
         let profileHeaderConfiguration: ProfileHeaderConfiguration
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
+                .ifApply(self.isLoading) { content in
+                    content.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
 }

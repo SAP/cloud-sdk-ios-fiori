@@ -2,6 +2,887 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.8.0-20250711](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250709...25.8.0-20250711) (2025-07-11)
+
+
+### Features
+
+* 🎸 [HCPSDKFIORIUIKIT-2962] Date Range Picker ([#1152](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1152)) ([5d19c0c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5d19c0cd766e32eb2a5c8b398ff8efd283206408))
+* add fiori.link.external icon ([#1159](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1159)) ([d165c58](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d165c581454fcdf937b9de381cb4dac6a8f98d2c)), closes [#782](https://github.com/SAP/cloud-sdk-ios-fiori/issues/782) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#796](https://github.com/SAP/cloud-sdk-ios-fiori/issues/796) [#798](https://github.com/SAP/cloud-sdk-ios-fiori/issues/798) [#795](https://github.com/SAP/cloud-sdk-ios-fiori/issues/795) [#790](https://github.com/SAP/cloud-sdk-ios-fiori/issues/790)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-791] DateTimePicker Enhancement ([#1154](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1154)) ([cf8147c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cf8147c0a1fb4bf8eaf8bf3c1e7a0eb467c0cfb5))
+* 🐛 keep only one vote state in W.A. feedback flow ([#1155](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1155)) ([064f3e7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/064f3e7eb7dd75a07eff0ef860949d8d74618d65))
+
+## [4.4.0-20250407](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250308...4.4.0-20250407) (2025-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 N/A
+
+✅ Closes: 1
+
+* refactor: 💡 API and Preview
+
+refactor APIs and implementation adjustment, preview examples
+* 🧨 N/A
+
+✅ Closes: 0
+
+* refactor: 💡 enable delete func and confirmation
+
+* feat: 🎸 adding control state and corresponding styles
+
+Started adding control state for components and related style updates.
+And update tests.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 introducing AttachmentProcessor protocol
+
+Adding a new protocol for processing attachemets, and misc updates.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 AttachmentProcessor protocol adoption and misc
+
+Plugin AttachmentProcessor and BaseAttachmentProcessor and misc
+improvements.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 adjust sourcery cfg and misc upates
+
+improve sourcery configuration and corresponding updates on
+implementations.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 date format adjustment per spec
+
+adjust date format pattern
+* 🧨 0
+
+✅ Closes: 0
+
+* Update BaseComponentProtocols.swift
+
+fix: missing closing curly brace.
+
+* Update AttachmentGroupStyle.fiori.swift
+
+fix: remove custom thumbnail, use custom style.
+
+* Update CompositeComponentProtocols.swift
+
+fix: remove func for custom thumbnail, use custom style instead.
+
+* chore: 🤖 adding generated files
+
+checkint generated supporting files.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 style issue with title, subtitle, footnote, and thumbnai
+
+fix style issue with title, subtitle, footnote, and LazyVGrid cache
+issue on thumbnail.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 allow single selection for file importer
+
+Update file import to allow selection one each time, adding default
+filter.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 BaseAttachmentProcessor and demo cases, and misc
+
+Update BaseAttachmentProcessor based demo case usage, and misc
+adjustments.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 rename processs to delegate, misc clean ups
+
+Use delegate naming convention instead of processor, misc. cleanups.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 code cleanup
+
+clean up code
+* 🧨 0
+
+✅ Closes: 0
+
+* docs: ✏️ adding docs, fix error processing, and update demo
+
+adding docs, fix error processing, and update demo
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part1
+
+fix build warnings part one.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part2
+
+fix build warnings part two.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part3
+
+fix build warnings part three.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 fix warnings part4
+
+fix warnings part four
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 warnings
+
+fix build warnings
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part5
+
+fix warnings part five
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 moving attachment demos into a sub-group
+
+moving all attachment demos into a sub-group.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update titles based on review feedback
+
+update titles based on review feedbacks
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 legacy preview delete button enabled in readonly mode
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 support camera (photo, video, and scanner)
+
+Adding support for take a photo, video, and use camera as scanner for
+pdf output.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update operation titles and icons using values from De
+
+update operation titles and icons using values provided by desiger.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 HCPSDKFIORIUIKIT-2235 Attachment part 2 L10n & Logging
+
+HCPSDKFIORIUIKIT-2235 Attachment part 2 localization, accessibility
+voice over, logging, and refactors
+* 🧨 0
+
+✅ Closes: 1
+
+* chore: 🤖 add privacy manifest files
+
+add privacy manifest files for ThemeManger, Chart, and Core
+* 🧨 0
+
+✅ Closes: 1
+
+* feat: 🎸 support drag and drop
+
+support drag and drop
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 custom mandatory indicator demo
+
+demo custom mandatory indicator and voice over for attachment title with
+demo App.
+* 🧨 0
+
+✅ Closes: 1
+* 🧨 N/A
+
+✅ Closes: 1
+
+* refactor: 💡 API and Preview
+
+refactor APIs and implementation adjustment, preview examples
+* 🧨 N/A
+
+✅ Closes: 0
+
+* refactor: 💡 enable delete func and confirmation
+
+* feat: 🎸 adding control state and corresponding styles
+
+Started adding control state for components and related style updates.
+And update tests.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 introducing AttachmentProcessor protocol
+
+Adding a new protocol for processing attachemets, and misc updates.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 AttachmentProcessor protocol adoption and misc
+
+Plugin AttachmentProcessor and BaseAttachmentProcessor and misc
+improvements.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 adjust sourcery cfg and misc upates
+
+improve sourcery configuration and corresponding updates on
+implementations.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 date format adjustment per spec
+
+adjust date format pattern
+* 🧨 0
+
+✅ Closes: 0
+
+* Update BaseComponentProtocols.swift
+
+fix: missing closing curly brace.
+
+* Update AttachmentGroupStyle.fiori.swift
+
+fix: remove custom thumbnail, use custom style.
+
+* Update CompositeComponentProtocols.swift
+
+fix: remove func for custom thumbnail, use custom style instead.
+
+* chore: 🤖 adding generated files
+
+checkint generated supporting files.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 style issue with title, subtitle, footnote, and thumbnai
+
+fix style issue with title, subtitle, footnote, and LazyVGrid cache
+issue on thumbnail.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 allow single selection for file importer
+
+Update file import to allow selection one each time, adding default
+filter.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 BaseAttachmentProcessor and demo cases, and misc
+
+Update BaseAttachmentProcessor based demo case usage, and misc
+adjustments.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 rename processs to delegate, misc clean ups
+
+Use delegate naming convention instead of processor, misc. cleanups.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 code cleanup
+
+clean up code
+* 🧨 0
+
+✅ Closes: 0
+
+* docs: ✏️ adding docs, fix error processing, and update demo
+
+adding docs, fix error processing, and update demo
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part1
+
+fix build warnings part one.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part2
+
+fix build warnings part two.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part3
+
+fix build warnings part three.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 fix warnings part4
+
+fix warnings part four
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 warnings
+
+fix build warnings
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part5
+
+fix warnings part five
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 moving attachment demos into a sub-group
+
+moving all attachment demos into a sub-group.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update titles based on review feedback
+
+update titles based on review feedbacks
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 legacy preview delete button enabled in readonly mode
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 support camera (photo, video, and scanner)
+
+Adding support for take a photo, video, and use camera as scanner for
+pdf output.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update operation titles and icons using values from De
+
+update operation titles and icons using values provided by desiger.
+* 🧨 0
+
+✅ Closes: 0
+
+### Features
+
+* 🎸 [HCPSDKFIORIUIKIT-2847]AI Notice ([#1011](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1011)) ([74e55cb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/74e55cb0921bbcc2654f4c4f25218d1c30b02a54))
+* 🎸 [jira: 1975] status and substatus should support both icon and text ([#1023](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1023)) ([e8440a1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e8440a1036a15cd565c2733007de3627dd3b214a))
+* 🎸 HCPSDKFIORIUIKIT-2235 Attachment Part1 ([#983](https://github.com/SAP/cloud-sdk-ios-fiori/issues/983)) ([1d5af5b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1d5af5bfccca22b7c6f45acefb2f6226c3fa334d))
+
+
+### Bug Fixes
+
+* 🐛 [JIRA:0] Modified AI Notice based on UX spec update ([#1027](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1027)) ([da3b9e7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/da3b9e7d614ab9137f6aff6b6d228e71eef5144f))
+* 🐛 [JIRA:0] Modified icon alignment of the banner message ([#1020](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1020)) ([7441376](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7441376578880e36e75a5ac7ce3ca557aecbe70c))
+* 🐛 [JIRA:0] Remove extra .fiori concatenations in IllustratedMessage ([#1021](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1021)) ([03d6033](https://github.com/SAP/cloud-sdk-ios-fiori/commit/03d6033bbb037f077a35e0a122dbe805a10554e2))
+* 🐛 [JIRA:0] Update the disable color based on UX feedback ([#1026](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1026)) ([78df295](https://github.com/SAP/cloud-sdk-ios-fiori/commit/78df2953731eded28779de99e015c7c30b7f041e))
+* 🐛 build failed on visionOS ([#1035](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1035)) ([7cac738](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7cac7386796563fae90a5272466de21dcd6feac8))
+
+
+* HCPSDKFIORIUIKIT-2235 Attachment part 2 - a11y & l10n etc. (#1033) ([cd1d4ca](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cd1d4ca5dfe5088bc64f9874d25c6ffbb3dedd15)), closes [#1033](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1033)
+
+## [4.4.0-20250407](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.4.0-20250308...4.4.0-20250407) (2025-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🧨 N/A
+
+✅ Closes: 1
+
+* refactor: 💡 API and Preview
+
+refactor APIs and implementation adjustment, preview examples
+* 🧨 N/A
+
+✅ Closes: 0
+
+* refactor: 💡 enable delete func and confirmation
+
+* feat: 🎸 adding control state and corresponding styles
+
+Started adding control state for components and related style updates.
+And update tests.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 introducing AttachmentProcessor protocol
+
+Adding a new protocol for processing attachemets, and misc updates.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 AttachmentProcessor protocol adoption and misc
+
+Plugin AttachmentProcessor and BaseAttachmentProcessor and misc
+improvements.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 adjust sourcery cfg and misc upates
+
+improve sourcery configuration and corresponding updates on
+implementations.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 date format adjustment per spec
+
+adjust date format pattern
+* 🧨 0
+
+✅ Closes: 0
+
+* Update BaseComponentProtocols.swift
+
+fix: missing closing curly brace.
+
+* Update AttachmentGroupStyle.fiori.swift
+
+fix: remove custom thumbnail, use custom style.
+
+* Update CompositeComponentProtocols.swift
+
+fix: remove func for custom thumbnail, use custom style instead.
+
+* chore: 🤖 adding generated files
+
+checkint generated supporting files.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 style issue with title, subtitle, footnote, and thumbnai
+
+fix style issue with title, subtitle, footnote, and LazyVGrid cache
+issue on thumbnail.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 allow single selection for file importer
+
+Update file import to allow selection one each time, adding default
+filter.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 BaseAttachmentProcessor and demo cases, and misc
+
+Update BaseAttachmentProcessor based demo case usage, and misc
+adjustments.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 rename processs to delegate, misc clean ups
+
+Use delegate naming convention instead of processor, misc. cleanups.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 code cleanup
+
+clean up code
+* 🧨 0
+
+✅ Closes: 0
+
+* docs: ✏️ adding docs, fix error processing, and update demo
+
+adding docs, fix error processing, and update demo
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part1
+
+fix build warnings part one.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part2
+
+fix build warnings part two.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part3
+
+fix build warnings part three.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 fix warnings part4
+
+fix warnings part four
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 warnings
+
+fix build warnings
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part5
+
+fix warnings part five
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 moving attachment demos into a sub-group
+
+moving all attachment demos into a sub-group.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update titles based on review feedback
+
+update titles based on review feedbacks
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 legacy preview delete button enabled in readonly mode
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 support camera (photo, video, and scanner)
+
+Adding support for take a photo, video, and use camera as scanner for
+pdf output.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update operation titles and icons using values from De
+
+update operation titles and icons using values provided by desiger.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 HCPSDKFIORIUIKIT-2235 Attachment part 2 L10n & Logging
+
+HCPSDKFIORIUIKIT-2235 Attachment part 2 localization, accessibility
+voice over, logging, and refactors
+* 🧨 0
+
+✅ Closes: 1
+
+* chore: 🤖 add privacy manifest files
+
+add privacy manifest files for ThemeManger, Chart, and Core
+* 🧨 0
+
+✅ Closes: 1
+
+* feat: 🎸 support drag and drop
+
+support drag and drop
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 custom mandatory indicator demo
+
+demo custom mandatory indicator and voice over for attachment title with
+demo App.
+* 🧨 0
+
+✅ Closes: 1
+* 🧨 N/A
+
+✅ Closes: 1
+
+* refactor: 💡 API and Preview
+
+refactor APIs and implementation adjustment, preview examples
+* 🧨 N/A
+
+✅ Closes: 0
+
+* refactor: 💡 enable delete func and confirmation
+
+* feat: 🎸 adding control state and corresponding styles
+
+Started adding control state for components and related style updates.
+And update tests.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 introducing AttachmentProcessor protocol
+
+Adding a new protocol for processing attachemets, and misc updates.
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 AttachmentProcessor protocol adoption and misc
+
+Plugin AttachmentProcessor and BaseAttachmentProcessor and misc
+improvements.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 adjust sourcery cfg and misc upates
+
+improve sourcery configuration and corresponding updates on
+implementations.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 date format adjustment per spec
+
+adjust date format pattern
+* 🧨 0
+
+✅ Closes: 0
+
+* Update BaseComponentProtocols.swift
+
+fix: missing closing curly brace.
+
+* Update AttachmentGroupStyle.fiori.swift
+
+fix: remove custom thumbnail, use custom style.
+
+* Update CompositeComponentProtocols.swift
+
+fix: remove func for custom thumbnail, use custom style instead.
+
+* chore: 🤖 adding generated files
+
+checkint generated supporting files.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 style issue with title, subtitle, footnote, and thumbnai
+
+fix style issue with title, subtitle, footnote, and LazyVGrid cache
+issue on thumbnail.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 allow single selection for file importer
+
+Update file import to allow selection one each time, adding default
+filter.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 BaseAttachmentProcessor and demo cases, and misc
+
+Update BaseAttachmentProcessor based demo case usage, and misc
+adjustments.
+* 🧨 0
+
+✅ Closes: 0
+
+* refactor: 💡 rename processs to delegate, misc clean ups
+
+Use delegate naming convention instead of processor, misc. cleanups.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 code cleanup
+
+clean up code
+* 🧨 0
+
+✅ Closes: 0
+
+* docs: ✏️ adding docs, fix error processing, and update demo
+
+adding docs, fix error processing, and update demo
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part1
+
+fix build warnings part one.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part2
+
+fix build warnings part two.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part3
+
+fix build warnings part three.
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 fix warnings part4
+
+fix warnings part four
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 warnings
+
+fix build warnings
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 build warnings part5
+
+fix warnings part five
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 moving attachment demos into a sub-group
+
+moving all attachment demos into a sub-group.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update titles based on review feedback
+
+update titles based on review feedbacks
+* 🧨 0
+
+✅ Closes: 0
+
+* fix: 🐛 legacy preview delete button enabled in readonly mode
+* 🧨 0
+
+✅ Closes: 0
+
+* feat: 🎸 support camera (photo, video, and scanner)
+
+Adding support for take a photo, video, and use camera as scanner for
+pdf output.
+* 🧨 0
+
+✅ Closes: 0
+
+* chore: 🤖 update operation titles and icons using values from De
+
+update operation titles and icons using values provided by desiger.
+* 🧨 0
+
+✅ Closes: 0
+
+### Features
+
+* 🎸 [HCPSDKFIORIUIKIT-2847]AI Notice ([#1011](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1011)) ([74e55cb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/74e55cb0921bbcc2654f4c4f25218d1c30b02a54))
+* 🎸 [jira: 1975] status and substatus should support both icon and text ([#1023](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1023)) ([e8440a1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e8440a1036a15cd565c2733007de3627dd3b214a))
+* 🎸 HCPSDKFIORIUIKIT-2235 Attachment Part1 ([#983](https://github.com/SAP/cloud-sdk-ios-fiori/issues/983)) ([1d5af5b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1d5af5bfccca22b7c6f45acefb2f6226c3fa334d))
+
+
+### Bug Fixes
+
+* 🐛 [JIRA:0] Modified AI Notice based on UX spec update ([#1027](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1027)) ([da3b9e7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/da3b9e7d614ab9137f6aff6b6d228e71eef5144f))
+* 🐛 [JIRA:0] Modified icon alignment of the banner message ([#1020](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1020)) ([7441376](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7441376578880e36e75a5ac7ce3ca557aecbe70c))
+* 🐛 [JIRA:0] Remove extra .fiori concatenations in IllustratedMessage ([#1021](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1021)) ([03d6033](https://github.com/SAP/cloud-sdk-ios-fiori/commit/03d6033bbb037f077a35e0a122dbe805a10554e2))
+* 🐛 [JIRA:0] Update the disable color based on UX feedback ([#1026](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1026)) ([78df295](https://github.com/SAP/cloud-sdk-ios-fiori/commit/78df2953731eded28779de99e015c7c30b7f041e))
+
+
+* HCPSDKFIORIUIKIT-2235 Attachment part 2 - a11y & l10n etc. (#1033) ([cd1d4ca](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cd1d4ca5dfe5088bc64f9874d25c6ffbb3dedd15)), closes [#1033](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1033)
+
 ## [4.4.0-20250307](https://github.com/SAP/cloud-sdk-ios-fiori/compare/4.1.3...4.4.0-20250307) (2025-03-07)
 
 

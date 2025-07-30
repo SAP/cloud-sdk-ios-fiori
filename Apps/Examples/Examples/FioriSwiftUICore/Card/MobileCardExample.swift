@@ -17,11 +17,44 @@ struct MobileCardExample: View {
                 }
                 .cardStyle(.card)
                 .listStyle(.plain)
-                .navigationBarTitle("Cards", displayMode: .inline)
+                .navigationBarTitle("Cards in List", displayMode: .inline)
             } label: {
-                Text("Cards")
+                Text("Cards in List")
             }
             
+            NavigationLink {
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                            CardTests.cardSamples[i]
+                        }
+                        .background(Color.preferredColor(.primaryGroupedBackground))
+                    }
+                }
+                .cardStyle(.card)
+                .navigationBarTitle("Cards in VStack", displayMode: .inline)
+            } label: {
+                Text("Cards in VStack")
+            }
+            
+            NavigationLink {
+                ScrollView(.horizontal) {
+                    HStack(alignment: .top, spacing: 8) {
+                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
+                            CardTests.cardSamples[i]
+                                .cardStyle(.card)
+                                .cardStyle(.intrinsicHeightCard)
+                                .padding()
+                        }
+                        .background(Color.preferredColor(.primaryGroupedBackground))
+                    }
+                }
+                .cardStyle(.card)
+                .navigationBarTitle("Cards in HStack", displayMode: .inline)
+            } label: {
+                Text("Cards in HStack")
+            }
+
             NavigationLink {
                 List {
                     ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
@@ -244,8 +277,90 @@ struct MobileCardExample: View {
             } label: {
                 Text("Cards custom score component")
             }
+            
+            NavigationLink {
+                FioriCard {
+                    FioriCardFeaturedContent(
+                        image: Image("card_image")
+                    ) {
+                        Card(title: "Title", subtitle: "Subtitle that goes to multiple lines before truncating just like that", headerAction: FioriButton(title: "..."), counter: "1 of 3")
+                    }
+                    .frame(maxHeight: 110)
+                }
+                            
+            } label: {
+                Text("Left image card")
+            }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
+    }
+}
+
+struct FioriCardFeaturedContent<Content: View>: View {
+    let content: Content
+    let image: Image
+
+    init(
+        image: Image,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.image = image
+        self.content = content()
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            self.image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 110)
+                .clipped()
+            
+            self.content
+                .layoutPriority(999)
+                .frame(height: 110)
+                .padding(.top, 7)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+public struct FioriCard<Content: View>: View {
+    // MARK: - Elements of a card
+
+    private let content: Content
+
+    // MARK: - Initialiser
+
+    /// Create a new card instance.
+    ///
+    /// - Parameters:
+    ///   - header: The header of the card.
+    ///   - content: The content of the card.
+    ///   - footer: The footer of the card.
+    public init(@ViewBuilder content: () -> Content = { EmptyView() }) {
+        self.content = content()
+    }
+
+    // MARK: - Body
+
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            self.content
+        }
+        #if os(visionOS)
+        .background(.regularMaterial)
+        #elseif os(iOS) || os(macOS)
+        .background(Color.preferredColor(.secondaryBackground))
+        #endif
+        .clipShape(.rect(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .inset(by: 0.3)
+                .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: Color.black.opacity(0.3).opacity(0.92), radius: 8, x: 0, y: 2)
     }
 }
 
@@ -331,7 +446,9 @@ struct CarouselTestView: View {
                 
                 Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
                     ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
-                        NavigationLink(destination: Text("Detail View")) {
+                        NavigationLink {
+                            CardTests.cardSamples[i]
+                        } label: {
                             CardTests.cardSamples[i]
                         }
                     }

@@ -1,6 +1,9 @@
+import OSLog
 import QuickLook
 import SwiftUI
 
+@available(watchOS, unavailable)
+@available(visionOS, unavailable)
 public struct AttachmentPreview: UIViewControllerRepresentable {
     @Binding var urls: [URL]
     @Binding var previewURL: URL
@@ -71,10 +74,10 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         }
         
         @objc func delete(sender: Any) {
-            let alertController = UIAlertController(title: nil, message: "Delete Attachment?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: NSLocalizedString("Delete Attachment?", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete Attachment?"), preferredStyle: .alert)
             alertController.addAction(
-                UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-                    print("Delete \(self.parent.previewURL) in progress...")
+                UIAlertAction(title: NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), style: .destructive, handler: { _ in
+                    os_log("Delete %@ in progress...", log: OSLog.coreLogger, type: .debug, self.parent.previewURL.absoluteString)
                     DispatchQueue.main.async {
                         if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
                             self.parent.onDelete?(self.parent.urls[index])
@@ -89,8 +92,8 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                 })
             )
             alertController.addAction(
-                UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                    print("Canceled delete")
+                UIAlertAction(title: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Cancel"), style: .cancel, handler: { _ in
+                    os_log("Canceled delete %@...", log: OSLog.coreLogger, type: .debug, self.parent.previewURL.absoluteString)
                 })
             )
 

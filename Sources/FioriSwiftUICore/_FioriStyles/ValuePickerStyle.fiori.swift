@@ -6,7 +6,6 @@ import SwiftUI
 public struct ValuePickerBaseStyle: ValuePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State var valueString: AttributedString = .init("")
-    @State var valuePickerVisible: Bool = false
     @FocusState var isFocused: Bool
 
     public func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
@@ -14,12 +13,12 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
             if self.dynamicTypeSize >= .accessibility3 {
                 self.configureMainStack(configuration, isVertical: true)
             } else {
-                ViewThatFits {
+                ViewThatFits(in: .horizontal) {
                     self.configureMainStack(configuration, isVertical: false)
                     self.configureMainStack(configuration, isVertical: true)
                 }
             }
-            if self.valuePickerVisible || configuration.alwaysShowPicker {
+            if configuration.pickerVisible || configuration.alwaysShowPicker {
                 Divider()
                     .frame(height: 0.3)
                     .foregroundStyle(Color.preferredColor(.separatorOpaque))
@@ -31,12 +30,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
     func configureMainStack(_ configuration: ValuePickerConfiguration, isVertical: Bool) -> some View {
         let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
         return mainStack {
-            HStack(spacing: 0) {
-                configuration.title
-                if configuration.isRequired {
-                    configuration.mandatoryFieldIndicator
-                }
-            }
+            configuration.title
             if !isVertical {
                 Spacer()
             } else {
@@ -48,8 +42,8 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
-                self.valuePickerVisible.toggle()
-                if self.valuePickerVisible {
+                configuration.pickerVisible.toggle()
+                if configuration.pickerVisible {
                     let oIndex = configuration.selectedIndex
                     if oIndex >= 0, oIndex <= configuration.options.count {
                         self.valueString = configuration.options[oIndex]
@@ -63,7 +57,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
         let oIndex = configuration.selectedIndex
         var value = self.valueString
 
-        let isTrackingLive = configuration.isTrackingLiveChanges || configuration.alwaysShowPicker || (!configuration.alwaysShowPicker && !self.valuePickerVisible)
+        let isTrackingLive = configuration.isTrackingLiveChanges || configuration.alwaysShowPicker || (!configuration.alwaysShowPicker && !configuration.pickerVisible)
         if isTrackingLive, oIndex >= 0, oIndex <= configuration.options.count {
             value = configuration.options[oIndex]
         }
@@ -73,7 +67,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
     func getValueLabelFontColor(_ configuration: ValuePickerConfiguration) -> Color {
         if configuration.controlState == .disabled {
             return .preferredColor(.quaternaryLabel)
-        } else if self.valuePickerVisible, !configuration.alwaysShowPicker {
+        } else if configuration.pickerVisible, !configuration.alwaysShowPicker {
             return .preferredColor(.tintColor)
         } else {
             return .preferredColor(.primaryLabel)
@@ -121,15 +115,6 @@ extension ValuePickerFioriStyle {
             ValueLabel(configuration)
                 .font(.fiori(forTextStyle: .body))
                 .lineLimit(1)
-        }
-    }
-    
-    struct MandatoryFieldIndicatorFioriStyle: MandatoryFieldIndicatorStyle {
-        let valuePickerConfiguration: ValuePickerConfiguration
-
-        func makeBody(_ configuration: MandatoryFieldIndicatorConfiguration) -> some View {
-            MandatoryFieldIndicator(configuration)
-                .foregroundStyle(Color.preferredColor(self.valuePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
         }
     }
 

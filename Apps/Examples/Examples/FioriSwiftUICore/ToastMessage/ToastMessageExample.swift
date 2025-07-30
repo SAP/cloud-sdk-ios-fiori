@@ -2,6 +2,8 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct ToastMessageExample: View {
+    @State private var showSheetView = false
+
     var body: some View {
         List {
             NavigationLink("Basic Example",
@@ -10,6 +12,13 @@ struct ToastMessageExample: View {
                            destination: ToastMessagePositionExample())
             NavigationLink("Custom Style",
                            destination: ToastMessageCustomStyleExample())
+            Button("Sheet View UI Hang") {
+                self.showSheetView.toggle()
+            }
+            .sheet(isPresented: self.$showSheetView) {
+                ToastMessageSheetViewExample()
+                    .presentationDetents([.medium, .large])
+            }
         }
         .navigationTitle("Toast Message")
     }
@@ -44,19 +53,20 @@ struct ToastMessageBasicExample: View {
 struct ToastMessagePositionExample: View {
     @State var selectedPosition: ToastMessagePosition = .above
     @State var spacing: CGFloat = 0
+    @State var parentViewHeight: CGFloat = 100
     @State var showIcon = false
 
     var body: some View {
         VStack {
             HStack {}
-                .frame(maxWidth: 300, maxHeight: 300)
+                .frame(maxWidth: 300, maxHeight: self.parentViewHeight)
                 .border(.blue, width: 1)
                 .toastMessage(isPresented: .constant(true),
                               icon: {
                                   self.showIcon ? Image(systemName: "info.circle") : nil
                               },
                               title: {
-                                  Text("Toast Message Title")
+                                  Text("Unable to submit request. Please try again later.")
                               },
                               duration: .infinity,
                               position: self.selectedPosition,
@@ -65,12 +75,13 @@ struct ToastMessagePositionExample: View {
             VStack {
                 Picker("Position", selection: self.$selectedPosition) {
                     ForEach(ToastMessagePosition.allCases) { position in
-
                         Text(position.rawValue)
                     }
                 }
                 Text("Spacing: \(self.spacing)")
                 Slider(value: self.$spacing, in: -50.0 ... 50.0, step: 5)
+                Text("Parent View Height: \(self.parentViewHeight)")
+                Slider(value: self.$parentViewHeight, in: 5 ... 300.0, step: 5)
                 Toggle("Show Icon", isOn: self.$showIcon)
             }
             .frame(maxWidth: 300)
@@ -87,6 +98,20 @@ struct ToastMessageCustomStyleExample: View {
                 .toastMessage(isPresented: .constant(true),
                               icon: {
                                   Image(systemName: "info.circle")
+                              },
+                              title: {
+                                  Text("Toast Message Title")
+                              },
+                              duration: .infinity,
+                              position: .center,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink)
+                .padding(30)
+            HStack {}
+                .frame(maxWidth: 300, maxHeight: 300)
+                .toastMessage(isPresented: .constant(true),
+                              icon: {
+                                  Image(systemName: "info.circle")
                                       .foregroundStyle(.blue)
                               },
                               title: {
@@ -98,6 +123,8 @@ struct ToastMessageCustomStyleExample: View {
                               backgroundColor: .cyan,
                               borderWidth: 2,
                               borderColor: .blue,
+                              borderWidthIC: 4,
+                              borderColorIC: .pink,
                               shadow: FioriShadowStyle.smallElement)
                 .padding(30)
             HStack {}
@@ -173,9 +200,13 @@ struct ToastMessageCustomStyleExample: View {
     }
 }
 
-struct DetailView_Previews1: PreviewProvider {
-    static var previews: some View {
-        ToastMessagePositionExample()
-            .environment(\.locale, .init(identifier: "ar"))
+struct ToastMessageSheetViewExample: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Sample text")
+                .frame(width: 200, height: 200)
+                .border(Color.blue, width: 1)
+        }
+        .toastMessage(isPresented: .constant(true), icon: {}, title: "Unable to send message", duration: 6, position: .above, spacing: 0, cornerRadius: 14, backgroundColor: .preferredColor(.tertiaryFill))
     }
 }

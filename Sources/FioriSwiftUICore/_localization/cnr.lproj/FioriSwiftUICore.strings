@@ -514,11 +514,17 @@
 /* XTIT: Writing assistant cancel alert title */
 "Discard all changes?" = "Odbaciti sve promjene?";
 
+/* XTIT: Writing assistant cancel alert title */
+"Close Writing Assistant without saving changes?" = "Zatvoriti pomoćnika pri pisanju bez snimanja promjena?";
+
 /* XBUT: Writing assistant cancel alert action title for keep working */
 "Keep Working" = "Nastavi sa radom";
 
 /* XBUT: Writing assistant cancel alert action title for discard */
 "Discard" = "Odbaci";
+
+/* XBUT: Writing assistant cancel alert action title for close */
+"Close" = "Zatvori";
 
 /* XMSG: A success toast message for feedback flow in writing assistant */
 "Thank you for your feedback" = "Hvala na povratnim informacijama";
