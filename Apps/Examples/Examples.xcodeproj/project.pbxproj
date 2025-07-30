@@ -52,6 +52,8 @@
 		6D2EF2C82E30BDDD00415EED /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2EF2C72E30BDDD00415EED /* MonthView.swift */; };
 		6D2EFA6D2E30E81300415EED /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2EFA6C2E30E81300415EED /* CalendarView.swift */; };
 		6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */; };
+		6D4F8FCB2E38753A00B05908 /* WeekContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4F8FCA2E38753A00B05908 /* WeekContainerView.swift */; };
+		6D4F976B2E38764400B05908 /* CalendarEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4F976A2E38764400B05908 /* CalendarEnvironment.swift */; };
 		6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */; };
 		6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */; };
 		6D6E25672D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E25662D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift */; };
@@ -327,6 +329,8 @@
 		6D2EF2C72E30BDDD00415EED /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		6D2EFA6C2E30E81300415EED /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCellEnhancementExample.swift; sourceTree = "<group>"; };
+		6D4F8FCA2E38753A00B05908 /* WeekContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekContainerView.swift; sourceTree = "<group>"; };
+		6D4F976A2E38764400B05908 /* CalendarEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEnvironment.swift; sourceTree = "<group>"; };
 		6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerExample.swift; sourceTree = "<group>"; };
 		6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemExample.swift; sourceTree = "<group>"; };
 		6D6E25662D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingWelcomeScreenExamples.swift; sourceTree = "<group>"; };
@@ -792,6 +796,8 @@
 				6DFFEDA12E2E1A280036054A /* WeekView.swift */,
 				6D2EF2C72E30BDDD00415EED /* MonthView.swift */,
 				6D2EFA6C2E30E81300415EED /* CalendarView.swift */,
+				6D4F8FCA2E38753A00B05908 /* WeekContainerView.swift */,
+				6D4F976A2E38764400B05908 /* CalendarEnvironment.swift */,
 				8AB6C01328DF6583002F32BE /* LazyView.swift */,
 				8A55796124C1286F0098003A /* LaunchScreen.storyboard */,
 				B8D4376725EEC5E80024EE7D /* Assets.xcassets */,
@@ -1399,6 +1405,7 @@
 				6DEC31FE2C48FAA50084DD20 /* InPlaceLoadingContentView.swift in Sources */,
 				1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */,
 				C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */,
+				6D4F976B2E38764400B05908 /* CalendarEnvironment.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
 				1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */,
@@ -1461,6 +1468,7 @@
 				6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */,
 				6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */,
 				6DEC32042C4E49C70084DD20 /* CardFixedWidthButtonsExample.swift in Sources */,
+				6D4F8FCB2E38753A00B05908 /* WeekContainerView.swift in Sources */,
 				B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */,
 				6D6E25672D364F78009A62CA /* OnBoardingWelcomeScreenExamples.swift in Sources */,
 				C106AD462B338D1300FE8B35 /* SearchWithToken.swift in Sources */,

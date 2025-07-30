@@ -1,34 +1,5 @@
 import SwiftUI
 
-struct CalendarFirstWeekday: EnvironmentKey {
-    public static let defaultValue: Int = 1
-}
-
-struct CalendarShowWeekNumber: EnvironmentKey {
-    public static let defaultValue: Bool = true
-}
-
-struct CalendarIsEventIndicatorVisible: EnvironmentKey {
-    public static let defaultValue: Bool = true
-}
-
-public extension EnvironmentValues {
-    var firstWeekday: Int {
-        get { self[CalendarFirstWeekday.self] }
-        set { self[CalendarFirstWeekday.self] = newValue }
-    }
-
-    var showWeekNumber: Bool {
-        get { self[CalendarShowWeekNumber.self] }
-        set { self[CalendarShowWeekNumber.self] = newValue }
-    }
-
-    var isEventIndicatorVisible: Bool {
-        get { self[CalendarIsEventIndicatorVisible.self] }
-        set { self[CalendarIsEventIndicatorVisible.self] = newValue }
-    }
-}
-
 public struct WeekView: View {
     var dates: [Date]
     var weekNumber: Int
