@@ -115,8 +115,12 @@ struct AIWACloseButtonStyle: FioriButtonStyle {
         let isPressed = configuration.state == .highlighted || configuration.state == .selected
         let isDisabled = configuration.state == .disabled
         return configuration.label
-            .font(Font.fiori(forTextStyle: .footnote, weight: .semibold))
+            .font(.system(size: 8, weight: .bold))
             .foregroundColor(.preferredColor(isPressed || isDisabled ? .quaternaryLabel : .primaryLabel))
+            .padding(8)
+            .background {
+                Circle().fill(Color.preferredColor(.tertiaryFill))
+            }
     }
 }
 
