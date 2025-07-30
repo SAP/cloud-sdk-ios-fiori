@@ -270,8 +270,8 @@ protocol _TopDividerComponent {
 // sourcery: BaseComponent
 protocol _CloseActionComponent {
     // sourcery: @ViewBuilder
-    // sourcery: defaultValue = "FioriButton { _ in Image(systemName: "xmark") }"
-    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(systemName: "xmark") } }"
+    // sourcery: defaultValue = "FioriButton { _ in Image(fioriName: "fiori.decline") }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in Image(fioriName: "fiori.decline") } }"
     var closeAction: FioriButton? { get }
 }
 
