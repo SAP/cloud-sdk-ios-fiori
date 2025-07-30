@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.8.0-20250730](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250728...25.8.0-20250730) (2025-07-30)
+
+
+### Features
+
+* translation delivery and update close action style for writing assistant ([#1193](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1193)) ([d942e91](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d942e9108115feed34a3f63d0e7aef0702884383))
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-842] gesture covered original acc setting ([#1189](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1189)) ([e98d355](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e98d355b3de5bea4a6ec47004a59715d39b5c4d0))
+
 ## [25.8.0-20250728](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0...25.8.0-20250728) (2025-07-28)
 
 ## [25.8.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250711...25.8.0) (2025-07-28)
