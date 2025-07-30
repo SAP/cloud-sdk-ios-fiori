@@ -17,32 +17,22 @@ public struct WeekView: View {
     }
     
     public var body: some View {
-        GeometryReader { proxy in
-            HStack(alignment: .center, spacing: 0, content: {
-                ForEach(0 ..< self.dates.count, id: \.self) { index in
-                    let day = Calendar.current.component(.day, from: self.dates[index])
-                    let weekNumber = (showWeekNumber && index == 0) ? self.weekNumber : nil
-                    let weekNumberViewWidth = proxy.size.width * 0.05
-                    let dayWidth = dayWidth(weekNumberViewWidth: weekNumberViewWidth, availableWidth: proxy.size.width, index: index)
-                    DayView(title: "\(day)",
-                            weekNumber: weekNumber,
-                            weekNumberViewWidth: weekNumberViewWidth,
-                            isEventIndicatorVisible: self.isEventIndicatorVisible)
-                        .frame(width: dayWidth)
-                }
-            })
+        CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
+            Text("\(self.weekNumber)")
+                .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.6))
+                .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
+            
+            ForEach(0 ..< self.dates.count, id: \.self) { index in
+                let day = Calendar.current.component(.day, from: self.dates[index])
+                DayView(title: "\(day)",
+                        isEventIndicatorVisible: self.isEventIndicatorVisible)
+            }
         }
-        .frame(minHeight: 44)
-        .frame(maxHeight: 51)
     }
-
-    func dayWidth(weekNumberViewWidth: CGFloat, availableWidth: CGFloat, index: Int) -> CGFloat {
-        guard self.showWeekNumber else { return availableWidth / self.maxNumberOfDaysInWeek }
-        var singleDayWidth = (availableWidth - weekNumberViewWidth) / self.maxNumberOfDaysInWeek
-        if index == 0 {
-            singleDayWidth += weekNumberViewWidth
-        }
-        return singleDayWidth
+    
+    var scaleForSizeChange: Double {
+        sizeEnumToValue(limitMaxCategory: .accessibilityMedium)
     }
 }
 
@@ -68,4 +58,5 @@ public struct WeekView: View {
         Calendar.current.date(byAdding: .day, value: 5, to: firstDayOfWeek)!,
         Calendar.current.date(byAdding: .day, value: 6, to: firstDayOfWeek)!
     ], weekNumber: weekOfYear)
+        .environment(\.showWeekNumber, true)
 }

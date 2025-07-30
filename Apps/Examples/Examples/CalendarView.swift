@@ -8,7 +8,6 @@ struct CalendarView: View {
                 MonthView(year: 2025, month: 6)
                 MonthView(year: 2025, month: 7)
                 MonthView(year: 2025, month: 8)
-                Spacer()
             }
         }
     }
@@ -16,4 +15,5 @@ struct CalendarView: View {
 
 #Preview {
     CalendarView()
+        .environment(\.showWeekNumber, true)
 }

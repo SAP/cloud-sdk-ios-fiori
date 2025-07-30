@@ -96,4 +96,5 @@ struct MonthView: View {
 
 #Preview {
     MonthView(year: 2025, month: 7)
+        .environment(\.showWeekNumber, true)
 }

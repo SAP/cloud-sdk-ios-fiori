@@ -27,9 +27,15 @@ struct ContentView: View {
                 
                 Section {
                     NavigationLink("Calendar") {
-                        CalendarView()
-                            .environment(\.isEventIndicatorVisible, true)
-                            .environment(\.showWeekNumber, true)
+                        HStack(spacing: 28, content: {
+                            DayView(title: "7", isEventIndicatorVisible: true, state: .normal)
+                            DayView(title: "7", isEventIndicatorVisible: true, state: .today)
+                            DayView(title: "7", isEventIndicatorVisible: true, state: .outOfMonth)
+                            DayView(title: "7", isEventIndicatorVisible: true, state: .disabled)
+                            DayView(title: "7", isEventIndicatorVisible: true, state: .disabledAndToday)
+                        })
+                        .environment(\.isEventIndicatorVisible, true)
+                        .environment(\.showWeekNumber, true)
                     }
                 }
             }

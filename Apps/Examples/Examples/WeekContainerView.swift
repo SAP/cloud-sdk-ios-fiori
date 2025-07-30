@@ -12,16 +12,14 @@ struct WeekContainerView: View {
     @State private var availableWidth: CGFloat = 0
     
     var body: some View {
-        HStack(spacing: 0, content: {
-            CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
-                Spacer()
-                ForEach(self.symbols.indices, id: \.self) { index in
-                    Text(self.symbols[index])
-                        .font(.fiori(forTextStyle: .caption2, weight: .bold))
-                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
-                }
+        CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
+            Spacer()
+            ForEach(self.symbols.indices, id: \.self) { index in
+                Text(self.symbols[index])
+                    .font(.fiori(forTextStyle: .caption2, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
             }
-        })
+        }
         .padding(.top, 8)
         .padding(.bottom, 4)
     }
@@ -127,8 +125,10 @@ struct CalendarWeekContainerHStack: Layout {
 }
 
 #Preview {
-    HStack {
+    VStack {
         WeekContainerView()
             .environment(\.showWeekNumber, true)
+        WeekContainerView()
+            .environment(\.showWeekNumber, false)
     }
 }
