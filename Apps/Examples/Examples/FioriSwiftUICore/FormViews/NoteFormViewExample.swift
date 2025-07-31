@@ -21,6 +21,7 @@ struct NoteFormViewExample: View {
     @State var showsCharCount = false
     @State var allowsBeyondLimit = false
     @State var hidesReadonlyHint = false
+    @FocusState private var isFocused: Bool
 
     @State var text = ""
     @State var isLoading = false
@@ -69,6 +70,19 @@ struct NoteFormViewExample: View {
 
                 Text("Read-Only")
                 NoteFormView(text: self.isLoading ? self.$text : self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
+                
+                Text("Customized Border")
+                    .italic()
+                NoteFormView(text: self.isLoading ? self.$text : self.$valueText2, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .focused(self.$isFocused)
+                    .environment(\.isCustomizedBorder, true)
+                    .placeholderTextEditorStyle { config in
+                        PlaceholderTextEditor(config)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(self.isFocused ? .purple : .green, lineWidth: self.isFocused ? 3 : 1)
+                            )
+                    }
                 
                 Text("Loading")
                 NoteFormView(text: self.$valueText3, placeholder: "NoteFormView Placeholder for Skeleton loading - two lines", controlState: .normal)

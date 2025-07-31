@@ -20,3 +20,14 @@ public extension EnvironmentValues {
         }
     }
 }
+
+private struct IsCustomizedBorderKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+public extension EnvironmentValues {
+    var isCustomizedBorder: Bool {
+        get { self[IsCustomizedBorderKey.self] }
+        set { self[IsCustomizedBorderKey.self] = newValue }
+    }
+}

@@ -54,6 +54,7 @@ extension NoteFormViewFioriStyle {
     struct ContentFioriStyle: NoteFormViewStyle {
         @FocusState var isFocused: Bool
         @Environment(\.isLoading) var isLoading
+        @Environment(\.isCustomizedBorder) var isCustomizedBorder
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
@@ -73,8 +74,12 @@ extension NoteFormViewFioriStyle {
                         .frame(maxHeight: self.getMaxHeight(configuration))
                         .background(self.getBackgroundColor(configuration))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
+                            Group {
+                                if !self.isCustomizedBorder {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
+                                }
+                            }
                         )
                         .setOnChange(of: configuration.text, action1: { s in
                             self.checkCharCount(configuration, textString: s)
