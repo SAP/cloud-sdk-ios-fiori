@@ -27,7 +27,7 @@ public struct BannerMessage {
 
     public init(@ViewBuilder icon: () -> any View = { EmptyView() },
                 @ViewBuilder title: () -> any View,
-                @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
+                @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(fioriName: "fiori.decline") } },
                 @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
                 bannerTapAction: (() -> Void)? = nil,
                 alignment: HorizontalAlignment = .center,
@@ -56,7 +56,7 @@ public extension BannerMessage {
 public extension BannerMessage {
     init(icon: Image? = nil,
          title: AttributedString,
-         closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
+         closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") },
          @ViewBuilder topDivider: () -> any View = { Rectangle().fill(Color.clear) },
          bannerTapAction: (() -> Void)? = nil,
          alignment: HorizontalAlignment = .center,
