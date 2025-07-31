@@ -247,6 +247,12 @@ extension SortFilterCFGItemContainer: View {
                 .padding([.top, .bottom], 12)
         case .switch:
             self.switcher(row: r, column: c)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(self._items[r][c].switch.name)
+                .accessibilityValue(self._items[r][c].switch.isChecked ?
+                    NSLocalizedString("selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "selected") :
+                    NSLocalizedString("not selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "not selected"))
+                .accessibilityHint(self._items[r][c].switch.hint ?? "")
         case .slider:
             self.slider(row: r, column: c)
                 .padding([.top], 12)
