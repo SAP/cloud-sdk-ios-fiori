@@ -25,6 +25,7 @@ private struct IsCustomizedBorderKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+/// The key to indicate whether a customized border is applied to a component.
 public extension EnvironmentValues {
     var isCustomizedBorder: Bool {
         get { self[IsCustomizedBorderKey.self] }
