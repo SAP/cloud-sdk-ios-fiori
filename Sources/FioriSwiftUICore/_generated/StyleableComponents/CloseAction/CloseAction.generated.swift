@@ -12,7 +12,7 @@ public struct CloseAction {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
+    public init(@ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(fioriName: "fiori.decline") } },
                 componentIdentifier: String? = CloseAction.identifier)
     {
         self.closeAction = closeAction()
@@ -25,7 +25,7 @@ public extension CloseAction {
 }
 
 public extension CloseAction {
-    init(closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") }) {
+    init(closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") }) {
         self.init(closeAction: { closeAction })
     }
 }

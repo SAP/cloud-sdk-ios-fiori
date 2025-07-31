@@ -26,7 +26,7 @@ public struct WritingAssistantForm {
 
     public init(@ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
                 @ViewBuilder doneAction: () -> any View = { FioriButton { _ in Text("Done".localizedFioriString()) } },
-                @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(systemName: "xmark") } },
+                @ViewBuilder closeAction: () -> any View = { FioriButton { _ in Image(fioriName: "fiori.decline") } },
                 @ViewBuilder backAction: () -> any View = { FioriButton._backButton },
                 @ViewBuilder undoAction: () -> any View = { FioriButton._undoButton },
                 @ViewBuilder redoAction: () -> any View = { FioriButton._redoButton },
@@ -59,7 +59,7 @@ public extension WritingAssistantForm {
 public extension WritingAssistantForm {
     init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          doneAction: FioriButton? = FioriButton { _ in Text("Done".localizedFioriString()) },
-         closeAction: FioriButton? = FioriButton { _ in Image(systemName: "xmark") },
+         closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") },
          backAction: FioriButton? = FioriButton._backButton,
          undoAction: FioriButton? = FioriButton._undoButton,
          redoAction: FioriButton? = FioriButton._redoButton,
