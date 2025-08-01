@@ -1,18 +1,10 @@
-import FioriSwiftUICore
 import SwiftUI
-
-struct WeekInfo: Hashable {
-    let id = UUID()
-    var weekNumber: Int
-    var dates: [Date]
-}
 
 struct MonthView: View {
     let year: Int
     let month: Int
     
     @Environment(\.firstWeekday) var firstWeekday
-    @Environment(\.timeZone) var timeZone
     
     var body: some View {
         VStack(spacing: 0, content: {
@@ -24,7 +16,7 @@ struct MonthView: View {
             
             if let weeks = self.weeks {
                 ForEach(weeks, id: \.self) { info in
-                    WeekView(dates: info.dates, weekNumber: info.weekNumber)
+                    WeekView(weekInfo: info)
                 }
             }
             Spacer()
@@ -46,7 +38,7 @@ struct MonthView: View {
     }
     
     var weeks: [WeekInfo]? {
-        var calendar = Calendar.current
+        var calendar = Calendar.autoupdatingCurrent
         calendar.firstWeekday = self.firstWeekday
         var components = DateComponents()
         components.year = self.year
@@ -66,11 +58,11 @@ struct MonthView: View {
             if let firstDayOfWeek = firstDayOfWeek(year: year, weekNumber: weekNumber) {
                 var dates: [Date] = []
                 for dayOffset in 0 ..< 7 {
-                    if let date = Calendar.current.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
+                    if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
                         dates.append(date)
                     }
                 }
-                let weekInfo = WeekInfo(weekNumber: weekNumber, dates: dates)
+                let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
                 weeks.append(weekInfo)
             }
         }
@@ -78,8 +70,7 @@ struct MonthView: View {
     }
     
     func firstDayOfWeek(year: Int, weekNumber: Int) -> Date? {
-        var calendar = Calendar.current
-        calendar.timeZone = self.timeZone
+        let calendar = Calendar.autoupdatingCurrent
         
         var components = DateComponents()
         components.yearForWeekOfYear = year
@@ -89,8 +80,9 @@ struct MonthView: View {
         return calendar.date(from: components)
     }
     
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var scaleForSizeChange: Double {
-        sizeEnumToValue(limitMaxCategory: .accessibilityMedium)
+        sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
     }
 }
 

@@ -16,8 +16,8 @@ struct WeekContainerView: View {
             Spacer()
             ForEach(self.symbols.indices, id: \.self) { index in
                 Text(self.symbols[index])
-                    .font(.fiori(forTextStyle: .caption2, weight: .bold))
-                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                    .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(self.currentDayLocation == index ? .tintColor : .tertiaryLabel))
             }
         }
         .padding(.top, 8)
@@ -57,6 +57,17 @@ struct WeekContainerView: View {
         } else {
             return []
         }
+    }
+    
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    var scaleForSizeChange: Double {
+        sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
+    }
+    
+    var currentDayLocation: Int {
+        let dayOfWeek = Calendar.autoupdatingCurrent.component(.weekday, from: Date())
+        let position = dayOfWeek - self.firstWeekday
+        return position >= 0 ? position : 7 + position
     }
 }
 

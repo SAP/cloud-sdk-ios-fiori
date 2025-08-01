@@ -1,4 +1,3 @@
-import FioriSwiftUICore
 import FioriThemeManager
 import SwiftUI
 
@@ -12,7 +11,7 @@ extension VerticalAlignment {
     static let titleFirstTextBaseline = VerticalAlignment(TitleFirstTextBaselineAlignment.self)
 }
 
-private extension UIContentSizeCategory {
+private extension DynamicTypeSize {
     // Utility function to return ContentSize scale value
     // Imitate the design of Apple `UIFontMetrics(forTextStyle: ...).scaledFont(for: ...)` for font scaling
     // No bold() case considered
@@ -25,7 +24,7 @@ private extension UIContentSizeCategory {
     // - Returns: next `Double` in the view's hierarchy
     var sizeToScaleValue: Double {
         switch self {
-        case .extraSmall:
+        case .xSmall:
             return 0.882758620689655
         case .small:
             return 0.937931034482759
@@ -33,21 +32,21 @@ private extension UIContentSizeCategory {
             return 1.0
         case .large:
             return 1.0448275862069
-        case .extraLarge:
+        case .xLarge:
             return 1.16551724137931
-        case .extraExtraLarge:
+        case .xxLarge:
             return 1.24827586206897
-        case .extraExtraExtraLarge:
+        case .xxxLarge:
             return 1.36551724137931
-        case .accessibilityMedium:
+        case .accessibility1:
             return 1.64137931034483
-        case .accessibilityLarge:
+        case .accessibility2:
             return 1.93793103448276
-        case .accessibilityExtraLarge:
+        case .accessibility3:
             return 2.33793103448276
-        case .accessibilityExtraExtraLarge:
+        case .accessibility4:
             return 2.77931034482759
-        case .accessibilityExtraExtraExtraLarge:
+        case .accessibility5:
             return 2.99310344827586
         default:
             return 1.0
@@ -79,24 +78,6 @@ public struct DayView: View {
     var isEventIndicatorVisible: Bool = false
     
     var state: DayViewState = .normal
-    
-//    var titlePaddingTop: CGFloat {
-//        var titlePaddingTop: CGFloat = 0
-//        if self.hasSubTitle {
-//            if self.isMultiSelect {
-//                titlePaddingTop = 8
-//            } else {
-//                titlePaddingTop = 9.5
-//            }
-//        } else {
-//            if self.isMultiSelect {
-//                titlePaddingTop = 15
-//            } else {
-//                titlePaddingTop = 9.5
-//            }
-//        }
-//        return titlePaddingTop
-//    }
     
     private var hasSubTitle: Bool {
         guard let subtitle else { return false }
@@ -189,6 +170,10 @@ public struct DayView: View {
         return conditions.contains(self.state)
     }
     
+    var titleTextStyle: Font.FioriTextStyle {
+        self.isTitleBold ? .body : .callout
+    }
+    
     var titleFontSize: CGFloat {
         (self.isTitleBold ? 17 : 16) * self.scaleForSizeChange
     }
@@ -203,12 +188,10 @@ public struct DayView: View {
             return .primaryLabel
         case .today:
             return .tintColor
-        case .outOfMonth:
-            return .tertiaryLabel
         case .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle, .multiSelectedEnd:
             return .primaryBackground
-        case .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
-            return .separator
+        case .outOfMonth, .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
+            return .quaternaryLabel
         }
     }
 
@@ -235,25 +218,26 @@ public struct DayView: View {
         return conditions.contains(self.state) ? .quaternaryLabel : .tertiaryLabel
     }
     
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var scaleForSizeChange: Double {
-        sizeEnumToValue(limitMaxCategory: .accessibilityMedium)
+        sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
     }
 }
 
 extension View {
-    func sizeEnumToValue(sizeCategory: UIContentSizeCategory = UIApplication.shared.preferredContentSizeCategory,
-                         limitMinCategory: UIContentSizeCategory = .extraSmall,
-                         limitMaxCategory: UIContentSizeCategory = .accessibilityExtraExtraExtraLarge) -> Double
+    func sizeEnumToValue(dynamicTypeSize: DynamicTypeSize,
+                         limitMinTypeSize: DynamicTypeSize = .xSmall,
+                         limitMaxTypeSize: DynamicTypeSize = .xxxLarge) -> Double
     {
-        if sizeCategory < limitMinCategory {
-            return limitMinCategory.sizeToScaleValue
+        if dynamicTypeSize < limitMinTypeSize {
+            return limitMinTypeSize.sizeToScaleValue
         }
         
-        if sizeCategory > limitMaxCategory {
-            return limitMaxCategory.sizeToScaleValue
+        if dynamicTypeSize > limitMaxTypeSize {
+            return limitMaxTypeSize.sizeToScaleValue
         }
         
-        return sizeCategory.sizeToScaleValue
+        return dynamicTypeSize.sizeToScaleValue
     }
 }
 
@@ -289,9 +273,12 @@ extension View {
         DayView(title: "11", subtitle: "17", isEventIndicatorVisible: true, state: .multiSelectedEnd)
             .frame(width: 50)
     })
-    DayView(title: "8", state: .singleSelectedAndToday)
-    DayView(title: "9", isEventIndicatorVisible: true, state: .singleSelected)
-    DayView(title: "10", subtitle: "13", isEventIndicatorVisible: true)
-    DayView(title: "11", subtitle: "14", state: .singleSelectedAndToday)
-    DayView(title: "12", subtitle: "15", isEventIndicatorVisible: true, state: .singleSelected)
+    
+    HStack(spacing: 20) {
+        DayView(title: "8", state: .singleSelectedAndToday)
+        DayView(title: "9", isEventIndicatorVisible: true, state: .singleSelected)
+        DayView(title: "10", subtitle: "13", isEventIndicatorVisible: true)
+        DayView(title: "11", subtitle: "14", state: .singleSelectedAndToday)
+        DayView(title: "12", subtitle: "15", isEventIndicatorVisible: true, state: .singleSelected)
+    }
 }
