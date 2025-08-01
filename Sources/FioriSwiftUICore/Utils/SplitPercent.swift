@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct SplitPercentKey: EnvironmentKey {
-    public static let defaultValue: CGFloat? = 0.5
+    public static let defaultValue: CGFloat? = nil
 }
 
 public extension EnvironmentValues {
