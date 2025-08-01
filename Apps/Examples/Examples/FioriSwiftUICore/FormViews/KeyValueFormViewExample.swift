@@ -45,6 +45,7 @@ struct KeyValueFormViewExample: View {
     @State var isRequired = false
     @State var showList = true
     @State var isLoading: Bool = false
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack {
@@ -70,6 +71,20 @@ struct KeyValueFormViewExample: View {
                     
                     Text("Read-Only")
                     KeyValueFormView(title: "Read-Only", text: self.isLoading ? self.$valueText3 : self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, minTextEditorHeight: 50, maxTextLength: 200, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired)
+                    
+                    Text("Customized Border")
+                        .italic()
+                    KeyValueFormView(title: self.key2, text: self.isLoading ? self.$valueText3 : self.$valueText2, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                        .focused(self.$isFocused)
+                        .tint(.purple)
+                        .environment(\.isCustomizedBorder, true)
+                        .placeholderTextEditorStyle { config in
+                            PlaceholderTextEditor(config)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(self.isFocused ? .purple : .green, lineWidth: self.isFocused ? 3 : 1)
+                                )
+                        }
                     
                     Text("Skeleton Loading")
                     KeyValueFormView(title: "", text: self.$valueText3, placeholder: "Skeleton Loading")
