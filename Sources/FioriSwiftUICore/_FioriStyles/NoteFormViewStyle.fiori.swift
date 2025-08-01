@@ -73,6 +73,7 @@ extension NoteFormViewFioriStyle {
                         .frame(minHeight: self.getMinHeight(configuration))
                         .frame(maxHeight: self.getMaxHeight(configuration))
                         .background(self.getBackgroundColor(configuration))
+                        .cornerRadius(8)
                         .overlay(
                             Group {
                                 if !self.isCustomizedBorder {

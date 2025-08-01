@@ -71,13 +71,14 @@ struct NoteFormViewExample: View {
                 Text("Read-Only")
                 NoteFormView(text: self.isLoading ? self.$text : self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
                 
-                Text("Customized Border")
+                Text("Customized Border and background color")
                     .italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$valueText2, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
                     .focused(self.$isFocused)
                     .environment(\.isCustomizedBorder, true)
                     .placeholderTextEditorStyle { config in
                         PlaceholderTextEditor(config)
+                            .background(Color.blue.opacity(0.1))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(self.isFocused ? .purple : .green, lineWidth: self.isFocused ? 3 : 1)
