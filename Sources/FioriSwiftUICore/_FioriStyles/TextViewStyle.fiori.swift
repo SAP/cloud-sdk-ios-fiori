@@ -17,5 +17,6 @@ public struct TextViewFioriStyle: TextViewStyle {
         TextView(configuration)
             .foregroundStyle(Color.preferredColor(.primaryLabel))
             .font(.fiori(forTextStyle: .body))
+            .padding(.horizontal, 8)
     }
 }
