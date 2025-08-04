@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [25.8.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250730...25.8.0) (2025-08-04)
+
+
+### Bug Fixes
+
+* 🐛 [HCPSDKFIORIUIKIT-2976]Border customization. Cherry pick ([#1199](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1199)) ([6497aff](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6497aff6906a434e052b721ffa17d234d16b4a64))
+* 🐛 [IOSSDKBUG-845] update generation code by sourcery ([#1195](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1195)) ([374c02a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/374c02a4f712ed526523d8b8bb0b10341703b91b))
+
 ## [25.8.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250730...25.8.0) (2025-08-01)
 
 
