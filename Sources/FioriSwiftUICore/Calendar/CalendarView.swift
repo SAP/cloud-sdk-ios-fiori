@@ -15,36 +15,47 @@ public struct CalendarView: View {
         self.style = style
     }
     
-    @State private var currentMonthHeight: CGFloat = 51 * 6
     @State private var offset: CGFloat = 0
     @State private var scrollPosition: Int? = 0
     
+    @State private var weekContainerHeight: CGFloat = 0
+    
+    let year = 2025
+    let targetScrollPosition = 7
+    let months: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    @State private var pageHeights: [CGFloat] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
     public var body: some View {
-        VStack {
+        VStack(spacing: 0, content: {
             WeekContainerView()
             ScrollView {
                 VStack {
-                    MonthView(year: 2025, month: 6)
-                        .sizeReader { size in
-                            self.currentMonthHeight = size.height
-                        }
-                    MonthView(year: 2025, month: 7)
-                    MonthView(year: 2025, month: 8)
+                    ForEach(0 ..< self.months.count, id: \.self) { index in
+                        let month = self.months[index]
+                        MonthView(year: self.year, month: month)
+                            .sizeReader(size: {
+                                self.pageHeights[index] = $0.height
+                            })
+                            .id(index)
+                    }
                 }
                 .scrollTargetLayout()
             }
             .scrollPosition(id: self.$scrollPosition)
-            .onChange(of: self.scrollPosition) {
-                print("当前滚动位置: \($0 ?? 0)")
-            }
+            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+            .scrollIndicators(.hidden)
+            .scrollBounceBehavior(.always)
             .background(
                 RoundedRectangle(cornerRadius: 8.0)
                     .fill(self.fillBackgroundColor)
             )
-            .frame(height: self.currentMonthHeight)
-        }
+            .frame(height: self.pageHeights[self.scrollPosition!])
+        })
         .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 8))
         .background(Color.preferredColor(.primaryBackground))
+        .onAppear {
+            self.scrollPosition = self.targetScrollPosition
+        }
     }
     
     var fillBackgroundColor: Color {

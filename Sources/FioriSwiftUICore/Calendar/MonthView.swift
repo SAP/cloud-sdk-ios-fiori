@@ -48,36 +48,27 @@ struct MonthView: View {
             return nil
         }
         
-        let weekOfYear = calendar.component(.weekOfYear, from: startDate)
+        // Get the first Day of the week
+        guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return nil }
         
         guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return nil }
         
         var weeks: [WeekInfo] = []
-        for i in 0 ..< range.count {
-            let weekNumber = weekOfYear + i
-            if let firstDayOfWeek = firstDayOfWeek(year: year, weekNumber: weekNumber) {
-                var dates: [Date] = []
-                for dayOffset in 0 ..< 7 {
-                    if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
-                        dates.append(date)
-                    }
+        for _ in 0 ..< range.count {
+            let weekNumber = calendar.component(.weekOfYear, from: firstDayOfWeek)
+            var dates: [Date] = []
+            for dayOffset in 0 ..< 7 {
+                if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
+                    dates.append(date)
                 }
-                let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
-                weeks.append(weekInfo)
             }
+            let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
+            weeks.append(weekInfo)
+            
+            guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return nil }
+            firstDayOfWeek = nextFirstDayOfWeek
         }
         return weeks
-    }
-    
-    func firstDayOfWeek(year: Int, weekNumber: Int) -> Date? {
-        let calendar = Calendar.autoupdatingCurrent
-        
-        var components = DateComponents()
-        components.yearForWeekOfYear = year
-        components.weekOfYear = weekNumber
-        components.weekday = self.firstWeekday
-        
-        return calendar.date(from: components)
     }
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
@@ -87,6 +78,8 @@ struct MonthView: View {
 }
 
 #Preview {
-    MonthView(year: 2025, month: 7)
+    let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
+    let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
+    MonthView(year: year, month: month)
         .environment(\.showWeekNumber, true)
 }

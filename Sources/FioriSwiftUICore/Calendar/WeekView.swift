@@ -11,12 +11,11 @@ struct WeekInfo: Hashable {
 public struct WeekView: View {
     let weekInfo: WeekInfo
     
-    let maxNumberOfDaysInWeek: Double = 7
-    let maxNumberOfRowsPerMonth = 6
-    
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showWeekNumber) var showWeekNumber
     @Environment(\.isEventIndicatorVisible) var isEventIndicatorVisible
+    
+    @State var selectedDate: Date?
     
     init(weekInfo: WeekInfo) {
         self.weekInfo = weekInfo
@@ -36,6 +35,10 @@ public struct WeekView: View {
                 let day = calendar.component(.day, from: date)
                 DayView(title: "\(day)",
                         isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.dayState(date))
+                    .frame(minHeight: 51)
+                    .onTapGesture {
+                        self.selectedDate = date
+                    }
             }
         }
     }
@@ -47,7 +50,12 @@ public struct WeekView: View {
         if targetComponents.year != self.weekInfo.year || targetComponents.month != self.weekInfo.month {
             return .outOfMonth
         } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
+            if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+                return .singleSelectedAndToday
+            }
             return .today
+        } else if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+            return .singleSelected
         } else {
             return .normal
         }
@@ -61,8 +69,8 @@ public struct WeekView: View {
 
 #Preview {
     let firstWeekday = 1
-    let year = 2025
-    let month = 7
+    let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
+    let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
     // Prepare data source
     let firstDayOfWeek: Date = {
         var calendar = Calendar.autoupdatingCurrent
