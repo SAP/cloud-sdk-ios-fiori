@@ -17,13 +17,16 @@ extension View {
     func onSimultaneousTapGesture(count: Int = 1, perform action: @escaping () -> Void) -> some View {
         self.accessibilitySimultaneousGesture(TapGesture(count: count).onEnded {
             action()
-        })
+        }, perform: action)
     }
     
     // In order to fix an issue where the simultaneous gesture is not activated in voice over.
-    func accessibilitySimultaneousGesture(_ gesture: some Gesture, including mask: GestureMask = .all) -> some View {
+    func accessibilitySimultaneousGesture(_ gesture: some Gesture, including mask: GestureMask = .all, perform action: @escaping () -> Void) -> some View {
         simultaneousGesture(gesture, including: mask)
-            .accessibilityElement()
+            .accessibilityElement(children: .combine)
+            .accessibilityAction {
+                action()
+            }
     }
 }
 
