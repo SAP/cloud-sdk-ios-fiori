@@ -10,6 +10,10 @@ struct WeekInfo: Hashable {
 
 public struct WeekView: View {
     let weekInfo: WeekInfo
+    /// The start date of the calendar. Default is current year's first day.
+    let startDate: Date
+    /// The end date of the calendar. Default is next year's last day.
+    let endDate: Date
     
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showWeekNumber) var showWeekNumber
@@ -17,8 +21,10 @@ public struct WeekView: View {
     
     @State var selectedDate: Date?
     
-    init(weekInfo: WeekInfo) {
+    init(weekInfo: WeekInfo, startDate: Date, endDate: Date) {
         self.weekInfo = weekInfo
+        self.startDate = startDate
+        self.endDate = endDate
     }
     
     public var body: some View {
@@ -56,6 +62,8 @@ public struct WeekView: View {
             return .today
         } else if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
             return .singleSelected
+        } else if date.compare(self.startDate) == .orderedAscending || date.compare(self.endDate) == .orderedDescending {
+            return .disabled
         } else {
             return .normal
         }
@@ -95,6 +103,6 @@ public struct WeekView: View {
         calendar.date(byAdding: .day, value: 6, to: firstDayOfWeek)!
     ])
     
-    WeekView(weekInfo: weekInfo)
+    WeekView(weekInfo: weekInfo, startDate: Date(), endDate: Date())
         .environment(\.showWeekNumber, true)
 }

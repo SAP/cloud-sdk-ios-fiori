@@ -29,6 +29,7 @@ struct ContentView: View {
                 Section {
                     NavigationLink("Calendar") {
                         VStack {
+//                            CalendarView(startDate: Date(), endDate: Date())
                             CalendarView()
                                 .environment(\.isEventIndicatorVisible, true)
                                 .environment(\.showWeekNumber, true)

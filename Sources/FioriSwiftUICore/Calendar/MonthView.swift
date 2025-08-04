@@ -3,6 +3,10 @@ import SwiftUI
 struct MonthView: View {
     let year: Int
     let month: Int
+    /// The start date of the calendar. Default is current year's first day.
+    let startDate: Date
+    /// The end date of the calendar. Default is next year's last day.
+    let endDate: Date
     
     @Environment(\.firstWeekday) var firstWeekday
     
@@ -16,7 +20,7 @@ struct MonthView: View {
             
             if let weeks = self.weeks {
                 ForEach(weeks, id: \.self) { info in
-                    WeekView(weekInfo: info)
+                    WeekView(weekInfo: info, startDate: self.startDate, endDate: self.endDate)
                 }
             }
             Spacer()
@@ -80,6 +84,6 @@ struct MonthView: View {
 #Preview {
     let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
     let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
-    MonthView(year: year, month: month)
+    MonthView(year: year, month: month, startDate: Date(), endDate: Date())
         .environment(\.showWeekNumber, true)
 }
