@@ -14,7 +14,7 @@ public struct ContactItemBaseStyle: ContactItemStyle {
     public func makeBody(_ configuration: ContactItemConfiguration) -> some View {
         Group {
             if self.horizontalSizeClass == .some(.compact)
-                || self.compactBodyWidth <= 375.0
+                || self.compactBodyWidth <= 666.0
             {
                 self.bodyInCompact(configuration)
             } else {
