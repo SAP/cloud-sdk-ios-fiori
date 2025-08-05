@@ -176,7 +176,13 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             v.background(Color.preferredColor(.primaryGroupedBackground))
         })
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(String(configuration.navigationTitle?.characters ?? AttributedString("").characters))
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(configuration.navigationTitle ?? "")
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                    .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
+            }
+        }
         .navigationBarBackButtonHidden(true)
         .toolbar {
             self.toolBarContent(configuration)
