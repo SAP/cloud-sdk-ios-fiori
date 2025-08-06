@@ -3,15 +3,15 @@ import Foundation
 import SwiftUI
 
 struct DateTimePickerExample: View {
-    @State var s1: Date = .init(timeIntervalSince1970: 0.0)
-    @State var s2: Date = .init()
-    @State var s3: Date = .init()
-    @State var s4: Date = .init()
-    @State var s5: Date = .now
-    @State var s6: Date = .now
-    @State var s7: Date = .now
-    @State var customizedDate: Date = .init()
-    @State var limitedDate: Date = .now
+    @State var s1: Date? = .init(timeIntervalSince1970: 0.0)
+    @State var s2: Date? = nil
+    @State var s3: Date? = nil
+    @State var s4: Date? = nil
+    @State var s5: Date? = .now
+    @State var s6: Date? = .now
+    @State var s7: Date? = .now
+    @State var customizedDate: Date? = .init()
+    @State var limitedDate: Date? = .now
     @State var isRequired = false
     @State var showsErrorMessage = false
     @State var showAINotice: Bool = false
@@ -113,6 +113,9 @@ struct DateTimePickerExample: View {
                 Text("Range")
                     .textCase(.none)
             }
+        }
+        .onChange(of: self.s2) { _, _ in
+            print("s2 new Value:\(self.s2)")
         }
     }
 }
