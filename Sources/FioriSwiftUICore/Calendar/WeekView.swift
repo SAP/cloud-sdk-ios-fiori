@@ -2,10 +2,17 @@ import SwiftUI
 
 struct WeekInfo: Hashable {
     let id = UUID()
-    let year: Int
-    let month: Int
+    let year: Int?
+    let month: Int?
     let weekNumber: Int
     let dates: [Date]
+    
+    init(year: Int? = nil, month: Int? = nil, weekNumber: Int, dates: [Date]) {
+        self.year = year
+        self.month = month
+        self.weekNumber = weekNumber
+        self.dates = dates
+    }
 }
 
 public struct WeekView: View {
@@ -41,7 +48,6 @@ public struct WeekView: View {
                 let day = calendar.component(.day, from: date)
                 DayView(title: "\(day)",
                         isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.dayState(date))
-                    .frame(minHeight: 51)
                     .onTapGesture {
                         self.selectedDate = date
                     }
@@ -53,7 +59,7 @@ public struct WeekView: View {
         let calendar = Calendar.autoupdatingCurrent
         let targetComponents = calendar.dateComponents([.year, .month], from: date)
         
-        if targetComponents.year != self.weekInfo.year || targetComponents.month != self.weekInfo.month {
+        if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
             return .outOfMonth
         } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
             if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {

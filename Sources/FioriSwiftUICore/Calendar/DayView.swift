@@ -131,6 +131,7 @@ public struct DayView: View {
                     .frame(width: 4, height: 4)
                     .foregroundStyle(Color.preferredColor(self.eventForegroundColorStyle))
                     .padding(.top, self.hasSubTitle ? 6 : 8)
+                    .padding(.bottom, 9.5)
                     .opacity(self.isEventIndicatorVisible ? 1 : 0)
                 
             })

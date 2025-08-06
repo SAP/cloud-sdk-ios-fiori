@@ -18,10 +18,8 @@ struct MonthView: View {
                 .padding(.top, 30)
                 .padding(.bottom, 14)
             
-            if let weeks = self.weeks {
-                ForEach(weeks, id: \.self) { info in
-                    WeekView(weekInfo: info, startDate: self.startDate, endDate: self.endDate)
-                }
+            ForEach(self.weeks, id: \.self) { info in
+                WeekView(weekInfo: info, startDate: self.startDate, endDate: self.endDate)
             }
             Spacer()
         })
@@ -41,7 +39,7 @@ struct MonthView: View {
         }
     }
     
-    var weeks: [WeekInfo]? {
+    var weeks: [WeekInfo] {
         var calendar = Calendar.autoupdatingCurrent
         calendar.firstWeekday = self.firstWeekday
         var components = DateComponents()
@@ -49,13 +47,13 @@ struct MonthView: View {
         components.month = self.month
         
         guard let startDate = calendar.date(from: components) else {
-            return nil
+            return []
         }
         
         // Get the first Day of the week
-        guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return nil }
+        guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return [] }
         
-        guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return nil }
+        guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return [] }
         
         var weeks: [WeekInfo] = []
         for _ in 0 ..< range.count {
@@ -69,7 +67,7 @@ struct MonthView: View {
             let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
             weeks.append(weekInfo)
             
-            guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return nil }
+            guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return [] }
             firstDayOfWeek = nextFirstDayOfWeek
         }
         return weeks
