@@ -20,3 +20,15 @@ public extension EnvironmentValues {
         }
     }
 }
+
+/// The key for storing whether the component is in a menu in the environment.
+public struct IsInMenuKey: EnvironmentKey {
+    public static let defaultValue: Bool = false
+}
+
+public extension EnvironmentValues {
+    var isInMenu: Bool {
+        get { self[IsInMenuKey.self] }
+        set { self[IsInMenuKey.self] = newValue }
+    }
+}
