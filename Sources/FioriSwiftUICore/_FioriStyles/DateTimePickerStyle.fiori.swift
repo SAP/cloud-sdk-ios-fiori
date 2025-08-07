@@ -5,6 +5,8 @@ import SwiftUI
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
+    @State private var selectedDate: Date = .now
    
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
         VStack {
@@ -64,13 +66,13 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
 
     func getValueLabel(_ configuration: DateTimePickerConfiguration) -> String {
-        if configuration.selectedDate != Date(timeIntervalSince1970: 0.0) {
+        if let selectedDate = configuration.selectedDate {
             if let dateFormatter = configuration.dateFormatter {
-                return dateFormatter.string(from: configuration.selectedDate)
+                return dateFormatter.string(from: selectedDate)
             }
             
-            let formattedDate = configuration.selectedDate.formatted(date: configuration.dateStyle, time: .omitted)
-            let formattedTime = configuration.selectedDate.formatted(date: .omitted, time: configuration.timeStyle)
+            let formattedDate = selectedDate.formatted(date: configuration.dateStyle, time: .omitted)
+            let formattedTime = selectedDate.formatted(date: .omitted, time: configuration.timeStyle)
             if configuration.pickerComponents == .date {
                 return formattedDate
             } else if configuration.pickerComponents == .hourAndMinute {
@@ -78,8 +80,9 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
             } else {
                 return formattedDate + "   " + formattedTime
             }
+        } else {
+            return configuration.noDateSelectedString ?? NSLocalizedString("No date selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
-        return configuration.noDateSelectedString ?? NSLocalizedString("No date selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
     
     func getFontColor(_ configuration: DateTimePickerConfiguration) -> Color {
@@ -93,14 +96,21 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
+        let selection: Binding<Date> = Binding {
+            self.selectedDate
+        } set: {
+            self.selectedDate = $0
+            configuration.selectedDate = $0
+        }
+
         if let range = configuration.range {
-            DatePicker("", selection: configuration.$selectedDate, in: range, displayedComponents: configuration.pickerComponents)
+            return DatePicker("", selection: selection, in: range, displayedComponents: configuration.pickerComponents)
                 .datePickerStyle(.graphical)
                 .setOnChange(of: configuration.selectedDate) {
                     _ = self.getValueLabel(configuration)
                 }
         } else {
-            DatePicker("", selection: configuration.$selectedDate, displayedComponents: configuration.pickerComponents)
+            return DatePicker("", selection: selection, displayedComponents: configuration.pickerComponents)
                 .datePickerStyle(.graphical)
                 .setOnChange(of: configuration.selectedDate) {
                     _ = self.getValueLabel(configuration)
