@@ -4245,6 +4245,90 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: WhatsNewListItemStyle
+
+struct WhatsNewListItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewListItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewListItemStyle: any WhatsNewListItemStyle {
+        self.whatsNewListItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewListItemStyleStack: [any WhatsNewListItemStyle] {
+        get {
+            self[WhatsNewListItemStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewListItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+struct WhatsNewListViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewListViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewListViewStyle: any WhatsNewListViewStyle {
+        self.whatsNewListViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewListViewStyleStack: [any WhatsNewListViewStyle] {
+        get {
+            self[WhatsNewListViewStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewListViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+struct WhatsNewPageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewPageStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewPageStyle: any WhatsNewPageStyle {
+        self.whatsNewPageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewPageStyleStack: [any WhatsNewPageStyle] {
+        get {
+            self[WhatsNewPageStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewPageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+struct WhatsNewPageViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewPageViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewPageViewStyle: any WhatsNewPageViewStyle {
+        self.whatsNewPageViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewPageViewStyleStack: [any WhatsNewPageViewStyle] {
+        get {
+            self[WhatsNewPageViewStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewPageViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: WritingAssistantActionStyle
 
 struct WritingAssistantActionStyleStackKey: EnvironmentKey {

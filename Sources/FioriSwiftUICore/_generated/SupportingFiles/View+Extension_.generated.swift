@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -3432,6 +3432,74 @@ public extension View {
     func welcomeScreenStyle(@ViewBuilder content: @escaping (WelcomeScreenConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
             let style = AnyWelcomeScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+public extension View {
+    func whatsNewListItemStyle(_ style: some WhatsNewListItemStyle) -> some View {
+        self.transformEnvironment(\.whatsNewListItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewListItemStyle(@ViewBuilder content: @escaping (WhatsNewListItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewListItemStyleStack) { stack in
+            let style = AnyWhatsNewListItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+public extension View {
+    func whatsNewListViewStyle(_ style: some WhatsNewListViewStyle) -> some View {
+        self.transformEnvironment(\.whatsNewListViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewListViewStyle(@ViewBuilder content: @escaping (WhatsNewListViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewListViewStyleStack) { stack in
+            let style = AnyWhatsNewListViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+public extension View {
+    func whatsNewPageStyle(_ style: some WhatsNewPageStyle) -> some View {
+        self.transformEnvironment(\.whatsNewPageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewPageStyle(@ViewBuilder content: @escaping (WhatsNewPageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewPageStyleStack) { stack in
+            let style = AnyWhatsNewPageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+public extension View {
+    func whatsNewPageViewStyle(_ style: some WhatsNewPageViewStyle) -> some View {
+        self.transformEnvironment(\.whatsNewPageViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewPageViewStyle(@ViewBuilder content: @escaping (WhatsNewPageViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewPageViewStyleStack) { stack in
+            let style = AnyWhatsNewPageViewStyle(content)
             stack.append(style)
         }
     }

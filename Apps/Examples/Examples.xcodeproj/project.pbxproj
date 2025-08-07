@@ -25,6 +25,7 @@
 		1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */; };
 		3B62AB7E2C0EE257003262EB /* EditableSideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62AB7C2C0EE257003262EB /* EditableSideBarExample.swift */; };
 		3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */; };
+		3C6155252E43D91C009684CC /* WhatsNewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6155242E43D913009684CC /* WhatsNewExample.swift */; };
 		3CC870962CB6F4F30081909C /* ToastMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC870952CB6F4F30081909C /* ToastMessageExample.swift */; };
 		3CD71F292CDB627300B037EB /* CheckoutIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD71F282CDB626900B037EB /* CheckoutIndicatorExample.swift */; };
 		3CDD6ECD2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */; };
@@ -297,6 +298,7 @@
 		1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
 		3B62AB7C2C0EE257003262EB /* EditableSideBarExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableSideBarExample.swift; sourceTree = "<group>"; };
 		3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustratedMessageExample.swift; sourceTree = "<group>"; };
+		3C6155242E43D913009684CC /* WhatsNewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewExample.swift; sourceTree = "<group>"; };
 		3CC870952CB6F4F30081909C /* ToastMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageExample.swift; sourceTree = "<group>"; };
 		3CD71F282CDB626900B037EB /* CheckoutIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutIndicatorExample.swift; sourceTree = "<group>"; };
 		3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutIndicatorModalExample.swift; sourceTree = "<group>"; };
@@ -1107,6 +1109,7 @@
 				99942D58261698FC001912C5 /* InfoViewSample.swift */,
 				B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */,
 				B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */,
+				3C6155242E43D913009684CC /* WhatsNewExample.swift */,
 				9996CD02262FFEBD001B99AE /* EULA2.html */,
 				99B6EF8B2672224C00515E8E /* UserConsentSample.swift */,
 			);
@@ -1355,6 +1358,7 @@
 				6D6E86672C50FDBE00EDB6F4 /* FioriButtonInCollectionExample.swift in Sources */,
 				691DE21925F2A30B00094D4A /* KPIItemExample.swift in Sources */,
 				AB988B102631270300483D87 /* DataTableExample.swift in Sources */,
+				3C6155252E43D91C009684CC /* WhatsNewExample.swift in Sources */,
 				99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */,
 				B84D24F02652F343007F2373 /* ObjectHeaderExample.swift in Sources */,
 				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,

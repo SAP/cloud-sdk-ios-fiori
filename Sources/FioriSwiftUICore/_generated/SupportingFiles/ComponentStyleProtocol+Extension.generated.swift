@@ -9866,6 +9866,188 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenSecondaryActionSt
     }
 }
 
+// MARK: WhatsNewListItemStyle
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemBaseStyle {
+    static var base: WhatsNewListItemBaseStyle {
+        WhatsNewListItemBaseStyle()
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemFioriStyle {
+    static var fiori: WhatsNewListItemFioriStyle {
+        WhatsNewListItemFioriStyle()
+    }
+}
+
+public struct WhatsNewListItemDetailImageStyle: WhatsNewListItemStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> WhatsNewListItemDetailImageStyle {
+        WhatsNewListItemDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewListItemDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return WhatsNewListItemDetailImageStyle(style: style)
+    }
+}
+
+public struct WhatsNewListItemTitleStyle: WhatsNewListItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WhatsNewListItemTitleStyle {
+        WhatsNewListItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewListItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WhatsNewListItemTitleStyle(style: style)
+    }
+}
+
+public struct WhatsNewListItemSubtitleStyle: WhatsNewListItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> WhatsNewListItemSubtitleStyle {
+        WhatsNewListItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> WhatsNewListItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return WhatsNewListItemSubtitleStyle(style: style)
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+public extension WhatsNewListViewStyle where Self == WhatsNewListViewBaseStyle {
+    static var base: WhatsNewListViewBaseStyle {
+        WhatsNewListViewBaseStyle()
+    }
+}
+
+public extension WhatsNewListViewStyle where Self == WhatsNewListViewFioriStyle {
+    static var fiori: WhatsNewListViewFioriStyle {
+        WhatsNewListViewFioriStyle()
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageBaseStyle {
+    static var base: WhatsNewPageBaseStyle {
+        WhatsNewPageBaseStyle()
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageFioriStyle {
+    static var fiori: WhatsNewPageFioriStyle {
+        WhatsNewPageFioriStyle()
+    }
+}
+
+public struct WhatsNewPageDetailImageStyle: WhatsNewPageStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> WhatsNewPageDetailImageStyle {
+        WhatsNewPageDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewPageDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return WhatsNewPageDetailImageStyle(style: style)
+    }
+}
+
+public struct WhatsNewPageTitleStyle: WhatsNewPageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WhatsNewPageTitleStyle {
+        WhatsNewPageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewPageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WhatsNewPageTitleStyle(style: style)
+    }
+}
+
+public struct WhatsNewPageDescriptionStyle: WhatsNewPageStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> WhatsNewPageDescriptionStyle {
+        WhatsNewPageDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WhatsNewPageDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return WhatsNewPageDescriptionStyle(style: style)
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+public extension WhatsNewPageViewStyle where Self == WhatsNewPageViewBaseStyle {
+    static var base: WhatsNewPageViewBaseStyle {
+        WhatsNewPageViewBaseStyle()
+    }
+}
+
+public extension WhatsNewPageViewStyle where Self == WhatsNewPageViewFioriStyle {
+    static var fiori: WhatsNewPageViewFioriStyle {
+        WhatsNewPageViewFioriStyle()
+    }
+}
+
 // MARK: WritingAssistantActionStyle
 
 public extension WritingAssistantActionStyle where Self == WritingAssistantActionBaseStyle {
