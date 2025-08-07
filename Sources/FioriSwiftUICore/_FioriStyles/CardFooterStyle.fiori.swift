@@ -216,13 +216,13 @@ public struct CardFooterBaseStyle: CardFooterStyle {
             Menu {
                 if self.numButtonsDisplayInOverflow == 1 {
                     if !configuration.tertiaryAction.isEmpty {
-                        configuration.tertiaryAction
+                        configuration.tertiaryAction.environment(\.isInMenu, true)
                     } else {
-                        configuration.secondaryAction
+                        configuration.secondaryAction.environment(\.isInMenu, true)
                     }
                 } else if self.numButtonsDisplayInOverflow == 2 {
-                    configuration.secondaryAction
-                    configuration.tertiaryAction
+                    configuration.secondaryAction.environment(\.isInMenu, true)
+                    configuration.tertiaryAction.environment(\.isInMenu, true)
                 }
             } label: {
                 configuration.overflowAction
