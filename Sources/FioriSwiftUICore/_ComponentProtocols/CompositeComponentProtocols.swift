@@ -606,7 +606,8 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // The inclusive range of selectable dates.
     var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
-    var selectedDate: Date { get }
+    // sourcery: defaultValue = ".constant(nil)"
+    var selectedDate: Date? { get }
     /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
     var dateFormatter: DateFormatter? { get }
     

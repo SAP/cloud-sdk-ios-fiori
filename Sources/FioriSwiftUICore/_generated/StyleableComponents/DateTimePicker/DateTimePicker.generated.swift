@@ -36,7 +36,7 @@ public struct DateTimePicker {
     /// The error message of the form view.
     let errorMessage: AttributedString?
     let range: ClosedRange<Date>?
-    @Binding var selectedDate: Date
+    @Binding var selectedDate: Date?
     /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
     let dateFormatter: DateFormatter?
     /// The components shown in the date picker, default value shows date and time.
@@ -61,7 +61,7 @@ public struct DateTimePicker {
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
                 range: ClosedRange<Date>? = nil,
-                selectedDate: Binding<Date>,
+                selectedDate: Binding<Date?> = .constant(nil),
                 dateFormatter: DateFormatter? = nil,
                 pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
                 dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
@@ -98,7 +98,7 @@ public extension DateTimePicker {
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
          range: ClosedRange<Date>? = nil,
-         selectedDate: Binding<Date>,
+         selectedDate: Binding<Date?>,
          dateFormatter: DateFormatter? = nil,
          pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
          dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
