@@ -32,3 +32,16 @@ public extension EnvironmentValues {
         set { self[IsCustomizedBorderKey.self] = newValue }
     }
 }
+
+/// The key for storing whether the component is in a `Menu` in the environment.
+public struct IsInMenuKey: EnvironmentKey {
+    public static let defaultValue: Bool = false
+}
+
+public extension EnvironmentValues {
+    /// get / set `isInMenu` value in the environment. Can be used to determine if the component such as a `FioriButton` is put inside a `Menu`.
+    var isInMenu: Bool {
+        get { self[IsInMenuKey.self] }
+        set { self[IsInMenuKey.self] = newValue }
+    }
+}
