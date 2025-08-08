@@ -1,18 +1,21 @@
 import FioriThemeManager
 import SwiftUI
 
-struct ScrollOffsetKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
-    }
-}
-
 public struct CalendarView: View {
     let style: CalendarStyle
     
     @State private var offset: CGFloat = 0
-    @State private var scrollPosition: Int? = 0
+    @State private var scrollPosition: Int? = 0 {
+        didSet {
+            print("scrollPosition change:\(self.scrollPosition ?? 0)")
+        }
+    }
+
+    @State private var weekViewScrollPosition: Int? = 0 {
+        didSet {
+            print("weekViewScrollPosition change:\(self.weekViewScrollPosition ?? 0)")
+        }
+    }
     
     @State private var weekContainerHeight: CGFloat = 0
     
@@ -27,9 +30,22 @@ public struct CalendarView: View {
     let displayDateAtStartup: Date
     
     @State private var totalMonths = 0
-    @State private var pageHeights: [CGFloat] = [0]
+    
+    @State private var pageHeights: [CGFloat] = [0] {
+        didSet {
+            if let scrollPosition, scrollPosition < self.pageHeights.count {
+                self.currentMonthOriginHeight = self.pageHeights[scrollPosition]
+            }
+        }
+    }
+
+    @State private var weekViewHeight: CGFloat = 0
     @State private var lastPageHeight: CGFloat = 0
     @State private var weeks: [WeekInfo] = []
+    
+    @State private var isDragging = false
+    @State private var dragGestureOffsetY: CGFloat = 0
+    @State private var currentMonthOriginHeight: CGFloat = 0
     
     private let calendar = Calendar.autoupdatingCurrent
     
@@ -47,7 +63,7 @@ public struct CalendarView: View {
                 WeekContainerView()
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: 0, trailing: paddingOffset))
                 
-                if self.style == .week || (self.style == .expandable && !self.isExpanded) {
+                if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         HStack {
                             ForEach(0 ..< self.weeks.count, id: \.self) { index in
@@ -55,12 +71,51 @@ public struct CalendarView: View {
                                 WeekView(weekInfo: info, startDate: self.startDate, endDate: self.endDate)
                                     .frame(width: availableWidth - paddingOffset * 2)
                                     .sizeReader(size: {
-                                        self.pageHeights[index] = $0.height
-                                        if let scrollPosition, scrollPosition == index {
-                                            self.lastPageHeight = $0.height
-                                        }
+                                        self.weekViewHeight = $0.height
                                     })
                                     .id(index)
+                            }
+                        }
+                        .scrollTargetLayout()
+                    })
+                    .scrollPosition(id: self.$weekViewScrollPosition)
+                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                    .scrollBounceBehavior(.always)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8.0)
+                            .fill(self.fillBackgroundColor)
+                    )
+                    .frame(height: self.weekViewHeight)
+                    .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
+                    .onAppear {
+                        self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                    }
+                } else if self.style == .expandable {
+                    ScrollView(.horizontal, showsIndicators: false, content: {
+                        HStack {
+                            ForEach(0 ..< self.totalMonths, id: \.self) { index in
+                                if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
+                                    let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
+                                    if let year = startComponents.year, let month = startComponents.month {
+                                        MonthView(year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true)
+                                            .frame(width: availableWidth - paddingOffset * 2)
+                                            .background(
+                                                GeometryReader { proxy in
+                                                    Color.clear
+                                                        .preference(key: SizePreferenceKey.self, value: proxy.size)
+                                                }
+                                            )
+                                            .onPreferenceChange(SizePreferenceKey.self) { newValue in
+                                                DispatchQueue.main.async {
+                                                    self.pageHeights[index] = newValue.height
+                                                    if let scrollPosition, scrollPosition == index {
+                                                        self.lastPageHeight = newValue.height
+                                                    }
+                                                }
+                                            }
+                                            .id(index)
+                                    }
+                                }
                             }
                         }
                         .scrollTargetLayout()
@@ -68,25 +123,37 @@ public struct CalendarView: View {
                     .scrollPosition(id: self.$scrollPosition)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
+                    .ifApply(self.scrollPosition != nil, content: {
+                        if self.isDragging, self.currentMonthOriginHeight > 0 {
+                            return $0.frame(height: self.currentMonthOriginHeight)
+                        } else {
+                            return $0.frame(height: self.pageHeights[self.scrollPosition!])
+                        }
+                    })
+                    .ifApply(self.scrollPosition == nil, content: {
+                        if self.isDragging, self.currentMonthOriginHeight > 0 {
+                            return $0.frame(height: self.currentMonthOriginHeight)
+                        } else {
+                            return $0.frame(height: self.lastPageHeight)
+                        }
+                    })
+                    .clipped()
                     .background(
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(self.fillBackgroundColor)
                     )
-                    .ifApply(self.scrollPosition != nil, content: {
-                        $0.frame(height: self.pageHeights[self.scrollPosition!])
-                    })
-                    .ifApply(self.scrollPosition == nil, content: {
-                        $0.frame(height: self.lastPageHeight)
-                    })
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
-                } else {
+                    .onAppear {
+                        self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                    }
+                } else if self.style == .month {
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(year: year, month: month, startDate: self.startDate, endDate: self.endDate)
+                                        MonthView(year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true)
                                             .sizeReader(size: {
                                                 self.pageHeights[index] = $0.height
                                                 if let scrollPosition, scrollPosition == index {
@@ -114,17 +181,27 @@ public struct CalendarView: View {
                         $0.frame(height: self.lastPageHeight)
                     })
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
+                    .onAppear {
+                        self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                    }
                 }
                 
                 if self.style == .expandable {
                     CalendarDragView()
-                        .simultaneousGesture(
+                        .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    print("drag gesture value\(value)")
+                                    self.isDragging = true
+                                    self.dragGestureOffsetY = value.translation.height
+                                    self.currentMonthOriginHeight += self.dragGestureOffsetY
+                                    if let scrollPosition, scrollPosition < pageHeights.count {
+                                        self.currentMonthOriginHeight = min(self.currentMonthOriginHeight, self.pageHeights[scrollPosition])
+                                    }
                                 }
                                 .onEnded { _ in
+                                    self.isDragging = false
                                     self.isExpanded.toggle()
+                                    print("drag end, style:\(self.style), isDragging:\(self.isDragging), isExpanded:\(self.isExpanded)")
                                 }
                         )
                 }
@@ -149,12 +226,11 @@ public struct CalendarView: View {
     func handleExpanded() {
         if self.style == .week || (self.style == .expandable && !self.isExpanded) {
             self.weeks = self.handleWeekInfo()
-            self.scrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-            self.pageHeights = Array(repeating: 0, count: self.weeks.count)
         } else {
             self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
-            self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-            self.pageHeights = Array(repeating: 0, count: self.totalMonths)
+            if self.pageHeights.count != self.totalMonths {
+                self.pageHeights = Array(repeating: 0, count: self.totalMonths)
+            }
         }
     }
     

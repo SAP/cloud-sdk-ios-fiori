@@ -18,6 +18,7 @@ public struct CalendarDragView: View {
                 .padding(.top, 6)
                 .padding(.bottom, 21)
         }
+        .contentShape(Rectangle())
     }
 }
 

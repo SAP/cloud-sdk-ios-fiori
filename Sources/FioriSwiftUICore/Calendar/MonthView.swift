@@ -8,20 +8,31 @@ struct MonthView: View {
     /// The end date of the calendar. Default is next year's last day.
     let endDate: Date
     
+    let showMonthHeader: Bool
+    
     @Environment(\.firstWeekday) var firstWeekday
+    
+    init(year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false) {
+        self.year = year
+        self.month = month
+        self.startDate = startDate
+        self.endDate = endDate
+        self.showMonthHeader = showMonthHeader
+    }
     
     var body: some View {
         VStack(spacing: 0, content: {
-            Text(self.monthText)
-                .font(.fiori(fixedSize: 17 * self.scaleForSizeChange, weight: .semibold))
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
-                .padding(.top, 30)
-                .padding(.bottom, 14)
+            if self.showMonthHeader {
+                Text(self.monthText)
+                    .font(.fiori(fixedSize: 17 * self.scaleForSizeChange, weight: .semibold))
+                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                    .padding(.top, 30)
+                    .padding(.bottom, 14)
+            }
             
             ForEach(self.weeks, id: \.self) { info in
                 WeekView(weekInfo: info, startDate: self.startDate, endDate: self.endDate)
             }
-            Spacer()
         })
     }
     
@@ -82,6 +93,6 @@ struct MonthView: View {
 #Preview {
     let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
     let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
-    MonthView(year: year, month: month, startDate: Date(), endDate: Date())
+    MonthView(year: year, month: month, startDate: Date(), endDate: Date(), showMonthHeader: true)
         .environment(\.showWeekNumber, true)
 }
