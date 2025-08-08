@@ -1970,6 +1970,129 @@ protocol _UserConsentFormComponent: _NextActionComponent, _CancelActionComponent
 // sourcery: CompositeComponent
 protocol _UserConsentPageComponent: _TitleComponent, _BodyTextComponent, _ActionComponent {}
 
+/// `WhatsNewPageView` is used to inform users of new features during the onboarding process. It takes a collection of up to 10 views which it displays as a sequence of pages. Users can navigate through these pages by swiping horizontally or by tapping one of the navigation buttons in the component. Any type of view can be provided as a page, but we recommend using `WhatsNewPage` or  a `VStack` containing multiple `WhatsNewListItem` views.
+/// ## Usage
+/// ```swift
+/// struct WhatsNewExample: View {
+///     @State var presentPageViewExample = false
+///
+///     var body: some View {
+///         Button("Present View") {
+///             presentPageViewExample.toggle()
+///         }
+///         .sheet(isPresented: $presentPageViewExample, content: {
+///             WhatsNewPageViewExample()
+///         })
+///     }
+/// }
+///
+/// struct WhatsNewPageViewExample: View {
+///     @Environment(\.dismiss) var dismiss
+///     @State var selectedIndex: Int? = 0
+///
+///     var body: some View {
+///         WhatsNewPageView(whatsNewPages: {
+///             WhatsNewPage(detailImage: {
+///                 FioriIcon.illustrations.tentDot.resizable()
+///             }, title: {
+///                 Text("Page 1")
+///             }, description: {
+///                 Text("Description text")
+///             }, imageSize: CGSize(width: 80, height: 80))
+///             WhatsNewPage(detailImage: FioriIcon.illustrations.successScreenDialog.resizable(), title: "Page 2", description: "Description text", isImageExpanded: true)
+///             VStack(alignment: .leading, spacing: 30) {
+///                 WhatsNewListItem(detailImage: Image("wheel").resizable(), title: "List item 1", subtitle: "Subtitle text")
+///                 WhatsNewListItem(detailImage: Image("ProfilePic").resizable(), title: "List item 2")
+///                 WhatsNewListItem(title: "List item 3", subtitle: "Subtitle text")
+///             }
+///         }, currentIndex: $selectedIndex, didClose: {
+///             self.dismiss()
+///         }, didFinish: {
+///             self.dismiss()
+///         })
+///     }
+/// }
+// sourcery: CompositeComponent
+protocol _WhatsNewPageViewComponent {
+    // sourcery: no_style
+    @WhatsNewPagesBuilder
+    var whatsNewPages: () -> any View { get }
+
+    // sourcery: @Binding
+    /// The index of the current page. When the value changes, the component will navigate to the page corresponding to the new value.
+    var currentIndex: Int? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didClose: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (() -> Void)? { get }
+}
+
+/// `WhatsNewListView` is used to inform users of new features during the onboarding process. It takes a collection of views and displays them as rows within a list. Any type of view can be provided, but we recommend using `WhatsNewListItem` views.
+/// ## Usage
+/// ```swift
+/// struct WhatsNewExample: View {
+///     @State var presentListViewExample = false
+///
+///     var body: some View {
+///         Button("Present View") {
+///             presentListViewExample.toggle()
+///         }
+///         .sheet(isPresented: $presentListViewExample, content: {
+///             WhatsNewListViewExample()
+///         })
+///     }
+/// }
+///
+/// struct WhatsNewListViewExample: View {
+///     @Environment(\.dismiss) var dismiss
+///
+///     var body: some View {
+///         WhatsNewListView(whatsNewListItems: {
+///             WhatsNewListItem(detailImage: Image("wheel").resizable(), title: "List item 1", subtitle: "Subtitle text")
+///             WhatsNewListItem(detailImage: Image("ProfilePic").resizable(), title: "List item 2")
+///             WhatsNewListItem(title: "List item 3", subtitle: "Subtitle text")
+///         }, didClose: {
+///             self.dismiss()
+///         }, didFinish: {
+///             self.dismiss()
+///         })
+///     }
+/// }
+// sourcery: CompositeComponent
+protocol _WhatsNewListViewComponent {
+    // sourcery: no_style
+    // sourcery: resultBuilder.name = @IndexedViewBuilder
+    // sourcery: resultBuilder.backingComponent = _WhatsNewListItemsContainer
+    // sourcery: resultBuilder.returnType = any IndexedViewContainer
+    var whatsNewListItems: [WhatsNewListItem] { get }
+        
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didClose: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (() -> Void)? { get }
+}
+
+/// A single page to be displayed within the `WhatsNewPageView`.
+// sourcery: CompositeComponent
+protocol _WhatsNewPageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent {
+    /// Sets image size. The default value is 173x173.
+    var imageSize: CGSize? { get }
+    // sourcery: default.value = false
+    /// Determines whether image is expanded to take up the full width of the page. If set to true, `imageSize` will not take effect.
+    var isImageExpanded: Bool { get }
+}
+
+/// A single list item to be displayed within the `WhatsNewListView`.
+// sourcery: CompositeComponent
+protocol _WhatsNewListItemComponent: _DetailImageComponent, _TitleComponent, _SubtitleComponent {}
+
 /// `AINotice` is a SwiftUI view indicating if content is AI-supported or AI-generated. It can include an icon, a description, and an action label for accessing more details. If the icon or description is not set, a default value will be used. Action label has no default value and has to be set to be used.
 /// ## Usage
 /// ```swift
