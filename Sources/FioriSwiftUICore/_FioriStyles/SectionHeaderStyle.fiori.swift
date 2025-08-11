@@ -19,23 +19,25 @@ public struct SectionHeaderBaseStyle: SectionHeaderStyle {
             configuration.title
                 .lineLimit(1)
             Spacer()
-            configuration.attribute
-                .lineLimit(1)
-                .multilineTextAlignment(.trailing)
-            
-            if configuration.sectionHeaderStyle == .attribute {
-                AccessoryIcon {
-                    AccessoryType.disclosure.image
+            HStack {
+                configuration.attribute
+                    .lineLimit(1)
+                    .multilineTextAlignment(.trailing)
+                
+                if configuration.sectionHeaderStyle == .attribute {
+                    AccessoryIcon {
+                        AccessoryType.disclosure.image
+                    }
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
         }
         .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
         .contentShape(Rectangle())
         .onTapGesture {
             configuration.didSelectHandler?()
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
     }
 }
 
@@ -81,26 +83,28 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
                 .lineLimit(1)
                 .sectionHeaderStyle(.titleStyle(.fiori))
             Spacer()
-            configuration.attribute
-                .lineLimit(1)
-                .sectionHeaderStyle(.attributeStyle(.fiori))
-                .multilineTextAlignment(.trailing)
-                
-            if self.isDisclosureAccessoryHidden {
-                EmptyView()
-            } else {
-                AccessoryIcon {
-                    AccessoryType.disclosure.image
+            HStack {
+                configuration.attribute
+                    .lineLimit(1)
+                    .sectionHeaderStyle(.attributeStyle(.fiori))
+                    .multilineTextAlignment(.trailing)
+                    
+                if self.isDisclosureAccessoryHidden {
+                    EmptyView()
+                } else {
+                    AccessoryIcon {
+                        AccessoryType.disclosure.image
+                    }
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
         }
         .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
         .contentShape(Rectangle())
         .onTapGesture {
             configuration.didSelectHandler?()
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
     }
 }
 
