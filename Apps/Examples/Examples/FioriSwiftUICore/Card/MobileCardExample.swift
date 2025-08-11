@@ -510,3 +510,36 @@ struct CarouselTestView: View {
     .cardStyle(.card)
     .listStyle(.plain)
 }
+
+#Preview("Left image card") {
+    VStack {
+        Card {
+            EmptyView()
+        } cardBody: {
+            HStack(spacing: 0) {
+                Image("card_image")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 110, height: 110)
+                    .clipped()
+                
+                Card {
+                    Text("Imageleft")
+                } subtitle: {
+                    Text("Image at the left side of card body line limit 3").lineLimit(3)
+                } headerAction: {
+                    Button {
+                        print("tapped")
+                    } label: {
+                        Text("...")
+                    }
+                } counter: {
+                    Text("1 of 3")
+                }
+            }
+        }
+    }
+    .cardStyle(.card)
+    .cardStyle(.intrinsicHeightCard)
+    .padding()
+}
