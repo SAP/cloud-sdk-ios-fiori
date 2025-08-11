@@ -12,7 +12,7 @@ struct ContactItemRegularExamples: ObjectItemListDataProtocol {
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
-        12
+        13
     }
     
     func titleForHeaderInSection(_ section: Int) -> String {
@@ -215,6 +215,10 @@ struct ContactItemRegularExamples: ObjectItemListDataProtocol {
                 })])
                 
                 return item.typeErased
+            case (0, 12):
+                let item = ContactItem(title: "Sean Long", subtitle: "Team Lead Team Lead Team Lead Team Lead Team Lead Team Lead", description: "Example showing three lines of text at maximum lipsum ortam at al and the description is always still centered here and should.", detailImage: Image("person_square4").resizable())
+                
+                return item.typeErased
                 
             case (1, 0):
                 let item = ContactItem(title: "Headline only example", description: "One line of text description is baseline aligned.", activityItems: [.init(type: .phone, didSelectActivityItem: {
@@ -375,6 +379,10 @@ struct ContactItemRegularExamples: ObjectItemListDataProtocol {
                 .splitPercent(nil)
                 
                 return item.typeErased
+            case (1, 12):
+                let item = ContactItem(title: "Sean Long", subtitle: "Team Lead", description: "Example showing three lines of text at maximum lipsum ortam at al and the description is always still centered here and should.", detailImage: Image("person_square4").resizable())
+                
+                return item.typeErased
             default:
                 //
                 return ContactItem(title: "Lorem ipseum dolor").typeErased
@@ -483,7 +491,7 @@ struct ContactItemRegularExamples: ObjectItemListDataProtocol {
                 
                 return AnyView(ci)
                 
-            case (0, 11):
+            case (0, 11), (0, 12):
                 let ci = _ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Example showing three lines of text at maximum lipsum ortam at al and the description is always still centered here and should.", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                     print("\(dataType)")
                 }))
@@ -592,7 +600,7 @@ struct ContactItemRegularExamples: ObjectItemListDataProtocol {
                 
                 return AnyView(ci)
                 
-            case (1, 11):
+            case (1, 11), (1, 12):
                 let ci = _ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Example showing three lines of text at maximum lipsum ortam at al and the description is always still centered here and should.", detailImage: Image("person_square4").resizable(), actionItems: _ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                     print("\(dataType)")
                 }))
