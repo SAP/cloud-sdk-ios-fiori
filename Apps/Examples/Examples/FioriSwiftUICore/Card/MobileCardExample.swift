@@ -24,15 +24,14 @@ struct MobileCardExample: View {
             
             NavigationLink {
                 ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 16) {
                         ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
                             CardTests.cardSamples[i]
                                 .cardStyle(.card)
                                 .cardStyle(.intrinsicHeightCard)
-                                .padding()
                         }
                         .background(Color.preferredColor(.primaryGroupedBackground))
-                    }
+                    }.padding()
                 }
                 .navigationBarTitle("Cards in VStack", displayMode: .inline)
             } label: {
