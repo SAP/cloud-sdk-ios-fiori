@@ -313,7 +313,7 @@ public enum CardFooterTests {
     static let footer8 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"))
     static let footer9 = CardFooter(action: FioriButton(title: "Primary long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
     static let footer10 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
-    public static let exsamples = [footer0, footer1, footer2, footer3, footer4, footer5, footer6, footer7, footer8, footer9, footer10]
+    public static let examples = [footer0, footer1, footer2, footer3, footer4, footer5, footer6, footer7, footer8, footer9, footer10]
 }
 
 #Preview("P") {

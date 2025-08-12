@@ -23,27 +23,25 @@ struct MobileCardExample: View {
             }
             
             NavigationLink {
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top, spacing: 8) {
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading, spacing: 16) {
                         ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
                             CardTests.cardSamples[i]
                                 .cardStyle(.card)
                                 .cardStyle(.intrinsicHeightCard)
-                                .padding()
                         }
                         .background(Color.preferredColor(.primaryGroupedBackground))
-                    }
+                    }.padding()
                 }
-                .cardStyle(.card)
-                .navigationBarTitle("Cards in HStack", displayMode: .inline)
+                .navigationBarTitle("Cards in VStack", displayMode: .inline)
             } label: {
-                Text("Cards in HStack")
+                Text("Cards in VStack")
             }
             
             NavigationLink {
                 List {
-                    ForEach(0 ..< CardFooterTests.exsamples.count, id: \.self) { i in
-                        CardFooterTests.exsamples[i]
+                    ForEach(0 ..< CardFooterTests.examples.count, id: \.self) { i in
+                        CardFooterTests.examples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
