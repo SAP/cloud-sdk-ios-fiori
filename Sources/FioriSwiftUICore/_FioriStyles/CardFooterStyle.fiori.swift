@@ -11,17 +11,19 @@ private struct CardFooterLayout: Layout {
         case intrinsic
     }
     
-    struct LayoutMode {
+    struct LayoutMode: Equatable {
         let mode: ButtonWidthMode
         let num: Int
     }
     
     struct CacheData {
         var fitSize: CGSize
+        var layoutMode: LayoutMode?
         var frames: [CGRect]
         
         mutating func clear() {
             self.fitSize = .zero
+            self.layoutMode = nil
             self.frames = []
         }
     }
@@ -52,19 +54,22 @@ private struct CardFooterLayout: Layout {
     
     /// Creates and initializes a cache for a layout instance.
     func makeCache(subviews: Subviews) -> CacheData {
-        CacheData(fitSize: .zero, frames: [])
+        CacheData(fitSize: .zero, layoutMode: nil, frames: [])
     }
     
     func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
-        let subViewSizes = subviews.reversed().map {
-            $0.sizeThatFits(.unspecified)
+        let isRegular = proposal.width ?? 1024 > 667
+        let layoutMode = LayoutMode(mode: isRegular ? .intrinsic : .sameAndFill,
+                                    num: isRegular ? 3 : 2)
+        if !cache.frames.isEmpty, cache.fitSize.width == proposal.width, cache.layoutMode == layoutMode {
+            return
         }
         
         cache.clear()
         
-        let isRegular = self.horizontalSizeClass == .regular && (proposal.width ?? 500 > 667)
-        let layoutMode = LayoutMode(mode: isRegular ? .intrinsic : .sameAndFill,
-                                    num: isRegular ? 3 : 2)
+        let subViewSizes = subviews.reversed().map {
+            $0.sizeThatFits(.unspecified)
+        }
         
         let hideRect = CGRect(x: -2000, y: 0, width: 0, height: 0)
         self.calculateLayout(proposalWidth: proposal.width, subViewSizes: subViewSizes, hideRect: hideRect, layoutMode: layoutMode, cache: &cache)
@@ -127,7 +132,10 @@ private struct CardFooterLayout: Layout {
                         numToShow -= 1
                     }
                     if layoutMode.mode == .sameAndFill {
-                        let availableWidth = finalWidth - theSpacing * CGFloat(numToShow) - overflowSize.width
+                        var availableWidth = finalWidth - theSpacing * CGFloat(max(0, numToShow - 1))
+                        if numButtons > 1 {
+                            availableWidth -= theSpacing + overflowSize.width
+                        }
                         buttonWidth = min(self.maxButtonWidth, availableWidth / CGFloat(numToShow))
                     }
                     break
@@ -157,7 +165,7 @@ private struct CardFooterLayout: Layout {
         var x: CGFloat = 0
         for i in 0 ... numButtons {
             if i < numToShow {
-                let btWidth = buttonWidth ?? min(self.maxButtonWidth, subViewNoOflSizes[i].width)
+                let btWidth = buttonWidth ?? min(finalWidth - (numToHide > 0 ? theSpacing + overflowSize.width : 0), self.maxButtonWidth, subViewNoOflSizes[i].width)
                 x += btWidth + (i > 0 ? theSpacing : 0)
                 frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: maxHeight)))
             } else if i < numButtons { // rest button to hide
@@ -176,18 +184,18 @@ private struct CardFooterLayout: Layout {
         }
         cache.frames = frames.reversed()
         cache.fitSize = CGSize(width: finalWidth, height: maxHeight)
+        cache.layoutMode = layoutMode
     }
   
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         guard !subviews.isEmpty else { return }
         
-        if cache.frames.isEmpty || cache.fitSize.width != proposal.width {
-            self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
-        }
+        self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
         
         for (i, subview) in subviews.enumerated() {
             let x = cache.frames[i].origin.x + bounds.minX
             let y = cache.frames[i].origin.y + bounds.minY
+            
             subview.place(at: CGPointMake(x, y),
                           anchor: .center,
                           proposal: ProposedViewSize(width: cache.frames[i].size.width, height: cache.frames[i].size.height))
@@ -208,7 +216,7 @@ private struct CardFooterLayout: Layout {
 public struct CardFooterBaseStyle: CardFooterStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var numButtonsDisplayInOverflow: Int = 0
-    
+
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
@@ -290,6 +298,22 @@ extension CardFooterFioriStyle {
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal))
         }
     }
+}
+
+/// Card Tests
+public enum CardFooterTests {
+    static let footer0 = CardFooter(action: FioriButton(title: "Primary"))
+    static let footer1 = CardFooter(secondaryAction: FioriButton(title: "Secondary"))
+    static let footer2 = CardFooter(tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer3 = CardFooter(action: FioriButton(title: "Primary long long long long"))
+    static let footer4 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"))
+    static let footer5 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer6 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer7 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer8 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"))
+    static let footer9 = CardFooter(action: FioriButton(title: "Primary long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer10 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    public static let examples = [footer0, footer1, footer2, footer3, footer4, footer5, footer6, footer7, footer8, footer9, footer10]
 }
 
 #Preview("P") {
