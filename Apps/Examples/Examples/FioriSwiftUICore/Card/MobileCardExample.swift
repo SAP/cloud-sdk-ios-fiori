@@ -23,21 +23,6 @@ struct MobileCardExample: View {
             }
             
             NavigationLink {
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                            CardTests.cardSamples[i]
-                        }
-                        .background(Color.preferredColor(.primaryGroupedBackground))
-                    }
-                }
-                .cardStyle(.card)
-                .navigationBarTitle("Cards in VStack", displayMode: .inline)
-            } label: {
-                Text("Cards in VStack")
-            }
-            
-            NavigationLink {
                 ScrollView(.horizontal) {
                     HStack(alignment: .top, spacing: 8) {
                         ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
@@ -57,12 +42,11 @@ struct MobileCardExample: View {
 
             NavigationLink {
                 List {
-                    ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
-                        CardTests.cardFooterSamples[i]
+                    ForEach(0 ..< CardFooterTests.exsamples.count, id: \.self) { i in
+                        CardFooterTests.exsamples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
-                .cardStyle(.card)
                 .listStyle(.plain)
                 .navigationBarTitle("Footers", displayMode: .inline)
             } label: {
@@ -441,9 +425,6 @@ struct CarouselTestView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 24) {
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 80)
-                    .padding(.horizontal, 16)
-                
                 Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
                     ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
                         NavigationLink {
@@ -453,9 +434,6 @@ struct CarouselTestView: View {
                         }
                     }
                 }
-                
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey4)).frame(height: 80)
-                    .padding(.horizontal, 16)
             }
             .cardStyle(.card)
         }
