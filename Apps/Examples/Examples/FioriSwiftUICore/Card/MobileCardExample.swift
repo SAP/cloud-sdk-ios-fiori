@@ -41,8 +41,8 @@ struct MobileCardExample: View {
 
             NavigationLink {
                 List {
-                    ForEach(0 ..< CardFooterTests.exsamples.count, id: \.self) { i in
-                        CardFooterTests.exsamples[i]
+                    ForEach(0 ..< CardFooterTests.examples.count, id: \.self) { i in
+                        CardFooterTests.examples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
