@@ -49,6 +49,7 @@ extension PlaceholderTextEditorFioriStyle {
             TextView(configuration)
                 .zIndex(1.0)
                 .padding(.bottom, 0)
+                .scrollContentBackground(.hidden)
         }
     }
 
