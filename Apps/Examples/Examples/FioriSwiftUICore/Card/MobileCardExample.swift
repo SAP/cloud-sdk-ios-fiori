@@ -54,7 +54,7 @@ struct MobileCardExample: View {
             } label: {
                 Text("Cards in HStack")
             }
-
+            
             NavigationLink {
                 List {
                     ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
@@ -68,7 +68,7 @@ struct MobileCardExample: View {
             } label: {
                 Text("Footers")
             }
-
+            
             NavigationLink {
                 MasonryTestView()
                     .navigationBarTitle("Masonry", displayMode: .inline)
@@ -287,9 +287,43 @@ struct MobileCardExample: View {
                     }
                     .frame(maxHeight: 110)
                 }
-                            
             } label: {
-                Text("Left image card")
+                Text("Left image card using custom featured content")
+            }
+            
+            NavigationLink {
+                VStack {
+                    Card {
+                        EmptyView()
+                    } cardBody: {
+                        HStack(spacing: 0) {
+                            Image("card_image")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 110, height: 110)
+                                .clipped()
+                            
+                            Card {
+                                Text("Imageleft")
+                            } subtitle: {
+                                Text("Image at the left side of card body line limit 3").lineLimit(3)
+                            } headerAction: {
+                                Button {
+                                    print("tapped")
+                                } label: {
+                                    Text("...")
+                                }
+                            } counter: {
+                                Text("1 of 3")
+                            }
+                        }
+                    }
+                }
+                .cardStyle(.card)
+                .cardStyle(.intrinsicHeightCard)
+                .padding()
+            } label: {
+                Text("Left image card using cardBody")
             }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
@@ -299,7 +333,7 @@ struct MobileCardExample: View {
 struct FioriCardFeaturedContent<Content: View>: View {
     let content: Content
     let image: Image
-
+    
     init(
         image: Image,
         @ViewBuilder content: () -> Content
@@ -307,7 +341,7 @@ struct FioriCardFeaturedContent<Content: View>: View {
         self.image = image
         self.content = content()
     }
-
+    
     var body: some View {
         HStack(spacing: 0) {
             self.image
@@ -327,11 +361,11 @@ struct FioriCardFeaturedContent<Content: View>: View {
 
 public struct FioriCard<Content: View>: View {
     // MARK: - Elements of a card
-
+    
     private let content: Content
-
+    
     // MARK: - Initialiser
-
+    
     /// Create a new card instance.
     ///
     /// - Parameters:
@@ -341,9 +375,9 @@ public struct FioriCard<Content: View>: View {
     public init(@ViewBuilder content: () -> Content = { EmptyView() }) {
         self.content = content()
     }
-
+    
     // MARK: - Body
-
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             self.content
@@ -511,7 +545,7 @@ struct CarouselTestView: View {
     .listStyle(.plain)
 }
 
-#Preview("Left image card") {
+#Preview("LeftImageCard in cardBody") {
     VStack {
         Card {
             EmptyView()
