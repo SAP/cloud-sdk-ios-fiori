@@ -4,7 +4,7 @@ import XCTest
 
 final class ToolbarTests: XCTestCase {
     func testToolbarSizeHandler() {
-        let sizeHandler = FioriToolbarHandler()
+        let sizeHandler = FioriToolbarHandler(numOfDisplayItems: -1)
         sizeHandler.containerSize = UIScreen.main.bounds.size
         sizeHandler.itemsSize = [0: CGSize(width: 100, height: 40), 1: CGSize(width: 80, height: 40)]
         
@@ -14,9 +14,8 @@ final class ToolbarTests: XCTestCase {
     
     func testItemsWidthCalculation() {
         let expectation = XCTestExpectation(description: "Async calculation")
-        let handler = FioriToolbarHandler()
+        let handler = FioriToolbarHandler(numOfDisplayItems: 2)
         handler.totalItemsCount = 4
-        handler.numOfDisplayItems = 2
         
         DispatchQueue.main.async {
             handler.itemsSize = [0: CGSize(width: 100, height: 40),

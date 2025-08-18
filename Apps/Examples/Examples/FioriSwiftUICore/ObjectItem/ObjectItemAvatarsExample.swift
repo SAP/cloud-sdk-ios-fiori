@@ -11,7 +11,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
-        self.isNewObjectItem ? 8 : 4
+        self.isNewObjectItem ? 9 : 4
     }
     
     func titleForHeaderInSection(_ section: Int) -> String {
@@ -255,6 +255,26 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                     .foregroundStyle(Color.random)
             }.footnoteIconsTextPosition(.leading)
             return AnyView(oi)
+        case (0, 8):
+            let oi = ObjectItem {
+                Text("Image with Dashed Line and Padding")
+            } subtitle: {
+                Text("Subtitle: HR Business Office")
+            } detailImage: {
+                DashedCircleImage(imageName: "image1", size: 60, lineWidth: 2, spacing: 2)
+            } footnoteIcons: {
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+                Color.random
+            } footnoteIconsText: {
+                Text("6 Direct Reports")
+                    .font(.fiori(forTextStyle: .headline))
+                    .foregroundStyle(Color.random)
+            }.footnoteIconsTextPosition(.leading)
+            return AnyView(oi)
         default:
             return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
         }
@@ -437,5 +457,32 @@ struct MyTagStyle: TagStyle {
     func makeBody(_ configuration: TagConfiguration) -> some View {
         configuration.tag
             .foregroundStyle(self.colorScheme == .dark ? Color.blue : Color.red)
+    }
+}
+
+// Create a customized image with a dashed circle border
+struct DashedCircleImage: View {
+    // Name of the image to be displayed
+    let imageName: String
+    // Size of the image to be resized to
+    let size: CGFloat
+    // Width of the dashed line
+    let lineWidth: CGFloat
+    // Spacing between the dash line and the image
+    let spacing: CGFloat
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .inset(by: self.lineWidth / 2)
+                .stroke(style: StrokeStyle(lineWidth: self.lineWidth, dash: [3]))
+                .foregroundColor(.gray)
+            Image(self.imageName)
+                .resizable()
+                .scaledToFill()
+                .frame(width: self.size - self.lineWidth * 2 - self.spacing, height: self.size - self.lineWidth * 2 - self.spacing)
+                .clipShape(Circle())
+        }
+        .frame(width: self.size, height: self.size)
     }
 }

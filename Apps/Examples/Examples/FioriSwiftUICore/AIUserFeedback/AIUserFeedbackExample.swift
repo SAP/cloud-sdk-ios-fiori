@@ -154,22 +154,21 @@ struct AIUserFeedbackExample: View {
                 
                 HStack(spacing: 20, content: {
                     Button {} label: {
-                        Image(systemName: "hand.thumbsup")
+                        FioriIcon.actions.thumbUp
                     }
                     
                     Button {
                         self.voteState = .downVote
                         self.isFeedbackPushed.toggle()
                     } label: {
-                        Image(systemName: "hand.thumbsdown")
+                        FioriIcon.actions.thumbDown
                     }
                 })
             }
             .padding(.horizontal, 20)
             .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(String("Push Example"))
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         self.isNavigationPresented.toggle()
@@ -177,7 +176,12 @@ struct AIUserFeedbackExample: View {
                         Text("Cancel")
                     }
                 }
-            })
+                ToolbarItem(placement: .principal) {
+                    Text("Push Example")
+                        .foregroundColor(Color.preferredColor(.primaryLabel))
+                        .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
+                }
+            }
             .navigationDestination(isPresented: self.$isFeedbackPushed) {
                 self.showFeedback(mode: .push)
             }

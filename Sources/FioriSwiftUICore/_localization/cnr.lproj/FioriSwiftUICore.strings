@@ -508,11 +508,20 @@
 /* XBUT: Writing assistant redo action title */
 "Redo" = "Ponovi";
 
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Da li želite da poništite uređivanja koja je izvršio Pomoćnik pri pisanju i vratite tekst na originalno stanje?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Odbaciti sve promjene?";
+
 /* XTIT: Writing assistant cancel alert title */
 "Close Writing Assistant without saving changes?" = "Zatvoriti pomoćnika pri pisanju bez snimanja promjena?";
 
 /* XBUT: Writing assistant cancel alert action title for keep working */
 "Keep Working" = "Nastavi sa radom";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Odbaci";
 
 /* XBUT: Writing assistant cancel alert action title for close */
 "Close" = "Zatvori";
