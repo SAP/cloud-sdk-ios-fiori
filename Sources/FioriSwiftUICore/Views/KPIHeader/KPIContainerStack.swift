@@ -39,10 +39,6 @@ struct KPIContainerStack: View {
                 self.calculateLayoutView()
             }
         }
-        .onAppear {
-            self.context.reset()
-            self.reArrangedItems = self.reArrangeItems(isItemOrderForced: self.isItemOrderForced)
-        }
     }
     
     /// Rearrange the items, maximum count of items is 4.
@@ -150,7 +146,7 @@ struct KPIContainerStack: View {
     @ViewBuilder
     private func calculateLayoutView() -> some View {
         VStack {
-            ForEach(0 ..< min(self.reArrangedItems.count, 4), id: \.self) { index in
+            ForEach(0 ..< self.displayedItemsCount, id: \.self) { index in
                 TabView {
                     HStack(spacing: 0) {
                         self.view(at: index)
@@ -168,13 +164,19 @@ struct KPIContainerStack: View {
             }
         }
         .sizeReader { size in
+            self.context.reset()
+            self.reArrangedItems = self.reArrangeItems(isItemOrderForced: self.isItemOrderForced)
             self.context.containerSize = size
             self.reLayoutView(interItemSpacing: CGFloat(self.interItemSpacing ?? (self.horizontalSizeClass == .compact ? 40 : 48)))
         }
     }
     
+    private var displayedItemsCount: Int {
+        min(self.reArrangedItems.count, 4)
+    }
+    
     private func reLayoutView(interItemSpacing: CGFloat) {
-        guard self.context.itemsSize.count == min(self.reArrangedItems.count, 4), self.context.containerSize.width > 0 else { return }
+        guard self.context.itemsSize.count == self.displayedItemsCount, self.context.containerSize.width > 0 else { return }
         
         self.organizeItems(interItemSpacing: interItemSpacing)
         self.context.isViewSizeCalculated = true
