@@ -41,6 +41,10 @@ extension KPIHeaderFioriStyle {
     }
 }
 
+/// Provides skeleton loading patterns for `KPIHeader` component.
+/// The static properties offer placeholder KPIHeader to display while content is loading,
+/// ensuring a consistent and visually appealing loading state across the UI.
 public enum KPIHeaderSkeletonLoading {
+    /// A placeholder KPIHeader with a single KPIProgressItem.
     public static let kpiProgress = KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.5)))
 }
