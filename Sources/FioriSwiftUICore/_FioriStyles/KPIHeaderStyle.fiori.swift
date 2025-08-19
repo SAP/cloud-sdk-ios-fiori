@@ -6,25 +6,27 @@ import SwiftUI
 // Base Layout style
 public struct KPIHeaderBaseStyle: KPIHeaderStyle {
     @Environment(\.headerSeparator) private var separatorConfiguration
-    
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
-        // Add default layout here
-        configuration.items
-            .ifApply(configuration.isPresented) { content in
-                VStack {
-                    content
-                    configuration.bannerMessage
+        SkeletonLoadingContainer {
+            configuration.items
+                .ifApply(configuration.isPresented) { content in
+                    VStack {
+                        content
+                        configuration.bannerMessage
+                    }
                 }
-            }
-            .ifApply(self.separatorConfiguration.showSeparator) { content in
-                VStack {
-                    content
-                    self.separatorConfiguration.color
-                        .frame(height: self.separatorConfiguration.lineWidth)
+                .ifApply(self.separatorConfiguration.showSeparator) { content in
+                    VStack {
+                        content
+                        self.separatorConfiguration.color
+                            .frame(height: self.isLoading ? 0 : self.separatorConfiguration.lineWidth)
+                    }
                 }
-            }
-            .interItemSpacing(configuration.interItemSpacing)
-            .isItemOrderForced(configuration.isItemOrderForced)
+                .interItemSpacing(configuration.interItemSpacing)
+                .isItemOrderForced(configuration.isItemOrderForced)
+        }
+        .environment(\.isLoading, self.isLoading)
     }
 }
 
@@ -37,4 +39,8 @@ extension KPIHeaderFioriStyle {
             // .background()
         }
     }
+}
+
+public enum KPIHeaderSkeletonLoading {
+    public static let kpiProgress = KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.5)))
 }
