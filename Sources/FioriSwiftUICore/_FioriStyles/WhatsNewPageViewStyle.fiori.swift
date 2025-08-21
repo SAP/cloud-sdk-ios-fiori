@@ -38,11 +38,13 @@ struct WhatsNewPageDidFinishEnvironmentKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// The index of the WhatsNewPageView's current page. When the value changes, the component will navigate to the page corresponding to the new value.
     var whatsNewPageIndex: Binding<Int?> {
         get { self[WhatsNewPageIndexEnvironmentKey.self] }
         set { self[WhatsNewPageIndexEnvironmentKey.self] = newValue }
     }
     
+    /// An action to take when the user has tapped on the Start button in the WhatsNewPageView.
     var whatsNewPageDidFinish: (() -> Void)? {
         get { self[WhatsNewPageDidFinishEnvironmentKey.self] }
         set { self[WhatsNewPageDidFinishEnvironmentKey.self] = newValue }
