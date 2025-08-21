@@ -15,23 +15,51 @@ struct WeekInfo: Hashable {
     }
 }
 
-public struct WeekView: View {
+public struct WeekView: View, Equatable {
+    let style: CalendarStyle
     let weekInfo: WeekInfo
     /// The start date of the calendar. Default is current year's first day.
     let startDate: Date
     /// The end date of the calendar. Default is next year's last day.
     let endDate: Date
     
+    let showOutOfMonth: Bool
+    
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showWeekNumber) var showWeekNumber
     @Environment(\.isEventIndicatorVisible) var isEventIndicatorVisible
     
-    @State var selectedDate: Date?
+    @Binding var selectedDate: Date?
+    @Binding var selectedDates: Set<Date>
     
-    init(weekInfo: WeekInfo, startDate: Date, endDate: Date) {
+    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>> = .constant([])) {
+        self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
         self.endDate = endDate
+        self.showOutOfMonth = showOutOfMonth
+        _selectedDate = selectedDate
+        _selectedDates = selectedDates
+    }
+    
+    /// Used for compare to avoid redundant view refresh
+    func selectedDatesInCurrentWeek() -> Set<Date> {
+        var dates: Set<Date> = []
+        if self.style == .datesSelection {
+            for date in self.selectedDates {
+                if self.weekInfo.dates.contains(date) {
+                    dates.insert(date)
+                }
+            }
+        } else if let selectedDate, weekInfo.dates.contains(selectedDate) {
+            dates.insert(selectedDate)
+        }
+        return dates
+    }
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        let result = lhs.selectedDatesInCurrentWeek() == rhs.selectedDatesInCurrentWeek()
+        return result
     }
     
     public var body: some View {
@@ -43,15 +71,31 @@ public struct WeekView: View {
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.6))
                 .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
             
-            ForEach(0 ..< self.weekInfo.dates.count, id: \.self) { index in
-                let date = self.weekInfo.dates[index]
+            ForEach(self.weekInfo.dates, id: \.self) { date in
                 let day = calendar.component(.day, from: date)
+                let state = self.dayState(date)
                 DayView(title: "\(day)",
-                        isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.dayState(date))
-                    .onTapGesture {
-                        self.selectedDate = date
-                    }
+                        isEventIndicatorVisible: self.isEventIndicatorVisible, state: state)
+                    .opacity((state == .outOfMonth && !self.showOutOfMonth) ? 0 : 1)
+                    .contentShape(Rectangle())
+                    .ifApply(!state.isDisabled, content: {
+                        $0.onTapGesture {
+                            self.handleTapGesture(date, state: state)
+                        }
+                    })
             }
+        }
+    }
+    
+    func handleTapGesture(_ date: Date, state: DayViewState) {
+        if self.style == .datesSelection {
+            if self.selectedDates.contains(date) {
+                self.selectedDates.remove(date)
+            } else {
+                self.selectedDates.insert(date)
+            }
+        } else {
+            self.selectedDate = state.isSelected ? nil : date
         }
     }
     
@@ -62,11 +106,17 @@ public struct WeekView: View {
         if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
             return .outOfMonth
         } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
-            if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+            if self.style == .datesSelection {
+                if self.selectedDates.contains(date) {
+                    return .singleSelectedAndToday
+                }
+            } else if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
                 return .singleSelectedAndToday
             }
             return .today
-        } else if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+        } else if self.style == .datesSelection, self.selectedDates.contains(date) {
+            return .singleSelected
+        } else if self.style != .datesSelection, let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
             return .singleSelected
         } else if date.compare(self.startDate) == .orderedAscending || date.compare(self.endDate) == .orderedDescending {
             return .disabled
@@ -109,6 +159,6 @@ public struct WeekView: View {
         calendar.date(byAdding: .day, value: 6, to: firstDayOfWeek)!
     ])
     
-    WeekView(weekInfo: weekInfo, startDate: Date(), endDate: Date())
+    WeekView(style: .fullScreenMonth, weekInfo: weekInfo, startDate: Date(), endDate: Date())
         .environment(\.showWeekNumber, true)
 }

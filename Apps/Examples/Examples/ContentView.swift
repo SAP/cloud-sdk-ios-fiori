@@ -6,6 +6,9 @@ struct ContentView: View {
     @State var showSettings = false
     @State var envLocale: Locale = .none
     
+    @State var selectedDate: Date?
+    @State var selectedDates: Set<Date> = []
+    
     var body: some View {
         NavigationView {
             List {
@@ -45,6 +48,39 @@ struct ContentView: View {
                             Spacer()
                         }
                     }
+                    NavigationLink("Calendar - month") {
+                        VStack {
+                            CalendarView(style: .month)
+                                .environment(\.isEventIndicatorVisible, true)
+                                .environment(\.showWeekNumber, true)
+                            
+                            Spacer()
+                        }
+                    }
+                    NavigationLink("Calendar - fullScreenMonth") {
+                        VStack {
+                            CalendarView(style: .fullScreenMonth, selectedDate: self.$selectedDate)
+                                .environment(\.isEventIndicatorVisible, true)
+                                .environment(\.showWeekNumber, true)
+                            Spacer()
+                        }
+                    }
+                    NavigationLink("Calendar - datesSelection") {
+                        VStack {
+                            CalendarView(style: .datesSelection, selectedDates: self.$selectedDates)
+                                .environment(\.isEventIndicatorVisible, true)
+                                .environment(\.showWeekNumber, true)
+                            Spacer()
+                        }
+                    }
+//                    NavigationLink("Calendar - rangeSelection") {
+//                        VStack {
+//                            CalendarView(style: .rangeSelection, selectedDate: $selectedDate)
+//                                .environment(\.isEventIndicatorVisible, true)
+//                                .environment(\.showWeekNumber, true)
+//                            Spacer()
+//                        }
+//                    }
                 }
             }
             .navigationBarTitle("Examples")

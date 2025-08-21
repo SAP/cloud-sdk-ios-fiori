@@ -69,6 +69,61 @@ enum DayViewState {
     case disabledInMultiSelection
     /// A disabled date can only appear in the middle of the selection
     case disabledAndTodayInMultiSelection
+    
+    var isSelected: Bool {
+        let conditions: [DayViewState] = [
+            .singleSelected,
+            .singleSelectedAndToday,
+            .multiSelectedStart,
+            .multiSelectedMiddle,
+            .multiSelectedEnd
+        ]
+        return conditions.contains(self)
+    }
+
+    var isDisabled: Bool {
+        let conditions: [DayViewState] = [
+            .outOfMonth,
+            .disabled,
+            .disabledAndToday,
+            .disabledInMultiSelection,
+            .disabledAndTodayInMultiSelection
+        ]
+        return conditions.contains(self)
+    }
+    
+    var isTitleBold: Bool {
+        let conditions: [DayViewState] = [
+            .today,
+            .singleSelected,
+            .singleSelectedAndToday,
+            .multiSelectedStart,
+            .multiSelectedMiddle,
+            .multiSelectedEnd,
+            .disabledAndToday,
+            .disabledAndTodayInMultiSelection
+        ]
+        return conditions.contains(self)
+    }
+
+    var isSingleSelected: Bool {
+        let conditions: [DayViewState] = [
+            .singleSelected,
+            .singleSelectedAndToday
+        ]
+        return conditions.contains(self)
+    }
+
+    var isMultiSelected: Bool {
+        let conditions: [DayViewState] = [
+            .multiSelectedStart,
+            .multiSelectedMiddle,
+            .multiSelectedEnd,
+            .disabledInMultiSelection,
+            .disabledAndTodayInMultiSelection
+        ]
+        return conditions.contains(self)
+    }
 }
 
 public struct DayView: View {
@@ -88,7 +143,7 @@ public struct DayView: View {
         ZStack(alignment: .top, content: {
             let height = (subtitle == nil ? 29 : 39) * self.scaleForSizeChange
             
-            if self.isSingleSelected {
+            if self.state.isSingleSelected {
                 let offset = self.state == .singleSelectedAndToday ? 4.0 : 0.0
                 
                 Circle()
@@ -101,7 +156,7 @@ public struct DayView: View {
                         }
                     }
                     .padding(.top, 5.5)
-            } else if self.isMultiSelected {
+            } else if self.state.isMultiSelected {
                 let topLeadingRadius = self.state == .multiSelectedStart ? height / 2.0 : 0
                 let topTrailingRadius = self.state == .multiSelectedEnd ? height / 2.0 : 0
                 
@@ -138,49 +193,16 @@ public struct DayView: View {
         })
     }
     
-    var isTitleBold: Bool {
-        let conditions: [DayViewState] = [
-            .today,
-            .singleSelected,
-            .singleSelectedAndToday,
-            .multiSelectedStart,
-            .multiSelectedMiddle,
-            .multiSelectedEnd,
-            .disabledAndToday,
-            .disabledAndTodayInMultiSelection
-        ]
-        return conditions.contains(self.state)
-    }
-
-    var isSingleSelected: Bool {
-        let conditions: [DayViewState] = [
-            .singleSelected,
-            .singleSelectedAndToday
-        ]
-        return conditions.contains(self.state)
-    }
-
-    var isMultiSelected: Bool {
-        let conditions: [DayViewState] = [
-            .multiSelectedStart,
-            .multiSelectedMiddle,
-            .multiSelectedEnd,
-            .disabledInMultiSelection,
-            .disabledAndTodayInMultiSelection
-        ]
-        return conditions.contains(self.state)
-    }
-    
     var titleTextStyle: Font.FioriTextStyle {
-        self.isTitleBold ? .body : .callout
+        self.state.isTitleBold ? .body : .callout
     }
     
     var titleFontSize: CGFloat {
-        (self.isTitleBold ? 17 : 16) * self.scaleForSizeChange
+        (self.state.isTitleBold ? 17 : 16) * self.scaleForSizeChange
     }
     
     var titleWeight: Font.FioriWeight {
-        self.isTitleBold ? .bold : .regular
+        self.state.isTitleBold ? .bold : .regular
     }
 
     var titleColorStyle: ColorStyle {
@@ -201,22 +223,17 @@ public struct DayView: View {
     }
 
     var titleHeight: CGFloat {
-        ((self.isTitleBold || (self.state == .disabledInMultiSelection)) ? 22 : 21) * self.scaleForSizeChange
+        22 * self.scaleForSizeChange
+//        ((state.isTitleBold || (self.state == .disabledInMultiSelection)) ? 22 : 21) * self.scaleForSizeChange
     }
 
     var titlePaddingTop: CGFloat {
-        (self.isTitleBold || (self.state == .disabledInMultiSelection)) ? 9 : 9.5
+        9
+//        (state.isTitleBold || (self.state == .disabledInMultiSelection)) ? 9 : 9.5
     }
 
     var eventForegroundColorStyle: ColorStyle {
-        let conditions: [DayViewState] = [
-            .outOfMonth,
-            .disabled,
-            .disabledAndToday,
-            .disabledInMultiSelection,
-            .disabledAndTodayInMultiSelection
-        ]
-        return conditions.contains(self.state) ? .quaternaryLabel : .tertiaryLabel
+        self.state.isDisabled ? .quaternaryLabel : .tertiaryLabel
     }
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
