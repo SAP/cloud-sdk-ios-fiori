@@ -12,12 +12,14 @@ public protocol WhatsNewPageList: View, _ViewEmptyChecking {
 }
 
 public extension WhatsNewPageList {
+    /// :nodoc:
     var body: some View {
         WhatsNewInnerView(pageList: self)
     }
 }
 
 public extension WhatsNewPageList {
+    /// :nodoc:
     var isEmpty: Bool {
         count == 0
     }
@@ -147,6 +149,7 @@ public struct WhatsNewPagePair<First: View, Second: WhatsNewPageList>: WhatsNewP
     }
 }
 
+/// Returns an instance of a view that is used internally by the WhatsNewPageView.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
 public enum WhatsNewPagesBuilder {
@@ -163,38 +166,47 @@ public enum WhatsNewPagesBuilder {
         SingleWhatsNewPage(view: content)
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: SingleWhatsNewPage(view: c1))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: SingleWhatsNewPage(view: c2)))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: SingleWhatsNewPage(view: c3))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: SingleWhatsNewPage(view: c4)))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: WhatsNewPagePair(first: c4, remainder: SingleWhatsNewPage(view: c5))))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: WhatsNewPagePair(first: c4, remainder: WhatsNewPagePair(first: c5, remainder: SingleWhatsNewPage(view: c6)))))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: WhatsNewPagePair(first: c4, remainder: WhatsNewPagePair(first: c5, remainder: WhatsNewPagePair(first: c6, remainder: SingleWhatsNewPage(view: c7))))))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View, _ c8: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: WhatsNewPagePair(first: c4, remainder: WhatsNewPagePair(first: c5, remainder: WhatsNewPagePair(first: c6, remainder: WhatsNewPagePair(first: c7, remainder: SingleWhatsNewPage(view: c8)))))))))
     }
     
+    /// :nodoc:
     public static func buildBlock(_ c0: some View, _ c1: some View, _ c2: some View, _ c3: some View, _ c4: some View, _ c5: some View, _ c6: some View, _ c7: some View, _ c8: some View, _ c9: some View) -> some WhatsNewPageList {
         WhatsNewPagePair(first: c0, remainder: WhatsNewPagePair(first: c1, remainder: WhatsNewPagePair(first: c2, remainder: WhatsNewPagePair(first: c3, remainder: WhatsNewPagePair(first: c4, remainder: WhatsNewPagePair(first: c5, remainder: WhatsNewPagePair(first: c6, remainder: WhatsNewPagePair(first: c7, remainder: WhatsNewPagePair(first: c8, remainder: SingleWhatsNewPage(view: c9))))))))))
     }
