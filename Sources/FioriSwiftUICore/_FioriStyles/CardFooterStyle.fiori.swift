@@ -74,9 +74,12 @@ private struct CardFooterLayout: Layout {
     func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         let isRegular: Bool
         switch self.cardFooterButtonWidthMode {
-        case .auto: isRegular = proposal.width ?? 1024 > 667
-        case .equal: isRegular = false
-        case .intrinsic: isRegular = true
+        case .auto:
+            isRegular = proposal.width ?? 1024 > 667
+        case .equal:
+            isRegular = false
+        case .intrinsic:
+            isRegular = true
         }
         
         let layoutMode = LayoutMode(mode: isRegular ? .intrinsic : .equal,
@@ -84,7 +87,7 @@ private struct CardFooterLayout: Layout {
         if !cache.frames.isEmpty, cache.fitSize.width == proposal.width, cache.layoutMode == layoutMode {
             return
         }
-
+        
         cache.clear()
         
         let subViewSizes = subviews.reversed().map {
