@@ -162,7 +162,8 @@ public struct DayView: View {
                 
                 UnevenRoundedRectangle(topLeadingRadius: topLeadingRadius, bottomLeadingRadius: topLeadingRadius, bottomTrailingRadius: topTrailingRadius, topTrailingRadius: topTrailingRadius)
                     .foregroundStyle(Color.preferredColor(self.selectedBackgroundColorStyle))
-                    .frame(width: .infinity, height: height)
+                    .frame(height: height)
+                    .frame(maxWidth: .infinity)
                     .padding(.top, 5.5)
             }
             

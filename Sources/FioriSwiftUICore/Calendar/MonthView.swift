@@ -14,11 +14,12 @@ struct MonthView: View, Equatable {
     let showOutOfMonth: Bool
     
     @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>
+    @Binding var selectedDates: Set<Date>?
+    @Binding var selectedRange: ClosedRange<Date>?
     
     @Environment(\.firstWeekday) var firstWeekday
     
-    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>> = .constant([])) {
+    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
         self.style = style
         self.year = year
         self.month = month
@@ -28,6 +29,7 @@ struct MonthView: View, Equatable {
         self.showOutOfMonth = showOutOfMonth
         _selectedDate = selectedDate
         _selectedDates = selectedDates
+        _selectedRange = selectedRange
     }
     
     /// Used for compare to avoid redundant view refresh
@@ -46,7 +48,16 @@ struct MonthView: View, Equatable {
         
         var dates: Set<Date> = []
         if self.style == .datesSelection {
-            for date in self.selectedDates {
+            if let selectedDates {
+                for date in selectedDates {
+                    if compareDateInCurrentMonth(date) {
+                        dates.insert(date)
+                    }
+                }
+            }
+        } else if self.style == .rangeSelection, let selectedRange {
+            let interval: TimeInterval = 24 * 60 * 60
+            for date in stride(from: selectedRange.lowerBound, through: selectedRange.upperBound, by: interval) {
                 if compareDateInCurrentMonth(date) {
                     dates.insert(date)
                 }
@@ -61,12 +72,12 @@ struct MonthView: View, Equatable {
         let lhsContains = lhs.selectedDatesInCurrentMonth()
         let rhsContains = rhs.selectedDatesInCurrentMonth()
         let result = lhsContains == rhsContains
-        print("compare result:\(result)")
+        
         return result
     }
     
     var body: some View {
-        let _ = print("\(year) \(month) refresh again")
+        let _ = Self._printChanges()
         
         VStack(spacing: 0, content: {
             if self.showMonthHeader {
@@ -78,7 +89,7 @@ struct MonthView: View, Equatable {
             }
             
             ForEach(self.weeks, id: \.self) { info in
-                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.$selectedDate, selectedDates: self.$selectedDates)
+                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.$selectedDate, selectedDates: self.$selectedDates, selectedRange: self.$selectedRange)
             }
         })
     }

@@ -7,7 +7,8 @@ struct ContentView: View {
     @State var envLocale: Locale = .none
     
     @State var selectedDate: Date?
-    @State var selectedDates: Set<Date> = []
+    @State var selectedDates: Set<Date>? = []
+    @State var selectedRange: ClosedRange<Date>? = nil
     
     var body: some View {
         NavigationView {
@@ -73,14 +74,14 @@ struct ContentView: View {
                             Spacer()
                         }
                     }
-//                    NavigationLink("Calendar - rangeSelection") {
-//                        VStack {
-//                            CalendarView(style: .rangeSelection, selectedDate: $selectedDate)
-//                                .environment(\.isEventIndicatorVisible, true)
-//                                .environment(\.showWeekNumber, true)
-//                            Spacer()
-//                        }
-//                    }
+                    NavigationLink("Calendar - rangeSelection") {
+                        VStack {
+                            CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange)
+                                .environment(\.isEventIndicatorVisible, true)
+                                .environment(\.showWeekNumber, true)
+                            Spacer()
+                        }
+                    }
                 }
             }
             .navigationBarTitle("Examples")
@@ -100,6 +101,19 @@ struct ContentView: View {
         }
         .ifApply(self.envLocale != .none) {
             $0.environment(\.locale, self.envLocale)
+        }
+        .onChange(of: self.selectedDate) {
+            print("selectedDate:\(self.selectedDate ?? .now)")
+        }
+        .onChange(of: self.selectedDates) {
+            print("selectedDates:\(self.selectedDates?.sorted() ?? [])")
+        }
+        .onChange(of: self.selectedRange) {
+            if let selectedRange {
+                print("selectedRange:\(selectedRange)")
+            } else {
+                print("No range selected")
+            }
         }
     }
 }

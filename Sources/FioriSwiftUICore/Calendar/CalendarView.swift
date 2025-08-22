@@ -5,17 +5,9 @@ public struct CalendarView: View {
     let style: CalendarStyle
     
     @State private var offset: CGFloat = 0
-    @State private var scrollPosition: Int? = 0 {
-        didSet {
-            print("scrollPosition change:\(self.scrollPosition ?? 0)")
-        }
-    }
+    @State private var scrollPosition: Int? = 0
 
-    @State private var weekViewScrollPosition: Int? = 0 {
-        didSet {
-            print("weekViewScrollPosition change:\(self.weekViewScrollPosition ?? 0)")
-        }
-    }
+    @State private var weekViewScrollPosition: Int? = 0
     
     @State private var weekContainerHeight: CGFloat = 0
     
@@ -33,7 +25,7 @@ public struct CalendarView: View {
     
     @State private var pageHeights: [CGFloat] = [0] {
         didSet {
-            if let scrollPosition, scrollPosition < self.pageHeights.count {
+            if let scrollPosition, scrollPosition < pageHeights.count {
                 self.currentMonthOriginHeight = self.pageHeights[scrollPosition]
             }
         }
@@ -48,10 +40,15 @@ public struct CalendarView: View {
     @State private var currentMonthOriginHeight: CGFloat = 0
     
     @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>
-//    @Binding var selectedRange: ClosedRange<Date>?
+    @Binding var selectedDates: Set<Date>?
+    @Binding var selectedRange: ClosedRange<Date>?
     
-    @State private var selectedDateRecord: Date? = .now
+    @State private var selectedDateRecord: Date? = nil
+    @State private var selectedDatesRecord: Set<Date>? = []
+    @State private var selectedRangeRecord: ClosedRange<Date>? = nil
+    
+    @State private var rangeSelectionStart: Date?
+    @State private var rangeSelectionEnd: Date?
     
     private let calendar = Calendar.autoupdatingCurrent
     
@@ -62,17 +59,28 @@ public struct CalendarView: View {
     }
 
     public var body: some View {
-        let _ = Self._printChanges()
-        
         GeometryReader { proxy in
             let availableWidth = proxy.size.width
             let paddingOffset: CGFloat = 8
             
+            /// Use local variable to prevent repeating refresh when selectedDate or selectedDates changes
             let dateSelection: Binding<Date?> = Binding {
                 self.selectedDateRecord
             } set: {
                 self.selectedDateRecord = $0
                 self.selectedDate = $0
+            }
+            let datesSelection: Binding<Set<Date>?> = Binding {
+                self.selectedDatesRecord
+            } set: {
+                self.selectedDatesRecord = $0
+                self.selectedDates = $0
+            }
+            let rangeSelection: Binding<ClosedRange<Date>?> = Binding {
+                self.selectedRangeRecord
+            } set: {
+                self.selectedRangeRecord = $0
+                self.selectedRange = $0
             }
             
             VStack(spacing: 0, content: {
@@ -113,7 +121,7 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true)
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, selectedDate: dateSelection)
                                             .frame(width: availableWidth - paddingOffset * 2)
                                             .background(
                                                 GeometryReader { proxy in
@@ -169,7 +177,7 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth(), selectedDate: dateSelection, selectedDates: self.$selectedDates)
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth(), selectedDate: dateSelection, selectedDates: datesSelection, selectedRange: rangeSelection)
                                             .sizeReader(size: {
                                                 self.pageHeights[index] = $0.height
                                                 if let scrollPosition, scrollPosition == index {
@@ -278,10 +286,11 @@ public struct CalendarView: View {
         }
     }
     
-    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>> = .constant([])) {
+    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
         self.style = style
         _selectedDate = selectedDate
         _selectedDates = selectedDates
+        _selectedRange = selectedRange
         
         let components: Set<Calendar.Component> = [.day, .month, .year]
         let formatter: DateFormatter = {

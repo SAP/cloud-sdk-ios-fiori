@@ -30,9 +30,10 @@ public struct WeekView: View, Equatable {
     @Environment(\.isEventIndicatorVisible) var isEventIndicatorVisible
     
     @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>
+    @Binding var selectedDates: Set<Date>?
+    @Binding var selectedRange: ClosedRange<Date>?
     
-    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>> = .constant([])) {
+    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
         self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
@@ -40,15 +41,18 @@ public struct WeekView: View, Equatable {
         self.showOutOfMonth = showOutOfMonth
         _selectedDate = selectedDate
         _selectedDates = selectedDates
+        _selectedRange = selectedRange
     }
     
     /// Used for compare to avoid redundant view refresh
     func selectedDatesInCurrentWeek() -> Set<Date> {
         var dates: Set<Date> = []
         if self.style == .datesSelection {
-            for date in self.selectedDates {
-                if self.weekInfo.dates.contains(date) {
-                    dates.insert(date)
+            if let selectedDates {
+                for date in selectedDates {
+                    if self.weekInfo.dates.contains(date) {
+                        dates.insert(date)
+                    }
                 }
             }
         } else if let selectedDate, weekInfo.dates.contains(selectedDate) {
@@ -89,12 +93,33 @@ public struct WeekView: View, Equatable {
     
     func handleTapGesture(_ date: Date, state: DayViewState) {
         if self.style == .datesSelection {
-            if self.selectedDates.contains(date) {
-                self.selectedDates.remove(date)
+            if let checkDates = selectedDates, checkDates.contains(date) {
+                self.selectedDates?.remove(date)
             } else {
-                self.selectedDates.insert(date)
+                self.selectedDates?.insert(date)
             }
         } else {
+            let calendar = Calendar.autoupdatingCurrent
+            if self.style == .rangeSelection {
+                if let checkRange = selectedRange {
+                    if calendar.compare(date, to: checkRange.upperBound, toGranularity: .day) != .orderedDescending,
+                       calendar.compare(date, to: checkRange.lowerBound, toGranularity: .day) != .orderedAscending
+                    {
+                        self.selectedRange = checkRange.lowerBound ... date
+                    } else {
+                        self.selectedRange = nil
+                    }
+                    self.selectedDate = nil
+                    return
+                } else if let boundDate = selectedDate {
+                    let bounds = [boundDate, date].sorted()
+                    if let first = bounds.first, let last = bounds.last {
+                        self.selectedRange = first ... last
+                    }
+                    self.selectedDate = nil
+                    return
+                }
+            }
             self.selectedDate = state.isSelected ? nil : date
         }
     }
@@ -105,18 +130,28 @@ public struct WeekView: View, Equatable {
         
         if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
             return .outOfMonth
+        } else if self.style == .rangeSelection, let selectedRange, selectedRange.contains(date) {
+            if selectedRange.lowerBound == selectedRange.upperBound {
+                return .singleSelected
+            } else if calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) == .orderedSame {
+                return .multiSelectedStart
+            } else if calendar.compare(date, to: selectedRange.upperBound, toGranularity: .day) == .orderedSame {
+                return .multiSelectedEnd
+            } else {
+                return .multiSelectedMiddle
+            }
         } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
             if self.style == .datesSelection {
-                if self.selectedDates.contains(date) {
+                if let selectedDates, selectedDates.contains(date) {
                     return .singleSelectedAndToday
                 }
-            } else if let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+            } else if let selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
                 return .singleSelectedAndToday
             }
             return .today
-        } else if self.style == .datesSelection, self.selectedDates.contains(date) {
+        } else if self.style == .datesSelection, let selectedDates, selectedDates.contains(date) {
             return .singleSelected
-        } else if self.style != .datesSelection, let selectedDate = self.selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+        } else if self.style != .datesSelection, let selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
             return .singleSelected
         } else if date.compare(self.startDate) == .orderedAscending || date.compare(self.endDate) == .orderedDescending {
             return .disabled
