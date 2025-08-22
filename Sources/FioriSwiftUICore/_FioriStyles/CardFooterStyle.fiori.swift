@@ -17,7 +17,7 @@ public extension EnvironmentValues {
 
 /// CardFooter button width mode
 public enum CardFooterButtonWidthMode: Int {
-    /// auto size based on carder footer's width. When it is regular size class, up to 3 buttons are shown with intrinsic width; when it is compact size class, up to 2 buttons are shown with equal width.
+    /// auto size based on card footer's width. When it is regular size class, up to 3 buttons are shown with intrinsic width; when it is compact size class, up to 2 buttons are shown with equal width.
     case auto
     
     /// equal size and fill up the whole width except the overflow button
