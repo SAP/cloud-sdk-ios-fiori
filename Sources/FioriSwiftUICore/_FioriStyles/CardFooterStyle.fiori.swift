@@ -103,7 +103,7 @@ private struct CardFooterLayout: Layout {
      case 3: total is 1 button, 1 button, only one of tertiary, secondary or primary exist
      
      In compact width, .equal, same size, up to 2 buttons
-     In reguar width, .intrinsic, up to 3 buttons
+     In regular width, .intrinsic, up to 3 buttons
      */
     func calculateLayout(proposalWidth: CGFloat?, subViewSizes: [CGSize], layoutMode: LayoutMode, cache: inout CacheData) {
         let subViewNoOflSizes: [CGSize]
