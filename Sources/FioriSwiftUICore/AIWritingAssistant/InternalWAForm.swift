@@ -30,9 +30,11 @@ struct InternalWAForm: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 self.topLeadingButton()
+                    .fixedSize()
             }
             ToolbarItem(placement: .topBarTrailing) {
                 self.topTrailingButton()
+                    .fixedSize()
             }
         }
         .navigationBarBackButtonHidden()
