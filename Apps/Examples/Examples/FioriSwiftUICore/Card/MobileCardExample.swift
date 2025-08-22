@@ -5,6 +5,8 @@ import SwiftUI
 
 struct MobileCardExample: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var isPresented: Bool = false
+    @State private var buttonWidthMode: Int = 0
     
     var body: some View {
         List {
@@ -15,6 +17,7 @@ struct MobileCardExample: View {
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
+                .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 .cardStyle(.card)
                 .listStyle(.plain)
                 .navigationBarTitle("Cards", displayMode: .inline)
@@ -31,6 +34,7 @@ struct MobileCardExample: View {
                                 .cardStyle(.intrinsicHeightCard)
                         }
                         .background(Color.preferredColor(.primaryGroupedBackground))
+                        .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                     }.padding()
                 }
                 .navigationBarTitle("Cards in VStack", displayMode: .inline)
@@ -44,6 +48,7 @@ struct MobileCardExample: View {
                         CardFooterTests.examples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 }
                 .listStyle(.plain)
                 .navigationBarTitle("Footers", displayMode: .inline)
@@ -53,6 +58,7 @@ struct MobileCardExample: View {
 
             NavigationLink {
                 MasonryTestView()
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                     .navigationBarTitle("Masonry", displayMode: .inline)
             } label: {
                 Text("Masonry")
@@ -61,6 +67,7 @@ struct MobileCardExample: View {
             NavigationLink {
                 CarouselTestView(self.horizontalSizeClass == .compact ? 1 : (UIDevice.current.localizedModel == "iPhone" ? 2 : 3))
                     .navigationBarTitle("Carousel", displayMode: .inline)
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
             } label: {
                 Text("Carousel")
             }
@@ -261,6 +268,22 @@ struct MobileCardExample: View {
             }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
+        .sheet(isPresented: self.$isPresented) {
+            Form {
+                Text("Card Footer Button Width Mode")
+                Picker("", selection: self.$buttonWidthMode) {
+                    Text("Auto").tag(0)
+                    Text("Equal").tag(1)
+                    Text("Intrinsic").tag(2)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .toolbar(content: {
+            FioriButton(title: "Options") { _ in
+                self.isPresented = true
+            }
+        })
     }
 }
 
