@@ -230,6 +230,41 @@ public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     }
 }
 
+/// A Fiori button style for the navigation bar action.
+public struct FioriNavigationButtonStyle: FioriButtonStyle {
+    private let colorStyle: FioriButtonColorStyle
+    
+    /// Create a `FioriNavigationButtonStyle` instance.
+    /// - Parameters:
+    ///   - colorStyle: The color style used for this button style.
+    ///   - maxWidth: Max width of the button visible area.
+    ///   - minHeight: Min height of the button visible area.
+    ///   - loadingState: Loading state of the button.
+    public init(colorStyle: FioriButtonColorStyle = .tint) {
+        self.colorStyle = colorStyle
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        let foregroundColor: Color
+        switch configuration.state {
+        case .normal:
+            foregroundColor = .preferredColor(.tintColor)
+        case .highlighted, .selected:
+            foregroundColor = .preferredColor(.tintColorTapState)
+        case .disabled:
+            foregroundColor = .preferredColor(.quaternaryLabel)
+        default:
+            foregroundColor = .preferredColor(.separator)
+        }
+        let config = FioriButtonConfiguration(foregroundColor: foregroundColor,
+                                              backgroundColor: Color.clear,
+                                              font: .fiori(forTextStyle: .body, weight: .semibold),
+                                              padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        return configuration.containerView(.unspecified)
+            .fioriButtonConfiguration(config)
+    }
+}
+
 /// The color style of a Fiori button.
 public enum FioriButtonColorStyle {
     case normal
