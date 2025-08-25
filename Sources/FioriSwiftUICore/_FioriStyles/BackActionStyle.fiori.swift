@@ -16,6 +16,6 @@ public struct BackActionFioriStyle: BackActionStyle {
     @ViewBuilder
     public func makeBody(_ configuration: BackActionConfiguration) -> some View {
         BackAction(configuration)
-            .fioriButtonStyle(NavigationBarActionStyle())
+            .fioriButtonStyle(FioriNavigationButtonStyle())
     }
 }
