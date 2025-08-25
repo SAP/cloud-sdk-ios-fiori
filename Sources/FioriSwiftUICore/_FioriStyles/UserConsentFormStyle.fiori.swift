@@ -20,8 +20,17 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     @ViewBuilder
     func makeContent(_ configuration: UserConsentFormConfiguration) -> some View {
         configuration.userConsentPages.view(at: self.pageIndex).typeErased
-            .navigationBarItems(leading: self.navBarLeadingView(configuration), trailing: self.navBarTrailingView(configuration))
-            .navigationBarTitle(self.navTitle(configuration))
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    self.navBarLeadingView(configuration)
+                        .fixedSize()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    self.navBarTrailingView(configuration)
+                        .fixedSize()
+                }
+            }
+            .navigationTitle(self.navTitle(configuration))
             .alert(configuration: self.alertConfiguration(configuration), isPresented: self.$showAlert.0)
     }
     
@@ -169,7 +178,7 @@ extension UserConsentFormFioriStyle {
         
         func makeBody(_ configuration: NextActionConfiguration) -> some View {
             NextAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
@@ -178,7 +187,7 @@ extension UserConsentFormFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
