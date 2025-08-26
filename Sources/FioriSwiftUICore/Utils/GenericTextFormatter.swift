@@ -569,9 +569,10 @@
                 let currentChar = self[index]
             
                 if currentChar == "\\" {
-                    let nextIndex = self.index(index, offsetBy: 1, limitedBy: endIndex)
-                    if nextIndex != endIndex {
-                        index = nextIndex!
+                    if let nextIndex = self.index(index, offsetBy: 1, limitedBy: endIndex),
+                       nextIndex != endIndex
+                    {
+                        index = nextIndex
                         continue
                     }
                 }
