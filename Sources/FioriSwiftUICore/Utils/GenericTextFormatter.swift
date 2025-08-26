@@ -142,10 +142,16 @@
             }
         }
     
+        /// Minimum allowed year value (default: 1900)
         public var yearMinium: Int = 1900
+        /// Maximum allowed year value (default: 2099)
         public var yearMaximum: Int = 2099
+        /// Format validation error state
         public var formatError: FormatError = .none
+        /// Whether to enable strict date format validation (default: false)
+        /// - Note: When enabled, invalid date formats will trigger fatalError
         public var isDateFormatValidationStrict: Bool = false
+        /// Flag indicating whether content has been formatted
         public var formatted: Bool = false
     
         private var ignoredCharacters: Set<Character> = []
