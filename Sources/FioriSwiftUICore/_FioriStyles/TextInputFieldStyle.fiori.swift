@@ -30,9 +30,15 @@ public struct TextInputFieldBaseStyle: TextInputFieldStyle {
 /// Default fiori styles
 extension TextInputFieldFioriStyle {
     struct ContentFioriStyle: TextInputFieldStyle {
+        @ViewBuilder
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
-            TextInputField(configuration)
-                .frame(minHeight: 44)
+            if configuration.formatter != nil {
+                TextInputFieldGenericTextStyle().makeBody(configuration)
+                    .frame(minHeight: 44)
+            } else {
+                TextInputField(configuration)
+                    .frame(minHeight: 44)
+            }
         }
     }
 }
@@ -86,6 +92,79 @@ public struct TextInputFieldNumberStyle: TextInputFieldStyle {
     }
 }
 
+public struct TextInputFieldGenericTextStyle: TextInputFieldStyle {
+    public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+        TextInputField(configuration)
+            .frame(minHeight: 44)
+            .keyboardType(.default)
+            .setOnChange(of: configuration.text, action1: { newValue in
+                self.updateText(value: newValue, configuration: configuration)
+            }) { oldValue, newValue in
+                guard let formatter = configuration.formatter else {
+                    return
+                }
+                let deleteCharacter = oldValue.count > newValue.count
+
+                if abs(oldValue.count - newValue.count) > 1 {
+                    // Handle cases of multiple fixed characters insertion after formatting
+                    // or copy-paste/direct assignment
+                    // or high-speed/rapid input
+                    if formatter.formatted {
+                        formatter.formatted = false
+                        return
+                    }
+                    self.formatString(for: newValue, cursorPosition: oldValue.count, configuration: configuration)
+                    formatter.formatted = false
+                    return
+                }
+                if deleteCharacter, newValue.isEmpty {
+                    let _ = formatter.editingString(for: "")
+                }
+                let processValue = deleteCharacter ? oldValue : newValue
+                self.updateText(value: processValue, configuration: configuration, deleteCharacter: deleteCharacter)
+            }
+    }
+    
+    private func updateText(value: String, configuration: TextInputFieldConfiguration, deleteCharacter: Bool = false) {
+        guard let formatter = configuration.formatter else {
+            return
+        }
+        var isValid = true
+        if formatter.formatted {
+            formatter.formatted = false
+            return
+        }
+        if deleteCharacter {
+            isValid = formatter.isPartialStringValid("")
+        } else if let char = value.last {
+            isValid = formatter.isPartialStringValid(String(char), position: value.count - 1)
+            if !isValid {
+                formatter.formatted = true
+                configuration.text = String(value.dropLast())
+            }
+        }
+        if isValid {
+            self.formatString(for: value, cursorPosition: value.count, configuration: configuration)
+        }
+    }
+    
+    private func formatString(for value: String, cursorPosition: Int, configuration: TextInputFieldConfiguration) {
+        guard let formatter = configuration.formatter else {
+            return
+        }
+        if let tuple = formatter.string(for: value, cursorPosition: cursorPosition) {
+            if let formattedString = tuple.formattedString {
+                if formattedString != configuration.text {
+                    formatter.formatted = true
+                } else {
+                    formatter.formatted = false
+                }
+                configuration.text = formattedString
+            }
+        }
+    }
+}
+
 /// Decimal style
 public extension TextInputFieldStyle where Self == TextInputFieldDecimalStyle {
     /// The `decimal` style is applied for the case that the `TextInputField` allows only decimal input. It will filter out any non-digit characters.
@@ -99,5 +178,13 @@ public extension TextInputFieldStyle where Self == TextInputFieldNumberStyle {
     /// The `number` style is applied for the case that the `TextInputField` allows only integer numeric input. It will filter out any non-digit characters and removes any decimal points.
     static var number: TextInputFieldNumberStyle {
         TextInputFieldNumberStyle()
+    }
+}
+
+/// Generic text style
+public extension TextInputFieldStyle where Self == TextInputFieldGenericTextStyle {
+    /// The `generic text` style is applied for the case that the `TextInputField` allows generic text input. It will filter out any non-regular characters.
+    static var genericText: TextInputFieldGenericTextStyle {
+        TextInputFieldGenericTextStyle()
     }
 }

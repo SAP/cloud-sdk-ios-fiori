@@ -6,6 +6,7 @@ import SwiftUI
 public struct TextInputField {
     @Binding var text: String
     var isSecureEnabled: Bool?
+    var formatter: GenericTextFormatter?
 
     @Environment(\.textInputFieldStyle) var style
 
@@ -15,10 +16,12 @@ public struct TextInputField {
 
     public init(text: Binding<String>,
                 isSecureEnabled: Bool? = false,
+                formatter: GenericTextFormatter? = nil,
                 componentIdentifier: String? = TextInputField.identifier)
     {
         self._text = text
         self.isSecureEnabled = isSecureEnabled
+        self.formatter = formatter
         self.componentIdentifier = componentIdentifier ?? TextInputField.identifier
     }
 }
@@ -35,6 +38,7 @@ public extension TextInputField {
     internal init(_ configuration: TextInputFieldConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self.isSecureEnabled = configuration.isSecureEnabled
+        self.formatter = configuration.formatter
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -45,7 +49,7 @@ extension TextInputField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter)).typeErased
                 .transformEnvironment(\.textInputFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -63,7 +67,7 @@ private extension TextInputField {
     }
 
     func defaultStyle() -> some View {
-        TextInputField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled))
+        TextInputField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter))
             .shouldApplyDefaultStyle(false)
             .textInputFieldStyle(TextInputFieldFioriStyle.ContentFioriStyle())
             .typeErased

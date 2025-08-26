@@ -7,6 +7,7 @@ public struct TextFieldFormView {
     let title: any View
     @Binding var text: String
     var isSecureEnabled: Bool?
+    var formatter: GenericTextFormatter?
     let placeholder: any View
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
@@ -42,6 +43,7 @@ public struct TextFieldFormView {
     public init(@ViewBuilder title: () -> any View,
                 text: Binding<String>,
                 isSecureEnabled: Bool? = false,
+                formatter: GenericTextFormatter? = nil,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
@@ -60,6 +62,7 @@ public struct TextFieldFormView {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self._text = text
         self.isSecureEnabled = isSecureEnabled
+        self.formatter = formatter
         self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
@@ -85,6 +88,7 @@ public extension TextFieldFormView {
     init(title: AttributedString,
          text: Binding<String>,
          isSecureEnabled: Bool? = false,
+         formatter: GenericTextFormatter? = nil,
          placeholder: AttributedString? = nil,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,
@@ -103,7 +107,7 @@ public extension TextFieldFormView {
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
+        }, text: text, isSecureEnabled: isSecureEnabled, formatter: formatter, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, actionIcon: actionIcon, action: action, actionIconAccessibilityLabel: actionIconAccessibilityLabel)
     }
 }
 
@@ -116,6 +120,7 @@ public extension TextFieldFormView {
         self.title = configuration.title
         self._text = configuration.$text
         self.isSecureEnabled = configuration.isSecureEnabled
+        self.formatter = configuration.formatter
         self.placeholder = configuration.placeholder
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
@@ -139,7 +144,7 @@ extension TextFieldFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel)).typeErased
                 .transformEnvironment(\.textFieldFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -157,7 +162,7 @@ private extension TextFieldFormView {
     }
 
     func defaultStyle() -> some View {
-        TextFieldFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel))
+        TextFieldFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, actionIcon: self.actionIcon, action: self.action, actionIconAccessibilityLabel: self.actionIconAccessibilityLabel))
             .shouldApplyDefaultStyle(false)
             .textFieldFormViewStyle(TextFieldFormViewFioriStyle.ContentFioriStyle())
             .typeErased

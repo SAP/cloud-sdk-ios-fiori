@@ -45,7 +45,7 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     
     func getTextInput(_ configuration: TextFieldFormViewConfiguration) -> some View {
         if self.isLoading, !self.isAILoading {
-            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
+            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, formatter: configuration.formatter, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
                 .typeErased
         } else {
             return configuration._titleFormView.typeErased
@@ -96,7 +96,7 @@ extension TextFieldFormViewFioriStyle {
                                     configuration.text = newValue
                                 }
                             }
-                        ), isSecureEnabled: config.isSecureEnabled, placeholder: { config.placeholder.body })
+                        ), isSecureEnabled: config.isSecureEnabled, formatter: configuration.formatter, placeholder: { config.placeholder.body })
                             .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
