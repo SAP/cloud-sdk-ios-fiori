@@ -17,9 +17,17 @@ struct SegmentedControlExample: View {
             
             return SegmentedControlPicker(configuration)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 9)
+                    self.borderShape
                         .stroke(Color.blue, lineWidth: 3)
                 )
+        }
+        
+        var borderShape: some Shape {
+            if #available(iOS 26.0, *) {
+                return Capsule()
+            } else {
+                return RoundedRectangle(cornerRadius: 9)
+            }
         }
     }
     
