@@ -949,6 +949,7 @@ struct StepperMenuItem: View {
                             }
                         }
                     )
+                    .padding(.horizontal)
                     .ifApply(!self.item.decrementActionActive) { v in
                         v.decrementActionStyle(.deactivate)
                     }

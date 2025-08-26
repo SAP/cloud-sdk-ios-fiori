@@ -27,9 +27,6 @@ struct SearchFontAndColor: View {
         .navigationBarTitleDisplayMode(.inline)
         .foregroundColor(.preferredColor(.red5))
         .font(.fiori(forTextStyle: .title3))
-        .onAppear {
-            UISearchTextField.appearance().backgroundColor = UIColor(Color.preferredColor(.blue1))
-        }
     }
 }
 
