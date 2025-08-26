@@ -19,7 +19,7 @@
      DD: Represents 2 digit day
      Use back space to specify a location for the special characters
      */
-    open class GenericTextFormatter: AnyObject {
+    open class GenericTextFormatter {
         struct FormatCharacter {
             var character: Unicode.Scalar
             var isFixedPlaceholder: Bool
@@ -500,11 +500,9 @@
 
         /// :nodoc:
         open func editingString(for obj: Any) -> String? {
-            guard obj is String else {
+            guard let text = obj as? String else {
                 return nil
             }
-
-            let text = obj as! String
             let finalString = text.filter { !self.ignoredCharacters.contains($0) }
             if finalString.isEmpty {
                 self.formattedCharacters = [FormatCharacter]()
@@ -547,7 +545,7 @@
                     continue
                 }
             
-                let scalar = char.unicodeScalars.first!
+                guard let scalar = char.unicodeScalars.first else { continue }
                 if !self.validCharacters.contains(scalar) {
                     invalidChars.insert(char)
                 }

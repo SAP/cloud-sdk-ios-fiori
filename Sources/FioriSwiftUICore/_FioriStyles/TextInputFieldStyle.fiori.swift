@@ -118,7 +118,7 @@ public struct TextInputFieldGenericTextStyle: TextInputFieldStyle {
                     return
                 }
                 if deleteCharacter, newValue.isEmpty {
-                    let _ = formatter.editingString(for: "")
+                    _ = formatter.editingString(for: "")
                 }
                 let processValue = deleteCharacter ? oldValue : newValue
                 self.updateText(value: processValue, configuration: configuration, deleteCharacter: deleteCharacter)
