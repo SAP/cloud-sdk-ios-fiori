@@ -6,10 +6,6 @@ struct ContentView: View {
     @State var showSettings = false
     @State var envLocale: Locale = .none
     
-    @State var selectedDate: Date?
-    @State var selectedDates: Set<Date>? = []
-    @State var selectedRange: ClosedRange<Date>? = nil
-    
     var body: some View {
         NavigationView {
             List {
@@ -31,56 +27,10 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    NavigationLink("Calendar - week") {
-                        VStack {
-                            CalendarView(style: .week)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            
-                            Spacer()
-                        }
-                    }
-                    NavigationLink("Calendar - expandable") {
-                        VStack {
-                            CalendarView(style: .expandable)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            
-                            Spacer()
-                        }
-                    }
-                    NavigationLink("Calendar - month") {
-                        VStack {
-                            CalendarView(style: .month)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            
-                            Spacer()
-                        }
-                    }
-                    NavigationLink("Calendar - fullScreenMonth") {
-                        VStack {
-                            CalendarView(style: .fullScreenMonth, selectedDate: self.$selectedDate)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            Spacer()
-                        }
-                    }
-                    NavigationLink("Calendar - datesSelection") {
-                        VStack {
-                            CalendarView(style: .datesSelection, selectedDates: self.$selectedDates)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            Spacer()
-                        }
-                    }
-                    NavigationLink("Calendar - rangeSelection") {
-                        VStack {
-                            CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange)
-                                .environment(\.isEventIndicatorVisible, true)
-                                .environment(\.showWeekNumber, true)
-                            Spacer()
-                        }
+                    NavigationLink {
+                        CalendarExamples()
+                    } label: {
+                        Text("Calendar")
                     }
                 }
             }
@@ -101,19 +51,6 @@ struct ContentView: View {
         }
         .ifApply(self.envLocale != .none) {
             $0.environment(\.locale, self.envLocale)
-        }
-        .onChange(of: self.selectedDate) {
-            print("selectedDate:\(self.selectedDate ?? .now)")
-        }
-        .onChange(of: self.selectedDates) {
-            print("selectedDates:\(self.selectedDates?.sorted() ?? [])")
-        }
-        .onChange(of: self.selectedRange) {
-            if let selectedRange {
-                print("selectedRange:\(selectedRange)")
-            } else {
-                print("No range selected")
-            }
         }
     }
 }

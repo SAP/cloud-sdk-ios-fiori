@@ -36,3 +36,59 @@ public enum CalendarStyle {
      */
     case datesSelection
 }
+
+/**
+ The types of secondary calendar to be displayed in `CalendarView`.
+ */
+public enum AlternateCalendarType: CaseIterable {
+    /// No alternate calendar.
+    case none
+
+    /// Chinese alternate calendar.
+    case chinese
+
+    /// Hebrew alternate calendar.
+    case hebrew
+
+    /// Islamic alternate calendar.
+    case islamic
+}
+
+extension WeekView {
+    func getSecondaryDayTitle(_ date: Date) -> String? {
+        switch alternateCalendarType {
+        case .chinese:
+            return self.getAlternateDayTitle(date, identifier: .chinese, defaultLocale: Locale(identifier: "zh-Hans"))
+        case .hebrew:
+            return self.getAlternateDayTitle(date, identifier: .hebrew, defaultLocale: Locale(identifier: "he"))
+        case .islamic:
+            return self.getAlternateDayTitle(date, identifier: .islamic, defaultLocale: Locale(identifier: "ar"))
+        default:
+            return nil
+        }
+    }
+
+    func getAlternateDayTitle(_ date: Date, identifier: Calendar.Identifier, defaultLocale: Locale) -> String {
+        let calendar = Calendar(identifier: identifier)
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = calendar
+        dateFormatter.dateStyle = .short
+        dateFormatter.locale = alternateCalendarLocale ?? defaultLocale
+        let day = calendar.component(.day, from: date)
+        if day == 1 {
+            dateFormatter.dateFormat = "MMMM"
+            return dateFormatter.string(from: date).trim(8)
+        }
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: date).trim(8)
+    }
+}
+
+extension String {
+    func trim(_ maxCount: Int) -> String {
+        guard self.count > maxCount else {
+            return self
+        }
+        return self.prefix(maxCount - 1) + "."
+    }
+}

@@ -28,6 +28,9 @@ public struct WeekView: View, Equatable {
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showWeekNumber) var showWeekNumber
     @Environment(\.isEventIndicatorVisible) var isEventIndicatorVisible
+    @Environment(\.alternateCalendarType) var alternateCalendarType
+    @Environment(\.alternateCalendarLocale) var alternateCalendarLocale
+    @Environment(\.weekNumberTintColor) var weekNumberTintColor
     
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
@@ -71,14 +74,14 @@ public struct WeekView: View, Equatable {
         
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
             Text("\(self.weekInfo.weekNumber)")
-                .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
-                .foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.6))
+                .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
+                .foregroundStyle(self.weekNumberTintColor ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
                 .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
             
             ForEach(self.weekInfo.dates, id: \.self) { date in
                 let day = calendar.component(.day, from: date)
                 let state = self.dayState(date)
-                DayView(title: "\(day)",
+                DayView(title: "\(day)", subtitle: getSecondaryDayTitle(date),
                         isEventIndicatorVisible: self.isEventIndicatorVisible, state: state)
                     .opacity((state == .outOfMonth && !self.showOutOfMonth) ? 0 : 1)
                     .contentShape(Rectangle())
@@ -143,9 +146,12 @@ public struct WeekView: View, Equatable {
         } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
             if self.style == .datesSelection {
                 if let selectedDates, selectedDates.contains(date) {
-                    return .singleSelectedAndToday
+                    return .singleSelected
                 }
             } else if let selectedDate, calendar.compare(date, to: selectedDate, toGranularity: .day) == .orderedSame {
+                if self.style == .rangeSelection {
+                    return .singleSelected
+                }
                 return .singleSelectedAndToday
             }
             return .today
