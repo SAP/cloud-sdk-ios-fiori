@@ -39,6 +39,7 @@ public struct EULAViewBaseStyle: EULAViewStyle {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 self.navBarLeadingView(configuration)
+                    .fixedSize()
             }
         }
     }
@@ -104,7 +105,7 @@ extension EULAViewFioriStyle {
 
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
 }
