@@ -18,7 +18,6 @@ struct SearchIconAndPlaceholder: View {
         .searchable(text: self.$queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            UISearchTextField.appearance().backgroundColor = UIColor(Color.preferredColor(.quaternaryFill))
             UISearchTextField.appearance().attributedPlaceholder = NSAttributedString(string: "Color name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(Color.preferredColor(.tertiaryLabel))])
             
             let searchImage = UIImage(systemName: "magnifyingglass")?
@@ -34,7 +33,6 @@ struct SearchIconAndPlaceholder: View {
             UISearchBar.appearance().setImage(bookmarkImage, for: .bookmark, state: .normal)
         }
         .onDisappear {
-            UISearchTextField.appearance().backgroundColor = nil
             UISearchTextField.appearance().attributedPlaceholder = nil
             UISearchBar.appearance().setImage(nil, for: .search, state: .normal)
             UISearchBar.appearance().showsBookmarkButton = false // bookmark hidden

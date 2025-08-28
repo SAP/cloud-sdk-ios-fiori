@@ -16,6 +16,7 @@ public struct SwitchBaseStyle: SwitchStyle {
     public func makeBody(_ configuration: SwitchConfiguration) -> some View {
         // Add default layout here
         Toggle(isOn: configuration.$isOn, label: {})
+            .labelsHidden()
     }
 }
 
