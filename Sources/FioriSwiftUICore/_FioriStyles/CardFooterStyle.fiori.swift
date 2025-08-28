@@ -2,31 +2,48 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-private struct CardFooterLayout: Layout {
-    enum ButtonWidthMode {
-        /// same and fill its width to use available container width
-        case sameAndFill
-        
-        /// intrinsic size's width
-        case intrinsic
+struct CardFooterButtonWidthModeKey: EnvironmentKey {
+    /// Default value is `.auto`
+    public static let defaultValue: CardFooterButtonWidthMode = .auto
+}
+
+public extension EnvironmentValues {
+    /// Sets the button width mode for `CardFooter`.
+    var cardFooterButtonWidthMode: CardFooterButtonWidthMode {
+        get { self[CardFooterButtonWidthModeKey.self] }
+        set { self[CardFooterButtonWidthModeKey.self] = newValue }
     }
+}
+
+/// CardFooter button width mode
+public enum CardFooterButtonWidthMode: Int {
+    /// auto size based on card footer's width. When it is regular size class, up to 3 buttons are shown with intrinsic width; when it is compact size class, up to 2 buttons are shown with equal width.
+    case auto
     
-    struct LayoutMode {
-        let mode: ButtonWidthMode
+    /// equal size and fill up the whole width except the overflow button
+    case equal
+    
+    /// intrinsic size's width
+    case intrinsic
+}
+
+private struct CardFooterLayout: Layout {
+    struct LayoutMode: Equatable {
+        let mode: CardFooterButtonWidthMode
         let num: Int
     }
     
     struct CacheData {
         var fitSize: CGSize
+        var layoutMode: LayoutMode?
         var frames: [CGRect]
         
         mutating func clear() {
             self.fitSize = .zero
+            self.layoutMode = nil
             self.frames = []
         }
     }
-    
-    @Binding var numButtonsDisplayInOverflow: Int
     
     /// The distance between adjacent subviews.
     var spacing: CGFloat? = 8
@@ -34,13 +51,12 @@ private struct CardFooterLayout: Layout {
     /// Maximum width for each element in the container
     var maxButtonWidth: CGFloat
     
-    var horizontalSizeClass: UserInterfaceSizeClass? = .compact
+    let cardFooterButtonWidthMode: CardFooterButtonWidthMode
     
-    init(numButtonsDisplayInOverflow: Binding<Int>, spacing: CGFloat? = nil, maxButtonWidth: CGFloat? = nil, horizontalSizeClass: UserInterfaceSizeClass? = nil) {
-        self._numButtonsDisplayInOverflow = numButtonsDisplayInOverflow
+    init(spacing: CGFloat? = nil, maxButtonWidth: CGFloat? = nil, cardFooterButtonWidthMode: CardFooterButtonWidthMode = .auto) {
         self.spacing = spacing
         self.maxButtonWidth = max(100, maxButtonWidth ?? CGFloat.greatestFiniteMagnitude)
-        self.horizontalSizeClass = horizontalSizeClass
+        self.cardFooterButtonWidthMode = cardFooterButtonWidthMode
     }
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
@@ -52,30 +68,56 @@ private struct CardFooterLayout: Layout {
     
     /// Creates and initializes a cache for a layout instance.
     func makeCache(subviews: Subviews) -> CacheData {
-        CacheData(fitSize: .zero, frames: [])
+        CacheData(fitSize: .zero, layoutMode: nil, frames: [])
     }
     
     func calculateLayout(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
-        let subViewSizes = subviews.reversed().map {
-            $0.sizeThatFits(.unspecified)
+        let isRegular: Bool
+        switch self.cardFooterButtonWidthMode {
+        case .auto:
+            isRegular = proposal.width ?? 1024 > 667
+        case .equal:
+            isRegular = false
+        case .intrinsic:
+            isRegular = true
+        }
+        
+        let layoutMode = LayoutMode(mode: isRegular ? .intrinsic : .equal,
+                                    num: isRegular ? 3 : 2)
+        if !cache.frames.isEmpty, cache.fitSize.width == proposal.width, cache.layoutMode == layoutMode {
+            return
         }
         
         cache.clear()
         
-        let isRegular = self.horizontalSizeClass == .regular && (proposal.width ?? 500 > 667)
-        let layoutMode = LayoutMode(mode: isRegular ? .intrinsic : .sameAndFill,
-                                    num: isRegular ? 3 : 2)
+        let subViewSizes = subviews.reversed().map {
+            $0.sizeThatFits(.unspecified)
+        }
         
-        let hideRect = CGRect(x: -2000, y: 0, width: 0, height: 0)
-        self.calculateLayout(proposalWidth: proposal.width, subViewSizes: subViewSizes, hideRect: hideRect, layoutMode: layoutMode, cache: &cache)
+        self.calculateLayout(proposalWidth: proposal.width, subViewSizes: subViewSizes, layoutMode: layoutMode, cache: &cache)
     }
 
-    /// .compact, .sameAndFill, same size, up to 2 buttons
-    /// .reguar, .intrinsic, up to 3 buttons
-    func calculateLayout(proposalWidth: CGFloat?, subViewSizes: [CGSize], hideRect: CGRect, layoutMode: LayoutMode, cache: inout CacheData) {
-        let subViewNoOflSizes = subViewSizes.dropLast()
+    /**
+     case 1: totol is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
+     case 2: total is 3 buttons, 2 buttons (only two of tertiary, secondary and primary exist), overflow menu with 1 button
+     case 3: total is 1 button, 1 button, only one of tertiary, secondary or primary exist
+     
+     In compact width, .equal, same size, up to 2 buttons
+     In regular width, .intrinsic, up to 3 buttons
+     */
+    func calculateLayout(proposalWidth: CGFloat?, subViewSizes: [CGSize], layoutMode: LayoutMode, cache: inout CacheData) {
+        let subViewNoOflSizes: [CGSize]
+        switch subViewSizes.count {
+        case 5:
+            subViewNoOflSizes = Array(subViewSizes.dropLast(2))
+        case 3:
+            subViewNoOflSizes = Array(subViewSizes.dropLast(1))
+        default:
+            subViewNoOflSizes = subViewSizes
+        }
+        
         let numButtons = subViewNoOflSizes.count
-        let overflowSize = subViewSizes[numButtons]
+        let overflowSize = subViewNoOflSizes.count < subViewSizes.count ? subViewSizes[numButtons] : CGSize.zero
         let theSpacing: CGFloat = self.spacing ?? 0
         var maxHeight: CGFloat = 0
         var requiredFinalWidth: CGFloat = 0
@@ -87,7 +129,7 @@ private struct CardFooterLayout: Layout {
         
         /// calculate numToShow, buttonWidth, requiredFinalWidth
         if finalWidth == 0 {
-            if layoutMode.mode == .sameAndFill {
+            if layoutMode.mode == .equal {
                 let tmpButtonWidth: CGFloat = subViewNoOflSizes.suffix(numToShow).reduce(0) { partialResult, size in
                     min(self.maxButtonWidth, max(partialResult, size.width))
                 }
@@ -112,7 +154,7 @@ private struct CardFooterLayout: Layout {
         } else { // there is a proposalWidth
             var tmpButtonWidth: CGFloat = 0
             for i in 0 ..< idealNumToShow {
-                if layoutMode.mode == .sameAndFill {
+                if layoutMode.mode == .equal {
                     tmpButtonWidth = min(self.maxButtonWidth, max(tmpButtonWidth, subViewNoOflSizes[i].width))
                     requiredFinalWidth = tmpButtonWidth * CGFloat(i + 1) + theSpacing * CGFloat(i)
                 } else {
@@ -126,15 +168,18 @@ private struct CardFooterLayout: Layout {
                     if numToShow > 1 {
                         numToShow -= 1
                     }
-                    if layoutMode.mode == .sameAndFill {
-                        let availableWidth = finalWidth - theSpacing * CGFloat(numToShow) - overflowSize.width
+                    if layoutMode.mode == .equal {
+                        var availableWidth = finalWidth - theSpacing * CGFloat(max(0, numToShow - 1))
+                        if numButtons > 1 {
+                            availableWidth -= theSpacing + overflowSize.width
+                        }
                         buttonWidth = min(self.maxButtonWidth, availableWidth / CGFloat(numToShow))
                     }
                     break
                 }
             }
             
-            if buttonWidth == nil, layoutMode.mode == .sameAndFill {
+            if buttonWidth == nil, layoutMode.mode == .equal {
                 var availableWidth = finalWidth - theSpacing * CGFloat(numToShow - 1)
                 if numToShow < numButtons {
                     availableWidth -= min(self.maxButtonWidth, overflowSize.width) + theSpacing
@@ -151,43 +196,41 @@ private struct CardFooterLayout: Layout {
         /// set up frames for each subview
         
         let y = maxHeight / 2
-        
+        // Move the hidden buttons out of visible area
+        let hideRect = CGRect(x: -2000, y: y, width: 0, height: 0)
         var frames = [CGRect]()
         
         var x: CGFloat = 0
-        for i in 0 ... numButtons {
+        for i in 0 ..< subViewSizes.count {
             if i < numToShow {
-                let btWidth = buttonWidth ?? min(self.maxButtonWidth, subViewNoOflSizes[i].width)
+                let btWidth = buttonWidth ?? min(finalWidth - (numToHide > 0 ? theSpacing + overflowSize.width : 0), self.maxButtonWidth, subViewNoOflSizes[i].width)
                 x += btWidth + (i > 0 ? theSpacing : 0)
                 frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: maxHeight)))
             } else if i < numButtons { // rest button to hide
                 frames.append(hideRect)
             } else { // overflow
-                if numToHide > 0 {
+                if numToHide > 0, i == numButtons + numToHide - 1 { // last one to show overflow
                     frames.append(CGRect(x: overflowSize.width / 2, y: y, width: min(self.maxButtonWidth, overflowSize.width), height: overflowSize.height))
-                } else {
+                } else { // hide the other overflow
                     frames.append(hideRect)
                 }
             }
         }
-
-        DispatchQueue.main.async {
-            self.numButtonsDisplayInOverflow = numToHide
-        }
+        
         cache.frames = frames.reversed()
         cache.fitSize = CGSize(width: finalWidth, height: maxHeight)
+        cache.layoutMode = layoutMode
     }
   
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         guard !subviews.isEmpty else { return }
         
-        if cache.frames.isEmpty || cache.fitSize.width != proposal.width {
-            self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
-        }
+        self.calculateLayout(proposal: proposal, subviews: subviews, cache: &cache)
         
         for (i, subview) in subviews.enumerated() {
             let x = cache.frames[i].origin.x + bounds.minX
             let y = cache.frames[i].origin.y + bounds.minY
+            
             subview.place(at: CGPointMake(x, y),
                           anchor: .center,
                           proposal: ProposedViewSize(width: cache.frames[i].size.width, height: cache.frames[i].size.height))
@@ -206,29 +249,36 @@ private struct CardFooterLayout: Layout {
 
 // Base Layout style
 public struct CardFooterBaseStyle: CardFooterStyle {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State var numButtonsDisplayInOverflow: Int = 0
-    
+    @Environment(\.cardFooterButtonWidthMode) var cardFooterButtonWidthMode
+
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
-        CardFooterLayout(numButtonsDisplayInOverflow: self.$numButtonsDisplayInOverflow, spacing: 8, maxButtonWidth: nil, horizontalSizeClass: self.horizontalSizeClass) {
-            Menu {
-                if self.numButtonsDisplayInOverflow == 1 {
+        CardFooterLayout(spacing: 8, maxButtonWidth: nil, cardFooterButtonWidthMode: self.cardFooterButtonWidthMode) {
+            if self.numOfButtons(configuration) == 3 {
+                Menu {
+                    configuration.secondaryAction.environment(\.isInMenu, true)
+                    configuration.tertiaryAction.environment(\.isInMenu, true)
+                } label: {
+                    configuration.overflowAction
+                }
+                /// set the accessibilityLabel as same as SF symbol "ellipsis" which is "More"
+                .accessibilityLabel(Text(Image(systemName: "ellipsis")))
+            }
+            
+            if self.numOfButtons(configuration) > 1 {
+                Menu {
                     if !configuration.tertiaryAction.isEmpty {
                         configuration.tertiaryAction.environment(\.isInMenu, true)
                     } else {
                         configuration.secondaryAction.environment(\.isInMenu, true)
                     }
-                } else if self.numButtonsDisplayInOverflow == 2 {
-                    configuration.secondaryAction.environment(\.isInMenu, true)
-                    configuration.tertiaryAction.environment(\.isInMenu, true)
+                } label: {
+                    configuration.overflowAction
                 }
-            } label: {
-                configuration.overflowAction
+                /// set the accessibilityLabel as same as SF symbol "ellipsis" which is "More"
+                .accessibilityLabel(Text(Image(systemName: "ellipsis")))
             }
-            /// set the accessibilityLabel as same as SF symbol "ellipsis" which is "More"
-            .accessibilityLabel(Text(Image(systemName: "ellipsis")))
             
             if !configuration.tertiaryAction.isEmpty {
                 configuration.tertiaryAction
@@ -242,6 +292,27 @@ public struct CardFooterBaseStyle: CardFooterStyle {
                 configuration.action
             }
         }
+    }
+    
+    /**
+        case 1: totol is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
+        case 2: total is 3 buttons, 2 buttons (only two of tertiary, secondary and primary exist), overflow menu with 1 button
+        case 3: total is 1 button, 1 button, only one of tertiary, secondary or primary exist
+     */
+    func numOfButtons(_ configuration: CardFooterConfiguration) -> Int {
+        var value = 0
+        if !configuration.action.isEmpty {
+            value += 1
+        }
+        
+        if !configuration.secondaryAction.isEmpty {
+            value += 1
+        }
+        
+        if !configuration.tertiaryAction.isEmpty {
+            value += 1
+        }
+        return value
     }
 }
 
@@ -290,6 +361,32 @@ extension CardFooterFioriStyle {
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
         }
     }
+}
+
+/// Card Tests
+public enum CardFooterTests {
+    static let footer0 = CardFooter(action: FioriButton(title: "Primary"))
+    static let footer1 = CardFooter(secondaryAction: FioriButton(title: "Secondary"))
+    static let footer2 = CardFooter(tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer3 = CardFooter(action: FioriButton(title: "Primary long long long long"))
+    static let footer4 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"))
+    static let footer5 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer6 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer7 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer8 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"))
+    static let footer9 = CardFooter(action: FioriButton(title: "Primary long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer10 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    public static let examples = [footer0, footer1, footer2, footer3, footer4, footer5, footer6, footer7, footer8, footer9, footer10]
+}
+
+#Preview("Empty") {
+    VStack {
+        CardFooter(action: { EmptyView() }, overflowAction: { EmptyView() }).border(Color.green)
+        
+        Text("Empty")
+            
+        CardFooter(action: { EmptyView() }).border(Color.green)
+    }.border(Color.red)
 }
 
 #Preview("P") {

@@ -5,6 +5,8 @@ import SwiftUI
 
 struct MobileCardExample: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var isPresented: Bool = false
+    @State private var buttonWidthMode: Int = 0
     
     var body: some View {
         List {
@@ -15,6 +17,7 @@ struct MobileCardExample: View {
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
+                .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 .cardStyle(.card)
                 .listStyle(.plain)
                 .navigationBarTitle("Cards in List", displayMode: .inline)
@@ -24,53 +27,38 @@ struct MobileCardExample: View {
             
             NavigationLink {
                 ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 16) {
                         ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
                             CardTests.cardSamples[i]
+                                .cardStyle(.card)
+                                .cardStyle(.intrinsicHeightCard)
                         }
                         .background(Color.preferredColor(.primaryGroupedBackground))
-                    }
+                        .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
+                    }.padding()
                 }
-                .cardStyle(.card)
                 .navigationBarTitle("Cards in VStack", displayMode: .inline)
             } label: {
                 Text("Cards in VStack")
             }
             
             NavigationLink {
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top, spacing: 8) {
-                        ForEach(0 ..< CardTests.cardSamples.count, id: \.self) { i in
-                            CardTests.cardSamples[i]
-                                .cardStyle(.card)
-                                .cardStyle(.intrinsicHeightCard)
-                                .padding()
-                        }
-                        .background(Color.preferredColor(.primaryGroupedBackground))
-                    }
-                }
-                .cardStyle(.card)
-                .navigationBarTitle("Cards in HStack", displayMode: .inline)
-            } label: {
-                Text("Cards in HStack")
-            }
-
-            NavigationLink {
                 List {
-                    ForEach(0 ..< CardTests.cardFooterSamples.count, id: \.self) { i in
-                        CardTests.cardFooterSamples[i]
+                    ForEach(0 ..< CardFooterTests.examples.count, id: \.self) { i in
+                        CardFooterTests.examples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 }
-                .cardStyle(.card)
                 .listStyle(.plain)
                 .navigationBarTitle("Footers", displayMode: .inline)
             } label: {
                 Text("Footers")
             }
-
+            
             NavigationLink {
                 MasonryTestView()
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                     .navigationBarTitle("Masonry", displayMode: .inline)
             } label: {
                 Text("Masonry")
@@ -79,6 +67,7 @@ struct MobileCardExample: View {
             NavigationLink {
                 CarouselTestView(self.horizontalSizeClass == .compact ? 1 : (UIDevice.current.localizedModel == "iPhone" ? 2 : 3))
                     .navigationBarTitle("Carousel", displayMode: .inline)
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
             } label: {
                 Text("Carousel")
             }
@@ -287,19 +276,69 @@ struct MobileCardExample: View {
                     }
                     .frame(maxHeight: 110)
                 }
-                            
             } label: {
-                Text("Left image card")
+                Text("Left image card using custom featured content")
+            }
+            
+            NavigationLink {
+                VStack {
+                    Card {
+                        EmptyView()
+                    } cardBody: {
+                        HStack(spacing: 0) {
+                            Image("card_image")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 110, height: 110)
+                                .clipped()
+                            
+                            Card {
+                                Text("Imageleft")
+                            } subtitle: {
+                                Text("Image at the left side of card body line limit 3").lineLimit(3)
+                            } headerAction: {
+                                Button {
+                                    print("tapped")
+                                } label: {
+                                    Text("...")
+                                }
+                            } counter: {
+                                Text("1 of 3")
+                            }
+                        }
+                    }
+                }
+                .cardStyle(.card)
+                .cardStyle(.intrinsicHeightCard)
+                .padding()
+            } label: {
+                Text("Left image card using cardBody")
             }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
+        .sheet(isPresented: self.$isPresented) {
+            Form {
+                Text("Card Footer Button Width Mode")
+                Picker("", selection: self.$buttonWidthMode) {
+                    Text("Auto").tag(0)
+                    Text("Equal").tag(1)
+                    Text("Intrinsic").tag(2)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .toolbar(content: {
+            FioriButton(title: "Options") { _ in
+                self.isPresented = true
+            }
+        })
     }
 }
 
 struct FioriCardFeaturedContent<Content: View>: View {
     let content: Content
     let image: Image
-
+    
     init(
         image: Image,
         @ViewBuilder content: () -> Content
@@ -307,7 +346,7 @@ struct FioriCardFeaturedContent<Content: View>: View {
         self.image = image
         self.content = content()
     }
-
+    
     var body: some View {
         HStack(spacing: 0) {
             self.image
@@ -327,11 +366,11 @@ struct FioriCardFeaturedContent<Content: View>: View {
 
 public struct FioriCard<Content: View>: View {
     // MARK: - Elements of a card
-
+    
     private let content: Content
-
+    
     // MARK: - Initialiser
-
+    
     /// Create a new card instance.
     ///
     /// - Parameters:
@@ -341,9 +380,9 @@ public struct FioriCard<Content: View>: View {
     public init(@ViewBuilder content: () -> Content = { EmptyView() }) {
         self.content = content()
     }
-
+    
     // MARK: - Body
-
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             self.content
@@ -441,9 +480,6 @@ struct CarouselTestView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 24) {
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey3)).frame(height: 80)
-                    .padding(.horizontal, 16)
-                
                 Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
                     ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
                         NavigationLink {
@@ -453,9 +489,6 @@ struct CarouselTestView: View {
                         }
                     }
                 }
-                
-                RoundedRectangle(cornerRadius: 16).foregroundStyle(Color.preferredColor(.grey4)).frame(height: 80)
-                    .padding(.horizontal, 16)
             }
             .cardStyle(.card)
         }
@@ -509,4 +542,37 @@ struct CarouselTestView: View {
     }
     .cardStyle(.card)
     .listStyle(.plain)
+}
+
+#Preview("LeftImageCard in cardBody") {
+    VStack {
+        Card {
+            EmptyView()
+        } cardBody: {
+            HStack(spacing: 0) {
+                Image("card_image")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 110, height: 110)
+                    .clipped()
+                
+                Card {
+                    Text("Imageleft")
+                } subtitle: {
+                    Text("Image at the left side of card body line limit 3").lineLimit(3)
+                } headerAction: {
+                    Button {
+                        print("tapped")
+                    } label: {
+                        Text("...")
+                    }
+                } counter: {
+                    Text("1 of 3")
+                }
+            }
+        }
+    }
+    .cardStyle(.card)
+    .cardStyle(.intrinsicHeightCard)
+    .padding()
 }

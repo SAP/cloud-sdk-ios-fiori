@@ -50,17 +50,24 @@ extension SwitchViewFioriStyle {
         
         func makeBody(_ configuration: SwitchConfiguration) -> some View {
             Switch(configuration)
+                .fixedSize()
                 .tint(Color.preferredColor(.tintColor))
-                .frame(width: 51, height: 31, alignment: .trailing)
-                .offset(x: -2)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.preferredColor(configuration.isOn ? .separatorOpaque : .separator), lineWidth: 0.5)
+                    self.borderShape
+                        .stroke(Color.preferredColor(configuration.isOn ? .separatorOpaque : .separator), lineWidth: 3)
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .clipShape(self.borderShape)
                 .ifApply(self.shadowEffectConfiguration.showShadow) { content in
                     content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
                 }
+        }
+        
+        var borderShape: some Shape {
+            if #available(iOS 26, *) {
+                return Capsule()
+            } else {
+                return RoundedRectangle(cornerRadius: 16)
+            }
         }
     }
 }

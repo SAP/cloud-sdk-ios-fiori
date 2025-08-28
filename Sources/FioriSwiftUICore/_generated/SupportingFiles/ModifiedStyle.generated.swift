@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -5661,6 +5661,118 @@ public extension WelcomeScreenStyle {
 
     func concat(_ style: some WelcomeScreenStyle) -> some WelcomeScreenStyle {
         style.modifier(WelcomeScreenStyleModifier(style: self))
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+extension ModifiedStyle: WhatsNewListItemStyle where Style: WhatsNewListItemStyle {
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .whatsNewListItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WhatsNewListItemStyleModifier<Style: WhatsNewListItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.whatsNewListItemStyle(self.style)
+    }
+}
+
+public extension WhatsNewListItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WhatsNewListItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WhatsNewListItemStyle) -> some WhatsNewListItemStyle {
+        style.modifier(WhatsNewListItemStyleModifier(style: self))
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+extension ModifiedStyle: WhatsNewListViewStyle where Style: WhatsNewListViewStyle {
+    public func makeBody(_ configuration: WhatsNewListViewConfiguration) -> some View {
+        WhatsNewListView(configuration)
+            .whatsNewListViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WhatsNewListViewStyleModifier<Style: WhatsNewListViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.whatsNewListViewStyle(self.style)
+    }
+}
+
+public extension WhatsNewListViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WhatsNewListViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WhatsNewListViewStyle) -> some WhatsNewListViewStyle {
+        style.modifier(WhatsNewListViewStyleModifier(style: self))
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+extension ModifiedStyle: WhatsNewPageStyle where Style: WhatsNewPageStyle {
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .whatsNewPageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WhatsNewPageStyleModifier<Style: WhatsNewPageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.whatsNewPageStyle(self.style)
+    }
+}
+
+public extension WhatsNewPageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WhatsNewPageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WhatsNewPageStyle) -> some WhatsNewPageStyle {
+        style.modifier(WhatsNewPageStyleModifier(style: self))
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+extension ModifiedStyle: WhatsNewPageViewStyle where Style: WhatsNewPageViewStyle {
+    public func makeBody(_ configuration: WhatsNewPageViewConfiguration) -> some View {
+        WhatsNewPageView(configuration)
+            .whatsNewPageViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct WhatsNewPageViewStyleModifier<Style: WhatsNewPageViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.whatsNewPageViewStyle(self.style)
+    }
+}
+
+public extension WhatsNewPageViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some WhatsNewPageViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some WhatsNewPageViewStyle) -> some WhatsNewPageViewStyle {
+        style.modifier(WhatsNewPageViewStyleModifier(style: self))
     }
 }
 
