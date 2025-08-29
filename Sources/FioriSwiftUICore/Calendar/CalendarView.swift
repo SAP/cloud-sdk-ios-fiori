@@ -31,7 +31,7 @@ public struct CalendarView: View {
         }
     }
 
-    @State private var weekViewHeight: CGFloat = 0
+    @State private var weekViewHeight: CGFloat = 60
     @State private var lastPageHeight: CGFloat = 0
     @State private var weeks: [WeekInfo] = []
     
@@ -172,7 +172,7 @@ public struct CalendarView: View {
                     }
                 } else if self.style == .month || self.showFullScreen() {
                     ScrollView(.vertical, showsIndicators: false, content: {
-                        VStack {
+                        LazyVStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
@@ -289,8 +289,11 @@ public struct CalendarView: View {
     public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
         self.style = style
         _selectedDate = selectedDate
+        _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
         _selectedDates = selectedDates
+        _selectedDatesRecord = State(initialValue: selectedDates.wrappedValue)
         _selectedRange = selectedRange
+        _selectedRangeRecord = State(initialValue: selectedRange.wrappedValue)
         
         let components: Set<Calendar.Component> = [.day, .month, .year]
         let formatter: DateFormatter = {

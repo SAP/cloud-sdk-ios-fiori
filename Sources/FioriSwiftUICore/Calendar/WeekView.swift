@@ -27,14 +27,17 @@ public struct WeekView: View, Equatable {
     
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showWeekNumber) var showWeekNumber
-    @Environment(\.isEventIndicatorVisible) var isEventIndicatorVisible
+    @Environment(\.hasEventIndicator) var isEventIndicatorVisible
     @Environment(\.alternateCalendarType) var alternateCalendarType
     @Environment(\.alternateCalendarLocale) var alternateCalendarLocale
     @Environment(\.weekNumberTintColor) var weekNumberTintColor
+    @Environment(\.disabledDates) var disabledDates
     
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
+    
+    private var weekNumberVisibility: Bool = true
     
     init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
         self.style = style
@@ -45,6 +48,14 @@ public struct WeekView: View, Equatable {
         _selectedDate = selectedDate
         _selectedDates = selectedDates
         _selectedRange = selectedRange
+        
+        if let date = self.weekInfo.dates.first {
+            let targetComponents = Calendar.autoupdatingCurrent.dateComponents([.year, .month], from: date)
+            if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
+                /// When the first date of the week is out of month, hide the week number
+                self.weekNumberVisibility = false
+            }
+        }
     }
     
     /// Used for compare to avoid redundant view refresh
@@ -72,10 +83,11 @@ public struct WeekView: View, Equatable {
     public var body: some View {
         let calendar = Calendar.autoupdatingCurrent
         
-        CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
+        CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber, verticalGuide: .titleFirstTextBaseline) {
             Text("\(self.weekInfo.weekNumber)")
                 .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
                 .foregroundStyle(self.weekNumberTintColor ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
+                .opacity(self.weekNumberVisibility ? 1 : 0)
                 .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
             
             ForEach(self.weekInfo.dates, id: \.self) { date in
@@ -133,6 +145,16 @@ public struct WeekView: View, Equatable {
         
         if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
             return .outOfMonth
+        } else if let disabledDates, disabledDates.isDisabled(date) {
+            if self.style == .rangeSelection, let selectedRange, selectedRange.contains(date) {
+                if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
+                    return .disabledAndTodayInMultiSelection
+                }
+                return .disabledInMultiSelection
+            } else if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
+                return .disabledAndToday
+            }
+            return .disabled
         } else if self.style == .rangeSelection, let selectedRange, selectedRange.contains(date) {
             if selectedRange.lowerBound == selectedRange.upperBound {
                 return .singleSelected
@@ -200,6 +222,6 @@ public struct WeekView: View, Equatable {
         calendar.date(byAdding: .day, value: 6, to: firstDayOfWeek)!
     ])
     
-    WeekView(style: .fullScreenMonth, weekInfo: weekInfo, startDate: Date(), endDate: Date())
+    WeekView(style: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())
         .environment(\.showWeekNumber, true)
 }

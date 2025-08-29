@@ -18,6 +18,7 @@ struct CalendarExamples: View {
                         
                         Spacer()
                     }
+                    .navigationTitle("Week")
                 }
                 NavigationLink("Calendar - expandable") {
                     VStack {
@@ -25,6 +26,7 @@ struct CalendarExamples: View {
                         
                         Spacer()
                     }
+                    .navigationTitle("Expandable")
                 }
                 NavigationLink("Calendar - month") {
                     VStack {
@@ -32,29 +34,36 @@ struct CalendarExamples: View {
                         
                         Spacer()
                     }
+                    .navigationTitle("Month")
                 }
                 NavigationLink("Calendar - fullScreenMonth") {
                     VStack {
                         CalendarView(style: .fullScreenMonth, selectedDate: self.$selectedDate)
                         Spacer()
                     }
+                    .navigationTitle("Full Screen Month")
                 }
                 NavigationLink("Calendar - datesSelection") {
                     VStack {
                         CalendarView(style: .datesSelection, selectedDates: self.$selectedDates)
                         Spacer()
                     }
+                    .navigationTitle("Dates Selection")
                 }
                 NavigationLink("Calendar - rangeSelection") {
                     VStack {
                         CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange)
-                            .environment(\.isEventIndicatorVisible, true)
+                            .environment(\.hasEventIndicator, true)
                             .environment(\.showWeekNumber, self.settings.showsWeekNumber)
                             .environment(\.firstWeekday, self.settings.firstWeekDay)
                             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
-                            .environment(\.weekNumberTintColor, self.settings.testsWeekNumberTintColor ? Color.red : nil)
+                            .environment(\.weekNumberTintColor, self.testWeekNumberTintColor())
+                            .environment(\.disabledDates, self.checkDisabledDates())
+                            .environment(\.alternateCalendarLocale, self.testAlternateCalendarLocale())
+                        
                         Spacer()
                     }
+                    .navigationTitle("Range Selection")
                 }
             }
             
@@ -79,5 +88,44 @@ struct CalendarExamples: View {
                 print("No range selected")
             }
         }
+    }
+    
+    func testWeekNumberTintColor() -> Color? {
+        self.settings.testsWeekNumberTintColor ? Color.green : nil
+    }
+    
+    func testAlternateCalendarLocale() -> Locale? {
+        self.settings.testsEnLocalOnAlternateCalendar ? Locale(identifier: "en") : nil
+    }
+    
+    func checkDisabledDates() -> CalendarDisabledDates {
+        guard self.settings.testsDisabledDates else {
+            return CalendarDisabledDates()
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MM dd"
+
+        let currentDate = Date()
+        let year = Calendar.current.component(.year, from: currentDate)
+        let month = Calendar.current.component(.month, from: currentDate)
+        let day = Calendar.current.component(.day, from: currentDate)
+
+        var disabledDates = CalendarDisabledDates()
+        if self.settings.testsDisabledDatesWithBefore {
+            disabledDates.beforeDate = formatter.date(from: "\(year) \(month) 2")!
+        }
+        if self.settings.testsDisabledDatesWithAfter {
+            disabledDates.afterDate = formatter.date(from: "\(year) \(month) 28")!
+        }
+        if self.settings.testsDisabledDatesWithWeekends {
+            disabledDates.weekdays = [1, 7] // Sunday and Saturday
+        }
+        disabledDates.others.append(formatter.date(from: "\(year) \(month) 10")!)
+        disabledDates.others.append(formatter.date(from: "\(year) \(month) 15")!)
+        disabledDates.others.append(formatter.date(from: "\(year) \(month) 20")!)
+        if self.settings.testsDisabledDatesWithToday {
+            disabledDates.others.append(formatter.date(from: "\(year) \(month) \(day)")!) // today
+        }
+        return disabledDates
     }
 }

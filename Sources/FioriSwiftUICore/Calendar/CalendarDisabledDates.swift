@@ -9,24 +9,24 @@ public struct CalendarDisabledDates {
     /**
      All dates before and include the `beforeDate` are considered disabled.
      */
-    let beforeDate: Date?
+    public var beforeDate: Date?
 
     /**
      All dates after and including the `afterDate` are considered disabled.
      */
-    let afterDate: Date?
+    public var afterDate: Date?
 
     /**
      All dates with the specific weekdays are considered disabled.
 
      The weekday units are the numbers 1 through 7 (where 1 is Sunday).
      */
-    let weekdays: [Int]
+    public var weekdays: [Int]
 
     /**
      The other random disabled dates.
      */
-    let others: [Date]
+    public var others: [Date]
 
     /**
      The default initializer.

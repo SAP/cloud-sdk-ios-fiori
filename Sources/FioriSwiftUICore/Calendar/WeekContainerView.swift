@@ -13,7 +13,9 @@ struct WeekContainerView: View {
     
     var body: some View {
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {
+            // Fill the week number blanks
             Spacer()
+            
             ForEach(self.symbols.indices, id: \.self) { index in
                 Text(self.symbols[index])
                     .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
@@ -74,6 +76,13 @@ struct WeekContainerView: View {
 struct CalendarWeekContainerHStack: Layout {
     let showWeekNumber: Bool
     
+    let verticalGuide: VerticalAlignment?
+    
+    init(showWeekNumber: Bool, verticalGuide: VerticalAlignment? = nil) {
+        self.showWeekNumber = showWeekNumber
+        self.verticalGuide = verticalGuide
+    }
+    
     func sizeThatFits(proposal: ProposedViewSize,
                       subviews: Subviews,
                       cache: inout ()) -> CGSize
@@ -125,8 +134,16 @@ struct CalendarWeekContainerHStack: Layout {
             let ratio = index < ratios.count ? ratios[index] : 1.0
             let width = bounds.width * (ratio / totalRatio)
             
+            var guideYOffset: Double = 0
+            if index == 0 {
+                let dimensions = subview.dimensions(in: proposal)
+                if let verticalGuide {
+                    guideYOffset = dimensions[verticalGuide]
+                }
+            }
+            
             subview.place(
-                at: CGPoint(x: xPosition + width / 2, y: bounds.midY),
+                at: CGPoint(x: xPosition + width / 2, y: bounds.midY - guideYOffset / 2),
                 anchor: .center,
                 proposal: ProposedViewSize(width: width, height: bounds.height)
             )

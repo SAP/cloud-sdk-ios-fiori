@@ -10,7 +10,7 @@ struct CalendarShowWeekNumber: EnvironmentKey {
     public static let defaultValue: Bool = false
 }
 
-struct CalendarIsEventIndicatorVisible: EnvironmentKey {
+struct CalendarHasEventIndicator: EnvironmentKey {
     public static let defaultValue: Bool = true
 }
 
@@ -34,6 +34,10 @@ struct WeekNumberTintColorKey: EnvironmentKey {
     public static let defaultValue: Color? = nil
 }
 
+struct CalendarDisabledDatesKey: EnvironmentKey {
+    public static let defaultValue: CalendarDisabledDates? = nil
+}
+
 public extension EnvironmentValues {
     var firstWeekday: Int {
         get { self[CalendarFirstWeekday.self] }
@@ -45,9 +49,9 @@ public extension EnvironmentValues {
         set { self[CalendarShowWeekNumber.self] = newValue }
     }
 
-    var isEventIndicatorVisible: Bool {
-        get { self[CalendarIsEventIndicatorVisible.self] }
-        set { self[CalendarIsEventIndicatorVisible.self] = newValue }
+    var hasEventIndicator: Bool {
+        get { self[CalendarHasEventIndicator.self] }
+        set { self[CalendarHasEventIndicator.self] = newValue }
     }
 
     var customLocale: Locale? {
@@ -83,5 +87,10 @@ public extension EnvironmentValues {
     var weekNumberTintColor: Color? {
         get { self[WeekNumberTintColorKey.self] }
         set { self[WeekNumberTintColorKey.self] = newValue }
+    }
+
+    var disabledDates: CalendarDisabledDates? {
+        get { self[CalendarDisabledDatesKey.self] }
+        set { self[CalendarDisabledDatesKey.self] = newValue }
     }
 }
