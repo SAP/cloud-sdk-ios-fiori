@@ -10,6 +10,7 @@ public struct StepperView {
     let decrementAction: any View
     @Binding var text: String
     var isSecureEnabled: Bool?
+    var formatter: GenericTextFormatter?
     let incrementAction: any View
     /// The step value
     let step: Double
@@ -30,6 +31,7 @@ public struct StepperView {
                 @ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
                 isSecureEnabled: Bool? = false,
+                formatter: GenericTextFormatter? = nil,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
                 step: Double = 1,
                 stepRange: ClosedRange<Double>,
@@ -42,6 +44,7 @@ public struct StepperView {
         self.decrementAction = DecrementAction(decrementAction: decrementAction, componentIdentifier: componentIdentifier)
         self._text = text
         self.isSecureEnabled = isSecureEnabled
+        self.formatter = formatter
         self.incrementAction = IncrementAction(incrementAction: incrementAction, componentIdentifier: componentIdentifier)
         self.step = step
         self.stepRange = stepRange
@@ -61,6 +64,7 @@ public extension StepperView {
          decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          isSecureEnabled: Bool? = false,
+         formatter: GenericTextFormatter? = nil,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
          step: Double = 1,
          stepRange: ClosedRange<Double>,
@@ -68,7 +72,7 @@ public extension StepperView {
          icon: Image? = nil,
          description: AttributedString? = nil)
     {
-        self.init(title: { Text(title) }, decrementAction: { decrementAction }, text: text, isSecureEnabled: isSecureEnabled, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported, icon: { icon }, description: { OptionalText(description) })
+        self.init(title: { Text(title) }, decrementAction: { decrementAction }, text: text, isSecureEnabled: isSecureEnabled, formatter: formatter, incrementAction: { incrementAction }, step: step, stepRange: stepRange, isDecimalSupported: isDecimalSupported, icon: { icon }, description: { OptionalText(description) })
     }
 }
 
@@ -82,6 +86,7 @@ public extension StepperView {
         self.decrementAction = configuration.decrementAction
         self._text = configuration.$text
         self.isSecureEnabled = configuration.isSecureEnabled
+        self.formatter = configuration.formatter
         self.incrementAction = configuration.incrementAction
         self.step = configuration.step
         self.stepRange = configuration.stepRange
@@ -98,7 +103,7 @@ extension StepperView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description))).typeErased
                 .transformEnvironment(\.stepperViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -116,7 +121,7 @@ private extension StepperView {
     }
 
     func defaultStyle() -> some View {
-        StepperView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description)))
+        StepperView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .stepperViewStyle(StepperViewFioriStyle.ContentFioriStyle())
             .typeErased

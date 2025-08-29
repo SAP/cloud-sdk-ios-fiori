@@ -26,6 +26,7 @@ public struct TextFieldFormViewConfiguration {
     public let title: Title
     @Binding public var text: String
     public let isSecureEnabled: Bool?
+    public let formatter: GenericTextFormatter?
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?

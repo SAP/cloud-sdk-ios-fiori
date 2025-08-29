@@ -6,6 +6,7 @@ import SwiftUI
 public struct PlaceholderTextField {
     @Binding var text: String
     var isSecureEnabled: Bool?
+    var formatter: GenericTextFormatter?
     let placeholder: any View
 
     @Environment(\.placeholderTextFieldStyle) var style
@@ -16,11 +17,13 @@ public struct PlaceholderTextField {
 
     public init(text: Binding<String>,
                 isSecureEnabled: Bool? = false,
+                formatter: GenericTextFormatter? = nil,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 componentIdentifier: String? = PlaceholderTextField.identifier)
     {
         self._text = text
         self.isSecureEnabled = isSecureEnabled
+        self.formatter = formatter
         self.placeholder = Placeholder(placeholder: placeholder, componentIdentifier: componentIdentifier)
         self.componentIdentifier = componentIdentifier ?? PlaceholderTextField.identifier
     }
@@ -33,9 +36,10 @@ public extension PlaceholderTextField {
 public extension PlaceholderTextField {
     init(text: Binding<String>,
          isSecureEnabled: Bool? = false,
+         formatter: GenericTextFormatter? = nil,
          placeholder: AttributedString? = nil)
     {
-        self.init(text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) })
+        self.init(text: text, isSecureEnabled: isSecureEnabled, formatter: formatter, placeholder: { OptionalText(placeholder) })
     }
 }
 
@@ -47,6 +51,7 @@ public extension PlaceholderTextField {
     internal init(_ configuration: PlaceholderTextFieldConfiguration, shouldApplyDefaultStyle: Bool) {
         self._text = configuration.$text
         self.isSecureEnabled = configuration.isSecureEnabled
+        self.formatter = configuration.formatter
         self.placeholder = configuration.placeholder
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
@@ -58,7 +63,7 @@ extension PlaceholderTextField: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder))).typeErased
                 .transformEnvironment(\.placeholderTextFieldStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -76,7 +81,7 @@ private extension PlaceholderTextField {
     }
 
     func defaultStyle() -> some View {
-        PlaceholderTextField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder)))
+        PlaceholderTextField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle.ContentFioriStyle())
             .typeErased
