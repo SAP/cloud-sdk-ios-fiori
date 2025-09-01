@@ -621,6 +621,7 @@ public extension SortFilterItem {
         /// If searchBar in list picker is shown. Default is `false`.
         public var isSearchBarHidden: Bool = false
         var disableListEntriesSection: Bool = false
+        var disableListContentSection: Bool = false
         var allowsDisplaySelectionCount: Bool = true
         var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
         
@@ -689,10 +690,11 @@ public extension SortFilterItem {
         ///   - itemLayout: Options layout type when `displayMode` is  `.filterFormCell`.
         ///   - displayMode: Options display mode.
         ///   - listEntriesSectionMode: List entries section mode when `displayMode` is  `.list`.
+        ///   - disableContentSection: A boolean value to control the display of the unselected area section.
         ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
         ///   - resetButtonConfiguration: A configuration to customize the reset button.
-        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
-            self.init(id: id, name: name, title: title, value: [value], valueOptions: valueOptions, allowsMultipleSelection: false, allowsEmptySelection: allowsEmptySelection, barItemDisplayMode: barItemDisplayMode, isSearchBarHidden: isSearchBarHidden, icon: icon, itemLayout: itemLayout, displayMode: displayMode, listEntriesSectionMode: listEntriesSectionMode, allowsDisplaySelectionCount: allowsDisplaySelectionCount, resetButtonConfiguration: resetButtonConfiguration)
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
+            self.init(id: id, name: name, title: title, value: [value], valueOptions: valueOptions, allowsMultipleSelection: false, allowsEmptySelection: allowsEmptySelection, barItemDisplayMode: barItemDisplayMode, isSearchBarHidden: isSearchBarHidden, icon: icon, itemLayout: itemLayout, displayMode: displayMode, listEntriesSectionMode: listEntriesSectionMode, disableContentSection: disableContentSection, allowsDisplaySelectionCount: allowsDisplaySelectionCount, resetButtonConfiguration: resetButtonConfiguration)
         }
         
         /// Create PickerItem for filter feedback.
@@ -712,9 +714,10 @@ public extension SortFilterItem {
         ///   - itemLayout: Options layout type when `displayMode` is  `.filterFormCell`.
         ///   - displayMode: Options display mode.
         ///   - listEntriesSectionMode: List entries section mode when `displayMode` is  `.list`.
+        ///   - disableContentSection: A boolean value to control the display of the unselected area section.
         ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
         ///   - resetButtonConfiguration: A configuration to customize the reset button.
-        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
             self.id = id
             self.name = name
             self.title = title
@@ -745,7 +748,7 @@ public extension SortFilterItem {
             case .enable:
                 self.disableListEntriesSection = false
             }
-            
+            self.disableListContentSection = disableContentSection
             self.allowsDisplaySelectionCount = allowsDisplaySelectionCount
             self.resetButtonConfiguration = resetButtonConfiguration
         }
