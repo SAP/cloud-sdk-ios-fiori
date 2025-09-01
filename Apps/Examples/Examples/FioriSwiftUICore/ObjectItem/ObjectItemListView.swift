@@ -55,11 +55,13 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
             }
             .objectItemStyle(.actionStyle(ObjectItemBorderedAction()))
         }
-        .navigationBarItems(trailing: HStack {
-            if self.showEditButton {
-                EditButton()
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                if self.showEditButton {
+                    EditButton()
+                }
             }
-        })
+        }
         .navigationBarTitle(self.title, displayMode: .inline)
         .sheet(isPresented: self.$cellTapped) {
             Text("Tapped the cell").padding()

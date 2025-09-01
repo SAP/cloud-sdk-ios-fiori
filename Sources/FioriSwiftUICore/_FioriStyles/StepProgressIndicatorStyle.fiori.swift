@@ -117,9 +117,12 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                     .navigationTitle(NSLocalizedString(NSLocalizedString("All Steps", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "All Steps"), comment: ""))
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            configuration.cancelAction.onSimultaneousTapGesture {
-                                self.isPresented.toggle()
-                            }
+                            configuration.cancelAction
+                                .fioriButtonStyle(FioriNavigationButtonStyle())
+                                .fixedSize()
+                                .onSimultaneousTapGesture {
+                                    self.isPresented.toggle()
+                                }
                         }
                     }
                     .navigationBarBackButtonHidden(true)
