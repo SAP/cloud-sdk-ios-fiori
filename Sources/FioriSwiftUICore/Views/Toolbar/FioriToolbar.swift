@@ -58,35 +58,32 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                     Spacer()
                 }
                 if self.sizeHandler.needLayoutSubviews {
-                    HStack(spacing: 0) {
-                        ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
-                            let itemIndex = self.sizeHandler.itemsWidth[index].0
-                            let itemWidth = self.sizeHandler.itemsWidth[index].1
-                            if itemIndex >= 0 {
-                                self.items.view(at: itemIndex)
+                    ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
+                        let itemIndex = self.sizeHandler.itemsWidth[index].0
+                        let itemWidth = self.sizeHandler.itemsWidth[index].1
+                        if itemIndex >= 0 {
+                            self.items.view(at: itemIndex)
+                                .frame(width: itemWidth)
+                                .onChange(of: self.dynamicTypeSize) { _, _ in
+                                    self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
+                                }
+                        } else {
+                            if itemIndex == -1 {
+                                self.helperTextView()
                                     .frame(width: itemWidth)
-                                    .onChange(of: self.dynamicTypeSize) { _, _ in
-                                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
-                                    }
-                            } else {
-                                if itemIndex == -1 {
-                                    self.helperTextView()
-                                        .frame(width: itemWidth)
-                                } else if itemIndex == -2 {
-                                    self.moreAction()
-                                        .frame(width: itemWidth)
-                                }
+                            } else if itemIndex == -2 {
+                                self.moreAction()
+                                    .frame(width: itemWidth)
                             }
-                            if index < self.sizeHandler.itemsWidth.count - 1 {
-                                if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
-                                    Spacer().frame(minWidth: 8)
-                                } else {
-                                    Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
-                                }
+                        }
+                        if index < self.sizeHandler.itemsWidth.count - 1 {
+                            if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
+                                Spacer().frame(minWidth: 8)
+                            } else {
+                                Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
                             }
                         }
                     }
-                    .frame(minWidth: 0, maxWidth: self.sizeHandler.itemsCurrentWidth)
                 } else {
                     LazyHStack(spacing: self.sizeHandler.defaultFixedPadding) {
                         self.helperTextView()
