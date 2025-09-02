@@ -18,9 +18,17 @@ jobs:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.app
+    - name: Create simulator if missing
+        run: |
+          if ! xcrun simctl list devices | grep -q "iPhone 15 (.*) (Shutdown)"; then
+            RUNTIME=$(xcrun simctl list runtimes | grep "iOS 17.5" | head -n 1 | awk -F '[()]' '{print $2}')
+            xcrun simctl create "iPhone 15" "com.apple.CoreSimulator.SimDeviceType.iPhone-15" "$RUNTIME"
+          fi
     - name: Build and Test
-      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro,iOS=17.5' clean build test | xcpretty
+      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,iOS=17.5' clean build test | xcprettyxx
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
