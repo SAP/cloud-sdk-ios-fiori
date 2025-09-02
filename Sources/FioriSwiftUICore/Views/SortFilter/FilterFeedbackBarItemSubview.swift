@@ -608,6 +608,7 @@ struct PickerMenuItem: View {
             }
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
+            .disableContentSection(self.item.disableListContentSection)
             .listStyle(.plain)
             .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
             .scrollContentBackground(.hidden)
