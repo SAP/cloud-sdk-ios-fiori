@@ -92,7 +92,7 @@ private struct CarouselLayout: Layout {
 }
 
 /**
- Carousel is a container view that arranges its child views  horizontally, one after the other, with a protion of the next child view visible in the container. It allows users to swipe or scroll through the child views to view different piece of content.
+ Carousel is a container view that arranges its child views  horizontally, one after the other, with a portion of the next child view visible in the container. It allows users to swipe or scroll through the child views to see different piece of content.
  
  ## Carousel with numberOfColumns:
  ```swift
@@ -288,7 +288,7 @@ public struct Carousel<Content>: View where Content: View {
         }
         .onAppear {
             DispatchQueue.main.async {
-                proxy.scrollTo(3, anchor: .trailing) // scroll to the view with your desisred id
+                proxy.scrollTo(3, anchor: .trailing) // scroll to the view with your desired id
             }
         }
     }
