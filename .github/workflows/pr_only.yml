@@ -47,14 +47,14 @@ jobs:
           path: /usr/local/lib/mint
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
           restore-keys: ${{ runner.os }}-mint-
-      - name: Install Mint
+      - name: Install SwiftLint via Mint
+        if: steps.mint-cache.outputs.cache-hit != 'true'
         run: |
-          brew upgrade mint || brew install mint || true
+          echo "realm/SwiftLint@0.59.1" > Mintfile
+          mint bootstrap
       - name: Install swiftformat via mint
         if: steps.mint-cache.outputs.cache-hit != 'true'
-        run: !
-            echo "realm/SwiftLint@0.54.0" > Mintfile
-            mint bootstrap
+        run: mint bootstrap
       - name: Format Swift code
         run: mint run swiftformat --verbose .
       - name: Verify formatted code is unchanged
