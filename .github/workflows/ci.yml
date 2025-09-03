@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Create simulator if missing
         run: |
-          if ! xcrun simctl list devices | grep -q "iPhone 15 (.*) (Shutdown)"; then
+          if ! xcrun simctl list devices | grep -q "iPhone 16 (.*) (Shutdown)"; then
             RUNTIME=$(xcrun simctl list runtimes | grep "iOS 17.5" | head -n 1 | awk -F '[()]' '{print $2}')
             xcrun simctl create "iPhone 15" "com.apple.CoreSimulator.SimDeviceType.iPhone-15" "$RUNTIME"
           fi
