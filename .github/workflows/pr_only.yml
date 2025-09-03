@@ -52,7 +52,9 @@ jobs:
           brew upgrade mint || brew install mint || true
       - name: Install swiftformat via mint
         if: steps.mint-cache.outputs.cache-hit != 'true'
-        run: mint bootstrap
+        run: !
+            echo "realm/SwiftLint@0.54.0" > Mintfile
+            mint bootstrap
       - name: Format Swift code
         run: mint run swiftformat --verbose .
       - name: Verify formatted code is unchanged
