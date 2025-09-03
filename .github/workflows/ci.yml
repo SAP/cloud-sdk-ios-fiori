@@ -11,8 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14]
-        xcode: ['Xcode_15.4']
+        os: [macos-15]
+        xcode: ['Xcode_16.4']
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build and Test
-      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' clean build test | xcpretty
+      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.6' clean build test | xcpretty
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
@@ -28,3 +28,51 @@ jobs:
       with:
         name: coverage
         path: sonarqube-generic-coverage.xml
+
+  sonar:
+    needs: build
+    if: github.event_name == 'push' && github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Get coverage from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: coverage
+    - name: Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
+  build_watch:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15]
+        xcode: ['Xcode_16.4']
+    runs-on: ${{ matrix.os }}
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run tests on Apple Watch simulator
+      run: set -o pipefail && make test_watch
+
+  build_vision:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15]
+        xcode: ['Xcode_16.4']
+    runs-on: ${{ matrix.os }}
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run tests on Vision OS simulator
+      run: set -o pipefail && make test_vision
