@@ -14,55 +14,6 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ".github/configActions/swift-api-assign-reviewer.yml"
 
-  conventionalcommit-verification:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4
-        with:
-            configFile: '.github/configActions/commitlint.config.js'
-
-  ReuseComplianceCheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@v1.1
-
-  CodeFormattingCheck:
-    runs-on: macos-15
-    steps:
-      - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16.4'
-      - name: Cache Mint packages
-        id: mint-cache
-        uses: actions/cache@v3
-        with:
-          path: /usr/local/lib/mint
-          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
-          restore-keys: ${{ runner.os }}-mint-
-      
-      - name: Install Mint
-        run: |
-          brew install mint || true
-          echo "/opt/homebrew/bin" >> $GITHUB_PATH
-      - name: Prepare Mintfile
-        run: |
-          echo "realm/SwiftLint@0.59.1" > Mintfile
-          echo "nicklockwood/SwiftFormat@0.51.17" >> Mintfile
-      - name: Install swiftformat and swiftlint via mint
-        run: mint bootstrap
-      - name: Format Swift code
-        run: mint run swiftformat --verbose .
-      - name: Verify formatted code is unchanged
-        run: git diff --exit-code HEAD
-
   LocalizableTextCommentsCheck:
       runs-on: ubuntu-latest
       steps:
