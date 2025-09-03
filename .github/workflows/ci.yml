@@ -73,7 +73,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14]
-        xcode: ['Xcode_15.4']
+        xcode: ['Xcode_16.4']
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
