@@ -259,11 +259,11 @@ public struct Carousel<Content>: View where Content: View {
                 self.content()
             }
             .padding(self.contentInsets)
-            .onGeometryChange(for: CGSize.self) { proxy in
-                proxy.size
-            } action: { newValue in
-                self.contentSize = newValue
-            }
+//            .onGeometryChange(for: CGSize.self) { proxy in
+//                proxy.size
+//            } action: { newValue in
+//                self.contentSize = newValue
+//            }
             .scrollTargetLayout()
         }.onGeometryChange(for: CGFloat.self, of: { proxy in
             proxy.size.width
