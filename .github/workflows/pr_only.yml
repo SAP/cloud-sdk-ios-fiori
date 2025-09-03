@@ -47,11 +47,17 @@ jobs:
           path: /usr/local/lib/mint
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
           restore-keys: ${{ runner.os }}-mint-
+      
+      - name: Install Mint
+        run: |
+          brew install mint || true
+          echo "/opt/homebrew/bin" >> $GITHUB_PATH
+
       - name: Install SwiftLint via Mint
-        if: steps.mint-cache.outputs.cache-hit != 'true'
         run: |
           echo "realm/SwiftLint@0.59.1" > Mintfile
           mint bootstrap
+      
       - name: Install swiftformat via mint
         if: steps.mint-cache.outputs.cache-hit != 'true'
         run: mint bootstrap
