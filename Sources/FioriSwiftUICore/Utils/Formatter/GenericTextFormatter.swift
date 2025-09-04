@@ -3,11 +3,11 @@
 
     /**
      A GenericTextFormatter implementation to format custom patterns.
-
+ 
      This formatter accepts different character types based on pattern markers.
      Each marker defines what type of character is allowed at that position.
      Unmatched characters will be ignored during input.
-
+ 
      The pattern markers are:
      A: Requires a letter (a-z, A-Z)
      N: Requires a number (0-9)
@@ -56,7 +56,7 @@
             case none = 0
         
             // MARK: - Basic validation
-
+        
             /// Expected numeric character (0-9)
             case number
             /// Expected alphabetic character (A-Z, a-z)
@@ -67,7 +67,7 @@
             case specialCharacter
         
             // MARK: - Date validation
-
+        
             /// Expected year digits (YY/YYYY format)
             case yearNumber
             /// Expected month digits (MM format)
@@ -80,23 +80,23 @@
             /// Unspecified validation error
             case otherError
         }
-
+    
         /// :nodoc:
         open func attributedString(for string: String, withDefaultAttributes attrs: [NSAttributedString.Key: Any]?, cursorPosition: Int) -> (formattedAttributedString: NSAttributedString?, adjustedCursorPosition: Int)? {
             nil
         }
-
+    
         /**
          Each character in the format string is either:
-          - A pattern marker (A, N, X, S, *, YY, YYYY, MM, DD)
-          - A literal character (displayed as-is)
-          - An escaped special character (prefixed with \)
-
+         - A pattern marker (A, N, X, S, *, YY, YYYY, MM, DD)
+         - A literal character (displayed as-is)
+         - An escaped special character (prefixed with \)
+     
          For example:
-            If the format string is
-            AA NNN NNNS X YYYY/MM/DD \A\*
-            and user input "CA234567!U20250605" then it will display
-            "CA 234 567! U 2025/06/05 A*"
+         If the format string is
+         AA NNN NNNS X YYYY/MM/DD \A\*
+         and user input "CA234567!U20250605" then it will display
+         "CA 234 567! U 2025/06/05 A*"
          */
         public var format: String = #"AA NNN NNNS X YYYY/MM/DD \A\*"# {
             didSet {
@@ -151,7 +151,7 @@
         /// Whether to enable strict date format validation (default: false)
         /// - Note: When enabled, invalid date formats will trigger fatalError
         public var isDateFormatValidationStrict: Bool = false
-        /// Flag indicating whether content has been formatted
+        /// Flag indicating whether the content has been formatted in SwiftUI's TextField
         public var formatted: Bool = false
     
         private var ignoredCharacters: Set<Character> = []
@@ -164,7 +164,8 @@
         private var formatChars: [Unicode.Scalar] = []
         private var currentCursorPosition: Int = 0
         private var deleteCharacter: Bool = false
-
+        private var freeEditing: Bool = false
+    
         /**
          The constructor.
          */
@@ -176,86 +177,247 @@
                 self.formatChars.append(c)
             }
         }
-
+    
+        // MARK: - UIKit UITextField Implementation
+    
         /// :nodoc:
         open func string(for string: String, cursorPosition: Int) -> (formattedString: String?, adjustedCursorPosition: Int)? {
             self.currentCursorPosition = cursorPosition
             guard !string.isEmpty else {
                 return ("", 0)
             }
+            // When deleting, if the preceding character is a joiner or fixed symbol, move the cursor backward by one position.
+            if self.deleteCharacter, !self.formattedCharacters[cursorPosition].isRawInput‌ {
+                var theString = string
+            
+                let index = string.index(string.startIndex, offsetBy: cursorPosition)
+                theString.insert(Character(self.formattedCharacters[cursorPosition].character), at: index)
+                return (theString, self.currentCursorPosition)
+            }
         
-            let formattedString = self.string(for: string)
-
+            let formattedString = self.string(for: string, swiftUITextField: false)
+        
             if let formattedString, !formattedString.isEmpty {
                 if self.deleteCharacter {
                     return (formattedString, self.currentCursorPosition)
                 }
             
-                if !self.isStringFullyValid(formattedString) {
-                    if self.currentCursorPosition == 0 {
-                        // Handles cases of copy-paste or direct assignment
-                        self.formattedCharacters.removeAll()
-                        return ("", 0)
-                    } else {
-                        // ‌Handles case of high-speed/rapid input
-                        if self.currentCursorPosition < self.formattedCharacters.count {
-                            self.formattedCharacters.removeSubrange(self.currentCursorPosition...)
-                        }
-                        let originalString = String(formattedString.prefix(self.currentCursorPosition))
-                        return (originalString, self.currentCursorPosition)
-                    }
+                // Handles cases of copy-paste or direct assignment
+                if self.currentCursorPosition == 0, !self.isStringFullyValid(formattedString) {
+                    return ("", 0)
                 }
             
                 self.currentCursorPosition = formattedString.count
                 return (formattedString, self.currentCursorPosition)
             }
             self.currentCursorPosition = 0
-            self.formattedCharacters.removeAll()
             return (formattedString, 0)
         }
     
-        func isStringFullyValid(_ text: String) -> Bool {
-            var index = 0
-            for scalar in text.unicodeScalars {
-                if self.formatChars[index] == "\\" {
-                    if scalar != self.formatChars[index + 1] {
-                        return false
+        /// :nodoc:
+        func deleteCheck(from startIndex: Int, text: String) -> String {
+            guard startIndex >= 0, startIndex < self.format.maxCursorPosition else { return text }
+            var finalText: String = text
+            if !self.freeEditing {
+                // If deleted from the middle position, discard all subsequent content
+                return String(finalText.prefix(startIndex))
+            }
+            var dropCount = 0
+            if text.count < self.formattedCharacters.count {
+                // drop the last append fixed string or joiner
+                var i = self.formattedCharacters.count - 1
+                while i > 0, !self.formattedCharacters[i].isRawInput‌ {
+                    let c = Character(formattedCharacters[i].character)
+                    if let index = finalText.lastIndex(of: c) {
+                        finalText.remove(at: index)
+                        dropCount += 1
                     }
-                    index += 1
-                } else {
-                    if !self.isValid(char: scalar, for: index, checkOnly: true) {
-                        return false
+                    i -= 1
+                }
+            }
+            return finalText
+        }
+    
+        /// :nodoc:
+        open func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+            guard !partialString.isEmpty else {
+                // this means the delete chacter
+                self.deleteCharacter = true
+                return true
+            }
+            self.deleteCharacter = false
+        
+            if self.currentCursorPosition < self.format.maxCursorPosition,
+               let char = partialString.unicodeScalars.first,
+               formattedCharacters.count < format.maxCursorPosition
+            {
+                let valid = self.isValid(char: char, for: self.currentCursorPosition)
+                return valid
+            }
+            return false
+        }
+    
+        // MARK: - SwiftUI TextField Implementation
+    
+        /// :nodoc:
+        open func formatString(for string: String, cursorPosition: Int) -> String? {
+            self.currentCursorPosition = cursorPosition
+            guard !string.isEmpty else {
+                return ""
+            }
+        
+            let formattedString = self.string(for: string, swiftUITextField: true)
+        
+            if let formattedString, !formattedString.isEmpty {
+                if self.deleteCharacter {
+                    return formattedString
+                }
+            
+                if !self.isStringFullyValid(formattedString) {
+                    if self.currentCursorPosition == 0 {
+                        // Handles cases of copy-paste or direct assignment
+                        self.formattedCharacters.removeAll()
+                        return ""
+                    } else {
+                        // ‌Handles case of high-speed/rapid input
+                        if self.currentCursorPosition < self.formattedCharacters.count {
+                            self.formattedCharacters.removeSubrange(self.currentCursorPosition...)
+                        }
+                        let originalString = String(formattedString.prefix(self.currentCursorPosition))
+                        return originalString
                     }
                 }
-                index += 1
+            
+                self.currentCursorPosition = formattedString.count
+                return formattedString
             }
-            return true
+            self.currentCursorPosition = 0
+            self.formattedCharacters.removeAll()
+            return formattedString
+        }
+    
+        /// :nodoc:
+        func deleteCheck(text: String) -> String {
+            var finalText: String = text
+        
+            var dropCount = 0
+            if text.count <= self.formattedCharacters.count {
+                // drop the last append fixed string or joiner
+                var i = self.formattedCharacters.count - 1
+                while i > 0, !self.formattedCharacters[i].isRawInput‌ {
+                    let c = Character(formattedCharacters[i].character)
+                    if let index = finalText.lastIndex(of: c) {
+                        finalText.remove(at: index)
+                        dropCount += 1
+                    }
+                    i -= 1
+                }
+            }
+            finalText.removeLast()
+            return finalText
+        }
+    
+        /// :nodoc:
+        open func isPartialStringValid(_ partialString: String, position: Int = 0) -> Bool {
+            guard !partialString.isEmpty else {
+                // this means the delete chacter
+                self.deleteCharacter = true
+                return true
+            }
+            self.deleteCharacter = false
+        
+            if position < self.format.maxCursorPosition,
+               let char = partialString.unicodeScalars.first,
+               formattedCharacters.count < format.maxCursorPosition
+            {
+                let valid = self.isValid(char: char, for: position, swiftUITextField: true)
+                return valid
+            }
+            return false
+        }
+    
+        // MARK: - Shared Utilities Methods
+    
+        /// :nodoc:
+        func isValid(char: Unicode.Scalar, for position: Int, checkOnly: Bool = false, swiftUITextField: Bool = false) -> Bool {
+            var adjustedPos = position
+            if !swiftUITextField {
+                adjustedPos = self.deleteCharacter ? (position - 1) : position
+            }
+            if !checkOnly {
+                let result = self.validateJoinerAndFixedChars(from: position)
+                adjustedPos = result.0
+            }
+            guard adjustedPos >= 0 else { return false }
+    
+            let index = self.format.index(self.format.startIndex, offsetBy: adjustedPos)
+            let symbol = self.format[index]
+            let character = Character(char)
+    
+            var isValid = true
+            switch symbol {
+            case "A":
+                isValid = character.isLetter
+                self.formatError = isValid ? .none : .letter
+            case "N":
+                isValid = character.isNumber
+                self.formatError = isValid ? .none : .number
+            case "Y":
+                isValid = character.isNumber && self.checkYearNumberValid(char: char, for: swiftUITextField ? adjustedPos : position)
+                self.formatError = isValid ? .none : .yearNumber
+            case "M":
+                isValid = character.isNumber && self.checkMonthNumberValid(char: char, for: swiftUITextField ? adjustedPos : position)
+                self.formatError = isValid ? .none : .monthNumber
+            case "D":
+                isValid = character.isNumber && self.checkDayNumberValid(char: char, for: swiftUITextField ? adjustedPos : position)
+                self.formatError = isValid ? .none : .dayNumber
+            case "X":
+                isValid = character.isLetter || character.isNumber
+                self.formatError = isValid ? .none : .letterOrNumber
+            case "S":
+                isValid = !character.isLetter && !character.isNumber
+                self.formatError = isValid ? .none : .specialCharacter
+            case "*":
+                isValid = true
+                self.formatError = .none
+            default:
+                isValid = false
+                if checkOnly {
+                    isValid = symbol == character
+                }
+                self.formatError = .otherError
+            }
+            return isValid
         }
     
         /*
-         This function returns the formatted string to be displayed in the `UITextField`.
-
+         This function returns the formatted string to be displayed in the `UITextField` or `TextField`.
+     
          - parameter string: The string user typed.
-
+     
          - returns: The formatted string.
          */
-        func string(for text: String) -> String? {
+        func string(for text: String, swiftUITextField: Bool) -> String? {
             guard !text.isEmpty else {
                 // empty text
                 return ""
             }
-
+        
             // Remove the fixed characters at the end of the text.
             var processedString: String = text
             if self.deleteCharacter {
-                processedString = self.deleteCheck(text: text)
+                if swiftUITextField {
+                    processedString = self.deleteCheck(text: text)
+                } else {
+                    processedString = self.deleteCheck(from: self.currentCursorPosition, text: text)
+                }
             }
             // Safely remove all fixed characters (reverse traversal to avoid index misalignment)
             let fixedCharactersIndices = self.formattedCharacters.enumerated()
                 .filter(\.element.isFixedPlaceholder)
                 .map(\.offset)
                 .sorted(by: >)
-
+        
             for index in fixedCharactersIndices where index < processedString.count {
                 processedString.remove(at: processedString.index(processedString.startIndex, offsetBy: index))
             }
@@ -302,74 +464,22 @@
             return String(finalScalarView)
         }
     
-        /// :nodoc:
-        func deleteCheck(text: String) -> String {
-            var finalText: String = text
-        
-            var dropCount = 0
-            if text.count <= self.formattedCharacters.count {
-                // drop the last append fixed string or joiner
-                var i = self.formattedCharacters.count - 1
-                while i > 0, !self.formattedCharacters[i].isRawInput‌ {
-                    let c = Character(formattedCharacters[i].character)
-                    if let index = finalText.lastIndex(of: c) {
-                        finalText.remove(at: index)
-                        dropCount += 1
+        func isStringFullyValid(_ text: String) -> Bool {
+            var index = 0
+            for scalar in text.unicodeScalars {
+                if self.formatChars[index] == "\\" {
+                    if scalar != self.formatChars[index + 1] {
+                        return false
                     }
-                    i -= 1
+                    index += 1
+                } else {
+                    if !self.isValid(char: scalar, for: index, checkOnly: true) {
+                        return false
+                    }
                 }
+                index += 1
             }
-            finalText.removeLast()
-            return finalText
-        }
-    
-        /// :nodoc:
-        func isValid(char: Unicode.Scalar, for position: Int, checkOnly: Bool = false) -> Bool {
-            var adjustedPos = position
-            if !checkOnly {
-                let result = self.validateJoinerAndFixedChars(from: position)
-                adjustedPos = result.0
-            }
-            guard adjustedPos >= 0 else { return false }
-        
-            let index = self.format.index(self.format.startIndex, offsetBy: adjustedPos)
-            let symbol = self.format[index]
-            let character = Character(char)
-        
-            var isValid = true
-            switch symbol {
-            case "A":
-                isValid = character.isLetter
-                self.formatError = isValid ? .none : .letter
-            case "N":
-                isValid = character.isNumber
-                self.formatError = isValid ? .none : .number
-            case "Y":
-                isValid = character.isNumber && self.checkYearNumberValid(char: char, for: adjustedPos)
-                self.formatError = isValid ? .none : .yearNumber
-            case "M":
-                isValid = character.isNumber && self.checkMonthNumberValid(char: char, for: adjustedPos)
-                self.formatError = isValid ? .none : .monthNumber
-            case "D":
-                isValid = character.isNumber && self.checkDayNumberValid(char: char, for: adjustedPos)
-                self.formatError = isValid ? .none : .dayNumber
-            case "X":
-                isValid = character.isLetter || character.isNumber
-                self.formatError = isValid ? .none : .letterOrNumber
-            case "S":
-                isValid = !character.isLetter && !character.isNumber
-                self.formatError = isValid ? .none : .specialCharacter
-            case "*":
-                isValid = true
-                self.formatError = .none
-            default:
-                isValid = false
-                if checkOnly {
-                    isValid = symbol == character
-                }
-                self.formatError = .otherError
-            }
-            return isValid
+            return true
         }
     
         /// :nodoc:
@@ -479,7 +589,7 @@
             guard adjustIndex >= 0, adjustIndex < self.formatChars.count else { return (startIndex, nil) }
             var string = [Unicode.Scalar]()
             var escaping = false
-
+        
             var index = adjustIndex
             for i in adjustIndex ..< self.formatChars.count {
                 index = i
@@ -503,7 +613,7 @@
             }
             return (index, string)
         }
-
+    
         /// :nodoc:
         open func editingString(for obj: Any) -> String? {
             guard let text = obj as? String else {
@@ -514,25 +624,6 @@
                 self.formattedCharacters = [FormatCharacter]()
             }
             return finalString
-        }
-
-        /// :nodoc:
-        open func isPartialStringValid(_ partialString: String, position: Int = 0) -> Bool {
-            guard !partialString.isEmpty else {
-                // this means the delete chacter
-                self.deleteCharacter = true
-                return true
-            }
-            self.deleteCharacter = false
-        
-            if position < self.format.maxCursorPosition,
-               let char = partialString.unicodeScalars.first,
-               formattedCharacters.count < format.maxCursorPosition
-            {
-                let valid = self.isValid(char: char, for: position)
-                return valid
-            }
-            return false
         }
     
         /// :nodoc:
@@ -586,7 +677,7 @@
         func validCharCount(_ ignoredCharacters: Set<Character>) -> Int {
             var count = 0
             var isEscaped = false
-    
+        
             for char in self {
                 if char == "\\", !isEscaped {
                     isEscaped = true

@@ -97,8 +97,7 @@ public struct TextInputFieldGenericTextStyle: TextInputFieldStyle {
         TextInputField(configuration)
             .frame(minHeight: 44)
             .keyboardType(.default)
-            .setOnChange(of: configuration.text, action1: { newValue in
-                self.updateText(value: newValue, configuration: configuration)
+            .setOnChange(of: configuration.text, action1: { _ in
             }) { oldValue, newValue in
                 guard let formatter = configuration.formatter else {
                     return
@@ -152,15 +151,13 @@ public struct TextInputFieldGenericTextStyle: TextInputFieldStyle {
         guard let formatter = configuration.formatter else {
             return
         }
-        if let tuple = formatter.string(for: value, cursorPosition: cursorPosition) {
-            if let formattedString = tuple.formattedString {
-                if formattedString != configuration.text {
-                    formatter.formatted = true
-                } else {
-                    formatter.formatted = false
-                }
-                configuration.text = formattedString
+        if let formattedString = formatter.formatString(for: value, cursorPosition: cursorPosition) {
+            if formattedString != configuration.text {
+                formatter.formatted = true
+            } else {
+                formatter.formatted = false
             }
+            configuration.text = formattedString
         }
     }
 }

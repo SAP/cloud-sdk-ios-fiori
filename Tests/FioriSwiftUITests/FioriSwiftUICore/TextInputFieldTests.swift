@@ -40,17 +40,14 @@ final class TextInputFieldTests: XCTestCase {
             formatter: formatter
         )
         
-        let tuple3 = formatter.string(for: "AA123456#a20250101", cursorPosition: 0)
-        XCTAssertEqual(tuple3?.formattedString, "+AA 123 456# a 2025/01/01 A*")
-        XCTAssertEqual(tuple3?.adjustedCursorPosition, 28)
+        let formattedString1 = formatter.formatString(for: "AA123456#a20250101", cursorPosition: 0)
+        XCTAssertEqual(formattedString1, "+AA 123 456# a 2025/01/01 A*")
         
-        let tuple = formatter.string(for: "123", cursorPosition: 0)
-        XCTAssertEqual(tuple?.formattedString, "")
-        XCTAssertEqual(tuple?.adjustedCursorPosition, 0)
+        let formattedString2 = formatter.formatString(for: "123", cursorPosition: 0)
+        XCTAssertEqual(formattedString2, "")
         
-        let tuple2 = formatter.string(for: "aa", cursorPosition: 0)
-        XCTAssertEqual(tuple2?.formattedString, "+aa ")
-        XCTAssertEqual(tuple2?.adjustedCursorPosition, 4)
+        let formattedString3 = formatter.formatString(for: "aa", cursorPosition: 0)
+        XCTAssertEqual(formattedString3, "+aa ")
         
         let style = TextInputFieldGenericTextStyle()
         _ = style.makeBody(config)
