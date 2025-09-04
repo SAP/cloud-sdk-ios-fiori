@@ -331,6 +331,7 @@ extension SortFilterCFGItemContainer: View {
             Text(e.value)
         }
         .disableEntriesSection(self._items[r][c].picker.disableListEntriesSection)
+        .disableContentSection(self._items[r][c].picker.disableListContentSection)
         .listStyle(.plain)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .scrollContentBackground(.hidden)

@@ -537,6 +537,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @Environment(\.dismiss) var dismiss
     @Environment(\.listPickerDestinationConfiguration) var destinationConfiguration
     @Environment(\.disableEntriesSection) var disableEntriesSection
+    @Environment(\.disableContentSection) var disableContentSection
     @Environment(\.autoDismissDestination) var autoDismissDestination
     @Environment(\.isFilterFeedbackBarListPickerStyle) var isFilterFeedbackBarListPickerStyle
     
@@ -741,7 +742,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                     Section {
                         self.generateSection(by: items)
                     } header: {
-                        if !self.allEntriesHeaderIsEmpty(), !self.isSingleSelection {
+                        if !self.allEntriesHeaderIsEmpty(), !self.disableContentSection, !self.isSingleSelection {
                             HStack {
                                 self.destinationConfiguration?.allEntriesSectionTitle
                                 Spacer()
@@ -827,7 +828,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                 // single section
                 if let items = filteredData.first?.1 {
                     Section {
-                        if !self.allEntriesHeaderIsEmpty(), !self.isSingleSelection {
+                        if !self.allEntriesHeaderIsEmpty(), !self.disableContentSection, !self.isSingleSelection {
                             HStack {
                                 self.destinationConfiguration?.allEntriesSectionTitle
                                 Spacer()
@@ -1161,6 +1162,10 @@ struct DisableEntriesSectionEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct DisableContentSectionEnvironment: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 struct AutoDismissDestinationEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
 }
@@ -1192,6 +1197,11 @@ extension EnvironmentValues {
         get { self[IsFilterFeedbackBarListPickerStyleEnvironment.self] }
         set { self[IsFilterFeedbackBarListPickerStyleEnvironment.self] = newValue }
     }
+    
+    var disableContentSection: Bool {
+        get { self[DisableContentSectionEnvironment.self] }
+        set { self[DisableContentSectionEnvironment.self] = newValue }
+    }
 }
 
 public extension View {
@@ -1221,6 +1231,13 @@ public extension View {
     /// - Returns: A view with custom background color.
     func destinationRowBackgroundColor(_ color: Color) -> some View {
         self.preference(key: DestinationRowBackgroundPreferenceKey.self, value: color)
+    }
+    
+    /// Controls whether the unselected section of `ListPickerDestination` can be displayed
+    /// - Parameter disabled: A Boolean value where true hides the unselected section and false allows it to be displayed
+    /// - Returns: A configured `ListPickerDestination` view with the unselected section's visibility controlled by the parameter
+    func disableContentSection(_ disabled: Bool = true) -> some View {
+        self.environment(\.disableContentSection, disabled)
     }
 }
 

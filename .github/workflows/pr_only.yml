@@ -34,12 +34,12 @@ jobs:
         uses: fsfe/reuse-action@v1.1
 
   CodeFormattingCheck:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v3
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '15.0'
+          xcode-version: '16.4'
       - name: Cache Mint packages
         id: mint-cache
         uses: actions/cache@v3
@@ -47,12 +47,24 @@ jobs:
           path: /usr/local/lib/mint
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
           restore-keys: ${{ runner.os }}-mint-
+      
       - name: Install Mint
         run: |
-          brew upgrade mint || brew install mint || true
-      - name: Install swiftformat via mint
-        if: steps.mint-cache.outputs.cache-hit != 'true'
-        run: mint bootstrap
+          brew install mint || true
+          echo "/opt/homebrew/bin" >> $GITHUB_PATH
+        
+      - name: Install SwiftLint
+        run: |
+            curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/portable_swiftlint.zip -o swiftlint.zip
+            unzip swiftlint.zip -d swiftlint-bin
+            sudo mv swiftlint-bin/swiftlint /usr/local/bin/
+
+      - name: Install SwiftFormat
+        run: |
+            curl -L https://github.com/nicklockwood/SwiftFormat/releases/download/0.53.4/swiftformat.zip -o swiftformat.zip
+            unzip swiftformat.zip -d swiftformat-bin
+            sudo mv swiftformat-bin/swiftformat /usr/local/bin/
+    
       - name: Format Swift code
         run: mint run swiftformat --verbose .
       - name: Verify formatted code is unchanged

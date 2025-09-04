@@ -41,14 +41,22 @@ extension SegmentedControlPickerFioriStyle {
             return SegmentedControlPicker(configuration)
                 .background(Color.preferredColor(.primaryBackground))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 9)
+                    self.borderShape
                         .stroke(Color.preferredColor(.separatorOpaque), lineWidth: 0.33)
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 9))
+                .clipShape(self.borderShape)
                 .ifApply(self.shadowEffectConfiguration.showShadow) { content in
                     content.shadow(self.shadowEffectConfiguration.style ?? .mediumElement)
                 }
                 .padding()
+        }
+        
+        var borderShape: some Shape {
+            if #available(iOS 26.0, *) {
+                return Capsule()
+            } else {
+                return RoundedRectangle(cornerRadius: 9)
+            }
         }
     }
     

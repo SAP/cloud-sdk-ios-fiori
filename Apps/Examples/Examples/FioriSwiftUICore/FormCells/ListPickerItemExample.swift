@@ -38,6 +38,7 @@ struct ListPickerItemExample: View {
     @State var allowSearch: Bool = false
     @State var customDestination: Bool = false
     @State var disableEntriesSection: Bool = false
+    @State var disableContentSection: Bool = false
     @State var allowEmpty: Bool = false
     @State var autoDismissDestination: Bool = false
     
@@ -115,6 +116,8 @@ struct ListPickerItemExample: View {
 
                 Toggle("Disable Entries Section", isOn: self.$disableEntriesSection)
                 
+                Toggle("Disable Content Section", isOn: self.$disableContentSection)
+                
                 Toggle("Allow Empty", isOn: self.$allowEmpty)
                 
                 Toggle("Auto Dismiss Destination(Only for Single Selection and isTrackingLiveChanges is true)", isOn: self.$autoDismissDestination)
@@ -140,6 +143,7 @@ struct ListPickerItemExample: View {
     func destinationViewGroup() -> some View {
         self.destinationView
             .disableEntriesSection(self.disableEntriesSection)
+            .disableContentSection(self.disableContentSection)
             .autoDismissDestination(self.autoDismissDestination)
             .navigationTitle("Destination Title")
             .ifApply(self.customDestination) {
