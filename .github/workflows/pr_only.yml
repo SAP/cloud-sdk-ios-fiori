@@ -52,12 +52,19 @@ jobs:
         run: |
           brew install mint || true
           echo "/opt/homebrew/bin" >> $GITHUB_PATH
-      - name: Prepare Mintfile
+        
+      - name: Install SwiftLint
         run: |
-          echo "realm/SwiftLint@0.59.1" > Mintfile
-          echo "nicklockwood/SwiftFormat@0.53.4" >> Mintfile
-      - name: Install swiftformat and swiftlint via mint
-        run: mint bootstrap
+            curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/portable_swiftlint.zip -o swiftlint.zip
+            unzip swiftlint.zip -d swiftlint-bin
+            sudo mv swiftlint-bin/swiftlint /usr/local/bin/
+
+      - name: Install SwiftFormat
+        run: |
+            curl -L https://github.com/nicklockwood/SwiftFormat/releases/download/0.53.4/swiftformat.zip -o swiftformat.zip
+            unzip swiftformat.zip -d swiftformat-bin
+            sudo mv swiftformat-bin/swiftformat /usr/local/bin/
+    
       - name: Format Swift code
         run: mint run swiftformat --verbose .
       - name: Verify formatted code is unchanged
