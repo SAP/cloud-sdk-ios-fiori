@@ -2,6 +2,19 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+struct ISSPIVerticalContentPresentedKey: EnvironmentKey {
+    static let defaultValue = Binding.constant(false)
+}
+
+public extension EnvironmentValues {
+    /// Indicate whether to show vertical content in `StepProgressIndicator`.
+    /// Allow to control the presentation state of vertical content in `StepProgressIndicator` programatically.
+    var isSPIVerticalContentPresented: Binding<Bool> {
+        get { self[ISSPIVerticalContentPresentedKey.self] }
+        set { self[ISSPIVerticalContentPresentedKey.self] = newValue }
+    }
+}
+
 /// :nodoc:
 public extension StepProgressIndicator {
     init(selection: Binding<String>,
@@ -75,6 +88,7 @@ public extension StepProgressIndicator {
 // Base Layout style
 public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
     @Environment(\.headerSeparator) private var separatorConfiguration
+    @Environment(\.isSPIVerticalContentPresented) private var isSPIVerticalContentPresented
     @State var isPresented: Bool = false
     @State var stepFrames: [String: CGRect] = [:]
     @State var scrollBounds: CGRect = .zero
@@ -95,6 +109,19 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
         }
     }
     
+    var isSPIPresented: Binding<Bool> {
+        Binding(get: {
+            self.isPresented || self.isSPIVerticalContentPresented.wrappedValue
+        }, set: { newValue in
+            self.updatePresentationState(newValue)
+        })
+    }
+    
+    func updatePresentationState(_ newValue: Bool) {
+        self.isPresented = newValue
+        self.isSPIVerticalContentPresented.wrappedValue = newValue
+    }
+    
     @ViewBuilder func stepsHeader(_ configuration: StepProgressIndicatorConfiguration) -> some View {
         if configuration.action.isEmpty, configuration.title.isEmpty {
             EmptyView()
@@ -105,7 +132,7 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                 Spacer()
                 configuration.action
                     .onSimultaneousTapGesture(perform: {
-                        self.isPresented.toggle()
+                        self.updatePresentationState(true)
                     })
             }
             .frame(minHeight: 44)
@@ -121,7 +148,7 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                                 .fioriButtonStyle(FioriNavigationButtonStyle())
                                 .fixedSize()
                                 .onSimultaneousTapGesture {
-                                    self.isPresented.toggle()
+                                    self.updatePresentationState(false)
                                 }
                         }
                     }
