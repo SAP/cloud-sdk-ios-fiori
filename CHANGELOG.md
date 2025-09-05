@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.8.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.1-20250829...25.8.1) (2025-09-05)
+
+
+### Bug Fixes
+
+* 🐛 [HCPSDKFIORIUIKIT-3032] remove HStack from tool bar ([#1241](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1241)) ([3df71b9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3df71b9727528168598fbb4dd33e9fe43b7b5f44))
+* 🐛 [IOSSDKBUG-897]Skeleton loading for KPIHeader Cherrypick ([#1244](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1244)) ([4fe3e33](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4fe3e33866be0d22ae5d8fbdd0a4365b9a929cab))
+* 🐛 [jira: IOSSDKBUG-865] Carousel moves to the A11Y focused ([#1247](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1247)) ([b0232a1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b0232a1d69a0fcbd02a82d591528fa78c625b1c7))
+* 🐛 minor changes for missed binding value in SPI ([#1249](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1249)) ([1822607](https://github.com/SAP/cloud-sdk-ios-fiori/commit/182260773252d59d973c2736c7069950ca855e3f))
+* 🐛 new api allow show SPI vertical content programatically ([#1245](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1245)) ([999d31c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/999d31cba03d644d472859bf897f08a2fb868cb9))
+
 ## [25.8.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.0-20250730...25.8.0) (2025-08-04)
 
 
