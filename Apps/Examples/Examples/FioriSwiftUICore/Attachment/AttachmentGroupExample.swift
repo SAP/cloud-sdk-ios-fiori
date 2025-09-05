@@ -70,7 +70,7 @@ struct AttachmentGroupExample: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     self.showConfiguraton.toggle()
                 } label: {
