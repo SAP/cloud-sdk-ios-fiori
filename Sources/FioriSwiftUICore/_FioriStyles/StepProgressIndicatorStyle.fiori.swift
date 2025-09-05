@@ -136,7 +136,7 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                     })
             }
             .frame(minHeight: 44)
-            .sheet(isPresented: self.$isPresented) {
+            .sheet(isPresented: self.isSPIPresented) {
                 NavigationStack {
                     ScrollViewReader { _ in
                         self.stepsContainer(configuration, axis: .vertical)
