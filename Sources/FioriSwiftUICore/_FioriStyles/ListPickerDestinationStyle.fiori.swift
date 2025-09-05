@@ -645,14 +645,14 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         }
         .ifApply(!self.isTrackingLiveChanges && self.isTopLevel) {
             $0.toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     self.destinationConfiguration?.cancelAction
                         .onSimultaneousTapGesture {
                             self.cancelActionTapped()
                         }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     self.destinationConfiguration?.applyAction
                         .onSimultaneousTapGesture {
                             self.confirm()
