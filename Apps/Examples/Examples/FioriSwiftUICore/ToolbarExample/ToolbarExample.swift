@@ -28,7 +28,7 @@ struct ToolbarExample: View {
                 NavigationStack {
                     ToolbarView(numberOfButtons: self.$numberOfButtons, useFioriToolbar: self.$useFioriToolbar, helperText: self.$helperText, customHelperText: self.$customHelperText, moreActionOverflowIcon: self.$customOverflowIcon, primaryButtonText: self.$primaryButton, secondaryButtonText: self.$secondaryButton, thirdButtonText: self.$thirdButton, buttonType: self.$buttonType)
                         .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
+                            ToolbarItem(placement: .topBarTrailing) {
                                 Button("Close") { self.isPresented = false }
                             }
                         }
