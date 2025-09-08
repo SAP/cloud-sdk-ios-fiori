@@ -520,3 +520,9 @@
 
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
+
+/*XTIT: Title for card*/
+"Card title" = "Card title";
+
+/*XTIT: Subtitle for card*/
+"Card subtitle" = "Card subtitle";
