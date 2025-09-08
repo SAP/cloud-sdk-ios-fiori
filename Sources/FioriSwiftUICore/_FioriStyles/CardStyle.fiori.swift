@@ -105,7 +105,7 @@ struct CardLayout: Layout {
         let containerWidth = proposal.width
         let height: CGFloat
         if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
-            height = max(value, cache.height)
+            height = value
         } else {
             height = cache.rows.last?.maxY ?? 0
         }

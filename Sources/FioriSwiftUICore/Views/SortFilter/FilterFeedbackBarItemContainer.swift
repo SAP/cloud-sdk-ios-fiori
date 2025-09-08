@@ -101,14 +101,15 @@ extension FilterFeedbackBarItemContainer: View {
     
     private func switchItemAccessibilityLabel(switchItem: SortFilterItem.SwitchItem) -> String {
         var accessibilityLabel = switchItem.name
-        let notSelected = NSLocalizedString("not selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "not selected")
+        let statusText: String
+        
         if let value = switchItem.value {
-            let selected = NSLocalizedString("selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "selected")
-            let status = value ? selected : notSelected
-            accessibilityLabel += " " + status
+            statusText = value ? "Switch Item Off".localizedFioriString() : "Switch Item On".localizedFioriString()
         } else {
-            accessibilityLabel += notSelected
+            statusText = "Switch Item On".localizedFioriString()
         }
+        
+        accessibilityLabel += statusText
         return accessibilityLabel
     }
 }

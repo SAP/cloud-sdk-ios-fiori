@@ -425,7 +425,7 @@ public struct DataTableExampleView: View {
             .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     if self.editMode == .none {
                         Button(action: {
                             let numOfColumn: Int = self.model.rowData.first?.data.count ?? 0
