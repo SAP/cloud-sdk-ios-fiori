@@ -80,8 +80,7 @@ struct EditableSideBarExample: View {
                 )
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .background(Color.preferredColor(.quaternaryFill))
-            .frame(width: 320) : nil
+            .background(Color.preferredColor(.quaternaryFill)) : nil
         
         let view = NavigationSplitView {
             SideBar(
