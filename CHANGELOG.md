@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.8.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.1...25.8.2) (2025-09-10)
+
+
+### Bug Fixes
+
+* 🐛 [HCPSDKFIORIUIKIT-3047] Fix Sidebar width in portrait mode and ([#1258](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1258)) ([442732f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/442732f850c22df3e1c4f3a42a295f9f6fa545e7))
+* 🐛 [IOSSDKBUG-864]Recombine the voiceOver element ([#1254](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1254)) ([c9ad2b5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c9ad2b5393fc12216d8a5078247e88bd267be8ef))
+
 ### [25.8.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.1-20250829...25.8.1) (2025-09-05)
 
 
