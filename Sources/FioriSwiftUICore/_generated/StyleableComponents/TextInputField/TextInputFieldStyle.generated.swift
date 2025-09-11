@@ -25,6 +25,7 @@ public struct TextInputFieldConfiguration {
     public var componentIdentifier: String = "fiori_textinputfield_component"
     @Binding public var text: String
     public let isSecureEnabled: Bool?
+    public let formatter: GenericTextFormatter?
 }
 
 extension TextInputFieldConfiguration {

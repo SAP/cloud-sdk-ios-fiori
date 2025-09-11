@@ -25,6 +25,7 @@ public struct TitleFormViewConfiguration {
     public var componentIdentifier: String = "fiori_titleformview_component"
     @Binding public var text: String
     public let isSecureEnabled: Bool?
+    public let formatter: GenericTextFormatter?
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?

@@ -25,6 +25,7 @@ public struct PlaceholderTextFieldConfiguration {
     public var componentIdentifier: String = "fiori_placeholdertextfield_component"
     @Binding public var text: String
     public let isSecureEnabled: Bool?
+    public let formatter: GenericTextFormatter?
     public let placeholder: Placeholder
 
     public typealias Placeholder = ConfigurationViewWrapper
