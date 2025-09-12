@@ -78,14 +78,35 @@ jobs:
       if: github.event.inputs.dryRun == 'false' && github.event.inputs.releaseVersion != null
       run: npx standard-version --tag-prefix '' --release-as '${{ github.event.inputs.releaseVersion }}'
 
+    - name: Check if tag already exists
+      id: check_tag
+      run: |
+        if git rev-parse "refs/tags/${{ env.NEXT_VERSION }}" >/dev/null 2>&1; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+        fi
+
     - name: Publish tag # only possible on main branch
-      if: github.event.inputs.dryRun == 'false'
+      if: github.event.inputs.dryRun == 'false' && steps.check_tag.outputs.exists == 'false'
       run: |
         git push --follow-tags origin
 
+    - name: Check if release already exists
+      id: check_release
+      run: |
+        release=$(gh release view ${{ env.NEXT_VERSION }} --json tagName --jq .tagName || true)
+        if [ "$release" = "${{ env.NEXT_VERSION }}" ]; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_ME_REPO }}
+
     - name: Publish GitHub release
       uses: actions/create-release@v1.1.4
-      if: github.event.inputs.dryRun == 'false'
+      if: github.event.inputs.dryRun == 'false' && steps.check_release.outputs.exists == 'false'
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_ME_REPO }} # # use PAT to being able to push to protected branch later on
       with:
