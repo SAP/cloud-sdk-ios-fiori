@@ -37,7 +37,7 @@ public struct EULAViewBaseStyle: EULAViewStyle {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 self.navBarLeadingView(configuration)
                     .fixedSize()
             }

@@ -136,16 +136,15 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                     })
             }
             .frame(minHeight: 44)
-            .sheet(isPresented: self.$isPresented) {
+            .sheet(isPresented: self.isSPIPresented) {
                 NavigationStack {
                     ScrollViewReader { _ in
                         self.stepsContainer(configuration, axis: .vertical)
                     }
                     .navigationTitle(NSLocalizedString(NSLocalizedString("All Steps", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "All Steps"), comment: ""))
                     .toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
+                        ToolbarItem(placement: .topBarLeading) {
                             configuration.cancelAction
-                                .fioriButtonStyle(FioriNavigationButtonStyle())
                                 .fixedSize()
                                 .onSimultaneousTapGesture {
                                     self.updatePresentationState(false)
@@ -249,7 +248,7 @@ extension StepProgressIndicatorFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
 }
