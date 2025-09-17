@@ -21,7 +21,6 @@ struct MenuSelectionExample: View {
                     .id("MenuSelection")
                     .environment(\.isLoading, self.isLoading)
                 }
-                .border(.red)
                 .toolbar(content: {
                     Button("ScrollToBottom") {
                         withAnimation {
