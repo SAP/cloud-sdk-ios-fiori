@@ -9,6 +9,14 @@ extension VerticalAlignment {
     }
 
     static let titleFirstTextBaseline = VerticalAlignment(TitleFirstTextBaselineAlignment.self)
+    
+    enum EventIndicatorCenterAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[VerticalAlignment.bottom]
+        }
+    }
+
+    static let eventIndicatorCenterAlignment = VerticalAlignment(EventIndicatorCenterAlignment.self)
 }
 
 private extension DynamicTypeSize {
@@ -127,12 +135,22 @@ enum DayViewState {
 }
 
 public struct DayView: View {
-    var title: String
-    var subtitle: String?
+    let title: String
+    let subtitle: String?
     
-    var isEventIndicatorVisible: Bool = false
+    let isEventIndicatorVisible: Bool
     
-    var state: DayViewState = .normal
+    var state: DayViewState
+    
+    let customEventView: any View
+    
+    init(title: String, subtitle: String? = nil, isEventIndicatorVisible: Bool = false, state: DayViewState = .normal, customEventView: any View = EmptyView()) {
+        self.title = title
+        self.subtitle = subtitle
+        self.isEventIndicatorVisible = isEventIndicatorVisible
+        self.state = state
+        self.customEventView = customEventView
+    }
     
     private var hasSubTitle: Bool {
         guard let subtitle else { return false }
@@ -183,12 +201,19 @@ public struct DayView: View {
                         .padding(.top, -2)
                 }
                 
-                Circle()
-                    .frame(width: 4, height: 4)
-                    .foregroundStyle(Color.preferredColor(self.eventForegroundColorStyle))
-                    .padding(.top, self.hasSubTitle ? 6 : 8)
-                    .padding(.bottom, 9.5)
-                    .opacity(self.isEventIndicatorVisible ? 1 : 0)
+                ZStack(alignment: .center) {
+                    if self.isEventIndicatorVisible {
+                        if self.customEventView.isEmpty {
+                            Circle()
+                                .foregroundStyle(Color.preferredColor(self.eventForegroundColorStyle))
+                        } else {
+                            self.customEventView.typeErased
+                        }
+                    }
+                }
+                .frame(width: 4, height: 4)
+                .padding(.top, self.hasSubTitle ? 6 : 8)
+                .padding(.bottom, 9.5)
                 
             })
         })

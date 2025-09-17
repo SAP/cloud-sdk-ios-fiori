@@ -13,13 +13,15 @@ struct MonthView: View, Equatable {
     
     let showOutOfMonth: Bool
     
+    let customEventView: (Date) -> any View
+    
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
     
     @Environment(\.firstWeekday) var firstWeekday
     
-    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
+    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.year = year
         self.month = month
@@ -30,6 +32,8 @@ struct MonthView: View, Equatable {
         _selectedDate = selectedDate
         _selectedDates = selectedDates
         _selectedRange = selectedRange
+        
+        self.customEventView = customEventView
     }
     
     /// Used for compare to avoid redundant view refresh
@@ -77,8 +81,6 @@ struct MonthView: View, Equatable {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
-        
         VStack(spacing: 0, content: {
             if self.showMonthHeader {
                 Text(self.monthText)
@@ -89,7 +91,7 @@ struct MonthView: View, Equatable {
             }
             
             ForEach(self.weeks, id: \.self) { info in
-                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.$selectedDate, selectedDates: self.$selectedDates, selectedRange: self.$selectedRange)
+                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.$selectedDate, selectedDates: self.$selectedDates, selectedRange: self.$selectedRange, customEventView: self.customEventView)
             }
         })
     }

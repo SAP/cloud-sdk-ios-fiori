@@ -33,13 +33,15 @@ public struct WeekView: View, Equatable {
     @Environment(\.weekNumberTintColor) var weekNumberTintColor
     @Environment(\.disabledDates) var disabledDates
     
+    let customEventView: (Date) -> any View
+    
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
     
     private var weekNumberVisibility: Bool = true
     
-    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
+    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
@@ -48,6 +50,7 @@ public struct WeekView: View, Equatable {
         _selectedDate = selectedDate
         _selectedDates = selectedDates
         _selectedRange = selectedRange
+        self.customEventView = customEventView
         
         if let date = self.weekInfo.dates.first {
             let targetComponents = Calendar.autoupdatingCurrent.dateComponents([.year, .month], from: date)
@@ -94,7 +97,7 @@ public struct WeekView: View, Equatable {
                 let day = calendar.component(.day, from: date)
                 let state = self.dayState(date)
                 DayView(title: "\(day)", subtitle: getSecondaryDayTitle(date),
-                        isEventIndicatorVisible: self.isEventIndicatorVisible, state: state)
+                        isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: self.customEventView(date))
                     .opacity((state == .outOfMonth && !self.showOutOfMonth) ? 0 : 1)
                     .contentShape(Rectangle())
                     .ifApply(!state.isDisabled, content: {

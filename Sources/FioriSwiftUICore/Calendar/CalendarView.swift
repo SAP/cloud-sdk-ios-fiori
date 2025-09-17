@@ -39,6 +39,8 @@ public struct CalendarView: View {
     @State private var dragGestureOffsetY: CGFloat = 0
     @State private var currentMonthOriginHeight: CGFloat = 0
     
+    let customEventView: (Date) -> any View
+    
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
@@ -59,6 +61,8 @@ public struct CalendarView: View {
     }
 
     public var body: some View {
+        let _ = Self._printChanges()
+        
         GeometryReader { proxy in
             let availableWidth = proxy.size.width
             let paddingOffset: CGFloat = 8
@@ -172,12 +176,12 @@ public struct CalendarView: View {
                     }
                 } else if self.style == .month || self.showFullScreen() {
                     ScrollView(.vertical, showsIndicators: false, content: {
-                        LazyVStack {
+                        VStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth(), selectedDate: dateSelection, selectedDates: datesSelection, selectedRange: rangeSelection)
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth(), selectedDate: dateSelection, selectedDates: datesSelection, selectedRange: rangeSelection, customEventView: self.customEventView)
                                             .sizeReader(size: {
                                                 self.pageHeights[index] = $0.height
                                                 if let scrollPosition, scrollPosition == index {
@@ -286,7 +290,7 @@ public struct CalendarView: View {
         }
     }
     
-    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil)) {
+    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         _selectedDate = selectedDate
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
@@ -359,6 +363,8 @@ public struct CalendarView: View {
         self.startDate = result.startDate
         self.endDate = result.endDate
         self.displayDateAtStartup = result.displayDateAtStartup
+        
+        self.customEventView = customEventView
     }
 
     func monthsBetweenDates(start: Date, end: Date) -> Int {
