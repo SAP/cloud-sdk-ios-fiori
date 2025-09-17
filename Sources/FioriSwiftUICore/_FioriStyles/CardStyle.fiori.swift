@@ -240,6 +240,17 @@ extension CardFioriStyle {
         }
     }
     
+    struct FlexItemFioriStyle: FlexItemStyle {
+        let cardConfiguration: CardConfiguration
+
+        func makeBody(_ configuration: FlexItemConfiguration) -> some View {
+            FlexItem(configuration)
+            // Add default style for FlexItem
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+    
     struct Row1FioriStyle: Row1Style {
         let cardConfiguration: CardConfiguration
         
@@ -872,6 +883,203 @@ public enum CardTests {
         FioriButton(title: "Approve")
     }
     
+    static let card12 = Card(title: {
+        Text("Karen Watters")
+    }, subtitle: {
+        Text("MC HR Business Partner")
+    }, detailImage: {
+        Image("ProfilePic")
+            .resizable()
+            .cornerRadius(8)
+    }, flexItem: {
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "globe.asia.australia")
+                Text("Workflow Delegation Request")
+                    .font(.subheadline)
+                Spacer()
+                Button {
+                    print("tapped")
+                } label: {
+                    Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+                }
+            }
+            Text("Karen Watters wants to delegate workflows to you")
+                .font(.title3)
+                .fontWeight(.bold)
+                
+            Subtitle(subtitle: "Now until turned off")
+        }
+    }, flexItemPosition: .headerTop, action: {
+        FioriButton(title: "Primary")
+    }, secondaryAction: {
+        FioriButton(title: "Secondary")
+    })
+    
+    static let card13 = Card(title: {
+        Text("Initiated for Geoff Hill")
+    }, subtitle: {
+        Text("Submitted on Jan 1 2020")
+    }, detailImage: {
+        Image(systemName: "person.crop.circle")
+            .resizable()
+            .cornerRadius(8)
+    }, flexItem: {
+        HStack {
+            Image(systemName: "calendar")
+            Text("Time Offs")
+            Spacer()
+            Button {
+                print("tapped")
+            } label: {
+                Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+            }
+        }
+    }, flexItemPosition: .headerTop, cardBody: {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Label")
+                Spacer()
+                Subtitle(subtitle: "Value")
+            }
+            HStack {
+                Text("Label")
+                Spacer()
+                Subtitle(subtitle: "Value")
+            }
+            HStack {
+                Text("Label")
+                Spacer()
+                Subtitle(subtitle: "Value")
+            }
+        }
+    }, action: {
+        FioriButton(title: "Primary")
+    }, secondaryAction: {
+        FioriButton(title: "Secondary")
+    })
+    
+    static let card14 = Card(title: {
+        Text("Project Alpha")
+    }, subtitle: {
+        Text("Development Phase")
+    }, headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }, counter: {
+        Text("3 of 999")
+    }, flexItem: {
+        HStack {
+            Image(systemName: "globe.asia.australia")
+                .foregroundStyle(.red)
+            Text("Very high priority")
+                .foregroundStyle(.red)
+        }
+    }, flexItemPosition: .headerTop)
+    
+    static let card15 = Card(title: {
+        Text("Title")
+    }, subtitle: {
+        Text("Subtitle")
+    }, detailImage: {
+        Image(systemName: "person.crop.circle")
+            .resizable()
+            .cornerRadius(8)
+    }, headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }, counter: {
+        Text("3 of 999")
+    }, flexItem: {
+        HStack {
+            Image(systemName: "globe.asia.australia")
+                .foregroundStyle(.red)
+            Text("Very high priority")
+                .foregroundStyle(.red)
+        }
+    }, flexItemPosition: .headerTop)
+    
+    static let card16 = Card(title: {
+        Text("Title")
+    }, subtitle: {
+        Text("Subtitle")
+    }, detailImage: {
+        Image(systemName: "person.crop.circle")
+            .resizable()
+            .cornerRadius(8)
+    }, headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }, counter: {
+        Text("3 of 999")
+    }, flexItem: {
+        HStack {
+            Image(systemName: "globe.asia.australia")
+                .foregroundStyle(.red)
+            Text("Very high priority")
+                .foregroundStyle(.red)
+        }
+    }, flexItemPosition: .top)
+    
+    static let card17 = Card(title: {
+        Text("Title")
+    }, subtitle: {
+        Text("Subtitle")
+    }, detailImage: {
+        Image(systemName: "person.crop.circle")
+            .resizable()
+            .cornerRadius(8)
+    }, headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }, counter: {
+        Text("3 of 999")
+    }, flexItem: {
+        HStack {
+            Image(systemName: "globe.asia.australia")
+                .foregroundStyle(.red)
+            Text("Very high priority")
+                .foregroundStyle(.red)
+        }
+    }, flexItemPosition: .middle)
+    
+    static let card18 = Card(title: {
+        Text("Title")
+    }, subtitle: {
+        Text("Subtitle")
+    }, detailImage: {
+        Image(systemName: "person.crop.circle")
+            .resizable()
+            .cornerRadius(8)
+    }, headerAction: {
+        Button {
+            print("tapped")
+        } label: {
+            Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
+        }
+    }, counter: {
+        Text("3 of 999")
+    }, flexItem: {
+        HStack {
+            Image(systemName: "globe.asia.australia")
+                .foregroundStyle(.red)
+            Text("Very high priority")
+                .foregroundStyle(.red)
+        }
+    }, flexItemPosition: .bottom)
+    
     static let vbCard = Card {
         Color.purple
             .frame(height: 84)
@@ -1084,6 +1292,7 @@ public enum CardTests {
     public static let cardSamples = [sampleCard1, sampleCard13, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard9, sampleCard10, vbCard, sampleCard11, sampleCard8, fullCard]
     public static let cardFooterSamples = [sampleCard6, sampleCard16, sampleCard17, sampleCard12, sampleCard13, sampleCard14, sampleCard15, sampleCard20]
     static let previewCardSamples = [sampleCard1, sampleCard2, sampleCard3, sampleCard4, sampleCard5, sampleCard6, sampleCard7, sampleCard8, sampleCard9, sampleCard10, sampleCard11, vbCard, fullCard, headerOnly, titleOnly, noHeader]
+    public static let flexItemCardSamples = [card12, card13, card14, card15, card16, card17, card18]
 }
 
 /// Provides reusable skeleton loading patterns for `Card` components.

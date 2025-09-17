@@ -314,6 +314,12 @@ struct MobileCardExample: View {
             } label: {
                 Text("Left image card using cardBody")
             }
+            
+            NavigationLink {
+                FioriCardFlexItem()
+            } label: {
+                Text("FlexItem within Card Header")
+            }
         }
         .navigationBarTitle("Cards", displayMode: .inline)
         .sheet(isPresented: self.$isPresented) {
@@ -332,6 +338,22 @@ struct MobileCardExample: View {
                 self.isPresented = true
             }
         })
+    }
+}
+
+struct FioriCardFlexItem: View {
+    @State private var buttonWidthMode: Int = 0
+    var body: some View {
+        List {
+            ForEach(0 ..< CardTests.flexItemCardSamples.count, id: \.self) { i in
+                CardTests.flexItemCardSamples[i]
+            }
+            .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
+        }
+        .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
+        .cardStyle(.card)
+        .listStyle(.plain)
+        .navigationBarTitle("FlexItem in card", displayMode: .inline)
     }
 }
 
