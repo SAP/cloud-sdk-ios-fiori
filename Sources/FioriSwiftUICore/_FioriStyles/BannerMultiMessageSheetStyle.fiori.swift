@@ -104,6 +104,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         for element in configuration.bannerMultiMessages {
             self.dimensionSelectorTitles.append(element.category)
         }
+        self.dimensionSelectorIndex = 0
     }
     
     // List in popover will not expand automatically in iPad. Here, calculate the content height and resize its frame's height, the maximum of the popover height in iPad is 380.
@@ -125,11 +126,11 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func filteredBannerMultiMessages(_ configuration: BannerMultiMessageSheetConfiguration) -> [BannerMessageListModel] {
-        let selectedCategory = self.dimensionSelectorTitles[self.categorySelect.categorySelectedIndex]
         let filteredBannerMultiMessages = configuration.bannerMultiMessages.filter { model in
-            if self.categorySelect.categorySelectedIndex == 0 {
+            if self.categorySelect.categorySelectedIndex == 0 || self.categorySelect.categorySelectedIndex >= self.dimensionSelectorTitles.count {
                 return true
             } else {
+                let selectedCategory = self.dimensionSelectorTitles[self.categorySelect.categorySelectedIndex]
                 return model.category == selectedCategory
             }
         }
