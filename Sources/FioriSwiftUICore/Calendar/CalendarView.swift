@@ -21,7 +21,7 @@ public struct CalendarView: View {
     /// The display date at startup. Default is today.
     let displayDateAtStartup: Date
     
-    @State private var totalMonths = 0
+    private var totalMonths = 0
     
     @State private var pageHeights: [CGFloat] = [0] {
         didSet {
@@ -33,7 +33,7 @@ public struct CalendarView: View {
 
     @State private var weekViewHeight: CGFloat = 60
     @State private var lastPageHeight: CGFloat = 0
-    @State private var weeks: [WeekInfo] = []
+    private var weeks: [WeekInfo] = []
     
     @State private var isDragging = false
     @State private var dragGestureOffsetY: CGFloat = 0
@@ -246,7 +246,7 @@ public struct CalendarView: View {
         }
         .background(Color.preferredColor(.primaryBackground))
         .onAppear {
-            self.handleExpanded()
+//            self.handleExpanded()
         }
     }
     
@@ -273,9 +273,7 @@ public struct CalendarView: View {
     
     func handleExpanded() {
         if self.style == .week || (self.style == .expandable && !self.isExpanded) {
-            self.weeks = self.handleWeekInfo()
         } else {
-            self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
             if self.pageHeights.count != self.totalMonths {
                 self.pageHeights = Array(repeating: 0, count: self.totalMonths)
             }
@@ -365,6 +363,11 @@ public struct CalendarView: View {
         self.displayDateAtStartup = result.displayDateAtStartup
         
         self.customEventView = customEventView
+        
+        self.weeks = self.handleWeekInfo()
+        self.totalMonths = min(3, self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1)
+        
+        _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
     }
 
     func monthsBetweenDates(start: Date, end: Date) -> Int {
