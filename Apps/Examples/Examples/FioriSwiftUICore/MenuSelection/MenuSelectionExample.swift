@@ -4,6 +4,7 @@ import SwiftUI
 
 struct MenuSelectionExample: View {
     @State var isExpanded = false
+    @State var isLoading = false
     
     var body: some View {
         NavigationView {
@@ -18,13 +19,16 @@ struct MenuSelectionExample: View {
                     }
                     .maxNumberOfItems(5)
                     .id("MenuSelection")
+                    .environment(\.isLoading, self.isLoading)
                 }
-                .border(.red)
                 .toolbar(content: {
                     Button("ScrollToBottom") {
                         withAnimation {
                             scrollView.scrollTo("MenuSelection", anchor: .bottom)
                         }
+                    }
+                    Button("Loading") {
+                        self.isLoading.toggle()
                     }
                 })
                 .onChange(of: self.isExpanded) {

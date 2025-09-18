@@ -21,7 +21,7 @@ struct FioriFonts: View {
         }
         .environment(\.sizeCategory, self.sizeCategory)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     self.showSettings.toggle()
                 } label: {

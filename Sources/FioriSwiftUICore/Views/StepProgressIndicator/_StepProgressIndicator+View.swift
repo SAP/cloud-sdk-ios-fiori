@@ -108,7 +108,7 @@ extension _StepProgressIndicator: View {
             newSelf.stepAxis(.vertical)
                 .navigationTitle(NSLocalizedString("All Steps", comment: ""))
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ToolbarItem(placement: .topBarLeading) {
                         cancelAction.onSimultaneousTapGesture {
                             isPresented.toggle()
                         }

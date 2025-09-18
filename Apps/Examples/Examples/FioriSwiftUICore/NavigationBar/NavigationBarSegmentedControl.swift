@@ -27,21 +27,21 @@ struct NavigationBarSegmentedControl: View {
             .navigationTitle("To-Do")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
                         print("Tapped house")
                     }) {
                         Image(systemName: "house")
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         print("Tapped ellipsis  ")
                     }) {
                         Image(systemName: "ellipsis")
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         print("Tapped settings")
                     }) {

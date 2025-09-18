@@ -5,6 +5,14 @@ private class CurrentBundleFinder {}
 extension Bundle {
     static var accessor: Bundle {
         #if SWIFT_PACKAGE
+
+            // patch for SwiftPM: ensure that bundle is found when accessed from a package that relies on FioriSwiftUI
+            if ProcessInfo.processInfo.processName == "xctest" {
+                if let bundle = patchToFindBundle(with: "FioriSwiftUI_FioriThemeManager") {
+                    return bundle
+                }
+            }
+        
             return Bundle.module
         #else
             return Bundle(for: CurrentBundleFinder.self)
