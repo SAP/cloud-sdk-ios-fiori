@@ -11,38 +11,63 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
+/// Enumeration defining positions of FlexItem
+public enum FlexItemPositionType {
+    /// Top position of the Main Header component
+    case headerTop
+    /// Top position of the Title
+    case top
+    /// Bottom position of the Subtitle
+    case bottom
+    /// Middle position between Title and Subtitle
+    case middle
+}
+
 // Base Layout style
 public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
-        HStack(alignment: .top, spacing: 0) {
-            HStack(spacing: 8) {
-                if !configuration.icons.isEmpty {
-                    configuration.icons
-                        .accessibilityHidden(true)
-                }
-                
-                configuration.detailImage
-                    .accessibilityHidden(true)
-                
-                VStack(alignment: .leading) {
-                    configuration.title
+        VStack(alignment: .leading) {
+            if !configuration.flexItem.isEmpty, configuration.flexItemPosition == .headerTop {
+                configuration.flexItem
+            }
+            HStack(alignment: .top, spacing: 0) {
+                HStack(spacing: 8) {
+                    if !configuration.icons.isEmpty {
+                        configuration.icons
+                            .accessibilityHidden(true)
+                    }
                     
-                    configuration.subtitle
-                        .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                    configuration.detailImage
+                        .accessibilityHidden(true)
+                    
+                    VStack(alignment: .leading) {
+                        if !configuration.flexItem.isEmpty, configuration.flexItemPosition == .top {
+                            configuration.flexItem
+                        }
+                        configuration.title
+                        if !configuration.flexItem.isEmpty, configuration.flexItemPosition == .middle {
+                            configuration.flexItem
+                        }
+                        configuration.subtitle
+                            .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                        if !configuration.flexItem.isEmpty, configuration.flexItemPosition == .bottom {
+                            configuration.flexItem
+                        }
+                    }
+                    .accessibilitySortPriority(2)
                 }
-                .accessibilitySortPriority(2)
-            }
-            
-            if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
-                Spacer(minLength: 12)
-            }
-            
-            VStack(alignment: .trailing) {
-                configuration.headerAction
                 
-                configuration.counter
+                if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
+                    Spacer(minLength: 12)
+                }
+                
+                VStack(alignment: .trailing) {
+                    configuration.headerAction
+                    
+                    configuration.counter
+                }
+                .accessibilitySortPriority(1)
             }
-            .accessibilitySortPriority(1)
         }
     }
 }
@@ -56,7 +81,18 @@ extension CardMainHeaderFioriStyle {
             // .background()
         }
     }
-    
+
+    struct FlexItemFioriStyle: FlexItemStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+
+        func makeBody(_ configuration: FlexItemConfiguration) -> some View {
+            FlexItem(configuration)
+            // Add default style for FlexItem
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+
     struct TitleFioriStyle: TitleStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
         @Environment(\.isLoading) var isLoading

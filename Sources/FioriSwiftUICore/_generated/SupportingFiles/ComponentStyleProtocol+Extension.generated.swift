@@ -1291,6 +1291,27 @@ public extension CardStyle where Self == CardCounterStyle {
     }
 }
 
+public struct CardFlexItemStyle: CardStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardFlexItemStyle {
+        CardFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardFlexItemStyle(style: style)
+    }
+}
+
 public struct CardRow1Style: CardStyle {
     let style: any Row1Style
 
@@ -1942,6 +1963,27 @@ public extension CardHeaderStyle where Self == CardHeaderCounterStyle {
     }
 }
 
+public struct CardHeaderFlexItemStyle: CardHeaderStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardHeaderStyle where Self == CardHeaderFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardHeaderFlexItemStyle {
+        CardHeaderFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardHeaderFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardHeaderFlexItemStyle(style: style)
+    }
+}
+
 public struct CardHeaderRow1Style: CardHeaderStyle {
     let style: any Row1Style
 
@@ -2247,6 +2289,27 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderCounterStyle {
     static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardMainHeaderCounterStyle {
         let style = AnyCounterStyle(content)
         return CardMainHeaderCounterStyle(style: style)
+    }
+}
+
+public struct CardMainHeaderFlexItemStyle: CardMainHeaderStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardMainHeaderStyle where Self == CardMainHeaderFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardMainHeaderFlexItemStyle {
+        CardMainHeaderFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardMainHeaderFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardMainHeaderFlexItemStyle(style: style)
     }
 }
 
@@ -3654,6 +3717,20 @@ public extension FioriSliderStyle where Self == FioriSliderInformationViewStyle 
     static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> FioriSliderInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return FioriSliderInformationViewStyle(style: style)
+    }
+}
+
+// MARK: FlexItemStyle
+
+public extension FlexItemStyle where Self == FlexItemBaseStyle {
+    static var base: FlexItemBaseStyle {
+        FlexItemBaseStyle()
+    }
+}
+
+public extension FlexItemStyle where Self == FlexItemFioriStyle {
+    static var fiori: FlexItemFioriStyle {
+        FlexItemFioriStyle()
     }
 }
 

@@ -28,7 +28,10 @@ protocol _LabelItemComponent: _IconComponent, _TitleComponent {
 protocol _CardMediaComponent: _MediaImageComponent, _DescriptionComponent {}
 
 // sourcery: CompositeComponent
-protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _IconsComponent, _DetailImageComponent, _HeaderActionComponent, _CounterComponent {}
+protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _IconsComponent, _DetailImageComponent, _HeaderActionComponent, _CounterComponent, _FlexItemComponent {
+    /// Determine the position of the flexItem
+    var flexItemPosition: FlexItemPositionType? { get set }
+}
 
 // sourcery: CompositeComponent
 protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component, _KpiComponent, _KpiCaptionComponent {}

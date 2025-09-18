@@ -29,6 +29,8 @@ public struct CardMainHeaderConfiguration {
     public let detailImage: DetailImage
     public let headerAction: HeaderAction
     public let counter: Counter
+    public let flexItem: FlexItem
+    public let flexItemPosition: FlexItemPositionType?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -36,6 +38,7 @@ public struct CardMainHeaderConfiguration {
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias HeaderAction = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
+    public typealias FlexItem = ConfigurationViewWrapper
 }
 
 extension CardMainHeaderConfiguration {
@@ -53,5 +56,6 @@ public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
             .detailImageStyle(DetailImageFioriStyle(cardMainHeaderConfiguration: configuration))
             .headerActionStyle(HeaderActionFioriStyle(cardMainHeaderConfiguration: configuration))
             .counterStyle(CounterFioriStyle(cardMainHeaderConfiguration: configuration))
+            .flexItemStyle(FlexItemFioriStyle(cardMainHeaderConfiguration: configuration))
     }
 }
