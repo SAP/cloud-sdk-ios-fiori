@@ -910,7 +910,7 @@ public enum CardTests {
                 
             Subtitle(subtitle: "Now until turned off")
         }
-    }, flexItemPosition: .headerTop, action: {
+    }, flexItemPosition: .aboveHeader, action: {
         FioriButton(title: "Primary")
     }, secondaryAction: {
         FioriButton(title: "Secondary")
@@ -935,7 +935,7 @@ public enum CardTests {
                 Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
             }
         }
-    }, flexItemPosition: .headerTop, cardBody: {
+    }, flexItemPosition: .aboveHeader, cardBody: {
         VStack(alignment: .leading) {
             HStack {
                 Text("Label")
@@ -978,7 +978,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .headerTop)
+    }, flexItemPosition: .aboveHeader)
     
     static let card15 = Card(title: {
         Text("Title")
@@ -1003,7 +1003,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .headerTop)
+    }, flexItemPosition: .aboveHeader)
     
     static let card16 = Card(title: {
         Text("Title")
@@ -1028,7 +1028,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .top)
+    }, flexItemPosition: .aboveTitle)
     
     static let card17 = Card(title: {
         Text("Title")
@@ -1053,7 +1053,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .middle)
+    }, flexItemPosition: .betweenTitleAndSubtitle)
     
     static let card18 = Card(title: {
         Text("Title")
@@ -1078,7 +1078,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .bottom)
+    }, flexItemPosition: .belowSubtitle)
     
     static let vbCard = Card {
         Color.purple
