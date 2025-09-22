@@ -461,7 +461,11 @@ struct BannerMessageModifier: ViewModifier {
                             self.showingMessageDetail = true
                             
                             if UIDevice.current.userInterfaceIdiom == .phone {
-                                self.isPresented = false
+                                if #available(iOS 26.0, *) {
+                                    // do nothing
+                                } else {
+                                    self.isPresented = false
+                                }
                             }
                         }
                         return .handled
