@@ -37,12 +37,12 @@ extension SearchableListView: View {
                 .environment(\.listBackground, listBackground)
                 .ifApply(isTopLevel) {
                     $0.toolbar {
-                        ToolbarItem(placement: .navigationBarLeading) {
+                        ToolbarItem(placement: .topBarLeading) {
                             cancelAction.setSharedAction {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         }
-                        ToolbarItem(placement: .navigationBarTrailing) {
+                        ToolbarItem(placement: .topBarTrailing) {
                             doneAction.setSharedAction {
                                 dataHandler?()
                                 presentationMode.wrappedValue.dismiss()

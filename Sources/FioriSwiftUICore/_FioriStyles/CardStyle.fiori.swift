@@ -105,7 +105,7 @@ struct CardLayout: Layout {
         let containerWidth = proposal.width
         let height: CGFloat
         if self.useProposedHeight, let value = proposal.height, value > 0, value < CGFloat.greatestFiniteMagnitude {
-            height = max(value, cache.height)
+            height = value
         } else {
             height = cache.rows.last?.maxY ?? 0
         }
@@ -179,6 +179,7 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .accessibilityHint(NSLocalizedString("Card title", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for Title
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -190,6 +191,7 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
+                .accessibilityHint(NSLocalizedString("Card subtitle", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for Subtitle
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))

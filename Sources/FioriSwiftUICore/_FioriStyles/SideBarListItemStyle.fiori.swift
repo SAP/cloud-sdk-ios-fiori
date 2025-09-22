@@ -28,7 +28,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
             if self.sizeCategory.isAccessibilityCategory {
                 VStack {
                     HStack(spacing: 11) {
-                        if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
+                        if configuration.isSelected, !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                             configuration.filledIcon
                         } else {
                             configuration.icon
@@ -39,10 +39,10 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     
                     HStack(spacing: 11) {
                         Spacer()
-                        if self.editMode?.wrappedValue == .inactive {
+                        if !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                             configuration.subtitle.multilineTextAlignment(.trailing)
                             configuration.accessoryIcon
-                        } else if self.editMode?.wrappedValue == .active {
+                        } else if SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                             configuration._switch
                                 .frame(width: 60 * self.scale, height: 22 * self.scale)
                             dragImage
@@ -51,7 +51,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                 }
             } else {
                 HStack(spacing: 11) {
-                    if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
+                    if configuration.isSelected, !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                         configuration.filledIcon
                     } else {
                         configuration.icon
@@ -59,10 +59,10 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     
                     configuration.title.frame(height: 44, alignment: .leading).multilineTextAlignment(.leading)
                     Spacer()
-                    if self.editMode?.wrappedValue == .inactive {
+                    if !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                         configuration.subtitle.frame(height: 44, alignment: .leading).multilineTextAlignment(.trailing)
                         configuration.accessoryIcon
-                    } else if self.editMode?.wrappedValue == .active {
+                    } else if SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                         configuration._switch
                             .frame(width: 50, height: 35)
                             .tint(Color.preferredColor(configuration.isOn ? .tintColor : .secondaryFill))
@@ -74,7 +74,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)
-        .frame(width: self.sizeCategory.isAccessibilityCategory ? nil : (UIDevice.current.userInterfaceIdiom != .pad ? nil : 288), height: self.sizeCategory.isAccessibilityCategory ? nil : 44)
+        .frame(width: nil, height: self.sizeCategory.isAccessibilityCategory ? nil : 44)
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(.isButton)
         .accessibilityRemoveTraits(.isSelected)
@@ -90,7 +90,7 @@ extension SideBarListItemFioriStyle {
         
         func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
             Group {
-                if configuration.isSelected, self.editMode?.wrappedValue == .inactive {
+                if configuration.isSelected, !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                     SideBarListItem(configuration)
                         .accessibilityAddTraits(.isSelected)
                         .environmentObject(SideBarListItemModelObject(isSelected: configuration.isSelected))
@@ -109,11 +109,12 @@ extension SideBarListItemFioriStyle {
     struct IconFioriStyle: IconStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
         @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @EnvironmentObject private var sidebarModelObject: SideBarModelObject
         @Environment(\.editMode) private var editMode
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Group {
-                if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                if self.modelObject.isSelected, !SideBarUtility.isEditing(self.sidebarModelObject, self.editMode?.wrappedValue) {
                     Icon(configuration)
                         .font(.fiori(forTextStyle: .body))
                         .fontWeight(.bold)
@@ -141,10 +142,11 @@ extension SideBarListItemFioriStyle {
     struct TitleFioriStyle: TitleStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
         @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @EnvironmentObject private var sidebarModelObject: SideBarModelObject
         @Environment(\.editMode) private var editMode
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
-            if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+            if self.modelObject.isSelected, !SideBarUtility.isEditing(self.sidebarModelObject, self.editMode?.wrappedValue) {
                 Title(configuration)
                     .font(.fiori(forTextStyle: .body, weight: .bold))
                     .foregroundStyle(Color.preferredColor(.quinaryLabel))
@@ -159,10 +161,11 @@ extension SideBarListItemFioriStyle {
     struct SubtitleFioriStyle: SubtitleStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
         @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @EnvironmentObject private var sidebarModelObject: SideBarModelObject
         @Environment(\.editMode) private var editMode
     
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
-            if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+            if self.modelObject.isSelected, !SideBarUtility.isEditing(self.sidebarModelObject, self.editMode?.wrappedValue) {
                 Subtitle(configuration)
                     .font(.fiori(forTextStyle: .body, weight: .bold))
                     .foregroundStyle(Color.preferredColor(.quinaryLabel))
@@ -177,11 +180,12 @@ extension SideBarListItemFioriStyle {
     struct AccessoryIconFioriStyle: AccessoryIconStyle {
         let sideBarListItemConfiguration: SideBarListItemConfiguration
         @EnvironmentObject private var modelObject: SideBarListItemModelObject
+        @EnvironmentObject private var sidebarModelObject: SideBarModelObject
         @Environment(\.editMode) private var editMode
     
         func makeBody(_ configuration: AccessoryIconConfiguration) -> some View {
             Group {
-                if self.modelObject.isSelected, self.editMode?.wrappedValue == .inactive {
+                if self.modelObject.isSelected, !SideBarUtility.isEditing(self.sidebarModelObject, self.editMode?.wrappedValue) {
                     AccessoryIcon(configuration)
                         .font(.fiori(forTextStyle: .body))
                         .fontWeight(.bold)
@@ -209,5 +213,16 @@ class SideBarListItemModelObject: ObservableObject {
     
     init(isSelected: Bool) {
         self.isSelected = isSelected
+    }
+}
+
+class SideBarUtility {
+    // See issue HCPSDKFIORIUIKIT-3047, the .environment(\.editMode) can't work for UIKit Sidebar which wrapper the SWiftUIs's sidebar.
+    // So, here, to use 'isEditing' in configuration directly for UIKit Sidebar
+    static func isEditing(_ modelObject: SideBarModelObject, _ editMode: EditMode?) -> Bool {
+        // Consider this is a workaround for the @Environment(\.editMode) can't work for UIKit Sidebar which wrap the SwiftUI sidebar.
+        // So, when 'isUsedInSplitView' is false (for UIkit only), always check the isEditing in configuration.
+        modelObject.configuration.isUsedInSplitView && editMode == .active
+            || !modelObject.configuration.isUsedInSplitView && modelObject.configuration.isEditing
     }
 }

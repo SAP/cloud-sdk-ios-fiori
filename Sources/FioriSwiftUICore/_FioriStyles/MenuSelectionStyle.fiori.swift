@@ -19,6 +19,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     @Environment(\.maxNumberOfItems) var maxNumberOfItems
     @State private var itemCount = 0
     @Environment(\.locale) var locale
+    @Environment(\.isLoading) var isLoading
     
     public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         VStack(alignment: .leading) {
@@ -42,7 +43,6 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
                 }
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private func isListCollapsed(_ config: MenuSelectionConfiguration) -> Bool {
@@ -51,7 +51,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     
     private var defaultAction: some View {
         FioriButton(title: .init("View All (%d)", args: self.itemCount, locale: self.locale))
-            .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal))
+            .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isEnabled, true)
             .accessibilityIdentifier("FioriSwiftUICore.MenuSelection.ViewAllButton")
     }

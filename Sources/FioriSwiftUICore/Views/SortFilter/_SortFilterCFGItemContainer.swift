@@ -381,7 +381,7 @@ extension _SortFilterCFGItemContainer: View {
     private func toolbarForListPicker(v: some View, row r: Int, column c: Int) -> some View {
         v.toolbar {
             var item = self._items[r][c].picker
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 if item.resetButtonConfiguration.isHidden {
                     EmptyView()
                 } else {

@@ -278,6 +278,7 @@ public struct CardFooterBaseStyle: CardFooterStyle {
                 }
                 /// set the accessibilityLabel as same as SF symbol "ellipsis" which is "More"
                 .accessibilityLabel(Text(Image(systemName: "ellipsis")))
+                .accessibilityHidden(self.numOfButtons(configuration) == 2)
             }
             
             if !configuration.tertiaryAction.isEmpty {
