@@ -48,12 +48,12 @@ extension MenuSelectionItemFioriStyle {
                     .opacity(self.isEnabled ? 1 : 0.5)
                     .ifApply(!self.isLoading) {
                         $0.background(Color.preferredColor(configuration.isPressed ? .secondaryFill : .secondaryGroupedBackground))
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .shadow(.level0)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .shadow(.level0)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
+                            }
                     }
             }
         }
