@@ -19,7 +19,7 @@
      DD: Represents 2 digit day
      Use back space to specify a location for the special characters
      */
-    open class GenericTextFormatter {
+    open class GenericTextFormatter: FormattedStringEditing {
         struct FormatCharacter {
             var character: Unicode.Scalar
             var isFixedPlaceholder: Bool
@@ -349,11 +349,11 @@
                 adjustedPos = result.0
             }
             guard adjustedPos >= 0 else { return false }
-    
+        
             let index = self.format.index(self.format.startIndex, offsetBy: adjustedPos)
             let symbol = self.format[index]
             let character = Character(char)
-    
+        
             var isValid = true
             switch symbol {
             case "A":
