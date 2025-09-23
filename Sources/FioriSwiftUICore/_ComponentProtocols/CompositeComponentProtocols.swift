@@ -24,24 +24,353 @@ protocol _LabelItemComponent: _IconComponent, _TitleComponent {
     var alignment: HorizontalAlignment? { get set }
 }
 
+/// CardMedia: Composite Component Protocol
+///
+/// The `_CardMediaComponent` protocol combines media image and description components for card layouts.
+/// This protocol provides a unified interface for displaying media content with descriptive text in card-based UI components.
+///
+/// ## Usage
+///
+/// This component is typically used as part of a larger card structure to display media content such as images, videos, or other visual elements along with descriptive text.
+///
+/// ```swift
+/// CardMedia {
+///     Image("card_image")
+///         .resizable()
+///         .aspectRatio(contentMode: .fill)
+///         .frame(height: 145)
+/// } description: {
+///     Text("Media Description")
+/// }
+/// ```
+///
+/// ```swift
+/// CardMedia(mediaImage: Image("sample-image"), description: "This is a sample media description")
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardMediaComponent: _MediaImageComponent, _DescriptionComponent {}
 
+/// CardMainHeader: Composite Component Protocol
+///
+/// The `_CardMainHeaderComponent` protocol defines the main header section of a card.
+/// This protocol combines title, subtitle, icons, detail image, header action, counter, and flexible item components
+/// to create a comprehensive header layout for card-based UI components.
+///
+/// ## Usage
+///
+/// This component is used to create the primary header section of a card, providing a structured layout for displaying key information and actions.
+///
+/// ```swift
+/// CardMainHeader {
+///     Text("Card Title")
+/// } subtitle: {
+///     Text("Card subtitle with additional information")
+/// } icons: {
+///     IconStack(icons: [TextOrIcon.icon(Image(systemName: "star.fill"))])
+/// } detailImage: {
+///     Image("profile-image")
+///         .resizable()
+///         .clipShape(Circle())
+/// } headerAction: {
+///     FioriButton(title: "Action")
+/// } counter: {
+///     Text("1 of 3")
+/// } flexItem: {
+///     Text("Flexible content")
+/// } flexItemPosition: .aboveTitle
+/// ```
+///
+/// ```swift
+/// CardMainHeader(title: "Card Title",
+///                subtitle: "Card subtitle with additional information",
+///                icons: [TextOrIcon.icon(Image(systemName: "star.fill"))],
+///                detailImage: Image("profile-image"),
+///                headerAction: FioriButton(title: "Action"),
+///                counter: "1 of 3",
+///                flexItem: { Text("Flexible content") },
+///                flexItemPosition: .aboveTitle)
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _IconsComponent, _DetailImageComponent, _HeaderActionComponent, _CounterComponent, _FlexItemComponent {
-    /// Determine the position of the flexItem
+    /// Determines the position of the flex item within the header layout.
+    /// This property controls where flexible content is placed relative to other header elements.
+    /// Available positions include: `.aboveMainHeader`, `.aboveTitle`, `.betweenTitleAndSubtitle`, `.belowSubtitle`
     var flexItemPosition: FlexItemPositionType? { get set }
 }
 
+/// CardExtHeader: Composite Component Protocol
+///
+/// The `_CardExtHeaderComponent` protocol defines the extended header section of a card.
+/// This protocol combines multiple row components and KPI (Key Performance Indicator) components
+/// to create an extended header layout with structured data display capabilities.
+///
+/// ## Usage
+///
+/// This component is used to create an extended header section that can display structured data in rows and key performance indicators.
+///
+/// ```swift
+/// CardExtHeader(row1: {
+///     HStack {
+///         LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+///             }
+///         LabelItem(title: "Critical")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+///             }
+///         LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+///             }
+///     }
+/// }, row2: {
+///     HStack {
+///         Text("256 reviews")
+///     }
+/// }, row3: {
+///     HStack {
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///     }
+/// }, kpi: {
+///     _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+///                                      .unit("$"),
+///                                      .metric("26.9"),
+///                                      .unit("M")]))
+/// }, kpiCaption: {
+///     Text("Revenue")
+/// })
+/// ```
+///
+/// ```swift
+/// CardExtHeader(row1: { Text("Row 1 Content") },
+///               row2: { Text("Row 2 Content") },
+///               row3: { Text("Row 3 Content") },
+///               kpi: KPIItemData.components([.unit("$"), .metric("26.9"), .unit("M")]),
+///               kpiCaption: "Revenue")
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component, _KpiComponent, _KpiCaptionComponent {}
 
+/// CardFooter: Composite Component Protocol
+///
+/// The `_CardFooterComponent` protocol defines the footer section of a card.
+/// This protocol combines primary, secondary, tertiary, and overflow action components
+/// to create a comprehensive footer layout with multiple interaction options.
+///
+/// ## Usage
+///
+/// This component is used to create a footer section with multiple action buttons and overflow options.
+///
+/// ```swift
+/// CardFooter {
+///     FioriButton(title: "Primary")
+/// } secondaryAction: {
+///     FioriButton(title: "Secondary")
+/// } tertiaryAction: {
+///     FioriButton(title: "Tertiary")
+/// } overflowAction: {
+///     FioriButton(title: "Overflow")
+/// }
+/// ```
+///
+/// ```swift
+/// CardFooter(action: FioriButton(title: "Primary"),
+///            secondaryAction: FioriButton(title: "Secondary"),
+///            tertiaryAction: FioriButton(title: "Tertiary"),
+///            overflowAction: FioriButton(title: "Overflow"))
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _TertiaryActionComponent, _OverflowActionComponent {}
 
+/// CardHeader: Composite Component Protocol
+///
+/// The `_CardHeaderComponent` protocol defines the complete header section of a card.
+/// This protocol combines media, main header, and extended header components
+/// to create a comprehensive header layout that can accommodate various content types and layouts.
+///
+/// ## Usage
+///
+/// This component serves as a container that combines all header-related components into a unified interface.
+///
+/// ```swift
+/// CardHeader {
+///     Image("attachment009")
+///         .resizable()
+///         .aspectRatio(contentMode: .fill)
+///         .frame(height: 145)
+/// } description: {
+///     Text("Title")
+/// } title: {
+///     Text("Title that goes to two lines before truncating")
+/// } subtitle: {
+///     Text("Subtitle that goes to multiple lines before truncating")
+/// } icons: {
+///     IconStack(icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+///                      TextOrIcon.icon(Image(systemName: "paperclip")),
+///                      TextOrIcon.text("1")])
+/// } detailImage: {
+///     Image("ProfilePic")
+///         .resizable()
+///         .clipShape(Circle())
+/// } headerAction: {
+///     FioriButton(title: "Action")
+/// } counter: {
+///     Text("1 of 3")
+/// } row1: {
+///     HStack {
+///         LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+///             }
+///         LabelItem(title: "Critical")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+///             }
+///         LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+///             }
+///     }
+/// } row2: {
+///     HStack {
+///         Text("256 reviews")
+///     }
+/// } row3: {
+///     HStack {
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///     }
+/// } kpi: {
+///     _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+///                                      .unit("$"),
+///                                      .metric("26.9"),
+///                                      .unit("M")]))
+/// } kpiCaption: {
+///     Text("Revenue")
+/// }
+/// ```
+///
+/// ```swift
+/// CardHeader(mediaImage: Image("attachment009"),
+///            description: "Title",
+///            title: "Title",
+///            subtitle: "Subtitle",
+///            icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],
+///            detailImage: Image("ProfilePic"),
+///            headerAction: FioriButton(title: "Action"),
+///            counter: "1 of 3",
+///            kpi: KPIItemData.components([.unit("$"), .metric("26.9"), .unit("M")]),
+///            kpiCaption: "Revenue")
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _CardExtHeaderComponent {}
 
+/// Card: Composite Component Protocol
+///
+/// The `_CardComponent` protocol defines the complete card structure.
+/// This protocol combines header, body, and footer components to create a comprehensive card layout
+/// that provides a complete container for displaying structured content with consistent styling and behavior.
+///
+/// ## Usage
+///
+/// This is the top-level component that combines all card sections into a unified interface.
+///
+/// ```swift
+/// Card {
+///     Image("attachment009")
+///         .resizable()
+///         .aspectRatio(contentMode: .fill)
+///         .frame(height: 145)
+/// } description: {
+///     Text("Title")
+/// } title: {
+///     Text("Title that goes to two lines before truncating")
+/// } subtitle: {
+///     Text("Subtitle that goes to multiple lines before truncating")
+/// } icons: {
+///     IconStack(icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+///                      TextOrIcon.icon(Image(systemName: "paperclip")),
+///                      TextOrIcon.text("1")])
+/// } detailImage: {
+///     Image("ProfilePic")
+///         .resizable()
+///         .clipShape(Circle())
+/// } headerAction: {
+///     FioriButton(title: "Action")
+/// } counter: {
+///     Text("1 of 3")
+/// } row1: {
+///     HStack {
+///         LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+///             }
+///         LabelItem(title: "Critical")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+///             }
+///         LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+///             }
+///     }
+/// } row2: {
+///     HStack {
+///         Text("256 reviews")
+///     }
+/// } row3: {
+///     HStack {
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///     }
+/// } kpi: {
+///     _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+///                                      .unit("$"),
+///                                      .metric("26.9"),
+///                                      .unit("M")]))
+/// } kpiCaption: {
+///     Text("Revenue")
+/// } cardBody: {
+///     VStack(alignment: .leading, spacing: 4) {
+///         DataTable(model: tableModel)
+///             .frame(height: 80)
+///
+///         Divider()
+///
+///         TagExample(num: 4, withDot: true)
+///     }
+/// } action: {
+///     FioriButton(title: "Approve")
+/// } secondaryAction: {
+///     FioriButton(title: "Decline")
+/// }
+/// ```
+///
+/// ```swift
+/// Card(mediaImage: Image("attachment009"),
+///      description: "Title",
+///      title: "Title",
+///      subtitle: "Subtitle",
+///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],
+///      detailImage: Image("ProfilePic"),
+///      headerAction: FioriButton(title: "Action"),
+///      counter: "1 of 3",
+///      kpi: KPIItemData.components([.unit("$"), .metric("26.9"), .unit("M")]),
+///      kpiCaption: "Revenue",
+///      action: FioriButton(title: "Primary"),
+///      secondaryAction: FioriButton(title: "Secondary"))
+/// ```
+///
 // sourcery: CompositeComponent
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
 

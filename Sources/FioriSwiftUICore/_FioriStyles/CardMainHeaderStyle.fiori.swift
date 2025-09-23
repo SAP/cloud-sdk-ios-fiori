@@ -14,7 +14,7 @@ import SwiftUI
 /// Enumeration defining the vertical insertion positions of a `FlexItem` within a view hierarchy.
 public enum FlexItemPositionType {
     /// Inserts the flex item above the main header component.
-    case aboveHeader(insets: EdgeInsets?)
+    case aboveMainHeader(insets: EdgeInsets?)
 
     /// Inserts the flex item above the title, but below the main header (if present).
     case aboveTitle(insets: EdgeInsets?)
@@ -28,7 +28,7 @@ public enum FlexItemPositionType {
     
     var edgeInsets: EdgeInsets {
         switch self {
-        case .aboveHeader(let insets),
+        case .aboveMainHeader(let insets),
              .aboveTitle(let insets),
              .betweenTitleAndSubtitle(let insets),
              .belowSubtitle(let insets):
@@ -40,7 +40,7 @@ public enum FlexItemPositionType {
 extension FlexItemPositionType: Equatable {
     public static func == (lhs: FlexItemPositionType, rhs: FlexItemPositionType) -> Bool {
         switch (lhs, rhs) {
-        case (.aboveHeader(let lhsInsets), .aboveHeader(let rhsInsets)):
+        case (.aboveMainHeader(let lhsInsets), .aboveMainHeader(let rhsInsets)):
             return lhsInsets == rhsInsets
         case (.aboveTitle(let lhsInsets), .aboveTitle(let rhsInsets)):
             return lhsInsets == rhsInsets
@@ -55,8 +55,8 @@ extension FlexItemPositionType: Equatable {
 }
 
 extension FlexItemPositionType {
-    static var aboveHeader: FlexItemPositionType {
-        .aboveHeader(insets: nil)
+    static var aboveMainHeader: FlexItemPositionType {
+        .aboveMainHeader(insets: nil)
     }
 
     static var aboveTitle: FlexItemPositionType {
@@ -81,7 +81,7 @@ public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
         VStack(alignment: .leading) {
             if !configuration.flexItem.isEmpty,
-               case .aboveHeader = configuration.flexItemPosition
+               case .aboveMainHeader = configuration.flexItemPosition
             {
                 configuration.flexItem
                     .padding(self.flexItemPadding(configuration))

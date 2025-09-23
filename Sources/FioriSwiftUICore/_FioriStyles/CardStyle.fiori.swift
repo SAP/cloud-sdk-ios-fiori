@@ -912,7 +912,7 @@ public enum CardTests {
                 
             Subtitle(subtitle: "Now until turned off")
         }
-    }, flexItemPosition: .aboveHeader, action: {
+    }, flexItemPosition: .aboveMainHeader, action: {
         FioriButton(title: "Primary")
     }, secondaryAction: {
         FioriButton(title: "Secondary")
@@ -937,7 +937,7 @@ public enum CardTests {
                 Image(systemName: "ellipsis").foregroundColor(.preferredColor(.primaryLabel))
             }
         }
-    }, flexItemPosition: .aboveHeader, cardBody: {
+    }, flexItemPosition: .aboveMainHeader, cardBody: {
         VStack(alignment: .leading) {
             HStack {
                 Text("Label")
@@ -980,7 +980,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .aboveHeader)
+    }, flexItemPosition: .aboveMainHeader)
     
     static let card15 = Card(title: {
         Text("Title")
@@ -1005,7 +1005,7 @@ public enum CardTests {
             Text("Very high priority")
                 .foregroundStyle(.red)
         }
-    }, flexItemPosition: .aboveHeader)
+    }, flexItemPosition: .aboveMainHeader)
     
     static let card16 = Card(title: {
         Text("Title")
