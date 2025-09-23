@@ -1,5 +1,7 @@
 #if !os(visionOS)
     import UIKit
+    
+    // swiftlint:disable file_length
 
     /**
      A GenericTextFormatter implementation to format custom patterns.
