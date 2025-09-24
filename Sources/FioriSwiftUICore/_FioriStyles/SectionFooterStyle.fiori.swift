@@ -31,7 +31,7 @@ public struct SectionFooterBaseStyle: SectionFooterStyle {
                 }
             }
             .accessibilityElement(children: .combine)
-            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
+            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? .isButton : .isStaticText)
         }
         .padding([.top, .bottom], configuration.sectionFooterStyle == .title ? 10 : 12)
         .contentShape(Rectangle())
