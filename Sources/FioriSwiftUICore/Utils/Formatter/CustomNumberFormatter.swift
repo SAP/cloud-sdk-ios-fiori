@@ -57,12 +57,13 @@
 
         /// :nodoc:
         open func attributedString(for string: String, withDefaultAttributes attrs: [NSAttributedString.Key: Any]?, cursorPosition: Int) -> (formattedAttributedString: NSAttributedString?, adjustedCursorPosition: Int)? {
-            guard attrs != nil else {
+            guard attrs != nil,
+                  let formattedTuple = self.string(for: string, cursorPosition: cursorPosition),
+                  let formattedString = formattedTuple.formattedString
+            else {
                 return nil
             }
-
-            let formattedTuple = self.string(for: string, cursorPosition: cursorPosition)!
-            let formattedString = formattedTuple.formattedString! // It should never be nil
+            
             guard !formattedString.isEmpty else {
                 return (NSAttributedString(string: formattedString, attributes: attrs), formattedTuple.adjustedCursorPosition)
             }
@@ -73,9 +74,10 @@
             let suffix = prefixAndSuffix.suffix
 
             let attrString = NSMutableAttributedString()
-            var attrsForPad = attrs!
+            guard let attrs else { return (attrString, adjustedCursorPosition) }
+            var attrsForPad = attrs
             attrsForPad[.kern] = NSNumber(value: 2.0)
-            var normalAttrs = attrs!
+            var normalAttrs = attrs
             normalAttrs[.kern] = NSNumber(value: 0)
             let middlePart = String(formattedString.suffix(formattedString.count - prefix.count).prefix(formattedString.count - suffix.count))
             if !prefix.isEmpty {
@@ -118,7 +120,9 @@
             var index = 0
             var currentDigitsOrDecimal = 0
             var lastCharIndex = 0
-            let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first! // decimalSeparator.unicodeScalars.first!
+            
+            guard let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first else { return (formattedString, lastCharIndex) }
+            
             for c in formattedString.unicodeScalars {
                 index += 1
                 if c == decimalPoint || CharacterSet.decimalDigits.contains(c) {
@@ -136,7 +140,8 @@
         func formatString(for string: String) -> String {
             var resultString = ""
             var decimalText = self.effectiveString(string)
-            let decimalIndex = decimalText.firstIndex(of: self.defaultFormatter.decimalSeparator.first!)
+            guard let sep = self.defaultFormatter.decimalSeparator.first else { return resultString }
+            let decimalIndex = decimalText.firstIndex(of: sep)
             if self.maximumFractionDigits > 0, let decimalIndex {
                 let fractionString = decimalText.suffix(from: decimalIndex)
                 if fractionString.count > maximumFractionDigits {
@@ -179,7 +184,7 @@
         }
 
         func effectiveString(_ string: String) -> String {
-            let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first! // decimalSeparator.unicodeScalars.first!
+            guard let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first else { return "" }
             var foundDecimal = false
             var finalScalarView = String.UnicodeScalarView()
             for c in string.unicodeScalars {
@@ -202,7 +207,9 @@
             var foundDecimal = false
             var charCount = 0
             var index = 0
-            let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first! // decimalSeparator.unicodeScalars.first!
+            guard let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first else { // decimalSeparator.unicodeScalars.first!
+                return charCount
+            }
             for c in string.unicodeScalars {
                 if c == decimalPoint {
                     if !foundDecimal {
@@ -222,12 +229,12 @@
         }
 
         func isPartialStringValid(_ partialString: String, with editingString: String) -> Bool {
-            guard !partialString.isEmpty else {
+            guard !partialString.isEmpty, let sep = self.defaultFormatter.decimalSeparator.unicodeScalars.first else {
                 // this means the delete chacter
                 return true
             }
 
-            let decimalCount = partialString.count(for: self.defaultFormatter.decimalSeparator.unicodeScalars.first!)
+            let decimalCount = partialString.count(for: sep)
             if partialString.digitCount + decimalCount != partialString.count {
                 // There are other characters
                 return false
@@ -236,7 +243,9 @@
             // check there should be at most one "." character
             if decimalCount > 1 {
                 return false
-            } else if decimalCount == 1, editingString.count(for: self.defaultFormatter.decimalSeparator.unicodeScalars.first!) > 0 {
+            } else if decimalCount == 1,
+                      editingString.count(for: sep) > 0
+            {
                 return false
             }
 
@@ -247,7 +256,7 @@
         // For example, when user entered "1", the formatted string from `NumberFormatter` is "1.00".
         // This funcrtion removes the extra ".00" that user did not entered.
         func formattedString(_ string: String, with decimalSuffix: String) -> String {
-            let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first!
+            guard let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first else { return "" }
             if let index = string.firstIndex(of: Character(defaultFormatter.decimalSeparator)) {
                 let integerPart = string.prefix(upTo: index)
                 let decimalPart = string.suffix(from: index)
@@ -281,8 +290,8 @@
                 }
             }
 
-            let prefix = (isPositive ? self.positivePrefix : self.negativePrefix)!
-            let suffix = (isPositive ? self.positiveSuffix : self.negativeSuffix)!
+            let prefix = (isPositive ? self.positivePrefix : self.negativePrefix) ?? ""
+            let suffix = (isPositive ? self.positiveSuffix : self.negativeSuffix) ?? ""
 
             return (prefix, suffix)
         }
