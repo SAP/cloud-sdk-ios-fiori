@@ -156,11 +156,10 @@
 
         /// :nodoc:
         open func editingString(for obj: Any) -> String? {
-            guard obj is String else {
+            guard obj is String, let text = obj as? String else {
                 return nil
             }
 
-            let text = obj as! String
             return String(text.unicodeScalars.filter { CharacterSet.decimalDigits.contains($0) })
         }
 
