@@ -53,8 +53,6 @@ public struct CalendarView: View {
     @State private var isExpanded = true
 
     public var body: some View {
-        let _ = Self._printChanges()
-        
         GeometryReader { proxy in
             let availableWidth = proxy.size.width
             let paddingOffset: CGFloat = 8
@@ -221,8 +219,21 @@ public struct CalendarView: View {
             .ifApply(self.scrollPosition != nil, content: {
                 $0.animation(.spring, value: self.isExpanded)
             })
-            .onChange(of: self.selectedRangeRecord) { _, _ in
-                print("CalendarView onChange selectedRangeRecord: \(self.selectedRangeRecord)")
+            .onChange(of: self.selectedRange) { _, _ in
+                if let dateRange = selectedRange,
+                   let disabledDates,
+                   disabledDates.isDisabled(dateRange.lowerBound) || disabledDates.isDisabled(dateRange.upperBound)
+                {
+                    self.selectedRangeRecord = nil
+                } else {
+                    self.selectedRangeRecord = self.selectedRange
+                }
+            }
+            .onChange(of: self.selectedDates) { _, _ in
+                self.selectedDatesRecord = self.selectedDates
+            }
+            .onChange(of: self.selectedDate) { _, _ in
+                self.selectedDateRecord = self.selectedDate
             }
         }
     }
@@ -280,6 +291,8 @@ public struct CalendarView: View {
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
         _selectedDates = selectedDates
         _selectedDatesRecord = State(initialValue: selectedDates.wrappedValue)
+        _selectedRange = selectedRange
+        _selectedRangeRecord = State(wrappedValue: selectedRange.wrappedValue)
         self.disabledDates = disabledDates
         self.customCalendarBackgroundColor = customCalendarBackgroundColor
         
@@ -350,22 +363,10 @@ public struct CalendarView: View {
         
         self.customEventView = customEventView
         
-        _selectedRange = selectedRange
-        if let dateRange = selectedRange.wrappedValue,
-           let disabledDates,
-           disabledDates.isDisabled(dateRange.lowerBound) || disabledDates.isDisabled(dateRange.upperBound)
-        {
-            _selectedRangeRecord = State(initialValue: nil)
-        } else {
-            _selectedRangeRecord = State(initialValue: selectedRange.wrappedValue)
-        }
-        
         self.weeks = self.handleWeekInfo()
         self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
         
         _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
-        
-        print("CalendarView init _selectedRangeRecord:\(_selectedRangeRecord)")
     }
 
     func monthsBetweenDates(start: Date, end: Date) -> Int {

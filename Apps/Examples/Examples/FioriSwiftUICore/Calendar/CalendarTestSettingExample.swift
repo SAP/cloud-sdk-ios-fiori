@@ -43,7 +43,7 @@ class CalendarTestSetting: ObservableObject {
         case 1:
             self.configPreselectRange(startOffset: 0, endOffset: 5)
         case 2:
-            self.configPreselectRange(startOffset: 60, endOffset: 65)
+            self.configPreselectRange(startOffset: 10, endOffset: 15)
         case 3:
             self.configPreselectRange(startOffset: -5, endOffset: 0)
         default:

@@ -40,8 +40,6 @@ struct MonthView: View, Equatable {
         
         self.dayTappedCallback = dayTappedCallback
         self.customEventView = customEventView
-        
-        print("MonthView selectedRange: \(selectedRange)")
     }
     
     /// Used for compare to avoid redundant view refresh
