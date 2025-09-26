@@ -90,14 +90,15 @@ struct WritingAssistantExample: View {
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
             
-            NoteFormView(text: self.$text2, placeholder: "NoteFormView2", allowsBeyondLimit: false)
+            TextFieldFormView(title: {
+                Text("TextFieldFormView Title")
+            }, text: self.$text2)
                 .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
                     await self.submitFeedback(state: state, values: values)
                 })
                 .waHelperAction(self.$helperAction)
-                .frame(height: 100)
             
             Spacer()
         }

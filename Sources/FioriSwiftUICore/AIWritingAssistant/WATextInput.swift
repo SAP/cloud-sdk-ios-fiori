@@ -96,21 +96,32 @@ struct WATextInputModifier: ViewModifier {
         self.formView = WritingAssistantForm(text: text, menus: menus)
     }
     
+    func isSameTextInput(_ l: (any WATextInput)?, _ r: (any WATextInput)?) -> Bool {
+        ObjectIdentifier(l as AnyObject) == ObjectIdentifier(r as AnyObject)
+    }
+    
     // swiftlint:disable function_body_length cyclomatic_complexity
     func body(content: Content) -> some View {
         content
             .modifier(
                 FioriIntrospectModifier<UITextView> { textView in
-                    self.context.textView = textView
+                    self.context.waTextInput = textView
                     self.context.observeSelectionChange(for: textView)
+                }
+            )
+            .modifier(
+                FioriIntrospectModifier<UITextField> { textField in
+                    self.context.waTextInput = textField
+                    self.context.observeSelectionChange(for: textField)
                 }
             )
             .focused(self.$isTextInputFocused)
             .onReceive(self.keyboardPublisher) { value in
                 if self.context.logKeyboardChanged {
-                    if value.0, self.isTextInputFocused, value.1 == self.context.textView {
+                    let isSameTextInput = self.isSameTextInput(value.1, self.context.waTextInput)
+                    if value.0, self.isTextInputFocused, isSameTextInput {
                         self.context.updateInWAFlow(true)
-                    } else if value.0, value.1 != self.context.textView {
+                    } else if value.0, !isSameTextInput {
                         self.context.updateInWAFlow(false)
                     }
                 }
@@ -118,10 +129,11 @@ struct WATextInputModifier: ViewModifier {
             .toolbar {
                 #if !os(visionOS)
                     ToolbarItem(placement: .keyboard) {
-                        if !self.context.isPresented, self.context.isInWAFlow {
+                        if self.isTextInputFocused, !self.context.isPresented, self.context.isInWAFlow {
                             HStack {
                                 Spacer()
                                 self.waAction
+                                    .fixedSize()
                                     .onSimultaneousTapGesture {
                                         self.context.updateOriginalSelectedRange()
                                         self.context.isPresented = true
@@ -225,19 +237,19 @@ struct WATextInputModifier: ViewModifier {
     }
     
     @MainActor func restoreSelectedRange(by range: NSRange? = nil) {
-        if let textView = self.context.textView {
+        if let textView = self.context.waTextInput as? UITextView {
             let selectedRange = range ?? self.context.usedSelectedRange
             DispatchQueue.main.async {
                 self.context.canResetSelectedRange = false
                 textView.select(textView)
                 textView.selectedRange = selectedRange
             }
-        } else if let textField = self.context.textField {
+        } else if let textField = self.context.waTextInput as? UITextField {
             let selectedRange = range ?? self.context.usedSelectedRange
             DispatchQueue.main.async {
                 self.context.canResetSelectedRange = false
                 textField.select(textField)
-                textField.resetSelectedTextRange(by: selectedRange)
+                textField.selectedRange = selectedRange
             }
         }
     }
@@ -247,7 +259,7 @@ struct WATextInputModifier: ViewModifier {
             self.context.logKeyboardChanged = true
         }
         self.context.logKeyboardChanged = false
-        if let textView = self.context.textView {
+        if let textView = self.context.waTextInput as? UITextView {
             if !self.context.isInWAFlow {
                 textView.inputView = nil
                 textView.isEditable = true
@@ -268,13 +280,12 @@ struct WATextInputModifier: ViewModifier {
                 textView.isSelectable = true
                 textView.becomeFirstResponder()
             }
-        } else if let textField = self.context.textField {
+        } else if let textField = self.context.waTextInput as? UITextField {
             if !self.context.isInWAFlow {
                 textField.inputView = nil
                 textField.resignFirstResponder()
                 return
             }
-            let currentRange = textField.selectedRange
             if useWAPanel {
                 textField.resignFirstResponder()
                 textField.inputView = UIView()
@@ -285,11 +296,10 @@ struct WATextInputModifier: ViewModifier {
                 textField.inputView = nil
                 textField.becomeFirstResponder()
             }
-            textField.resetSelectedTextRange(by: currentRange)
         }
     }
     
-    var keyboardPublisher: AnyPublisher<(keyboardShown: Bool, textView: UITextView?), Never> {
+    var keyboardPublisher: AnyPublisher<(keyboardShown: Bool, textView: (any WATextInput)?), Never> {
         Publishers.Merge(
             NotificationCenter
                 .default
@@ -297,6 +307,8 @@ struct WATextInputModifier: ViewModifier {
                 .map { _ in
                     if let textView = UIResponder.findFirstResponder() as? UITextView {
                         return (true, textView)
+                    } else if let textField = UIResponder.findFirstResponder() as? UITextField {
+                        return (true, textField)
                     } else {
                         return (true, nil)
                     }
@@ -307,6 +319,8 @@ struct WATextInputModifier: ViewModifier {
                 .map { _ in
                     if let textView = UIResponder.findFirstResponder() as? UITextView {
                         return (false, textView)
+                    } else if let textField = UIResponder.findFirstResponder() as? UITextField {
+                        return (false, textField)
                     } else {
                         return (false, nil)
                     }
@@ -333,32 +347,48 @@ extension WritingAssistantContext {
             }
         }
     }
-}
-
-extension WritingAssistantContext: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        self.resetSelectedRange(textField.selectedRange)
+    
+    func observeSelectionChange(for textField: UITextField) {
+        selectionKVO?.invalidate()
+        selectionKVO = textField.observe(\.selectedTextRange, options: [.new]) { [weak self] tv, _ in
+            guard let self else { return }
+            if let range = tv.selectedTextRange {
+                let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
+                let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
+                let nsRange = NSRange(location: start, length: end - start)
+                self.resetSelectedRange(nsRange)
+            }
+        }
     }
 }
+
+protocol WATextInput: Equatable {
+    var isFirstResponder: Bool { get }
+    var selectedRange: NSRange { get set }
+}
+
+extension UITextField: WATextInput {}
+extension UITextView: WATextInput {}
 
 extension UITextField {
     var selectedRange: NSRange {
-        if let range = self.selectedTextRange {
-            let start = self.offset(from: self.beginningOfDocument, to: range.start)
-            let end = self.offset(from: self.beginningOfDocument, to: range.end)
-            let selectedRange = NSRange(location: start, length: end - start)
-            return selectedRange
-        } else {
-            return NSRange(location: self.text?.count ?? 0, length: 0)
+        get {
+            if let range = self.selectedTextRange {
+                let start = self.offset(from: self.beginningOfDocument, to: range.start)
+                let end = self.offset(from: self.beginningOfDocument, to: range.end)
+                let selectedRange = NSRange(location: start, length: end - start)
+                return selectedRange
+            } else {
+                return NSRange(location: self.text?.count ?? 0, length: 0)
+            }
         }
-    }
-    
-    func resetSelectedTextRange(by range: NSRange) {
-        if let start = self.position(from: self.beginningOfDocument, offset: range.location),
-           let end = self.position(from: start, offset: range.length),
-           let selectedRange = self.textRange(from: start, to: end)
-        {
-            self.selectedTextRange = selectedRange
+        set {
+            if let start = self.position(from: self.beginningOfDocument, offset: newValue.location),
+               let end = self.position(from: start, offset: newValue.length),
+               let selectedRange = self.textRange(from: start, to: end)
+            {
+                self.selectedTextRange = selectedRange
+            }
         }
     }
 }
