@@ -5,21 +5,61 @@ class CalendarTestSetting: ObservableObject {
     @Published var showsWeekNumber: Bool = true
     @Published var firstWeekDay: Int = Calendar.autoupdatingCurrent.firstWeekday
     @Published var testsWeekNumberTintColor: Bool = true
-    @Published var testsDisabledDates: Bool = true
+    @Published var testsDisabledDates: Bool = false
     @Published var testsDisabledDatesWithBefore: Bool = true
     @Published var testsDisabledDatesWithAfter: Bool = true
     @Published var testsDisabledDatesWithToday: Bool = true
     @Published var testsDisabledDatesWithWeekends: Bool = true
     @Published var testsEnLocalOnAlternateCalendar: Bool = true
     @Published var testsAlternateCalendar: AlternateCalendarType = .chinese
-    @Published var testsEventViews: Bool = false
-    @Published var customizesEventViews: Bool = false
-    @Published var testsCustomCalBgColor: Bool = false
+    @Published var testsEventViews: Bool = true
+    @Published var customizesEventViews: Bool = true
+    @Published var testsCustomCalBgColor: Bool = true
+    @Published var rangePreselectionType: Int = 1
+    @Published var languageCode: Int = 0
+    
+    // not handled as follows:
     @Published var preselectDateTriggersDelegateCall = false
     @Published var expandableStyleStartsWithWeek = false
     @Published var showsOutOfMonthStyleForWeekView = false
-    @Published var testPreselectRange: ClosedRange<Date>? = nil
-    @Published var testLanguage: String? = nil
+    
+    var testLanguage: String? {
+        switch self.languageCode {
+        case 1:
+            "zh-Hans"
+        case 2:
+            "he"
+        case 3:
+            "ar"
+        case 4:
+            "nonono"
+        default:
+            nil
+        }
+    }
+    
+    var testPreselectRange: ClosedRange<Date>? {
+        switch self.rangePreselectionType {
+        case 1:
+            self.configPreselectRange(startOffset: 0, endOffset: 5)
+        case 2:
+            self.configPreselectRange(startOffset: 60, endOffset: 65)
+        case 3:
+            self.configPreselectRange(startOffset: -5, endOffset: 0)
+        default:
+            nil
+        }
+    }
+    
+    func configPreselectRange(startOffset: Int, endOffset: Int) -> ClosedRange<Date> {
+        let startDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: startOffset, to: Date())
+        let endDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: endOffset, to: Date())
+        if let startDate, let endDate {
+            return startDate ... endDate
+        } else {
+            return Date() ... Date()
+        }
+    }
     
     func testWeekNumberTintColor() -> Color? {
         self.testsWeekNumberTintColor ? Color.green : nil
@@ -81,48 +121,8 @@ struct CalendarTestSettingExample: View {
     }
 
     var rangePreselections = ["none", "From Today", "Future Date", "Past Date"]
-    @State var rangePreselectionType: Int = 0 {
-        didSet {
-            switch self.rangePreselectionType {
-            case 1:
-                self.settings.testPreselectRange = self.configPreselectRange(startOffset: 0, endOffset: 5)
-            case 2:
-                self.settings.testPreselectRange = self.configPreselectRange(startOffset: 60, endOffset: 65)
-            case 3:
-                self.settings.testPreselectRange = self.configPreselectRange(startOffset: -5, endOffset: 0)
-            default:
-                self.settings.testPreselectRange = nil
-            }
-        }
-    }
-    
-    func configPreselectRange(startOffset: Int, endOffset: Int) -> ClosedRange<Date> {
-        let startDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: startOffset, to: Date())
-        let endDate = Calendar.autoupdatingCurrent.date(byAdding: .day, value: endOffset, to: Date())
-        if let startDate, let endDate {
-            return startDate ... endDate
-        } else {
-            return Date() ... Date()
-        }
-    }
 
     var testLanguages = ["none", "Simplified Chinese", "Hebrew", "Arabic", "Wrong Language code"]
-    @State var languageCode: Int = 0 {
-        didSet {
-            switch self.languageCode {
-            case 1:
-                self.settings.testLanguage = "zh-Hans"
-            case 2:
-                self.settings.testLanguage = "he"
-            case 3:
-                self.settings.testLanguage = "ar"
-            case 4:
-                self.settings.testLanguage = "nonono"
-            default:
-                self.settings.testLanguage = nil
-            }
-        }
-    }
     
     var body: some View {
         List {
@@ -157,14 +157,14 @@ struct CalendarTestSettingExample: View {
             Toggle("Preselect date triggers delegate call", isOn: self.$settings.preselectDateTriggersDelegateCall)
             Toggle("Expandable style starts with week", isOn: self.$settings.expandableStyleStartsWithWeek)
             Toggle("Shows out-of-month style for week", isOn: self.$settings.showsOutOfMonthStyleForWeekView)
-            Picker("Preselect Range", selection: self.$rangePreselectionType) {
+            Picker("Preselect Range", selection: self.$settings.rangePreselectionType) {
                 ForEach(0 ..< self.rangePreselections.count, id: \.self) { index in
                     Text(self.rangePreselections[index])
                         .tag(index)
                         .font(.fiori(forTextStyle: .body))
                 }
             }
-            Picker("Custom Language", selection: self.$languageCode) {
+            Picker("Custom Language", selection: self.$settings.languageCode) {
                 ForEach(0 ..< self.testLanguages.count, id: \.self) { index in
                     Text(self.testLanguages[index])
                         .tag(index)

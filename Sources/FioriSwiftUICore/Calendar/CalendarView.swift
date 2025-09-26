@@ -39,26 +39,18 @@ public struct CalendarView: View {
     @State private var dragGestureOffsetY: CGFloat = 0
     @State private var currentMonthOriginHeight: CGFloat = 0
     
-    let customEventView: (Date) -> any View
-    
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
+    let disabledDates: CalendarDisabledDates?
     
-    @State private var selectedDateRecord: Date? = nil
-    @State private var selectedDatesRecord: Set<Date>? = []
-    @State private var selectedRangeRecord: ClosedRange<Date>? = nil
+    let customEventView: (Date) -> any View
     
-    @State private var rangeSelectionStart: Date?
-    @State private var rangeSelectionEnd: Date?
+    @State var customCalendarBackgroundColor: Color?
     
     private let calendar = Calendar.autoupdatingCurrent
     
-    @State private var isExpanded = true {
-        didSet {
-            self.handleExpanded()
-        }
-    }
+    @State private var isExpanded = true
 
     public var body: some View {
         let _ = Self._printChanges()
@@ -66,26 +58,6 @@ public struct CalendarView: View {
         GeometryReader { proxy in
             let availableWidth = proxy.size.width
             let paddingOffset: CGFloat = 8
-            
-            /// Use local variable to prevent repeating refresh when selectedDate or selectedDates changes
-            let dateSelection: Binding<Date?> = Binding {
-                self.selectedDateRecord
-            } set: {
-                self.selectedDateRecord = $0
-                self.selectedDate = $0
-            }
-            let datesSelection: Binding<Set<Date>?> = Binding {
-                self.selectedDatesRecord
-            } set: {
-                self.selectedDatesRecord = $0
-                self.selectedDates = $0
-            }
-            let rangeSelection: Binding<ClosedRange<Date>?> = Binding {
-                self.selectedRangeRecord
-            } set: {
-                self.selectedRangeRecord = $0
-                self.selectedRange = $0
-            }
             
             VStack(spacing: 0, content: {
                 WeekContainerView()
@@ -96,12 +68,14 @@ public struct CalendarView: View {
                         HStack {
                             ForEach(0 ..< self.weeks.count, id: \.self) { index in
                                 let info = self.weeks[index]
-                                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, selectedDate: dateSelection)
-                                    .frame(width: availableWidth - paddingOffset * 2)
-                                    .sizeReader(size: {
-                                        self.weekViewHeight = $0.height
-                                    })
-                                    .id(index)
+                                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, selectedDate: self.selectedDateRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                    self.handleDayViewTapGesture(date, state: dayViewState)
+                                })
+                                .frame(width: availableWidth - paddingOffset * 2)
+                                .sizeReader(size: {
+                                    self.weekViewHeight = $0.height
+                                })
+                                .id(index)
                             }
                         }
                         .scrollTargetLayout()
@@ -125,7 +99,9 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, selectedDate: dateSelection)
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                            self.handleDayViewTapGesture(date, state: dayViewState)
+                                        }, customEventView: self.customEventView)
                                             .frame(width: availableWidth - paddingOffset * 2)
                                             .background(
                                                 GeometryReader { proxy in
@@ -174,14 +150,16 @@ public struct CalendarView: View {
                     .onAppear {
                         self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
                     }
-                } else if self.style == .month || self.showFullScreen() {
+                } else if self.style == .month || self.showFullScreen {
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth(), selectedDate: dateSelection, selectedDates: datesSelection, selectedRange: rangeSelection, customEventView: self.customEventView)
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                            self.handleDayViewTapGesture(date, state: dayViewState)
+                                        }, customEventView: self.customEventView)
                                             .sizeReader(size: {
                                                 self.pageHeights[index] = $0.height
                                                 if let scrollPosition, scrollPosition == index {
@@ -243,14 +221,13 @@ public struct CalendarView: View {
             .ifApply(self.scrollPosition != nil, content: {
                 $0.animation(.spring, value: self.isExpanded)
             })
-        }
-        .background(Color.preferredColor(.primaryBackground))
-        .onAppear {
-//            self.handleExpanded()
+            .onChange(of: self.selectedRangeRecord) { _, _ in
+                print("CalendarView onChange selectedRangeRecord: \(self.selectedRangeRecord)")
+            }
         }
     }
     
-    func showOutOfMonth() -> Bool {
+    var showOutOfMonth: Bool {
         let notIncludeConditions: [CalendarStyle] = [
             .datesSelection,
             .rangeSelection
@@ -258,7 +235,7 @@ public struct CalendarView: View {
         return !notIncludeConditions.contains(self.style)
     }
 
-    func showFullScreen() -> Bool {
+    var showFullScreen: Bool {
         let conditions: [CalendarStyle] = [
             .fullScreenMonth,
             .datesSelection,
@@ -271,31 +248,40 @@ public struct CalendarView: View {
         (self.style == .week || (self.style == .expandable && !self.isExpanded)) ? .horizontal : .vertical
     }
     
-    func handleExpanded() {
-        if self.style == .week || (self.style == .expandable && !self.isExpanded) {
-        } else {
-            if self.pageHeights.count != self.totalMonths {
-                self.pageHeights = Array(repeating: 0, count: self.totalMonths)
-            }
-        }
-    }
-    
     var fillBackgroundColor: Color {
         if [.rangeSelection, .datesSelection].contains(self.style) {
-            Color.preferredColor(.secondaryGroupedBackground)
+            self.customCalendarBackgroundColor ?? .preferredColor(.secondaryGroupedBackground)
         } else {
-            Color.preferredColor(.tertiaryGroupedBackground)
+            self.customCalendarBackgroundColor ?? .preferredColor(.tertiaryGroupedBackground)
         }
     }
     
-    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    @State var selectedDateRecord: Date? {
+        didSet {
+            self.selectedDate = self.selectedDateRecord
+        }
+    }
+
+    @State var selectedDatesRecord: Set<Date>? {
+        didSet {
+            self.selectedDates = self.selectedDatesRecord
+        }
+    }
+
+    @State var selectedRangeRecord: ClosedRange<Date>? {
+        didSet {
+            self.selectedRange = self.selectedRangeRecord
+        }
+    }
+    
+    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         _selectedDate = selectedDate
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
         _selectedDates = selectedDates
         _selectedDatesRecord = State(initialValue: selectedDates.wrappedValue)
-        _selectedRange = selectedRange
-        _selectedRangeRecord = State(initialValue: selectedRange.wrappedValue)
+        self.disabledDates = disabledDates
+        self.customCalendarBackgroundColor = customCalendarBackgroundColor
         
         let components: Set<Calendar.Component> = [.day, .month, .year]
         let formatter: DateFormatter = {
@@ -364,10 +350,22 @@ public struct CalendarView: View {
         
         self.customEventView = customEventView
         
+        _selectedRange = selectedRange
+        if let dateRange = selectedRange.wrappedValue,
+           let disabledDates,
+           disabledDates.isDisabled(dateRange.lowerBound) || disabledDates.isDisabled(dateRange.upperBound)
+        {
+            _selectedRangeRecord = State(initialValue: nil)
+        } else {
+            _selectedRangeRecord = State(initialValue: selectedRange.wrappedValue)
+        }
+        
         self.weeks = self.handleWeekInfo()
-        self.totalMonths = min(3, self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1)
+        self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
         
         _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
+        
+        print("CalendarView init _selectedRangeRecord:\(_selectedRangeRecord)")
     }
 
     func monthsBetweenDates(start: Date, end: Date) -> Int {
@@ -422,6 +420,39 @@ public struct CalendarView: View {
             firstDayOfWeek = nextFirstDayOfWeek
         }
         return weeks
+    }
+    
+    func handleDayViewTapGesture(_ date: Date, state: DayViewState) {
+        if self.style == .datesSelection {
+            if let checkDates = selectedDatesRecord, checkDates.contains(date) {
+                self.selectedDatesRecord?.remove(date)
+            } else {
+                self.selectedDatesRecord?.insert(date)
+            }
+        } else {
+            let calendar = Calendar.autoupdatingCurrent
+            if self.style == .rangeSelection {
+                if let checkRange = selectedRangeRecord {
+                    if calendar.compare(date, to: checkRange.upperBound, toGranularity: .day) != .orderedDescending,
+                       calendar.compare(date, to: checkRange.lowerBound, toGranularity: .day) != .orderedAscending
+                    {
+                        self.selectedRangeRecord = checkRange.lowerBound ... date
+                    } else {
+                        self.selectedRangeRecord = nil
+                    }
+                    self.selectedDateRecord = nil
+                    return
+                } else if let boundDate = selectedDateRecord {
+                    let bounds = [boundDate, date].sorted()
+                    if let first = bounds.first, let last = bounds.last {
+                        self.selectedRangeRecord = first ... last
+                    }
+                    self.selectedDateRecord = nil
+                    return
+                }
+            }
+            self.selectedDateRecord = state.isSelected ? nil : date
+        }
     }
 }
 

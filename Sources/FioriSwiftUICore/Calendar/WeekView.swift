@@ -31,25 +31,29 @@ public struct WeekView: View, Equatable {
     @Environment(\.alternateCalendarType) var alternateCalendarType
     @Environment(\.alternateCalendarLocale) var alternateCalendarLocale
     @Environment(\.weekNumberTintColor) var weekNumberTintColor
-    @Environment(\.disabledDates) var disabledDates
     
     let customEventView: (Date) -> any View
     
-    @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>?
-    @Binding var selectedRange: ClosedRange<Date>?
+    let selectedDate: Date?
+    let selectedDates: Set<Date>?
+    let selectedRange: ClosedRange<Date>?
+    let disabledDates: CalendarDisabledDates?
+    
+    let dayTappedCallback: ((Date, DayViewState) -> Void)?
     
     private var weekNumberVisibility: Bool = true
     
-    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, DayViewState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
         self.endDate = endDate
         self.showOutOfMonth = showOutOfMonth
-        _selectedDate = selectedDate
-        _selectedDates = selectedDates
-        _selectedRange = selectedRange
+        self.selectedDate = selectedDate
+        self.selectedDates = selectedDates
+        self.selectedRange = selectedRange
+        self.disabledDates = disabledDates
+        self.dayTappedCallback = dayTappedCallback
         self.customEventView = customEventView
         
         if let date = self.weekInfo.dates.first {
@@ -102,43 +106,10 @@ public struct WeekView: View, Equatable {
                     .contentShape(Rectangle())
                     .ifApply(!state.isDisabled, content: {
                         $0.onTapGesture {
-                            self.handleTapGesture(date, state: state)
+                            self.dayTappedCallback?(date, state)
                         }
                     })
             }
-        }
-    }
-    
-    func handleTapGesture(_ date: Date, state: DayViewState) {
-        if self.style == .datesSelection {
-            if let checkDates = selectedDates, checkDates.contains(date) {
-                self.selectedDates?.remove(date)
-            } else {
-                self.selectedDates?.insert(date)
-            }
-        } else {
-            let calendar = Calendar.autoupdatingCurrent
-            if self.style == .rangeSelection {
-                if let checkRange = selectedRange {
-                    if calendar.compare(date, to: checkRange.upperBound, toGranularity: .day) != .orderedDescending,
-                       calendar.compare(date, to: checkRange.lowerBound, toGranularity: .day) != .orderedAscending
-                    {
-                        self.selectedRange = checkRange.lowerBound ... date
-                    } else {
-                        self.selectedRange = nil
-                    }
-                    self.selectedDate = nil
-                    return
-                } else if let boundDate = selectedDate {
-                    let bounds = [boundDate, date].sorted()
-                    if let first = bounds.first, let last = bounds.last {
-                        self.selectedRange = first ... last
-                    }
-                    self.selectedDate = nil
-                    return
-                }
-            }
-            self.selectedDate = state.isSelected ? nil : date
         }
     }
     
@@ -149,7 +120,7 @@ public struct WeekView: View, Equatable {
         if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
             return .outOfMonth
         } else if let disabledDates, disabledDates.isDisabled(date) {
-            if self.style == .rangeSelection, let selectedRange, selectedRange.contains(date) {
+            if self.style == .rangeSelection, let selectedRange, checkDateRangeContainsDate(selectedRange, date: date) {
                 if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
                     return .disabledAndTodayInMultiSelection
                 }
@@ -158,7 +129,7 @@ public struct WeekView: View, Equatable {
                 return .disabledAndToday
             }
             return .disabled
-        } else if self.style == .rangeSelection, let selectedRange, selectedRange.contains(date) {
+        } else if self.style == .rangeSelection, let selectedRange, checkDateRangeContainsDate(selectedRange, date: date) {
             if selectedRange.lowerBound == selectedRange.upperBound {
                 return .singleSelected
             } else if calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) == .orderedSame {
@@ -189,6 +160,11 @@ public struct WeekView: View, Equatable {
         } else {
             return .normal
         }
+    }
+    
+    func checkDateRangeContainsDate(_ selectedRange: ClosedRange<Date>, date: Date) -> Bool {
+        let calendar = Calendar.autoupdatingCurrent
+        return calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) != .orderedAscending && calendar.compare(date, to: selectedRange.upperBound, toGranularity: .day) != .orderedDescending
     }
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize

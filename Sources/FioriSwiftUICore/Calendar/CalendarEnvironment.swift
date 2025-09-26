@@ -14,8 +14,8 @@ struct CalendarHasEventIndicator: EnvironmentKey {
     public static let defaultValue: Bool = true
 }
 
-struct CalendarCustomLocale: EnvironmentKey {
-    public static let defaultValue: Locale? = nil
+struct CalendarCustomLanguageId: EnvironmentKey {
+    public static let defaultValue: String? = nil
 }
 
 struct CalendarCustomBundle: EnvironmentKey {
@@ -34,10 +34,6 @@ struct WeekNumberTintColorKey: EnvironmentKey {
     public static let defaultValue: Color? = nil
 }
 
-struct CalendarDisabledDatesKey: EnvironmentKey {
-    public static let defaultValue: CalendarDisabledDates? = nil
-}
-
 public extension EnvironmentValues {
     var firstWeekday: Int {
         get { self[CalendarFirstWeekday.self] }
@@ -54,9 +50,9 @@ public extension EnvironmentValues {
         set { self[CalendarHasEventIndicator.self] = newValue }
     }
 
-    var customLocale: Locale? {
-        get { self[CalendarCustomLocale.self] }
-        set { self[CalendarCustomLocale.self] = newValue }
+    var customLanguageId: String? {
+        get { self[CalendarCustomLanguageId.self] }
+        set { self[CalendarCustomLanguageId.self] = newValue }
     }
 
     var customBundle: Bundle? {
@@ -87,10 +83,5 @@ public extension EnvironmentValues {
     var weekNumberTintColor: Color? {
         get { self[WeekNumberTintColorKey.self] }
         set { self[WeekNumberTintColorKey.self] = newValue }
-    }
-
-    var disabledDates: CalendarDisabledDates? {
-        get { self[CalendarDisabledDatesKey.self] }
-        set { self[CalendarDisabledDatesKey.self] = newValue }
     }
 }

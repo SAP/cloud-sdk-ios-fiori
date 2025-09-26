@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WeekContainerView: View {
-    @Environment(\.customLocale) var customLocale
+    @Environment(\.customLanguageId) var customLanguageId
     @Environment(\.customBundle) var customBundle
     @Environment(\.firstWeekday) var firstWeekday
     
@@ -33,7 +33,11 @@ struct WeekContainerView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE"
         formatter.timeZone = calendar.timeZone
-        formatter.locale = self.customLocale ?? calendar.locale
+        if let customLanguageId {
+            formatter.locale = Locale(identifier: customLanguageId)
+        } else {
+            formatter.locale = calendar.locale
+        }
         
         var preferredLang: String?
         

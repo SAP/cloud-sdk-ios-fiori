@@ -15,13 +15,17 @@ struct MonthView: View, Equatable {
     
     let customEventView: (Date) -> any View
     
-    @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>?
-    @Binding var selectedRange: ClosedRange<Date>?
+    let selectedDate: Date?
+    let selectedDates: Set<Date>?
+    let selectedRange: ClosedRange<Date>?
+    let disabledDates: CalendarDisabledDates?
+    
+    let dayTappedCallback: ((Date, DayViewState) -> Void)?
     
     @Environment(\.firstWeekday) var firstWeekday
+    @Environment(\.customLanguageId) var customLanguageId
     
-    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, DayViewState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.year = year
         self.month = month
@@ -29,11 +33,15 @@ struct MonthView: View, Equatable {
         self.endDate = endDate
         self.showMonthHeader = showMonthHeader
         self.showOutOfMonth = showOutOfMonth
-        _selectedDate = selectedDate
-        _selectedDates = selectedDates
-        _selectedRange = selectedRange
+        self.selectedDate = selectedDate
+        self.selectedDates = selectedDates
+        self.selectedRange = selectedRange
+        self.disabledDates = disabledDates
         
+        self.dayTappedCallback = dayTappedCallback
         self.customEventView = customEventView
+        
+        print("MonthView selectedRange: \(selectedRange)")
     }
     
     /// Used for compare to avoid redundant view refresh
@@ -91,7 +99,7 @@ struct MonthView: View, Equatable {
             }
             
             ForEach(self.weeks, id: \.self) { info in
-                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.$selectedDate, selectedDates: self.$selectedDates, selectedRange: self.$selectedRange, customEventView: self.customEventView)
+                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)
             }
         })
     }
@@ -99,6 +107,11 @@ struct MonthView: View, Equatable {
     var monthText: String {
         let fm = DateFormatter()
         fm.dateFormat = "yyyy MM"
+        if let customLanguageId {
+            fm.locale = Locale(identifier: customLanguageId)
+        } else {
+            fm.locale = Calendar.current.locale
+        }
         let date = fm.date(from: "\(self.year) \(self.month)")
         
         fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
