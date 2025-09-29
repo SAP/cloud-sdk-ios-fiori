@@ -2,8 +2,14 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct SectionHeaderFooterExample: View {
+    @State var isLoading = false
+    
     var body: some View {
         List {
+            Toggle("Show Skeleton Loading", isOn: self.$isLoading)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+            
             Section {
                 Text("Apple")
                 Text("Banana")
@@ -18,7 +24,8 @@ struct SectionHeaderFooterExample: View {
             } footer: {
                 SectionFooter(title: "List of fruits", attribute: AttributedString("buy"))
             }
-
+            .environment(\.isLoading, self.isLoading)
+            
             Section {
                 Text("Beef")
                 Text("Chicken")
@@ -45,6 +52,7 @@ struct SectionHeaderFooterExample: View {
                         .font(.fiori(forTextStyle: .title1))
                 }
             }
+            .environment(\.isLoading, self.isLoading)
         }
         .navigationTitle("SectionHeader/Footer Example")
     }
