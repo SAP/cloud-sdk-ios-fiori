@@ -56,6 +56,7 @@ struct InternalWAForm: View {
         .alert("Discard all changes?", isPresented: self.$context.showCancelAlert, actions: {
             Button(role: .cancel) {
                 self.context.showCancelAlert = false
+                self.context.updateInWAFlow(true)
             } label: {
                 Text("Keep Working")
                     .font(.fiori(forTextStyle: .caption1))
