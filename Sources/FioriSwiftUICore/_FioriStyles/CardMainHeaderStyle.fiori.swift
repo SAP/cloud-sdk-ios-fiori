@@ -14,77 +14,27 @@ import SwiftUI
 /// Enumeration defining the vertical insertion positions of a `FlexItem` within a view hierarchy.
 public enum FlexItemPositionType {
     /// Inserts the flex item above the main header component.
-    case aboveMainHeader(insets: EdgeInsets?)
+    case aboveMainHeader
 
     /// Inserts the flex item above the title, but below the main header (if present).
-    case aboveTitle(insets: EdgeInsets?)
+    case aboveTitle
 
     /// Inserts the flex item between the title and subtitle, at the top of the subtitle section.
     /// Equivalent to "below the title" in vertical layout.
-    case betweenTitleAndSubtitle(insets: EdgeInsets?)
+    case betweenTitleAndSubtitle
 
     /// Inserts the flex item below the subtitle.
-    case belowSubtitle(insets: EdgeInsets?)
-    
-    var edgeInsets: EdgeInsets {
-        switch self {
-        case .aboveMainHeader(let insets),
-             .aboveTitle(let insets),
-             .betweenTitleAndSubtitle(let insets),
-             .belowSubtitle(let insets):
-            return insets ?? EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        }
-    }
-}
-
-extension FlexItemPositionType: Equatable {
-    public static func == (lhs: FlexItemPositionType, rhs: FlexItemPositionType) -> Bool {
-        switch (lhs, rhs) {
-        case (.aboveMainHeader(let lhsInsets), .aboveMainHeader(let rhsInsets)):
-            return lhsInsets == rhsInsets
-        case (.aboveTitle(let lhsInsets), .aboveTitle(let rhsInsets)):
-            return lhsInsets == rhsInsets
-        case (.betweenTitleAndSubtitle(let lhsInsets), .betweenTitleAndSubtitle(let rhsInsets)):
-            return lhsInsets == rhsInsets
-        case (.belowSubtitle(let lhsInsets), .belowSubtitle(let rhsInsets)):
-            return lhsInsets == rhsInsets
-        default:
-            return false
-        }
-    }
-}
-
-extension FlexItemPositionType {
-    static var aboveMainHeader: FlexItemPositionType {
-        .aboveMainHeader(insets: nil)
-    }
-
-    static var aboveTitle: FlexItemPositionType {
-        .aboveTitle(insets: nil)
-    }
-
-    static var betweenTitleAndSubtitle: FlexItemPositionType {
-        .betweenTitleAndSubtitle(insets: nil)
-    }
-
-    static var belowSubtitle: FlexItemPositionType {
-        .belowSubtitle(insets: nil)
-    }
+    case belowSubtitle
 }
 
 // Base Layout style
 public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
-    private func flexItemPadding(_ configuration: CardMainHeaderConfiguration) -> EdgeInsets {
-        configuration.flexItemPosition?.edgeInsets ?? EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-    }
-    
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             if !configuration.flexItem.isEmpty,
                case .aboveMainHeader = configuration.flexItemPosition
             {
                 configuration.flexItem
-                    .padding(self.flexItemPadding(configuration))
             }
             HStack(alignment: .top, spacing: 0) {
                 HStack(spacing: 8) {
@@ -96,27 +46,28 @@ public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
                     configuration.detailImage
                         .accessibilityHidden(true)
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0) {
                         if !configuration.flexItem.isEmpty,
                            case .aboveTitle = configuration.flexItemPosition
                         {
                             configuration.flexItem
-                                .padding(self.flexItemPadding(configuration))
                         }
+                        
                         configuration.title
+                        
                         if !configuration.flexItem.isEmpty,
                            case .betweenTitleAndSubtitle = configuration.flexItemPosition
                         {
                             configuration.flexItem
-                                .padding(self.flexItemPadding(configuration))
                         }
+                        
                         configuration.subtitle
                             .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                        
                         if !configuration.flexItem.isEmpty,
                            case .belowSubtitle = configuration.flexItemPosition
                         {
                             configuration.flexItem
-                                .padding(self.flexItemPadding(configuration))
                         }
                     }
                     .accessibilitySortPriority(2)
