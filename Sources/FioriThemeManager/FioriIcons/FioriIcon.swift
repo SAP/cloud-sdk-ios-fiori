@@ -3421,6 +3421,256 @@ public enum FioriIcon {
         public static let uploadToCloudScene = Image(fioriName: "fiori.ill.upload.to.cloud.scene")
         ///
         public static let uploadToCloudSpot = Image(fioriName: "fiori.ill.upload.to.cloud.spot")
+        
+        // V3
+        ///
+        public static let addColumnDialogV3 = Image(fioriName: "fiori.ill.add.column.dialog.v3")
+        ///
+        public static let addColumnDotV3 = Image(fioriName: "fiori.ill.add.column.dot.v3")
+        ///
+        public static let addColumnSceneV3 = Image(fioriName: "fiori.ill.add.column.scene.v3")
+        ///
+        public static let addColumnSpotV3 = Image(fioriName: "fiori.ill.add.column.spot.v3")
+        ///
+        public static let addDimensionsDialogV3 = Image(fioriName: "fiori.ill.add.dimensions.dialog.v3")
+        ///
+        public static let addDimensionsDotV3 = Image(fioriName: "fiori.ill.add.dimensions.dot.v3")
+        ///
+        public static let addDimensionsSceneV3 = Image(fioriName: "fiori.ill.add.dimensions.scene.v3")
+        ///
+        public static let addDimensionsSpotV3 = Image(fioriName: "fiori.ill.add.dimensions.spot.v3")
+        ///
+        public static let addPeopleDialogV3 = Image(fioriName: "fiori.ill.add.people.dialog.v3")
+        ///
+        public static let addPeopleDotV3 = Image(fioriName: "fiori.ill.add.people.dot.v3")
+        ///
+        public static let addPeopleSceneV3 = Image(fioriName: "fiori.ill.add.people.scene.v3")
+        ///
+        public static let addPeopleSpotV3 = Image(fioriName: "fiori.ill.add.people.spot.v3")
+        ///
+        public static let beforeSearchDialogV3 = Image(fioriName: "fiori.ill.before.search.dialog.v3")
+        ///
+        public static let beforeSearchDotV3 = Image(fioriName: "fiori.ill.before.search.dot.v3")
+        ///
+        public static let beforeSearchSceneV3 = Image(fioriName: "fiori.ill.before.search.scene.v3")
+        ///
+        public static let beforeSearchSpotV3 = Image(fioriName: "fiori.ill.before.search.spot.v3")
+        ///
+        public static let connectionDialogV3 = Image(fioriName: "fiori.ill.connection.dialog.v3")
+        ///
+        public static let connectionDotV3 = Image(fioriName: "fiori.ill.connection.dot.v3")
+        ///
+        public static let connectionSceneV3 = Image(fioriName: "fiori.ill.connection.scene.v3")
+        ///
+        public static let connectionSpotV3 = Image(fioriName: "fiori.ill.connection.spot.v3")
+        ///
+        public static let emptyPlanningCalendarDialogV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.dialog.v3")
+        ///
+        public static let emptyPlanningCalendarDotV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.dot.v3")
+        ///
+        public static let emptyPlanningCalendarSceneV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.scene.v3")
+        ///
+        public static let emptyPlanningCalendarSpotV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.spot.v3")
+        ///
+        public static let errorScreenDialogV3 = Image(fioriName: "fiori.ill.error.screen.dialog.v3")
+        ///
+        public static let errorScreenDotV3 = Image(fioriName: "fiori.ill.error.screen.dot.v3")
+        ///
+        public static let errorScreenSceneV3 = Image(fioriName: "fiori.ill.error.screen.scene.v3")
+        ///
+        public static let errorScreenSpotV3 = Image(fioriName: "fiori.ill.error.screen.spot.v3")
+        ///
+        public static let filterTableDialogV3 = Image(fioriName: "fiori.ill.filter.table.dialog.v3")
+        ///
+        public static let filterTableDotV3 = Image(fioriName: "fiori.ill.filter.table.dot.v3")
+        ///
+        public static let filterTableSceneV3 = Image(fioriName: "fiori.ill.filter.table.scene.v3")
+        ///
+        public static let filterTableSpotV3 = Image(fioriName: "fiori.ill.filter.table.spot.v3")
+        ///
+        public static let groupTableDialogV3 = Image(fioriName: "fiori.ill.group.table.dialog.v3")
+        ///
+        public static let groupTableDotV3 = Image(fioriName: "fiori.ill.group.table.dot.v3")
+        ///
+        public static let groupTableSceneV3 = Image(fioriName: "fiori.ill.group.table.scene.v3")
+        ///
+        public static let groupTableSpotV3 = Image(fioriName: "fiori.ill.group.table.spot.v3")
+        ///
+        public static let newMailDialogV3 = Image(fioriName: "fiori.ill.new.mail.dialog.v3")
+        ///
+        public static let newMailDotV3 = Image(fioriName: "fiori.ill.new.mail.dot.v3")
+        ///
+        public static let newMailSceneV3 = Image(fioriName: "fiori.ill.new.mail.scene.v3")
+        ///
+        public static let newMailSpotV3 = Image(fioriName: "fiori.ill.new.mail.spot.v3")
+        ///
+        public static let noActivitiesDialogV3 = Image(fioriName: "fiori.ill.no.activities.dialog.v3")
+        ///
+        public static let noActivitiesDotV3 = Image(fioriName: "fiori.ill.no.activities.dot.v3")
+        ///
+        public static let noActivitiesSceneV3 = Image(fioriName: "fiori.ill.no.activities.scene.v3")
+        ///
+        public static let noActivitiesSpotV3 = Image(fioriName: "fiori.ill.no.activities.spot.v3")
+        ///
+        public static let noColumnsSetDialogV3 = Image(fioriName: "fiori.ill.no.columns.set.dialog.v3")
+        ///
+        public static let noColumnsSetDotV3 = Image(fioriName: "fiori.ill.no.columns.set.dot.v3")
+        ///
+        public static let noColumnsSetSceneV3 = Image(fioriName: "fiori.ill.no.columns.set.scene.v3")
+        ///
+        public static let noColumnsSetSpotV3 = Image(fioriName: "fiori.ill.no.columns.set.spot.v3")
+        ///
+        public static let noDataDialogV3 = Image(fioriName: "fiori.ill.no.data.dialog.v3")
+        ///
+        public static let noDataDotV3 = Image(fioriName: "fiori.ill.no.data.dot.v3")
+        ///
+        public static let noDataSceneV3 = Image(fioriName: "fiori.ill.no.data.scene.v3")
+        ///
+        public static let noDataSpotV3 = Image(fioriName: "fiori.ill.no.data.spot.v3")
+        ///
+        public static let noDimensionsSetDialogV3 = Image(fioriName: "fiori.ill.no.dimensions.set.dialog.v3")
+        ///
+        public static let noDimensionsSetDotV3 = Image(fioriName: "fiori.ill.no.dimensions.set.dot.v3")
+        ///
+        public static let noDimensionsSetSceneV3 = Image(fioriName: "fiori.ill.no.dimensions.set.scene.v3")
+        ///
+        public static let noDimensionsSetSpotV3 = Image(fioriName: "fiori.ill.no.dimensions.set.spot.v3")
+        ///
+        public static let noEntriesDialogV3 = Image(fioriName: "fiori.ill.no.entries.dialog.v3")
+        ///
+        public static let noEntriesDotV3 = Image(fioriName: "fiori.ill.no.entries.dot.v3")
+        ///
+        public static let noEntriesSceneV3 = Image(fioriName: "fiori.ill.no.entries.scene.v3")
+        ///
+        public static let noEntriesSpotV3 = Image(fioriName: "fiori.ill.no.entries.spot.v3")
+        ///
+        public static let noFilterResultsDialogV3 = Image(fioriName: "fiori.ill.no.filter.results.dialog.v3")
+        ///
+        public static let noFilterResultsDotV3 = Image(fioriName: "fiori.ill.no.filter.results.dot.v3")
+        ///
+        public static let noFilterResultsSceneV3 = Image(fioriName: "fiori.ill.no.filter.results.scene.v3")
+        ///
+        public static let noFilterResultsSpotV3 = Image(fioriName: "fiori.ill.no.filter.results.spot.v3")
+        ///
+        public static let noMailDialogV3 = Image(fioriName: "fiori.ill.no.mail.dialog.v3")
+        ///
+        public static let noMailDotV3 = Image(fioriName: "fiori.ill.no.mail.dot.v3")
+        ///
+        public static let noMailSceneV3 = Image(fioriName: "fiori.ill.no.mail.scene.v3")
+        ///
+        public static let noMailSpotV3 = Image(fioriName: "fiori.ill.no.mail.spot.v3")
+        ///
+        public static let noNotificationsDialogV3 = Image(fioriName: "fiori.ill.no.notifications.dialog.v3")
+        ///
+        public static let noNotificationsDotV3 = Image(fioriName: "fiori.ill.no.notifications.dot.v3")
+        ///
+        public static let noNotificationsSceneV3 = Image(fioriName: "fiori.ill.no.notifications.scene.v3")
+        ///
+        public static let noNotificationsSpotV3 = Image(fioriName: "fiori.ill.no.notifications.spot.v3")
+        ///
+        public static let noSavedItemsDialogV3 = Image(fioriName: "fiori.ill.no.saved.items.dialog.v3")
+        ///
+        public static let noSavedItemsDotV3 = Image(fioriName: "fiori.ill.no.saved.items.dot.v3")
+        ///
+        public static let noSavedItemsSceneV3 = Image(fioriName: "fiori.ill.no.saved.items.scene.v3")
+        ///
+        public static let noSavedItemsSpotV3 = Image(fioriName: "fiori.ill.no.saved.items.spot.v3")
+        ///
+        public static let noSearchResultsDialogV3 = Image(fioriName: "fiori.ill.no.search.results.dialog.v3")
+        ///
+        public static let noSearchResultsDotV3 = Image(fioriName: "fiori.ill.no.search.results.dot.v3")
+        ///
+        public static let noSearchResultsSceneV3 = Image(fioriName: "fiori.ill.no.search.results.scene.v3")
+        ///
+        public static let noSearchResultsSpotV3 = Image(fioriName: "fiori.ill.no.search.results.spot.v3")
+        ///
+        public static let noTasksDialogV3 = Image(fioriName: "fiori.ill.no.tasks.dialog.v3")
+        ///
+        public static let noTasksDotV3 = Image(fioriName: "fiori.ill.no.tasks.dot.v3")
+        ///
+        public static let noTasksSceneV3 = Image(fioriName: "fiori.ill.no.tasks.scene.v3")
+        ///
+        public static let noTasksSpotV3 = Image(fioriName: "fiori.ill.no.tasks.spot.v3")
+        ///
+        public static let resizeColumnDialogV3 = Image(fioriName: "fiori.ill.resize.column.dialog.v3")
+        ///
+        public static let resizeColumnDotV3 = Image(fioriName: "fiori.ill.resize.column.dot.v3")
+        ///
+        public static let resizeColumnSceneV3 = Image(fioriName: "fiori.ill.resize.column.scene.v3")
+        ///
+        public static let resizeColumnSpotV3 = Image(fioriName: "fiori.ill.resize.column.spot.v3")
+        ///
+        public static let signOutDialogV3 = Image(fioriName: "fiori.ill.sign.out.dialog.v3")
+        ///
+        public static let signOutDotV3 = Image(fioriName: "fiori.ill.sign.out.dot.v3")
+        ///
+        public static let signOutSceneV3 = Image(fioriName: "fiori.ill.sign.out.scene.v3")
+        ///
+        public static let signOutSpotV3 = Image(fioriName: "fiori.ill.sign.out.spot.v3")
+        ///
+        public static let sortColumnDialogV3 = Image(fioriName: "fiori.ill.sort.column.dialog.v3")
+        ///
+        public static let sortColumnDotV3 = Image(fioriName: "fiori.ill.sort.column.dot.v3")
+        ///
+        public static let sortColumnSceneV3 = Image(fioriName: "fiori.ill.sort.column.scene.v3")
+        ///
+        public static let sortColumnSpotV3 = Image(fioriName: "fiori.ill.sort.column.spot.v3")
+        ///
+        public static let successCheckMarkDialogV3 = Image(fioriName: "fiori.ill.success.check.mark.dialog.v3")
+        ///
+        public static let successCheckMarkDotV3 = Image(fioriName: "fiori.ill.success.check.mark.dot.v3")
+        ///
+        public static let successCheckMarkSceneV3 = Image(fioriName: "fiori.ill.success.check.mark.scene.v3")
+        ///
+        public static let successCheckMarkSpotV3 = Image(fioriName: "fiori.ill.success.check.mark.spot.v3")
+        ///
+        public static let successHighFiveDialogV3 = Image(fioriName: "fiori.ill.success.high.five.dialog.v3")
+        ///
+        public static let successHighFiveDotV3 = Image(fioriName: "fiori.ill.success.high.five.dot.v3")
+        ///
+        public static let successHighFiveSceneV3 = Image(fioriName: "fiori.ill.success.high.five.scene.v3")
+        ///
+        public static let successHighFiveSpotV3 = Image(fioriName: "fiori.ill.success.high.five.spot.v3")
+        ///
+        public static let successScreenDialogV3 = Image(fioriName: "fiori.ill.success.screen.dialog.v3")
+        ///
+        public static let successScreenDotV3 = Image(fioriName: "fiori.ill.success.screen.dot.v3")
+        ///
+        public static let successScreenSceneV3 = Image(fioriName: "fiori.ill.success.screen.scene.v3")
+        ///
+        public static let successScreenSpotV3 = Image(fioriName: "fiori.ill.success.screen.spot.v3")
+        ///
+        public static let unableToLoadImageDialogV3 = Image(fioriName: "fiori.ill.unable.to.load.image.dialog.v3")
+        ///
+        public static let unableToLoadImageDotV3 = Image(fioriName: "fiori.ill.unable.to.load.image.dot.v3")
+        ///
+        public static let unableToLoadImageSceneV3 = Image(fioriName: "fiori.ill.unable.to.load.image.scene.v3")
+        ///
+        public static let unableToLoadImageSpotV3 = Image(fioriName: "fiori.ill.unable.to.load.image.spot.v3")
+        ///
+        public static let unableToLoadScreenDialogV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.dialog.v3")
+        ///
+        public static let unableToLoadScreenDotV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.dot.v3")
+        ///
+        public static let unableToLoadScreenSceneV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.scene.v3")
+        ///
+        public static let unableToLoadScreenSpotV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.spot.v3")
+        ///
+        public static let uploadCollectionDialogV3 = Image(fioriName: "fiori.ill.upload.collection.dialog.v3")
+        ///
+        public static let uploadCollectionDotV3 = Image(fioriName: "fiori.ill.upload.collection.dot.v3")
+        ///
+        public static let uploadCollectionSceneV3 = Image(fioriName: "fiori.ill.upload.collection.scene.v3")
+        ///
+        public static let uploadCollectionSpotV3 = Image(fioriName: "fiori.ill.upload.collection.spot.v3")
+        ///
+        public static let uploadToCloudDialogV3 = Image(fioriName: "fiori.ill.upload.to.cloud.dialog.v3")
+        ///
+        public static let uploadToCloudDotV3 = Image(fioriName: "fiori.ill.upload.to.cloud.dot.v3")
+        ///
+        public static let uploadToCloudSceneV3 = Image(fioriName: "fiori.ill.upload.to.cloud.scene.v3")
+        ///
+        public static let uploadToCloudSpotV3 = Image(fioriName: "fiori.ill.upload.to.cloud.spot.v3")
     }
 }
 
