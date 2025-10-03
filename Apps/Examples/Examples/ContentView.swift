@@ -71,8 +71,9 @@ struct SettingsView: View {
             }
         }
     }
-    
-    let supportedLocales: [Locale] = ["en-US", "de-DE", "he-IL", "zh-CN"]
+
+    // "de", "en", "es", "fr", "it", "pt"
+    let supportedLocales: [Locale] = ["de-CH", "de-DE", "en-US", "en-GB", "es-ES", "es-MX", "fr-CA", "fr-FR", "it-IT", "it-CH", "pt", "pt-PT", "ko-KR", "he-IL", "zh-CN", "zh-TW"]
         .map { Locale(identifier: $0) }
 }
 
