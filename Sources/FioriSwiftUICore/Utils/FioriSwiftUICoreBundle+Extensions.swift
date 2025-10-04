@@ -3,7 +3,7 @@ import Foundation
 private class CurrentBundleFinder {}
 
 extension Bundle {
-    static var accessor: Bundle {
+    static var accessorBase: Bundle {
         #if SWIFT_PACKAGE
 
             // patch for SwiftPM: ensure that bundle is found when accessed from a package that relies on FioriSwiftUI
@@ -18,7 +18,11 @@ extension Bundle {
             return Bundle(for: CurrentBundleFinder.self)
         #endif
     }
-    
+
+    static var accessor: Bundle {
+        FioriLocale.shared.bundle ?? accessorBase
+    }
+
     static func patchToFindBundle(with bundleName: String) -> Bundle? {
         let candidates = [
             /* Bundle should be present here when the package is linked into an App. */
