@@ -30,7 +30,7 @@ struct KPIHeaderExample: View {
     ]
     
     @State var isPresentedBanner: Bool = false // true
-    @State var isLoading: Bool = true
+    @State var isLoading: Bool = false
     var body: some View {
         ScrollView {
             VStack {
