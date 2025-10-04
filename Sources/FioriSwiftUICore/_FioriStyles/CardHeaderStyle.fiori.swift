@@ -135,6 +135,17 @@ extension CardHeaderFioriStyle {
         }
     }
     
+    struct FlexItemFioriStyle: FlexItemStyle {
+        let cardHeaderConfiguration: CardHeaderConfiguration
+
+        func makeBody(_ configuration: FlexItemConfiguration) -> some View {
+            FlexItem(configuration)
+            // Add default style for FlexItem
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+    
     struct Row1FioriStyle: Row1Style {
         let cardHeaderConfiguration: CardHeaderConfiguration
         

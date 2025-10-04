@@ -11,38 +11,79 @@ import SwiftUI
  4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
+/// Enumeration defining the vertical insertion positions of a `FlexItem` within a view hierarchy.
+public enum FlexItemPositionType {
+    /// Inserts the flex item above the main header component.
+    case aboveMainHeader
+
+    /// Inserts the flex item above the title, but below the main header (if present).
+    case aboveTitle
+
+    /// Inserts the flex item between the title and subtitle, at the top of the subtitle section.
+    /// Equivalent to "below the title" in vertical layout.
+    case betweenTitleAndSubtitle
+
+    /// Inserts the flex item below the subtitle.
+    case belowSubtitle
+}
+
 // Base Layout style
 public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
-        HStack(alignment: .top, spacing: 0) {
-            HStack(spacing: 8) {
-                if !configuration.icons.isEmpty {
-                    configuration.icons
-                        .accessibilityHidden(true)
-                }
-                
-                configuration.detailImage
-                    .accessibilityHidden(true)
-                
-                VStack(alignment: .leading) {
-                    configuration.title
+        VStack(alignment: .leading, spacing: 0) {
+            if !configuration.flexItem.isEmpty,
+               case .aboveMainHeader = configuration.flexItemPosition
+            {
+                configuration.flexItem
+            }
+            HStack(alignment: .top, spacing: 0) {
+                HStack(spacing: 8) {
+                    if !configuration.icons.isEmpty {
+                        configuration.icons
+                            .accessibilityHidden(true)
+                    }
                     
-                    configuration.subtitle
-                        .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                    configuration.detailImage
+                        .accessibilityHidden(true)
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        if !configuration.flexItem.isEmpty,
+                           case .aboveTitle = configuration.flexItemPosition
+                        {
+                            configuration.flexItem
+                        }
+                        
+                        configuration.title
+                        
+                        if !configuration.flexItem.isEmpty,
+                           case .betweenTitleAndSubtitle = configuration.flexItemPosition
+                        {
+                            configuration.flexItem
+                        }
+                        
+                        configuration.subtitle
+                            .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                        
+                        if !configuration.flexItem.isEmpty,
+                           case .belowSubtitle = configuration.flexItemPosition
+                        {
+                            configuration.flexItem
+                        }
+                    }
+                    .accessibilitySortPriority(2)
                 }
-                .accessibilitySortPriority(2)
-            }
-            
-            if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
-                Spacer(minLength: 12)
-            }
-            
-            VStack(alignment: .trailing) {
-                configuration.headerAction
                 
-                configuration.counter
+                if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
+                    Spacer(minLength: 12)
+                }
+                
+                VStack(alignment: .trailing) {
+                    configuration.headerAction
+                    
+                    configuration.counter
+                }
+                .accessibilitySortPriority(1)
             }
-            .accessibilitySortPriority(1)
         }
     }
 }
@@ -56,7 +97,18 @@ extension CardMainHeaderFioriStyle {
             // .background()
         }
     }
-    
+
+    struct FlexItemFioriStyle: FlexItemStyle {
+        let cardMainHeaderConfiguration: CardMainHeaderConfiguration
+
+        func makeBody(_ configuration: FlexItemConfiguration) -> some View {
+            FlexItem(configuration)
+            // Add default style for FlexItem
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
+        }
+    }
+
     struct TitleFioriStyle: TitleStyle {
         let cardMainHeaderConfiguration: CardMainHeaderConfiguration
         @Environment(\.isLoading) var isLoading
