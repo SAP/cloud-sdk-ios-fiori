@@ -48,6 +48,7 @@ public struct DimensionSegmentBaseStyle: DimensionSegmentStyle {
 extension DimensionSegmentFioriStyle {
     struct ContentFioriStyle: DimensionSegmentStyle {
         @Environment(\.isEnabled) var isEnabled
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
             let isEnabledSelected = self.isEnabled && configuration.isSelected
@@ -55,20 +56,21 @@ extension DimensionSegmentFioriStyle {
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .inset(by: (isEnabledSelected ? 1 : 0.33) / 2.0)
-                        .stroke(self.isEnabled ? (configuration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.separator)) : Color.preferredColor(.secondaryFill), lineWidth: isEnabledSelected ? 1 : 0.33)
+                        .stroke(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled ? (configuration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.separator)) : Color.preferredColor(.secondaryFill)), lineWidth: isEnabledSelected ? 1 : 0.33)
                 )
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill)))
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.isLoading ? Color.preferredColor(.separator) : (isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill))))
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
         let dimensionSegmentConfiguration: DimensionSegmentConfiguration
         @Environment(\.isEnabled) var isEnabled
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
                 .font(Font.fiori(forTextStyle: .subheadline))
-                .foregroundColor(self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.secondaryLabel))
+                .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.secondaryLabel)))
         }
     }
 }
