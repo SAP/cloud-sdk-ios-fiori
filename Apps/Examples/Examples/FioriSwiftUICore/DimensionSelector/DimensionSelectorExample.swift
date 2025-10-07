@@ -15,10 +15,12 @@ struct DimensionSelectorExample: View {
     @State var selectedIndex: Int? = 0
     @ObservedObject var stockModel = Tests.stockModels[0]
     @State var customStyle: Bool = false
+    @State var isLoading: Bool = false
 
     var body: some View {
         VStack(alignment: .center) {
             SwitchView(title: "Custom Styling", isOn: self.$customStyle).padding()
+            SwitchView(title: "shows Skeleton Loading", isOn: self.$isLoading).padding()
             if self.customStyle {
                 DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex, segmentWidthMode: .equal, segment: { title in
                     let selectedTitle = self.selectedIndex != nil ? self.segmentTitles[self.selectedIndex!] : ""
@@ -29,11 +31,13 @@ struct DimensionSelectorExample: View {
                 .onChange(of: self.selectedIndex) {
                     self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
                 }
+                .environment(\.isLoading, self.isLoading)
             } else {
                 DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex)
                     .onChange(of: self.selectedIndex) {
                         self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
                     }
+                    .environment(\.isLoading, self.isLoading)
             }
             self.chartView
         }
