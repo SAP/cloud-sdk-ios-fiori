@@ -129,4 +129,6 @@ public struct _AllStepsActionDefault: _ActionModel {
     public init() {}
 }
 
-private let fioriSwiftUICoreBundle = Bundle.accessor
+private var fioriSwiftUICoreBundle: Bundle {
+    Bundle.accessor
+}
