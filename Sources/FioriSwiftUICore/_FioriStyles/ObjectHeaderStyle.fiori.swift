@@ -45,14 +45,11 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     
     func regularView(_ configuration: ObjectHeaderConfiguration) -> some View {
         HStack(alignment: .top) {
-            if !configuration.detailImage.isEmpty {
-                configuration.detailImage
-                    .frame(width: 70, height: 70)
-                    .cornerRadius(6)
-                    .clipped()
-                
-                Spacer().frame(width: 16)
-            }
+            configuration.detailImage
+                .frame(width: 70, height: 70)
+                .cornerRadius(6)
+                .clipped()
+                .padding(.trailing)
             
             HStack(alignment: .iconStackAlignmentGuide) {
                 HStack {
@@ -64,18 +61,12 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                 
                 Spacer(minLength: 48)
                 
-                if !self.isMiddleViewInRegularEmpty(configuration) {
-                    self.middleViewInRegular(configuration)
-                        .layoutPriority(1)
-                        .sizeReader(size: { size in
-                            self.middleViewSize = size
-                        })
-                        .frame(width: min(312, self.middleViewSize.width))
-                }
-                
-                if !self.isMiddleViewInRegularEmpty(configuration), !configuration.status.isEmpty || !configuration.substatus.isEmpty {
-                    Spacer().frame(width: 40)
-                }
+                self.middleViewInRegular(configuration)
+                    .layoutPriority(1)
+                    .sizeReader(size: { size in
+                        self.middleViewSize = size
+                    })
+                    .frame(width: min(312, self.middleViewSize.width))
                 
                 self.rightViewInRegular(configuration)
                     .layoutPriority(2)
@@ -85,6 +76,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                         }
                     })
                     .frame(width: min(120, self.rightViewSize.width))
+                    .padding(.leading, 40)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -265,9 +257,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     func tab1WhenSizeCategoryGreatThanLarge(_ configuration: ObjectHeaderConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .center, spacing: 8) {
-                if configuration.detailImage.isEmpty {
-                    configuration.detailImage
-                }
+                configuration.detailImage
                 
                 Spacer(minLength: 8)
                 
@@ -296,13 +286,10 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     }
     
     func tab1InGeneral(_ configuration: ObjectHeaderConfiguration) -> some View {
-        HStack(alignment: .top) {
-            if !configuration.detailImage.isEmpty {
-                configuration.detailImage
-                    .frame(width: 45, height: 45)
-                
-                Spacer().frame(width: 16)
-            }
+        HStack(alignment: .top, spacing: 0) {
+            configuration.detailImage
+                .frame(width: 45, height: 45)
+                .padding(.trailing, 16)
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack(alignment: .top) {
@@ -311,13 +298,12 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                         configuration.subtitle.multilineTextAlignment(.leading)
                     }
                     
-                    if !configuration.status.isEmpty || !configuration.substatus.isEmpty {
-                        Spacer(minLength: 8)
-                        
-                        self.statusViewInCompact(configuration)
-                            .layoutPriority(2)
-                            .frame(width: self.statusViewSize.width == 0 ? nil : min(self.statusViewSize.width, self.mainViewSize.width * 0.23))
-                    }
+                    Spacer(minLength: 0)
+                    
+                    self.statusViewInCompact(configuration)
+                        .layoutPriority(2)
+                        .frame(width: self.statusViewSize.width == 0 ? nil : min(self.statusViewSize.width, self.mainViewSize.width * 0.23))
+                        .padding(.leading, 8)
                 }
                 
                 if !self.isAdditionalInfoViewEmpty(configuration) {
