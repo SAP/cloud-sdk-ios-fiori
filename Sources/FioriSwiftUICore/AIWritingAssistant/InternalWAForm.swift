@@ -33,12 +33,16 @@ struct InternalWAForm: View {
                     self.topLeadingButton()
                         .fixedSize()
                 }
+                #if !os(visionOS)
                 .sharedBackgroundVisibility(.hidden)
+                #endif
                 ToolbarItem(placement: .topBarTrailing) {
                     self.topTrailingButton()
                         .fixedSize()
                 }
+                #if !os(visionOS)
                 .sharedBackgroundVisibility(.hidden)
+                #endif
             } else {
                 ToolbarItem(placement: .topBarLeading) {
                     self.topLeadingButton()
