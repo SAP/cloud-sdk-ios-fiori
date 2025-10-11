@@ -63,17 +63,19 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                 
                 self.middleViewInRegular(configuration)
                     .layoutPriority(1)
-                    .sizeReader(size: { size in
-                        self.middleViewSize = size
+                    .onGeometryChange(for: CGSize.self, of: { proxy in
+                        proxy.size
+                    }, action: { newValue in
+                        self.middleViewSize = newValue
                     })
                     .frame(width: min(312, self.middleViewSize.width))
                 
                 self.rightViewInRegular(configuration)
                     .layoutPriority(2)
-                    .sizeReader(size: { size in
-                        DispatchQueue.main.async {
-                            self.rightViewSize = size
-                        }
+                    .onGeometryChange(for: CGSize.self, of: { proxy in
+                        proxy.size
+                    }, action: { newValue in
+                        self.rightViewSize = newValue
                     })
                     .frame(width: min(120, self.rightViewSize.width))
                     .padding(.leading, 40)
@@ -202,11 +204,12 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                     .disabled(true)
                 
                 self.statusViewInCompact(configuration)
-                    .sizeReader(size: { size in
-                        DispatchQueue.main.async {
-                            self.statusViewSize = size
-                        }
-                    }).hidden()
+                    .onGeometryChange(for: CGSize.self, of: { proxy in
+                        proxy.size
+                    }, action: { newValue in
+                        self.statusViewSize = newValue
+                    })
+                    .hidden()
             }
             
             if tabsCount > 1 {
@@ -225,10 +228,10 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                 Spacer().frame(height: 8)
             }
         }
-        .sizeReader(size: { size in
-            DispatchQueue.main.async {
-                self.mainViewSize = size
-            }
+        .onGeometryChange(for: CGSize.self, of: { proxy in
+            proxy.size
+        }, action: { newValue in
+            self.mainViewSize = newValue
         })
     }
     
