@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.8.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.2...25.8.3) (2025-10-13)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-864]change section header/footer traits ([#1275](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1275)) ([af7fa78](https://github.com/SAP/cloud-sdk-ios-fiori/commit/af7fa78ab5c6f8da4a97127a723fc33133ef483f))
+* 🐛 [IOSSDKBUG-939] Fix index out of range issue in BannerMultiMessageSheet ([#1265](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1265)) ([#1266](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1266)) ([2f176ce](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2f176ce39cf7db43f84b80b0a293618735584fe5))
+* 🐛 [IOSSDKBUG-961] Skeleton Loading: SectionHeader. Cherry pick from main ([#1279](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1279)) ([23817ad](https://github.com/SAP/cloud-sdk-ios-fiori/commit/23817ad3afcb2f1523a91101ce05c7b8e2719f09))
+* 🐛 [IOSSDKBUG-968] Skeleton Loading: KeyValueItem. Cherry pick from main ([#1287](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1287)) ([7c609a5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7c609a5eb4eda78c8f59d92ada785e5afc59e934))
+* 🐛 [IOSSDKBUG-969]Skeleton Loading: DimensionSelector ([#1288](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1288)) ([d6ee54c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d6ee54c34d9774451fbe38d013d280855c57a5ec))
+* 🐛 ObjectHeader's parameters preserve space [IOSSDKBUG-973] ([#1292](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1292)) ([b527df7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b527df73daf96e4c24ed86bcf56d88d01cfb6a02))
+* 🐛 Skeleton loading for MenuSelection. Cherry pick from main ([#1281](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1281)) ([788ea6e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/788ea6e107aece7ea229fa037ae69c7c76a3f7de))
+* 🐛 update title color to primary label ([#1269](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1269)) ([5b2fd8b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5b2fd8bb58c725ce1240e77dcf5fac32ae72a1ae)), closes [#1223](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1223)
+
 ### [25.8.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.1...25.8.2) (2025-09-10)
 
 
