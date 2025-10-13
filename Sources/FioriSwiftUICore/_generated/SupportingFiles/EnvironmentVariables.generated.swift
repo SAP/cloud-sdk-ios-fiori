@@ -1389,6 +1389,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FlexItemStyle
+
+struct FlexItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FlexItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var flexItemStyle: any FlexItemStyle {
+        self.flexItemStyleStack.last ?? .base
+    }
+
+    var flexItemStyleStack: [any FlexItemStyle] {
+        get {
+            self[FlexItemStyleStackKey.self]
+        }
+        set {
+            self[FlexItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FootnoteStyle
 
 struct FootnoteStyleStackKey: EnvironmentKey {

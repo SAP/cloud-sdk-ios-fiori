@@ -12,6 +12,9 @@ public struct Card {
     let detailImage: any View
     let headerAction: any View
     let counter: any View
+    let flexItem: any View
+    /// Determine the position of the flexItem
+    var flexItemPosition: FlexItemPositionType?
     let row1: any View
     let row2: any View
     let row3: any View
@@ -37,6 +40,8 @@ public struct Card {
                 @ViewBuilder detailImage: () -> any View = { EmptyView() },
                 @ViewBuilder headerAction: () -> any View = { EmptyView() },
                 @ViewBuilder counter: () -> any View = { EmptyView() },
+                @ViewBuilder flexItem: () -> any View = { EmptyView() },
+                flexItemPosition: FlexItemPositionType? = nil,
                 @ViewBuilder row1: () -> any View = { EmptyView() },
                 @ViewBuilder row2: () -> any View = { EmptyView() },
                 @ViewBuilder row3: () -> any View = { EmptyView() },
@@ -57,6 +62,8 @@ public struct Card {
         self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
         self.headerAction = HeaderAction(headerAction: headerAction, componentIdentifier: componentIdentifier)
         self.counter = Counter(counter: counter, componentIdentifier: componentIdentifier)
+        self.flexItem = FlexItem(flexItem: flexItem, componentIdentifier: componentIdentifier)
+        self.flexItemPosition = flexItemPosition
         self.row1 = Row1(row1: row1, componentIdentifier: componentIdentifier)
         self.row2 = Row2(row2: row2, componentIdentifier: componentIdentifier)
         self.row3 = Row3(row3: row3, componentIdentifier: componentIdentifier)
@@ -84,6 +91,8 @@ public extension Card {
          detailImage: Image? = nil,
          headerAction: FioriButton? = nil,
          counter: AttributedString? = nil,
+         @ViewBuilder flexItem: () -> any View = { EmptyView() },
+         flexItemPosition: FlexItemPositionType? = nil,
          @ViewBuilder row1: () -> any View = { EmptyView() },
          @ViewBuilder row2: () -> any View = { EmptyView() },
          @ViewBuilder row3: () -> any View = { EmptyView() },
@@ -95,7 +104,7 @@ public extension Card {
          tertiaryAction: FioriButton? = nil,
          overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") })
     {
-        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction })
+        self.init(mediaImage: { OptionalImage(mediaImage) }, description: { OptionalText(description) }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, icons: { IconStack(icons) }, detailImage: { detailImage }, headerAction: { headerAction }, counter: { OptionalText(counter) }, flexItem: flexItem, flexItemPosition: flexItemPosition, row1: row1, row2: row2, row3: row3, kpi: { OptionalKPIItem(kpi) }, kpiCaption: { OptionalText(kpiCaption) }, cardBody: cardBody, action: { action }, secondaryAction: { secondaryAction }, tertiaryAction: { tertiaryAction }, overflowAction: { overflowAction })
     }
 }
 
@@ -113,6 +122,8 @@ public extension Card {
         self.detailImage = configuration.detailImage
         self.headerAction = configuration.headerAction
         self.counter = configuration.counter
+        self.flexItem = configuration.flexItem
+        self.flexItemPosition = configuration.flexItemPosition
         self.row1 = configuration.row1
         self.row2 = configuration.row2
         self.row3 = configuration.row3
@@ -133,7 +144,7 @@ extension Card: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), flexItem: .init(self.flexItem), flexItemPosition: self.flexItemPosition, row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction))).typeErased
                 .transformEnvironment(\.cardStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -151,7 +162,7 @@ private extension Card {
     }
 
     func defaultStyle() -> some View {
-        Card(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
+        Card(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), flexItem: .init(self.flexItem), flexItemPosition: self.flexItemPosition, row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption), cardBody: .init(self.cardBody), action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .cardStyle(CardFioriStyle.ContentFioriStyle())
             .typeErased
