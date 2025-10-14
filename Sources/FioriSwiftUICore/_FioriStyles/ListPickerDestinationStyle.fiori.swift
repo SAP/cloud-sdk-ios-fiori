@@ -25,7 +25,7 @@ extension ListPickerDestinationFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(ListPickerDestinationButtonStyle(.navigation))
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
@@ -34,7 +34,7 @@ extension ListPickerDestinationFioriStyle {
         
         func makeBody(_ configuration: ApplyActionConfiguration) -> some View {
             ApplyAction(configuration)
-                .fioriButtonStyle(ListPickerDestinationButtonStyle(.navigation))
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
