@@ -4,6 +4,38 @@ import SwiftUI
 public struct CalendarView: View {
     let style: CalendarStyle
     
+    @Binding var selectedDate: Date?
+    @Binding var selectedDates: Set<Date>?
+    @Binding var selectedRange: ClosedRange<Date>?
+    let disabledDates: CalendarDisabledDates?
+    
+    let customEventView: (Date) -> any View
+    
+    @State var customCalendarBackgroundColor: Color?
+    
+    private let calendar = Calendar.autoupdatingCurrent
+    /// The title change callback when the current visible month and year of the calendar is displaying.
+    let titleChangeCallback: ((String) -> Void)?
+    /// The start date of the calendar. Default is current year's first day.
+    let startDate: Date
+    /// The end date of the calendar. Default is next year's last day.
+    let endDate: Date
+    /// The display date at startup. Default is today.
+    var displayDateAtStartup: Date
+    
+    /**
+     Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates.
+
+     The default is false for `month`, `week`, and `expandable` styles except for `rangeSelection` and `datesSelection` styles, which is always true (hence, if the developer sets `isPersistentSelection` to false, it will have no effect).
+     
+     In `month` style, the default behavior is that the first date of every month is selected when the month is displayed. (If the particular month contains today's date, then it is selected instead.) Also, the selection is not persistent. For example, on startup of the calendar, assume that January is displayed with Jan 1st selected. Then, if a user clicks on another date, for example Jan 25th, it is selected now. If the user then scrolls to Feb, then Feb 1st shows as selected. Scrolling back to January, the 1st of January is selected now and not the 25th as the user had previously selected.
+     
+     In the case where `isPersistentSelection` is true, then the behavior is as follows: No date is selected when the calendar is displayed or scrolled to another month, except if a date was set by the `selectDate`: (for month, week, expandable, and `datesSelection`) or `selectDateRange`:(for `multipleSelection View`) by the developer. When the user then selects another date, then this date is now selected, regardless of whether the user scrolls to any other month.
+     
+     The value cannot be changed after it is set during initialization of the `calendarView`.
+     */
+    let isPersistentSelection: Bool
+    
     @State private var offset: CGFloat = 0
     @State private var scrollPosition: Int? = 0
 
@@ -13,13 +45,6 @@ public struct CalendarView: View {
     
     /// The week displayed when the change from month view to week view
     @State private var targetWeekNumber: Int = 0
-    
-    /// The start date of the calendar. Default is current year's first day.
-    let startDate: Date
-    /// The end date of the calendar. Default is next year's last day.
-    let endDate: Date
-    /// The display date at startup. Default is today.
-    let displayDateAtStartup: Date
     
     private var totalMonths = 0
     
@@ -39,20 +64,13 @@ public struct CalendarView: View {
     @State private var dragGestureOffsetY: CGFloat = 0
     @State private var currentMonthOriginHeight: CGFloat = 0
     
-    @Binding var selectedDate: Date?
-    @Binding var selectedDates: Set<Date>?
-    @Binding var selectedRange: ClosedRange<Date>?
-    let disabledDates: CalendarDisabledDates?
-    
-    let customEventView: (Date) -> any View
-    
-    @State var customCalendarBackgroundColor: Color?
-    
-    private let calendar = Calendar.autoupdatingCurrent
-    
     @State private var isExpanded = true
+    
+    @Environment(\.customLanguageId) var customLanguageId
 
     public var body: some View {
+//        let _ = Self._printChanges()
+        
         GeometryReader { proxy in
             let availableWidth = proxy.size.width
             let paddingOffset: CGFloat = 8
@@ -109,9 +127,11 @@ public struct CalendarView: View {
                                             )
                                             .onPreferenceChange(SizePreferenceKey.self) { newValue in
                                                 DispatchQueue.main.async {
-                                                    self.pageHeights[index] = newValue.height
-                                                    if let scrollPosition, scrollPosition == index {
-                                                        self.lastPageHeight = newValue.height
+                                                    if self.pageHeights[index] != newValue.height {
+                                                        self.pageHeights[index] = newValue.height
+                                                        if let scrollPosition, scrollPosition == index {
+                                                            self.lastPageHeight = newValue.height
+                                                        }
                                                     }
                                                 }
                                             }
@@ -145,9 +165,7 @@ public struct CalendarView: View {
                             .fill(self.fillBackgroundColor)
                     )
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
-                    .onAppear {
-                        self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    }
+                    .onAppear {}
                 } else if self.style == .month || self.showFullScreen {
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack {
@@ -158,10 +176,14 @@ public struct CalendarView: View {
                                         MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
-                                            .sizeReader(size: {
-                                                self.pageHeights[index] = $0.height
-                                                if let scrollPosition, scrollPosition == index {
-                                                    self.lastPageHeight = $0.height
+                                            .sizeReader(size: { newValue in
+                                                DispatchQueue.main.async {
+                                                    if self.pageHeights[index] != newValue.height {
+                                                        self.pageHeights[index] = newValue.height
+                                                        if let scrollPosition, scrollPosition == index {
+                                                            self.lastPageHeight = newValue.height
+                                                        }
+                                                    }
                                                 }
                                             })
                                             .id(index)
@@ -187,9 +209,7 @@ public struct CalendarView: View {
                         $0.frame(height: self.lastPageHeight)
                     })
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
-                    .onAppear {
-                        self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    }
+                    .onAppear {}
                 }
                 
                 if self.style == .expandable {
@@ -208,7 +228,6 @@ public struct CalendarView: View {
                                     self.isDragging = false
                                     self.isExpanded.toggle()
                                     print("drag end, style:\(self.style), isDragging:\(self.isDragging), isExpanded:\(self.isExpanded)")
-                                    self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
                                 }
                         )
                 }
@@ -219,6 +238,9 @@ public struct CalendarView: View {
             .ifApply(self.scrollPosition != nil, content: {
                 $0.animation(.spring, value: self.isExpanded)
             })
+            .onAppear {
+                self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+            }
             .onChange(of: self.selectedRange) { _, _ in
                 if let dateRange = selectedRange,
                    let disabledDates,
@@ -235,13 +257,17 @@ public struct CalendarView: View {
             .onChange(of: self.selectedDate) { _, _ in
                 self.selectedDateRecord = self.selectedDate
             }
+            .onChange(of: self.scrollPosition) { _, _ in
+                self.handleScrollPositionChange()
+            }
         }
     }
     
     var showOutOfMonth: Bool {
         let notIncludeConditions: [CalendarStyle] = [
             .datesSelection,
-            .rangeSelection
+            .rangeSelection,
+            .fullScreenMonth
         ]
         return !notIncludeConditions.contains(self.style)
     }
@@ -285,7 +311,7 @@ public struct CalendarView: View {
         }
     }
     
-    public init(style: CalendarStyle = .fullScreenMonth, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    public init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         _selectedDate = selectedDate
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
@@ -294,6 +320,8 @@ public struct CalendarView: View {
         _selectedRange = selectedRange
         _selectedRangeRecord = State(wrappedValue: selectedRange.wrappedValue)
         self.disabledDates = disabledDates
+        self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(style) ? true : isPersistentSelection
+        self.titleChangeCallback = titleChangeCallback
         self.customCalendarBackgroundColor = customCalendarBackgroundColor
         
         let components: Set<Calendar.Component> = [.day, .month, .year]
@@ -367,6 +395,10 @@ public struct CalendarView: View {
         self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
         
         _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
+        
+        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: self.displayDateAtStartup) {
+            self.displayDateAtStartup = self.startDate
+        }
     }
 
     func monthsBetweenDates(start: Date, end: Date) -> Int {
@@ -455,11 +487,47 @@ public struct CalendarView: View {
             self.selectedDateRecord = state.isSelected ? nil : date
         }
     }
+    
+    func handleScrollPositionChange() {
+        if !self.isPersistentSelection,
+           let value = self.scrollPosition,
+           let nextDate = self.calendar.date(byAdding: .month, value: value, to: self.startDate)
+        {
+            let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
+            let currentComponents = self.calendar.dateComponents([.year, .month], from: Date())
+            if let year = startComponents.year,
+               let month = startComponents.month,
+               let currentYear = currentComponents.year,
+               let currentMonth = currentComponents.month
+            {
+                if year == currentYear, month == currentMonth {
+                    selectedDateRecord = Date()
+                } else {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy MM dd"
+                    let preSelectDate = dateFormatter.date(from: "\(year) \(month) 01")
+                    selectedDateRecord = preSelectDate
+                }
+                
+                let fm = DateFormatter()
+                if let customLanguageId {
+                    fm.locale = Locale(identifier: customLanguageId)
+                } else {
+                    fm.locale = Calendar.current.locale
+                }
+                fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
+                if let selectedDateRecord {
+                    let title = fm.string(from: selectedDateRecord)
+                    self.titleChangeCallback?(title)
+                }
+            }
+        }
+    }
 }
 
 #Preview {
     let style: CalendarStyle = .week
     
     CalendarView(style: style)
-        .environment(\.showWeekNumber, true)
+        .environment(\.showsWeekNumbers, true)
 }

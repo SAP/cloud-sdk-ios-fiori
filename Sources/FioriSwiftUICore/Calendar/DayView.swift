@@ -144,6 +144,12 @@ public struct DayView: View {
     
     let customEventView: any View
     
+    @Environment(\.eventViewColor) var eventViewColor
+    @Environment(\.eventViewColorDisabled) var eventViewColorDisabled
+    @Environment(\.selectionRangeColor) var selectionRangeColor
+    @Environment(\.selectionSingleColor) var selectionSingleColor
+    @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
+    
     init(title: String, subtitle: String? = nil, isEventIndicatorVisible: Bool = false, state: DayViewState = .normal, customEventView: any View = EmptyView()) {
         self.title = title
         self.subtitle = subtitle
@@ -159,27 +165,27 @@ public struct DayView: View {
     
     public var body: some View {
         ZStack(alignment: .top, content: {
-            let height = (subtitle == nil ? 29 : 39) * self.scaleForSizeChange
+            let height = (subtitle == nil ? 26 : 34) * self.scaleForSizeChange
             
             if self.state.isSingleSelected {
                 let offset = self.state == .singleSelectedAndToday ? 4.0 : 0.0
                 
                 Circle()
                     .frame(width: height - offset, height: height - offset)
-                    .foregroundStyle(Color.preferredColor(self.selectedBackgroundColorStyle))
+                    .foregroundStyle(self.selectionSingleColor)
                     .frame(width: height, height: height)
                     .ifApply(self.state == .singleSelectedAndToday) {
                         $0.overlay {
-                            RoundedRectangle(cornerRadius: height / 2.0).stroke(Color.preferredColor(self.selectedBackgroundColorStyle), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: height / 2.0).stroke(self.selectionSingleColor, lineWidth: 1)
                         }
                     }
-                    .padding(.top, 5.5)
+                    .padding(.top, self.hasSubTitle ? 2.5 : 7)
             } else if self.state.isMultiSelected {
                 let topLeadingRadius = self.state == .multiSelectedStart ? height / 2.0 : 0
                 let topTrailingRadius = self.state == .multiSelectedEnd ? height / 2.0 : 0
                 
                 UnevenRoundedRectangle(topLeadingRadius: topLeadingRadius, bottomLeadingRadius: topLeadingRadius, bottomTrailingRadius: topTrailingRadius, topTrailingRadius: topTrailingRadius)
-                    .foregroundStyle(Color.preferredColor(self.selectedBackgroundColorStyle))
+                    .foregroundStyle(self.multiSelectedBackgroundColor)
                     .frame(height: height)
                     .frame(maxWidth: .infinity)
                     .padding(.top, 5.5)
@@ -188,7 +194,7 @@ public struct DayView: View {
             VStack(spacing: 0, content: {
                 Text(self.title)
                     .font(.fiori(fixedSize: self.titleFontSize, weight: self.titleWeight))
-                    .foregroundStyle(Color.preferredColor(self.titleColorStyle))
+                    .foregroundStyle(self.titleColor)
                     .frame(height: self.titleHeight)
                     .padding(.top, self.titlePaddingTop)
                     .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
@@ -196,16 +202,16 @@ public struct DayView: View {
                 if let subtitle {
                     Text(subtitle)
                         .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
-                        .foregroundStyle(Color.preferredColor(self.titleColorStyle))
+                        .foregroundStyle(self.titleColor)
                         .frame(height: 13 * self.scaleForSizeChange)
-                        .padding(.top, -2)
+                        .padding(.top, -4)
                 }
                 
                 ZStack(alignment: .center) {
                     if self.isEventIndicatorVisible {
                         if self.customEventView.isEmpty {
                             Circle()
-                                .foregroundStyle(Color.preferredColor(self.eventForegroundColorStyle))
+                                .foregroundStyle(self.eventForegroundColor)
                         } else {
                             self.customEventView.typeErased
                         }
@@ -213,7 +219,7 @@ public struct DayView: View {
                 }
                 .frame(width: 4, height: 4)
                 .padding(.top, self.hasSubTitle ? 6 : 8)
-                .padding(.bottom, 9.5)
+                .padding(.bottom, self.hasSubTitle ? 7.5 : 9.5)
                 
             })
         })
@@ -231,21 +237,23 @@ public struct DayView: View {
         self.state.isTitleBold ? .bold : .regular
     }
 
-    var titleColorStyle: ColorStyle {
+    var titleColor: Color {
         switch self.state {
         case .normal:
-            return .primaryLabel
+            return self.calendarItemTintAttributes[.title]?[.normal] ?? .preferredColor(.primaryLabel)
         case .today:
-            return .tintColor
+            return self.calendarItemTintAttributes[.title]?[.highlighted] ?? .preferredColor(.tintColor)
         case .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle, .multiSelectedEnd:
-            return .primaryBackground
-        case .outOfMonth, .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
-            return .quaternaryLabel
+            return self.calendarItemTintAttributes[.title]?[.selected] ?? .preferredColor(.primaryBackground)
+        case .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
+            return self.calendarItemTintAttributes[.title]?[.disabled] ?? .preferredColor(.quaternaryLabel)
+        case .outOfMonth:
+            return .preferredColor(.quaternaryLabel)
         }
     }
 
-    var selectedBackgroundColorStyle: ColorStyle {
-        [.disabledInMultiSelection, .disabledAndTodayInMultiSelection].contains(self.state) ? .quaternaryFill : .tintColor
+    var multiSelectedBackgroundColor: Color {
+        [.disabledInMultiSelection, .disabledAndTodayInMultiSelection].contains(self.state) ? .preferredColor(.quaternaryFill) : self.selectionRangeColor
     }
 
     var titleHeight: CGFloat {
@@ -254,12 +262,12 @@ public struct DayView: View {
     }
 
     var titlePaddingTop: CGFloat {
-        9
+        self.hasSubTitle ? 4 : 9
 //        (state.isTitleBold || (self.state == .disabledInMultiSelection)) ? 9 : 9.5
     }
 
-    var eventForegroundColorStyle: ColorStyle {
-        self.state.isDisabled ? .quaternaryLabel : .tertiaryLabel
+    var eventForegroundColor: Color {
+        self.state.isDisabled ? self.eventViewColorDisabled : self.eventViewColor
     }
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize

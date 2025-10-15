@@ -24,6 +24,8 @@ struct MonthView: View, Equatable {
     
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.customLanguageId) var customLanguageId
+    @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
+    @Environment(\.monthHeaderDateFormat) var monthHeaderDateFormat
     
     init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, DayViewState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
@@ -91,7 +93,7 @@ struct MonthView: View, Equatable {
             if self.showMonthHeader {
                 Text(self.monthText)
                     .font(.fiori(fixedSize: 17 * self.scaleForSizeChange, weight: .semibold))
-                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                    .foregroundStyle(self.monthHeaderForegroundStyle)
                     .padding(.top, 30)
                     .padding(.bottom, 14)
             }
@@ -100,6 +102,10 @@ struct MonthView: View, Equatable {
                 WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)
             }
         })
+    }
+    
+    var monthHeaderForegroundStyle: Color {
+        self.calendarItemTintAttributes[.monthHeaderText]?[.normal] ?? Color.preferredColor(.tertiaryLabel)
     }
     
     var monthText: String {
@@ -112,7 +118,7 @@ struct MonthView: View, Equatable {
         }
         let date = fm.date(from: "\(self.year) \(self.month)")
         
-        fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
+        fm.setLocalizedDateFormatFromTemplate(self.monthHeaderDateFormat)
         
         if let date {
             return fm.string(from: date)
@@ -165,5 +171,5 @@ struct MonthView: View, Equatable {
     let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
     let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
     MonthView(style: .fullScreenMonth, year: year, month: month, startDate: Date(), endDate: Date(), showMonthHeader: true)
-        .environment(\.showWeekNumber, true)
+        .environment(\.showsWeekNumbers, true)
 }

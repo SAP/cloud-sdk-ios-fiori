@@ -50,6 +50,8 @@
 		6D10F8A02C7DB3F50071DD3E /* BannerMultiMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */; };
 		6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */; };
 		6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */; };
+		6D5355EF2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */; };
+		6D5355F52E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */; };
 		6D54E11F2E77B46B00D44898 /* CalendarRangeSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */; };
 		6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */; };
 		6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */; };
@@ -325,6 +327,8 @@
 		6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageExample.swift; sourceTree = "<group>"; };
 		6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageCustomInitExample.swift; sourceTree = "<group>"; };
 		6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCellEnhancementExample.swift; sourceTree = "<group>"; };
+		6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPersistentPreselectDateTestExample.swift; sourceTree = "<group>"; };
+		6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewPersistentExample.swift; sourceTree = "<group>"; };
 		6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeSelectionExample.swift; sourceTree = "<group>"; };
 		6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerExample.swift; sourceTree = "<group>"; };
 		6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemExample.swift; sourceTree = "<group>"; };
@@ -726,6 +730,8 @@
 				6DE692F72E583CF000682172 /* CalendarExamples.swift */,
 				6DE692FB2E5841B000682172 /* CalendarTestSettingExample.swift */,
 				6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */,
+				6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */,
+				6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1376,6 +1382,7 @@
 				99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */,
 				B84D24F02652F343007F2373 /* ObjectHeaderExample.swift in Sources */,
 				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,
+				6D5355EF2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* _ListPickerExample.swift in Sources */,
 				B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */,
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
@@ -1443,6 +1450,7 @@
 				5ABFB34B2D27D73B0054C1F3 /* SectionHeaderFooterExample.swift in Sources */,
 				B1A98FF52C12E9A000FC9998 /* BannerMessageModifierExample.swift in Sources */,
 				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,
+				6D5355F52E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift in Sources */,
 				5A91FAC42D951CAB0024F316 /* KPIHeaderExample.swift in Sources */,
 				6DFFEDC02E2F33590036054A /* BannerMultiMessageModifierExample.swift in Sources */,
 				B1DD864F2B07441C00D7EDFD /* UIFont+Fiori.swift in Sources */,

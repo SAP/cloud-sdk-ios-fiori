@@ -5,7 +5,8 @@ struct WeekContainerView: View {
     @Environment(\.customBundle) var customBundle
     @Environment(\.firstWeekday) var firstWeekday
     
-    @Environment(\.showWeekNumber) var showWeekNumber
+    @Environment(\.showsWeekNumbers) var showWeekNumber
+    @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     
     let maxNumberOfDaysInWeek: Int = 7
     
@@ -19,11 +20,19 @@ struct WeekContainerView: View {
             ForEach(self.symbols.indices, id: \.self) { index in
                 Text(self.symbols[index])
                     .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
-                    .foregroundStyle(Color.preferredColor(self.currentDayLocation == index ? .tintColor : .tertiaryLabel))
+                    .foregroundStyle(self.currentDayLocation == index ? self.highlightedForegroundColor : self.normalForegroundColor)
             }
         }
         .padding(.top, 8)
         .padding(.bottom, 4)
+    }
+    
+    var normalForegroundColor: Color {
+        self.calendarItemTintAttributes[.weekDayText]?[.normal] ?? .preferredColor(.tertiaryLabel)
+    }
+
+    var highlightedForegroundColor: Color {
+        self.calendarItemTintAttributes[.weekDayText]?[.highlighted] ?? .preferredColor(.tintColor)
     }
     
     var symbols: [String] {
@@ -159,8 +168,8 @@ struct CalendarWeekContainerHStack: Layout {
 #Preview {
     VStack {
         WeekContainerView()
-            .environment(\.showWeekNumber, true)
+            .environment(\.showsWeekNumbers, true)
         WeekContainerView()
-            .environment(\.showWeekNumber, false)
+            .environment(\.showsWeekNumbers, false)
     }
 }

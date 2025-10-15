@@ -26,11 +26,11 @@ public struct WeekView: View, Equatable {
     let showOutOfMonth: Bool
     
     @Environment(\.firstWeekday) var firstWeekday
-    @Environment(\.showWeekNumber) var showWeekNumber
+    @Environment(\.showsWeekNumbers) var showWeekNumber
     @Environment(\.hasEventIndicator) var isEventIndicatorVisible
     @Environment(\.alternateCalendarType) var alternateCalendarType
     @Environment(\.alternateCalendarLocale) var alternateCalendarLocale
-    @Environment(\.weekNumberTintColor) var weekNumberTintColor
+    @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     
     let customEventView: (Date) -> any View
     
@@ -56,7 +56,9 @@ public struct WeekView: View, Equatable {
         self.dayTappedCallback = dayTappedCallback
         self.customEventView = customEventView
         
-        if let date = self.weekInfo.dates.first {
+        if [.month, .week, .expandable].contains(style) {
+            self.weekNumberVisibility = true
+        } else if let date = self.weekInfo.dates.first {
             let targetComponents = Calendar.autoupdatingCurrent.dateComponents([.year, .month], from: date)
             if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
                 /// When the first date of the week is out of month, hide the week number
@@ -93,7 +95,7 @@ public struct WeekView: View, Equatable {
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber, verticalGuide: .titleFirstTextBaseline) {
             Text("\(self.weekInfo.weekNumber)")
                 .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
-                .foregroundStyle(self.weekNumberTintColor ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
+                .foregroundStyle(self.calendarItemTintAttributes[.weekNumberText]?[.normal] ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
                 .opacity(self.weekNumberVisibility ? 1 : 0)
                 .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
             
@@ -162,11 +164,6 @@ public struct WeekView: View, Equatable {
         }
     }
     
-    func checkDateRangeContainsDate(_ selectedRange: ClosedRange<Date>, date: Date) -> Bool {
-        let calendar = Calendar.autoupdatingCurrent
-        return calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) != .orderedAscending && calendar.compare(date, to: selectedRange.upperBound, toGranularity: .day) != .orderedDescending
-    }
-    
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var scaleForSizeChange: Double {
         sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
@@ -202,5 +199,5 @@ public struct WeekView: View, Equatable {
     ])
     
     WeekView(style: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())
-        .environment(\.showWeekNumber, true)
+        .environment(\.showsWeekNumbers, true)
 }

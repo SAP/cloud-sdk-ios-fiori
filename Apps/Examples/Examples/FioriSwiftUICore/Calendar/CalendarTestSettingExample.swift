@@ -62,7 +62,7 @@ class CalendarTestSetting: ObservableObject {
     }
     
     func testWeekNumberTintColor() -> Color? {
-        self.testsWeekNumberTintColor ? Color.green : nil
+        self.testsWeekNumberTintColor ? Color(UIColor.green) : nil
     }
     
     func testAlternateCalendarLocale() -> Locale? {

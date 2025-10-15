@@ -1,3 +1,4 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -6,7 +7,7 @@ struct CalendarFirstWeekday: EnvironmentKey {
     public static let defaultValue: Int = Calendar.autoupdatingCurrent.firstWeekday
 }
 
-struct CalendarShowWeekNumber: EnvironmentKey {
+struct CalendarShowsWeekNumbers: EnvironmentKey {
     public static let defaultValue: Bool = false
 }
 
@@ -30,31 +31,74 @@ struct AlternateCalendarLocaleKey: EnvironmentKey {
     public static let defaultValue: Locale? = nil
 }
 
-struct WeekNumberTintColorKey: EnvironmentKey {
-    public static let defaultValue: Color? = nil
+struct CalendarMonthHeaderDateFormatKey: EnvironmentKey {
+    public static let defaultValue: String = "MMMM"
+}
+
+struct CalendarSelectionSingleColorKey: EnvironmentKey {
+    public static let defaultValue: Color = .preferredColor(.tintColor)
+}
+
+struct CalendarSelectionRangeColorKey: EnvironmentKey {
+    public static let defaultValue: Color = .preferredColor(.tintColor)
+}
+
+struct CalendarEventViewColorKey: EnvironmentKey {
+    public static let defaultValue: Color = .preferredColor(.tertiaryLabel).opacity(0.6)
+}
+
+struct CalendarEventViewColorDisabledKey: EnvironmentKey {
+    public static let defaultValue: Color = .preferredColor(.quaternaryLabel).opacity(0.6)
+}
+
+struct CalendarItemTintAttributesKey: EnvironmentKey {
+    public static let defaultValue: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
+}
+
+public enum CalendarItemControlState {
+    /// Item is in normal state. Default.
+    case normal
+    /// Item is in selected state.
+    case selected
+    /// Item is in disabled state.
+    case disabled
+    /// Item is in highlighted state.
+    case highlighted
+}
+
+public enum CalendarPropertyRef {
+    case title
+    case monthHeaderText
+    case weekDayText
+    case weekNumberText
 }
 
 public extension EnvironmentValues {
+    /// The first weekday of the calendar.
     var firstWeekday: Int {
         get { self[CalendarFirstWeekday.self] }
         set { self[CalendarFirstWeekday.self] = newValue }
     }
 
-    var showWeekNumber: Bool {
-        get { self[CalendarShowWeekNumber.self] }
-        set { self[CalendarShowWeekNumber.self] = newValue }
+    /// This property indicates if the calendar view also shows the week number of not. The default is `false`.
+    var showsWeekNumbers: Bool {
+        get { self[CalendarShowsWeekNumbers.self] }
+        set { self[CalendarShowsWeekNumbers.self] = newValue }
     }
 
+    /// Specifies if the event indicator view is displayed
     var hasEventIndicator: Bool {
         get { self[CalendarHasEventIndicator.self] }
         set { self[CalendarHasEventIndicator.self] = newValue }
     }
-
+    
+    /// The ID of the language to be used when displaying the `CalendarView`.
     var customLanguageId: String? {
         get { self[CalendarCustomLanguageId.self] }
         set { self[CalendarCustomLanguageId.self] = newValue }
     }
 
+    /// Custom bundle.
     var customBundle: Bundle? {
         get { self[CalendarCustomBundle.self] }
         set { self[CalendarCustomBundle.self] = newValue }
@@ -80,8 +124,44 @@ public extension EnvironmentValues {
         set { self[AlternateCalendarLocaleKey.self] = newValue }
     }
     
-    var weekNumberTintColor: Color? {
-        get { self[WeekNumberTintColorKey.self] }
-        set { self[WeekNumberTintColorKey.self] = newValue }
+    /// The color of the view displayed upon selection of a date.
+    var selectionSingleColor: Color {
+        get { self[CalendarSelectionSingleColorKey.self] }
+        set { self[CalendarSelectionSingleColorKey.self] = newValue }
+    }
+    
+    /// The color of the view displayed upon a range selection of dates
+    var selectionRangeColor: Color {
+        get { self[CalendarSelectionRangeColorKey.self] }
+        set { self[CalendarSelectionRangeColorKey.self] = newValue }
+    }
+
+    /// The color of the `eventView` displayed below each date.
+    var eventViewColor: Color {
+        get { self[CalendarEventViewColorKey.self] }
+        set { self[CalendarEventViewColorKey.self] = newValue }
+    }
+
+    /// The color of the `eventView` displayed below each date for disabled dates.
+    var eventViewColorDisabled: Color {
+        get { self[CalendarEventViewColorDisabledKey.self] }
+        set { self[CalendarEventViewColorDisabledKey.self] = newValue }
+    }
+
+    /**
+     The color of calendar item in different state, only support foregroundColor.
+     For .weekDayText, only .normal and .highlighted states will be used.
+     For .monthHeaderText, only .normal state will be used.
+     For .weekNumberText, only .normal state will be used.
+     */
+    var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+        get { self[CalendarItemTintAttributesKey.self] }
+        set { self[CalendarItemTintAttributesKey.self] = newValue }
+    }
+    
+    /// The date formatter for month header. Default is "MMMM"
+    var monthHeaderDateFormat: String {
+        get { self[CalendarMonthHeaderDateFormatKey.self] }
+        set { self[CalendarMonthHeaderDateFormatKey.self] = newValue }
     }
 }

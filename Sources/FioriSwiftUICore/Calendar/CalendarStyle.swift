@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 /**
  The enum denoting `CalendarStyle`.
@@ -90,5 +90,12 @@ extension String {
             return self
         }
         return self.prefix(maxCount - 1) + "."
+    }
+}
+
+extension View {
+    func checkDateRangeContainsDate(_ selectedRange: ClosedRange<Date>, date: Date) -> Bool {
+        let calendar = Calendar.autoupdatingCurrent
+        return calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) != .orderedAscending && calendar.compare(date, to: selectedRange.upperBound, toGranularity: .day) != .orderedDescending
     }
 }

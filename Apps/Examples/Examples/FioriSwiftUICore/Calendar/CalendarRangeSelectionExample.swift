@@ -8,6 +8,14 @@ struct CalendarRangeSelectionExample: View {
     @State var selectedDates: Set<Date>? = []
     @State var selectedRange: ClosedRange<Date>? = nil
     
+    var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+        var result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
+        if let testWeekNumberTintColor = self.settings.testWeekNumberTintColor() {
+            result.updateValue([.normal: testWeekNumberTintColor], forKey: .weekNumberText)
+        }
+        return result
+    }
+    
     var body: some View {
         VStack {
             CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange, disabledDates: self.settings.checkDisabledDates(), customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
@@ -51,16 +59,16 @@ struct CalendarRangeSelectionExample: View {
                 }
             })
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
-            .environment(\.showWeekNumber, self.settings.showsWeekNumber)
+            .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.firstWeekday, self.settings.firstWeekDay)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
-            .environment(\.weekNumberTintColor, self.settings.testWeekNumberTintColor())
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
+            .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
             
             Spacer()
         }
-        .navigationTitle("Range Selection")
+        .navigationTitle(Text("Range Selection"))
         .onAppear(perform: {
             if self.settings.testPreselectRange != nil {
                 self.selectedRange = self.settings.testPreselectRange
