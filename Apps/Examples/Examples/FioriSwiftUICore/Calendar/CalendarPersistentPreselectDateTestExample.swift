@@ -8,6 +8,10 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State var startDate: Date?
     
+    @State var endDate: Date?
+    
+    @State var displayDateAtStartup: Date?
+    
     @State var selectedDate: Date?
     
     @State var isPersistentSelection: Bool = false
@@ -15,6 +19,8 @@ struct CalendarPersistentPreselectDateTestExample: View {
     @State var defaultTitle: String?
     
     @State private var title: String?
+    
+    @State var firstWeekday: Int = 1
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
         var result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
@@ -26,16 +32,16 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: self.style, startDate: self.startDate, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
+            CalendarView(style: self.style, startDate: self.startDate, endDate: self.endDate, displayDateAtStartup: self.displayDateAtStartup, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
                 self.title = $0
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
-            .environment(\.firstWeekday, self.settings.firstWeekDay)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
             .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
+            .environment(\.firstWeekday, self.firstWeekday)
             
             Spacer()
         }

@@ -10,7 +10,7 @@ struct CalendarMonthViewPersistentExample: View {
     
     @State var selectedDate: Date?
     
-    @State var isPersistentSelection: Bool = false
+    @State var isPersistentSelection: Bool = true
     
     @State var defaultTitle: String?
     

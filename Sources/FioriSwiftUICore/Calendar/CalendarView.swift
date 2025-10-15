@@ -239,7 +239,9 @@ public struct CalendarView: View {
                 $0.animation(.spring, value: self.isExpanded)
             })
             .onAppear {
-                self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                DispatchQueue.main.async {
+                    self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                }
             }
             .onChange(of: self.selectedRange) { _, _ in
                 if let dateRange = selectedRange,
@@ -365,7 +367,7 @@ public struct CalendarView: View {
         
         // startDate must be smaller than endDate, otherwise the default dates will be used.
         if (startDate == nil && endDate == nil) || compareResult == .orderedDescending {
-            let components = self.calendar.dateComponents(components, from: Date())
+            let components = self.calendar.dateComponents(components, from: displayDateAtStartup ?? Date())
             if let currentYear = components.year {
                 let startYear = String(currentYear)
                 let startYearStr = startYear + " 01 01"

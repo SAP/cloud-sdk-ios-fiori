@@ -54,11 +54,11 @@ struct CalendarExamples: View {
             
             Section {
                 NavigationLink("Default - Not Persistent, No PreselectDate") {
-                    CalendarPersistentPreselectDateTestExample(defaultTitle: "Default - Not Persistent, No PreselectDate")
+                    CalendarPersistentPreselectDateTestExample(isPersistentSelection: false, defaultTitle: "Default - Not Persistent, No PreselectDate")
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, No PreselectDate") {
-                    CalendarMonthViewPersistentExample(isPersistentSelection: true, defaultTitle: "Persistent, No PreselectDate")
+                    CalendarMonthViewPersistentExample(defaultTitle: "Persistent, No PreselectDate")
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Not Persistent, PreselectDate: Today") {
@@ -66,11 +66,11 @@ struct CalendarExamples: View {
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23") {
-                    CalendarPersistentPreselectDateTestExample(selectedDate: self.fm.date(from: "\(self.year) 03 23"), isPersistentSelection: true, defaultTitle: "Persistent, PreselectDate: Mar 23")
+                    CalendarPersistentPreselectDateTestExample(selectedDate: self.fm.date(from: "\(self.year) 03 23"), defaultTitle: "Persistent, PreselectDate: Mar 23")
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23 (full screen)") {
-                    CalendarPersistentPreselectDateTestExample(style: .fullScreenMonth, selectedDate: self.fm.date(from: "\(self.year) 03 23"), isPersistentSelection: true, defaultTitle: "Persistent, PreselectDate: Mar 23 (full screen)")
+                    CalendarPersistentPreselectDateTestExample(style: .fullScreenMonth, selectedDate: self.fm.date(from: "\(self.year) 03 23"), defaultTitle: "Persistent, PreselectDate: Mar 23 (full screen)")
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23 (full screen shows month header)") {
@@ -80,7 +80,6 @@ struct CalendarExamples: View {
                     CalendarPersistentPreselectDateTestExample(
                         startDate: self.fm.date(from: "2015 01 01"),
                         selectedDate: self.fm.date(from: "2015 03 23"),
-                        isPersistentSelection: true,
                         defaultTitle: "Persistent, PreselectDate: Mar 23, 2015"
                     )
                     .environmentObject(self.settings)
@@ -90,7 +89,6 @@ struct CalendarExamples: View {
                         style: .fullScreenMonth,
                         startDate: self.fm.date(from: "2015 01 01"),
                         selectedDate: self.fm.date(from: "2015 03 23"),
-                        isPersistentSelection: true,
                         defaultTitle: "Persistent, PreselectDate: Mar 23, 2015"
                     )
                     .environmentObject(self.settings)
@@ -99,16 +97,40 @@ struct CalendarExamples: View {
             
             Section {
                 NavigationLink("Default weekStartDay: Mon") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        isPersistentSelection: false,
+                        defaultTitle: "Default weekStartDay: Mon",
+                        firstWeekday: 2
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("StartDate: Oct 1,  weekStartDay: Sat") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        displayDateAtStartup: self.fm.date(from: "2018 10 01"),
+                        isPersistentSelection: false,
+                        defaultTitle: "StartDate: Oct 1,  weekStartDay: Sat",
+                        firstWeekday: 7
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Start - end: 2018 - 2020") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        startDate: self.fm.date(from: "2018 01 01"),
+                        endDate: self.fm.date(from: "2020 12 31"),
+                        isPersistentSelection: false,
+                        defaultTitle: "Start - end: 2018 - 2020"
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Start, end and Display date") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        startDate: self.fm.date(from: "\(self.year - 1) 05 01"),
+                        endDate: self.fm.date(from: "\(self.year) 05 01"),
+                        displayDateAtStartup: self.fm.date(from: "\(self.year) 02 01"),
+                        isPersistentSelection: false,
+                        defaultTitle: "Start, end and Display date"
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Default with No Status Indicator") {
                     //
