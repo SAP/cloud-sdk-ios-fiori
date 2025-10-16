@@ -13,6 +13,16 @@ struct WeekInfo: Hashable {
         self.weekNumber = weekNumber
         self.dates = dates
     }
+    
+    /// Check the week contains one date or not, the granularity is .day.
+    func containsDate(_ comparedDate: Date) -> Bool {
+        for date in self.dates {
+            if Calendar.autoupdatingCurrent.compare(date, to: comparedDate, toGranularity: .day) == .orderedSame {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 public struct WeekView: View, Equatable {
@@ -73,12 +83,12 @@ public struct WeekView: View, Equatable {
         if self.style == .datesSelection {
             if let selectedDates {
                 for date in selectedDates {
-                    if self.weekInfo.dates.contains(date) {
+                    if self.weekInfo.containsDate(date) {
                         dates.insert(date)
                     }
                 }
             }
-        } else if let selectedDate, weekInfo.dates.contains(selectedDate) {
+        } else if let selectedDate, weekInfo.containsDate(selectedDate) {
             dates.insert(selectedDate)
         }
         return dates
@@ -119,7 +129,11 @@ public struct WeekView: View, Equatable {
         let calendar = Calendar.autoupdatingCurrent
         let targetComponents = calendar.dateComponents([.year, .month], from: date)
         
-        if let year = weekInfo.year, let month = weekInfo.month, targetComponents.year != year || targetComponents.month != month {
+        if self.style != .week,
+           let year = weekInfo.year,
+           let month = weekInfo.month,
+           targetComponents.year != year || targetComponents.month != month
+        {
             return .outOfMonth
         } else if let disabledDates, disabledDates.isDisabled(date) {
             if self.style == .rangeSelection, let selectedRange, checkDateRangeContainsDate(selectedRange, date: date) {

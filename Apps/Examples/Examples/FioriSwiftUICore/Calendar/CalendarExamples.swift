@@ -11,67 +11,75 @@ struct CalendarExamples: View {
     
     var body: some View {
         List {
-            Section {
-                NavigationLink("Calendar - week") {
-                    VStack {
-                        CalendarView(style: .week)
-
-                        Spacer()
-                    }
-                    .navigationTitle("Week")
-                }
-                NavigationLink("Calendar - expandable") {
-                    VStack {
-                        CalendarView(style: .expandable)
-
-                        Spacer()
-                    }
-                    .navigationTitle("Expandable")
-                }
-                NavigationLink("Calendar - month") {
-                    VStack {
-                        CalendarView(style: .month)
-
-                        Spacer()
-                    }
-                    .navigationTitle("Month")
-                }
-                NavigationLink("Calendar - fullScreenMonth") {
-                    VStack {
-                        CalendarView(style: .fullScreenMonth, selectedDate: self.$selectedDate)
-                        Spacer()
-                    }
-                    .navigationTitle("Full Screen Month")
-                }
-                NavigationLink("Calendar - datesSelection") {
-                    VStack {
-                        CalendarView(style: .datesSelection, selectedDates: self.$selectedDates)
-                        Spacer()
-                    }
-                    .navigationTitle("Dates Selection")
-                }
-            }
+//            Section {
+//                NavigationLink("Calendar - week") {
+//                    VStack {
+//                        CalendarView(style: .week)
+//
+//                        Spacer()
+//                    }
+//                    .navigationTitle("Week")
+//                }
+//                NavigationLink("Calendar - expandable") {
+//                    VStack {
+//                        CalendarView(style: .expandable)
+//
+//                        Spacer()
+//                    }
+//                    .navigationTitle("Expandable")
+//                }
+//                NavigationLink("Calendar - month") {
+//                    VStack {
+//                        CalendarView(style: .month)
+//
+//                        Spacer()
+//                    }
+//                    .navigationTitle("Month")
+//                }
+//                NavigationLink("Calendar - fullScreenMonth") {
+//                    VStack {
+//                        CalendarView(style: .fullScreenMonth, selectedDate: self.$selectedDate)
+//                        Spacer()
+//                    }
+//                    .navigationTitle("Full Screen Month")
+//                }
+//                NavigationLink("Calendar - datesSelection") {
+//                    VStack {
+//                        CalendarView(style: .datesSelection, selectedDates: self.$selectedDates)
+//                        Spacer()
+//                    }
+//                    .navigationTitle("Dates Selection")
+//                }
+//            }
             
             Section {
                 NavigationLink("Default - Not Persistent, No PreselectDate") {
-                    CalendarPersistentPreselectDateTestExample(isPersistentSelection: false, defaultTitle: "Default - Not Persistent, No PreselectDate")
+                    CalendarPersistentPreselectDateTestExample(isPersistentSelection: false)
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, No PreselectDate") {
-                    CalendarMonthViewPersistentExample(defaultTitle: "Persistent, No PreselectDate")
+                    CalendarMonthViewPersistentExample()
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Not Persistent, PreselectDate: Today") {
-                    CalendarPersistentPreselectDateTestExample(selectedDate: .now, isPersistentSelection: false, defaultTitle: "Not Persistent, PreselectDate: Today")
-                        .environmentObject(self.settings)
+                    CalendarPersistentPreselectDateTestExample(
+                        selectedDate: .now,
+                        isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23") {
-                    CalendarPersistentPreselectDateTestExample(selectedDate: self.fm.date(from: "\(self.year) 03 23"), defaultTitle: "Persistent, PreselectDate: Mar 23")
-                        .environmentObject(self.settings)
+                    CalendarPersistentPreselectDateTestExample(
+                        selectedDate: self.fm.date(from: "\(self.year) 03 23")
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23 (full screen)") {
-                    CalendarPersistentPreselectDateTestExample(style: .fullScreenMonth, selectedDate: self.fm.date(from: "\(self.year) 03 23"), defaultTitle: "Persistent, PreselectDate: Mar 23 (full screen)")
-                        .environmentObject(self.settings)
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .fullScreenMonth,
+                        selectedDate: self.fm.date(from: "\(self.year) 03 23"),
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23 (full screen shows month header)") {
                     Text("TODO")
@@ -80,7 +88,6 @@ struct CalendarExamples: View {
                     CalendarPersistentPreselectDateTestExample(
                         startDate: self.fm.date(from: "2015 01 01"),
                         selectedDate: self.fm.date(from: "2015 03 23"),
-                        defaultTitle: "Persistent, PreselectDate: Mar 23, 2015"
                     )
                     .environmentObject(self.settings)
                 }
@@ -89,7 +96,6 @@ struct CalendarExamples: View {
                         style: .fullScreenMonth,
                         startDate: self.fm.date(from: "2015 01 01"),
                         selectedDate: self.fm.date(from: "2015 03 23"),
-                        defaultTitle: "Persistent, PreselectDate: Mar 23, 2015"
                     )
                     .environmentObject(self.settings)
                 }
@@ -99,7 +105,6 @@ struct CalendarExamples: View {
                 NavigationLink("Default weekStartDay: Mon") {
                     CalendarPersistentPreselectDateTestExample(
                         isPersistentSelection: false,
-                        defaultTitle: "Default weekStartDay: Mon",
                         firstWeekday: 2
                     )
                     .environmentObject(self.settings)
@@ -108,7 +113,6 @@ struct CalendarExamples: View {
                     CalendarPersistentPreselectDateTestExample(
                         displayDateAtStartup: self.fm.date(from: "2018 10 01"),
                         isPersistentSelection: false,
-                        defaultTitle: "StartDate: Oct 1,  weekStartDay: Sat",
                         firstWeekday: 7
                     )
                     .environmentObject(self.settings)
@@ -118,7 +122,6 @@ struct CalendarExamples: View {
                         startDate: self.fm.date(from: "2018 01 01"),
                         endDate: self.fm.date(from: "2020 12 31"),
                         isPersistentSelection: false,
-                        defaultTitle: "Start - end: 2018 - 2020"
                     )
                     .environmentObject(self.settings)
                 }
@@ -128,12 +131,11 @@ struct CalendarExamples: View {
                         endDate: self.fm.date(from: "\(self.year) 05 01"),
                         displayDateAtStartup: self.fm.date(from: "\(self.year) 02 01"),
                         isPersistentSelection: false,
-                        defaultTitle: "Start, end and Display date"
                     )
                     .environmentObject(self.settings)
                 }
                 NavigationLink("Default with No Status Indicator") {
-                    //
+                    Text("TODO")
                 }
             } header: {
                 Text("Month View")
@@ -141,16 +143,32 @@ struct CalendarExamples: View {
             
             Section {
                 NavigationLink("Not Persistent, No PreselectDate") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .week,
+                        isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, No PreselectDate") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .week,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("No Persistent, PreselectDate: Today") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .week,
+                        selectedDate: Date(),
+                        isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Jan 23") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .week,
+                        selectedDate: self.fm.date(from: "\(self.year) 01 23"),
+                    )
+                    .environmentObject(self.settings)
                 }
                 
             } header: {
@@ -160,19 +178,41 @@ struct CalendarExamples: View {
             
             Section {
                 NavigationLink("Not Persistent, No PreselectDate") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                        isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, No PreselectDate") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("No Persistent, PreselectDate: Today") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                        selectedDate: Date(),
+                        isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Jan 23") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                        selectedDate: self.fm.date(from: "\(self.year) 01 23"),
+                    )
+                    .environmentObject(self.settings)
                 }
                 NavigationLink("Persistent, PreselectDate: Jan 23, 2015") {
-                    //
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                        startDate: self.fm.date(from: "2015 01 01"),
+                        displayDateAtStartup: self.fm.date(from: "2015 01 01"),
+                        selectedDate: self.fm.date(from: "2015 01 23"),
+                    )
+                    .environmentObject(self.settings)
                 }
             } header: {
                 Text("Expandable View")
@@ -185,7 +225,7 @@ struct CalendarExamples: View {
                         .environmentObject(self.settings)
                 }
                 NavigationLink("RangeSelectionView (shows month header)") {
-                    //
+                    Text("TODO")
                 }
                 NavigationLink("RangeSelectionView-Preselect") {
                     //

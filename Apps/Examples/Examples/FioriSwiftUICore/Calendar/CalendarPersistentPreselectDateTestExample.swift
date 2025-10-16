@@ -14,9 +14,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State var selectedDate: Date?
     
-    @State var isPersistentSelection: Bool = false
-    
-    @State var defaultTitle: String?
+    @State var isPersistentSelection: Bool = true
     
     @State private var title: String?
     
@@ -45,7 +43,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
             
             Spacer()
         }
-        .navigationTitle(self.title ?? self.defaultTitle ?? "")
+        .navigationTitle(self.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: self.selectedDate) { _, _ in
             if let selectedDate {

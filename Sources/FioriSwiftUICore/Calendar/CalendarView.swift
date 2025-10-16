@@ -106,7 +106,9 @@ public struct CalendarView: View {
                     .frame(height: self.weekViewHeight)
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
                     .onAppear {
-                        self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                        DispatchQueue.main.async {
+                            self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                        }
                     }
                 } else if self.style == .expandable {
                     ScrollView(.horizontal, showsIndicators: false, content: {
@@ -115,7 +117,7 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: false, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
                                             .frame(width: availableWidth - paddingOffset * 2)
@@ -241,6 +243,7 @@ public struct CalendarView: View {
             .onAppear {
                 DispatchQueue.main.async {
                     self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                    self.updateTitle()
                 }
             }
             .onChange(of: self.selectedRange) { _, _ in
@@ -261,6 +264,12 @@ public struct CalendarView: View {
             }
             .onChange(of: self.scrollPosition) { _, _ in
                 self.handleScrollPositionChange()
+            }
+            .onChange(of: self.weekViewScrollPosition) { oldValue, newValue in
+                self.handleWeekScrollPositionChange(oldValue, newValue)
+            }
+            .onChange(of: self.selectedDateRecord) { _, _ in
+                self.updateTitle()
             }
         }
     }
@@ -492,6 +501,7 @@ public struct CalendarView: View {
     
     func handleScrollPositionChange() {
         if !self.isPersistentSelection,
+           self.style != .week,
            let value = self.scrollPosition,
            let nextDate = self.calendar.date(byAdding: .month, value: value, to: self.startDate)
         {
@@ -503,29 +513,74 @@ public struct CalendarView: View {
                let currentMonth = currentComponents.month
             {
                 if year == currentYear, month == currentMonth {
-                    selectedDateRecord = Date()
+                    self.selectedDateRecord = Date()
                 } else {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy MM dd"
                     let preSelectDate = dateFormatter.date(from: "\(year) \(month) 01")
-                    selectedDateRecord = preSelectDate
+                    self.selectedDateRecord = preSelectDate
                 }
-                
-                let fm = DateFormatter()
-                if let customLanguageId {
-                    fm.locale = Locale(identifier: customLanguageId)
-                } else {
-                    fm.locale = Calendar.current.locale
+            }
+        }
+        self.updateTitle()
+    }
+    
+    func handleWeekScrollPositionChange(_ oldValue: Int?, _ newValue: Int?) {
+        if !self.isPersistentSelection,
+           let oldValue,
+           let newValue
+        {
+            if let lastSelectedDateRecord = self.selectedDateRecord {
+                if oldValue < self.weeks.count, self.weeks[oldValue].containsDate(lastSelectedDateRecord) {
+                    let nextDate = self.calendar.date(byAdding: .day, value: (newValue - oldValue) * 7, to: lastSelectedDateRecord)
+                    self.selectedDateRecord = nextDate
                 }
-                fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
-                if let selectedDateRecord {
-                    let title = fm.string(from: selectedDateRecord)
-                    self.titleChangeCallback?(title)
+            } else if newValue < self.weeks.count {
+                for date in self.weeks[newValue].dates {
+                    if self.calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
+                        self.selectedDateRecord = date
+                        break
+                    }
                 }
+            }
+            /*
+             3-如何处理expandable和week之间的转换
+             4-weekScrollPosition和scrollPosition之间的转换
+             */
+        }
+        self.updateTitle()
+    }
+    
+    func updateTitle() {
+        let fm = DateFormatter()
+        if let customLanguageId {
+            fm.locale = Locale(identifier: customLanguageId)
+        } else {
+            fm.locale = Calendar.current.locale
+        }
+        fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
+        
+        if self.style == .week {
+            if let index = self.weekViewScrollPosition,
+               index < self.weeks.count
+            {
+                if let selectedDateRecord,
+                   self.weeks[index].containsDate(selectedDateRecord)
+                {
+                    self.titleChangeCallback?(fm.string(from: selectedDateRecord))
+                } else if let firstDate = self.weeks[index].dates.first {
+                    self.titleChangeCallback?(fm.string(from: firstDate))
+                }
+            }
+        } else if let index = scrollPosition {
+            if let nextDate = self.calendar.date(byAdding: .month, value: index, to: startDate) {
+                self.titleChangeCallback?(fm.string(from: nextDate))
             }
         }
     }
 }
+
+//           let nextDate = self.calendar.date(byAdding: .day, value: (newValue - oldValue) * 7, to: selectedDateRecord)
 
 #Preview {
     let style: CalendarStyle = .week
