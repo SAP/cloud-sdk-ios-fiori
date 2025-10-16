@@ -34,6 +34,7 @@
 		5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */; };
 		55DA195D2DD2216100C1391B /* OrderPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA195C2DD2216100C1391B /* OrderPickerExample.swift */; };
 		5668D8772DF7754500F8631A /* NavigationBarSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */; };
+		569DE89E2E8B29040069977E /* TagExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569DE89D2E8B29040069977E /* TagExample.swift */; };
 		5A80A5ED2DE706A100950E40 /* AIUserFeedbackExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A80A5EB2DE706A100950E40 /* AIUserFeedbackExample.swift */; };
 		5A91FABE2D923BF80024F316 /* _DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */; };
 		5A91FAC42D951CAB0024F316 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */; };
@@ -308,6 +309,7 @@
 		5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		55DA195C2DD2216100C1391B /* OrderPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPickerExample.swift; sourceTree = "<group>"; };
 		5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSegmentedControl.swift; sourceTree = "<group>"; };
+		569DE89D2E8B29040069977E /* TagExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagExample.swift; path = Examples/FioriSwiftUICore/Tag/TagExample.swift; sourceTree = "<group>"; };
 		5A80A5EB2DE706A100950E40 /* AIUserFeedbackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIUserFeedbackExample.swift; sourceTree = "<group>"; };
 		5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DurationPickerExample.swift; sourceTree = "<group>"; };
 		5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 		8A55794A24C1286E0098003A = {
 			isa = PBXGroup;
 			children = (
+				569DE89D2E8B29040069977E /* TagExample.swift */,
 				8A55795524C1286E0098003A /* Examples */,
 				1F60179529A8439A00DBDCDE /* WatchExamples Watch App */,
 				8A55795424C1286E0098003A /* Products */,
@@ -1357,6 +1360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569DE89E2E8B29040069977E /* TagExample.swift in Sources */,
 				B8101D52268BB84B00D32560 /* ContactItemTapStateExamples.swift in Sources */,
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				C106AD4A2B33970500FE8B35 /* SearchPromptFontAndColor.swift in Sources */,

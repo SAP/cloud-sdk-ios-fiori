@@ -37,6 +37,12 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
             }
             .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
         }
+        .ifApply(FioriLocale.shared.locale != nil) {
+            $0.environment(\.locale, FioriLocale.shared.locale!)
+        }
+        .ifApply(FioriLocale.shared.locale != nil) {
+            $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
+        }
     }
     
     func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {

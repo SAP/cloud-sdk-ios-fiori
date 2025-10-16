@@ -161,6 +161,12 @@ protocol _OverflowActionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _FlexItemComponent {
+    @ViewBuilder
+    var flexItem: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
 protocol _Row1Component {
 //    var numberOfLines: Int { get set }
     

@@ -1125,6 +1125,23 @@ public extension View {
     }
 }
 
+// MARK: FlexItemStyle
+
+public extension View {
+    func flexItemStyle(_ style: some FlexItemStyle) -> some View {
+        self.transformEnvironment(\.flexItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.flexItemStyleStack) { stack in
+            let style = AnyFlexItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FootnoteStyle
 
 public extension View {

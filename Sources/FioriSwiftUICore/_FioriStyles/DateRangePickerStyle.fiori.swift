@@ -137,6 +137,12 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
         .onAppear {
             self.modelObject.getDateComponentsFromDates(configuration)
         }
+        .ifApply(FioriLocale.shared.locale != nil) {
+            $0.environment(\.locale, FioriLocale.shared.locale!)
+        }
+        .ifApply(FioriLocale.shared.locale != nil) {
+            $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
+        }
     }
     
     func configureMainStack(_ configuration: DateRangePickerConfiguration, isVertical: Bool) -> some View {
