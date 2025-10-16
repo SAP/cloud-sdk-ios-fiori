@@ -9,7 +9,7 @@ public struct StepperField {
     let decrementAction: any View
     @Binding var text: String
     var isSecureEnabled: Bool?
-    var formatter: GenericTextFormatter?
+    var formatter: FormattedStringEditing?
     let incrementAction: any View
     /// The step value
     let step: Double
@@ -27,7 +27,7 @@ public struct StepperField {
     public init(@ViewBuilder decrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.less } },
                 text: Binding<String>,
                 isSecureEnabled: Bool? = false,
-                formatter: GenericTextFormatter? = nil,
+                formatter: FormattedStringEditing? = nil,
                 @ViewBuilder incrementAction: () -> any View = { FioriButton { _ in FioriIcon.actions.add } },
                 step: Double = 1,
                 stepRange: ClosedRange<Double>,
@@ -54,7 +54,7 @@ public extension StepperField {
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          isSecureEnabled: Bool? = false,
-         formatter: GenericTextFormatter? = nil,
+         formatter: FormattedStringEditing? = nil,
          incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add },
          step: Double = 1,
          stepRange: ClosedRange<Double>,

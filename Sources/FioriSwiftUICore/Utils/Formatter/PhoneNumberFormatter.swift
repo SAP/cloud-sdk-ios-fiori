@@ -56,6 +56,13 @@
 
         var formatChars: [Unicode.Scalar] = []
 
+        /// Flag indicating whether the content has been formatted in SwiftUI's TextField
+        public var formatted: Bool = false
+        
+        public var isSwiftUIInputField: Bool = false
+        
+        private var deleteCharacter: Bool = false
+
         /**
          The constructor.
          */
@@ -72,8 +79,15 @@
             guard !string.isEmpty else {
                 return ("", 0)
             }
+            
             let digits = String(string.prefix(cursorPosition)).digitCount
-            let formattedString = self.string(for: string)
+            
+            var handleString = string
+            if self.isSwiftUIInputField, self.deleteCharacter {
+                handleString = self.processString(string)
+            }
+            
+            let formattedString = self.string(for: handleString)
 
             if digits == 0 {
                 guard let formattedString else { return nil }
@@ -150,8 +164,46 @@
                 finalScalarView.append(c)
                 formatIndex += 1
             }
+            if self.isSwiftUIInputField {
+                self.appendFormatCharacterIfNeeded(finalScalarView: &finalScalarView)
+            }
 
             return String(finalScalarView)
+        }
+        
+        private func processString(_ input: String) -> String {
+            guard !input.isEmpty else { return input }
+            
+            var characters = Array(input)
+            var lastIndex = characters.count - 1
+            
+            if characters[lastIndex].isNumber {
+                characters.remove(at: lastIndex)
+            } else {
+                var foundFirstDigit = false
+                while lastIndex >= 0 {
+                    if characters[lastIndex].isNumber {
+                        if foundFirstDigit {
+                            characters.remove(at: lastIndex)
+                            break
+                        } else {
+                            characters.remove(at: lastIndex)
+                            foundFirstDigit = true
+                        }
+                    }
+                    lastIndex -= 1
+                }
+            }
+            return String(characters)
+        }
+        
+        private func appendFormatCharacterIfNeeded(finalScalarView: inout String.UnicodeScalarView) {
+            let currentIndex = finalScalarView.count
+            guard !self.deleteCharacter, currentIndex < self.formatChars.count, self.formatChars[currentIndex] != "#" else {
+                return
+            }
+            finalScalarView.append(self.formatChars[currentIndex])
+            self.appendFormatCharacterIfNeeded(finalScalarView: &finalScalarView)
         }
 
         /// :nodoc:
@@ -167,9 +219,11 @@
         open func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
             guard !partialString.isEmpty else {
                 // this means the delete chacter
+                self.deleteCharacter = true
                 return true
             }
 
+            self.deleteCharacter = false
             if partialString.digitCount != partialString.count {
                 return false
             }

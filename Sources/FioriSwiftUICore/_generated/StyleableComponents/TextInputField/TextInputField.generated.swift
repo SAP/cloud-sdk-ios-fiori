@@ -6,7 +6,7 @@ import SwiftUI
 public struct TextInputField {
     @Binding var text: String
     var isSecureEnabled: Bool?
-    var formatter: GenericTextFormatter?
+    var formatter: FormattedStringEditing?
 
     @Environment(\.textInputFieldStyle) var style
 
@@ -16,7 +16,7 @@ public struct TextInputField {
 
     public init(text: Binding<String>,
                 isSecureEnabled: Bool? = false,
-                formatter: GenericTextFormatter? = nil,
+                formatter: FormattedStringEditing? = nil,
                 componentIdentifier: String? = TextInputField.identifier)
     {
         self._text = text

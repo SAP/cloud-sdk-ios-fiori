@@ -7,7 +7,7 @@ public struct TextFieldFormView {
     let title: any View
     @Binding var text: String
     var isSecureEnabled: Bool?
-    var formatter: GenericTextFormatter?
+    var formatter: FormattedStringEditing?
     let placeholder: any View
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
@@ -43,7 +43,7 @@ public struct TextFieldFormView {
     public init(@ViewBuilder title: () -> any View,
                 text: Binding<String>,
                 isSecureEnabled: Bool? = false,
-                formatter: GenericTextFormatter? = nil,
+                formatter: FormattedStringEditing? = nil,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
@@ -88,7 +88,7 @@ public extension TextFieldFormView {
     init(title: AttributedString,
          text: Binding<String>,
          isSecureEnabled: Bool? = false,
-         formatter: GenericTextFormatter? = nil,
+         formatter: FormattedStringEditing? = nil,
          placeholder: AttributedString? = nil,
          controlState: ControlState = .normal,
          errorMessage: AttributedString? = nil,

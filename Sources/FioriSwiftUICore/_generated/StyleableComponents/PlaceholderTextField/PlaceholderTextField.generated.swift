@@ -6,7 +6,7 @@ import SwiftUI
 public struct PlaceholderTextField {
     @Binding var text: String
     var isSecureEnabled: Bool?
-    var formatter: GenericTextFormatter?
+    var formatter: FormattedStringEditing?
     let placeholder: any View
 
     @Environment(\.placeholderTextFieldStyle) var style
@@ -17,7 +17,7 @@ public struct PlaceholderTextField {
 
     public init(text: Binding<String>,
                 isSecureEnabled: Bool? = false,
-                formatter: GenericTextFormatter? = nil,
+                formatter: FormattedStringEditing? = nil,
                 @ViewBuilder placeholder: () -> any View = { EmptyView() },
                 componentIdentifier: String? = PlaceholderTextField.identifier)
     {
@@ -36,7 +36,7 @@ public extension PlaceholderTextField {
 public extension PlaceholderTextField {
     init(text: Binding<String>,
          isSecureEnabled: Bool? = false,
-         formatter: GenericTextFormatter? = nil,
+         formatter: FormattedStringEditing? = nil,
          placeholder: AttributedString? = nil)
     {
         self.init(text: text, isSecureEnabled: isSecureEnabled, formatter: formatter, placeholder: { OptionalText(placeholder) })

@@ -27,7 +27,7 @@ public struct StepperViewConfiguration {
     public let decrementAction: DecrementAction
     @Binding public var text: String
     public let isSecureEnabled: Bool?
-    public let formatter: GenericTextFormatter?
+    public let formatter: FormattedStringEditing?
     public let incrementAction: IncrementAction
     public let step: Double
     public let stepRange: ClosedRange<Double>
