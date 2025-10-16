@@ -165,9 +165,8 @@ public struct DayView: View {
     
     public var body: some View {
         ZStack(alignment: .top, content: {
-            let height = (subtitle == nil ? 26 : 34) * self.scaleForSizeChange
-            
             if self.state.isSingleSelected {
+                let height = (self.hasSubTitle ? 34 : 26) * self.scaleForSizeChange
                 let offset = self.state == .singleSelectedAndToday ? 4.0 : 0.0
                 
                 Circle()
@@ -181,6 +180,7 @@ public struct DayView: View {
                     }
                     .padding(.top, self.hasSubTitle ? 2.5 : 7)
             } else if self.state.isMultiSelected {
+                let height = (self.hasSubTitle ? 38 : 30) * self.scaleForSizeChange
                 let topLeadingRadius = self.state == .multiSelectedStart ? height / 2.0 : 0
                 let topTrailingRadius = self.state == .multiSelectedEnd ? height / 2.0 : 0
                 
@@ -188,7 +188,7 @@ public struct DayView: View {
                     .foregroundStyle(self.multiSelectedBackgroundColor)
                     .frame(height: height)
                     .frame(maxWidth: .infinity)
-                    .padding(.top, 5.5)
+                    .padding(.top, self.hasSubTitle ? 0 : 3.5)
             }
             
             VStack(spacing: 0, content: {

@@ -1,12 +1,10 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct CalendarRangeSelectionExample: View {
+struct CalendarDatesSelectionExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var selectedRange: ClosedRange<Date>? = nil
-    
-    @State var isCustomPreselected = false
+    @State var selectedDates: Set<Date>? = []
     
     @State private var title: String?
     
@@ -22,17 +20,6 @@ struct CalendarRangeSelectionExample: View {
         Calendar.current.component(.year, from: Date())
     }
     
-    init(isPreselected: Bool = false) {
-        self.isCustomPreselected = isPreselected
-        if isPreselected {
-            if let startDate = self.fm.date(from: "\(year) 10 20"),
-               let endDate = self.fm.date(from: "\(year) 10 22")
-            {
-                _selectedRange = State(initialValue: startDate ... endDate)
-            }
-        }
-    }
-    
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
         var result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
         if let testWeekNumberTintColor = self.settings.testWeekNumberTintColor() {
@@ -43,7 +30,7 @@ struct CalendarRangeSelectionExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(style: .datesSelection, selectedDates: self.$selectedDates, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
                 
@@ -81,20 +68,13 @@ struct CalendarRangeSelectionExample: View {
             
             Spacer()
         }
-        .navigationTitle(self.title ?? "Range Selection")
+        .navigationTitle(self.title ?? "Dates Selection")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: {
-            if !self.isCustomPreselected,
-               self.settings.testPreselectRange != nil
-            {
-                self.selectedRange = self.settings.testPreselectRange
-            }
-        })
-        .onChange(of: self.selectedRange) {
-            if let selectedRange {
-                print("selectedRange onChange:\(selectedRange)")
+        .onChange(of: self.selectedDates) {
+            if let selectedDates {
+                print("selectedDates onChange:\(selectedDates)")
             } else {
-                print("No range selected")
+                print("No dates selected")
             }
         }
     }
@@ -105,5 +85,5 @@ struct CalendarRangeSelectionExample: View {
 }
 
 #Preview {
-    CalendarRangeSelectionExample()
+    CalendarDatesSelectionExample()
 }

@@ -52,6 +52,7 @@
 		6D3A3DE92CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */; };
 		6D5355EF2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */; };
 		6D5355F52E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */; };
+		6D5355F72EA0BB65006A7185 /* CalendarDatesSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5355F62EA0BB65006A7185 /* CalendarDatesSelectionExample.swift */; };
 		6D54E11F2E77B46B00D44898 /* CalendarRangeSelectionExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */; };
 		6D5937D02E13D10D007955DB /* DateRangePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */; };
 		6D66D7F12D02FC7B00F7A97D /* ActivityItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */; };
@@ -329,6 +330,7 @@
 		6D3A3DE82CDB5F1E004D4597 /* ObjectCellEnhancementExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCellEnhancementExample.swift; sourceTree = "<group>"; };
 		6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPersistentPreselectDateTestExample.swift; sourceTree = "<group>"; };
 		6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewPersistentExample.swift; sourceTree = "<group>"; };
+		6D5355F62EA0BB65006A7185 /* CalendarDatesSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatesSelectionExample.swift; sourceTree = "<group>"; };
 		6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeSelectionExample.swift; sourceTree = "<group>"; };
 		6D5937CF2E13D10D007955DB /* DateRangePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerExample.swift; sourceTree = "<group>"; };
 		6D66D7EF2D02FC7B00F7A97D /* ActivityItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemExample.swift; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 				6DE692F72E583CF000682172 /* CalendarExamples.swift */,
 				6DE692FB2E5841B000682172 /* CalendarTestSettingExample.swift */,
 				6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */,
+				6D5355F62EA0BB65006A7185 /* CalendarDatesSelectionExample.swift */,
 				6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */,
 				6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */,
 			);
@@ -1527,6 +1530,7 @@
 				C150CCCC2B86B78E00118DF7 /* ChromeEffect.swift in Sources */,
 				8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */,
 				B190065A2C201BBE000C8B10 /* ProfileHeaderExample.swift in Sources */,
+				6D5355F72EA0BB65006A7185 /* CalendarDatesSelectionExample.swift in Sources */,
 				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
 				6D6E86292C50E5F900EDB6F4 /* FioriButtonInListMultipleLineExample.swift in Sources */,
 				649C7F482CE531C8007B78A7 /* ProgressIndicatorExample.swift in Sources */,

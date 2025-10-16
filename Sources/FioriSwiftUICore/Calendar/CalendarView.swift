@@ -485,18 +485,20 @@ public struct CalendarView: View {
                         self.selectedRangeRecord = nil
                     }
                     self.selectedDateRecord = nil
-                    return
                 } else if let boundDate = selectedDateRecord {
                     let bounds = [boundDate, date].sorted()
                     if let first = bounds.first, let last = bounds.last {
                         self.selectedRangeRecord = first ... last
                     }
                     self.selectedDateRecord = nil
-                    return
+                } else {
+                    self.selectedDateRecord = state.isSelected ? nil : date
                 }
+            } else {
+                self.selectedDateRecord = state.isSelected ? nil : date
             }
-            self.selectedDateRecord = state.isSelected ? nil : date
         }
+        self.updateTitle()
     }
     
     func handleScrollPositionChange() {
@@ -560,6 +562,8 @@ public struct CalendarView: View {
         }
         fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
         
+        var title = ""
+        
         if self.style == .week {
             if let index = self.weekViewScrollPosition,
                index < self.weeks.count
@@ -567,16 +571,39 @@ public struct CalendarView: View {
                 if let selectedDateRecord,
                    self.weeks[index].containsDate(selectedDateRecord)
                 {
-                    self.titleChangeCallback?(fm.string(from: selectedDateRecord))
+                    title = fm.string(from: selectedDateRecord)
                 } else if let firstDate = self.weeks[index].dates.first {
-                    self.titleChangeCallback?(fm.string(from: firstDate))
+                    title = fm.string(from: firstDate)
                 }
             }
         } else if let index = scrollPosition {
             if let nextDate = self.calendar.date(byAdding: .month, value: index, to: startDate) {
-                self.titleChangeCallback?(fm.string(from: nextDate))
+                title = fm.string(from: nextDate)
             }
         }
+        
+        if self.style == .rangeSelection {
+            fm.setLocalizedDateFormatFromTemplate("yyyy MMM dd")
+            if let lowerBound = self.selectedRangeRecord?.lowerBound,
+               let upperBound = self.selectedRangeRecord?.upperBound
+            {
+                title = "\(fm.string(from: lowerBound)) - \(fm.string(from: upperBound))"
+            } else if let selectedDateRecord {
+                title = fm.string(from: selectedDateRecord)
+            }
+        } else if self.style == .datesSelection {
+            if let dates = selectedDatesRecord,
+               dates.count > 0
+            {
+                if dates.count == 1 {
+                    title = String(format: "%d Date Selected".localizedFioriString(), 1)
+                } else {
+                    title = String(format: "%d Dates Selected", dates.count)
+                }
+            }
+        }
+        
+        self.titleChangeCallback?(title)
     }
 }
 

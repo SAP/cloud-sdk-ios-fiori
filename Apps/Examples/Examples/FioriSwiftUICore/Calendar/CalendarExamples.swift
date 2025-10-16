@@ -228,13 +228,15 @@ struct CalendarExamples: View {
                     Text("TODO")
                 }
                 NavigationLink("RangeSelectionView-Preselect") {
-                    //
+                    CalendarRangeSelectionExample()
+                        .environmentObject(self.settings)
                 }
                 NavigationLink("DatesSelectionView") {
-                    //
+                    CalendarDatesSelectionExample()
+                        .environmentObject(self.settings)
                 }
                 NavigationLink("DatesSelectionView (shows month header)") {
-                    //
+                    Text("TODO")
                 }
             }
             

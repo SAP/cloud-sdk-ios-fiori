@@ -520,3 +520,10 @@
 
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
+
+
+/* XBUT: One date selected for .datesSelection style in Calendar */
+"DateSelectedFormatKey" = "%d Date Selected";
+
+/* XBUT: Multiple dates selected for .datesSelection style in Calendar */
+"DatesSelectedFormatKey" = "%d Dates Selected";
