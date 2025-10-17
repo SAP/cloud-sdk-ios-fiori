@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -33,9 +33,15 @@ public struct Attachment {
     let attachmentSubtitle: any View
     let attachmentFootnote: any View
     /// The collection of local attachment URLs, which are prepared by Apps.
-    let url: URL
+    let attachmentInfo: AttachmentInfo
     /// The state of attachement group component
     let controlState: ControlState
+    /// Trigger update on extraInfo of AttachmentInfo
+    let onExtraInfoChange: ((AnyHashable) -> Void)?
+    /// Triggering preview
+    let onPreview: ((AttachmentInfo) -> Void)?
+    /// Triggering delete.
+    let onDelete: ((AttachmentInfo) -> Void)?
 
     @Environment(\.attachmentStyle) var style
 
@@ -46,15 +52,21 @@ public struct Attachment {
     public init(@ViewBuilder attachmentTitle: () -> any View,
                 @ViewBuilder attachmentSubtitle: () -> any View,
                 @ViewBuilder attachmentFootnote: () -> any View,
-                url: URL,
+                attachmentInfo: AttachmentInfo,
                 controlState: ControlState = .normal,
+                onExtraInfoChange: ((AnyHashable) -> Void)? = nil,
+                onPreview: ((AttachmentInfo) -> Void)? = nil,
+                onDelete: ((AttachmentInfo) -> Void)? = nil,
                 componentIdentifier: String? = Attachment.identifier)
     {
         self.attachmentTitle = AttachmentTitle(attachmentTitle: attachmentTitle, componentIdentifier: componentIdentifier)
         self.attachmentSubtitle = AttachmentSubtitle(attachmentSubtitle: attachmentSubtitle, componentIdentifier: componentIdentifier)
         self.attachmentFootnote = AttachmentFootnote(attachmentFootnote: attachmentFootnote, componentIdentifier: componentIdentifier)
-        self.url = url
+        self.attachmentInfo = attachmentInfo
         self.controlState = controlState
+        self.onExtraInfoChange = onExtraInfoChange
+        self.onPreview = onPreview
+        self.onDelete = onDelete
         self.componentIdentifier = componentIdentifier ?? Attachment.identifier
     }
 }
@@ -67,10 +79,13 @@ public extension Attachment {
     init(attachmentTitle: AttributedString,
          attachmentSubtitle: AttributedString,
          attachmentFootnote: AttributedString,
-         url: URL,
-         controlState: ControlState = .normal)
+         attachmentInfo: AttachmentInfo,
+         controlState: ControlState = .normal,
+         onExtraInfoChange: ((AnyHashable) -> Void)? = nil,
+         onPreview: ((AttachmentInfo) -> Void)? = nil,
+         onDelete: ((AttachmentInfo) -> Void)? = nil)
     {
-        self.init(attachmentTitle: { Text(attachmentTitle) }, attachmentSubtitle: { Text(attachmentSubtitle) }, attachmentFootnote: { Text(attachmentFootnote) }, url: url, controlState: controlState)
+        self.init(attachmentTitle: { Text(attachmentTitle) }, attachmentSubtitle: { Text(attachmentSubtitle) }, attachmentFootnote: { Text(attachmentFootnote) }, attachmentInfo: attachmentInfo, controlState: controlState, onExtraInfoChange: onExtraInfoChange, onPreview: onPreview, onDelete: onDelete)
     }
 }
 
@@ -83,8 +98,11 @@ public extension Attachment {
         self.attachmentTitle = configuration.attachmentTitle
         self.attachmentSubtitle = configuration.attachmentSubtitle
         self.attachmentFootnote = configuration.attachmentFootnote
-        self.url = configuration.url
+        self.attachmentInfo = configuration.attachmentInfo
         self.controlState = configuration.controlState
+        self.onExtraInfoChange = configuration.onExtraInfoChange
+        self.onPreview = configuration.onPreview
+        self.onDelete = configuration.onDelete
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -95,7 +113,7 @@ extension Attachment: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), url: self.url, controlState: self.controlState)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), attachmentInfo: self.attachmentInfo, controlState: self.controlState, onExtraInfoChange: self.onExtraInfoChange, onPreview: self.onPreview, onDelete: self.onDelete)).typeErased
                 .transformEnvironment(\.attachmentStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -113,7 +131,7 @@ private extension Attachment {
     }
 
     func defaultStyle() -> some View {
-        Attachment(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), url: self.url, controlState: self.controlState))
+        Attachment(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), attachmentInfo: self.attachmentInfo, controlState: self.controlState, onExtraInfoChange: self.onExtraInfoChange, onPreview: self.onPreview, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .attachmentStyle(AttachmentFioriStyle.ContentFioriStyle())
             .typeErased

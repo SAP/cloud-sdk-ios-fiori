@@ -6,7 +6,7 @@ import SwiftUI
 /// Attachment Context facilites hierarchical components, i.e. AttachmentGroup and Attachment work together, for example
 ///  setting and displaying error message and showing and dissmissing file picker.
 @Observable
-public class AttachmentContext {
+open class AttachmentContext {
     /// For toggle PhotosPicker
     public var showPhotosPicker: Bool = false
     
@@ -25,30 +25,70 @@ public class AttachmentContext {
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
     
-    weak var delegate: AttachmentDelegate?
-    var configuration: AttachmentGroupConfiguration?
+    public weak var delegate: AttachmentDelegate?
+    public var configuration: AttachmentGroupConfiguration?
+    
+    public var onDefaultExtraInfo: (() -> any AttachmentExtraInfo)?
+    
+    public var isUploading = false
+
+    public static let shared = AttachmentContext()
+    
+    private init() {}
     
     func upload(contentFrom provider: NSItemProvider) {
         guard let configuration else {
             os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
             return
         }
-        self.delegate?.upload(contentFrom: provider) { url, error in
-            if let error {
-                if let attachmentError = error as? AttachmentError {
-                    switch attachmentError {
-                    case .failedToUploadAttachment(let errorMessage):
-                        configuration.errorMessage = AttributedString(errorMessage)
-                    default:
-                        break
+        var uploadingAttachmentInfo: AttachmentInfo?
+        
+        self.delegate?.upload(contentFrom: provider) { url in
+            self.isUploading.toggle()
+            uploadingAttachmentInfo = .uploading(sourceURL: url)
+            if let uploadingAttachmentInfo {
+                configuration.attachments.append(uploadingAttachmentInfo)
+            }
+        } onCompletion: { url, error in
+            defer { self.isUploading.toggle() }
+            if let uploadingAttachmentInfo {
+                DispatchQueue.main.async {
+                    if let error {
+                        if let attachmentError = error as? AttachmentError {
+                            switch attachmentError {
+                            case .failedToUploadAttachment(let errorMessage):
+                                configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: errorMessage) : $0 }
+                            default:
+                                break
+                            }
+                        } else {
+                            configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: error.localizedDescription) : $0 }
+                        }
+                    } else {
+                        guard let url else { return }
+                        configuration.errorMessage = nil
+                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
                     }
-                } else {
-                    configuration.errorMessage = AttributedString("Upload failed due to, \(error.localizedDescription)")
                 }
             } else {
-                guard let url else { return }
-                configuration.attachments.append(url)
-                configuration.errorMessage = nil
+                DispatchQueue.main.async {
+                    if let error {
+                        if let attachmentError = error as? AttachmentError {
+                            switch attachmentError {
+                            case .failedToUploadAttachment(let errorMessage):
+                                configuration.errorMessage = AttributedString(errorMessage)
+                            default:
+                                break
+                            }
+                        } else {
+                            configuration.errorMessage = AttributedString(error.localizedDescription)
+                        }
+                    } else {
+                        guard let url, let uploadingAttachmentInfo else { return }
+                        configuration.errorMessage = nil
+                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
+                    }
+                }
             }
         }
     }
@@ -127,27 +167,34 @@ public class AttachmentContext {
         }
     }
     
-    func delete(attachment: URL) {
+    public func delete(attachment: URL) {
         guard let configuration else {
             os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
             return
         }
         
-        self.delegate?.delete(url: attachment) { url, error in
-            if let error {
-                if let attachmentError = error as? AttachmentError {
-                    switch attachmentError {
-                    case .failedToDeleteAttachment(let errorMessage):
-                        configuration.errorMessage = AttributedString(errorMessage)
-                    default:
-                        break
+        if case .uploaded = configuration.attachments.first(where: { $0.primaryURL == attachment }) {
+            self.delegate?.delete(url: attachment) { url, error in
+                if let error {
+                    if let attachmentError = error as? AttachmentError {
+                        switch attachmentError {
+                        case .failedToDeleteAttachment(let errorMessage):
+                            configuration.errorMessage = AttributedString(errorMessage)
+                        default:
+                            break
+                        }
+                    } else {
+                        configuration.errorMessage = AttributedString(error.localizedDescription)
+                        return
                     }
-                } else {
-                    configuration.errorMessage = AttributedString(error.localizedDescription)
-                    return
                 }
+                
+                self.configuration?.attachments.removeAll(where: { $0.primaryURL == url })
             }
-            self.configuration?.attachments.removeAll(where: { $0 == url })
+        } else if case .uploading = configuration.attachments.first(where: { $0.primaryURL == attachment }) {
+            self.configuration?.attachments.removeAll(where: { $0.primaryURL == attachment })
+        } else {
+            self.configuration?.attachments.removeAll(where: { $0.primaryURL == attachment })
         }
     }
 }

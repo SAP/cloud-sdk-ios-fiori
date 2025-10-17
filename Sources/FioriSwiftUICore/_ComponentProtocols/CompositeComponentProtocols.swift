@@ -1331,6 +1331,38 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 ///
 /// ## Usage
 /// ```swift
+/// // in context of looping through configuration.attachments array
+/// AttachmentElement(attachmentInfo: configuration.$attachments[index], controlState: configuration.controlState) { info in
+///     // preview here
+/// } onExtraInfoChange: { extraInfo in
+///     configuration.$attachments[index] = .uploaded(destinationURL: ...)
+/// } onDelete: { info in
+///     // delete goes here
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentElementComponent {
+    /// The collection of local attachment data model, which are prepared by Apps.
+    var attachmentInfo: AttachmentInfo { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The state of attachement group component
+    var controlState: ControlState { get }
+    
+    /// Trigger update on extraInfo of AttachmentInfo; applicable to only Attachment, neither AttachmentWithError nor AttachmentInProgress
+    var onExtraInfoChange: ((any AttachmentExtraInfo) -> Void)? { get }
+
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
+///
+/// ## Usage
+/// ```swift
 /// Attachment {
 ///   AttachmentThumbnail(url: fileURL)
 /// } attachmentTitle: {
@@ -1355,11 +1387,70 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
 // sourcery: CompositeComponent
 protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleComponent, _AttachmentFootnoteComponent {
     /// The collection of local attachment URLs, which are prepared by Apps.
-    var url: URL { get }
+    var attachmentInfo: AttachmentInfo { get }
     
     // sourcery: defaultValue = .normal
     /// The state of attachement group component
     var controlState: ControlState { get }
+    
+    /// Trigger update on extraInfo of AttachmentInfo
+    var onExtraInfoChange: ((AnyHashable) -> Void)? { get }
+
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `AttachmentWithError` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support error state of failed upload.
+///
+/// ## Usage
+/// ```swift
+/// AttachmentWithError(
+///     attachmentErrorTitle: {
+///         Text(configuration.attachmentInfo.attachmentName)
+///     },
+///     attachmentInfo: configuration.$attachmentInfo,
+///     onPreview: configuration.onPreview,
+///     onDelete: configuration.onDelete
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentWithErrorComponent: _AttachmentErrorTitleComponent {
+    /// The collection of local attachment data model, which are prepared by Apps.
+    var attachmentInfo: AttachmentInfo { get }
+    
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `AttachmentInProgress` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support rendering in-progress uploading state.
+///
+/// ## Usage
+/// ```swift
+/// AttachmentInProgress(
+///     attachmentInProgressTitle: {
+///         Text(configuration.attachmentInfo.attachmentName)
+///     },
+///     attachmentInfo: configuration.$attachmentInfo,
+///     onPreview: configuration.onPreview,
+///     onDelete: configuration.onDelete
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentInProgressComponent: _AttachmentInProgressTitleComponent {
+    /// The collection of local attachment data model, which are prepared by Apps.
+    var attachmentInfo: AttachmentInfo { get }
+
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
 }
 
 /// `AttachmentButtonImage` provides the default `Add` button following visual design.
@@ -1419,18 +1510,22 @@ protocol _AttachmentButtonImageComponent {
 /// ```
 // sourcery: CompositeComponent
 protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
+    // sourcery: @StateObject
+    // sourcery: defaultValue = "AttachmentContext.shared"
+    var context: AttachmentContext { get }
+
     // sourcery: @Binding
     /// The collection of local attachment URLs, which are prepared by Apps.
-    var attachments: [URL] { get }
+    var attachments: [AttachmentInfo] { get }
     
     // sourcery: defaultValue = "nil"
     /// The maximium number of attachments
     var maxCount: Int? { get }
-
+    
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
     /// App specific attachemnt processing logics for adding or deleting attachments.
     var delegate: AttachmentDelegate { get }
-
+    
     // sourcery: defaultValue = .normal
     /// The state of attachement group component
     var controlState: ControlState { get }
@@ -1439,7 +1534,7 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: defaultValue = ".constant(nil)"
     /// The error message of the form view.
     var errorMessage: AttributedString? { get }
-
+    
     // sourcery: defaultValue = "{ EmptyView() }"
     /// For adding App specific operations, such as picking photos and files.
     @ViewBuilder
@@ -1448,6 +1543,9 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: defaultValue = "nil"
     /// Triggering App specific preview, otherwise using default preview.
     var onPreview: ((URL) -> Void)? { get }
+    
+    /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
+    var defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? { get }
 }
 
 /// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.

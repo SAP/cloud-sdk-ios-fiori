@@ -2,9 +2,9 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct AttachmentDelegateExample: View {
-    @State var groupOneAttachments: [URL]
-    @State var groupTwoAttachments: [URL]
-    @State var groupThreeAttachments: [URL]
+    @State var groupOneAttachments: [AttachmentInfo]
+    @State var groupTwoAttachments: [AttachmentInfo]
+    @State var groupThreeAttachments: [AttachmentInfo]
     
     @State var groupOneError: AttributedString?
     @State var groupTwoError: AttributedString?
@@ -15,7 +15,7 @@ struct AttachmentDelegateExample: View {
     let groupThreeProeceeor: MyAttachmentDelegate
 
     init() {
-        var g1Attachments: [URL] = []
+        var g1Attachments: [AttachmentInfo] = []
         self.groupOneProeceeor = BasicAttachmentDelegate(localFolderName: "groupOneAttachments") { folder in
             g1Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
@@ -24,12 +24,12 @@ struct AttachmentDelegateExample: View {
                     Bundle.main.url(forResource: "MD File Example", withExtension: "md")
                 ].compactMap { $0 },
                 to: folder
-            )
+            ).map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
         }
         self.groupOneAttachments = g1Attachments
         self.groupOneError = nil
 
-        var g2Attachments: [URL] = []
+        var g2Attachments: [AttachmentInfo] = []
         self.groupTwoProeceeor = BasicAttachmentDelegate(localFolderName: "groupTwoAttachments") { folder in
             g2Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
@@ -37,7 +37,7 @@ struct AttachmentDelegateExample: View {
                     Bundle.main.url(forResource: "Excel File Example", withExtension: "xlsx")
                 ].compactMap { $0 },
                 to: folder
-            )
+            ).map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
         }
             
         self.groupTwoAttachments = g2Attachments
