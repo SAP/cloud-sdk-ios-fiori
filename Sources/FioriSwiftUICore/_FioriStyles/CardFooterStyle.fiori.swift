@@ -197,7 +197,7 @@ private struct CardFooterLayout: Layout {
         
         let y = maxHeight / 2
         // Move the hidden buttons out of visible area
-        let hideRect = CGRect(x: -2000, y: y, width: 0, height: 0)
+        let hideRect = CGRect(x: finalWidth + 0.3, y: y, width: 0.3, height: 0.3)
         var frames = [CGRect]()
         
         var x: CGFloat = 0
@@ -293,6 +293,7 @@ public struct CardFooterBaseStyle: CardFooterStyle {
                 configuration.action
             }
         }
+        .clipped()
     }
     
     /**
