@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct MandatoryAttachmentExample: View {
-    @State var attachments: [URL]
+    @State var attachments: [AttachmentInfo]
     @State var attachmentError: AttributedString?
     @State var mandatoryIndicator: Bool
     
@@ -12,13 +12,13 @@ struct MandatoryAttachmentExample: View {
     let delegate: BasicAttachmentDelegate
     
     init() {
-        var myAttachments: [URL] = []
+        var myAttachments: [AttachmentInfo] = []
         self.delegate = BasicAttachmentDelegate(localFolderName: "customMandatoryAttachments") { folder in
             myAttachments = BasicAttachmentDelegate.copy(
                 attachments: [
                 ].compactMap { $0 },
                 to: folder
-            )
+            ).map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
         }
         self.attachments = myAttachments
         self.attachmentError = nil

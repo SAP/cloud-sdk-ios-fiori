@@ -572,6 +572,18 @@ protocol _AttachmentFootnoteComponent {
 }
 
 // sourcery: BaseComponent
+protocol _AttachmentErrorTitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentErrorTitle: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttachmentInProgressTitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentInProgressTitle: AttributedString { get }
+}
+
+// sourcery: BaseComponent
 protocol _BodyTextComponent {
     // sourcery: @ViewBuilder
     var bodyText: AttributedString? { get }

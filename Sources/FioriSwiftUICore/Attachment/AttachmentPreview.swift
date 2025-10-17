@@ -5,15 +5,15 @@ import SwiftUI
 @available(watchOS, unavailable)
 @available(visionOS, unavailable)
 public struct AttachmentPreview: UIViewControllerRepresentable {
-    @Binding var urls: [URL]
+    @Binding var attachmentInfo: [AttachmentInfo]
     @Binding var previewURL: URL
     @Binding var controlState: ControlState
     
     let onDelete: ((URL) -> Void)?
     let onDismiss: (() -> Void)?
     
-    public init(urls: Binding<[URL]>, previewURL: Binding<URL>, controlState: Binding<ControlState>, onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
-        self._urls = urls
+    public init(attachmentInfo: Binding<[AttachmentInfo]>, previewURL: Binding<URL>, controlState: Binding<ControlState>, onDelete: ((URL) -> Void)? = nil, onDismiss: (() -> Void)? = nil) {
+        self._attachmentInfo = attachmentInfo
         self._previewURL = previewURL
         self.onDelete = onDelete
         self.onDismiss = onDismiss
@@ -42,7 +42,7 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.delegate = coordinator
         
-        controller.currentPreviewItemIndex = self.urls.firstIndex(of: self.previewURL) ?? 0
+        controller.currentPreviewItemIndex = self.attachmentInfo.first { $0.primaryURL == self.previewURL }.flatMap { self.attachmentInfo.firstIndex(of: $0) } ?? 0
 
         return navigationController
     }
@@ -62,11 +62,11 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
         }
 
         public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-            self.parent.urls.count
+            self.parent.attachmentInfo.count
         }
         
         public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-            AttachmentQLPreviewItem(url: self.parent.urls[index])
+            AttachmentQLPreviewItem(url: self.parent.attachmentInfo[index].primaryURL)
         }
                 
         @objc func dismiss() {
@@ -79,12 +79,12 @@ public struct AttachmentPreview: UIViewControllerRepresentable {
                 UIAlertAction(title: NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), style: .destructive, handler: { _ in
                     os_log("Delete %@ in progress...", log: OSLog.coreLogger, type: .debug, self.parent.previewURL.absoluteString)
                     DispatchQueue.main.async {
-                        if let index = self.parent.urls.firstIndex(of: self.parent.previewURL) {
-                            self.parent.onDelete?(self.parent.urls[index])
-                            if self.parent.urls.isEmpty {
+                        if let index = self.parent.attachmentInfo.firstIndexOfUploaded(destinationURL: self.parent.previewURL) {
+                            self.parent.onDelete?(self.parent.attachmentInfo[index].primaryURL)
+                            if self.parent.attachmentInfo.isEmpty {
                                 self.parent.onDismiss?()
                             } else {
-                                self.parent.previewURL = self.parent.urls[index > 0 ? index - 1 : 0]
+                                self.parent.previewURL = self.parent.attachmentInfo[index > 0 ? index - 1 : 0].primaryURL
                                 self.viewController?.reloadData()
                             }
                         }

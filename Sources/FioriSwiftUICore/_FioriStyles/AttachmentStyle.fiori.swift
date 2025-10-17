@@ -6,7 +6,7 @@ import SwiftUI
 public struct AttachmentBaseStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            AttachmentThumbnail(url: configuration.url, controlState: configuration.controlState)
+            AttachmentThumbnail(url: configuration.attachmentInfo.primaryURL, controlState: configuration.controlState)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(NSLocalizedString("Thumbnail", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Thumbnail"))
                 .id(UUID().uuidString)
@@ -17,6 +17,38 @@ public struct AttachmentBaseStyle: AttachmentStyle {
             }
         }
         .frame(width: AttachmentConstants.thumbnailWidth)
+        .id("Attachment:Thumbnail\(configuration.attachmentInfo.primaryURL.absoluteString)")
+        .accessibilityIdentifier("Attachment:Thumbnail\(configuration.attachmentInfo.primaryURL.absoluteString)")
+        .accessibilityElement(children: .combine)
+        .onTapGesture {
+            configuration.onPreview?(configuration.attachmentInfo)
+        }
+        .ifApply(configuration.controlState == .normal || configuration.controlState == .readOnly) {
+            $0.accessibilityAction(named: NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview")) {
+                configuration.onPreview?(configuration.attachmentInfo)
+            }
+            .ifApply(configuration.controlState == .normal) {
+                $0.accessibilityAction(named: NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete")) {
+                    configuration.onDelete?(configuration.attachmentInfo)
+                }
+            }
+        }
+        .ifApply(configuration.controlState == .normal || configuration.controlState == .readOnly) {
+            $0.contextMenu {
+                Button {
+                    configuration.onPreview?(configuration.attachmentInfo)
+                } label: {
+                    Label(NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview"), systemImage: "viewfinder")
+                }
+                if configuration.controlState == .normal {
+                    Button(role: .destructive) {
+                        configuration.onDelete?(configuration.attachmentInfo)
+                    } label: {
+                        Label(NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), systemImage: "delete.left")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -35,7 +67,7 @@ extension AttachmentFioriStyle {
             AttachmentThumbnail(configuration)
         }
     }
-    
+
     struct AttachmentTitleFioriStyle: AttachmentTitleStyle {
         let attachmentConfiguration: AttachmentConfiguration
         
@@ -68,4 +100,21 @@ extension AttachmentFioriStyle {
                 .lineLimit(1)
         }
     }
+}
+
+#Preview {
+    @Previewable var attachmentInfo = AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
+    
+    Attachment(
+        attachmentTitle: {
+            Text(attachmentInfo.attachmentName)
+        },
+        attachmentSubtitle: {
+            Text("768 KB")
+        },
+        attachmentFootnote: {
+            Text("01/01/2025")
+        },
+        attachmentInfo: attachmentInfo
+    )
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -24,8 +24,9 @@ import SwiftUI
 /// ```
 public struct AttachmentGroup {
     let title: any View
+    let context: AttachmentContext
     /// The collection of local attachment URLs, which are prepared by Apps.
-    @Binding var attachments: [URL]
+    @Binding var attachments: [AttachmentInfo]
     /// The maximium number of attachments
     let maxCount: Int?
     /// App specific attachemnt processing logics for adding or deleting attachments.
@@ -38,6 +39,8 @@ public struct AttachmentGroup {
     let operations: any View
     /// Triggering App specific preview, otherwise using default preview.
     let onPreview: ((URL) -> Void)?
+    /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
+    let defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)?
 
     @Environment(\.attachmentGroupStyle) var style
 
@@ -46,16 +49,19 @@ public struct AttachmentGroup {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                attachments: Binding<[URL]>,
+                context: AttachmentContext = AttachmentContext.shared,
+                attachments: Binding<[AttachmentInfo]>,
                 maxCount: Int? = nil,
                 delegate: AttachmentDelegate = BasicAttachmentDelegate(),
                 controlState: ControlState = .normal,
                 errorMessage: Binding<AttributedString?> = .constant(nil),
                 @ViewBuilder operations: () -> any View = { EmptyView() },
                 onPreview: ((URL) -> Void)? = nil,
+                defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? = nil,
                 componentIdentifier: String? = AttachmentGroup.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
+        self.context = context
         self._attachments = attachments
         self.maxCount = maxCount
         self.delegate = delegate
@@ -63,6 +69,7 @@ public struct AttachmentGroup {
         self._errorMessage = errorMessage
         self.operations = operations()
         self.onPreview = onPreview
+        self.defaultAttachmentExtraInfo = defaultAttachmentExtraInfo
         self.componentIdentifier = componentIdentifier ?? AttachmentGroup.identifier
     }
 }
@@ -75,17 +82,19 @@ public extension AttachmentGroup {
     init(title: AttributedString,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
-         attachments: Binding<[URL]>,
+         context: AttachmentContext = AttachmentContext.shared,
+         attachments: Binding<[AttachmentInfo]>,
          maxCount: Int? = nil,
          delegate: AttachmentDelegate = BasicAttachmentDelegate(),
          controlState: ControlState = .normal,
          errorMessage: Binding<AttributedString?>,
          @ViewBuilder operations: () -> any View = { EmptyView() },
-         onPreview: ((URL) -> Void)? = nil)
+         onPreview: ((URL) -> Void)? = nil,
+         defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? = nil)
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, attachments: attachments, maxCount: maxCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview)
+        }, context: context, attachments: attachments, maxCount: maxCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, defaultAttachmentExtraInfo: defaultAttachmentExtraInfo)
     }
 }
 
@@ -96,6 +105,7 @@ public extension AttachmentGroup {
 
     internal init(_ configuration: AttachmentGroupConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
+        self.context = configuration.context
         self._attachments = configuration.$attachments
         self.maxCount = configuration.maxCount
         self.delegate = configuration.delegate
@@ -103,6 +113,7 @@ public extension AttachmentGroup {
         self._errorMessage = configuration.$errorMessage
         self.operations = configuration.operations
         self.onPreview = configuration.onPreview
+        self.defaultAttachmentExtraInfo = configuration.defaultAttachmentExtraInfo
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -113,7 +124,7 @@ extension AttachmentGroup: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo)).typeErased
                 .transformEnvironment(\.attachmentGroupStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -131,7 +142,7 @@ private extension AttachmentGroup {
     }
 
     func defaultStyle() -> some View {
-        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview))
+        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo))
             .shouldApplyDefaultStyle(false)
             .attachmentGroupStyle(AttachmentGroupFioriStyle.ContentFioriStyle())
             .typeErased

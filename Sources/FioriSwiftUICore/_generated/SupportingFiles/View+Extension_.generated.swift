@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.2.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -241,6 +241,40 @@ public extension View {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+public extension View {
+    func attachmentElementStyle(_ style: some AttachmentElementStyle) -> some View {
+        self.transformEnvironment(\.attachmentElementStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentElementStyle(@ViewBuilder content: @escaping (AttachmentElementConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentElementStyleStack) { stack in
+            let style = AnyAttachmentElementStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+public extension View {
+    func attachmentErrorTitleStyle(_ style: some AttachmentErrorTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentErrorTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentErrorTitleStyleStack) { stack in
+            let style = AnyAttachmentErrorTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 public extension View {
@@ -270,6 +304,40 @@ public extension View {
     func attachmentGroupStyle(@ViewBuilder content: @escaping (AttachmentGroupConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
             let style = AnyAttachmentGroupStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+public extension View {
+    func attachmentInProgressStyle(_ style: some AttachmentInProgressStyle) -> some View {
+        self.transformEnvironment(\.attachmentInProgressStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentInProgressStyle(@ViewBuilder content: @escaping (AttachmentInProgressConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentInProgressStyleStack) { stack in
+            let style = AnyAttachmentInProgressStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+public extension View {
+    func attachmentInProgressTitleStyle(_ style: some AttachmentInProgressTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentInProgressTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentInProgressTitleStyleStack) { stack in
+            let style = AnyAttachmentInProgressTitleStyle(content)
             stack.append(style)
         }
     }
@@ -321,6 +389,23 @@ public extension View {
     func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
             let style = AnyAttachmentTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+public extension View {
+    func attachmentWithErrorStyle(_ style: some AttachmentWithErrorStyle) -> some View {
+        self.transformEnvironment(\.attachmentWithErrorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentWithErrorStyle(@ViewBuilder content: @escaping (AttachmentWithErrorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentWithErrorStyleStack) { stack in
+            let style = AnyAttachmentWithErrorStyle(content)
             stack.append(style)
         }
     }

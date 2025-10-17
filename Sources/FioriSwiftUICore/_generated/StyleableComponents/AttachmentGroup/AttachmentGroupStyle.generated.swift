@@ -24,13 +24,15 @@ struct AnyAttachmentGroupStyle: AttachmentGroupStyle {
 public struct AttachmentGroupConfiguration {
     public var componentIdentifier: String = "fiori_attachmentgroup_component"
     public let title: Title
-    @Binding public var attachments: [URL]
+    public let context: AttachmentContext
+    @Binding public var attachments: [AttachmentInfo]
     public let maxCount: Int?
     public let delegate: AttachmentDelegate
     public let controlState: ControlState
     @Binding public var errorMessage: AttributedString?
     public let operations: Operations
     public let onPreview: ((URL) -> Void)?
+    public let defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)?
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Operations = ConfigurationViewWrapper

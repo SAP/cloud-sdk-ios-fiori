@@ -404,6 +404,12 @@
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Thumbnail";
 
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Uploading %@, please wait...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Uploading %@ failed. Error message: %@";
+
 /* XBUT: Sign In Action in the Authentication */
 "Sign In" = "Sign In";
 

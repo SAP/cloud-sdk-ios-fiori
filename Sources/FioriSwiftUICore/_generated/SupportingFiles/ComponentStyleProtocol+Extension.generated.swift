@@ -598,6 +598,34 @@ public extension AttachmentStyle where Self == AttachmentAttachmentFootnoteStyle
     }
 }
 
+// MARK: AttachmentElementStyle
+
+public extension AttachmentElementStyle where Self == AttachmentElementBaseStyle {
+    static var base: AttachmentElementBaseStyle {
+        AttachmentElementBaseStyle()
+    }
+}
+
+public extension AttachmentElementStyle where Self == AttachmentElementFioriStyle {
+    static var fiori: AttachmentElementFioriStyle {
+        AttachmentElementFioriStyle()
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+public extension AttachmentErrorTitleStyle where Self == AttachmentErrorTitleBaseStyle {
+    static var base: AttachmentErrorTitleBaseStyle {
+        AttachmentErrorTitleBaseStyle()
+    }
+}
+
+public extension AttachmentErrorTitleStyle where Self == AttachmentErrorTitleFioriStyle {
+    static var fiori: AttachmentErrorTitleFioriStyle {
+        AttachmentErrorTitleFioriStyle()
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteBaseStyle {
@@ -647,6 +675,55 @@ public extension AttachmentGroupStyle where Self == AttachmentGroupTitleStyle {
     }
 }
 
+// MARK: AttachmentInProgressStyle
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressBaseStyle {
+    static var base: AttachmentInProgressBaseStyle {
+        AttachmentInProgressBaseStyle()
+    }
+}
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressFioriStyle {
+    static var fiori: AttachmentInProgressFioriStyle {
+        AttachmentInProgressFioriStyle()
+    }
+}
+
+public struct AttachmentInProgressAttachmentInProgressTitleStyle: AttachmentInProgressStyle {
+    let style: any AttachmentInProgressTitleStyle
+
+    public func makeBody(_ configuration: AttachmentInProgressConfiguration) -> some View {
+        AttachmentInProgress(configuration)
+            .attachmentInProgressTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressAttachmentInProgressTitleStyle {
+    static func attachmentInProgressTitleStyle(_ style: some AttachmentInProgressTitleStyle) -> AttachmentInProgressAttachmentInProgressTitleStyle {
+        AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
+    }
+
+    static func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> AttachmentInProgressAttachmentInProgressTitleStyle {
+        let style = AnyAttachmentInProgressTitleStyle(content)
+        return AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+public extension AttachmentInProgressTitleStyle where Self == AttachmentInProgressTitleBaseStyle {
+    static var base: AttachmentInProgressTitleBaseStyle {
+        AttachmentInProgressTitleBaseStyle()
+    }
+}
+
+public extension AttachmentInProgressTitleStyle where Self == AttachmentInProgressTitleFioriStyle {
+    static var fiori: AttachmentInProgressTitleFioriStyle {
+        AttachmentInProgressTitleFioriStyle()
+    }
+}
+
 // MARK: AttachmentSubtitleStyle
 
 public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleBaseStyle {
@@ -686,6 +763,41 @@ public extension AttachmentTitleStyle where Self == AttachmentTitleBaseStyle {
 public extension AttachmentTitleStyle where Self == AttachmentTitleFioriStyle {
     static var fiori: AttachmentTitleFioriStyle {
         AttachmentTitleFioriStyle()
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorBaseStyle {
+    static var base: AttachmentWithErrorBaseStyle {
+        AttachmentWithErrorBaseStyle()
+    }
+}
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorFioriStyle {
+    static var fiori: AttachmentWithErrorFioriStyle {
+        AttachmentWithErrorFioriStyle()
+    }
+}
+
+public struct AttachmentWithErrorAttachmentErrorTitleStyle: AttachmentWithErrorStyle {
+    let style: any AttachmentErrorTitleStyle
+
+    public func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
+        AttachmentWithError(configuration)
+            .attachmentErrorTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorAttachmentErrorTitleStyle {
+    static func attachmentErrorTitleStyle(_ style: some AttachmentErrorTitleStyle) -> AttachmentWithErrorAttachmentErrorTitleStyle {
+        AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
+    }
+
+    static func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> AttachmentWithErrorAttachmentErrorTitleStyle {
+        let style = AnyAttachmentErrorTitleStyle(content)
+        return AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
     }
 }
 
