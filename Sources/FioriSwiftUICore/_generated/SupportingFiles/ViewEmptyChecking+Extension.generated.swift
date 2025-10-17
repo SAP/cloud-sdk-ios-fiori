@@ -254,6 +254,7 @@ extension Card: _ViewEmptyChecking {
             detailImage.isEmpty &&
             headerAction.isEmpty &&
             counter.isEmpty &&
+            flexItem.isEmpty &&
             row1.isEmpty &&
             row2.isEmpty &&
             row3.isEmpty &&
@@ -296,6 +297,7 @@ extension CardHeader: _ViewEmptyChecking {
             detailImage.isEmpty &&
             headerAction.isEmpty &&
             counter.isEmpty &&
+            flexItem.isEmpty &&
             row1.isEmpty &&
             row2.isEmpty &&
             row3.isEmpty &&
@@ -311,7 +313,8 @@ extension CardMainHeader: _ViewEmptyChecking {
             icons.isEmpty &&
             detailImage.isEmpty &&
             headerAction.isEmpty &&
-            counter.isEmpty
+            counter.isEmpty &&
+            flexItem.isEmpty
     }
 }
 
@@ -520,6 +523,12 @@ extension FioriSlider: _ViewEmptyChecking {
             description.isEmpty &&
             leadingAccessory.isEmpty &&
             trailingAccessory.isEmpty
+    }
+}
+
+extension FlexItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        flexItem.isEmpty
     }
 }
 

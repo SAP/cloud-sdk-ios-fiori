@@ -41,6 +41,7 @@ struct CoreContentView: View {
             MenuItem(title: "Signature Inline View", section: "Views", destination: SignatureCaptureViewExample()),
             MenuItem(title: "(Deprecated)Customized Signature Inline View", section: "Views", destination: SignatureCaptureViewExample2()),
             MenuItem(title: "AI User Feedback", section: "Views", destination: AIUserFeedbackExample()),
+            MenuItem(title: "Tag", section: "Views", destination: TagExample()),
             
             // Scanners
             MenuItem(title: "Document Scanner View", section: "Scanners", destination: DocumentScannerViewExample()),

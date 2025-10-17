@@ -1996,6 +1996,34 @@ public extension FioriSliderStyle {
     }
 }
 
+// MARK: FlexItemStyle
+
+extension ModifiedStyle: FlexItemStyle where Style: FlexItemStyle {
+    public func makeBody(_ configuration: FlexItemConfiguration) -> some View {
+        FlexItem(configuration)
+            .flexItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FlexItemStyleModifier<Style: FlexItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.flexItemStyle(self.style)
+    }
+}
+
+public extension FlexItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FlexItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FlexItemStyle) -> some FlexItemStyle {
+        style.modifier(FlexItemStyleModifier(style: self))
+    }
+}
+
 // MARK: FootnoteStyle
 
 extension ModifiedStyle: FootnoteStyle where Style: FootnoteStyle {

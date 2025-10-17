@@ -54,9 +54,11 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     func body(content: Content) -> some View {
         content.toolbar {
             if #available(iOS 26, *) {
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    ToolbarSpacer(.flexible, placement: .bottomBar)
-                }
+                #if !os(visionOS)
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        ToolbarSpacer(.flexible, placement: .bottomBar)
+                    }
+                #endif
                 ToolbarItemGroup(placement: .bottomBar) {
                     if self.sizeHandler.needLayoutSubviews {
                         ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in

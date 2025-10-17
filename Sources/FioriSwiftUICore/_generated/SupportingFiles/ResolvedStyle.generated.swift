@@ -1139,6 +1139,22 @@ extension FioriSliderStyle {
     }
 }
 
+// MARK: FlexItemStyle
+
+struct ResolvedFlexItemStyle<Style: FlexItemStyle>: View {
+    let style: Style
+    let configuration: FlexItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FlexItemStyle {
+    func resolve(configuration: FlexItemConfiguration) -> some View {
+        ResolvedFlexItemStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: FootnoteStyle
 
 struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {

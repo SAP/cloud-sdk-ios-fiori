@@ -67,7 +67,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     
     private func navTitle(_ configuration: UserConsentFormConfiguration) -> String {
         if configuration.userConsentPages.count > 1 {
-            return "\(NSLocalizedString("Step", comment: "")) \(self.pageIndex + 1) \(NSLocalizedString("of", comment: "")) \(configuration.userConsentPages.count)"
+            return "\(NSLocalizedString("Step", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")) \(self.pageIndex + 1) \(NSLocalizedString("of", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")) \(configuration.userConsentPages.count)"
         } else {
             return ""
         }
@@ -86,7 +86,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                     }
                 }
         default:
-            Button(NSLocalizedString("Back", comment: ""), action: {
+            Button(NSLocalizedString("Back", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), action: {
                 self.pageIndex -= 1
             })
         }
