@@ -1,12 +1,14 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct CalendarDatesSelectionExample: View {
+struct CalendarFloorplanDatesSelectionExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
     @State var selectedDates: Set<Date>? = []
     
     @State private var title: String?
+    
+    @State var withToolBar = false
     
     var fm: DateFormatter {
         let fm = DateFormatter()
@@ -66,6 +68,22 @@ struct CalendarDatesSelectionExample: View {
             .environment(\.customLanguageId, self.settings.testLanguage)
             .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Clear All") {
+                    self.clearAll()
+                }
+                .disabled(self.clearAllDisabled)
+            }
+            
+            if self.withToolBar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Button("Done") {
+                        self.didTapDone()
+                    }
+                }
+            }
+        })
         .navigationTitle(self.title ?? "Dates Selection")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: self.selectedDates) {
@@ -80,8 +98,21 @@ struct CalendarDatesSelectionExample: View {
     var customCalendarBackgroundColor: Color? {
         self.settings.testsCustomCalBgColor ? .preferredColor(.blue1) : nil
     }
+    
+    func didTapDone() {}
+
+    func clearAll() {
+        self.selectedDates = []
+    }
+
+    var clearAllDisabled: Bool {
+        if let selectedDates {
+            return selectedDates.count == 0
+        }
+        return true
+    }
 }
 
 #Preview {
-    CalendarDatesSelectionExample()
+    CalendarFloorplanDatesSelectionExample()
 }

@@ -55,6 +55,10 @@ struct CalendarItemTintAttributesKey: EnvironmentKey {
     public static let defaultValue: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
 }
 
+struct BannerMessageBackgroundColorKey: EnvironmentKey {
+    public static let defaultValue: Color? = nil
+}
+
 public enum CalendarItemControlState {
     /// Item is in normal state. Default.
     case normal
@@ -169,5 +173,11 @@ public extension EnvironmentValues {
     var monthHeaderDateFormat: String {
         get { self[CalendarMonthHeaderDateFormatKey.self] }
         set { self[CalendarMonthHeaderDateFormatKey.self] = newValue }
+    }
+
+    /// The backgroundColor for banner message
+    var bannerMessageBackgroundColor: Color? {
+        get { self[BannerMessageBackgroundColorKey.self] }
+        set { self[BannerMessageBackgroundColorKey.self] = newValue }
     }
 }

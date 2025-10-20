@@ -40,7 +40,7 @@ struct CalendarMonthViewPersistentExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: self.style, startDate: self.startDate, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
+            CalendarView(style: self.$style, startDate: self.startDate, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
                 self.title = $0
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
