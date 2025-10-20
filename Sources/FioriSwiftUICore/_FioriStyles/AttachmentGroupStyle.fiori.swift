@@ -92,7 +92,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
             {
                 configuration.context.delegate = configuration.delegate
                 configuration.context.configuration = configuration
-                configuration.context.onDefaultExtraInfo = nil // TODO: fix nil
+                configuration.context.onDefaultExtraInfo = configuration.defaultAttachmentExtraInfo
                 return configuration.context
             }()
         )

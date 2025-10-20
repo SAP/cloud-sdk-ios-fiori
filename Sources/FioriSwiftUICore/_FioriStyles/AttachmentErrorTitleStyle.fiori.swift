@@ -16,8 +16,5 @@ public struct AttachmentErrorTitleFioriStyle: AttachmentErrorTitleStyle {
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentErrorTitleConfiguration) -> some View {
         AttachmentErrorTitle(configuration)
-        // Add default style here
-        // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-        // .font(.fiori(forTextStyle: <#fiori font#>))
     }
 }

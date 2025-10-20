@@ -408,7 +408,6 @@ struct WriteAndUploadView: View {
 }
 
 struct MyAttachmentGroupStyle: AttachmentGroupStyle {
-//    @State var context = AttachmentContext.shared
     @State private var showingConfirmation = false
     @State var previewURL: URL? = nil
     @State var deleteIndex: Int? = nil

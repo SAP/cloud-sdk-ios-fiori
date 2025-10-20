@@ -3,35 +3,77 @@ import PDFKit
 import PhotosUI
 import SwiftUI
 
-/// Attachment Context facilites hierarchical components, i.e. AttachmentGroup and Attachment work together, for example
-///  setting and displaying error message and showing and dissmissing file picker.
+/// Attachment Context facilitates hierarchical components, i.e. AttachmentGroup and Attachment work together, for example
+/// setting and displaying error message and showing and dismissing file picker.
 @Observable
 open class AttachmentContext {
-    /// For toggle PhotosPicker
+    /// Controls the visibility of the system Photos picker for selecting images from the photo library.
+    ///
+    /// Setting this property to `true` presents the PhotosPicker UI component, allowing users to select
+    /// photos from their device's photo library. After selection or dismissal, this property should be
+    /// set back to `false` to hide the picker.
     public var showPhotosPicker: Bool = false
     
-    /// For toggle FileImporter
+    /// Controls the visibility of the system Files picker for selecting documents.
+    ///
+    /// Setting this property to `true` presents the FileImporter UI component, allowing users to select
+    /// documents from their device's file system or cloud storage. After selection or dismissal, this
+    /// property should be set back to `false` to hide the picker.
     public var showFilesPicker: Bool = false
     
-    /// For toggle camera
+    /// Controls the visibility of the camera interface for capturing photos or videos.
+    ///
+    /// Setting this property to `true` presents the camera UI, allowing users to capture new photos
+    /// or videos using the device camera. After capturing or dismissal, this property should be
+    /// set back to `false` to hide the camera interface.
     public var showCamera: Bool = false
     
-    /// For toggle Camera for PDF scanning
+    /// Controls the visibility of the document scanner interface for capturing PDF documents.
+    ///
+    /// Setting this property to `true` presents the document scanning UI, allowing users to capture
+    /// multi-page documents and convert them to PDF format. After scanning or dismissal, this property
+    /// should be set back to `false` to hide the scanner.
     public var showPdfScanner: Bool = false
 
-    /// For toggle Camera for Images scanning
+    /// Controls the visibility of the document scanner interface for capturing individual images.
+    ///
+    /// Setting this property to `true` presents the image scanning UI, allowing users to capture
+    /// images with document-specific enhancements like perspective correction and edge detection.
+    /// After scanning or dismissal, this property should be set back to `false` to hide the scanner.
     public var showImageScanner: Bool = false
     
     var photoSelectionFilter: [PHPickerFilter] = []
     var fileSelectionFilter: [UTType] = []
     
+    /// The delegate that handles attachment operations like uploading, downloading, and deleting.
+    ///
+    /// This delegate is responsible for implementing the actual business logic for attachment operations.
+    /// It's defined as weak to avoid reference cycles since the context might be held by the delegate.
     public weak var delegate: AttachmentDelegate?
+    
+    /// The configuration for the attachment group containing settings and state.
+    ///
+    /// This configuration contains the list of attachments and other settings that control the behavior
+    /// and appearance of attachment-related UI components.
     public var configuration: AttachmentGroupConfiguration?
     
-    public var onDefaultExtraInfo: (() -> any AttachmentExtraInfo)?
+    /// A closure that provides default extra information for newly uploaded attachments.
+    ///
+    /// When an attachment is successfully uploaded, this closure is called to generate optional
+    /// extra information that will be associated with the attachment in its `.uploaded` state.
+    /// - Returns: An instance conforming to `AttachmentExtraInfo` to associate with uploaded attachments.
+    public var onDefaultExtraInfo: (() -> any AttachmentExtraInfo)? = nil
     
+    /// Indicates whether an attachment is currently being uploaded.
+    ///
+    /// This flag is toggled during the upload process and can be observed to show loading indicators
+    /// or disable certain UI interactions during an ongoing upload.
     public var isUploading = false
 
+    /// The shared singleton instance of `AttachmentContext`.
+    ///
+    /// Use this shared instance to access and manipulate attachment operations across your app.
+    /// This follows the singleton pattern to ensure a consistent attachment state throughout the app.
     public static let shared = AttachmentContext()
     
     private init() {}
