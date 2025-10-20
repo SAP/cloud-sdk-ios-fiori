@@ -12,6 +12,7 @@ struct FilterFormViewExamples: View {
     @State private var showMandatoryField = false
     @State private var customizedMandatoryIndicator = false
     @State private var isEnabled = true
+    @State private var showingOptions = false
     
     @State private var multiSelectionEmptySelectionValue: [Int] = [1, 2]
     @State private var multiSelectionEmptySelectionNoCheckmarkValue: [Int] = [1, 2]
@@ -44,25 +45,6 @@ struct FilterFormViewExamples: View {
     
     var body: some View {
         List {
-            Toggle(isOn: self.$showMandatoryField) {
-                Text("Mandatory Field")
-                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-            }
-            .tint(Color.preferredColor(.tintColor))
-            Toggle(isOn: self.$customizedMandatoryIndicator) {
-                Text("Customized Mandatory Indicator")
-                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-            }
-            .tint(Color.preferredColor(.tintColor))
-            Toggle(isOn: self.$isEnabled) {
-                Text("Enabled")
-                    .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-            }
-            .tint(Color.preferredColor(.tintColor))
-            
             FilterFormView(title: "MultiSelection, EmptySelection", mandatoryFieldIndicator: self.mandatoryField(), isRequired: self.showMandatoryField, options: self.valueOptions, errorMessage: "Validation Message", isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$multiSelectionEmptySelectionValue, buttonSize: .fixed, onValueChange: { value in
                 print("MultiSelection, EmptySelection value change: \(value)")
             })
@@ -193,6 +175,39 @@ struct FilterFormViewExamples: View {
                 ])
         }
         .listStyle(.plain)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("FilterFormView Examples")
+        .toolbar {
+            FioriButton(title: "Options") { _ in
+                self.showingOptions = true
+            }
+        }
+        .sheet(isPresented: self.$showingOptions) {
+            NavigationStack {
+                List {
+                    Toggle("Mandatory Field", isOn: self.$showMandatoryField)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                    Toggle("Customized Mandatory Indicator", isOn: self.$customizedMandatoryIndicator)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                    Toggle("Enabled", isOn: self.$isEnabled)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                }
+                .navigationTitle("Options")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            self.showingOptions = false
+                        }
+                    }
+                }
+            }
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
+        }
     }
     
     func mandatoryFieldIndicatorColor() -> Color {
