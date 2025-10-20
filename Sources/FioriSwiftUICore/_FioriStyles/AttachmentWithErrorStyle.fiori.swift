@@ -111,13 +111,14 @@ extension AttachmentWithErrorFioriStyle {
         }
     }
 }
-//
-//#Preview {
-//    @Previewable var attachmentInfo = AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
-//    AttachmentWithError(
-//        attachmentErrorTitle: {
-//            Text(attachmentInfo.attachmentName)
-//        },
-//        attachmentInfo: attachmentInfo
-//    )
-//}
+/*
+#Preview {
+    @Previewable var attachmentInfo = AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
+    AttachmentWithError(
+        attachmentErrorTitle: {
+            Text(attachmentInfo.attachmentName)
+        },
+        attachmentInfo: attachmentInfo
+    )
+}
+*/
