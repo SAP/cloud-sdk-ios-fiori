@@ -209,6 +209,16 @@ open class AttachmentContext {
         }
     }
     
+    /// Deletes an attachment based on its URL.
+    ///
+    /// This method handles attachment deletion with different behavior based on the attachment's state:
+    /// - For `.uploaded` attachments: Delegates deletion to the `AttachmentDelegate` and removes from the list upon success
+    /// - For `.uploading` or `.error` attachments: Immediately removes from the attachment list without delegate involvement
+    ///
+    /// Error handling is provided through the delegate callback, with appropriate error messages displayed
+    /// for `AttachmentError` cases or standard errors.
+    ///
+    /// - Parameter attachment: The URL of the attachment to be deleted
     public func delete(attachment: URL) {
         guard let configuration else {
             os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)

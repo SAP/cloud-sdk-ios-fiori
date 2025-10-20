@@ -103,7 +103,7 @@ public extension AttachmentInfo {
     /// - For `.uploaded`: Returns the destination URL
     /// - For `.uploading` and `.error`: Returns the source URL
     var primaryURL: URL {
-        switch(self) {
+        switch self {
         case .uploaded(let url, _, _):
             return url
         case .uploading(let url):

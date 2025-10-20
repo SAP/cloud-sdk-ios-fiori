@@ -38,6 +38,8 @@ struct RatingControlFormViewExample: View {
     @State var setsReviewCountCeiling = false
     @State var showAINotice: Bool = false
     @State var showBottomSheet: Bool = false
+    @State var showingOptions = false
+    @State var isLoading = false
     
     var customizeNoticeMsg: AttributedString {
         var msgText = AttributedString("Customized AI Notice. ")
@@ -54,213 +56,253 @@ struct RatingControlFormViewExample: View {
     }
 
     var body: some View {
-        List {
-            Text("RatingControlFormView Examples")
-            Toggle("Shows Hint Message", isOn: self.$showsHintMessage)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("Shows Value Label", isOn: self.$showsValueLabel)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("Shows Review Count Label", isOn: self.$showsReviewCountLabel)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("Sets Average Rating", isOn: self.$setsAverageRating)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("Sets Review Count", isOn: self.$setsReviewCount)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("Sets Review Count Ceiling", isOn: self.$setsReviewCountCeiling)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            Toggle("AI Notice", isOn: self.$showAINotice)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
+        VStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16) {
+                    Button("Dismiss Keyboard") {
+                        self.hideKeyboard()
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                    
+                    Text("Default Examples").italic()
+                    RatingControlFormView(title: "Rating 1", rating: self.$rating1, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice)
+                    
+                    RatingControlFormView(title: "Rating 2 (Disabled)", rating: self.$rating2, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                        .disabled(true)
 
-            Text("Default Examples")
-            RatingControlFormView(title: "Rating 1", rating: self.$rating1, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice)
+                    RatingControlFormView(title: "Rating 3 (Read Only) Rating 3 (Read Only)", rating: self.$rating3, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
             
-            RatingControlFormView(title: "Rating 2 (Disabled)", rating: self.$rating2, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-                .disabled(true)
+                    RatingControlFormView(title: "Rating 4 (Read Only Large) Rating 4 (Read Only Large)", rating: self.$rating4, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                        .sheet(isPresented: self.$showBottomSheet) {
+                            Text("detail information")
+                                .presentationDetents([.height(250), .medium])
+                                .presentationDragIndicator(.visible)
+                        }
+                    
+                    RatingControlFormView(title: "Rating 5 (Accented)", rating: self.$rating5, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                    
+                    RatingControlFormView(title: "Rating 6 (Accented Large)", rating: self.$rating6, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                        .iconStyle(content: { config in
+                            config.icon.foregroundStyle(Color.purple)
+                        })
+                    
+                    Text("Stacked").italic()
+                    RatingControlFormView(title: "Rating 7", rating: self.$rating7, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 8 (Disabled)", rating: self.$rating8, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 9 (Read Only)", rating: self.$rating9, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 10 (Read Only Large)", rating: self.$rating10, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 11 (Accented)", rating: self.$rating11, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 12 (Accented Large)", rating: self.$rating12, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
 
-            RatingControlFormView(title: "Rating 3 (Read Only) Rating 3 (Read Only)", rating: self.$rating3, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-            
-            RatingControlFormView(title: "Rating 4 (Read Only Large) Rating 4 (Read Only Large)", rating: self.$rating4, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
-                .sheet(isPresented: self.$showBottomSheet) {
-                    Text("detail information")
-                        .presentationDetents([.height(250), .medium])
-                        .presentationDragIndicator(.visible)
-                }
-            
-            RatingControlFormView(title: "Rating 5 (Accented)", rating: self.$rating5, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-            
-            RatingControlFormView(title: "Rating 6 (Accented Large)", rating: self.$rating6, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-                .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
-                .iconStyle(content: { config in
-                    config.icon.foregroundStyle(Color.purple)
-                })
-            
-            Text("Stacked")
-            RatingControlFormView(title: "Rating 7", rating: self.$rating7, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 8 (Disabled)", rating: self.$rating8, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 9 (Read Only)", rating: self.$rating9, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 10 (Read Only Large)", rating: self.$rating10, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 11 (Accented)", rating: self.$rating11, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 12 (Accented Large)", rating: self.$rating12, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, axis: .vertical)
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    Text("With Subtitle").italic()
+                    RatingControlFormView(title: "Rating 13", rating: self.$rating13, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 13 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 14 (Disabled)", rating: self.$rating14, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 14 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 15 (Read Only)", rating: self.$rating15, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 15 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 16 (Read Only Large)", rating: self.$rating16, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 16 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 17 (Accented)", rating: self.$rating17, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 17 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 18 (Accented Large)", rating: self.$rating18, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 18 Subtitle")
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
 
-            Text("With Subtitle")
-            RatingControlFormView(title: "Rating 13", rating: self.$rating13, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 13 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 14 (Disabled)", rating: self.$rating14, ratingControlStyle: .editableDisabled, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 14 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 15 (Read Only)", rating: self.$rating15, ratingControlStyle: .standard, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 15 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 16 (Read Only Large)", rating: self.$rating16, ratingControlStyle: .standardLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 16 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 17 (Accented)", rating: self.$rating17, ratingControlStyle: .accented, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 17 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 18 (Accented Large)", rating: self.$rating18, ratingControlStyle: .accentedLarge, showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel, subtitle: "Rating 18 Subtitle")
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-
-            Text("Customized")
-            RatingControlFormView(title: "Rating 19", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating19, itemSize: CGSize(width: 40, height: 40), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
+                    Text("Customized").italic()
+                    RatingControlFormView(title: "Rating 19", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating19, itemSize: CGSize(width: 40, height: 40), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 20 (Disabled)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating20, ratingControlStyle: .editableDisabled, itemSize: CGSize(width: 30, height: 30), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 21 (Read Only) Rating 21 (Read Only)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating21, ratingControlStyle: .standard, itemSize: CGSize(width: 10, height: 10), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 22 (Read Only Large) Rating 22 (Read Only Large)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating22, ratingControlStyle: .standardLarge, itemSize: CGSize(width: 20, height: 20), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 23 (Accented)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating23, ratingControlStyle: .accented, itemSize: CGSize(width: 5, height: 5), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
+                    RatingControlFormView(title: "Rating 24 (Accented Large)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating24, ratingControlStyle: .accentedLarge, itemSize: CGSize(width: 10, height: 10), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
+                        .onStarImageStyle { style in
+                            OnStarImage(style)
+                                .foregroundStyle(.red)
+                        }
+                        .offStarImageStyle { style in
+                            OffStarImage(style)
+                                .foregroundStyle(.yellow)
+                        }
+                        .valueLabelStyle { style in
+                            ValueLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .reviewCountLabelStyle { style in
+                            ReviewCountLabel(style)
+                                .font(.fiori(forTextStyle: .headline))
+                                .foregroundStyle(.brown)
+                        }
+                        .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
                 }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
+                .padding(.horizontal, 16)
+            }
+            .environment(\.isLoading, self.isLoading)
+            #if !os(visionOS)
+                .scrollDismissesKeyboard(.immediately)
+            #endif
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Examples")
+                .toolbar {
+                    FioriButton(title: "Options") { _ in
+                        self.showingOptions = true
+                    }
                 }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
+                .sheet(isPresented: self.$showingOptions) {
+                    NavigationStack {
+                        List {
+                            Toggle("Shows Hint Message", isOn: self.$showsHintMessage)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Shows Value Label", isOn: self.$showsValueLabel)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Shows Review Count Label", isOn: self.$showsReviewCountLabel)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Sets Average Rating", isOn: self.$setsAverageRating)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Sets Review Count", isOn: self.$setsReviewCount)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Sets Review Count Ceiling", isOn: self.$setsReviewCountCeiling)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("AI Notice", isOn: self.$showAINotice)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Show Skeleton Loading", isOn: self.$isLoading)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                        }
+                        .navigationTitle("Options")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done") {
+                                    self.showingOptions = false
+                                }
+                            }
+                        }
+                    }
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
                 }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 20 (Disabled)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating20, ratingControlStyle: .editableDisabled, itemSize: CGSize(width: 30, height: 30), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
-                }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
-                }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 21 (Read Only) Rating 21 (Read Only)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating21, ratingControlStyle: .standard, itemSize: CGSize(width: 10, height: 10), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
-                }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
-                }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 22 (Read Only Large) Rating 22 (Read Only Large)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating22, ratingControlStyle: .standardLarge, itemSize: CGSize(width: 20, height: 20), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
-                }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
-                }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 23 (Accented)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating23, ratingControlStyle: .accented, itemSize: CGSize(width: 5, height: 5), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
-                }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
-                }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
-            RatingControlFormView(title: "Rating 24 (Accented Large)", onStarImage: Image(systemName: "hand.thumbsup.fill").renderingMode(.template).resizable(), offStarImage: Image(systemName: "hand.thumbsdown.fill").renderingMode(.template).resizable(), halfStarImage: Image(systemName: "hand.thumbsup.circle").renderingMode(.template).resizable(), rating: self.$rating24, ratingControlStyle: .accentedLarge, itemSize: CGSize(width: 10, height: 10), showsValueLabel: self.showsValueLabel, averageRating: self.getAverageRatingValue(), reviewCount: self.getReviewCount(), reviewCountCeiling: self.getReviewCountCeiling(), showsReviewCountLabel: self.showsReviewCountLabel)
-                .onStarImageStyle { style in
-                    OnStarImage(style)
-                        .foregroundStyle(.red)
-                }
-                .offStarImageStyle { style in
-                    OffStarImage(style)
-                        .foregroundStyle(.yellow)
-                }
-                .valueLabelStyle { style in
-                    ValueLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .reviewCountLabelStyle { style in
-                    ReviewCountLabel(style)
-                        .font(.fiori(forTextStyle: .headline))
-                        .foregroundStyle(.brown)
-                }
-                .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
         }
     }
 
@@ -293,8 +335,12 @@ struct RatingControlFormViewExample: View {
     func toggleShowSheet() {
         self.showBottomSheet.toggle()
     }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 
 #Preview {
-    RatingControlExample()
+    RatingControlFormViewExample()
 }

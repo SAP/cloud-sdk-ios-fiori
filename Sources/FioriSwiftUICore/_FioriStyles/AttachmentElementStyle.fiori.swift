@@ -91,17 +91,18 @@ extension AttachmentElementFioriStyle {
         }
     }
 }
-//
-//#Preview {
-//    @Previewable var attachments = [
-//        AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
-//        AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
-//        AttachmentInfo.error(sourceURL: URL(string: "https://example.com/My PDF.pdf")!, message: "Network error")
-//    ]
-//    
-//    HStack {
-//        ForEach(attachments, id: \.self) { attachment in
-//            AttachmentElement(attachmentInfo: attachment, controlState: .normal)
-//        }
-//    }
-//}
+/*
+#Preview {
+    @Previewable var attachments = [
+        AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
+        AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
+        AttachmentInfo.error(sourceURL: URL(string: "https://example.com/My PDF.pdf")!, message: "Network error")
+    ]
+    
+    HStack {
+        ForEach(attachments, id: \.self) { attachment in
+            AttachmentElement(attachmentInfo: attachment, controlState: .normal)
+        }
+    }
+}
+*/
