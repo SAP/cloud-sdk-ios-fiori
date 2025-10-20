@@ -101,21 +101,3 @@ extension AttachmentFioriStyle {
         }
     }
 }
-/*
-#Preview {
-    @Previewable var attachmentInfo = AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
-    
-    Attachment(
-        attachmentTitle: {
-            Text(attachmentInfo.attachmentName)
-        },
-        attachmentSubtitle: {
-            Text("768 KB")
-        },
-        attachmentFootnote: {
-            Text("01/01/2025")
-        },
-        attachmentInfo: attachmentInfo
-    )
-}
-*/

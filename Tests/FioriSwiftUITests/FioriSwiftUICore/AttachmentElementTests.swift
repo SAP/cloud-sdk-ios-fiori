@@ -167,7 +167,7 @@ final class AttachmentElementTests: XCTestCase {
         element.onPreview?(element.attachmentInfo)
         
         XCTAssertTrue(self.previewCalled, "Preview callback should have been called")
-        XCTAssertEqual(capturedAttachmentInfo?.id, self.destinationURL)
+        XCTAssertEqual(self.capturedAttachmentInfo?.id, self.destinationURL)
     }
     
     func testOnDeleteCallback() {

@@ -25,7 +25,7 @@ final class AttachmentGroupTests: XCTestCase {
         
         // Create test attachments
         self.testAttachments = [
-            .uploaded(destinationURL: destinationURL1, sourceURL: self.sourceURL1),
+            .uploaded(destinationURL: self.destinationURL1, sourceURL: self.sourceURL1),
             .uploading(sourceURL: self.sourceURL2),
             .error(sourceURL: self.sourceURL1, message: "Test error")
         ]
@@ -68,8 +68,7 @@ final class AttachmentGroupTests: XCTestCase {
             self.uploadCalled = true
             self.capturedItemProvider = itemProvider
             // Simulate successful upload
-            let result = AttachmentInfo.uploaded(destinationURL: URL(fileURLWithPath: "/mock/upload/result.pdf"), 
-                                               sourceURL: URL(fileURLWithPath: "/mock/source.pdf"))
+            let result = AttachmentInfo.uploaded(destinationURL: URL(fileURLWithPath: "/mock/upload/result.pdf"), sourceURL: URL(fileURLWithPath: "/mock/source.pdf"))
             completionHandler(.success(result))
         }
         
