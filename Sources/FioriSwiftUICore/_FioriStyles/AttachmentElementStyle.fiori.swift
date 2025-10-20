@@ -1,6 +1,6 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
-import FioriThemeManager
 
 // Base Layout style
 public struct AttachmentElementBaseStyle: AttachmentElementStyle {
@@ -48,12 +48,12 @@ extension AttachmentElementBaseStyle {
                 },
                 attachmentSubtitle: {
                     if let fileSize {
-                        Text(format(size: fileSize))
+                        Text(self.format(size: fileSize))
                     }
                 },
                 attachmentFootnote: {
                     if let fileModificationDate {
-                        Text(format(date: fileModificationDate))
+                        Text(self.format(date: fileModificationDate))
                     }
                 },
                 attachmentInfo: configuration.attachmentInfo,
@@ -91,18 +91,3 @@ extension AttachmentElementFioriStyle {
         }
     }
 }
-/*
-#Preview {
-    @Previewable var attachments = [
-        AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
-        AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!),
-        AttachmentInfo.error(sourceURL: URL(string: "https://example.com/My PDF.pdf")!, message: "Network error")
-    ]
-    
-    HStack {
-        ForEach(attachments, id: \.self) { attachment in
-            AttachmentElement(attachmentInfo: attachment, controlState: .normal)
-        }
-    }
-}
-*/

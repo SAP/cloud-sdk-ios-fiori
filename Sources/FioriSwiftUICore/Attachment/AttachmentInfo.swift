@@ -51,20 +51,20 @@ public enum AttachmentInfo: Identifiable, Hashable {
     /// - Returns: `true` if the attachment infos are equal, `false` otherwise
     public static func == (lhs: AttachmentInfo, rhs: AttachmentInfo) -> Bool {
         switch (lhs, rhs) {
-        case let (.uploading(lURL), .uploading(rURL)):
+        case (.uploading(let lURL), .uploading(let rURL)):
             return lURL == rURL
-        case let (.uploaded(lURL, lsURL, lInfo), .uploaded(rURL, rsURL, rInfo)):
+        case (.uploaded(let lURL, let lsURL, let lInfo), .uploaded(let rURL, let rsURL, let rInfo)):
             guard lURL == rURL else { return false }
             guard lsURL == rsURL else { return false }
             switch (lInfo, rInfo) {
             case (nil, nil):
                 return true
-            case let (l?, r?):
+            case (let l?, let r?):
                 return AnyHashable(l) == AnyHashable(r)
             default:
                 return false
             }
-        case let (.error(lURL, lMsg), .error(rURL, rMsg)):
+        case (.error(let lURL, let lMsg), .error(let rURL, let rMsg)):
             return lURL == rURL && lMsg == rMsg
         default:
             return false
@@ -117,7 +117,7 @@ public extension AttachmentInfo {
     ///
     /// This value is extracted from the last path component of the primary URL.
     var attachmentName: String {
-        return self.primaryURL.lastPathComponent
+        self.primaryURL.lastPathComponent
     }
     
     /// Returns the error message if the attachment is in an error state.
@@ -132,12 +132,12 @@ public extension AttachmentInfo {
     }
 }
 
-public extension Array where Element == AttachmentInfo {
+public extension [AttachmentInfo] {
     /// Indicates whether any attachment in the array is currently uploading.
     ///
     /// - Returns: `true` if at least one attachment is in `.uploading` state, `false` otherwise
     var isUploading: Bool {
-        return self.contains { info in
+        self.contains { info in
             if case .uploading = info {
                 return true
             } else {
@@ -150,7 +150,7 @@ public extension Array where Element == AttachmentInfo {
     ///
     /// - Returns: `true` if at least one attachment is in `.error` state, `false` otherwise
     var hasError: Bool {
-        return self.contains { info in
+        self.contains { info in
             if case .error = info {
                 return true
             } else {
@@ -164,7 +164,7 @@ public extension Array where Element == AttachmentInfo {
     /// - Parameter count: The threshold count to compare against
     /// - Returns: `true` if the number of uploaded attachments is greater than the specified count
     func hasAttachmentsMoreThan(_ count: Int) -> Bool {
-        return self.filter { info in
+        self.filter { info in
             if case .uploaded = info {
                 return true
             } else {
@@ -178,7 +178,7 @@ public extension Array where Element == AttachmentInfo {
     /// - Parameter destinationURL: The destination URL to search for
     /// - Returns: The index of the first matching attachment, or `nil` if not found
     func firstIndexOfUploaded(destinationURL: URL) -> Int? {
-        return self.firstIndex { info in
+        self.firstIndex { info in
             if case .uploaded(let url, _, _) = info, url == destinationURL {
                 return true
             } else {

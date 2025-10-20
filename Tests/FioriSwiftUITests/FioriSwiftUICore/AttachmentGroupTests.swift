@@ -25,9 +25,9 @@ final class AttachmentGroupTests: XCTestCase {
         
         // Create test attachments
         self.testAttachments = [
-            .uploaded(destinationURL: destinationURL1, sourceURL: sourceURL1),
-            .uploading(sourceURL: sourceURL2),
-            .error(sourceURL: sourceURL1, message: "Test error")
+            .uploaded(destinationURL: destinationURL1, sourceURL: self.sourceURL1),
+            .uploading(sourceURL: self.sourceURL2),
+            .error(sourceURL: self.sourceURL1, message: "Test error")
         ]
         
         // Create mock delegate
@@ -54,11 +54,9 @@ final class AttachmentGroupTests: XCTestCase {
     
     // Mock Attachment Delegate
     class MockAttachmentDelegate: AttachmentDelegate {
-        func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {
-        }
+        func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {}
         
-        func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, (any Error)?) -> Void) {
-        }
+        func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, (any Error)?) -> Void) {}
         
         var uploadCalled = false
         var downloadCalled = false
@@ -67,8 +65,8 @@ final class AttachmentGroupTests: XCTestCase {
         var capturedItemProvider: NSItemProvider?
         
         func upload(from itemProvider: NSItemProvider, completionHandler: @escaping (Result<AttachmentInfo, Error>) -> Void) {
-            uploadCalled = true
-            capturedItemProvider = itemProvider
+            self.uploadCalled = true
+            self.capturedItemProvider = itemProvider
             // Simulate successful upload
             let result = AttachmentInfo.uploaded(destinationURL: URL(fileURLWithPath: "/mock/upload/result.pdf"), 
                                                sourceURL: URL(fileURLWithPath: "/mock/source.pdf"))
@@ -76,14 +74,14 @@ final class AttachmentGroupTests: XCTestCase {
         }
         
         func download(from url: URL, completionHandler: @escaping (Result<URL, Error>) -> Void) {
-            downloadCalled = true
-            capturedURL = url
+            self.downloadCalled = true
+            self.capturedURL = url
             // Simulate successful download
             completionHandler(.success(URL(fileURLWithPath: "/mock/download/result.pdf")))
         }
         
         func delete(attachmentInfo: AttachmentInfo, completionHandler: @escaping (Result<Void, Error>) -> Void) {
-            deleteCalled = true
+            self.deleteCalled = true
             // Simulate successful deletion
             completionHandler(.success(()))
         }
@@ -96,11 +94,11 @@ final class AttachmentGroupTests: XCTestCase {
         controlState: ControlState = .normal,
         errorMessage: AttributedString? = nil
     ) -> AttachmentGroup {
-        return AttachmentGroup(
+        AttachmentGroup(
             title: { Text("Attachments") },
             attachments: .constant(attachments),
             maxCount: maxCount,
-            delegate: mockDelegate,
+            delegate: self.mockDelegate,
             controlState: controlState,
             errorMessage: .constant(errorMessage),
             operations: { EmptyView() }
@@ -110,7 +108,7 @@ final class AttachmentGroupTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testInitWithBasicParameters() {
-        let group = self.createAttachmentGroup(attachments: testAttachments)
+        let group = self.createAttachmentGroup(attachments: self.testAttachments)
         
         // Verify the properties were set correctly
         XCTAssertEqual(group.attachments.count, 3)
@@ -120,7 +118,7 @@ final class AttachmentGroupTests: XCTestCase {
     }
     
     func testInitWithMaxCount() {
-        let group = self.createAttachmentGroup(attachments: testAttachments, maxCount: 5)
+        let group = self.createAttachmentGroup(attachments: self.testAttachments, maxCount: 5)
         
         // Verify max count was set correctly
         XCTAssertEqual(group.maxCount, 5)
@@ -172,7 +170,7 @@ final class AttachmentGroupTests: XCTestCase {
     
     func testMaxCountEnforcement() {
         // When maxCount is set to current count, adding should be disabled
-        let exactCountGroup = self.createAttachmentGroup(attachments: testAttachments, maxCount: 3)
+        let exactCountGroup = self.createAttachmentGroup(attachments: self.testAttachments, maxCount: 3)
         
         // This would require UI testing to fully validate
         // In a complete test, we would verify that the add button is disabled
@@ -186,7 +184,7 @@ final class AttachmentGroupTests: XCTestCase {
         // This test is a placeholder for what would be more extensive testing
         // of the attachments binding behavior
         
-        let group = self.createAttachmentGroup(attachments: testAttachments)
+        let group = self.createAttachmentGroup(attachments: self.testAttachments)
         XCTAssertEqual(group.attachments.count, 3)
     }
     

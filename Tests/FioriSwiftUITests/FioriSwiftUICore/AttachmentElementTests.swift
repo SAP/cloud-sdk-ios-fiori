@@ -51,18 +51,18 @@ final class AttachmentElementTests: XCTestCase {
         
         switch state {
         case .uploading:
-            attachmentInfo = .uploading(sourceURL: sourceURL)
+            attachmentInfo = .uploading(sourceURL: self.sourceURL)
         case .uploaded:
-            attachmentInfo = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
+            attachmentInfo = .uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL)
         case .uploadedWithExtraInfo:
             let extraInfo = TestAttachmentExtraInfo(id: 123, name: "Test")
             attachmentInfo = .uploaded(
-                destinationURL: destinationURL,
-                sourceURL: sourceURL,
+                destinationURL: self.destinationURL,
+                sourceURL: self.sourceURL,
                 extraInfo: extraInfo
             )
         case .error:
-            attachmentInfo = .error(sourceURL: sourceURL, message: "Test error message")
+            attachmentInfo = .error(sourceURL: self.sourceURL, message: "Test error message")
         }
         
         return AttachmentElement(
@@ -166,8 +166,8 @@ final class AttachmentElementTests: XCTestCase {
         // Simulate user tapping on the attachment to preview
         element.onPreview?(element.attachmentInfo)
         
-        XCTAssertTrue(previewCalled, "Preview callback should have been called")
-        XCTAssertEqual(capturedAttachmentInfo?.id, destinationURL)
+        XCTAssertTrue(self.previewCalled, "Preview callback should have been called")
+        XCTAssertEqual(capturedAttachmentInfo?.id, self.destinationURL)
     }
     
     func testOnDeleteCallback() {
@@ -176,8 +176,8 @@ final class AttachmentElementTests: XCTestCase {
         // Simulate user tapping delete button
         element.onDelete?(element.attachmentInfo)
         
-        XCTAssertTrue(deleteCalled, "Delete callback should have been called")
-        XCTAssertEqual(self.capturedAttachmentInfo?.id, destinationURL)
+        XCTAssertTrue(self.deleteCalled, "Delete callback should have been called")
+        XCTAssertEqual(self.capturedAttachmentInfo?.id, self.destinationURL)
     }
     
     func testOnExtraInfoChangeCallback() {

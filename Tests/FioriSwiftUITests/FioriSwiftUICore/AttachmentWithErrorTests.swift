@@ -3,7 +3,6 @@ import SwiftUI
 import XCTest
 
 final class AttachmentWithErrorTests: XCTestCase {
-    
     // Test URLs and objects
     var sourceURL: URL!
     
@@ -81,7 +80,7 @@ final class AttachmentWithErrorTests: XCTestCase {
         // Simulate user tapping on the attachment to preview
         errorComponent.onPreview?(errorComponent.attachmentInfo)
         
-        XCTAssertTrue(previewCalled, "Preview callback should have been called")
+        XCTAssertTrue(self.previewCalled, "Preview callback should have been called")
         
         if let capturedInfo = self.capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
             XCTAssertEqual(url, self.sourceURL)
@@ -96,7 +95,7 @@ final class AttachmentWithErrorTests: XCTestCase {
         // Simulate user tapping delete button
         errorComponent.onDelete?(errorComponent.attachmentInfo)
         
-        XCTAssertTrue(deleteCalled, "Delete callback should have been called")
+        XCTAssertTrue(self.deleteCalled, "Delete callback should have been called")
         
         if let capturedInfo = self.capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
             XCTAssertEqual(url, self.sourceURL)

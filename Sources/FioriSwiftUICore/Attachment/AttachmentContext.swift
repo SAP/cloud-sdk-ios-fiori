@@ -62,7 +62,7 @@ open class AttachmentContext {
     /// When an attachment is successfully uploaded, this closure is called to generate optional
     /// extra information that will be associated with the attachment in its `.uploaded` state.
     /// - Returns: An instance conforming to `AttachmentExtraInfo` to associate with uploaded attachments.
-    public var onDefaultExtraInfo: (() -> any AttachmentExtraInfo)? = nil
+    public var onDefaultExtraInfo: (() -> any AttachmentExtraInfo)?
     
     /// Indicates whether an attachment is currently being uploaded.
     ///

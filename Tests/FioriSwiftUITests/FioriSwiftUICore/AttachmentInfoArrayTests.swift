@@ -2,7 +2,6 @@
 import XCTest
 
 final class AttachmentInfoArrayTests: XCTestCase {
-    
     // Helper properties for creating consistent test data
     var sourceURL: URL!
     var destinationURL: URL!
@@ -187,9 +186,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
         let destination = URL(fileURLWithPath: "/tmp/file.pdf")
         
         let attachments = [
-            AttachmentInfo.uploading(sourceURL: sourceURL),
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
             AttachmentInfo.uploaded(destinationURL: destination, sourceURL: self.sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error"),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error"),
             AttachmentInfo.uploaded(destinationURL: destination, sourceURL: self.sourceURL)
         ]
         

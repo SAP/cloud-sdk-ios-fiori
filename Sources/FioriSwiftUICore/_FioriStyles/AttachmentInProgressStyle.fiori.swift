@@ -57,16 +57,3 @@ extension AttachmentInProgressFioriStyle {
         }
     }
 }
-/*
-#Preview {
-    @Previewable var attachmentInfo = AttachmentInfo.uploading(sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
-
-    AttachmentInProgress(
-        attachmentInProgressTitle: {
-            Text(attachmentInfo.primaryURL.lastPathComponent)
-        },
-        attachmentInfo: attachmentInfo
-    )
-    .preferredColorScheme(.light)
-}
-*/
