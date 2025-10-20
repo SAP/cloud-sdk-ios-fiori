@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 final class AttachmentElementTests: XCTestCase {
     
@@ -17,21 +17,21 @@ final class AttachmentElementTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Reset flags before each test
-        previewCalled = false
-        deleteCalled = false
-        extraInfoUpdateCalled = false
-        capturedAttachmentInfo = nil
-        capturedExtraInfo = nil
+        self.previewCalled = false
+        self.deleteCalled = false
+        self.extraInfoUpdateCalled = false
+        self.capturedAttachmentInfo = nil
+        self.capturedExtraInfo = nil
         
         // Create test URLs
-        sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
-        destinationURL = URL(fileURLWithPath: "/tmp/destination_file.pdf")
+        self.sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
+        self.destinationURL = URL(fileURLWithPath: "/tmp/destination_file.pdf")
     }
     
     override func tearDownWithError() throws {
         // Clean up
-        sourceURL = nil
-        destinationURL = nil
+        self.sourceURL = nil
+        self.destinationURL = nil
     }
     
     // MARK: - Test Helpers
@@ -94,10 +94,10 @@ final class AttachmentElementTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testInitWithUploadingAttachment() {
-        let element = createAttachmentElement(state: .uploading)
+        let element = self.createAttachmentElement(state: .uploading)
         
         if case .uploading(let url) = element.attachmentInfo {
-            XCTAssertEqual(url, sourceURL)
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Expected uploading state but got \(element.attachmentInfo)")
         }
@@ -106,11 +106,11 @@ final class AttachmentElementTests: XCTestCase {
     }
     
     func testInitWithUploadedAttachment() {
-        let element = createAttachmentElement(state: .uploaded)
+        let element = self.createAttachmentElement(state: .uploaded)
         
         if case .uploaded(let destURL, let srcURL, let extraInfo) = element.attachmentInfo {
-            XCTAssertEqual(destURL, destinationURL)
-            XCTAssertEqual(srcURL, sourceURL)
+            XCTAssertEqual(destURL, self.destinationURL)
+            XCTAssertEqual(srcURL, self.sourceURL)
             XCTAssertNil(extraInfo)
         } else {
             XCTFail("Expected uploaded state but got \(element.attachmentInfo)")
@@ -118,11 +118,11 @@ final class AttachmentElementTests: XCTestCase {
     }
     
     func testInitWithUploadedAttachmentWithExtraInfo() {
-        let element = createAttachmentElement(state: .uploadedWithExtraInfo)
+        let element = self.createAttachmentElement(state: .uploadedWithExtraInfo)
         
         if case .uploaded(let destURL, let srcURL, let extraInfo) = element.attachmentInfo {
-            XCTAssertEqual(destURL, destinationURL)
-            XCTAssertEqual(srcURL, sourceURL)
+            XCTAssertEqual(destURL, self.destinationURL)
+            XCTAssertEqual(srcURL, self.sourceURL)
             XCTAssertNotNil(extraInfo)
             
             if let typedExtraInfo = extraInfo as? TestAttachmentExtraInfo {
@@ -137,10 +137,10 @@ final class AttachmentElementTests: XCTestCase {
     }
     
     func testInitWithErrorAttachment() {
-        let element = createAttachmentElement(state: .error)
+        let element = self.createAttachmentElement(state: .error)
         
         if case .error(let url, let message) = element.attachmentInfo {
-            XCTAssertEqual(url, sourceURL)
+            XCTAssertEqual(url, self.sourceURL)
             XCTAssertEqual(message, "Test error message")
         } else {
             XCTFail("Expected error state but got \(element.attachmentInfo)")
@@ -148,20 +148,20 @@ final class AttachmentElementTests: XCTestCase {
     }
     
     func testInitWithDifferentControlStates() {
-        let normalElement = createAttachmentElement(state: .uploaded, controlState: .normal)
+        let normalElement = self.createAttachmentElement(state: .uploaded, controlState: .normal)
         XCTAssertEqual(normalElement.controlState, .normal)
         
-        let disabledElement = createAttachmentElement(state: .uploaded, controlState: .disabled)
+        let disabledElement = self.createAttachmentElement(state: .uploaded, controlState: .disabled)
         XCTAssertEqual(disabledElement.controlState, .disabled)
         
-        let readOnlyElement = createAttachmentElement(state: .uploaded, controlState: .readOnly)
+        let readOnlyElement = self.createAttachmentElement(state: .uploaded, controlState: .readOnly)
         XCTAssertEqual(readOnlyElement.controlState, .readOnly)
     }
     
     // MARK: - Callback Tests
     
     func testOnPreviewCallback() {
-        let element = createAttachmentElement(state: .uploaded)
+        let element = self.createAttachmentElement(state: .uploaded)
         
         // Simulate user tapping on the attachment to preview
         element.onPreview?(element.attachmentInfo)
@@ -171,51 +171,51 @@ final class AttachmentElementTests: XCTestCase {
     }
     
     func testOnDeleteCallback() {
-        let element = createAttachmentElement(state: .uploaded)
+        let element = self.createAttachmentElement(state: .uploaded)
         
         // Simulate user tapping delete button
         element.onDelete?(element.attachmentInfo)
         
         XCTAssertTrue(deleteCalled, "Delete callback should have been called")
-        XCTAssertEqual(capturedAttachmentInfo?.id, destinationURL)
+        XCTAssertEqual(self.capturedAttachmentInfo?.id, destinationURL)
     }
     
     func testOnExtraInfoChangeCallback() {
-        let element = createAttachmentElement(state: .uploaded)
+        let element = self.createAttachmentElement(state: .uploaded)
         let newExtraInfo = TestAttachmentExtraInfo(id: 456, name: "Updated")
         
         // Simulate updating extra info
         element.onExtraInfoChange?(newExtraInfo)
         
-        XCTAssertTrue(extraInfoUpdateCalled, "Extra info update callback should have been called")
-        XCTAssertEqual(capturedExtraInfo?.id, 456)
-        XCTAssertEqual(capturedExtraInfo?.name, "Updated")
+        XCTAssertTrue(self.extraInfoUpdateCalled, "Extra info update callback should have been called")
+        XCTAssertEqual(self.capturedExtraInfo?.id, 456)
+        XCTAssertEqual(self.capturedExtraInfo?.name, "Updated")
     }
     
     // MARK: - State-Specific Behavior Tests
     
     func testAttachmentNameFromPrimaryURL() {
         // For uploaded attachment, name should come from destination URL
-        let uploadedElement = createAttachmentElement(state: .uploaded)
+        let uploadedElement = self.createAttachmentElement(state: .uploaded)
         XCTAssertEqual(uploadedElement.attachmentInfo.attachmentName, "destination_file.pdf")
         
         // For uploading attachment, name should come from source URL
-        let uploadingElement = createAttachmentElement(state: .uploading)
+        let uploadingElement = self.createAttachmentElement(state: .uploading)
         XCTAssertEqual(uploadingElement.attachmentInfo.attachmentName, "source_file.pdf")
         
         // For error attachment, name should come from source URL
-        let errorElement = createAttachmentElement(state: .error)
+        let errorElement = self.createAttachmentElement(state: .error)
         XCTAssertEqual(errorElement.attachmentInfo.attachmentName, "source_file.pdf")
     }
     
     func testErrorMessageOnlyAvailableForErrorState() {
-        let uploadedElement = createAttachmentElement(state: .uploaded)
+        let uploadedElement = self.createAttachmentElement(state: .uploaded)
         XCTAssertNil(uploadedElement.attachmentInfo.errorMessage)
         
-        let uploadingElement = createAttachmentElement(state: .uploading)
+        let uploadingElement = self.createAttachmentElement(state: .uploading)
         XCTAssertNil(uploadingElement.attachmentInfo.errorMessage)
         
-        let errorElement = createAttachmentElement(state: .error)
+        let errorElement = self.createAttachmentElement(state: .error)
         XCTAssertEqual(errorElement.attachmentInfo.errorMessage, "Test error message")
     }
 }

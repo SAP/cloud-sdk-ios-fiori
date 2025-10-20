@@ -1,5 +1,5 @@
-import XCTest
 @testable import FioriSwiftUICore
+import XCTest
 
 final class AttachmentInfoArrayTests: XCTestCase {
     
@@ -10,9 +10,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Create test URLs that we'll use in multiple tests
-        sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
-        destinationURL = URL(fileURLWithPath: "/tmp/destination_file.pdf")
-        destinationURL2 = URL(fileURLWithPath: "/tmp/destination_file2.pdf")
+        self.sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
+        self.destinationURL = URL(fileURLWithPath: "/tmp/destination_file.pdf")
+        self.destinationURL2 = URL(fileURLWithPath: "/tmp/destination_file2.pdf")
     }
     
     // MARK: - isUploading Tests
@@ -20,8 +20,8 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testIsUploadingWithNoUploadingAttachments() {
         // Create an array with no uploading attachments
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error")
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error")
         ]
         
         // The isUploading property should be false
@@ -31,9 +31,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testIsUploadingWithUploadingAttachment() {
         // Create an array with one uploading attachment
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL),
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error")
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL),
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error")
         ]
         
         // The isUploading property should be true
@@ -51,8 +51,8 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasErrorWithNoErrorAttachments() {
         // Create an array with no error attachments
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL),
-            AttachmentInfo.uploading(sourceURL: sourceURL)
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL),
+            AttachmentInfo.uploading(sourceURL: self.sourceURL)
         ]
         
         // The hasError property should be false
@@ -62,8 +62,8 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasErrorWithErrorAttachment() {
         // Create an array with one error attachment
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Network error")
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Network error")
         ]
         
         // The hasError property should be true
@@ -79,8 +79,8 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasErrorWithMultipleErrorAttachments() {
         // Create an array with multiple error attachments
         let attachments = [
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Network error"),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Server error")
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Network error"),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Server error")
         ]
         
         // The hasError property should be true
@@ -92,8 +92,8 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasAttachmentsMoreThanWithNoUploaded() {
         // Create an array with no uploaded attachments
         let attachments = [
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error")
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error")
         ]
         
         // Should not have more than 0 uploaded attachments
@@ -103,9 +103,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasAttachmentsMoreThanWithSomeUploaded() {
         // Create an array with 2 uploaded attachments and 1 uploading
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL),
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.uploaded(destinationURL: destinationURL2, sourceURL: sourceURL)
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL),
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL2, sourceURL: self.sourceURL)
         ]
         
         // Should have more than 0 uploaded attachments
@@ -131,7 +131,7 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testHasAttachmentsMoreThanWithNegativeCount() {
         // Create an array with 1 uploaded attachment
         let attachments = [
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL)
         ]
         
         // Should have more than -1 uploaded attachments
@@ -146,10 +146,10 @@ final class AttachmentInfoArrayTests: XCTestCase {
         let destination2 = URL(fileURLWithPath: "/tmp/file2.pdf")
         
         let attachments = [
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.uploaded(destinationURL: destination1, sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error"),
-            AttachmentInfo.uploaded(destinationURL: destination2, sourceURL: sourceURL)
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.uploaded(destinationURL: destination1, sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error"),
+            AttachmentInfo.uploaded(destinationURL: destination2, sourceURL: self.sourceURL)
         ]
         
         // Should find first uploaded with destination1
@@ -165,9 +165,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
         let nonMatchingURL = URL(fileURLWithPath: "/tmp/nonexistent.pdf")
         
         let attachments = [
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.uploaded(destinationURL: destination1, sourceURL: sourceURL),
-            AttachmentInfo.error(sourceURL: sourceURL, message: "Error")
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.uploaded(destinationURL: destination1, sourceURL: self.sourceURL),
+            AttachmentInfo.error(sourceURL: self.sourceURL, message: "Error")
         ]
         
         // Should not find uploaded with non-matching URL
@@ -188,9 +188,9 @@ final class AttachmentInfoArrayTests: XCTestCase {
         
         let attachments = [
             AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.uploaded(destinationURL: destination, sourceURL: sourceURL),
+            AttachmentInfo.uploaded(destinationURL: destination, sourceURL: self.sourceURL),
             AttachmentInfo.error(sourceURL: sourceURL, message: "Error"),
-            AttachmentInfo.uploaded(destinationURL: destination, sourceURL: sourceURL)
+            AttachmentInfo.uploaded(destinationURL: destination, sourceURL: self.sourceURL)
         ]
         
         // Should find first uploaded with matching destination
@@ -200,11 +200,11 @@ final class AttachmentInfoArrayTests: XCTestCase {
     func testFirstIndexOfUploadedWithSourceURL() {
         // Create an array where source and destination URLs might be confused
         let attachments = [
-            AttachmentInfo.uploading(sourceURL: sourceURL),
-            AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
+            AttachmentInfo.uploading(sourceURL: self.sourceURL),
+            AttachmentInfo.uploaded(destinationURL: self.destinationURL, sourceURL: self.sourceURL)
         ]
         
         // Should not find uploaded with source URL (only searches destination URLs)
-        XCTAssertNil(attachments.firstIndexOfUploaded(destinationURL: sourceURL), "Should not match on source URL when searching for destination URL")
+        XCTAssertNil(attachments.firstIndexOfUploaded(destinationURL: self.sourceURL), "Should not match on source URL when searching for destination URL")
     }
 }

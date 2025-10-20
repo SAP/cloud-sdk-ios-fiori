@@ -1,7 +1,6 @@
-import XCTest
-import Foundation
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 /// Custom type conforming to AttachmentExtraInfo for testing purposes
 struct TestExtraInfo: AttachmentExtraInfo {
@@ -20,7 +19,7 @@ final class AttachmentInfoTests: XCTestCase {
     // MARK: - Base Case Tests
     
     func testUploadingCase() {
-        let (sourceURL, _) = createTestURLs()
+        let (sourceURL, _) = self.createTestURLs()
         let info = AttachmentInfo.uploading(sourceURL: sourceURL)
         
         // Verify the enum case and associated value
@@ -32,7 +31,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testUploadedCase() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         let info = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
         
         // Verify the enum case and associated values
@@ -46,7 +45,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testUploadedCaseWithExtraInfo() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         let extraInfo = TestExtraInfo(id: 123, description: "Test attachment")
         let info = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: extraInfo)
         
@@ -68,7 +67,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testErrorCase() {
-        let (sourceURL, _) = createTestURLs()
+        let (sourceURL, _) = self.createTestURLs()
         let errorMessage = "Network connection failed"
         let info = AttachmentInfo.error(sourceURL: sourceURL, message: errorMessage)
         
@@ -84,7 +83,7 @@ final class AttachmentInfoTests: XCTestCase {
     // MARK: - Identifiable Conformance Tests
     
     func testIdentifiableUploading() {
-        let (sourceURL, _) = createTestURLs()
+        let (sourceURL, _) = self.createTestURLs()
         let info = AttachmentInfo.uploading(sourceURL: sourceURL)
         
         // For uploading, id should be the source URL
@@ -92,7 +91,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testIdentifiableUploaded() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         let info = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
         
         // For uploaded, id should be the destination URL
@@ -100,7 +99,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testIdentifiableError() {
-        let (sourceURL, _) = createTestURLs()
+        let (sourceURL, _) = self.createTestURLs()
         let info = AttachmentInfo.error(sourceURL: sourceURL, message: "Error")
         
         // For error, id should be the source URL
@@ -110,7 +109,7 @@ final class AttachmentInfoTests: XCTestCase {
     // MARK: - Hashable Conformance Tests
     
     func testEquality() {
-        let (sourceURL1, destinationURL1) = createTestURLs()
+        let (sourceURL1, destinationURL1) = self.createTestURLs()
         let (sourceURL2, _) = (
             URL(fileURLWithPath: "/tmp/other_source.pdf"),
             URL(fileURLWithPath: "/tmp/other_destination.pdf")
@@ -156,7 +155,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testEqualityWithExtraInfo() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         let info1 = AttachmentInfo.uploaded(
             destinationURL: destinationURL,
@@ -184,7 +183,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testHashIntoWithDifferentCases() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         let uploading = AttachmentInfo.uploading(sourceURL: sourceURL)
         let uploaded = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
@@ -202,7 +201,7 @@ final class AttachmentInfoTests: XCTestCase {
     // MARK: - Utility Property Tests
     
     func testPrimaryURL() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         let uploading = AttachmentInfo.uploading(sourceURL: sourceURL)
         let uploaded = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
@@ -231,7 +230,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testErrorMessage() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         let uploading = AttachmentInfo.uploading(sourceURL: sourceURL)
         let uploaded = AttachmentInfo.uploaded(destinationURL: destinationURL, sourceURL: sourceURL)
@@ -246,7 +245,7 @@ final class AttachmentInfoTests: XCTestCase {
     // MARK: - Array Extension Tests
     
     func testArrayIsUploading() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         // Array with no uploading attachments
         let noUploading = [
@@ -265,7 +264,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testArrayHasError() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         
         // Array with no error attachments
         let noErrors = [
@@ -283,7 +282,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testArrayHasAttachmentsMoreThan() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, destinationURL) = self.createTestURLs()
         let altDestinationURL = URL(fileURLWithPath: "/tmp/another_file.pdf")
         
         // Create array with 2 uploaded attachments and 1 uploading
@@ -307,7 +306,7 @@ final class AttachmentInfoTests: XCTestCase {
     }
     
     func testArrayFirstIndexOfUploaded() {
-        let (sourceURL, destinationURL) = createTestURLs()
+        let (sourceURL, _) = self.createTestURLs()
         let destination1 = URL(fileURLWithPath: "/tmp/file1.pdf")
         let destination2 = URL(fileURLWithPath: "/tmp/file2.pdf")
         let destination3 = URL(fileURLWithPath: "/tmp/file3.pdf")

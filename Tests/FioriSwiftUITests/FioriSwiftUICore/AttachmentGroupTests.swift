@@ -1,13 +1,6 @@
-//
-//  AttachmentGroupTests.swift
-//  FioriSwiftUITests
-//
-//  Created on October 20, 2025.
-//
-
-import XCTest
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 final class AttachmentGroupTests: XCTestCase {
     
@@ -25,30 +18,30 @@ final class AttachmentGroupTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Create test URLs
-        sourceURL1 = URL(fileURLWithPath: "/tmp/source_file1.pdf")
-        sourceURL2 = URL(fileURLWithPath: "/tmp/source_file2.jpg")
-        destinationURL1 = URL(fileURLWithPath: "/tmp/destination_file1.pdf")
-        destinationURL2 = URL(fileURLWithPath: "/tmp/destination_file2.jpg")
+        self.sourceURL1 = URL(fileURLWithPath: "/tmp/source_file1.pdf")
+        self.sourceURL2 = URL(fileURLWithPath: "/tmp/source_file2.jpg")
+        self.destinationURL1 = URL(fileURLWithPath: "/tmp/destination_file1.pdf")
+        self.destinationURL2 = URL(fileURLWithPath: "/tmp/destination_file2.jpg")
         
         // Create test attachments
-        testAttachments = [
+        self.testAttachments = [
             .uploaded(destinationURL: destinationURL1, sourceURL: sourceURL1),
             .uploading(sourceURL: sourceURL2),
             .error(sourceURL: sourceURL1, message: "Test error")
         ]
         
         // Create mock delegate
-        mockDelegate = MockAttachmentDelegate()
+        self.mockDelegate = MockAttachmentDelegate()
     }
     
     override func tearDownWithError() throws {
         // Clean up
-        sourceURL1 = nil
-        sourceURL2 = nil
-        destinationURL1 = nil
-        destinationURL2 = nil
-        testAttachments = nil
-        mockDelegate = nil
+        self.sourceURL1 = nil
+        self.sourceURL2 = nil
+        self.destinationURL1 = nil
+        self.destinationURL2 = nil
+        self.testAttachments = nil
+        self.mockDelegate = nil
     }
     
     // MARK: - Test Helpers
@@ -117,7 +110,7 @@ final class AttachmentGroupTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testInitWithBasicParameters() {
-        let group = createAttachmentGroup(attachments: testAttachments)
+        let group = self.createAttachmentGroup(attachments: testAttachments)
         
         // Verify the properties were set correctly
         XCTAssertEqual(group.attachments.count, 3)
@@ -127,26 +120,26 @@ final class AttachmentGroupTests: XCTestCase {
     }
     
     func testInitWithMaxCount() {
-        let group = createAttachmentGroup(attachments: testAttachments, maxCount: 5)
+        let group = self.createAttachmentGroup(attachments: testAttachments, maxCount: 5)
         
         // Verify max count was set correctly
         XCTAssertEqual(group.maxCount, 5)
     }
     
     func testInitWithDifferentControlStates() {
-        let normalGroup = createAttachmentGroup(controlState: .normal)
+        let normalGroup = self.createAttachmentGroup(controlState: .normal)
         XCTAssertEqual(normalGroup.controlState, .normal)
         
-        let disabledGroup = createAttachmentGroup(controlState: .disabled)
+        let disabledGroup = self.createAttachmentGroup(controlState: .disabled)
         XCTAssertEqual(disabledGroup.controlState, .disabled)
         
-        let readOnlyGroup = createAttachmentGroup(controlState: .readOnly)
+        let readOnlyGroup = self.createAttachmentGroup(controlState: .readOnly)
         XCTAssertEqual(readOnlyGroup.controlState, .readOnly)
     }
     
     func testInitWithErrorMessage() {
         let errorMessage = AttributedString("Test error message")
-        let group = createAttachmentGroup(errorMessage: errorMessage)
+        let group = self.createAttachmentGroup(errorMessage: errorMessage)
         
         XCTAssertEqual(group.errorMessage, errorMessage)
     }
@@ -158,7 +151,7 @@ final class AttachmentGroupTests: XCTestCase {
         // In a real test, we might trigger the upload flow and verify the delegate is called
         
         // For now, we can verify the delegate is properly set
-        let group = createAttachmentGroup()
+        let group = self.createAttachmentGroup()
         XCTAssertNotNil(group.delegate)
         
         // In a real test, we would trigger the upload and verify:
@@ -168,7 +161,7 @@ final class AttachmentGroupTests: XCTestCase {
     func testDelegateDelete() {
         // Similar to above, we'd need more setup for a real test
         // But we can verify the delegate is properly set
-        let group = createAttachmentGroup()
+        let group = self.createAttachmentGroup()
         XCTAssertNotNil(group.delegate)
         
         // In a real test, we would trigger deletion and verify:
@@ -179,7 +172,7 @@ final class AttachmentGroupTests: XCTestCase {
     
     func testMaxCountEnforcement() {
         // When maxCount is set to current count, adding should be disabled
-        let exactCountGroup = createAttachmentGroup(attachments: testAttachments, maxCount: 3)
+        let exactCountGroup = self.createAttachmentGroup(attachments: testAttachments, maxCount: 3)
         
         // This would require UI testing to fully validate
         // In a complete test, we would verify that the add button is disabled
@@ -193,13 +186,13 @@ final class AttachmentGroupTests: XCTestCase {
         // This test is a placeholder for what would be more extensive testing
         // of the attachments binding behavior
         
-        let group = createAttachmentGroup(attachments: testAttachments)
+        let group = self.createAttachmentGroup(attachments: testAttachments)
         XCTAssertEqual(group.attachments.count, 3)
     }
     
     func testAttachmentContext() {
         // Verify that the component is using the AttachmentContext
-        let group = createAttachmentGroup()
+        let group = self.createAttachmentGroup()
         XCTAssertNotNil(group.context)
     }
 }

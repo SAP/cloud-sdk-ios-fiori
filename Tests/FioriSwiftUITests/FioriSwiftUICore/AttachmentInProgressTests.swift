@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 final class AttachmentInProgressTests: XCTestCase {
     
@@ -14,24 +14,24 @@ final class AttachmentInProgressTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Reset flags before each test
-        previewCalled = false
-        deleteCalled = false
-        capturedAttachmentInfo = nil
+        self.previewCalled = false
+        self.deleteCalled = false
+        self.capturedAttachmentInfo = nil
         
         // Create test URLs
-        sourceURL = URL(fileURLWithPath: "/tmp/uploading_file.pdf")
+        self.sourceURL = URL(fileURLWithPath: "/tmp/uploading_file.pdf")
     }
     
     override func tearDownWithError() throws {
         // Clean up
-        sourceURL = nil
+        self.sourceURL = nil
     }
     
     // MARK: - Test Helpers
     
     // Create a test instance of AttachmentInProgress
     private func createAttachmentInProgress() -> AttachmentInProgress {
-        let attachmentInfo = AttachmentInfo.uploading(sourceURL: sourceURL)
+        let attachmentInfo = AttachmentInfo.uploading(sourceURL: self.sourceURL)
         
         return AttachmentInProgress(
             attachmentInProgressTitle: {
@@ -52,52 +52,52 @@ final class AttachmentInProgressTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testInitWithUploadingAttachment() {
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         
         if case .uploading(let url) = progressComponent.attachmentInfo {
-            XCTAssertEqual(url, sourceURL)
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Expected uploading state but got \(progressComponent.attachmentInfo)")
         }
     }
     
     func testUploadingAttachmentName() {
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         XCTAssertEqual(progressComponent.attachmentInfo.attachmentName, "uploading_file.pdf")
     }
     
     func testNoErrorMessageForUploadingAttachment() {
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         XCTAssertNil(progressComponent.attachmentInfo.errorMessage, "Uploading attachment should not have an error message")
     }
     
     // MARK: - Callback Tests
     
     func testOnPreviewCallback() {
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         
         // Simulate user tapping on the attachment to preview
         progressComponent.onPreview?(progressComponent.attachmentInfo)
         
-        XCTAssertTrue(previewCalled, "Preview callback should have been called")
+        XCTAssertTrue(self.previewCalled, "Preview callback should have been called")
         
-        if let capturedInfo = capturedAttachmentInfo, case .uploading(let url) = capturedInfo {
-            XCTAssertEqual(url, sourceURL)
+        if let capturedInfo = self.capturedAttachmentInfo, case .uploading(let url) = capturedInfo {
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Captured attachment info should be in uploading state")
         }
     }
     
     func testOnDeleteCallback() {
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         
         // Simulate user tapping delete button
         progressComponent.onDelete?(progressComponent.attachmentInfo)
         
-        XCTAssertTrue(deleteCalled, "Delete callback should have been called")
+        XCTAssertTrue(self.deleteCalled, "Delete callback should have been called")
         
-        if let capturedInfo = capturedAttachmentInfo, case .uploading(let url) = capturedInfo {
-            XCTAssertEqual(url, sourceURL)
+        if let capturedInfo = self.capturedAttachmentInfo, case .uploading(let url) = capturedInfo {
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Captured attachment info should be in uploading state")
         }
@@ -111,7 +111,7 @@ final class AttachmentInProgressTests: XCTestCase {
     func testAttachmentInProgressTitleIsDisplayed() {
         // In a real UI test, we would validate that the title view displays the correct text
         // For this unit test, we can verify that the title view builder is provided
-        let progressComponent = createAttachmentInProgress()
+        let progressComponent = self.createAttachmentInProgress()
         XCTAssertNotNil(progressComponent.attachmentInProgressTitle, "In progress title should be provided")
     }
 }

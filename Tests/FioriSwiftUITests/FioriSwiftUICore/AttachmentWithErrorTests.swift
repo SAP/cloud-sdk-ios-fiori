@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 final class AttachmentWithErrorTests: XCTestCase {
     
@@ -14,24 +14,24 @@ final class AttachmentWithErrorTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Reset flags before each test
-        previewCalled = false
-        deleteCalled = false
-        capturedAttachmentInfo = nil
+        self.previewCalled = false
+        self.deleteCalled = false
+        self.capturedAttachmentInfo = nil
         
         // Create test URLs
-        sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
+        self.sourceURL = URL(fileURLWithPath: "/tmp/source_file.pdf")
     }
     
     override func tearDownWithError() throws {
         // Clean up
-        sourceURL = nil
+        self.sourceURL = nil
     }
     
     // MARK: - Test Helpers
     
     // Create a test instance of AttachmentWithError
     private func createAttachmentWithError(errorMessage: String = "Test error message") -> AttachmentWithError {
-        let attachmentInfo = AttachmentInfo.error(sourceURL: sourceURL, message: errorMessage)
+        let attachmentInfo = AttachmentInfo.error(sourceURL: self.sourceURL, message: errorMessage)
         
         return AttachmentWithError(
             attachmentErrorTitle: {
@@ -52,10 +52,10 @@ final class AttachmentWithErrorTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testInitWithErrorAttachment() {
-        let errorComponent = createAttachmentWithError()
+        let errorComponent = self.createAttachmentWithError()
         
         if case .error(let url, let message) = errorComponent.attachmentInfo {
-            XCTAssertEqual(url, sourceURL)
+            XCTAssertEqual(url, self.sourceURL)
             XCTAssertEqual(message, "Test error message")
         } else {
             XCTFail("Expected error state but got \(errorComponent.attachmentInfo)")
@@ -63,43 +63,43 @@ final class AttachmentWithErrorTests: XCTestCase {
     }
     
     func testErrorAttachmentName() {
-        let errorComponent = createAttachmentWithError()
+        let errorComponent = self.createAttachmentWithError()
         XCTAssertEqual(errorComponent.attachmentInfo.attachmentName, "source_file.pdf")
     }
     
     func testErrorMessageIsAvailable() {
         let customErrorMessage = "Network connection failed"
-        let errorComponent = createAttachmentWithError(errorMessage: customErrorMessage)
+        let errorComponent = self.createAttachmentWithError(errorMessage: customErrorMessage)
         XCTAssertEqual(errorComponent.attachmentInfo.errorMessage, customErrorMessage)
     }
     
     // MARK: - Callback Tests
     
     func testOnPreviewCallback() {
-        let errorComponent = createAttachmentWithError()
+        let errorComponent = self.createAttachmentWithError()
         
         // Simulate user tapping on the attachment to preview
         errorComponent.onPreview?(errorComponent.attachmentInfo)
         
         XCTAssertTrue(previewCalled, "Preview callback should have been called")
         
-        if let capturedInfo = capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
-            XCTAssertEqual(url, sourceURL)
+        if let capturedInfo = self.capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Captured attachment info should be in error state")
         }
     }
     
     func testOnDeleteCallback() {
-        let errorComponent = createAttachmentWithError()
+        let errorComponent = self.createAttachmentWithError()
         
         // Simulate user tapping delete button
         errorComponent.onDelete?(errorComponent.attachmentInfo)
         
         XCTAssertTrue(deleteCalled, "Delete callback should have been called")
         
-        if let capturedInfo = capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
-            XCTAssertEqual(url, sourceURL)
+        if let capturedInfo = self.capturedAttachmentInfo, case .error(let url, _) = capturedInfo {
+            XCTAssertEqual(url, self.sourceURL)
         } else {
             XCTFail("Captured attachment info should be in error state")
         }
@@ -113,7 +113,7 @@ final class AttachmentWithErrorTests: XCTestCase {
     func testAttachmentErrorTitleIsDisplayed() {
         // In a real UI test, we would validate that the title view displays the correct text
         // For this unit test, we can verify that the title view builder is provided
-        let errorComponent = createAttachmentWithError()
+        let errorComponent = self.createAttachmentWithError()
         XCTAssertNotNil(errorComponent.attachmentErrorTitle, "Error title should be provided")
     }
 }
