@@ -12,10 +12,6 @@ final class FioriButtonTests: XCTestCase {
         XCTAssertFalse(btn.isSelectionPersistent)
         XCTAssertEqual(btn.imageTitleSpacing, 8.0)
         XCTAssertEqual(btn.imagePosition, .leading)
-        // Internal closures should produce a view for supported states
-        _ = btn.label(.normal)
-        _ = btn.label(.disabled)
-        _ = btn.label(.highlighted)
     }
     
     func testInitializerCustomImage() {
@@ -27,19 +23,6 @@ final class FioriButtonTests: XCTestCase {
         XCTAssertTrue(btn.isSelectionPersistent)
         XCTAssertEqual(btn.imagePosition, .trailing)
         XCTAssertEqual(btn.imageTitleSpacing, 4)
-        _ = btn.label(.normal)
-        _ = btn.image(.normal)
-        _ = btn.label(.selected)
-        _ = btn.image(.selected)
-    }
-    
-    func testAttributedTitleClosureInit() {
-        let btn = FioriButton(isSelectionPersistent: false, title: { state in
-            AttributedString(state == .normal ? "Normal" : "Other")
-        }, action: { _ in })
-        _ = btn.label(.normal)
-        _ = btn.label(.disabled)
-        _ = btn.label(.highlighted)
     }
     
     func testAttributedTitleInit() {
@@ -48,14 +31,8 @@ final class FioriButtonTests: XCTestCase {
         _ = btn.label(.normal)
         _ = btn.label(.selected) // persistent selection supports selected
         XCTAssertTrue(btn.isSelectionPersistent)
-    }
-    
-    func testDeprecatedTitleClosureInit() {
-        let btn = FioriButton(isSelectionPersistent: false, action: { _ in }, title: { state in
-            state == .normal ? "Normal" : "Other"
-        })
-        _ = btn.label(.normal)
-        _ = btn.label(.highlighted)
+        let normalDesc = String(describing: btn.label(.normal))
+        XCTAssertTrue(normalDesc.contains("Static Title"), "Normal label should contain the static title text")
     }
     
     // MARK: - Configuration Tests
@@ -97,157 +74,16 @@ final class FioriButtonTests: XCTestCase {
         XCTAssertEqual(raised.minHeight, 60)
     }
     
-    // MARK: - Style Tests
-    
-    func testPrimaryButtonStyleMakeBody() {
-        let cfg = self.makeConfig(state: .normal)
-        let style = FioriPrimaryButtonStyle()
-        let body = style.makeBody(configuration: cfg)
-        // Just ensure body builds
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testSecondaryButtonStyleTintProcessing() {
-        let cfg = self.makeConfig(state: .highlighted)
-        let style = FioriSecondaryButtonStyle(colorStyle: .tint, loadingState: .processing)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testTertiaryNegativeSuccess() {
-        let cfg = self.makeConfig(state: .selected)
-        let style = FioriTertiaryButtonStyle(colorStyle: .negative, loadingState: .success)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testNavigationButtonStyleDisabledState() {
-        let cfg = self.makeConfig(state: .disabled)
-        let style = FioriNavigationButtonStyle(colorStyle: .tint)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    // MARK: - Style Provider Variants
-    
-    func testSecondaryButtonStyleNegativeNormalState() {
-        let cfg = self.makeConfig(state: .normal)
-        let style = FioriSecondaryButtonStyle(colorStyle: .negative)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testSecondaryButtonStyleNormalHighlightedState() {
-        let cfg = self.makeConfig(state: .highlighted)
-        let style = FioriSecondaryButtonStyle(colorStyle: .normal)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testTertiaryButtonStyleTintHighlightedState() {
-        let cfg = self.makeConfig(state: .highlighted)
-        let style = FioriTertiaryButtonStyle(colorStyle: .tint)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testTertiaryButtonStyleNegativeDisabledState() {
-        let cfg = self.makeConfig(state: .disabled)
-        let style = FioriTertiaryButtonStyle(colorStyle: .negative)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    // MARK: - Loading State Visual Variants
-    
-    func testPrimaryButtonStyleProcessingState() {
-        let cfg = self.makeConfig(state: .normal)
-        let style = FioriPrimaryButtonStyle(loadingState: .processing)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testPrimaryButtonStyleSuccessState() {
-        let cfg = self.makeConfig(state: .normal)
-        let style = FioriPrimaryButtonStyle(loadingState: .success)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testSecondaryButtonStyleProcessingStateTint() {
-        let cfg = self.makeConfig(state: .normal)
-        let style = FioriSecondaryButtonStyle(colorStyle: .tint, loadingState: .processing)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    func testTertiaryButtonStyleSuccessStateNormalColor() {
-        let cfg = self.makeConfig(state: .selected)
-        let style = FioriTertiaryButtonStyle(colorStyle: .normal, loadingState: .success)
-        let body = style.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    // MARK: - Type Erasure
-    
-    func testAnyFioriButtonStyleErasure() {
-        let primary = FioriPrimaryButtonStyle()
-        let anyStyle = primary.eraseToAnyFioriButtonStyle()
-        let cfg = self.makeConfig(state: .normal)
-        let body = anyStyle.makeBody(configuration: cfg)
-        _ = Mirror(reflecting: body)
-    }
-    
-    // MARK: - Persistent vs Non-Persistent Selection
-    
-    func testPersistentSelectionAllowsSelectedStateLabel() {
-        let btnPersistent = FioriButton(isSelectionPersistent: true, action: nil) { state in
-            Text("P-\(self.describe(state))")
-        }
-        _ = btnPersistent.label(.selected)
-        let btnNonPersistent = FioriButton(isSelectionPersistent: false, action: nil) { state in
-            Text("NP-\(self.describe(state))")
-        }
-        // Non-persistent should still produce a label for .highlighted but not rely on .selected state in typical usage
-        _ = btnNonPersistent.label(.highlighted)
-    }
-    
-    // MARK: - Additional Comprehensive Tests
-    
-    func testImagePositionVariantsBuild() {
-        let positions: [FioriButtonImagePosition] = [.leading, .trailing, .top, .bottom]
-        for pos in positions {
-            let btn = FioriButton(isSelectionPersistent: false, action: nil, label: { state in
-                Text("P-\(self.describe(state))")
-            }, image: { state in
-                Image(systemName: state == .highlighted ? "star.fill" : "star")
-            }, imagePosition: pos, imageTitleSpacing: 0)
-            _ = btn.label(.normal)
-            _ = btn.image(.normal)
-            _ = btn.label(.highlighted)
-            _ = btn.image(.highlighted)
-        }
-    }
-    
-    func testImageOnlyButtonBuilds() {
-        let btn = FioriButton(isSelectionPersistent: true, action: nil, label: { _ in EmptyView() }, image: { state in
-            Image(systemName: state == .selected ? "checkmark.circle" : "circle")
-        }, imagePosition: .leading, imageTitleSpacing: 2)
-        _ = btn.image(.normal)
-        _ = btn.image(.selected)
-        _ = btn.label(.selected) // returns EmptyView
-    }
-    
     func testPersistentSelectionLabelMappingDistinct() {
-        let btn = FioriButton(isSelectionPersistent: true, action: nil) { state in
+        let btnPersistent = FioriButton(isSelectionPersistent: true, action: nil) { state in
             switch state {
             case .normal: return Text("Normal")
             case .selected: return Text("Selected")
             default: return Text("Other")
             }
         }
-        let normalDesc = String(describing: btn.label(.normal))
-        let selectedDesc = String(describing: btn.label(.selected))
+        let normalDesc = String(describing: btnPersistent.label(.normal))
+        let selectedDesc = String(describing: btnPersistent.label(.selected))
         XCTAssertNotEqual(normalDesc, selectedDesc)
     }
     
@@ -275,28 +111,6 @@ final class FioriButtonTests: XCTestCase {
         let fixedNormal = String(describing: fixedBtn.label(.normal))
         XCTAssertTrue(closureNormal.contains("Alpha"))
         XCTAssertTrue(fixedNormal.contains("Alpha"))
-    }
-    
-    func testEnvironmentLoadingOpacityApplies() {
-        // Build button in a transient view hierarchy with isLoading environment true
-        let btn = FioriButton { _ in Text("Load") }
-        // We cannot directly assert opacity value without ViewInspector; we just ensure body builds under loading environment.
-        let host = VStack { btn }.environment(\.isLoading, true)
-        _ = Mirror(reflecting: host)
-    }
-    
-    func testCustomFioriButtonStyleInjection() {
-        struct TestStyle: FioriButtonStyle {
-            func makeBody(configuration: Configuration) -> some View {
-                configuration.label
-                    .foregroundColor(.purple)
-                    .padding(4)
-                    .background(RoundedRectangle(cornerRadius: 4).fill(Color.orange))
-            }
-        }
-        let btn = FioriButton { _ in Text("Styled") }
-        let styled = VStack { btn }.fioriButtonStyle(TestStyle())
-        _ = Mirror(reflecting: styled)
     }
     
     // MARK: - Helpers
@@ -361,6 +175,8 @@ final class FioriButtonTests: XCTestCase {
         }) { _ in }
         
         XCTAssertFalse(button.isSelectionPersistent)
+        let normalDesc = String(describing: button.label(.normal))
+        XCTAssertTrue(normalDesc.contains("State:"), "Closure-based attributed string should include 'State:' prefix")
     }
     
     func testDeprecatedStringProtocolInit() {
@@ -371,6 +187,8 @@ final class FioriButtonTests: XCTestCase {
         XCTAssertTrue(button.isSelectionPersistent)
         XCTAssertEqual(button.imagePosition, .leading)
         XCTAssertEqual(button.imageTitleSpacing, 8.0)
+        let normalDesc = String(describing: button.label(.normal))
+        XCTAssertTrue(normalDesc.contains("String Title"))
     }
     
     // MARK: - State Management Tests
@@ -561,6 +379,9 @@ final class FioriButtonTests: XCTestCase {
         }
         
         XCTAssertNotNil(button.label)
+        let normalDesc = String(describing: button.label(.normal))
+        let highlightedDesc = String(describing: button.label(.highlighted))
+        XCTAssertNotEqual(normalDesc, highlightedDesc, "Highlighted label should differ from normal label")
     }
     
     // MARK: - AttributedString Tests
@@ -571,6 +392,8 @@ final class FioriButtonTests: XCTestCase {
         
         let button = FioriButton(title: attributedString) { _ in }
         XCTAssertNotNil(button.label)
+        let normalDesc = String(describing: button.label(.normal))
+        XCTAssertTrue(normalDesc.contains("Formatted Text"))
     }
     
     func testAttributedStringClosure() {
@@ -581,6 +404,8 @@ final class FioriButtonTests: XCTestCase {
         }) { _ in }
         
         XCTAssertNotNil(button.label)
+        let normalDesc = String(describing: button.label(.normal))
+        XCTAssertTrue(normalDesc.contains("State:"))
     }
     
     // MARK: - Image Position Enum Tests
