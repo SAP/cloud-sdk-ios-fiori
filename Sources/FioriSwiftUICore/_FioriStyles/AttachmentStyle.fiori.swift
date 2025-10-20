@@ -101,7 +101,7 @@ extension AttachmentFioriStyle {
         }
     }
 }
-
+/*
 #Preview {
     @Previewable var attachmentInfo = AttachmentInfo.uploaded(destinationURL: URL(string: "https://example.com/My PDF.pdf")!, sourceURL: URL(string: "https://example.com/My PDF.pdf")!)
     
@@ -118,3 +118,4 @@ extension AttachmentFioriStyle {
         attachmentInfo: attachmentInfo
     )
 }
+*/
