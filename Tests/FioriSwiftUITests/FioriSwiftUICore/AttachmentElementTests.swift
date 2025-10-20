@@ -3,7 +3,6 @@ import SwiftUI
 import XCTest
 
 final class AttachmentElementTests: XCTestCase {
-    
     // Test URLs and objects
     var sourceURL: URL!
     var destinationURL: URL!
