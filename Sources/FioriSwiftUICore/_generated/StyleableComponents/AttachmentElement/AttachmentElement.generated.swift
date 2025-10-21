@@ -3,29 +3,95 @@
 import Foundation
 import SwiftUI
 
-/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
+/// `AttachmentElement` is a foundational UI component used by `AttachmentGroup` for displaying and managing
+/// attachment items in different states (normal, uploading, error).
+///
+/// This protocol defines the core properties and interactions required for attachment rendering:
+/// - Displaying attachment information
+/// - Handling state changes through control states
+/// - Managing user interactions like previewing and deletion
+/// - Supporting dynamic updates to attachment metadata
+///
+/// `AttachmentElement` serves as the base protocol for more specialized attachment components like
+/// `Attachment`, `AttachmentWithError`, and `AttachmentInProgress`.
 ///
 /// ## Usage
 /// ```swift
-/// // in context of looping through configuration.attachments array
-/// AttachmentElement(attachmentInfo: configuration.$attachments[index], controlState: configuration.controlState) { info in
-///     // preview here
-/// } onExtraInfoChange: { extraInfo in
-///     configuration.$attachments[index] = .uploaded(destinationURL: ...)
-/// } onDelete: { info in
-///     // delete goes here
+/// // Basic usage with required properties
+/// AttachmentElement(
+///     attachmentInfo: myAttachmentInfo,
+///     controlState: .normal,
+///     onPreview: { attachmentInfo in
+///         // Handle preview action
+///         previewController.preview(attachmentInfo.primaryURL)
+///     },
+///     onExtraInfoChange: { extraInfo in
+///         // Update attachment with new metadata
+///         updateAttachment(with: extraInfo)
+///     },
+///     onDelete: { attachmentInfo in
+///         // Handle deletion
+///         deleteAttachment(attachmentInfo)
+///     }
+/// )
+///
+/// // In context of looping through attachment array
+/// ForEach(configuration.attachments.indices, id: \.self) { index in
+///     AttachmentElement(
+///         attachmentInfo: configuration.attachments[index],
+///         controlState: configuration.controlState,
+///         onPreview: { info in
+///             previewManager.showPreview(for: info)
+///         },
+///         onExtraInfoChange: { extraInfo in
+///             // Update with new metadata while preserving state
+///             if case .uploaded(let destURL, let srcURL, _) = configuration.attachments[index] {
+///                 configuration.attachments[index] = .uploaded(
+///                     destinationURL: destURL,
+///                     sourceURL: srcURL,
+///                     extraInfo: extraInfo
+///                 )
+///             }
+///         },
+///         onDelete: { info in
+///             configuration.attachments.remove(at: index)
+///         }
+///     )
 /// }
 /// ```
 public struct AttachmentElement {
-    /// The collection of local attachment data model, which are prepared by Apps.
+    /// The attachment information object containing metadata and state.
+    ///
+    /// This property holds the `AttachmentInfo` instance representing the current state
+    /// of the attachment (uploading, uploaded, or error) and its associated metadata.
     let attachmentInfo: AttachmentInfo
-    /// The state of attachement group component
+    /// The control state that determines how the attachment element responds to user interaction.
+    ///
+    /// Possible values:
+    /// - `.normal`: Fully interactive (default)
+    /// - `.disabled`: Not interactive but visually unchanged
+    /// - `.readOnly`: Not interactive and visually indicates read-only state
     let controlState: ControlState
-    /// Trigger update on extraInfo of AttachmentInfo; applicable to only Attachment, neither AttachmentWithError nor AttachmentInProgress
+    /// A closure called when the extra information associated with an attachment needs to be updated.
+    ///
+    /// This is only applicable to attachments in the `.uploaded` state, and is not relevant for
+    /// attachments in `.uploading` or `.error` states.
+    ///
+    /// - Parameter AttachmentExtraInfo: The new metadata to associate with the attachment
     let onExtraInfoChange: ((any AttachmentExtraInfo) -> Void)?
-    /// Triggering preview
+    /// A closure called when the user requests to preview the attachment.
+    ///
+    /// This is typically triggered when the user taps on the attachment thumbnail or preview.
+    /// Implementations should handle displaying appropriate preview UI for the attachment type.
+    ///
+    /// - Parameter AttachmentInfo: The attachment information for the attachment to preview
     let onPreview: ((AttachmentInfo) -> Void)?
-    /// Triggering delete.
+    /// A closure called when the user requests to delete the attachment.
+    ///
+    /// This is typically triggered when the user taps a delete button or performs a deletion gesture.
+    /// Implementations should handle both UI updates and any backend deletion operations.
+    ///
+    /// - Parameter AttachmentInfo: The attachment information for the attachment to delete
     let onDelete: ((AttachmentInfo) -> Void)?
 
     @Environment(\.attachmentElementStyle) var style

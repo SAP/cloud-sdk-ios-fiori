@@ -3,29 +3,55 @@
 import Foundation
 import SwiftUI
 
-/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
+/// `Attachment` is the UI component used for displaying a single attachment within an `AttachmentGroup`.
+/// It presents attachment details including a thumbnail or preview image, title, subtitle, and footnote.
+///
+/// The component handles various states of attachments:
+/// - Display of uploaded attachments with thumbnail previews
+/// - Support for custom content through the default content view builder
+/// - Interaction events for preview and deletion
 ///
 /// ## Usage
+/// Use the `Attachment` component to display a file or image attachment with its metadata:
+///
 /// ```swift
-/// Attachment {
-///   AttachmentThumbnail(url: fileURL)
+/// // Display an attachment with a thumbnail generated from a file URL
+/// Attachment(attachmentInfo: myAttachmentInfo) {
+///   AttachmentThumbnail(url: myAttachmentInfo.primaryURL)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text(myAttachmentInfo.attachmentName)
 /// } attachmentSubtitle: {
 ///   Text("15MB")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Oct 20, 2025")
 /// }
 ///
-/// Attachment {
-///   Image(systemName: "leaf")
+/// // Display an attachment with a custom image
+/// Attachment(attachmentInfo: myAttachmentInfo) {
+///   Image(systemName: "doc.text")
 ///     .resizable()
+///     .aspectRatio(contentMode: .fit)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text(myAttachmentInfo.attachmentName)
 /// } attachmentSubtitle: {
-///   Text("15MB")
+///   Text("PDF Document")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Recently modified")
+/// }
+/// ```
+///
+/// Use with `AttachmentGroup` to manage collections of attachments:
+///
+/// ```swift
+/// AttachmentGroup(attachments: $myAttachments) {
+///   // Custom attachment rendering
+///   ForEach(myAttachments, id: \.id) { attachment in
+///     Attachment(attachmentInfo: attachment) {
+///       AttachmentThumbnail(url: attachment.primaryURL)
+///     } attachmentTitle: {
+///       Text(attachment.attachmentName)
+///     }
+///   }
 /// }
 /// ```
 public struct Attachment {
