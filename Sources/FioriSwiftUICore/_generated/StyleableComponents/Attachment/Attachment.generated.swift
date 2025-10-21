@@ -60,7 +60,7 @@ public struct Attachment {
     let attachmentFootnote: any View
     /// The collection of local attachment URLs, which are prepared by Apps.
     let attachmentInfo: AttachmentInfo
-    /// The state of attachement group component
+    /// The state of attachment group component
     let controlState: ControlState
     /// Trigger update on extraInfo of AttachmentInfo
     let onExtraInfoChange: ((AnyHashable) -> Void)?

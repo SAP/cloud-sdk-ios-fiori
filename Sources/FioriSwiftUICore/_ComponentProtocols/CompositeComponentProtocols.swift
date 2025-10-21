@@ -1814,7 +1814,7 @@ protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleCom
     var attachmentInfo: AttachmentInfo { get }
     
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
     
     /// Trigger update on extraInfo of AttachmentInfo
@@ -1886,7 +1886,7 @@ protocol _AttachmentInProgressComponent: _AttachmentInProgressTitleComponent {
 /// let delegate: AttachmentDelegate
 ///
 /// AttachmentGroup(
-///   title: { Text("Attachements") },
+///   title: { Text("Attachments") },
 ///   attachments: self.$attachments,
 ///   maxCount: 5,
 ///   delegate: self.delegate,
@@ -1903,13 +1903,13 @@ protocol _AttachmentInProgressComponent: _AttachmentInProgressTitleComponent {
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _AttachmentButtonImageComponent {
-    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    //// The image to be used for "Add" menu or dialog for operations, such as popping up image picker or file picker.
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
     var addButtonImage: Image { get }
 
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
 }
 
@@ -1960,11 +1960,11 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     var maxCount: Int? { get }
     
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
-    /// App specific attachemnt processing logics for adding or deleting attachments.
+    /// App specific attachment processing logics for adding or deleting attachments.
     var delegate: AttachmentDelegate { get }
     
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
     
     // sourcery: @Binding
@@ -3056,7 +3056,7 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     /// The view for inputting additional reason for negative feedback.
     var keyValueFormView: KeyValueFormView? { get }
     
-    /// Indicate whether the AIUserFeedback is pushed in, poped up or as an inspector. Default value is `.sheet`.
+    /// Indicate whether the AIUserFeedback is pushed in, popped up or as an inspector. Default value is `.sheet`.
     /// When it is pushed in, the height of sheet is fixed. The drag indicator is hidden, sheet can not be dragged.
     // sourcery: defaultValue = .sheet
     var displayMode: AIUserFeedbackDisplayMode { get }

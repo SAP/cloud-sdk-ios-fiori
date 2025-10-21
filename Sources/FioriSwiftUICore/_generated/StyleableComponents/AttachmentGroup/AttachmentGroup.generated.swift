@@ -42,9 +42,9 @@ public struct AttachmentGroup {
     @Binding var attachments: [AttachmentInfo]
     /// The maximum number of attachments
     let maxCount: Int?
-    /// App specific attachemnt processing logics for adding or deleting attachments.
+    /// App specific attachment processing logics for adding or deleting attachments.
     let delegate: AttachmentDelegate
-    /// The state of attachement group component
+    /// The state of attachment group component
     let controlState: ControlState
     /// The error message of the form view.
     @Binding var errorMessage: AttributedString?
