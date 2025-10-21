@@ -3,31 +3,44 @@
 import Foundation
 import SwiftUI
 
-/// `AttachmentGroup` is the UI component for adding, removing, and rendering thumbnails and previews.
+/// `AttachmentGroup` is a UI component that manages a collection of attachments with support for
+/// adding, removing, and viewing attachments from various sources.
+///
+/// This component provides a complete interface for attachment management, including:
+/// - Displaying existing attachments with thumbnails
+/// - Adding new attachments from photos, camera, files, or scanned documents
+/// - Previewing attachments
+/// - Showing upload progress and error states
+/// - Enforcing maximum attachment limits
 ///
 /// ## Usage
 /// ```swift
+/// @State private var attachments: [AttachmentInfo] = []
+/// @State private var errorMessage: AttributedString?
+/// let myAttachmentDelegate = MyAttachmentDelegate()
+///
 /// AttachmentGroup(
-///   title: { Text("Attachements") },
-///   attachments: self.$attachments,
-///   maxCount: 5,
-///   delegate: self.delegate,
-///   errorMessage: self.$attachmentError,
-///   operations: {
-///       AttachmentButtonImage()
-///           .operationsMenu {
-///               PhotosPickerMenuItem(filter: [.images])
-///               FilesPickerMenuItem(filter: [.pdf, .presentation])
-///           }
-///       }
-///  )
+///    title: { Text("Documents") },
+///    attachments: $attachments,
+///    maxCount: 5,
+///    delegate: myAttachmentDelegate,
+///    errorMessage: $errorMessage,
+///    operations: {
+///        AttachmentButtonImage()
+///            .operationsMenu {
+///                PhotosPickerMenuItem(filter: [.images])
+///                FilesPickerMenuItem(filter: [.pdf, .documents])
+///                CameraMenuItem()
+///            }
+///    }
+/// )
 /// ```
 public struct AttachmentGroup {
     let title: any View
     let context: AttachmentContext
     /// The collection of local attachment URLs, which are prepared by Apps.
     @Binding var attachments: [AttachmentInfo]
-    /// The maximium number of attachments
+    /// The maximum number of attachments
     let maxCount: Int?
     /// App specific attachemnt processing logics for adding or deleting attachments.
     let delegate: AttachmentDelegate
@@ -49,7 +62,7 @@ public struct AttachmentGroup {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                context: AttachmentContext = AttachmentContext.shared,
+                context: AttachmentContext = AttachmentContext(),
                 attachments: Binding<[AttachmentInfo]>,
                 maxCount: Int? = nil,
                 delegate: AttachmentDelegate = BasicAttachmentDelegate(),
@@ -82,7 +95,7 @@ public extension AttachmentGroup {
     init(title: AttributedString,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
-         context: AttachmentContext = AttachmentContext.shared,
+         context: AttachmentContext = AttachmentContext(),
          attachments: Binding<[AttachmentInfo]>,
          maxCount: Int? = nil,
          delegate: AttachmentDelegate = BasicAttachmentDelegate(),

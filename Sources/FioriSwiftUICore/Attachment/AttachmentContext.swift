@@ -70,13 +70,10 @@ open class AttachmentContext {
     /// or disable certain UI interactions during an ongoing upload.
     public var isUploading = false
 
-    /// The shared singleton instance of `AttachmentContext`.
+    /// Initializes a new attachment context with default settings.
     ///
-    /// Use this shared instance to access and manipulate attachment operations across your app.
-    /// This follows the singleton pattern to ensure a consistent attachment state throughout the app.
-    public static let shared = AttachmentContext()
-    
-    private init() {}
+    /// This initializer creates a new instance of `AttachmentContext` with the following default state:
+    public init() {}
     
     func upload(contentFrom provider: NSItemProvider) {
         guard let configuration else {

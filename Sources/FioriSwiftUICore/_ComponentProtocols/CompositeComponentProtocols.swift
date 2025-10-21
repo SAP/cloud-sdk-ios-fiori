@@ -1948,7 +1948,7 @@ protocol _AttachmentButtonImageComponent {
 // sourcery: CompositeComponent
 protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: @StateObject
-    // sourcery: defaultValue = "AttachmentContext.shared"
+    // sourcery: defaultValue = "AttachmentContext()"
     var context: AttachmentContext { get }
 
     // sourcery: @Binding
@@ -1956,7 +1956,7 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     var attachments: [AttachmentInfo] { get }
     
     // sourcery: defaultValue = "nil"
-    /// The maximium number of attachments
+    /// The maximum number of attachments
     var maxCount: Int? { get }
     
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
