@@ -2,21 +2,21 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct AttachmentDelegateExample: View {
-    @State var groupOneAttachments: [URL]
-    @State var groupTwoAttachments: [URL]
-    @State var groupThreeAttachments: [URL]
+    @State var groupOneAttachments: [AttachmentInfo]
+    @State var groupTwoAttachments: [AttachmentInfo]
+    @State var groupThreeAttachments: [AttachmentInfo]
     
     @State var groupOneError: AttributedString?
     @State var groupTwoError: AttributedString?
     @State var groupThreeError: AttributedString?
 
-    let groupOneProeceeor: BasicAttachmentDelegate
-    let groupTwoProeceeor: BasicAttachmentDelegate
-    let groupThreeProeceeor: MyAttachmentDelegate
+    let groupOneProcessor: BasicAttachmentDelegate
+    let groupTwoProcessor: BasicAttachmentDelegate
+    let groupThreeProcessor: MyAttachmentDelegate
 
     init() {
-        var g1Attachments: [URL] = []
-        self.groupOneProeceeor = BasicAttachmentDelegate(localFolderName: "groupOneAttachments") { folder in
+        var g1Attachments: [AttachmentInfo] = []
+        self.groupOneProcessor = BasicAttachmentDelegate(localFolderName: "groupOneAttachments") { folder in
             g1Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
                     Bundle.main.url(forResource: "PDF advances in foundation - Landscape", withExtension: "pdf"),
@@ -24,27 +24,27 @@ struct AttachmentDelegateExample: View {
                     Bundle.main.url(forResource: "MD File Example", withExtension: "md")
                 ].compactMap { $0 },
                 to: folder
-            )
+            ).map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
         }
         self.groupOneAttachments = g1Attachments
         self.groupOneError = nil
 
-        var g2Attachments: [URL] = []
-        self.groupTwoProeceeor = BasicAttachmentDelegate(localFolderName: "groupTwoAttachments") { folder in
+        var g2Attachments: [AttachmentInfo] = []
+        self.groupTwoProcessor = BasicAttachmentDelegate(localFolderName: "groupTwoAttachments") { folder in
             g2Attachments = BasicAttachmentDelegate.copy(
                 attachments: [
                     Bundle.main.url(forResource: "Word File Example", withExtension: "docx"),
                     Bundle.main.url(forResource: "Excel File Example", withExtension: "xlsx")
                 ].compactMap { $0 },
                 to: folder
-            )
+            ).map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
         }
             
         self.groupTwoAttachments = g2Attachments
         self.groupTwoError = nil
 
         self.groupThreeAttachments = []
-        self.groupThreeProeceeor = MyAttachmentDelegate()
+        self.groupThreeProcessor = MyAttachmentDelegate()
         self.groupThreeError = nil
     }
 
@@ -54,7 +54,7 @@ struct AttachmentDelegateExample: View {
                 AttachmentGroup(
                     title: { Text("Finished/Readonly Attachments (\(self.groupOneAttachments.count))") },
                     attachments: self.$groupOneAttachments,
-                    delegate: self.groupOneProeceeor,
+                    delegate: self.groupOneProcessor,
                     controlState: .readOnly,
                     errorMessage: self.$groupOneError
                 )
@@ -63,7 +63,7 @@ struct AttachmentDelegateExample: View {
                     title: { Text("WiP Attachments \(self.groupTwoAttachments.count) of 5") },
                     attachments: self.$groupTwoAttachments,
                     maxCount: 5,
-                    delegate: self.groupTwoProeceeor,
+                    delegate: self.groupTwoProcessor,
                     errorMessage: self.$groupTwoError,
                     operations: {
                         AttachmentButtonImage()
@@ -78,7 +78,7 @@ struct AttachmentDelegateExample: View {
                     title: { Text("Attachments w/ Custom Delegate") },
                     attachments: self.$groupThreeAttachments,
                     maxCount: 5,
-                    delegate: self.groupThreeProeceeor,
+                    delegate: self.groupThreeProcessor,
                     errorMessage: self.$groupThreeError,
                     operations: {
                         AttachmentButtonImage()

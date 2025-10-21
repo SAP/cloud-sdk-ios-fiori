@@ -3,11 +3,11 @@ import PhotosUI
 import SwiftUI
 
 struct AttachmentGroupCustomExample: View {
-    @State var urls = [
+    @State var attachments = [
         Bundle.main.url(forResource: "Text File Example", withExtension: "txt")!,
         Bundle.main.url(forResource: "XML File Example", withExtension: "xml")!,
         Bundle.main.url(forResource: "HTML File Example", withExtension: "html")!
-    ]
+    ].map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
     
     @State private var showFileImporter = false
     @State private var showPhotoPicker = false
@@ -22,7 +22,7 @@ struct AttachmentGroupCustomExample: View {
     var body: some View {
         ScrollView {
             VStack {
-                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$urls, errorMessage: self.$errorMessage) {
+                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$attachments, errorMessage: self.$errorMessage) {
                     Image(systemName: "plus")
                         .foregroundColor(self.colorScheme == .dark ? .white : .blue)
                         .font(.system(size: 24))

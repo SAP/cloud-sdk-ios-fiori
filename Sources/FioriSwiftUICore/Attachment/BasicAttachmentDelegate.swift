@@ -35,10 +35,15 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     }
     
     /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously.
-    open func upload(contentFrom provider: NSItemProvider, onCompletion: @escaping (URL?, Error?) -> Void) {
+    open func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
+                    if let onStarting {
+                        DispatchQueue.main.async {
+                            onStarting(url)
+                        }
+                    }
                     self.saveLocally(url: url, identifier: identifier, onCompletion: onCompletion)
                 } else {
                     onCompletion(nil, AttachmentError.failedToUploadAttachment("Failed to load file representation."))
