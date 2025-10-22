@@ -46,8 +46,10 @@ struct MyLabelStyle: LabelStyle {
         HStack(alignment: .center) {
             configuration.title
                 .foregroundColor(.purple)
+                .font(.subheadline.weight(.semibold))
             configuration.icon
                 .foregroundColor(.green)
+                .font(.subheadline.weight(.semibold))
         }
     }
 }
