@@ -52,11 +52,15 @@ extension SegmentedControlPickerFioriStyle {
         }
         
         var borderShape: some Shape {
-            if #available(iOS 26.0, *) {
-                return Capsule()
-            } else {
+            #if swift(>=6.0)
+                if #available(iOS 26.0, *) {
+                    return Capsule()
+                } else {
+                    return RoundedRectangle(cornerRadius: 9)
+                }
+            #else
                 return RoundedRectangle(cornerRadius: 9)
-            }
+            #endif
         }
     }
     
