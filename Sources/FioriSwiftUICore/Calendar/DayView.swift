@@ -271,6 +271,8 @@ public struct DayView: View {
     }
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
+    /// Limit max type size to save more space to display all the contents
     var scaleForSizeChange: Double {
         sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
     }

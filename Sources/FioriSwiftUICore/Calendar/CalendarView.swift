@@ -83,29 +83,30 @@ public struct CalendarView: View {
                 
                 if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
                     ScrollView(.horizontal, showsIndicators: false, content: {
-                        HStack {
+                        LazyHStack {
                             ForEach(0 ..< self.weeks.count, id: \.self) { index in
                                 let info = self.weeks[index]
                                 WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, selectedDate: self.selectedDateRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState)
                                 })
                                 .frame(width: self.availableWidth - paddingOffset * 2)
-                                .sizeReader(size: {
-                                    self.weekViewHeight = $0.height
-                                })
-                                .id(index)
+                                .fioriSizeReader { size in
+                                    DispatchQueue.main.async {
+                                        self.weekViewHeight = size.height
+                                    }
+                                }
                             }
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: self.$weekViewScrollPosition)
+                    .scrollPosition(id: self.$weekViewScrollPosition, anchor: .leading)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .background(
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(self.fillBackgroundColor)
                     )
-                    .frame(height: self.weekViewHeight)
+                    .frame(width: self.availableWidth - paddingOffset * 2, height: self.weekViewHeight)
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
                     .onAppear {
                         DispatchQueue.main.async {
@@ -114,7 +115,7 @@ public struct CalendarView: View {
                     }
                 } else if self.style == .expandable {
                     ScrollView(.horizontal, showsIndicators: false, content: {
-                        HStack {
+                        LazyHStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
@@ -123,44 +124,32 @@ public struct CalendarView: View {
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
                                             .frame(width: self.availableWidth - paddingOffset * 2)
-                                            .background(
-                                                GeometryReader { proxy in
-                                                    Color.clear
-                                                        .preference(key: SizePreferenceKey.self, value: proxy.size)
-                                                }
-                                            )
-                                            .onPreferenceChange(SizePreferenceKey.self) { newValue in
-                                                DispatchQueue.main.async {
-                                                    if self.pageHeights[index] != newValue.height {
-                                                        self.pageHeights[index] = newValue.height
-                                                        if let scrollPosition, scrollPosition == index {
-                                                            self.lastPageHeight = newValue.height
-                                                        }
-                                                    }
+                                            .fioriSizeReader { newValue in
+                                                DispatchQueue.main.async { self.pageHeights[index] = newValue.height
                                                 }
                                             }
-                                            .id(index)
                                     }
                                 }
                             }
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: self.$scrollPosition)
+                    .scrollPosition(id: self.$scrollPosition, anchor: .leading)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
+                    .frame(width: self.availableWidth - paddingOffset * 2)
                     .ifApply(self.scrollPosition != nil, content: {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: self.pageHeights[self.scrollPosition!])
+                            return $0.frame(height: max(self.pageHeights[self.scrollPosition!], 300))
                         }
                     })
                     .ifApply(self.scrollPosition == nil, content: {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: self.lastPageHeight)
+                            return $0.frame(height: max(self.lastPageHeight, 300))
                         }
                     })
                     .clipped()
@@ -172,7 +161,7 @@ public struct CalendarView: View {
                     .onAppear {}
                 } else if self.style == .month || self.showFullScreen {
                     ScrollView(.vertical, showsIndicators: false, content: {
-                        VStack {
+                        LazyVStack {
                             ForEach(0 ..< self.totalMonths, id: \.self) { index in
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
@@ -180,37 +169,28 @@ public struct CalendarView: View {
                                         MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDateRecord, selectedDates: self.selectedDatesRecord, selectedRange: self.selectedRangeRecord, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
-                                            .sizeReader(size: { newValue in
-                                                DispatchQueue.main.async {
-                                                    if self.pageHeights[index] != newValue.height {
-                                                        self.pageHeights[index] = newValue.height
-                                                        if let scrollPosition, scrollPosition == index {
-                                                            self.lastPageHeight = newValue.height
-                                                        }
-                                                    }
+                                            .fioriSizeReader { newValue in
+                                                DispatchQueue.main.async { self.pageHeights[index] = newValue.height
                                                 }
-                                            })
-                                            .id(index)
+                                            }
                                     }
                                 }
                             }
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: self.$scrollPosition)
-                    .ifApply(self.style == .month, content: {
-                        $0.scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-                    })
+                    .scrollPosition(id: self.$scrollPosition, anchor: .top)
+                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .background(
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(self.fillBackgroundColor)
                     )
                     .ifApply(self.scrollPosition != nil && self.style == .month, content: {
-                        $0.frame(height: self.pageHeights[self.scrollPosition!])
+                        $0.frame(height: max(self.pageHeights[self.scrollPosition!], 300))
                     })
                     .ifApply(self.scrollPosition == nil && self.style == .month, content: {
-                        $0.frame(height: self.lastPageHeight)
+                        $0.frame(height: max(self.lastPageHeight, 300))
                     })
                     .padding(EdgeInsets(
                         top: 0,
@@ -265,10 +245,23 @@ public struct CalendarView: View {
                 self.selectedDatesRecord = self.selectedDates
             }
             .onChange(of: self.selectedDate) { _, _ in
-                self.selectedDateRecord = self.selectedDate
+                
+                if let selectedDateRecord,
+                   let selectedDate,
+                   self.calendar.compare(selectedDateRecord, to: selectedDate, toGranularity: .day) != .orderedSame
+                {
+                    self.selectedDateRecord = self.selectedDate
+                }
             }
             .onChange(of: self.scrollPosition) { _, _ in
+                print("scrollPosition onChange:\(self.scrollPosition ?? 0)")
                 self.handleScrollPositionChange()
+                
+                DispatchQueue.main.async {
+                    if let scrollPosition, scrollPosition < self.pageHeights.count {
+                        self.lastPageHeight = self.pageHeights[scrollPosition]
+                    }
+                }
             }
             .onChange(of: self.weekViewScrollPosition) { oldValue, newValue in
                 self.handleWeekScrollPositionChange(oldValue, newValue)
@@ -304,10 +297,14 @@ public struct CalendarView: View {
                 GeometryReader { geometry in
                     let frame = geometry.frame(in: .global)
                     Color.clear
-                        .preference(key: ContentSizeReaderPreferenceKey.self, value: frame.size)
-                        .onPreferenceChange(ContentSizeReaderPreferenceKey.self) { newValue in
-                            self.safeAreaInsets = geometry.safeAreaInsets
-                            self.availableWidth = max(paddingOffset * 2, newValue.width)
+                        .preference(key: CalendarSizeReaderPreferenceKey.self, value: frame.size)
+                        .onPreferenceChange(CalendarSizeReaderPreferenceKey.self) { size in
+                            if abs(self.availableWidth - max(paddingOffset * 2, size.width)) > 0.1 {
+                                DispatchQueue.main.async {
+                                    self.safeAreaInsets = geometry.safeAreaInsets
+                                    self.availableWidth = max(paddingOffset * 2, size.width)
+                                }
+                            }
                         }
                 }
                 .hidden()
@@ -669,6 +666,7 @@ public struct CalendarView: View {
 //           let nextDate = self.calendar.date(byAdding: .day, value: (newValue - oldValue) * 7, to: selectedDateRecord)
 
 #Preview {
-    CalendarView(style: .constant(.week))
+    CalendarView(style: .constant(.month))
         .environment(\.showsWeekNumbers, true)
+        .environment(\.alternateCalendarType, .chinese)
 }

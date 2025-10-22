@@ -103,24 +103,30 @@ public struct WeekView: View, Equatable {
         let calendar = Calendar.autoupdatingCurrent
         
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber, verticalGuide: .titleFirstTextBaseline) {
-            Text("\(self.weekInfo.weekNumber)")
-                .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .bold))
-                .foregroundStyle(self.calendarItemTintAttributes[.weekNumberText]?[.normal] ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
-                .opacity(self.weekNumberVisibility ? 1 : 0)
-                .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
+            if self.weekNumberVisibility {
+                Text("\(self.weekInfo.weekNumber)")
+                    .font(.fiori(fixedSize: 11 * self.weekNumberForSizeChange, weight: .bold))
+                    .foregroundStyle(self.calendarItemTintAttributes[.weekNumberText]?[.normal] ?? Color.preferredColor(.tertiaryLabel).opacity(0.6))
+                    .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
+            } else {
+                Spacer(minLength: 0)
+            }
             
             ForEach(self.weekInfo.dates, id: \.self) { date in
                 let day = calendar.component(.day, from: date)
                 let state = self.dayState(date)
-                DayView(title: "\(day)", subtitle: getSecondaryDayTitle(date),
-                        isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: self.customEventView(date))
-                    .opacity((state == .outOfMonth && !self.showOutOfMonth) ? 0 : 1)
-                    .contentShape(Rectangle())
-                    .ifApply(!state.isDisabled, content: {
-                        $0.onTapGesture {
-                            self.dayTappedCallback?(date, state)
-                        }
-                    })
+                if state == .outOfMonth, !self.showOutOfMonth {
+                    Spacer(minLength: 0)
+                } else {
+                    DayView(title: "\(day)", subtitle: getSecondaryDayTitle(date),
+                            isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: self.customEventView(date))
+                        .contentShape(Rectangle())
+                        .ifApply(!state.isDisabled, content: {
+                            $0.onTapGesture {
+                                self.dayTappedCallback?(date, state)
+                            }
+                        })
+                }
             }
         }
     }
@@ -181,6 +187,10 @@ public struct WeekView: View, Equatable {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var scaleForSizeChange: Double {
         sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
+    }
+
+    var weekNumberForSizeChange: Double {
+        sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .xxxLarge)
     }
 }
 
