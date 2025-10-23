@@ -220,7 +220,7 @@ public struct CalendarView: View {
                     self.updateTitle()
                 }
             }
-            .onChange(of: self.selectedRange) { _, _ in
+            .setOnChange(of: self.selectedRange) {
                 if let dateRange = selectedRange,
                    let disabledDates,
                    disabledDates.isDisabled(dateRange.lowerBound) || disabledDates.isDisabled(dateRange.upperBound)
@@ -230,11 +230,10 @@ public struct CalendarView: View {
                     self.selectedRangeRecord = self.selectedRange
                 }
             }
-            .onChange(of: self.selectedDates) { _, _ in
+            .setOnChange(of: self.selectedDates) {
                 self.selectedDatesRecord = self.selectedDates
             }
-            .onChange(of: self.selectedDate) { _, _ in
-                
+            .setOnChange(of: self.selectedDate) {
                 if let selectedDateRecord,
                    let selectedDate,
                    self.calendar.compare(selectedDateRecord, to: selectedDate, toGranularity: .day) != .orderedSame
@@ -242,7 +241,7 @@ public struct CalendarView: View {
                     self.selectedDateRecord = self.selectedDate
                 }
             }
-            .onChange(of: self.scrollPosition) { _, _ in
+            .setOnChange(of: self.scrollPosition) {
                 print("scrollPosition onChange:\(self.scrollPosition ?? 0)")
                 self.handleScrollPositionChange()
                 
@@ -252,31 +251,33 @@ public struct CalendarView: View {
                     }
                 }
             }
-            .onChange(of: self.weekViewScrollPosition) { oldValue, newValue in
+            .setOnChange(of: self.weekViewScrollPosition, action1: { _ in
+            }, action2: { oldValue, newValue in
                 self.handleWeekScrollPositionChange(oldValue, newValue)
-            }
-            .onChange(of: self.selectedDateRecord) { _, _ in
+            })
+            .setOnChange(of: self.selectedDateRecord) {
                 self.updateTitle()
             }
-            .onChange(of: self.selectedDatesRecord) { _, _ in
+            .setOnChange(of: self.selectedDatesRecord) {
                 self.updateTitle()
             }
-            .onChange(of: self.selectedRangeRecord) { _, _ in
+            .setOnChange(of: self.selectedRangeRecord) {
                 self.updateTitle()
             }
-            .onChange(of: self.style) { _, _ in
+            .setOnChange(of: self.style) {
                 self.updateScrollPosition()
             }
-            .onChange(of: self.isExpanded) { _, _ in
+            .setOnChange(of: self.isExpanded) {
                 self.updateScrollPosition()
             }
-            .onChange(of: self.displayDateAtStartupRecord) {
+            .setOnChange(of: self.displayDateAtStartupRecord, action1: { _ in
+            }, action2: {
                 self.checkDisplayDateAtStartupRecord()
                 if self.calendar.compare($0, to: $1, toGranularity: .day) != .orderedSame {
                     self.updateScrollPosition()
                 }
-            }
-            .onChange(of: self.displayDateAtStartup) {
+            })
+            .setOnChange(of: self.displayDateAtStartup) {
                 self.displayDateAtStartupRecord = self.displayDateAtStartup ?? .now
             }
             .fioriSizeReader { size in
