@@ -1661,39 +1661,222 @@ protocol _StepProgressIndicatorComponent: _TitleComponent, _ActionComponent, _Ca
     var steps: [StepItem] { get }
 }
 
-/// `Attachment` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support users' operation, such as adding a photo or a file and to render attachment list.
+/// `AttachmentElement` is a foundational UI component used by `AttachmentGroup` for displaying and managing
+/// attachment items in different states (normal, uploading, error).
+///
+/// This protocol defines the core properties and interactions required for attachment rendering:
+/// - Displaying attachment information
+/// - Handling state changes through control states
+/// - Managing user interactions like previewing and deletion
+/// - Supporting dynamic updates to attachment metadata
+///
+/// `AttachmentElement` serves as the base protocol for more specialized attachment components like
+/// `Attachment`, `AttachmentWithError`, and `AttachmentInProgress`.
 ///
 /// ## Usage
 /// ```swift
-/// Attachment {
-///   AttachmentThumbnail(url: fileURL)
+/// // Basic usage with required properties
+/// AttachmentElement(
+///     attachmentInfo: myAttachmentInfo,
+///     controlState: .normal,
+///     onPreview: { attachmentInfo in
+///         // Handle preview action
+///         previewController.preview(attachmentInfo.primaryURL)
+///     },
+///     onExtraInfoChange: { extraInfo in
+///         // Update attachment with new metadata
+///         updateAttachment(with: extraInfo)
+///     },
+///     onDelete: { attachmentInfo in
+///         // Handle deletion
+///         deleteAttachment(attachmentInfo)
+///     }
+/// )
+///
+/// // In context of looping through attachment array
+/// ForEach(configuration.attachments.indices, id: \.self) { index in
+///     AttachmentElement(
+///         attachmentInfo: configuration.attachments[index],
+///         controlState: configuration.controlState,
+///         onPreview: { info in
+///             previewManager.showPreview(for: info)
+///         },
+///         onExtraInfoChange: { extraInfo in
+///             // Update with new metadata while preserving state
+///             if case .uploaded(let destURL, let srcURL, _) = configuration.attachments[index] {
+///                 configuration.attachments[index] = .uploaded(
+///                     destinationURL: destURL,
+///                     sourceURL: srcURL,
+///                     extraInfo: extraInfo
+///                 )
+///             }
+///         },
+///         onDelete: { info in
+///             configuration.attachments.remove(at: index)
+///         }
+///     )
+/// }
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentElementComponent {
+    /// The attachment information object containing metadata and state.
+    ///
+    /// This property holds the `AttachmentInfo` instance representing the current state
+    /// of the attachment (uploading, uploaded, or error) and its associated metadata.
+    var attachmentInfo: AttachmentInfo { get }
+    
+    // sourcery: defaultValue = .normal
+    /// The control state that determines how the attachment element responds to user interaction.
+    ///
+    /// Possible values:
+    /// - `.normal`: Fully interactive (default)
+    /// - `.disabled`: Not interactive but visually unchanged
+    /// - `.readOnly`: Not interactive and visually indicates read-only state
+    var controlState: ControlState { get }
+    
+    /// A closure called when the extra information associated with an attachment needs to be updated.
+    ///
+    /// This is only applicable to attachments in the `.uploaded` state, and is not relevant for
+    /// attachments in `.uploading` or `.error` states.
+    ///
+    /// - Parameter AttachmentExtraInfo: The new metadata to associate with the attachment
+    var onExtraInfoChange: ((any AttachmentExtraInfo) -> Void)? { get }
+
+    /// A closure called when the user requests to preview the attachment.
+    ///
+    /// This is typically triggered when the user taps on the attachment thumbnail or preview.
+    /// Implementations should handle displaying appropriate preview UI for the attachment type.
+    ///
+    /// - Parameter AttachmentInfo: The attachment information for the attachment to preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// A closure called when the user requests to delete the attachment.
+    ///
+    /// This is typically triggered when the user taps a delete button or performs a deletion gesture.
+    /// Implementations should handle both UI updates and any backend deletion operations.
+    ///
+    /// - Parameter AttachmentInfo: The attachment information for the attachment to delete
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `Attachment` is the UI component used for displaying a single attachment within an `AttachmentGroup`.
+/// It presents attachment details including a thumbnail or preview image, title, subtitle, and footnote.
+///
+/// The component handles various states of attachments:
+/// - Display of uploaded attachments with thumbnail previews
+/// - Support for custom content through the default content view builder
+/// - Interaction events for preview and deletion
+///
+/// ## Usage
+/// Use the `Attachment` component to display a file or image attachment with its metadata:
+///
+/// ```swift
+/// // Display an attachment with a thumbnail generated from a file URL
+/// Attachment(attachmentInfo: myAttachmentInfo) {
+///   AttachmentThumbnail(url: myAttachmentInfo.primaryURL)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text(myAttachmentInfo.attachmentName)
 /// } attachmentSubtitle: {
 ///   Text("15MB")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Oct 20, 2025")
 /// }
 ///
-/// Attachment {
-///   Image(systemName: "leaf")
+/// // Display an attachment with a custom image
+/// Attachment(attachmentInfo: myAttachmentInfo) {
+///   Image(systemName: "doc.text")
 ///     .resizable()
+///     .aspectRatio(contentMode: .fit)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text(myAttachmentInfo.attachmentName)
 /// } attachmentSubtitle: {
-///   Text("15MB")
+///   Text("PDF Document")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Recently modified")
+/// }
+/// ```
+///
+/// Use with `AttachmentGroup` to manage collections of attachments:
+///
+/// ```swift
+/// AttachmentGroup(attachments: $myAttachments) {
+///   // Custom attachment rendering
+///   ForEach(myAttachments, id: \.id) { attachment in
+///     Attachment(attachmentInfo: attachment) {
+///       AttachmentThumbnail(url: attachment.primaryURL)
+///     } attachmentTitle: {
+///       Text(attachment.attachmentName)
+///     }
+///   }
 /// }
 /// ```
 // sourcery: CompositeComponent
 protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleComponent, _AttachmentFootnoteComponent {
     /// The collection of local attachment URLs, which are prepared by Apps.
-    var url: URL { get }
+    var attachmentInfo: AttachmentInfo { get }
     
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
+    
+    /// Trigger update on extraInfo of AttachmentInfo
+    var onExtraInfoChange: ((AnyHashable) -> Void)? { get }
+
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `AttachmentWithError` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support error state of failed upload.
+///
+/// ## Usage
+/// ```swift
+/// AttachmentWithError(
+///     attachmentErrorTitle: {
+///         Text(configuration.attachmentInfo.attachmentName)
+///     },
+///     attachmentInfo: configuration.$attachmentInfo,
+///     onPreview: configuration.onPreview,
+///     onDelete: configuration.onDelete
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentWithErrorComponent: _AttachmentErrorTitleComponent {
+    /// The collection of local attachment data model, which are prepared by Apps.
+    var attachmentInfo: AttachmentInfo { get }
+    
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
+}
+
+/// `AttachmentInProgress` is the UI component to be used by `AttachmentGroup` along with `AttachmentButtonImage` to support rendering in-progress uploading state.
+///
+/// ## Usage
+/// ```swift
+/// AttachmentInProgress(
+///     attachmentInProgressTitle: {
+///         Text(configuration.attachmentInfo.attachmentName)
+///     },
+///     attachmentInfo: configuration.$attachmentInfo,
+///     onPreview: configuration.onPreview,
+///     onDelete: configuration.onDelete
+/// )
+/// ```
+// sourcery: CompositeComponent
+protocol _AttachmentInProgressComponent: _AttachmentInProgressTitleComponent {
+    /// The collection of local attachment data model, which are prepared by Apps.
+    var attachmentInfo: AttachmentInfo { get }
+
+    /// Triggering preview
+    var onPreview: ((AttachmentInfo) -> Void)? { get }
+    
+    /// Triggering delete.
+    var onDelete: ((AttachmentInfo) -> Void)? { get }
 }
 
 /// `AttachmentButtonImage` provides the default `Add` button following visual design.
@@ -1705,7 +1888,7 @@ protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleCom
 /// let delegate: AttachmentDelegate
 ///
 /// AttachmentGroup(
-///   title: { Text("Attachements") },
+///   title: { Text("Attachments") },
 ///   attachments: self.$attachments,
 ///   maxCount: 5,
 ///   delegate: self.delegate,
@@ -1722,58 +1905,75 @@ protocol _AttachmentComponent: _AttachmentTitleComponent, _AttachmentSubtitleCom
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _AttachmentButtonImageComponent {
-    //// The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    //// The image to be used for "Add" menu or dialog for operations, such as popping up image picker or file picker.
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "FioriIcon.actions.add.renderingMode(.template).resizable()"
     var addButtonImage: Image { get }
 
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
 }
 
-/// `AttachmentGroup` is the UI component for adding, removing, and rendering thumbnails and previews.
+/// `AttachmentGroup` is a UI component that manages a collection of attachments with support for
+/// adding, removing, and viewing attachments from various sources.
+///
+/// This component provides a complete interface for attachment management, including:
+/// - Displaying existing attachments with thumbnails
+/// - Adding new attachments from photos, camera, files, or scanned documents
+/// - Previewing attachments
+/// - Showing upload progress and error states
+/// - Enforcing maximum attachment limits
 ///
 /// ## Usage
 /// ```swift
+/// @State private var attachments: [AttachmentInfo] = []
+/// @State private var errorMessage: AttributedString?
+/// let myAttachmentDelegate = MyAttachmentDelegate()
+///
 /// AttachmentGroup(
-///   title: { Text("Attachements") },
-///   attachments: self.$attachments,
-///   maxCount: 5,
-///   delegate: self.delegate,
-///   errorMessage: self.$attachmentError,
-///   operations: {
-///       AttachmentButtonImage()
-///           .operationsMenu {
-///               PhotosPickerMenuItem(filter: [.images])
-///               FilesPickerMenuItem(filter: [.pdf, .presentation])
-///           }
-///       }
-///  )
+///    title: { Text("Documents") },
+///    attachments: $attachments,
+///    maxCount: 5,
+///    delegate: myAttachmentDelegate,
+///    errorMessage: $errorMessage,
+///    operations: {
+///        AttachmentButtonImage()
+///            .operationsMenu {
+///                PhotosPickerMenuItem(filter: [.images])
+///                FilesPickerMenuItem(filter: [.pdf, .documents])
+///                CameraMenuItem()
+///            }
+///    }
+/// )
 /// ```
 // sourcery: CompositeComponent
 protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
+    // sourcery: @StateObject
+    // sourcery: defaultValue = "AttachmentContext()"
+    var context: AttachmentContext { get }
+
     // sourcery: @Binding
     /// The collection of local attachment URLs, which are prepared by Apps.
-    var attachments: [URL] { get }
+    var attachments: [AttachmentInfo] { get }
     
     // sourcery: defaultValue = "nil"
-    /// The maximium number of attachments
+    /// The maximum number of attachments
     var maxCount: Int? { get }
-
+    
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
-    /// App specific attachemnt processing logics for adding or deleting attachments.
+    /// App specific attachment processing logics for adding or deleting attachments.
     var delegate: AttachmentDelegate { get }
-
+    
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The state of attachment group component
     var controlState: ControlState { get }
     
     // sourcery: @Binding
     // sourcery: defaultValue = ".constant(nil)"
     /// The error message of the form view.
     var errorMessage: AttributedString? { get }
-
+    
     // sourcery: defaultValue = "{ EmptyView() }"
     /// For adding App specific operations, such as picking photos and files.
     @ViewBuilder
@@ -1782,29 +1982,70 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: defaultValue = "nil"
     /// Triggering App specific preview, otherwise using default preview.
     var onPreview: ((URL) -> Void)? { get }
+    
+    /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
+    var defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? { get }
 }
 
-/// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.
+/// `AttachmentThumbnail` is a specialized UI component that renders previews for attachment files asynchronously.
+///
+/// This component intelligently handles different file types by:
+/// - Initially displaying appropriate static file type icons while loading
+/// - Generating thumbnail previews for supported file types (images, PDFs, etc.)
+/// - Maintaining the file type icon for non-previewable file types
+/// - Adapting its appearance based on control state (normal, disabled, read-only)
+///
+/// The thumbnail generation process happens in the background to maintain UI responsiveness,
+/// and the component automatically updates when the preview becomes available.
 ///
 /// ## Usage
+/// Use `AttachmentThumbnail` within an `Attachment` component to display file previews:
+///
 /// ```swift
+/// // Basic usage with an image file
 /// Attachment {
-///   AttachmentThumbnail(url: fileURL)
+///   AttachmentThumbnail(url: imageURL)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text("Photo")
 /// } attachmentSubtitle: {
-///   Text("15MB")
+///   Text("2.5MB")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Oct 20, 2025")
 /// }
+///
+/// // Usage with a PDF document
+/// Attachment {
+///   AttachmentThumbnail(url: pdfURL, controlState: viewModel.isEditable ? .normal : .readOnly)
+/// } attachmentTitle: {
+///   Text("Contract")
+/// } attachmentSubtitle: {
+///   Text("PDF • 1.2MB")
+/// } attachmentFootnote: {
+///   Text("Last modified today")
+/// }
+/// ```
+///
+/// The component can also be used standalone when needed:
+///
+/// ```swift
+/// AttachmentThumbnail(url: fileURL)
+/// ```
 // sourcery: CompositeComponent
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _AttachmentThumbnailComponent {
-    ////  URL of document for rendering thumbnail
+    /// The URL of the file for which to render a thumbnail.
+    ///
+    /// This can be a local file URL or a remote URL. For remote URLs, the component
+    /// will download the file data as needed to generate the thumbnail.
     var url: URL { get }
     
     // sourcery: defaultValue = .normal
-    /// The state of attachement group component
+    /// The control state that determines the visual appearance of the thumbnail.
+    ///
+    /// Possible values:
+    /// - `.normal`: Standard appearance for interactive contexts (default)
+    /// - `.disabled`: Visually indicates the thumbnail is non-interactive
+    /// - `.readOnly`: Indicates the attachment is in read-only mode
     var controlState: ControlState { get }
 }
 
@@ -2817,7 +3058,7 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     /// The view for inputting additional reason for negative feedback.
     var keyValueFormView: KeyValueFormView? { get }
     
-    /// Indicate whether the AIUserFeedback is pushed in, poped up or as an inspector. Default value is `.sheet`.
+    /// Indicate whether the AIUserFeedback is pushed in, popped up or as an inspector. Default value is `.sheet`.
     /// When it is pushed in, the height of sheet is fixed. The drag indicator is hidden, sheet can not be dragged.
     // sourcery: defaultValue = .sheet
     var displayMode: AIUserFeedbackDisplayMode { get }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -400,6 +400,62 @@ public extension AttachmentStyle {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+extension ModifiedStyle: AttachmentElementStyle where Style: AttachmentElementStyle {
+    public func makeBody(_ configuration: AttachmentElementConfiguration) -> some View {
+        AttachmentElement(configuration)
+            .attachmentElementStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentElementStyleModifier<Style: AttachmentElementStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentElementStyle(self.style)
+    }
+}
+
+public extension AttachmentElementStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentElementStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentElementStyle) -> some AttachmentElementStyle {
+        style.modifier(AttachmentElementStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+extension ModifiedStyle: AttachmentErrorTitleStyle where Style: AttachmentErrorTitleStyle {
+    public func makeBody(_ configuration: AttachmentErrorTitleConfiguration) -> some View {
+        AttachmentErrorTitle(configuration)
+            .attachmentErrorTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentErrorTitleStyleModifier<Style: AttachmentErrorTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentErrorTitleStyle(self.style)
+    }
+}
+
+public extension AttachmentErrorTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentErrorTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentErrorTitleStyle) -> some AttachmentErrorTitleStyle {
+        style.modifier(AttachmentErrorTitleStyleModifier(style: self))
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 extension ModifiedStyle: AttachmentFootnoteStyle where Style: AttachmentFootnoteStyle {
@@ -453,6 +509,62 @@ public extension AttachmentGroupStyle {
 
     func concat(_ style: some AttachmentGroupStyle) -> some AttachmentGroupStyle {
         style.modifier(AttachmentGroupStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+extension ModifiedStyle: AttachmentInProgressStyle where Style: AttachmentInProgressStyle {
+    public func makeBody(_ configuration: AttachmentInProgressConfiguration) -> some View {
+        AttachmentInProgress(configuration)
+            .attachmentInProgressStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentInProgressStyleModifier<Style: AttachmentInProgressStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentInProgressStyle(self.style)
+    }
+}
+
+public extension AttachmentInProgressStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentInProgressStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentInProgressStyle) -> some AttachmentInProgressStyle {
+        style.modifier(AttachmentInProgressStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+extension ModifiedStyle: AttachmentInProgressTitleStyle where Style: AttachmentInProgressTitleStyle {
+    public func makeBody(_ configuration: AttachmentInProgressTitleConfiguration) -> some View {
+        AttachmentInProgressTitle(configuration)
+            .attachmentInProgressTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentInProgressTitleStyleModifier<Style: AttachmentInProgressTitleStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentInProgressTitleStyle(self.style)
+    }
+}
+
+public extension AttachmentInProgressTitleStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentInProgressTitleStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentInProgressTitleStyle) -> some AttachmentInProgressTitleStyle {
+        style.modifier(AttachmentInProgressTitleStyleModifier(style: self))
     }
 }
 
@@ -537,6 +649,34 @@ public extension AttachmentTitleStyle {
 
     func concat(_ style: some AttachmentTitleStyle) -> some AttachmentTitleStyle {
         style.modifier(AttachmentTitleStyleModifier(style: self))
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+extension ModifiedStyle: AttachmentWithErrorStyle where Style: AttachmentWithErrorStyle {
+    public func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
+        AttachmentWithError(configuration)
+            .attachmentWithErrorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AttachmentWithErrorStyleModifier<Style: AttachmentWithErrorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.attachmentWithErrorStyle(self.style)
+    }
+}
+
+public extension AttachmentWithErrorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AttachmentWithErrorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AttachmentWithErrorStyle) -> some AttachmentWithErrorStyle {
+        style.modifier(AttachmentWithErrorStyleModifier(style: self))
     }
 }
 
