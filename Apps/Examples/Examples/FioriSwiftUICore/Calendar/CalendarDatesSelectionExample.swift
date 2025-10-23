@@ -30,7 +30,7 @@ struct CalendarDatesSelectionExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: .constant(.datesSelection), selectedDates: self.$selectedDates, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(style: .datesSelection, selectedDates: self.$selectedDates, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
                 

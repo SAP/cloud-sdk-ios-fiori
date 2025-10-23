@@ -154,9 +154,9 @@ struct CalendarTestSettingExample: View {
             Toggle("Has event view", isOn: self.$settings.testsEventViews)
             Toggle("Customize Event View", isOn: self.$settings.customizesEventViews)
             Toggle("Customize Calendar Background Color", isOn: self.$settings.testsCustomCalBgColor)
-            Toggle("Preselect date triggers delegate call", isOn: self.$settings.preselectDateTriggersDelegateCall)
-            Toggle("Expandable style starts with week", isOn: self.$settings.expandableStyleStartsWithWeek)
-            Toggle("Shows out-of-month style for week", isOn: self.$settings.showsOutOfMonthStyleForWeekView)
+//            Toggle("Preselect date triggers delegate call", isOn: self.$settings.preselectDateTriggersDelegateCall)
+//            Toggle("Expandable style starts with week", isOn: self.$settings.expandableStyleStartsWithWeek)
+//            Toggle("Shows out-of-month style for week", isOn: self.$settings.showsOutOfMonthStyleForWeekView)
             Picker("Preselect Range", selection: self.$settings.rangePreselectionType) {
                 ForEach(0 ..< self.rangePreselections.count, id: \.self) { index in
                     Text(self.rangePreselections[index])

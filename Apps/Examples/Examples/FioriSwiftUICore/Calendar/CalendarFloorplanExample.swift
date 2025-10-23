@@ -35,7 +35,7 @@ struct CalendarFloorplanExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: self.$style, selectedDate: self.$selectedDate, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(style: self.style, selectedDate: self.$selectedDate, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor)
                 .environment(\.hasEventIndicator, self.settings.testsEventViews)

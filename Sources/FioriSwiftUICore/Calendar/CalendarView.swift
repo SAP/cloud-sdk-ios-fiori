@@ -6,12 +6,8 @@ public struct CalendarView: View {
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
     let disabledDates: CalendarDisabledDates?
-    
     let customEventView: (Date) -> any View
-    
-    @State var customCalendarBackgroundColor: Color?
-    
-    private let calendar = Calendar.autoupdatingCurrent
+    let customCalendarBackgroundColor: Color?
     /// The title change callback when the current visible month and year of the calendar is displaying.
     let titleChangeCallback: ((String) -> Void)?
     /// The start date of the calendar. Default is current year's first day.
@@ -20,7 +16,9 @@ public struct CalendarView: View {
     let endDate: Date
     /// The display date at startup. Default is today. When calendar scrolls, this property's will change to visible date.
     @Binding var displayDateAtStartup: Date?
-    @Binding var style: CalendarStyle
+    let style: CalendarStyle
+    
+    let calendar = Calendar.autoupdatingCurrent
     
     /**
      Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates.
@@ -35,19 +33,14 @@ public struct CalendarView: View {
      */
     let isPersistentSelection: Bool
     
-    @State private var offset: CGFloat = 0
-    @State private var scrollPosition: Int? = 0
+    @State var scrollPosition: Int? = 0
 
-    @State private var weekViewScrollPosition: Int? = 0
+    @State var weekViewScrollPosition: Int? = 0
     
-    @State private var weekContainerHeight: CGFloat = 0
+    var totalMonths = 0
+    var weeks: [WeekInfo] = []
     
-    /// The week displayed when the change from month view to week view
-    @State private var targetWeekNumber: Int = 0
-    
-    private var totalMonths = 0
-    
-    @State private var pageHeights: [CGFloat] = [0] {
+    @State var pageHeights: [CGFloat] = [0] {
         didSet {
             if let scrollPosition, scrollPosition < pageHeights.count {
                 self.currentMonthOriginHeight = self.pageHeights[scrollPosition]
@@ -55,21 +48,16 @@ public struct CalendarView: View {
         }
     }
 
-    @State private var weekViewHeight: CGFloat = 60
-    @State private var lastPageHeight: CGFloat = 0
-    private var weeks: [WeekInfo] = []
+    @State var weekViewHeight: CGFloat = 60
+    @State var lastPageHeight: CGFloat = 0
     
-    @State private var isDragging = false
-    @State private var dragGestureOffsetY: CGFloat = 0
-    @State private var currentMonthOriginHeight: CGFloat = 0
-    
-    @State private var isExpanded = true
+    @State var isDragging = false
+    @State var currentMonthOriginHeight: CGFloat = 0
+    @State var isExpanded = true
     
     @Environment(\.customLanguageId) var customLanguageId
 
     public var body: some View {
-//        let _ = Self._printChanges()
-        
         ZStack(alignment: .bottom, content: {
             let paddingOffset: CGFloat = 8
             
@@ -121,7 +109,10 @@ public struct CalendarView: View {
                                         }, customEventView: self.customEventView)
                                             .frame(width: self.availableWidth - paddingOffset * 2)
                                             .fioriSizeReader { newValue in
-                                                DispatchQueue.main.async { self.pageHeights[index] = newValue.height
+                                                if abs(self.pageHeights[index] - newValue.height) > 0.1 {
+                                                    DispatchQueue.main.async {
+                                                        self.pageHeights[index] = newValue.height
+                                                    }
                                                 }
                                             }
                                     }
@@ -134,7 +125,7 @@ public struct CalendarView: View {
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .frame(width: self.availableWidth - paddingOffset * 2)
-                    .ifApply(self.scrollPosition != nil, content: {
+                    .ifApply(self.scrollPosition != nil && self.scrollPosition! < self.pageHeights.count, content: {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
@@ -166,7 +157,10 @@ public struct CalendarView: View {
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
                                             .fioriSizeReader { newValue in
-                                                DispatchQueue.main.async { self.pageHeights[index] = newValue.height
+                                                if abs(self.pageHeights[index] - newValue.height) > 0.1 {
+                                                    DispatchQueue.main.async {
+                                                        self.pageHeights[index] = newValue.height
+                                                    }
                                                 }
                                             }
                                     }
@@ -182,7 +176,7 @@ public struct CalendarView: View {
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(self.fillBackgroundColor)
                     )
-                    .ifApply(self.scrollPosition != nil && self.style == .month, content: {
+                    .ifApply(self.scrollPosition != nil && self.style == .month && self.scrollPosition! < self.pageHeights.count, content: {
                         $0.frame(height: max(self.pageHeights[self.scrollPosition!], 300))
                     })
                     .ifApply(self.scrollPosition == nil && self.style == .month, content: {
@@ -203,8 +197,7 @@ public struct CalendarView: View {
                             DragGesture()
                                 .onChanged { value in
                                     self.isDragging = true
-                                    self.dragGestureOffsetY = value.translation.height
-                                    self.currentMonthOriginHeight += self.dragGestureOffsetY
+                                    self.currentMonthOriginHeight += value.translation.height
                                     if let scrollPosition, scrollPosition < pageHeights.count {
                                         self.currentMonthOriginHeight = min(self.currentMonthOriginHeight, self.pageHeights[scrollPosition])
                                     }
@@ -277,14 +270,14 @@ public struct CalendarView: View {
             .onChange(of: self.isExpanded) { _, _ in
                 self.updateScrollPosition()
             }
-            .onChange(of: self.displayDateAtStartup) {
-                self.displayDateAtStartupRecord = self.displayDateAtStartup ?? .now
-                if let date1 = $0,
-                   let date2 = $1,
-                   self.calendar.compare(date1, to: date2, toGranularity: .day) != .orderedSame
-                {
+            .onChange(of: self.displayDateAtStartupRecord) {
+                self.checkDisplayDateAtStartupRecord()
+                if self.calendar.compare($0, to: $1, toGranularity: .day) != .orderedSame {
                     self.updateScrollPosition()
                 }
+            }
+            .onChange(of: self.displayDateAtStartup) {
+                self.displayDateAtStartupRecord = self.displayDateAtStartup ?? .now
             }
             .fioriSizeReader { size in
                 DispatchQueue.main.async {
@@ -294,7 +287,10 @@ public struct CalendarView: View {
             .onGeometryChange(for: EdgeInsets.self, of: { proxy in
                 proxy.safeAreaInsets
             }, action: { newValue in
-                if self.safeAreaInsets != newValue, self.safeAreaInsets.bottom >= 0.0 {
+                if self.datesSelectionAndShowBannerMessage,
+                   self.safeAreaInsets.bottom >= 0.0,
+                   self.safeAreaInsets != newValue
+                {
                     DispatchQueue.main.async {
                         self.safeAreaInsets = newValue
                         print("self.safeAreaInsets:\(self.safeAreaInsets)")
@@ -302,7 +298,7 @@ public struct CalendarView: View {
                 }
             })
             
-            if self.style == .datesSelection, self.showBannerMessage {
+            if self.datesSelectionAndShowBannerMessage {
                 CalendarBannerView(title: "DatesSelectionBannerMessageKey".localizedFioriString(), bottomPadding: self.safeAreaInsets.bottom) {
                     self.showBannerMessage = false
                 }
@@ -313,8 +309,11 @@ public struct CalendarView: View {
     @State var availableWidth: CGFloat = 16
     @State var safeAreaInsets: EdgeInsets = .init(.zero)
     
-    @State private var showBannerMessage: Bool = true
-//    @State private var withToolBar: Bool = false
+    @State var showBannerMessage: Bool = true
+    
+    var datesSelectionAndShowBannerMessage: Bool {
+        self.style == .datesSelection && self.showBannerMessage
+    }
     
     var showOutOfMonth: Bool {
         let notIncludeConditions: [CalendarStyle] = [
@@ -370,8 +369,8 @@ public struct CalendarView: View {
         }
     }
     
-    public init(style: Binding<CalendarStyle> = .constant(.month), startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Binding<Date?> = .constant(nil), selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
-        _style = style
+    public init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Binding<Date?> = .constant(nil), selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+        self.style = style
         _selectedDate = selectedDate
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
         _selectedDates = selectedDates
@@ -381,7 +380,7 @@ public struct CalendarView: View {
         _displayDateAtStartup = displayDateAtStartup
         _displayDateAtStartupRecord = State(wrappedValue: displayDateAtStartup.wrappedValue ?? .now)
         self.disabledDates = disabledDates
-        self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(style.wrappedValue) ? true : isPersistentSelection
+        self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(style) ? true : isPersistentSelection
         self.titleChangeCallback = titleChangeCallback
         self.customCalendarBackgroundColor = customCalendarBackgroundColor
         
@@ -452,13 +451,21 @@ public struct CalendarView: View {
         self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
         
         _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
-        
-        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: _displayDateAtStartupRecord.wrappedValue) {
+    }
+    
+    /*
+     Make sure the display date in the available range.
+     * If the display date in not in the range, check today.
+     * If today is in the range, show today.
+     * Otherwise show the startDate.
+     */
+    func checkDisplayDateAtStartupRecord() {
+        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: self.displayDateAtStartupRecord) {
             // displayDateAtStartup is not within the calendar range.
-            if checkDateRangeContainsDate(self.startDate ... self.endDate, date: Date()) {
-                _displayDateAtStartupRecord.wrappedValue = Date()
+            if checkDateRangeContainsDate(self.startDate ... self.endDate, date: .now) {
+                self.displayDateAtStartupRecord = .now
             } else {
-                _displayDateAtStartupRecord.wrappedValue = self.startDate
+                self.displayDateAtStartupRecord = self.startDate
             }
         }
     }
@@ -627,9 +634,9 @@ public struct CalendarView: View {
                 if let selectedDateRecord,
                    self.weeks[index].containsDate(selectedDateRecord)
                 {
-                    _displayDateAtStartupRecord.wrappedValue = selectedDateRecord
+                    self.displayDateAtStartupRecord = selectedDateRecord
                 } else if let firstDate = self.weeks[index].dates.first {
-                    _displayDateAtStartupRecord.wrappedValue = firstDate
+                    self.displayDateAtStartupRecord = firstDate
                 }
             }
         } else if let index = scrollPosition {
@@ -637,9 +644,9 @@ public struct CalendarView: View {
                 if let selectedDateRecord,
                    self.calendar.compare(selectedDateRecord, to: nextDate, toGranularity: .month) == .orderedSame
                 {
-                    _displayDateAtStartupRecord.wrappedValue = selectedDateRecord
+                    self.displayDateAtStartupRecord = selectedDateRecord
                 } else {
-                    _displayDateAtStartupRecord.wrappedValue = nextDate
+                    self.displayDateAtStartupRecord = nextDate
                 }
             }
         }
@@ -702,7 +709,7 @@ public struct CalendarView: View {
 //           let nextDate = self.calendar.date(byAdding: .day, value: (newValue - oldValue) * 7, to: selectedDateRecord)
 
 #Preview {
-    CalendarView(style: .constant(.month))
+    CalendarView(style: .month)
         .environment(\.showsWeekNumbers, true)
         .environment(\.alternateCalendarType, .chinese)
 }

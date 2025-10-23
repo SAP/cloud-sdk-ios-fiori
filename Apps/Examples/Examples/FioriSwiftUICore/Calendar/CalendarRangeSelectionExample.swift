@@ -43,7 +43,7 @@ struct CalendarRangeSelectionExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: .constant(.rangeSelection), selectedRange: self.$selectedRange, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
                 

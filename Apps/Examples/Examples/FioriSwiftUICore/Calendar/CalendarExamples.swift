@@ -187,10 +187,10 @@ struct CalendarExamples: View {
 //                NavigationLink("RangeSelectionView (shows month header)") {
 //                    Text("TODO")
 //                }
-                NavigationLink("RangeSelectionView-Preselect") {
-                    CalendarRangeSelectionExample()
-                        .environmentObject(self.settings)
-                }
+//                NavigationLink("RangeSelectionView-Preselect") {
+//                    CalendarRangeSelectionExample()
+//                        .environmentObject(self.settings)
+//                }
                 NavigationLink("DatesSelectionView") {
                     CalendarDatesSelectionExample()
                         .environmentObject(self.settings)
