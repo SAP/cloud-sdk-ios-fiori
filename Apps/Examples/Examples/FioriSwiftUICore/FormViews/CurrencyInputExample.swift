@@ -14,6 +14,7 @@ struct CurrencyInputExampleView: View {
     @State private var ilsAmount: String = ""
     @State private var isRequired: Bool = true
     @State private var isoCode: String = "USD"
+    @State private var showingOptions = false
     
     let currencyToLocale: [String: String] = [
         "USD": "en_US", // US Dollar - English (United States)
@@ -43,21 +44,7 @@ struct CurrencyInputExampleView: View {
 
     var body: some View {
         VStack {
-            Text("Currency Input Examples")
-                .font(.title)
-                .padding(.top, 20)
-            
             List {
-                HStack {
-                    Text("Mandatory field")
-                    Spacer()
-                    Switch(isOn: self.$isRequired)
-                }
-                Picker("Currency Code", selection: self.$isoCode) {
-                    ForEach(Array(self.currencyToLocale.keys), id: \.self) { code in
-                        Text("\(code)").tag(code)
-                    }
-                }
                 VStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 8) {
                         // USD input - US Dollar example
@@ -128,6 +115,41 @@ struct CurrencyInputExampleView: View {
                     }
                 }
             }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Currency Input Examples")
+        .toolbar {
+            FioriButton(title: "Options") { _ in
+                self.showingOptions = true
+            }
+        }
+        .sheet(isPresented: self.$showingOptions) {
+            NavigationStack {
+                List {
+                    Toggle("Mandatory Field", isOn: self.$isRequired)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                    
+                    Picker("Currency Code", selection: self.$isoCode) {
+                        ForEach(Array(self.currencyToLocale.keys).sorted(), id: \.self) { code in
+                            Text("\(code)").tag(code)
+                        }
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                }
+                .navigationTitle("Options")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            self.showingOptions = false
+                        }
+                    }
+                }
+            }
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         }
     }
     

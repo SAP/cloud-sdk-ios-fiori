@@ -26,8 +26,11 @@ public struct AttachmentConfiguration {
     public let attachmentTitle: AttachmentTitle
     public let attachmentSubtitle: AttachmentSubtitle
     public let attachmentFootnote: AttachmentFootnote
-    public let url: URL
+    public let attachmentInfo: AttachmentInfo
     public let controlState: ControlState
+    public let onExtraInfoChange: ((AnyHashable) -> Void)?
+    public let onPreview: ((AttachmentInfo) -> Void)?
+    public let onDelete: ((AttachmentInfo) -> Void)?
 
     public typealias AttachmentTitle = ConfigurationViewWrapper
     public typealias AttachmentSubtitle = ConfigurationViewWrapper

@@ -65,7 +65,7 @@ public struct AIUserFeedback {
     let filterFormView: FilterFormView?
     /// The view for inputting additional reason for negative feedback.
     let keyValueFormView: KeyValueFormView?
-    /// Indicate whether the AIUserFeedback is pushed in, poped up or as an inspector. Default value is `.sheet`.
+    /// Indicate whether the AIUserFeedback is pushed in, popped up or as an inspector. Default value is `.sheet`.
     /// When it is pushed in, the height of sheet is fixed. The drag indicator is hidden, sheet can not be dragged.
     let displayMode: AIUserFeedbackDisplayMode
     /// Whether the user can interact with the background when AIUserFeedback is presented as a modal..

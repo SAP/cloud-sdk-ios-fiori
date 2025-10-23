@@ -5,23 +5,61 @@ import SwiftUI
 
 import FioriThemeManager
 
-/// `AttachmentThumbnail` is the UI component for rendering attachment file thumbnails asynchronously starting with static icons.
+/// `AttachmentThumbnail` is a specialized UI component that renders previews for attachment files asynchronously.
+///
+/// This component intelligently handles different file types by:
+/// - Initially displaying appropriate static file type icons while loading
+/// - Generating thumbnail previews for supported file types (images, PDFs, etc.)
+/// - Maintaining the file type icon for non-previewable file types
+/// - Adapting its appearance based on control state (normal, disabled, read-only)
+///
+/// The thumbnail generation process happens in the background to maintain UI responsiveness,
+/// and the component automatically updates when the preview becomes available.
 ///
 /// ## Usage
+/// Use `AttachmentThumbnail` within an `Attachment` component to display file previews:
+///
 /// ```swift
+/// // Basic usage with an image file
 /// Attachment {
-///   AttachmentThumbnail(url: fileURL)
+///   AttachmentThumbnail(url: imageURL)
 /// } attachmentTitle: {
-///   Text("Leaf")
+///   Text("Photo")
 /// } attachmentSubtitle: {
-///   Text("15MB")
+///   Text("2.5MB")
 /// } attachmentFootnote: {
-///   Text("Aug 15, 2024")
+///   Text("Oct 20, 2025")
 /// }
+///
+/// // Usage with a PDF document
+/// Attachment {
+///   AttachmentThumbnail(url: pdfURL, controlState: viewModel.isEditable ? .normal : .readOnly)
+/// } attachmentTitle: {
+///   Text("Contract")
+/// } attachmentSubtitle: {
+///   Text("PDF • 1.2MB")
+/// } attachmentFootnote: {
+///   Text("Last modified today")
+/// }
+/// ```
+///
+/// The component can also be used standalone when needed:
+///
+/// ```swift
+/// AttachmentThumbnail(url: fileURL)
+/// ```
 public struct AttachmentThumbnail {
-    /// /  URL of document for rendering thumbnail
+    /// The URL of the file for which to render a thumbnail.
+    ///
+    /// This can be a local file URL or a remote URL. For remote URLs, the component
+    /// will download the file data as needed to generate the thumbnail.
     let url: URL
-    /// The state of attachement group component
+    /// The control state that determines the visual appearance of the thumbnail.
+    ///
+    /// Possible values:
+    /// - `.normal`: Standard appearance for interactive contexts (default)
+    /// - `.disabled`: Visually indicates the thumbnail is non-interactive
+    /// - `.readOnly`: Indicates the attachment is in read-only mode
     let controlState: ControlState
 
     @Environment(\.attachmentThumbnailStyle) var style

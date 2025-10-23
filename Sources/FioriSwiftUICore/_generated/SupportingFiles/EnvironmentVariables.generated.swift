@@ -297,6 +297,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+struct AttachmentElementStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentElementStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentElementStyle: any AttachmentElementStyle {
+        self.attachmentElementStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentElementStyleStack: [any AttachmentElementStyle] {
+        get {
+            self[AttachmentElementStyleStackKey.self]
+        }
+        set {
+            self[AttachmentElementStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+struct AttachmentErrorTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentErrorTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentErrorTitleStyle: any AttachmentErrorTitleStyle {
+        self.attachmentErrorTitleStyleStack.last ?? .base
+    }
+
+    var attachmentErrorTitleStyleStack: [any AttachmentErrorTitleStyle] {
+        get {
+            self[AttachmentErrorTitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentErrorTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 struct AttachmentFootnoteStyleStackKey: EnvironmentKey {
@@ -335,6 +377,48 @@ extension EnvironmentValues {
         }
         set {
             self[AttachmentGroupStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+struct AttachmentInProgressStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentInProgressStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentInProgressStyle: any AttachmentInProgressStyle {
+        self.attachmentInProgressStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentInProgressStyleStack: [any AttachmentInProgressStyle] {
+        get {
+            self[AttachmentInProgressStyleStackKey.self]
+        }
+        set {
+            self[AttachmentInProgressStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+struct AttachmentInProgressTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentInProgressTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentInProgressTitleStyle: any AttachmentInProgressTitleStyle {
+        self.attachmentInProgressTitleStyleStack.last ?? .base
+    }
+
+    var attachmentInProgressTitleStyleStack: [any AttachmentInProgressTitleStyle] {
+        get {
+            self[AttachmentInProgressTitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentInProgressTitleStyleStackKey.self] = newValue
         }
     }
 }
@@ -398,6 +482,27 @@ extension EnvironmentValues {
         }
         set {
             self[AttachmentTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+struct AttachmentWithErrorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentWithErrorStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentWithErrorStyle: any AttachmentWithErrorStyle {
+        self.attachmentWithErrorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentWithErrorStyleStack: [any AttachmentWithErrorStyle] {
+        get {
+            self[AttachmentWithErrorStyleStackKey.self]
+        }
+        set {
+            self[AttachmentWithErrorStyleStackKey.self] = newValue
         }
     }
 }

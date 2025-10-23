@@ -102,6 +102,18 @@ extension Attachment: _ViewEmptyChecking {
     }
 }
 
+extension AttachmentElement: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension AttachmentErrorTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentErrorTitle.isEmpty
+    }
+}
+
 extension AttachmentFootnote: _ViewEmptyChecking {
     public var isEmpty: Bool {
         attachmentFootnote.isEmpty
@@ -112,6 +124,18 @@ extension AttachmentGroup: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             operations.isEmpty
+    }
+}
+
+extension AttachmentInProgress: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentInProgressTitle.isEmpty
+    }
+}
+
+extension AttachmentInProgressTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentInProgressTitle.isEmpty
     }
 }
 
@@ -130,6 +154,12 @@ extension AttachmentThumbnail: _ViewEmptyChecking {
 extension AttachmentTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         attachmentTitle.isEmpty
+    }
+}
+
+extension AttachmentWithError: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentErrorTitle.isEmpty
     }
 }
 

@@ -14,7 +14,7 @@ import FioriThemeManager
 /// let delegate: AttachmentDelegate
 ///
 /// AttachmentGroup(
-///   title: { Text("Attachements") },
+///   title: { Text("Attachments") },
 ///   attachments: self.$attachments,
 ///   maxCount: 5,
 ///   delegate: self.delegate,
@@ -29,9 +29,9 @@ import FioriThemeManager
 ///  )
 /// ```
 public struct AttachmentButtonImage {
-    /// / The image to be used for "Add" menu or dialog for operations, such as poping up image picker or file picker.
+    /// / The image to be used for "Add" menu or dialog for operations, such as popping up image picker or file picker.
     let addButtonImage: any View
-    /// The state of attachement group component
+    /// The state of attachment group component
     let controlState: ControlState
 
     @Environment(\.attachmentButtonImageStyle) var style
