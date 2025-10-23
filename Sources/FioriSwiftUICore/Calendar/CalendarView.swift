@@ -293,9 +293,13 @@ public struct CalendarView: View {
             }
             .onGeometryChange(for: EdgeInsets.self, of: { proxy in
                 proxy.safeAreaInsets
-            }, action: {
-                self.safeAreaInsets = $0
-                print("self.safeAreaInsets:\(self.safeAreaInsets)")
+            }, action: { newValue in
+                if self.safeAreaInsets != newValue, self.safeAreaInsets.bottom >= 0.0 {
+                    DispatchQueue.main.async {
+                        self.safeAreaInsets = newValue
+                        print("self.safeAreaInsets:\(self.safeAreaInsets)")
+                    }
+                }
             })
             
             if self.style == .datesSelection, self.showBannerMessage {
