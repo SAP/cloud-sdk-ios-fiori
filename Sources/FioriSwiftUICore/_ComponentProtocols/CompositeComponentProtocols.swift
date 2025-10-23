@@ -389,7 +389,7 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
 // sourcery: CompositeComponent
 protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}
 
-// sourcery: CompositeComponent, InternalComponent
+// sourcery: CompositeComponent
 protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent
@@ -440,6 +440,9 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent
@@ -467,6 +470,9 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent

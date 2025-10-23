@@ -155,6 +155,7 @@
 		A65036942CC6365C0093086A /* LoadingIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */; };
 		A65FB3BF2DE464A000930093 /* CurrencyInputExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65FB3BE2DE464A000930093 /* CurrencyInputExample.swift */; };
 		A6DFDE582D9BE0B300666A51 /* AuthenticationScreenSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DFDE572D9BE0B300666A51 /* AuthenticationScreenSample.swift */; };
+		A6F6E9F82EA8B40E009F85BD /* SemanticMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F6E9F72EA8B40E009F85BD /* SemanticMessageExample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -431,6 +432,7 @@
 		A65036932CC6365C0093086A /* LoadingIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorExample.swift; sourceTree = "<group>"; };
 		A65FB3BE2DE464A000930093 /* CurrencyInputExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputExample.swift; sourceTree = "<group>"; };
 		A6DFDE572D9BE0B300666A51 /* AuthenticationScreenSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationScreenSample.swift; sourceTree = "<group>"; };
+		A6F6E9F72EA8B40E009F85BD /* SemanticMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticMessageExample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -984,6 +986,7 @@
 				9D0086672BA8F6810004BE15 /* TitleFormViewExample.swift */,
 				9D057DAC2C34826700F5331C /* RatingControlFormViewExample.swift */,
 				6D6E256C2D378025009A62CA /* FilterFormViewExamples.swift */,
+				A6F6E9F72EA8B40E009F85BD /* SemanticMessageExample.swift */,
 			);
 			path = FormViews;
 			sourceTree = "<group>";
@@ -1384,6 +1387,7 @@
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */,
 				993B55BE29DF7EC70002B065 /* IconLibraryExample.swift in Sources */,
+				A6F6E9F82EA8B40E009F85BD /* SemanticMessageExample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				B1DD86532B0758F000D7EDFD /* NavigationBarPopover.swift in Sources */,
 				3B62AB7E2C0EE257003262EB /* EditableSideBarExample.swift in Sources */,
