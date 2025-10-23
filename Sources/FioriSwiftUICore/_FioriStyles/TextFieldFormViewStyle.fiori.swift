@@ -45,7 +45,7 @@ public struct TextFieldFormViewBaseStyle: TextFieldFormViewStyle {
     
     func getTextInput(_ configuration: TextFieldFormViewConfiguration) -> some View {
         if self.isLoading, !self.isAILoading {
-            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: ""))
+            return TitleFormView(.init(text: .constant("TextFieldFormView text input value in multiple lines"), isSecureEnabled: false, placeholder: .init(configuration.placeholder), controlState: .normal, errorMessage: nil, maxTextLength: 20, hintText: nil, hidesReadOnlyHint: false, isCharCountEnabled: false, allowsBeyondLimit: false, charCountReachLimitMessage: "", charCountBeyondLimitMsg: "", isAINoticeEnabled: false))
                 .typeErased
         } else {
             return configuration._titleFormView.typeErased

@@ -25,6 +25,8 @@ public struct TitleFormView {
     let charCountReachLimitMessage: String?
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     let charCountBeyondLimitMsg: String?
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    let isAINoticeEnabled: Bool
 
     @Environment(\.titleFormViewStyle) var style
 
@@ -44,6 +46,7 @@ public struct TitleFormView {
                 allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil,
+                isAINoticeEnabled: Bool = false,
                 componentIdentifier: String? = TitleFormView.identifier)
     {
         self._text = text
@@ -58,6 +61,7 @@ public struct TitleFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+        self.isAINoticeEnabled = isAINoticeEnabled
         self.componentIdentifier = componentIdentifier ?? TitleFormView.identifier
     }
 }
@@ -78,9 +82,10 @@ public extension TitleFormView {
          isCharCountEnabled: Bool = false,
          allowsBeyondLimit: Bool = false,
          charCountReachLimitMessage: String? = nil,
-         charCountBeyondLimitMsg: String? = nil)
+         charCountBeyondLimitMsg: String? = nil,
+         isAINoticeEnabled: Bool = false)
     {
-        self.init(text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
+        self.init(text: text, isSecureEnabled: isSecureEnabled, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, isAINoticeEnabled: isAINoticeEnabled)
     }
 }
 
@@ -102,6 +107,7 @@ public extension TitleFormView {
         self.allowsBeyondLimit = configuration.allowsBeyondLimit
         self.charCountReachLimitMessage = configuration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = configuration.charCountBeyondLimitMsg
+        self.isAINoticeEnabled = configuration.isAINoticeEnabled
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -112,7 +118,7 @@ extension TitleFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled)).typeErased
                 .transformEnvironment(\.titleFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -130,7 +136,7 @@ private extension TitleFormView {
     }
 
     func defaultStyle() -> some View {
-        TitleFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
+        TitleFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled))
             .shouldApplyDefaultStyle(false)
             .titleFormViewStyle(TitleFormViewFioriStyle.ContentFioriStyle())
             .typeErased

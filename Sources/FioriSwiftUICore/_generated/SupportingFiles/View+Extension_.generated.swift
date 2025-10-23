@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.2.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -2997,7 +2997,7 @@ public extension View {
 
 // MARK: TextInputInfoViewStyle
 
-extension View {
+public extension View {
     func textInputInfoViewStyle(_ style: some TextInputInfoViewStyle) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             stack.append(style)
