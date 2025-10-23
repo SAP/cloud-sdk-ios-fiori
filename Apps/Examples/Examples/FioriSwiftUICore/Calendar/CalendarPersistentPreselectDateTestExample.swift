@@ -10,7 +10,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State var endDate: Date?
     
-    @State var displayDateAtStartup: Date = .now
+    @State var displayDateAtStartup: Date? = .now
     
     @State var selectedDate: Date?
     
@@ -34,6 +34,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
         VStack {
             CalendarView(style: self.$style, startDate: self.startDate, endDate: self.endDate, displayDateAtStartup: self.$displayDateAtStartup, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
                 self.title = $0
+                print("self.title:\($0)")
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)

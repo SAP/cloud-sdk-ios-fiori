@@ -18,8 +18,8 @@ public struct CalendarView: View {
     let startDate: Date
     /// The end date of the calendar. Default is next year's last day.
     let endDate: Date
-    /// The display date at startup. Default is today.
-    @Binding var displayDateAtStartup: Date
+    /// The display date at startup. Default is today. When calendar scrolls, this property's will change to visible date.
+    @Binding var displayDateAtStartup: Date?
     @Binding var style: CalendarStyle
     
     /**
@@ -36,11 +36,7 @@ public struct CalendarView: View {
     let isPersistentSelection: Bool
     
     @State private var offset: CGFloat = 0
-    @State private var scrollPosition: Int? = 0 {
-        didSet {
-            print("new scrollPosition:\(self.scrollPosition ?? 0)")
-        }
-    }
+    @State private var scrollPosition: Int? = 0
 
     @State private var weekViewScrollPosition: Int? = 0
     
@@ -110,7 +106,7 @@ public struct CalendarView: View {
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
                     .onAppear {
                         DispatchQueue.main.async {
-                            self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                            self.updateScrollPosition()
                         }
                     }
                 } else if self.style == .expandable {
@@ -195,7 +191,7 @@ public struct CalendarView: View {
                     .padding(EdgeInsets(
                         top: 0,
                         leading: paddingOffset,
-                        bottom: self.showFullScreen ? self.safeAreaInsets.bottom : paddingOffset,
+                        bottom: self.showFullScreen ? -1 * self.safeAreaInsets.bottom : paddingOffset,
                         trailing: paddingOffset
                     ))
                     .onAppear {}
@@ -227,7 +223,7 @@ public struct CalendarView: View {
             })
             .onAppear {
                 DispatchQueue.main.async {
-                    self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
+                    self.updateScrollPosition()
                     self.updateTitle()
                 }
             }
@@ -276,39 +272,31 @@ public struct CalendarView: View {
                 self.updateTitle()
             }
             .onChange(of: self.style) { _, _ in
-                if self.style == .week {
-                    self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    self.scrollPosition = 0
-                } else {
-                    self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    self.weekViewScrollPosition = 0
-                }
+                self.updateScrollPosition()
+            }
+            .onChange(of: self.isExpanded) { _, _ in
+                self.updateScrollPosition()
             }
             .onChange(of: self.displayDateAtStartup) {
-                if self.calendar.compare($0, to: $1, toGranularity: .day) != .orderedSame {
-                    if self.style == .week {
-                        self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    } else {
-                        self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartup)
-                    }
+                self.displayDateAtStartupRecord = self.displayDateAtStartup ?? .now
+                if let date1 = $0,
+                   let date2 = $1,
+                   self.calendar.compare(date1, to: date2, toGranularity: .day) != .orderedSame
+                {
+                    self.updateScrollPosition()
                 }
             }
-            .background(
-                GeometryReader { geometry in
-                    let frame = geometry.frame(in: .global)
-                    Color.clear
-                        .preference(key: CalendarSizeReaderPreferenceKey.self, value: frame.size)
-                        .onPreferenceChange(CalendarSizeReaderPreferenceKey.self) { size in
-                            if abs(self.availableWidth - max(paddingOffset * 2, size.width)) > 0.1 {
-                                DispatchQueue.main.async {
-                                    self.safeAreaInsets = geometry.safeAreaInsets
-                                    self.availableWidth = max(paddingOffset * 2, size.width)
-                                }
-                            }
-                        }
+            .fioriSizeReader { size in
+                DispatchQueue.main.async {
+                    self.availableWidth = max(paddingOffset * 2, size.width)
                 }
-                .hidden()
-            )
+            }
+            .onGeometryChange(for: EdgeInsets.self, of: { proxy in
+                proxy.safeAreaInsets
+            }, action: {
+                self.safeAreaInsets = $0
+                print("self.safeAreaInsets:\(self.safeAreaInsets)")
+            })
             
             if self.style == .datesSelection, self.showBannerMessage {
                 CalendarBannerView(title: "DatesSelectionBannerMessageKey".localizedFioriString(), bottomPadding: self.safeAreaInsets.bottom) {
@@ -372,7 +360,13 @@ public struct CalendarView: View {
         }
     }
     
-    public init(style: Binding<CalendarStyle> = .constant(.month), startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Binding<Date> = .constant(.now), selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    @State var displayDateAtStartupRecord: Date = .now {
+        didSet {
+            self.displayDateAtStartup = self.displayDateAtStartupRecord
+        }
+    }
+    
+    public init(style: Binding<CalendarStyle> = .constant(.month), startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Binding<Date?> = .constant(nil), selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         _style = style
         _selectedDate = selectedDate
         _selectedDateRecord = State(initialValue: selectedDate.wrappedValue)
@@ -380,6 +374,8 @@ public struct CalendarView: View {
         _selectedDatesRecord = State(initialValue: selectedDates.wrappedValue)
         _selectedRange = selectedRange
         _selectedRangeRecord = State(wrappedValue: selectedRange.wrappedValue)
+        _displayDateAtStartup = displayDateAtStartup
+        _displayDateAtStartupRecord = State(wrappedValue: displayDateAtStartup.wrappedValue ?? .now)
         self.disabledDates = disabledDates
         self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(style.wrappedValue) ? true : isPersistentSelection
         self.titleChangeCallback = titleChangeCallback
@@ -426,7 +422,7 @@ public struct CalendarView: View {
         
         // startDate must be smaller than endDate, otherwise the default dates will be used.
         if (startDate == nil && endDate == nil) || compareResult == .orderedDescending {
-            let components = self.calendar.dateComponents(components, from: displayDateAtStartup.wrappedValue)
+            let components = self.calendar.dateComponents(components, from: _displayDateAtStartupRecord.wrappedValue)
             if let currentYear = components.year {
                 let startYear = String(currentYear)
                 let startYearStr = startYear + " 01 01"
@@ -445,7 +441,6 @@ public struct CalendarView: View {
         
         self.startDate = result.startDate
         self.endDate = result.endDate
-        _displayDateAtStartup = displayDateAtStartup
         
         self.customEventView = customEventView
         
@@ -454,12 +449,12 @@ public struct CalendarView: View {
         
         _pageHeights = State(initialValue: Array(repeating: 0, count: self.totalMonths))
         
-        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: self.displayDateAtStartup) {
+        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: _displayDateAtStartupRecord.wrappedValue) {
             // displayDateAtStartup is not within the calendar range.
             if checkDateRangeContainsDate(self.startDate ... self.endDate, date: Date()) {
-                _displayDateAtStartup = .constant(Date())
+                _displayDateAtStartupRecord.wrappedValue = Date()
             } else {
-                _displayDateAtStartup = .constant(self.startDate)
+                _displayDateAtStartupRecord.wrappedValue = self.startDate
             }
         }
     }
@@ -551,6 +546,7 @@ public struct CalendarView: View {
             }
         }
         self.updateTitle()
+        self.updateDisplayDateAtStartup()
     }
     
     func handleScrollPositionChange() {
@@ -581,6 +577,7 @@ public struct CalendarView: View {
             }
         }
         self.updateTitle()
+        self.updateDisplayDateAtStartup()
     }
     
     func handleWeekScrollPositionChange(_ oldValue: Int?, _ newValue: Int?) {
@@ -601,12 +598,47 @@ public struct CalendarView: View {
                     }
                 }
             }
-            /*
-             3-如何处理expandable和week之间的转换
-             4-weekScrollPosition和scrollPosition之间的转换
-             */
         }
         self.updateTitle()
+        self.updateDisplayDateAtStartup()
+    }
+    
+    func updateScrollPosition() {
+        if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
+            self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.displayDateAtStartupRecord)
+        } else {
+            print("self.displayDateAtStartupRecord:\(self.displayDateAtStartupRecord)")
+            self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.displayDateAtStartupRecord)
+        }
+    }
+    
+    /*
+     In .expandable style, the view can transit between weekView and monthView
+     */
+    func updateDisplayDateAtStartup() {
+        if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
+            if let index = self.weekViewScrollPosition,
+               index < self.weeks.count
+            {
+                if let selectedDateRecord,
+                   self.weeks[index].containsDate(selectedDateRecord)
+                {
+                    _displayDateAtStartupRecord.wrappedValue = selectedDateRecord
+                } else if let firstDate = self.weeks[index].dates.first {
+                    _displayDateAtStartupRecord.wrappedValue = firstDate
+                }
+            }
+        } else if let index = scrollPosition {
+            if let nextDate = self.calendar.date(byAdding: .month, value: index, to: startDate) {
+                if let selectedDateRecord,
+                   self.calendar.compare(selectedDateRecord, to: nextDate, toGranularity: .month) == .orderedSame
+                {
+                    _displayDateAtStartupRecord.wrappedValue = selectedDateRecord
+                } else {
+                    _displayDateAtStartupRecord.wrappedValue = nextDate
+                }
+            }
+        }
     }
     
     func updateTitle() {
@@ -620,7 +652,7 @@ public struct CalendarView: View {
         
         var title = ""
         
-        if self.style == .week {
+        if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
             if let index = self.weekViewScrollPosition,
                index < self.weeks.count
             {

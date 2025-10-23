@@ -76,7 +76,6 @@ struct CalendarFloorplanExample: View {
                 }
             }
         })
-        
         .navigationTitle(self.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: self.selectedDate) {
