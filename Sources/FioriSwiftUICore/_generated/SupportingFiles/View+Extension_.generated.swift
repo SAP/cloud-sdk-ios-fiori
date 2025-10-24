@@ -3082,7 +3082,7 @@ public extension View {
 
 // MARK: TextInputInfoViewStyle
 
-extension View {
+public extension View {
     func textInputInfoViewStyle(_ style: some TextInputInfoViewStyle) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             stack.append(style)

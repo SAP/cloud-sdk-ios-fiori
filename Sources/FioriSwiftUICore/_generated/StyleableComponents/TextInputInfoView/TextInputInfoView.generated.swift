@@ -3,7 +3,7 @@
 import Foundation
 import SwiftUI
 
-struct TextInputInfoView {
+public struct TextInputInfoView {
     let icon: any View
     let description: any View
     let counter: any View
@@ -26,11 +26,11 @@ struct TextInputInfoView {
     }
 }
 
-extension TextInputInfoView {
-    public static let identifier = "fiori_textinputinfoview_component"
+public extension TextInputInfoView {
+    static let identifier = "fiori_textinputinfoview_component"
 }
 
-extension TextInputInfoView {
+public extension TextInputInfoView {
     init(icon: Image? = nil,
          description: AttributedString? = nil,
          counter: AttributedString? = nil)
@@ -39,12 +39,12 @@ extension TextInputInfoView {
     }
 }
 
-extension TextInputInfoView {
+public extension TextInputInfoView {
     init(_ configuration: TextInputInfoViewConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    init(_ configuration: TextInputInfoViewConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: TextInputInfoViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self.description = configuration.description
         self.counter = configuration.counter

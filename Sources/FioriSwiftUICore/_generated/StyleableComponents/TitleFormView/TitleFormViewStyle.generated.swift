@@ -36,6 +36,7 @@ public struct TitleFormViewConfiguration {
     public let allowsBeyondLimit: Bool
     public let charCountReachLimitMessage: String?
     public let charCountBeyondLimitMsg: String?
+    public let isAINoticeEnabled: Bool
 
     public typealias Placeholder = ConfigurationViewWrapper
 }

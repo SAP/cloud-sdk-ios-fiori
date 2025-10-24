@@ -3,6 +3,30 @@
 import Foundation
 import SwiftUI
 
+/// CardMedia: Composite Component Protocol
+///
+/// The `_CardMediaComponent` protocol combines media image and description components for card layouts.
+/// This protocol provides a unified interface for displaying media content with descriptive text in card-based UI components.
+///
+/// ## Usage
+///
+/// This component is typically used as part of a larger card structure to display media content such as images, videos, or other visual elements along with descriptive text.
+///
+/// ```swift
+/// CardMedia {
+///     Image("card_image")
+///         .resizable()
+///         .aspectRatio(contentMode: .fill)
+///         .frame(height: 145)
+/// } description: {
+///     Text("Media Description")
+/// }
+/// ```
+///
+/// ```swift
+/// CardMedia(mediaImage: Image("sample-image"), description: "This is a sample media description")
+/// ```
+///
 public struct CardMedia {
     let mediaImage: any View
     let description: any View

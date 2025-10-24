@@ -38,6 +38,11 @@ struct FormViewExamples: View {
             } label: {
                 Text("CurrencyInput Example")
             }
+            NavigationLink {
+                SemanticMessageExample()
+            } label: {
+                Text("SemanticMessage Example")
+            }
         }
     }
 }
