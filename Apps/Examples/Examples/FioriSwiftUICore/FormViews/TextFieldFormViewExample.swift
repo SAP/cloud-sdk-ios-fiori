@@ -53,7 +53,7 @@ struct TextFieldFormViewExample: View {
 
     var customizeNoticeActionLabel: AttributedString {
         var msgText = AttributedString(" View Details ")
-        msgText.font = .footnote.bold()
+        msgText.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         msgText.foregroundColor = .purple
         return msgText
     }

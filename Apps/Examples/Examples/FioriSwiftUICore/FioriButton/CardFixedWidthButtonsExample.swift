@@ -90,7 +90,7 @@ struct CardFixedWidthButtonsExample: View {
                         print("see all")
                     } label: {
                         Text("See all (\(self._dataSource.count))")
-                            .font(.fiori(forTextStyle: .body))
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                             .foregroundStyle(Color.preferredColor(.tintColor))
                     }
                 }
