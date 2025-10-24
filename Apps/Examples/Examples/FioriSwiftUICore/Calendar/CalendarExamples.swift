@@ -208,7 +208,7 @@ struct CalendarExamples: View {
             
             Section {
                 NavigationLink("Floorplan - DatesSelection - With toolbar") {
-                    CalendarFloorplanDatesSelectionExample(withToolBar: true)
+                    CalendarFloorplanDatesSelectionWithToolBarExample()
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Floorplan - DatesSelection - No toolbar") {

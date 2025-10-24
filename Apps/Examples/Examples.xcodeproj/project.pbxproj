@@ -71,6 +71,7 @@
 		6DE692F82E583CF700682172 /* CalendarExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE692F72E583CF000682172 /* CalendarExamples.swift */; };
 		6DE692FC2E5841B000682172 /* CalendarTestSettingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE692FB2E5841B000682172 /* CalendarTestSettingExample.swift */; };
 		6DEB3F752EAA47AC0049AEE7 /* CalendarProtocolTestDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB3F742EAA47AC0049AEE7 /* CalendarProtocolTestDemo.swift */; };
+		6DEB3F772EAB1E940049AEE7 /* CalendarFloorplanDatesSelectionWithToolBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB3F762EAB1E940049AEE7 /* CalendarFloorplanDatesSelectionWithToolBarExample.swift */; };
 		6DEC31F42C463ED50084DD20 /* FioriButtonTestsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */; };
 		6DEC31F82C47B7850084DD20 /* FioriButtonStyleToggleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F72C47B7850084DD20 /* FioriButtonStyleToggleExample.swift */; };
 		6DEC31FA2C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC31F92C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift */; };
@@ -352,6 +353,7 @@
 		6DE692F72E583CF000682172 /* CalendarExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExamples.swift; sourceTree = "<group>"; };
 		6DE692FB2E5841B000682172 /* CalendarTestSettingExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTestSettingExample.swift; sourceTree = "<group>"; };
 		6DEB3F742EAA47AC0049AEE7 /* CalendarProtocolTestDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocolTestDemo.swift; sourceTree = "<group>"; };
+		6DEB3F762EAB1E940049AEE7 /* CalendarFloorplanDatesSelectionWithToolBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFloorplanDatesSelectionWithToolBarExample.swift; sourceTree = "<group>"; };
 		6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonTestsExample.swift; sourceTree = "<group>"; };
 		6DEC31F72C47B7850084DD20 /* FioriButtonStyleToggleExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonStyleToggleExample.swift; sourceTree = "<group>"; };
 		6DEC31F92C48B35D0084DD20 /* FioriButtonCustomButtonExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonCustomButtonExample.swift; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				6D54E11E2E77B46B00D44898 /* CalendarRangeSelectionExample.swift */,
 				6D5355F62EA0BB65006A7185 /* CalendarDatesSelectionExample.swift */,
 				6D5355F82EA13729006A7185 /* CalendarFloorplanDatesSelectionExample.swift */,
+				6DEB3F762EAB1E940049AEE7 /* CalendarFloorplanDatesSelectionWithToolBarExample.swift */,
 				6D5355FA2EA1E7C4006A7185 /* CalendarFloorplanExample.swift */,
 				6D5355EE2E9CFD22006A7185 /* CalendarPersistentPreselectDateTestExample.swift */,
 				6D5355F42E9F8534006A7185 /* CalendarMonthViewPersistentExample.swift */,
@@ -1428,6 +1431,7 @@
 				1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */,
 				C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
+				6DEB3F772EAB1E940049AEE7 /* CalendarFloorplanDatesSelectionWithToolBarExample.swift in Sources */,
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
 				1F1A1FFA2C0BDA54007109D8 /* MenuSelectionExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,

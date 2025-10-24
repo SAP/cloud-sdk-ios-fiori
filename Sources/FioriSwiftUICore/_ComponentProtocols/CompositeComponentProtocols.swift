@@ -2490,3 +2490,10 @@ protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
     // sourcery: default.value = EmptyView()
     var customEventView: any View { get }
 }
+
+// sourcery: CompositeComponent
+protocol _CalendarWeekViewComponent {
+    var style: CalendarStyle { get }
+}
+
+// init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, CalendarDayState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() })

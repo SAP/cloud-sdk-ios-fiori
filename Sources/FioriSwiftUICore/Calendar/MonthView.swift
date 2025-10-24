@@ -145,10 +145,7 @@ struct MonthView: View, Equatable {
         
         var weeks: [WeekInfo] = []
         
-        let weekCount = self.style == .month ? 6 : range.count
-//        let weekCount = range.count
-        
-        for _ in 0 ..< weekCount {
+        for _ in 0 ..< 6 {
             let weekNumber = calendar.component(.weekOfYear, from: firstDayOfWeek)
             var dates: [Date] = []
             for dayOffset in 0 ..< 7 {
