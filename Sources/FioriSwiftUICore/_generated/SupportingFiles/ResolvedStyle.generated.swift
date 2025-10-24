@@ -467,6 +467,22 @@ extension BodyTextStyle {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+struct ResolvedCalendarDayViewStyle<Style: CalendarDayViewStyle>: View {
+    let style: Style
+    let configuration: CalendarDayViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarDayViewStyle {
+    func resolve(configuration: CalendarDayViewConfiguration) -> some View {
+        ResolvedCalendarDayViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {

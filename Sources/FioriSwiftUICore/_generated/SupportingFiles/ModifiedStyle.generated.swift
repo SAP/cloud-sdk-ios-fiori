@@ -820,6 +820,34 @@ public extension BodyTextStyle {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+extension ModifiedStyle: CalendarDayViewStyle where Style: CalendarDayViewStyle {
+    public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
+        CalendarDayView(configuration)
+            .calendarDayViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarDayViewStyleModifier<Style: CalendarDayViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarDayViewStyle(self.style)
+    }
+}
+
+public extension CalendarDayViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarDayViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarDayViewStyle) -> some CalendarDayViewStyle {
+        style.modifier(CalendarDayViewStyleModifier(style: self))
+    }
+}
+
 // MARK: CancelActionStyle
 
 extension ModifiedStyle: CancelActionStyle where Style: CancelActionStyle {

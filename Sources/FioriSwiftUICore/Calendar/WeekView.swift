@@ -49,11 +49,11 @@ public struct WeekView: View, Equatable {
     let selectedRange: ClosedRange<Date>?
     let disabledDates: CalendarDisabledDates?
     
-    let dayTappedCallback: ((Date, DayViewState) -> Void)?
+    let dayTappedCallback: ((Date, CalendarDayState) -> Void)?
     
     private var weekNumberVisibility: Bool = true
     
-    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, DayViewState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, CalendarDayState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
@@ -118,8 +118,7 @@ public struct WeekView: View, Equatable {
                 if state == .outOfMonth, !self.showOutOfMonth {
                     Spacer(minLength: 0)
                 } else {
-                    DayView(title: "\(day)", subtitle: getSecondaryDayTitle(date),
-                            isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: self.customEventView(date))
+                    CalendarDayView(title: AttributedString("\(day)"), subtitle: getSecondaryDayTitle(date), isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: self.customEventView(date))
                         .contentShape(Rectangle())
                         .ifApply(!state.isDisabled, content: {
                             $0.onTapGesture {
@@ -131,7 +130,7 @@ public struct WeekView: View, Equatable {
         }
     }
     
-    func dayState(_ date: Date) -> DayViewState {
+    func dayState(_ date: Date) -> CalendarDayState {
         let calendar = Calendar.autoupdatingCurrent
         let targetComponents = calendar.dateComponents([.year, .month], from: date)
         

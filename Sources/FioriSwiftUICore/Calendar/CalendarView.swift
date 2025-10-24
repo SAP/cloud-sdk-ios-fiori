@@ -525,7 +525,7 @@ public struct CalendarView: View {
         return weeks
     }
     
-    func handleDayViewTapGesture(_ date: Date, state: DayViewState) {
+    func handleDayViewTapGesture(_ date: Date, state: CalendarDayState) {
         if self.style == .datesSelection {
             if let checkDates = selectedDatesRecord, checkDates.contains(date) {
                 self.selectedDatesRecord?.remove(date)

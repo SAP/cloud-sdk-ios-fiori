@@ -612,6 +612,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+struct CalendarDayViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarDayViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarDayViewStyle: any CalendarDayViewStyle {
+        self.calendarDayViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarDayViewStyleStack: [any CalendarDayViewStyle] {
+        get {
+            self[CalendarDayViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarDayViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {

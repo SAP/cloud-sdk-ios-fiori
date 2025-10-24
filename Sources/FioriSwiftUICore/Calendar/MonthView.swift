@@ -20,14 +20,14 @@ struct MonthView: View, Equatable {
     let selectedRange: ClosedRange<Date>?
     let disabledDates: CalendarDisabledDates?
     
-    let dayTappedCallback: ((Date, DayViewState) -> Void)?
+    let dayTappedCallback: ((Date, CalendarDayState) -> Void)?
     
     @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.customLanguageId) var customLanguageId
     @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     @Environment(\.monthHeaderDateFormat) var monthHeaderDateFormat
     
-    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, DayViewState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    init(style: CalendarStyle, year: Int, month: Int, startDate: Date, endDate: Date, showMonthHeader: Bool = false, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, CalendarDayState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.year = year
         self.month = month

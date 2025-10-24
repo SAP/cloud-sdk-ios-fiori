@@ -496,6 +496,23 @@ public extension View {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+public extension View {
+    func calendarDayViewStyle(_ style: some CalendarDayViewStyle) -> some View {
+        self.transformEnvironment(\.calendarDayViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarDayViewStyle(@ViewBuilder content: @escaping (CalendarDayViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarDayViewStyleStack) { stack in
+            let style = AnyCalendarDayViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {

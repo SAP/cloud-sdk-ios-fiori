@@ -12,6 +12,12 @@ struct CalendarExamples: View {
     var body: some View {
         List {
             Section {
+                NavigationLink("CalendarProtocolTestDemo") {
+                    CalendarProtocolTestDemo()
+                }
+            }
+            
+            Section {
                 NavigationLink("Default - Not Persistent, No PreselectDate") {
                     CalendarPersistentPreselectDateTestExample(isPersistentSelection: false, showScrollToDate: true)
                         .environmentObject(self.settings)

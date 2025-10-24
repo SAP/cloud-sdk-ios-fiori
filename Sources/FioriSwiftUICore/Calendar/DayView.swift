@@ -18,8 +18,8 @@ extension VerticalAlignment {
 
     static let eventIndicatorCenterAlignment = VerticalAlignment(EventIndicatorCenterAlignment.self)
 }
-
-private extension DynamicTypeSize {
+ 
+extension DynamicTypeSize {
     // Utility function to return ContentSize scale value
     // Imitate the design of Apple `UIFontMetrics(forTextStyle: ...).scaledFont(for: ...)` for font scaling
     // No bold() case considered
@@ -62,7 +62,7 @@ private extension DynamicTypeSize {
     }
 }
 
-enum DayViewState {
+public enum CalendarDayState {
     case normal
     case today
     case outOfMonth
@@ -79,7 +79,7 @@ enum DayViewState {
     case disabledAndTodayInMultiSelection
     
     var isSelected: Bool {
-        let conditions: [DayViewState] = [
+        let conditions: [CalendarDayState] = [
             .singleSelected,
             .singleSelectedAndToday,
             .multiSelectedStart,
@@ -90,7 +90,7 @@ enum DayViewState {
     }
 
     var isDisabled: Bool {
-        let conditions: [DayViewState] = [
+        let conditions: [CalendarDayState] = [
             .outOfMonth,
             .disabled,
             .disabledAndToday,
@@ -101,7 +101,7 @@ enum DayViewState {
     }
     
     var isTitleBold: Bool {
-        let conditions: [DayViewState] = [
+        let conditions: [CalendarDayState] = [
             .today,
             .singleSelected,
             .singleSelectedAndToday,
@@ -115,7 +115,7 @@ enum DayViewState {
     }
 
     var isSingleSelected: Bool {
-        let conditions: [DayViewState] = [
+        let conditions: [CalendarDayState] = [
             .singleSelected,
             .singleSelectedAndToday
         ]
@@ -123,7 +123,7 @@ enum DayViewState {
     }
 
     var isMultiSelected: Bool {
-        let conditions: [DayViewState] = [
+        let conditions: [CalendarDayState] = [
             .multiSelectedStart,
             .multiSelectedMiddle,
             .multiSelectedEnd,
@@ -140,7 +140,7 @@ public struct DayView: View {
     
     let isEventIndicatorVisible: Bool
     
-    var state: DayViewState
+    var state: CalendarDayState
     
     let customEventView: any View
     
@@ -150,7 +150,7 @@ public struct DayView: View {
     @Environment(\.selectionSingleColor) var selectionSingleColor
     @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     
-    init(title: String, subtitle: String? = nil, isEventIndicatorVisible: Bool = false, state: DayViewState = .normal, customEventView: any View = EmptyView()) {
+    init(title: String, subtitle: String? = nil, isEventIndicatorVisible: Bool = false, state: CalendarDayState = .normal, customEventView: any View = EmptyView()) {
         self.title = title
         self.subtitle = subtitle
         self.isEventIndicatorVisible = isEventIndicatorVisible

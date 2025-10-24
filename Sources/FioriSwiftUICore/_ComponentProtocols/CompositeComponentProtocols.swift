@@ -2480,3 +2480,13 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     
     var menus: [[WAMenu]] { get }
 }
+
+// sourcery: CompositeComponent
+protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
+    // sourcery: default.value = false
+    var isEventIndicatorVisible: Bool { get }
+    // sourcery: default.value = .normal
+    var state: CalendarDayState { get }
+    // sourcery: default.value = EmptyView()
+    var customEventView: any View { get }
+}

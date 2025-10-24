@@ -55,7 +55,7 @@ public enum AlternateCalendarType: CaseIterable {
 }
 
 extension WeekView {
-    func getSecondaryDayTitle(_ date: Date) -> String? {
+    func getSecondaryDayTitle(_ date: Date) -> AttributedString? {
         switch alternateCalendarType {
         case .chinese:
             return self.getAlternateDayTitle(date, identifier: .chinese, defaultLocale: Locale(identifier: "zh-Hans"))
@@ -68,7 +68,7 @@ extension WeekView {
         }
     }
 
-    func getAlternateDayTitle(_ date: Date, identifier: Calendar.Identifier, defaultLocale: Locale) -> String {
+    func getAlternateDayTitle(_ date: Date, identifier: Calendar.Identifier, defaultLocale: Locale) -> AttributedString {
         let calendar = Calendar(identifier: identifier)
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = calendar
@@ -77,10 +77,10 @@ extension WeekView {
         let day = calendar.component(.day, from: date)
         if day == 1 {
             dateFormatter.dateFormat = "MMMM"
-            return dateFormatter.string(from: date).trim(8)
+            return AttributedString(dateFormatter.string(from: date).trim(8))
         }
         dateFormatter.dateFormat = "dd"
-        return dateFormatter.string(from: date).trim(8)
+        return AttributedString(dateFormatter.string(from: date).trim(8))
     }
 }
 
