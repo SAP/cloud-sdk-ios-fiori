@@ -848,6 +848,34 @@ public extension CalendarDayViewStyle {
     }
 }
 
+// MARK: CalendarWeekViewStyle
+
+extension ModifiedStyle: CalendarWeekViewStyle where Style: CalendarWeekViewStyle {
+    public func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
+        CalendarWeekView(configuration)
+            .calendarWeekViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarWeekViewStyleModifier<Style: CalendarWeekViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarWeekViewStyle(self.style)
+    }
+}
+
+public extension CalendarWeekViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarWeekViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarWeekViewStyle) -> some CalendarWeekViewStyle {
+        style.modifier(CalendarWeekViewStyleModifier(style: self))
+    }
+}
+
 // MARK: CancelActionStyle
 
 extension ModifiedStyle: CancelActionStyle where Style: CancelActionStyle {

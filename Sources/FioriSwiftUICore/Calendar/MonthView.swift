@@ -99,7 +99,7 @@ struct MonthView: View, Equatable {
             }
             
             ForEach(self.weeks, id: \.self) { info in
-                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)
+                CalendarWeekView(calendarStyle: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)
             }
         })
     }
@@ -127,7 +127,7 @@ struct MonthView: View, Equatable {
         }
     }
     
-    var weeks: [WeekInfo] {
+    var weeks: [CalendarWeekInfo] {
         var calendar = Calendar.autoupdatingCurrent
         calendar.firstWeekday = self.firstWeekday
         var components = DateComponents()
@@ -143,7 +143,7 @@ struct MonthView: View, Equatable {
         
         guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return [] }
         
-        var weeks: [WeekInfo] = []
+        var weeks: [CalendarWeekInfo] = []
         
         for _ in 0 ..< 6 {
             let weekNumber = calendar.component(.weekOfYear, from: firstDayOfWeek)
@@ -153,7 +153,7 @@ struct MonthView: View, Equatable {
                     dates.append(date)
                 }
             }
-            let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
+            let weekInfo = CalendarWeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
             weeks.append(weekInfo)
             
             guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return [] }

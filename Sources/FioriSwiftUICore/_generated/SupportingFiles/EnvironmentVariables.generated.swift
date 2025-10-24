@@ -633,6 +633,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CalendarWeekViewStyle
+
+struct CalendarWeekViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarWeekViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarWeekViewStyle: any CalendarWeekViewStyle {
+        self.calendarWeekViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarWeekViewStyleStack: [any CalendarWeekViewStyle] {
+        get {
+            self[CalendarWeekViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarWeekViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {

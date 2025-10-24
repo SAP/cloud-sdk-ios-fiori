@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct WeekInfo: Hashable {
-    let id = UUID()
-    let year: Int?
-    let month: Int?
-    let weekNumber: Int
-    let dates: [Date]
+public struct CalendarWeekInfo: Hashable {
+    public let id = UUID()
+    public let year: Int?
+    public let month: Int?
+    public let weekNumber: Int
+    public let dates: [Date]
     
-    init(year: Int? = nil, month: Int? = nil, weekNumber: Int, dates: [Date]) {
+    public init(year: Int? = nil, month: Int? = nil, weekNumber: Int, dates: [Date]) {
         self.year = year
         self.month = month
         self.weekNumber = weekNumber
@@ -15,7 +15,7 @@ struct WeekInfo: Hashable {
     }
     
     /// Check the week contains one date or not, the granularity is .day.
-    func containsDate(_ comparedDate: Date) -> Bool {
+    public func containsDate(_ comparedDate: Date) -> Bool {
         for date in self.dates {
             if Calendar.autoupdatingCurrent.compare(date, to: comparedDate, toGranularity: .day) == .orderedSame {
                 return true
@@ -27,7 +27,7 @@ struct WeekInfo: Hashable {
 
 public struct WeekView: View, Equatable {
     let style: CalendarStyle
-    let weekInfo: WeekInfo
+    let weekInfo: CalendarWeekInfo
     /// The start date of the calendar. Default is current year's first day.
     let startDate: Date
     /// The end date of the calendar. Default is next year's last day.
@@ -53,7 +53,7 @@ public struct WeekView: View, Equatable {
     
     private var weekNumberVisibility: Bool = true
     
-    init(style: CalendarStyle, weekInfo: WeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, CalendarDayState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    init(style: CalendarStyle, weekInfo: CalendarWeekInfo, startDate: Date, endDate: Date, showOutOfMonth: Bool = true, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, dayTappedCallback: ((Date, CalendarDayState) -> Void)? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         self.weekInfo = weekInfo
         self.startDate = startDate
@@ -209,9 +209,9 @@ public struct WeekView: View, Equatable {
     }()
     
     let calendar = Calendar.autoupdatingCurrent
-    var weekOfYear = calendar.component(.weekOfYear, from: firstDayOfWeek)
+    let weekOfYear = calendar.component(.weekOfYear, from: firstDayOfWeek)
     
-    let weekInfo = WeekInfo(year: year, month: month, weekNumber: weekOfYear, dates: [
+    let weekInfo = CalendarWeekInfo(year: year, month: month, weekNumber: weekOfYear, dates: [
         firstDayOfWeek,
         calendar.date(byAdding: .day, value: 1, to: firstDayOfWeek)!,
         calendar.date(byAdding: .day, value: 2, to: firstDayOfWeek)!,

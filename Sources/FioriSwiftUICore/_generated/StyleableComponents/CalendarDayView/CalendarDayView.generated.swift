@@ -3,11 +3,19 @@
 import Foundation
 import SwiftUI
 
+/// `CalendarDayView` is used to display a day with title, subtitle and eventIndicator.
+/// ## Usage
+/// ```swift
+/// CalendarDayView(title: "7", isEventIndicatorVisible: true, state: .today)
+/// ```
 public struct CalendarDayView {
     let title: any View
     let subtitle: any View
+    /// This property indicates whether the event view is to be displayed or not. The default is false.
     let isEventIndicatorVisible: Bool
+    /// The state of the day  view. The default is `.normal`.
     let state: CalendarDayState
+    /// This property is used to customize event view.
     let customEventView: any View
 
     @Environment(\.calendarDayViewStyle) var style

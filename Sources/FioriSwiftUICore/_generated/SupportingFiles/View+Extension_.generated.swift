@@ -513,6 +513,23 @@ public extension View {
     }
 }
 
+// MARK: CalendarWeekViewStyle
+
+public extension View {
+    func calendarWeekViewStyle(_ style: some CalendarWeekViewStyle) -> some View {
+        self.transformEnvironment(\.calendarWeekViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarWeekViewStyle(@ViewBuilder content: @escaping (CalendarWeekViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarWeekViewStyleStack) { stack in
+            let style = AnyCalendarWeekViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {

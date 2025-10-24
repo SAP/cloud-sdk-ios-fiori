@@ -38,7 +38,7 @@ public struct CalendarView: View {
     @State var weekViewScrollPosition: Int? = 0
     
     var totalMonths = 0
-    var weeks: [WeekInfo] = []
+    var weeks: [CalendarWeekInfo] = []
     
     @State var pageHeights: [CGFloat] = [0] {
         didSet {
@@ -501,13 +501,13 @@ public struct CalendarView: View {
     }
     
     @Environment(\.firstWeekday) var firstWeekday
-    func handleWeekInfo() -> [WeekInfo] {
+    func handleWeekInfo() -> [CalendarWeekInfo] {
         // Get the first Day of the week
         guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return [] }
         
         let totalWeeksNumber = self.weeksOffsetBetweenDates(start: self.startDate, end: self.endDate) + 1
         
-        var weeks: [WeekInfo] = []
+        var weeks: [CalendarWeekInfo] = []
         for _ in 0 ..< totalWeeksNumber {
             let weekNumber = self.calendar.component(.weekOfYear, from: firstDayOfWeek)
             var dates: [Date] = []
@@ -516,7 +516,7 @@ public struct CalendarView: View {
                     dates.append(date)
                 }
             }
-            let weekInfo = WeekInfo(weekNumber: weekNumber, dates: dates)
+            let weekInfo = CalendarWeekInfo(weekNumber: weekNumber, dates: dates)
             weeks.append(weekInfo)
             
             guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return [] }

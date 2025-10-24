@@ -185,3 +185,8 @@ func sizeEnumToValue(dynamicTypeSize: DynamicTypeSize,
     }
     return dynamicTypeSize.sizeToScaleValue
 }
+
+func checkDateRangeContainsDate(_ selectedRange: ClosedRange<Date>, date: Date) -> Bool {
+    let calendar = Calendar.autoupdatingCurrent
+    return calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) != .orderedAscending && calendar.compare(date, to: selectedRange.upperBound, toGranularity: .day) != .orderedDescending
+}

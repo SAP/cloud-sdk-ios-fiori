@@ -84,7 +84,7 @@ extension WeekView {
     }
 }
 
-extension String {
+public extension String {
     func trim(_ maxCount: Int) -> String {
         guard self.count > maxCount else {
             return self
