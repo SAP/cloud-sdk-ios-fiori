@@ -410,6 +410,8 @@ protocol _TextInputFieldComponent {
     var text: String { get set }
     // sourcery: defaultValue = false
     var isSecureEnabled: Bool? { get set }
+    // sourcery: default.value = nil
+    var formatter: FormattedStringEditing? { get set }
 }
 
 // sourcery: CompositeComponent
