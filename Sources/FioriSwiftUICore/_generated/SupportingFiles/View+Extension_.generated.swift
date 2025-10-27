@@ -530,6 +530,23 @@ public extension View {
     }
 }
 
+// MARK: CalendarViewStyle
+
+public extension View {
+    func calendarViewStyle(_ style: some CalendarViewStyle) -> some View {
+        self.transformEnvironment(\.calendarViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarViewStyle(@ViewBuilder content: @escaping (CalendarViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarViewStyleStack) { stack in
+            let style = AnyCalendarViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CalendarWeekViewStyle
 
 public extension View {

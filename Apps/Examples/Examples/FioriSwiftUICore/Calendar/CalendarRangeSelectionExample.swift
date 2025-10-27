@@ -4,33 +4,30 @@ import SwiftUI
 struct CalendarRangeSelectionExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var selectedRange: ClosedRange<Date>? = nil
-    
     @State var isCustomPreselected = false
     
     @State private var title: String?
     
-    var fm: DateFormatter {
-        let fm = DateFormatter()
-        fm.timeZone = Calendar.current.timeZone
-        fm.locale = Calendar.current.locale
-        fm.dateFormat = "yyyy MM dd"
-        return fm
-    }
-    
-    var year: Int {
-        Calendar.current.component(.year, from: Date())
-    }
+    @StateObject var model: CalendarModel
     
     init(isPreselected: Bool = false) {
         self.isCustomPreselected = isPreselected
+        
+        let model = CalendarModel(calendarStyle: .rangeSelection)
         if isPreselected {
-            if let startDate = self.fm.date(from: "\(year) 10 20"),
-               let endDate = self.fm.date(from: "\(year) 10 22")
+            let fm = DateFormatter()
+            fm.timeZone = Calendar.current.timeZone
+            fm.locale = Calendar.current.locale
+            fm.dateFormat = "yyyy MM dd"
+            
+            let year = Calendar.current.component(.year, from: Date())
+            if let startDate = fm.date(from: "\(year) 10 20"),
+               let endDate = fm.date(from: "\(year) 10 22")
             {
-                _selectedRange = State(initialValue: startDate ... endDate)
+                model.selectedRange = startDate ... endDate
             }
         }
+        _model = StateObject(wrappedValue: model)
     }
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
@@ -43,10 +40,9 @@ struct CalendarRangeSelectionExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: .rangeSelection, selectedRange: self.$selectedRange, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(model: self.model, titleChangeCallback: {
                 self.title = $0
-            }, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
-                
+            }, customCalendarBackgroundColor: self.customCalendarBackgroundColor) { date in
                 if self.settings.customizesEventViews {
                     let weekday = Calendar.current.component(.weekday, from: date)
                     if weekday == 2 {
@@ -70,7 +66,7 @@ struct CalendarRangeSelectionExample: View {
                         EmptyView()
                     }
                 }
-            })
+            }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.firstWeekday, self.settings.firstWeekDay)
@@ -85,11 +81,12 @@ struct CalendarRangeSelectionExample: View {
             if !self.isCustomPreselected,
                self.settings.testPreselectRange != nil
             {
-                self.selectedRange = self.settings.testPreselectRange
+                self.model.selectedRange = self.settings.testPreselectRange
             }
+            self.model.disabledDates = self.settings.checkDisabledDates()
         })
-        .onChange(of: self.selectedRange) {
-            if let selectedRange {
+        .onChange(of: self.model.selectedRange) {
+            if let selectedRange = self.model.selectedRange {
                 print("selectedRange onChange:\(selectedRange)")
             } else {
                 print("No range selected")

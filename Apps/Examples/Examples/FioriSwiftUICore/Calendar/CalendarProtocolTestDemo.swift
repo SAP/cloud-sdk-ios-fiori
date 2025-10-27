@@ -2,11 +2,12 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct CalendarProtocolTestDemo: View {
+    @StateObject var model = CalendarModel(calendarStyle: .month)
+    
     var body: some View {
-        let year = Calendar.autoupdatingCurrent.component(.year, from: Date())
-        let month = Calendar.autoupdatingCurrent.component(.month, from: Date())
-        CalendarMonthView(calendarStyle: .month, year: year, month: month, startDate: Date(), endDate: Date(), showMonthHeader: true)
+        CalendarView(model: self.model)
             .environment(\.showsWeekNumbers, true)
+            .environment(\.alternateCalendarType, .chinese)
     }
 }
 

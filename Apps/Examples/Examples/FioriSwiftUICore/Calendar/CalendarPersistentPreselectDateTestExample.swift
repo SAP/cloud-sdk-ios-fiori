@@ -32,11 +32,26 @@ struct CalendarPersistentPreselectDateTestExample: View {
         return result
     }
     
+    @StateObject var model: CalendarModel
+    
+    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int = 1, showScrollToDate: Bool = false) {
+        self.style = style
+        self.startDate = startDate
+        self.endDate = endDate
+        self.displayDateAtStartup = displayDateAtStartup
+        self.scrollToDate = scrollToDate
+        self.selectedDate = selectedDate
+        self.isPersistentSelection = isPersistentSelection
+        self.title = title
+        self.firstWeekday = firstWeekday
+        self.showScrollToDate = showScrollToDate
+        _model = StateObject(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate))
+    }
+    
     var body: some View {
         VStack {
-            CalendarView(style: self.style, startDate: self.startDate, endDate: self.endDate, displayDateAtStartup: self.displayDateAtStartup, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection, scrollToDate: self.$scrollToDate) {
+            CalendarView(model: self.model) {
                 self.title = $0
-                print("self.title:\($0)")
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
@@ -83,22 +98,22 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     func scrollDate() {
         if let sixtyDaysAfter = Calendar.current.date(byAdding: .day, value: 60, to: Date()) {
-            self.scrollToDate = sixtyDaysAfter
-            self.selectedDate = sixtyDaysAfter
+            self.model.scrollToDate = sixtyDaysAfter
+            self.model.selectedDate = sixtyDaysAfter
         }
     }
     
     func scrollDate1() {
         if let date = self.fm.date(from: "\(year) 01 10") {
-            self.scrollToDate = date
-            self.selectedDate = date
+            self.model.scrollToDate = date
+            self.model.selectedDate = date
         }
     }
 
     func scrollDate2() {
         if let date = self.fm.date(from: "\(year) 12 20") {
-            self.scrollToDate = date
-            self.selectedDate = date
+            self.model.scrollToDate = date
+            self.model.selectedDate = date
         }
     }
     

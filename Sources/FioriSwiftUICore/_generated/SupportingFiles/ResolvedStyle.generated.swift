@@ -499,6 +499,22 @@ extension CalendarMonthViewStyle {
     }
 }
 
+// MARK: CalendarViewStyle
+
+struct ResolvedCalendarViewStyle<Style: CalendarViewStyle>: View {
+    let style: Style
+    let configuration: CalendarViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarViewStyle {
+    func resolve(configuration: CalendarViewConfiguration) -> some View {
+        ResolvedCalendarViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CalendarWeekViewStyle
 
 struct ResolvedCalendarWeekViewStyle<Style: CalendarWeekViewStyle>: View {

@@ -37,6 +37,10 @@ extension Variable {
     var isBinding: Bool {
         annotations.isBinding
     }
+
+    var isObservedObject: Bool {
+        annotations.isObservedObject
+    }
 }
 
 extension Variable {

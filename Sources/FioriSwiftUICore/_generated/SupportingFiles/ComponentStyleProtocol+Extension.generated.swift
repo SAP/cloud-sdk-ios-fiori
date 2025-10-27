@@ -1151,6 +1151,20 @@ public extension CalendarMonthViewStyle where Self == CalendarMonthViewFioriStyl
     }
 }
 
+// MARK: CalendarViewStyle
+
+public extension CalendarViewStyle where Self == CalendarViewBaseStyle {
+    static var base: CalendarViewBaseStyle {
+        CalendarViewBaseStyle()
+    }
+}
+
+public extension CalendarViewStyle where Self == CalendarViewFioriStyle {
+    static var fiori: CalendarViewFioriStyle {
+        CalendarViewFioriStyle()
+    }
+}
+
 // MARK: CalendarWeekViewStyle
 
 public extension CalendarWeekViewStyle where Self == CalendarWeekViewBaseStyle {

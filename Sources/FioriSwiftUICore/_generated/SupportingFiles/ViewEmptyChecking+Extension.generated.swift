@@ -215,6 +215,12 @@ extension CalendarMonthView: _ViewEmptyChecking {
     }
 }
 
+extension CalendarView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension CalendarWeekView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         false

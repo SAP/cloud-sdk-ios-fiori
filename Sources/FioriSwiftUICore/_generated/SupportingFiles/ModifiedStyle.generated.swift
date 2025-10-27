@@ -876,6 +876,34 @@ public extension CalendarMonthViewStyle {
     }
 }
 
+// MARK: CalendarViewStyle
+
+extension ModifiedStyle: CalendarViewStyle where Style: CalendarViewStyle {
+    public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
+        CalendarView(configuration)
+            .calendarViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarViewStyleModifier<Style: CalendarViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarViewStyle(self.style)
+    }
+}
+
+public extension CalendarViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarViewStyle) -> some CalendarViewStyle {
+        style.modifier(CalendarViewStyleModifier(style: self))
+    }
+}
+
 // MARK: CalendarWeekViewStyle
 
 extension ModifiedStyle: CalendarWeekViewStyle where Style: CalendarWeekViewStyle {

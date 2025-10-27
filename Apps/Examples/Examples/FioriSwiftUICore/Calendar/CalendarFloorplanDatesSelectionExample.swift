@@ -4,23 +4,9 @@ import SwiftUI
 struct CalendarFloorplanDatesSelectionExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var selectedDates: Set<Date>? = []
+    @StateObject var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
     
     @State private var title: String?
-    
-    @State var withToolBar = false
-    
-    var fm: DateFormatter {
-        let fm = DateFormatter()
-        fm.timeZone = Calendar.current.timeZone
-        fm.locale = Calendar.current.locale
-        fm.dateFormat = "yyyy MM dd"
-        return fm
-    }
-    
-    var year: Int {
-        Calendar.current.component(.year, from: Date())
-    }
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
         var result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
@@ -32,9 +18,9 @@ struct CalendarFloorplanDatesSelectionExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: .datesSelection, selectedDates: self.$selectedDates, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(model: self.model, titleChangeCallback: {
                 self.title = $0
-            }, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: { date in
+            }, customCalendarBackgroundColor: self.customCalendarBackgroundColor) { date in
                 
                 if self.settings.customizesEventViews {
                     let weekday = Calendar.current.component(.weekday, from: date)
@@ -59,7 +45,7 @@ struct CalendarFloorplanDatesSelectionExample: View {
                         EmptyView()
                     }
                 }
-            })
+            }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.firstWeekday, self.settings.firstWeekDay)
@@ -75,23 +61,18 @@ struct CalendarFloorplanDatesSelectionExample: View {
                 }
                 .disabled(self.clearAllDisabled)
             }
-            
-            if self.withToolBar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    Button("Done") {
-                        self.didTapDone()
-                    }
-                }
-            }
         })
         .navigationTitle(self.title ?? "Dates Selection")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: self.selectedDates) {
-            if let selectedDates {
+        .onChange(of: self.model.selectedDates) {
+            if let selectedDates = $1 {
                 print("selectedDates onChange:\(selectedDates)")
             } else {
                 print("No dates selected")
             }
+        }
+        .onAppear {
+            self.model.disabledDates = self.settings.checkDisabledDates()
         }
     }
     
@@ -102,11 +83,11 @@ struct CalendarFloorplanDatesSelectionExample: View {
     func didTapDone() {}
 
     func clearAll() {
-        self.selectedDates = []
+        self.model.selectedDates = []
     }
 
     var clearAllDisabled: Bool {
-        if let selectedDates {
+        if let selectedDates = self.model.selectedDates {
             return selectedDates.count == 0
         }
         return true

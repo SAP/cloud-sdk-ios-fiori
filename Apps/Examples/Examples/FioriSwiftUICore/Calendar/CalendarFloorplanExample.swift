@@ -3,27 +3,13 @@ import FioriThemeManager
 import SwiftUI
 
 struct CalendarFloorplanExample: View {
-    @State var style: CalendarStyle = .month
-    
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var selectedDate: Date?
+    @StateObject var model: CalendarModel
     
     @State private var title: String?
     
-    @State var withToolBar = false
-    
-    var fm: DateFormatter {
-        let fm = DateFormatter()
-        fm.timeZone = Calendar.current.timeZone
-        fm.locale = Calendar.current.locale
-        fm.dateFormat = "yyyy MM dd"
-        return fm
-    }
-    
-    var year: Int {
-        Calendar.current.component(.year, from: Date())
-    }
+    let withToolBar: Bool
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
         var result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [:]
@@ -33,9 +19,16 @@ struct CalendarFloorplanExample: View {
         return result
     }
     
+    init(calendarStyle: CalendarStyle = .month, withToolBar: Bool = false) {
+        self.withToolBar = withToolBar
+        
+        let model = CalendarModel(calendarStyle: calendarStyle)
+        _model = StateObject(wrappedValue: model)
+    }
+    
     var body: some View {
         VStack {
-            CalendarView(style: self.style, selectedDate: self.$selectedDate, disabledDates: self.settings.checkDisabledDates(), titleChangeCallback: {
+            CalendarView(model: self.model, titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor)
                 .environment(\.hasEventIndicator, self.settings.testsEventViews)
@@ -68,7 +61,7 @@ struct CalendarFloorplanExample: View {
             if self.withToolBar {
                 ToolbarItem(placement: .topBarTrailing) {
                     FioriButton { _ in
-                        self.style = (self.style == .month ? .week : .month)
+                        self.model.calendarStyle = (self.model.calendarStyle == .month ? .week : .month)
                     } image: { _ in
                         FioriIcon.actions.switchViews
                     }
@@ -78,17 +71,20 @@ struct CalendarFloorplanExample: View {
         })
         .navigationTitle(self.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: self.selectedDate) {
-            if let selectedDate {
+        .onChange(of: self.model.selectedDate) {
+            if let selectedDate = $1 {
                 print("selectedDate onChange:\(selectedDate)")
             } else {
                 print("No date selected")
             }
         }
+        .onAppear {
+            self.model.disabledDates = self.settings.checkDisabledDates()
+        }
     }
 
     var datesSelectionTips: String {
-        if let date = selectedDate {
+        if let date = self.model.selectedDate {
             let fm = DateFormatter()
             fm.dateFormat = "EEEE"
             let day = fm.string(from: date)

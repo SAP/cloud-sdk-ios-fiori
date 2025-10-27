@@ -220,11 +220,11 @@ struct CalendarExamples: View {
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Floorplan - Week") {
-                    CalendarFloorplanExample(style: .week)
+                    CalendarFloorplanExample(calendarStyle: .week)
                         .environmentObject(self.settings)
                 }
                 NavigationLink("Floorplan - Month - Week Transition") {
-                    CalendarFloorplanExample(style: .month, withToolBar: true)
+                    CalendarFloorplanExample(calendarStyle: .month, withToolBar: true)
                         .environmentObject(self.settings)
                 }
 //                NavigationLink("Floorplan - Expandable") {

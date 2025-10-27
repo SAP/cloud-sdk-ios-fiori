@@ -2604,3 +2604,24 @@ protocol _CalendarMonthViewComponent {
     @ViewBuilder
     var customEventView: (Date) -> any View { get }
 }
+
+/// `CalendarView` is used to display the calendar. The calendar supports `.week`, `.month`, `.expandable`, `.fullScrollMonth`, `.rangeSelection`, and `.datesSelection` style.
+// sourcery: CompositeComponent
+protocol _CalendarViewComponent {
+    /// The model of the calendar view.
+    // sourcery: @ObservedObject
+    var model: CalendarModel { get }
+    
+    /// Callback when the title is Changed.
+    // sourcery: default.value = nil
+    var titleChangeCallback: ((String) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    var customCalendarBackgroundColor: Color? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}

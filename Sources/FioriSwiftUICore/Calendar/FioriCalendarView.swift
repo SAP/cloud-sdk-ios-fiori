@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-public struct CalendarView: View {
+public struct FioriCalendarView: View {
     @Binding var selectedDate: Date?
     @Binding var selectedDates: Set<Date>?
     @Binding var selectedRange: ClosedRange<Date>?
@@ -28,8 +28,6 @@ public struct CalendarView: View {
      In `month` style, the default behavior is that the first date of every month is selected when the month is displayed. (If the particular month contains today's date, then it is selected instead.) Also, the selection is not persistent. For example, on startup of the calendar, assume that January is displayed with Jan 1st selected. Then, if a user clicks on another date, for example Jan 25th, it is selected now. If the user then scrolls to Feb, then Feb 1st shows as selected. Scrolling back to January, the 1st of January is selected now and not the 25th as the user had previously selected.
      
      In the case where `isPersistentSelection` is true, then the behavior is as follows: No date is selected when the calendar is displayed or scrolled to another month, except if a date was set by the `selectDate`: (for month, week, expandable, and `datesSelection`) or `selectDateRange`:(for `multipleSelection View`) by the developer. When the user then selects another date, then this date is now selected, regardless of whether the user scrolls to any other month.
-     
-     The value cannot be changed after it is set during initialization of the `calendarView`.
      */
     let isPersistentSelection: Bool
     
@@ -242,7 +240,6 @@ public struct CalendarView: View {
                 }
             }
             .setOnChange(of: self.scrollPosition) {
-                print("scrollPosition onChange:\(self.scrollPosition ?? 0)")
                 self.handleScrollPositionChange()
                 
                 DispatchQueue.main.async {
@@ -257,7 +254,6 @@ public struct CalendarView: View {
             })
             .setOnChange(of: self.currentSelectedDate) {
                 self.updateTitle()
-                print("self.currentSelectedDate setOnChange")
             }
             .setOnChange(of: self.currentSelectedDates) {
                 self.updateTitle()
@@ -295,7 +291,6 @@ public struct CalendarView: View {
                 {
                     DispatchQueue.main.async {
                         self.safeAreaInsets = newValue
-                        print("self.safeAreaInsets:\(self.safeAreaInsets)")
                     }
                 }
             })
@@ -333,10 +328,6 @@ public struct CalendarView: View {
             .rangeSelection
         ]
         return conditions.contains(self.style)
-    }
-    
-    var scrollDirection: Axis.Set {
-        (self.style == .week || (self.style == .expandable && !self.isExpanded)) ? .horizontal : .vertical
     }
     
     var fillBackgroundColor: Color {
@@ -710,7 +701,7 @@ public struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(style: .month)
+    FioriCalendarView(style: .month)
         .environment(\.showsWeekNumbers, true)
         .environment(\.alternateCalendarType, .chinese)
 }

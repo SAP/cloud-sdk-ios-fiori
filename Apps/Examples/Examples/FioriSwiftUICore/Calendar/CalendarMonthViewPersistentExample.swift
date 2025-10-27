@@ -2,17 +2,9 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct CalendarMonthViewPersistentExample: View {
-    @State var style: CalendarStyle = .month
-    
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var startDate: Date?
-    
-    @State var selectedDate: Date?
-    
-    @State var isPersistentSelection: Bool = true
-    
-    @State var defaultTitle: String?
+    @StateObject var model = CalendarModel(calendarStyle: .month, isPersistentSelection: true)
     
     @State private var title: String?
     
@@ -40,7 +32,7 @@ struct CalendarMonthViewPersistentExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: self.style, startDate: self.startDate, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
+            CalendarView(model: self.model) {
                 self.title = $0
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
@@ -54,14 +46,17 @@ struct CalendarMonthViewPersistentExample: View {
             
             Spacer()
         }
-        .navigationTitle(self.title ?? self.defaultTitle ?? "")
+        .navigationTitle(self.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: self.selectedDate) { _, _ in
-            if let selectedDate {
+        .onChange(of: self.model.selectedDate) {
+            if let selectedDate = $1 {
                 print("selectedDate:\(selectedDate)")
             } else {
                 print("No date selected")
             }
+        }
+        .onAppear {
+            self.model.disabledDates = self.settings.checkDisabledDates()
         }
     }
 }
