@@ -14,7 +14,7 @@ public struct CalendarView: View {
     let startDate: Date
     /// The end date of the calendar. Default is next year's last day.
     let endDate: Date
-    /// The display date at startup. Default is today. When calendar scrolls, this property's will change to visible date.
+    /// The display date at startup.
     let displayDateAtStartup: Date?
     let style: CalendarStyle
     
@@ -129,14 +129,14 @@ public struct CalendarView: View {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(self.pageHeights[self.scrollPosition!], 404))
+                            return $0.frame(height: max(self.pageHeights[self.scrollPosition!], 350))
                         }
                     })
                     .ifApply(self.scrollPosition == nil, content: {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(self.lastPageHeight, 404))
+                            return $0.frame(height: max(self.lastPageHeight, 350))
                         }
                     })
                     .clipped()
@@ -257,6 +257,7 @@ public struct CalendarView: View {
             })
             .setOnChange(of: self.currentSelectedDate) {
                 self.updateTitle()
+                print("self.currentSelectedDate setOnChange")
             }
             .setOnChange(of: self.currentSelectedDates) {
                 self.updateTitle()
@@ -270,15 +271,15 @@ public struct CalendarView: View {
             .setOnChange(of: self.isExpanded) {
                 self.updateScrollPosition()
             }
-            .setOnChange(of: self.currentDisplayDate, action1: { _ in
+            .setOnChange(of: self.currentScrollToDate, action1: { _ in
             }, action2: {
-                self.checkDisplayDateAtStartupRecord()
+                self.checkCurrentScrollToDate()
                 if self.calendar.compare($0, to: $1, toGranularity: .day) != .orderedSame {
                     self.updateScrollPosition()
                 }
             })
-            .setOnChange(of: self.displayDateAtStartup) {
-                self.currentDisplayDate = self.displayDateAtStartup ?? .now
+            .setOnChange(of: self.scrollToDate) {
+                self.currentScrollToDate = self.scrollToDate ?? .now
             }
             .fioriSizeReader { size in
                 DispatchQueue.main.async {
@@ -364,9 +365,14 @@ public struct CalendarView: View {
         }
     }
     
-    @State var currentDisplayDate: Date = .now
+    @Binding var scrollToDate: Date?
+    @State var currentScrollToDate: Date = .now {
+        didSet {
+            self.scrollToDate = self.currentScrollToDate
+        }
+    }
     
-    public init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
+    public init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Binding<Date?> = .constant(nil), selectedDates: Binding<Set<Date>?> = .constant(nil), selectedRange: Binding<ClosedRange<Date>?> = .constant(nil), disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Binding<Date?> = .constant(nil), titleChangeCallback: ((String) -> Void)? = nil, customCalendarBackgroundColor: Color? = nil, @ViewBuilder customEventView: @escaping (Date) -> any View = { _ in EmptyView() }) {
         self.style = style
         _selectedDate = selectedDate
         _currentSelectedDate = State(initialValue: selectedDate.wrappedValue)
@@ -375,7 +381,8 @@ public struct CalendarView: View {
         _selectedRange = selectedRange
         _currentSelectedRange = State(wrappedValue: selectedRange.wrappedValue)
         self.displayDateAtStartup = displayDateAtStartup
-        self.currentDisplayDate = displayDateAtStartup ?? .now
+        _scrollToDate = scrollToDate
+        self.currentScrollToDate = scrollToDate.wrappedValue ?? displayDateAtStartup ?? .now
         self.disabledDates = disabledDates
         self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(style) ? true : isPersistentSelection
         self.titleChangeCallback = titleChangeCallback
@@ -422,7 +429,7 @@ public struct CalendarView: View {
         
         // startDate must be smaller than endDate, otherwise the default dates will be used.
         if (startDate == nil && endDate == nil) || compareResult == .orderedDescending {
-            let components = self.calendar.dateComponents(components, from: _currentDisplayDate.wrappedValue)
+            let components = self.calendar.dateComponents(components, from: displayDateAtStartup ?? .now)
             if let currentYear = components.year {
                 let startYear = String(currentYear)
                 let startYearStr = startYear + " 01 01"
@@ -456,13 +463,13 @@ public struct CalendarView: View {
      * If today is in the range, show today.
      * Otherwise show the startDate.
      */
-    func checkDisplayDateAtStartupRecord() {
-        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: self.currentDisplayDate) {
-            // displayDateAtStartup is not within the calendar range.
+    func checkCurrentScrollToDate() {
+        if !checkDateRangeContainsDate(self.startDate ... self.endDate, date: self.currentScrollToDate) {
+            // currentScrollToDate is not within the calendar range.
             if checkDateRangeContainsDate(self.startDate ... self.endDate, date: .now) {
-                self.currentDisplayDate = .now
+                self.currentScrollToDate = .now
             } else {
-                self.currentDisplayDate = self.startDate
+                self.currentScrollToDate = self.startDate
             }
         }
     }
@@ -554,7 +561,7 @@ public struct CalendarView: View {
             }
         }
         self.updateTitle()
-        self.updateDisplayDateAtStartup()
+        self.updateCurrentScrollToDate()
     }
     
     func handleScrollPositionChange() {
@@ -585,7 +592,7 @@ public struct CalendarView: View {
             }
         }
         self.updateTitle()
-        self.updateDisplayDateAtStartup()
+        self.updateCurrentScrollToDate()
     }
     
     func handleWeekScrollPositionChange(_ oldValue: Int?, _ newValue: Int?) {
@@ -608,22 +615,21 @@ public struct CalendarView: View {
             }
         }
         self.updateTitle()
-        self.updateDisplayDateAtStartup()
+        self.updateCurrentScrollToDate()
     }
     
     func updateScrollPosition() {
         if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
-            self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.currentDisplayDate)
+            self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.currentScrollToDate)
         } else {
-            print("self.displayDateAtStartupRecord:\(self.currentDisplayDate)")
-            self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.currentDisplayDate)
+            self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.currentScrollToDate)
         }
     }
     
     /*
      In .expandable style, the view can transit between weekView and monthView
      */
-    func updateDisplayDateAtStartup() {
+    func updateCurrentScrollToDate() {
         if self.style == .week || (self.style == .expandable && !self.isExpanded && !self.isDragging) {
             if let index = self.weekViewScrollPosition,
                index < self.weeks.count
@@ -631,9 +637,9 @@ public struct CalendarView: View {
                 if let currentSelectedDate,
                    self.weeks[index].containsDate(currentSelectedDate)
                 {
-                    self.currentDisplayDate = currentSelectedDate
+                    self.currentScrollToDate = currentSelectedDate
                 } else if let firstDate = self.weeks[index].dates.first {
-                    self.currentDisplayDate = firstDate
+                    self.currentScrollToDate = firstDate
                 }
             }
         } else if let index = scrollPosition {
@@ -641,9 +647,9 @@ public struct CalendarView: View {
                 if let currentSelectedDate,
                    self.calendar.compare(currentSelectedDate, to: nextDate, toGranularity: .month) == .orderedSame
                 {
-                    self.currentDisplayDate = currentSelectedDate
+                    self.currentScrollToDate = currentSelectedDate
                 } else {
-                    self.currentDisplayDate = nextDate
+                    self.currentScrollToDate = nextDate
                 }
             }
         }

@@ -12,6 +12,8 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State var displayDateAtStartup: Date? = .now
     
+    @State var scrollToDate: Date?
+    
     @State var selectedDate: Date?
     
     @State var isPersistentSelection: Bool = true
@@ -32,7 +34,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     var body: some View {
         VStack {
-            CalendarView(style: self.style, startDate: self.startDate, endDate: self.endDate, displayDateAtStartup: self.displayDateAtStartup, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection) {
+            CalendarView(style: self.style, startDate: self.startDate, endDate: self.endDate, displayDateAtStartup: self.displayDateAtStartup, selectedDate: self.$selectedDate, isPersistentSelection: self.isPersistentSelection, scrollToDate: self.$scrollToDate) {
                 self.title = $0
                 print("self.title:\($0)")
             }
@@ -81,21 +83,21 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     func scrollDate() {
         if let sixtyDaysAfter = Calendar.current.date(byAdding: .day, value: 60, to: Date()) {
-            self.displayDateAtStartup = sixtyDaysAfter
+            self.scrollToDate = sixtyDaysAfter
             self.selectedDate = sixtyDaysAfter
         }
     }
     
     func scrollDate1() {
-        if let date = self.fm.date(from: "2023 01 10") {
-            self.displayDateAtStartup = date
+        if let date = self.fm.date(from: "\(year) 01 10") {
+            self.scrollToDate = date
             self.selectedDate = date
         }
     }
 
     func scrollDate2() {
-        if let date = self.fm.date(from: "2024 12 20") {
-            self.displayDateAtStartup = date
+        if let date = self.fm.date(from: "\(year) 12 20") {
+            self.scrollToDate = date
             self.selectedDate = date
         }
     }
@@ -106,6 +108,10 @@ struct CalendarPersistentPreselectDateTestExample: View {
         fm.locale = Calendar.current.locale
         fm.dateFormat = "yyyy MM dd"
         return fm
+    }
+    
+    var year: Int {
+        Calendar.current.component(.year, from: Date())
     }
 }
 
