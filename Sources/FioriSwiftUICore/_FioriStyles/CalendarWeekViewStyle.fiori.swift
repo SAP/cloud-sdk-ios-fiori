@@ -157,3 +157,27 @@ extension CalendarWeekViewFioriStyle {
         }
     }
 }
+
+extension CalendarWeekView: Equatable {
+    /// Used for compare to avoid redundant view refresh
+    func selectedDatesInCurrentWeek() -> Set<Date> {
+        var dates: Set<Date> = []
+        if self.calendarStyle == .datesSelection {
+            if let selectedDates {
+                for date in selectedDates {
+                    if self.weekInfo.containsDate(date) {
+                        dates.insert(date)
+                    }
+                }
+            }
+        } else if let selectedDate, weekInfo.containsDate(selectedDate) {
+            dates.insert(selectedDate)
+        }
+        return dates
+    }
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        let result = lhs.selectedDatesInCurrentWeek() == rhs.selectedDatesInCurrentWeek()
+        return result
+    }
+}

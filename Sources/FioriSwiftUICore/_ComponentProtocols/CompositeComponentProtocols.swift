@@ -2502,6 +2502,11 @@ protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
 }
 
 /// `CalendarWeekView` is used to display the dates in one week.
+/// ## Usage
+/// ```swift
+/// CalendarWeekView(calendarStyle: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())
+///    .environment(\.showsWeekNumbers, true)
+/// ```
 // sourcery: CompositeComponent
 protocol _CalendarWeekViewComponent {
     /// The calendar style.
@@ -2517,6 +2522,59 @@ protocol _CalendarWeekViewComponent {
     var endDate: Date { get }
     
     /// Whether to show a day or not when the day is in `.outOfMonth` state.
+    // sourcery: default.value = true
+    var showOutOfMonth: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarMonthView` is used to display one month in the calendar.
+// sourcery: CompositeComponent
+protocol _CalendarMonthViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// The year that the view belong to, used to produce the weeks info of the month.
+    var year: Int { get }
+    
+    /// The month that the view belong to, used to produce the weeks info of the month.
+    var month: Int { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show the month header or not. The default is false.
+    // sourcery: default.value = false
+    var showMonthHeader: Bool { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state. The default is true.
     // sourcery: default.value = true
     var showOutOfMonth: Bool { get }
     

@@ -70,7 +70,7 @@ public struct CalendarView: View {
                         LazyHStack {
                             ForEach(0 ..< self.weeks.count, id: \.self) { index in
                                 let info = self.weeks[index]
-                                WeekView(style: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, selectedDate: self.currentSelectedDate, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarWeekView(calendarStyle: self.style, weekInfo: info, startDate: self.startDate, endDate: self.endDate, selectedDate: self.currentSelectedDate, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState)
                                 })
                                 .frame(width: self.availableWidth - paddingOffset * 2)
@@ -104,7 +104,7 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: false, showOutOfMonth: self.showOutOfMonth, selectedDate: self.currentSelectedDate, selectedDates: self.currentSelectedDates, selectedRange: self.currentSelectedRange, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                        CalendarMonthView(calendarStyle: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: false, showOutOfMonth: self.showOutOfMonth, selectedDate: self.currentSelectedDate, selectedDates: self.currentSelectedDates, selectedRange: self.currentSelectedRange, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
                                             .frame(width: self.availableWidth - paddingOffset * 2)
@@ -129,14 +129,14 @@ public struct CalendarView: View {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(self.pageHeights[self.scrollPosition!], 300))
+                            return $0.frame(height: max(self.pageHeights[self.scrollPosition!], 404))
                         }
                     })
                     .ifApply(self.scrollPosition == nil, content: {
                         if self.isDragging, self.currentMonthOriginHeight > 0 {
                             return $0.frame(height: self.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(self.lastPageHeight, 300))
+                            return $0.frame(height: max(self.lastPageHeight, 404))
                         }
                     })
                     .clipped()
@@ -153,7 +153,7 @@ public struct CalendarView: View {
                                 if let nextDate = calendar.date(byAdding: .month, value: index, to: startDate) {
                                     let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
                                     if let year = startComponents.year, let month = startComponents.month {
-                                        MonthView(style: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.currentSelectedDate, selectedDates: self.currentSelectedDates, selectedRange: self.currentSelectedRange, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
+                                        CalendarMonthView(calendarStyle: self.style, year: year, month: month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: true, showOutOfMonth: self.showOutOfMonth, selectedDate: self.currentSelectedDate, selectedDates: self.currentSelectedDates, selectedRange: self.currentSelectedRange, disabledDates: self.disabledDates, dayTappedCallback: { date, dayViewState in
                                             self.handleDayViewTapGesture(date, state: dayViewState)
                                         }, customEventView: self.customEventView)
                                             .fioriSizeReader { newValue in
@@ -177,10 +177,10 @@ public struct CalendarView: View {
                             .fill(self.fillBackgroundColor)
                     )
                     .ifApply(self.scrollPosition != nil && self.style == .month && self.scrollPosition! < self.pageHeights.count, content: {
-                        $0.frame(height: max(self.pageHeights[self.scrollPosition!], 300))
+                        $0.frame(height: max(self.pageHeights[self.scrollPosition!], 404))
                     })
                     .ifApply(self.scrollPosition == nil && self.style == .month, content: {
-                        $0.frame(height: max(self.lastPageHeight, 300))
+                        $0.frame(height: max(self.lastPageHeight, 404))
                     })
                     .padding(EdgeInsets(
                         top: 0,
