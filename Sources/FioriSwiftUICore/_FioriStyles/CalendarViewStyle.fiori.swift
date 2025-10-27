@@ -96,14 +96,14 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         if configuration.model.isDragging, configuration.model.currentMonthOriginHeight > 0 {
                             return $0.frame(height: configuration.model.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 350))
+                            return $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 300))
                         }
                     })
                     .ifApply(configuration.model.scrollPosition == nil, content: {
                         if configuration.model.isDragging, configuration.model.currentMonthOriginHeight > 0 {
                             return $0.frame(height: configuration.model.currentMonthOriginHeight)
                         } else {
-                            return $0.frame(height: max(configuration.model.lastPageHeight, 350))
+                            return $0.frame(height: max(configuration.model.lastPageHeight, 300))
                         }
                     })
                     .clipped()
@@ -143,10 +143,10 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                             .fill(configuration.fillBackgroundColor)
                     )
                     .ifApply(configuration.model.scrollPosition != nil && configuration.model.calendarStyle == .month && configuration.model.scrollPosition! < configuration.model.pageHeights.count, content: {
-                        $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 404))
+                        $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 350))
                     })
                     .ifApply(configuration.model.scrollPosition == nil && configuration.model.calendarStyle == .month, content: {
-                        $0.frame(height: max(configuration.model.lastPageHeight, 404))
+                        $0.frame(height: max(configuration.model.lastPageHeight, 350))
                     })
                     .padding(EdgeInsets(
                         top: 0,
