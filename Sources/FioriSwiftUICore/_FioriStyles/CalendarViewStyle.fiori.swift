@@ -23,6 +23,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     
     @State var showBannerMessage: Bool = true
     
+    @Environment(\.customLanguageId) var customLanguageId
+    
     func datesSelectionAndShowBannerMessage(_ model: CalendarModel) -> Bool {
         model.calendarStyle == .datesSelection && self.showBannerMessage
     }
@@ -177,6 +179,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 $0.animation(.spring, value: configuration.model.isExpanded)
             })
             .onAppear(perform: {
+                configuration.model.customLanguageId = self.customLanguageId
                 configuration.titleChangeCallback?(configuration.model.title ?? "")
             })
             .setOnChange(of: configuration.model.title) {

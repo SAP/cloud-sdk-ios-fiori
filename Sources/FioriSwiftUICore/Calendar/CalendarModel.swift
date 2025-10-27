@@ -1,7 +1,13 @@
 import Foundation
 
+/// The date model of the calendar.
 public class CalendarModel: ObservableObject {
-//    @Environment(\.customLanguageId) var customLanguageId
+    /// The ID of the language to be used when displaying the `CalendarView`.
+    var customLanguageId: String? {
+        didSet {
+            self.updateTitle()
+        }
+    }
     
     /// The calendar style. The default is `.month`.
     public var calendarStyle: CalendarStyle = .month {
@@ -172,7 +178,7 @@ public class CalendarModel: ObservableObject {
     
     @Published var lastPageHeight: CGFloat = 0
     
-    @Published var title: String?
+    var title: String?
     
     @Published var isDragging = false
     @Published var isExpanded = true {
@@ -252,11 +258,11 @@ public class CalendarModel: ObservableObject {
     
     func updateTitle() {
         let fm = DateFormatter()
-//        if let customLanguageId {
-//            fm.locale = Locale(identifier: customLanguageId)
-//        } else {
-//            fm.locale = Calendar.current.locale
-//        }
+        if let customLanguageId {
+            fm.locale = Locale(identifier: customLanguageId)
+        } else {
+            fm.locale = Calendar.current.locale
+        }
         fm.setLocalizedDateFormatFromTemplate("yyyy MMM")
         
         var title = ""
