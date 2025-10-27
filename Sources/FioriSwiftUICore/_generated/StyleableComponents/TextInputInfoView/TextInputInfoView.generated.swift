@@ -3,6 +3,24 @@
 import Foundation
 import SwiftUI
 
+/// A protocol that combines informational and counter capabilities for use below a text input field.
+///
+/// This protocol enables a unified component to display auxiliary content beneath a `TextField`,
+/// such as an optional icon, descriptive text, and a character/input counter. The appearance (e.g., color, styling)
+/// is controlled via modifiers like `.textInputInfoViewStyle(.success)`, `.error`, `.informational`, or `.warning`.
+///
+/// Usage example:
+/// ```swift
+/// TextInputInfoView(
+///     icon: Image(systemName: "checkmark.circle"),
+///     description: AttributedString("Valid input"),
+///     counter: AttributedString("10/50")
+/// )
+/// .textInputInfoViewStyle(.success)
+/// .textInputInfoViewStyle(.error)
+/// .textInputInfoViewStyle(.informational)
+/// .textInputInfoViewStyle(.warning)
+/// ```
 public struct TextInputInfoView {
     let icon: any View
     let description: any View
