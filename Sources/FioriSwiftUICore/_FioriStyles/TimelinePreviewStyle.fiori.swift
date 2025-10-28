@@ -136,10 +136,10 @@ struct SeeAllActionLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack(alignment: .center) {
             configuration.title
-                .font(.fiori(forTextStyle: .subheadline))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .foregroundColor(Color.preferredColor(.tintColor))
             configuration.icon
-                .font(.fiori(forTextStyle: .subheadline))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .foregroundColor(Color.preferredColor(.secondaryLabel))
         }
     }
