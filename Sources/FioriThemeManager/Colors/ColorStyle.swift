@@ -1079,7 +1079,7 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
-    /// (dark variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
     /// (light variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
     @available(watchOS, unavailable)
     case chart1
@@ -1329,6 +1329,18 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/D522BF.png&text=+)          Hex value: D522BF
     @available(watchOS, unavailable)
     case jouleGradient2
+    
+    /// jouleSelectedFill
+    /// (dark variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FF
+    /// (light variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CED
+    @available(watchOS, unavailable)
+    case jouleSelectedFill
+    
+    /// jouleSelectedLabel
+    /// (dark variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CED
+    /// (light variant) ![](https://dummyimage.com/48x18/E2D8FF.png&text=+)          Hex value: E2D8FF
+    @available(watchOS, unavailable)
+    case jouleSelectedLabel
     
     // MARK: - Deprecated Basic Colors
     
