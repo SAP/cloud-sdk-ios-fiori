@@ -3,17 +3,27 @@ import Foundation
 import SwiftUI
 
 /// The base layout style for `TextInputInfoView`.
-struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
+    @Environment(\.aiNotice) var aiNoticeConfig: AINoticeItemConfiguration
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         HStack(alignment: .top, spacing: 8) {
-            configuration.icon
-            configuration.description
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .top, spacing: 8) {
+                    configuration.icon
+                    configuration.description
+                }
+                
+                if self.aiNoticeConfig.isPresented.wrappedValue {
+                    AINotice(icon: self.aiNoticeConfig.icon, description: self.aiNoticeConfig.description, actionLabel: self.aiNoticeConfig.actionLabel, viewMoreAction: self.aiNoticeConfig.viewMoreAction, viewAlignment: .leading)
+                        .padding(.top, configuration.description.isEmpty ? 0 : 4)
+                }
+            }
             Spacer()
             configuration.counter
+                .padding(.leading, 16)
         }
         .padding(.top, 4)
         .padding(.bottom, 11)
-        .padding(.trailing, 12)
     }
 }
 
@@ -91,26 +101,27 @@ extension View {
 }
 
 /// Error style
-struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.circle")
-                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.negativeLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
             })
             .counterStyle(content: { counterConfiguration in
                 if !counterConfiguration.counter.isEmpty {
                     counterConfiguration.counter
-                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
                         .font(.fiori(forTextStyle: .footnote))
                 }
             })
@@ -118,88 +129,91 @@ struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
 }
 
 /// Warning style
-struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
-                        .foregroundStyle(Color.preferredColor(.mango5))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.mango5))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.mango5))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
             })
     }
 }
 
 /// Informational Style
-struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
             })
     }
 }
 
 /// Success Style
-struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
+    @Environment(\.isEnabled) var isEnabled
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .iconStyle(content: { IconConfiguration in
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "checkmark.circle")
-                        .foregroundStyle(Color.preferredColor(.positiveLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
                 } else {
                     IconConfiguration.icon
-                        .foregroundStyle(Color.preferredColor(.positiveLabel))
+                        .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
-                    .foregroundStyle(Color.preferredColor(.positiveLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
             })
     }
 }
 
 /// Error style of the TextInputInfoView. It is used to show error message.
-extension TextInputInfoViewStyle where Self == TextInputInfoViewErrorStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewErrorStyle {
     static var error: TextInputInfoViewErrorStyle {
         TextInputInfoViewErrorStyle()
     }
 }
 
 /// Warning style of the TextInputInfoView. It is used to show warning message.
-extension TextInputInfoViewStyle where Self == TextInputInfoViewWarningStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewWarningStyle {
     static var warning: TextInputInfoViewWarningStyle {
         TextInputInfoViewWarningStyle()
     }
 }
 
 /// Informationalstyle of the TextInputInfoView. It is used to show informational message.
-extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationalStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationalStyle {
     static var informational: TextInputInfoViewInformationalStyle {
         TextInputInfoViewInformationalStyle()
     }
 }
 
 /// Success style of the TextInputInfoView. It is used to show success message.
-extension TextInputInfoViewStyle where Self == TextInputInfoViewSuccessStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewSuccessStyle {
     static var success: TextInputInfoViewSuccessStyle {
         TextInputInfoViewSuccessStyle()
     }
@@ -224,6 +238,7 @@ struct TextInputFormViewConfiguration {
     let charCountReachLimitMessage: String?
     let charCountBeyondLimitMsg: String?
     let isFocused: Bool
+    let isAINoticeEnabled: Bool
 
     init(_ noteFormViewConfiguration: NoteFormViewConfiguration, isFocused: Bool) {
         self.text = noteFormViewConfiguration.text
@@ -237,6 +252,7 @@ struct TextInputFormViewConfiguration {
         self.charCountReachLimitMessage = noteFormViewConfiguration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = noteFormViewConfiguration.charCountBeyondLimitMsg
         self.isFocused = isFocused
+        self.isAINoticeEnabled = noteFormViewConfiguration.isAINoticeEnabled
     }
 
     init(_ titleFormViewConfiguration: TitleFormViewConfiguration, isFocused: Bool) {
@@ -251,6 +267,7 @@ struct TextInputFormViewConfiguration {
         self.charCountReachLimitMessage = titleFormViewConfiguration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = titleFormViewConfiguration.charCountBeyondLimitMsg
         self.isFocused = isFocused
+        self.isAINoticeEnabled = titleFormViewConfiguration.isAINoticeEnabled
     }
 
     init(_ textFieldFormViewConfiguration: TextFieldFormViewConfiguration, isFocused: Bool) {
@@ -265,6 +282,7 @@ struct TextInputFormViewConfiguration {
         self.charCountReachLimitMessage = textFieldFormViewConfiguration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = textFieldFormViewConfiguration.charCountBeyondLimitMsg
         self.isFocused = isFocused
+        self.isAINoticeEnabled = textFieldFormViewConfiguration.isAINoticeEnabled
     }
 
     init(_ keyValueFormViewConfiguration: KeyValueFormViewConfiguration, isFocused: Bool) {
@@ -279,6 +297,7 @@ struct TextInputFormViewConfiguration {
         self.charCountReachLimitMessage = keyValueFormViewConfiguration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = keyValueFormViewConfiguration.charCountBeyondLimitMsg
         self.isFocused = isFocused
+        self.isAINoticeEnabled = keyValueFormViewConfiguration.isAINoticeEnabled
     }
 
     func getControlState() -> ControlState {
@@ -310,8 +329,10 @@ struct TextInputFormViewConfiguration {
 
         let charCount = self.text.count
         var charCountString = AttributedString((!self.isFocused && charCount == 0) ? "-" : "\(charCount)")
-        if (self.isFocused && !hasError) || (self.checkMaxLength() == .onLimit) {
-            charCountString.foregroundColor = .preferredColor(.tintColor)
+        if self.isFocused, hasError {
+            charCountString.foregroundColor = .preferredColor(self.checkMaxLength() == .overLimit ? .negativeLabel : .tertiaryLabel)
+        } else {
+            charCountString.foregroundColor = .preferredColor(self.checkMaxLength() == .overLimit ? .negativeLabel : .tertiaryLabel)
         }
         var limitString = AttributedString("/\(limit)")
         limitString.foregroundColor = .preferredColor(.tertiaryLabel)
@@ -368,11 +389,6 @@ struct TextInputFormViewConfiguration {
     }
 
     func hasErrorMessage() -> Bool {
-        if let errorMessage, !errorMessage.characters.isEmpty {
-            // Has non-empty error message
-            return true
-        }
-
         guard let maxTextLength, maxTextLength > 0 else {
             // No limit
             return false
@@ -448,6 +464,11 @@ struct TextInputFormViewConfiguration {
         if self.isCharCountEnabled {
             return true
         }
+        
+        if self.isAINoticeEnabled {
+            return true
+        }
+        
         if self.controlState == .readOnly, self.hidesReadOnlyHint != true {
             return true
         }
@@ -459,7 +480,7 @@ struct TextInputFormViewConfiguration {
         case .disabled:
             return .preferredColor(.quaternaryLabel)
         default:
-            return self.isFocused ? .preferredColor(.tintColor) : .preferredColor(.primaryLabel)
+            return .preferredColor(.primaryLabel)
         }
     }
 }
