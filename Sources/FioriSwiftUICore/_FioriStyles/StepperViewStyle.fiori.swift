@@ -41,7 +41,7 @@ extension StepperViewFioriStyle {
             StepperView(configuration)
                 .titleStyle(content: { titleConfiguration in
                     Title(titleConfiguration)
-                        .foregroundColor(.preferredColor(self.isEnabled ? (self.isFocused ? .tintColor : .primaryLabel) : .separator))
+                        .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 })
                 .stepperFieldStyle { config in

@@ -157,6 +157,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         var viewDetail = AttributedString(" \(viewDetailStr)")
         viewDetail.foregroundColor = .preferredColor(.tintColor)
         viewDetail.link = URL(string: self.viewDetailOpenUrlStr)
+        viewDetail.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         attributedString.append(viewDetail)
         return attributedString
     }
@@ -298,7 +299,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                             Text(_ClearActionDefault().actionText ?? "")
                                         }
                                         .buttonStyle(PlainButtonStyle())
-                                        .font(.fiori(forTextStyle: .subheadline))
+                                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                                         .foregroundStyle(Color.preferredColor(.tintColor))
                                     }
                                 }
