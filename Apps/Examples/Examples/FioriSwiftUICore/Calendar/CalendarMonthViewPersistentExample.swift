@@ -30,11 +30,14 @@ struct CalendarMonthViewPersistentExample: View {
         return result
     }
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
-        VStack {
+        ScrollView {
             CalendarView(model: self.model) {
                 self.title = $0
             }
+            .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.firstWeekday, self.settings.firstWeekDay)

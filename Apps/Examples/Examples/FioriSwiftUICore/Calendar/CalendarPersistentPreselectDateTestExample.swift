@@ -48,11 +48,14 @@ struct CalendarPersistentPreselectDateTestExample: View {
         _model = StateObject(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate))
     }
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
-        VStack {
+        ScrollView {
             CalendarView(model: self.model) {
                 self.title = $0
             }
+            .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)

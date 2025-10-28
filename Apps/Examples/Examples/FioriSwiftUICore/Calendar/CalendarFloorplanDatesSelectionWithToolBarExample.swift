@@ -18,9 +18,11 @@ struct CalendarFloorplanDatesSelectionWithToolBarExample: View {
     
     @State var withToolBar = true
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
         NavigationView {
-            VStack {
+            ScrollView {
                 CalendarView(model: self.model, titleChangeCallback: {
                     self.title = $0
                 }, customCalendarBackgroundColor: self.customCalendarBackgroundColor) { date in
@@ -49,6 +51,7 @@ struct CalendarFloorplanDatesSelectionWithToolBarExample: View {
                         }
                     }
                 }
+                .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
                 .environment(\.hasEventIndicator, self.settings.testsEventViews)
                 .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
                 .environment(\.firstWeekday, self.settings.firstWeekDay)
