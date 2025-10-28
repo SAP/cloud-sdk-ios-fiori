@@ -389,7 +389,25 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
 // sourcery: CompositeComponent
 protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}
 
-// sourcery: CompositeComponent, InternalComponent
+/// A protocol that combines informational and counter capabilities for use below a text input field.
+///
+/// This protocol enables a unified component to display auxiliary content beneath a `TextField`,
+/// such as an optional icon, descriptive text, and a character/input counter. The appearance (e.g., color, styling)
+/// is controlled via modifiers like `.textInputInfoViewStyle(.success)`, `.error`, `.informational`, or `.warning`.
+///
+/// Usage example:
+/// ```swift
+/// TextInputInfoView(
+///     icon: Image(systemName: "checkmark.circle"),
+///     description: AttributedString("Valid input"),
+///     counter: AttributedString("10/50")
+/// )
+/// .textInputInfoViewStyle(.success)
+/// .textInputInfoViewStyle(.error)
+/// .textInputInfoViewStyle(.informational)
+/// .textInputInfoViewStyle(.warning)
+/// ```
+// sourcery: CompositeComponent
 protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent
@@ -440,6 +458,9 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent
@@ -467,6 +488,9 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent
