@@ -3178,3 +3178,216 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     
     var menus: [[WAMenu]] { get }
 }
+
+/// Hierarchy indicator is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
+///
+/// The `HierarchyIndicator` provides properties and actions to manage the visual representation and interaction with hierarchical items in a user interface.
+///
+/// ## Usage
+/// The indicator is typically used with `HierarchyItemView` within a `HierarchyView`to provide context about the item's status within the hierarchy. It can also be employed
+/// independently to represent information outside of a structured view. Consumers of this component should initialize the indicator based on their specific use cases,
+/// ensuring that it accurately represents the appropriate data and state depending on whether it is used in conjunction with `HierarchyItemView` and `HierarchyView`, or as a standalone component.
+///
+/// Within a `HierarchyView`, consumers should provide the `onClick` event handler that returns the item's UUID. This ensures that the data can be navigated correctly when the next button in the `HierarchyHeader` is clicked.
+/// ```swift
+///
+/// @State var activeChildItem: String?
+/// HierarchyView(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in
+///         hierarchyIndicator: {
+///             let childrenCount = dataSource.numberOfChildren(for: id)
+///             HierarchyIndicator(
+///                 title: AttributedString(String("\(id)")),
+///                 isMultiline: self.isMultiline,
+///                 isSelected: activeChildItem == id,
+///                 isClickable: childrenCount > 0
+///          ){
+///             id
+///          }
+///    },
+///    activeChildItem: self.$activeChildItem
+/// )
+/// ```
+///
+/// Please refer to `HierarchyItemView` and `HierarchyView` documentation for all supported informtion..
+// sourcery: CompositeComponent
+protocol _HierarchyIndicator: _TitleComponent, _IconComponent {
+    /// A Boolean value indicating whether the indicator should support multiline content.
+    ///
+    /// The default value is `true`, meaning that the indicator will display content in multiple lines if necessary.
+    // sourcery: defaultValue = "true"
+    var isMultiline: Bool { get }
+    
+    /// A Boolean value indicating whether the indicator represents a selected hierarchy item.
+    ///
+    /// The default value is `false`, meaning the indicator will not display the item as selected by default.
+    // sourcery: defaultValue = "false"
+    var isSelected: Bool { get }
+    
+    /// A Boolean value indicating whether the hierarchy indicator is interactive (clickable).
+    ///
+    /// The default value is `true`, but the indicator may be set to non-clickable if the item does not have any child items in the `HierarchyView`.
+    // sourcery: defaultValue = "true"
+    var isClickable: Bool { get }
+    
+    /// The action that will be performed be performed when the clickable indicator is clicked.
+    ///
+    /// Returning a non-empty hierarchy child item ID is mandatory when the indicator is used with `HierarchyItemView` in the `HierarchyView`;
+    /// the selected item will be set as the current item displayed in the hierarchy header view.
+    ///
+    /// However, if it is used with `HierarchyItemView` independently, without `HierarchyView`, the returned ID is not mandatory.
+    /// Consumers may provide event handling according to their specific use case.
+    var onClick: (() -> String?)? { get }
+}
+
+/// A hierarchy item view representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
+///
+/// It serves as the default item view for presenting hierarchy items within a `HierarchyItemView`. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
+/// The `HierarchyItemView` can be utilized within a `HierarchyView` to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.
+///
+/// ## Usage Independent:
+///
+///     To use `HierarchyItemView` independently and without `HierarchyView`.
+///
+/// ```swift
+/// List {
+///     ForEach(0..<5) { index in
+///         HierarchyItemView(
+///             title: { Text("Title \(index)") },
+///             subtitle: { Text("Subtitle \(index)") },
+///             footnote: { Text("Footnote \(index)") },
+///             icons: {
+///                 FioriIcon.message.badge.foregroundStyle(Color.preferredColor(.tintColor))
+///                 FioriIcon.actions.bookmark.foregroundStyle(Color.preferredColor(.tintColor))
+///                 FioriIcon.actions.attachment.foregroundStyle(Color.preferredColor(.tintColor))
+///             },
+///             detailImage: { FioriIcon.message.messageInformation.resizable().foregroundStyle(Color.preferredColor(.tintColor)) },
+///             status: { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)) },
+///             accessoryType: .disclosure,
+///             hierarchyIndicator: {
+///                 HierarchyIndicator(
+///                     title: index == 4 ? { EmptyView()} : { Text(self.formatNumber(indicatorNumber[index])) },
+///                     isMultiline: false,
+///                     isSelected: false,
+///                     isClickable: false
+///                 )
+///             })
+///    }
+/// }
+/// ```
+///
+/// Please refer to `HierarchyView` and `HierarchyIndicator` documentation for all supported informtion.
+// sourcery: CompositeComponent
+protocol _HierarchyItemViewComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _IconsComponent, _DetailImageComponent, _StatusComponent, _AccessoryViewComponent {
+    @ViewBuilder
+    /// The indicator view of the hierarchy view
+    var hierarchyIndicator: (() -> any View)? { get }
+}
+
+/// A header view sits at top of hierarchy view. Header label displays the title of the selected parent item in previous section. You can use left/right button to navigate back or forth in the hierarchy.
+///
+// sourcery: CompositeComponent
+protocol _HierarchyViewHeaderComponent: _TitleComponent, _LeadingAccessoryComponent, _TrailingAccessoryComponent {}
+
+/// A view that manages a collection of items presented using `HierarchyItemView`.
+///
+/// It defines the necessary properties and methods for components that display hierarchical data in a structured view.
+/// It allows for customization of headers and item presentation, along with maintaining state related to selected and active items.
+///
+/// ## Usage
+///    ### Initialization of DataSource:
+///
+/// ```swift
+/// struct HierarchySimpleDataSource: HierarchyViewDataSource {
+///     func rootID() -> String {
+///         return "100"
+///     }
+///
+///     func numberOfChildren(for id: String) -> Int {
+///         return Int.random(in: 0...5)
+///     }
+///
+///     func childID(idForChildItemAt index: Int, with parentID: String) -> String {
+///         if let intValue = Int(parentID) {
+///             return String(intValue + index)
+///         } else {
+///             return ""
+///         }
+///     }
+///
+///     func parentID(for id: String) -> String? {
+///         if let intValue = Int(id), intValue > 100 {
+///             return String(intValue - 100)
+///         } else {
+///             return nil
+///         }
+///     }
+///
+///     func itemTitle(for id: String) -> String? {
+///         return id
+///     }
+/// }
+/// ```
+///   ### Initialization of HierarchyView:
+///
+/// ```swift
+/// @State var activeChildItem: String?
+/// @State var selectedItems: [String]? = []
+/// @State var isEditing = true
+/// @State var selectionMode = HierarchyItemSelectionMode.single
+///
+/// let dataSource = HierarchySimpleDataSource()
+///
+/// HierarchyView(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in
+///         title: { Text(id) },
+///         hierarchyIndicator: {
+///             let childrenCount = dataSource.numberOfChildren(for: id)
+///             HierarchyIndicator(
+///                 title: AttributedString(String("Indicator \(id)")),
+///                 isMultiline: self.isMultiline,
+///                 isSelected: activeChildItem == id,
+///                 isClickable: childrenCount > 0
+///          ){
+///             id
+///          }
+///    },
+///    activeChildItem: self.$activeChildItem,
+///    selectedItems: self.$selectedItems
+/// )
+/// .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
+/// .environment(\.hierarchyItemSelectionMode, selectionMode)
+/// ```
+/// With the `hierarchyItemSelectionMode` environment property, you can control the selection mode for hierarchical items in `HierarchyItemView` within `HierarchyView`.
+///
+/// The selection button is displayed only when the `editMode` is active and the `hierarchyItemSelectionMode` is not set to `.none`. When a user clicks on the
+/// `HierarchyItemView`, this configuration determines whether the selection button is shown, allowing for dynamic interaction with the hierarchy items.
+///
+/// Please refer to `HierarchyHeader`, `HierarchyItemView` and `HierarchyIndicator` documentation for all supported informtion.
+// sourcery: CompositeComponent
+protocol _HierarchyViewComponent {
+    /// The data source object of hierarchy view.
+    var dataSource: any HierarchyViewDataSource { get }
+    
+    /// The header view for the `HierarchyView`, represented by `HierarchyViewHeader`.
+    ///
+    /// By default, a header view is not specified unless customization is desired.
+    /// Consumers can provide a custom header view to tailor the appearance and behavior of the hierarchy view to meet specific requirements.
+    @ViewBuilder
+    var header: (() -> any View)? { get }
+    
+    /// The hierarchy item view, represented by `HierarchyItemView`, is used as a child item view within the `HierarchyView`.
+    /// Consumers can provide an instance of `HierarchyItemView` based on the given child item id to customize the representation of each item in the hierarchy.
+    @ViewBuilder
+    var hierarchyItem: (String) -> any View { get }
+    
+    /// Indicates the ID of the child hierarchy item that will be displayed when the next button in the `HierarchyHeader` is clicked.
+    // sourcery: @Binding
+    var activeChildItem: String? { get }
+    
+    /// Indicates the ID of the selected hierarchy item. IIn `HierarchyItemSelectionMode.single` mode, only one item can be selected.
+    // sourcery: @Binding
+    var selectedItems: [String]? { get }
+}
