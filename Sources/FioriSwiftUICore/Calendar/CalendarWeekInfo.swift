@@ -1,12 +1,19 @@
 import SwiftUI
 
+/// The date model for one week in Calendar.
 public struct CalendarWeekInfo: Hashable {
-    public let id = UUID()
-    public let year: Int?
-    public let month: Int?
-    public let weekNumber: Int
-    public let dates: [Date]
+    let id = UUID()
+    let year: Int?
+    let month: Int?
+    let weekNumber: Int
+    let dates: [Date]
     
+    /// Public initializer for calendar week info.
+    /// - Parameters:
+    ///   - year: The year that the week belongs to.
+    ///   - month: The month that the week belongs to.
+    ///   - weekNumber: The week number in the year.
+    ///   - dates: The dates in the week.
     public init(year: Int? = nil, month: Int? = nil, weekNumber: Int, dates: [Date]) {
         self.year = year
         self.month = month

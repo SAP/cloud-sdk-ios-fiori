@@ -56,6 +56,7 @@ public class CalendarModel: ObservableObject {
     /// In the case where `isPersistentSelection` is true, then the behavior is as follows: No date is selected when the calendar is displayed or scrolled to another month, except if a date was set by the `selectDate`: (for month, week, expandable, and `datesSelection`) or `selectDateRange`:(for `multipleSelection View`) by the developer. When the user then selects another date, then this date is now selected, regardless of whether the user scrolls to any other month.
     let isPersistentSelection: Bool
     
+    /// The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
     @Published public var scrollToDate: Date {
         didSet {
             self.checkScrollToDate()
@@ -67,6 +68,18 @@ public class CalendarModel: ObservableObject {
     
     let calendar = Calendar.autoupdatingCurrent
     
+    /// Public initializer for CalendarModel.
+    /// - Parameters:
+    ///   - calendarStyle: The calendar style. The default is `.month`.
+    ///   - startDate: The start date of the calendar. Default is current year's first day.
+    ///   - endDate: The end date of the calendar. Default is next year's last day.
+    ///   - displayDateAtStartup: The display date at startup.
+    ///   - selectedDate: The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    ///   - selectedDates: The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    ///   - selectedRange: The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    ///   - disabledDates: The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates.
+    ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
     public init(calendarStyle: CalendarStyle, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup

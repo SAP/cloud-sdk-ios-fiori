@@ -1,11 +1,7 @@
 import SwiftUI
 
-// import FioriThemeManager
-
-public struct CalendarDragView: View {
-    public init() {}
-    
-    public var body: some View {
+struct CalendarDragView: View {
+    var body: some View {
         VStack {
             Rectangle()
                 .fill(Color.preferredColor(.separator))

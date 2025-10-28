@@ -59,6 +59,7 @@ struct BannerMessageBackgroundColorKey: EnvironmentKey {
     public static let defaultValue: Color? = nil
 }
 
+/// Calendar item control state.
 public enum CalendarItemControlState {
     /// Item is in normal state. Default.
     case normal
@@ -70,10 +71,15 @@ public enum CalendarItemControlState {
     case highlighted
 }
 
+/// Calendar property reference, used to set the color of calendar item in different state, only support foregroundColor.
 public enum CalendarPropertyRef {
+    /// The day text of one date.
     case title
+    /// The month header text.
     case monthHeaderText
+    /// The week label text.
     case weekDayText
+    /// The week number text.
     case weekNumberText
 }
 
