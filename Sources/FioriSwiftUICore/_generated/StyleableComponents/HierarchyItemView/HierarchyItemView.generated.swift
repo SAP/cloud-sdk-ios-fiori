@@ -3,14 +3,20 @@
 import Foundation
 import SwiftUI
 
-/// A hierarchy item view representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
+/// A `HierarchyItemView` representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
 ///
+/// ### Overview
 /// It serves as the default item view for presenting hierarchy items within a `HierarchyItemView`. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
 /// The `HierarchyItemView` can be utilized within a `HierarchyView` to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.
 ///
-/// ## Usage Independent:
+/// ### Key Features
+/// - Composable content slots: title, subtitle, footnote, icons, detail image, status, accessory view.
+/// - Optional hierarchyIndicator slot for navigation or contextual counts.
+/// - Integrates with HierarchyView for navigation and selection.
+/// - Supports standard accessory styles (e.g. disclosure).
 ///
-///     To use `HierarchyItemView` independently and without `HierarchyView`.
+/// ## Usage Independent:
+/// To use `HierarchyItemView` independently and without `HierarchyView`.
 ///
 /// ```swift
 /// List {
@@ -39,7 +45,8 @@ import SwiftUI
 /// }
 /// ```
 ///
-/// Please refer to `HierarchyView` and `HierarchyIndicator` documentation for all supported informtion.
+/// ### See Also
+/// HierarchyView, HierarchyIndicator.
 public struct HierarchyItemView {
     let title: any View
     let subtitle: any View

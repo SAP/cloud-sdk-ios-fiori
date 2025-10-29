@@ -389,7 +389,25 @@ protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _
 // sourcery: CompositeComponent
 protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}
 
-// sourcery: CompositeComponent, InternalComponent
+/// A protocol that combines informational and counter capabilities for use below a text input field.
+///
+/// This protocol enables a unified component to display auxiliary content beneath a `TextField`,
+/// such as an optional icon, descriptive text, and a character/input counter. The appearance (e.g., color, styling)
+/// is controlled via modifiers like `.textInputInfoViewStyle(.success)`, `.error`, `.informational`, or `.warning`.
+///
+/// Usage example:
+/// ```swift
+/// TextInputInfoView(
+///     icon: Image(systemName: "checkmark.circle"),
+///     description: AttributedString("Valid input"),
+///     counter: AttributedString("10/50")
+/// )
+/// .textInputInfoViewStyle(.success)
+/// .textInputInfoViewStyle(.error)
+/// .textInputInfoViewStyle(.informational)
+/// .textInputInfoViewStyle(.warning)
+/// ```
+// sourcery: CompositeComponent
 protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent
@@ -440,6 +458,9 @@ protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent
@@ -467,6 +488,9 @@ protocol _TitleFormViewComponent: _PlaceholderTextFieldComponent, _FormViewCompo
     var charCountReachLimitMessage: String? { get }
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     var charCountBeyondLimitMsg: String? { get }
+    // sourcery: defaultValue = false
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    var isAINoticeEnabled: Bool { get }
 }
 
 // sourcery: CompositeComponent
@@ -3179,9 +3203,10 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     var menus: [[WAMenu]] { get }
 }
 
-/// Hierarchy indicator is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
+/// `HierarchyIndicator` is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
 ///
-/// The `HierarchyIndicator` provides properties and actions to manage the visual representation and interaction with hierarchical items in a user interface.
+/// ### Overview
+/// Use HierarchyIndicator to convey an item's relationship or navigability within a hierarchy. It is typically embedded in a HierarchyItemView and, when used inside a HierarchyView, can facilitate forward navigation by returning a child item ID from its onClick action. The indicator can also be used standalone to represent contextual information outside of a hierarchy.
 ///
 /// ## Usage
 /// The indicator is typically used with `HierarchyItemView` within a `HierarchyView`to provide context about the item's status within the hierarchy. It can also be employed
@@ -3210,9 +3235,10 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
 /// )
 /// ```
 ///
-/// Please refer to `HierarchyItemView` and `HierarchyView` documentation for all supported informtion..
+/// ### See Also
+/// HierarchyView, HierarchyItemView.
 // sourcery: CompositeComponent
-protocol _HierarchyIndicator: _TitleComponent, _IconComponent {
+protocol _HierarchyIndicatorComponent: _TitleComponent, _IconComponent {
     /// A Boolean value indicating whether the indicator should support multiline content.
     ///
     /// The default value is `true`, meaning that the indicator will display content in multiple lines if necessary.
@@ -3241,14 +3267,20 @@ protocol _HierarchyIndicator: _TitleComponent, _IconComponent {
     var onClick: (() -> String?)? { get }
 }
 
-/// A hierarchy item view representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
+/// A `HierarchyItemView` representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
 ///
+/// ### Overview
 /// It serves as the default item view for presenting hierarchy items within a `HierarchyItemView`. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
 /// The `HierarchyItemView` can be utilized within a `HierarchyView` to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.
 ///
-/// ## Usage Independent:
+/// ### Key Features
+/// - Composable content slots: title, subtitle, footnote, icons, detail image, status, accessory view.
+/// - Optional hierarchyIndicator slot for navigation or contextual counts.
+/// - Integrates with HierarchyView for navigation and selection.
+/// - Supports standard accessory styles (e.g. disclosure).
 ///
-///     To use `HierarchyItemView` independently and without `HierarchyView`.
+/// ## Usage Independent:
+/// To use `HierarchyItemView` independently and without `HierarchyView`.
 ///
 /// ```swift
 /// List {
@@ -3277,7 +3309,8 @@ protocol _HierarchyIndicator: _TitleComponent, _IconComponent {
 /// }
 /// ```
 ///
-/// Please refer to `HierarchyView` and `HierarchyIndicator` documentation for all supported informtion.
+/// ### See Also
+/// HierarchyView, HierarchyIndicator.
 // sourcery: CompositeComponent
 protocol _HierarchyItemViewComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _IconsComponent, _DetailImageComponent, _StatusComponent, _AccessoryViewComponent {
     @ViewBuilder
@@ -3285,18 +3318,37 @@ protocol _HierarchyItemViewComponent: _TitleComponent, _SubtitleComponent, _Foot
     var hierarchyIndicator: (() -> any View)? { get }
 }
 
-/// A header view sits at top of hierarchy view. Header label displays the title of the selected parent item in previous section. You can use left/right button to navigate back or forth in the hierarchy.
+/// `HierarchyViewHeader` provides navigation controls and summary context at the top of a HierarchyView.
 ///
+/// ### Overview
+/// Use `HierarchyViewHeader` to display the title of the currently focused parent item and to offer backward/forward navigation across the hierarchy. The header can be customized to add leading and trailing accessory views. If no custom header is provided, HierarchyView displays a default HierarchyViewHeader.
+///
+/// ### Key Features
+/// - Title content to reflect current hierarchy context.
+/// - Leading and trailing accessory slots for custom navigation controls.
+/// - Integrates with HierarchyView’s activeChildItem to drive forward navigation.
+///
+/// ### See Also
+/// HierarchyView, HierarchyIndicator, HierarchyItemView.
 // sourcery: CompositeComponent
 protocol _HierarchyViewHeaderComponent: _TitleComponent, _LeadingAccessoryComponent, _TrailingAccessoryComponent {}
 
-/// A view that manages a collection of items presented using `HierarchyItemView`.
+/// `HierarchyView` displays tree-structured data using `HierarchyItemView` rows and an optional `HierarchyHeader`, which is available for customization purposes.
 ///
-/// It defines the necessary properties and methods for components that display hierarchical data in a structured view.
-/// It allows for customization of headers and item presentation, along with maintaining state related to selected and active items.
+/// ### Overview
+/// Use `HierarchyView` when you need to browse, navigate, and (optionally) select items in a hierarchical data set (parent/child relationships).
+/// The component delegates data access to a `HierarchyViewDataSource` so large or dynamic trees can be served efficiently.
 ///
-/// ## Usage
-///    ### Initialization of DataSource:
+/// ### Key Features
+/// - Pluggable data source (HierarchyViewDataSource) defining root, children, parent lookups, and titles.
+/// - Custom per-item view content via the hierarchyItem closure.
+/// - Optional header view for customized navigation controls / summary information.
+/// - Built-in selection handling (single / multiple / none) controlled by the hierarchyItemSelectionMode environment value.
+/// - Style system (Fiori & custom) applied through hierarchyViewStyle modifiers.
+///
+/// ### Data Source Contract (Summary)
+/// Your data source must provide stable, unique String identifiers for every item. Child counts and IDs should remain consistent during a single render pass.
+/// See HierarchyViewDataSource for full protocol requirements.
 ///
 /// ```swift
 /// struct HierarchySimpleDataSource: HierarchyViewDataSource {
@@ -3329,7 +3381,23 @@ protocol _HierarchyViewHeaderComponent: _TitleComponent, _LeadingAccessoryCompon
 ///     }
 /// }
 /// ```
-///   ### Initialization of HierarchyView:
+///
+/// ### State Bindings
+/// - activeChildItem: The identifier that will become active (e.g. next navigated child) when the user invokes forward navigation in the header.
+/// - selectedItems: Collection of currently selected item IDs (optional array in the generated initializer).
+/// In single-selection mode only the first element is considered; in multiple-selection mode all elements are used.
+///
+/// ### Selection Mode
+/// Controlled externally via environment:
+/// ```swift
+/// .environment(\.hierarchyItemSelectionMode, .none)     // selection disabled
+/// .environment(\.hierarchyItemSelectionMode, .single)   // single selection
+/// .environment(\.hierarchyItemSelectionMode, .multiple) // multi selection
+/// ```
+/// Selection affordances (selection buttons) are only visible while EditMode is .active and the selection mode is not .none.
+///
+/// ### Usage
+/// #### 1. Simple Initialization (generated initializer)
 ///
 /// ```swift
 /// @State var activeChildItem: String?
@@ -3360,12 +3428,46 @@ protocol _HierarchyViewHeaderComponent: _TitleComponent, _LeadingAccessoryCompon
 /// .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
 /// .environment(\.hierarchyItemSelectionMode, selectionMode)
 /// ```
-/// With the `hierarchyItemSelectionMode` environment property, you can control the selection mode for hierarchical items in `HierarchyItemView` within `HierarchyView`.
 ///
-/// The selection button is displayed only when the `editMode` is active and the `hierarchyItemSelectionMode` is not set to `.none`. When a user clicks on the
-/// `HierarchyItemView`, this configuration determines whether the selection button is shown, allowing for dynamic interaction with the hierarchy items.
+/// #### 2. Single Selection Convenience (see public API extension)
 ///
-/// Please refer to `HierarchyHeader`, `HierarchyItemView` and `HierarchyIndicator` documentation for all supported informtion.
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selected: String? = nil
+/// HierarchyView.singleSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItem: $selected
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .single)
+/// ```
+///
+/// #### 3. Multi Selection With Set (see public API extension)
+///
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selectedSet: Set<String> = []
+/// HierarchyView.multiSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItems: $selectedSet
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .multiple)
+/// ```
+///
+/// ### Styling
+///
+/// Apply or compose styles using:
+/// ```swift
+/// HierarchyView(...)
+/// .hierarchyViewStyle(MyCustomHierarchyStyle())
+/// ```
+/// Custom styles implement HierarchyViewStyle and can be layered; the environment maintains an internal style stack.
+///
+/// ### See Also
+/// HierarchyViewDataSource, HierarchyItemView, HierarchyHeader, HierarchyIndicator, HierarchyViewStyle.
 // sourcery: CompositeComponent
 protocol _HierarchyViewComponent {
     /// The data source object of hierarchy view.

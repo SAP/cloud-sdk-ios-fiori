@@ -3,13 +3,22 @@
 import Foundation
 import SwiftUI
 
-/// A view that manages a collection of items presented using `HierarchyItemView`.
+/// `HierarchyView` displays tree-structured data using `HierarchyItemView` rows and an optional `HierarchyHeader`, which is available for customization purposes.
 ///
-/// It defines the necessary properties and methods for components that display hierarchical data in a structured view.
-/// It allows for customization of headers and item presentation, along with maintaining state related to selected and active items.
+/// ### Overview
+/// Use `HierarchyView` when you need to browse, navigate, and (optionally) select items in a hierarchical data set (parent/child relationships).
+/// The component delegates data access to a `HierarchyViewDataSource` so large or dynamic trees can be served efficiently.
 ///
-/// ## Usage
-///    ### Initialization of DataSource:
+/// ### Key Features
+/// - Pluggable data source (HierarchyViewDataSource) defining root, children, parent lookups, and titles.
+/// - Custom per-item view content via the hierarchyItem closure.
+/// - Optional header view for customized navigation controls / summary information.
+/// - Built-in selection handling (single / multiple / none) controlled by the hierarchyItemSelectionMode environment value.
+/// - Style system (Fiori & custom) applied through hierarchyViewStyle modifiers.
+///
+/// ### Data Source Contract (Summary)
+/// Your data source must provide stable, unique String identifiers for every item. Child counts and IDs should remain consistent during a single render pass.
+/// See HierarchyViewDataSource for full protocol requirements.
 ///
 /// ```swift
 /// struct HierarchySimpleDataSource: HierarchyViewDataSource {
@@ -42,7 +51,23 @@ import SwiftUI
 ///     }
 /// }
 /// ```
-///   ### Initialization of HierarchyView:
+///
+/// ### State Bindings
+/// - activeChildItem: The identifier that will become active (e.g. next navigated child) when the user invokes forward navigation in the header.
+/// - selectedItems: Collection of currently selected item IDs (optional array in the generated initializer).
+/// In single-selection mode only the first element is considered; in multiple-selection mode all elements are used.
+///
+/// ### Selection Mode
+/// Controlled externally via environment:
+/// ```swift
+/// .environment(\.hierarchyItemSelectionMode, .none)     // selection disabled
+/// .environment(\.hierarchyItemSelectionMode, .single)   // single selection
+/// .environment(\.hierarchyItemSelectionMode, .multiple) // multi selection
+/// ```
+/// Selection affordances (selection buttons) are only visible while EditMode is .active and the selection mode is not .none.
+///
+/// ### Usage
+/// #### 1. Simple Initialization (generated initializer)
 ///
 /// ```swift
 /// @State var activeChildItem: String?
@@ -73,12 +98,46 @@ import SwiftUI
 /// .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
 /// .environment(\.hierarchyItemSelectionMode, selectionMode)
 /// ```
-/// With the `hierarchyItemSelectionMode` environment property, you can control the selection mode for hierarchical items in `HierarchyItemView` within `HierarchyView`.
 ///
-/// The selection button is displayed only when the `editMode` is active and the `hierarchyItemSelectionMode` is not set to `.none`. When a user clicks on the
-/// `HierarchyItemView`, this configuration determines whether the selection button is shown, allowing for dynamic interaction with the hierarchy items.
+/// #### 2. Single Selection Convenience (see public API extension)
 ///
-/// Please refer to `HierarchyHeader`, `HierarchyItemView` and `HierarchyIndicator` documentation for all supported informtion.
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selected: String? = nil
+/// HierarchyView.singleSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItem: $selected
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .single)
+/// ```
+///
+/// #### 3. Multi Selection With Set (see public API extension)
+///
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selectedSet: Set<String> = []
+/// HierarchyView.multiSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItems: $selectedSet
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .multiple)
+/// ```
+///
+/// ### Styling
+///
+/// Apply or compose styles using:
+/// ```swift
+/// HierarchyView(...)
+/// .hierarchyViewStyle(MyCustomHierarchyStyle())
+/// ```
+/// Custom styles implement HierarchyViewStyle and can be layered; the environment maintains an internal style stack.
+///
+/// ### See Also
+/// HierarchyViewDataSource, HierarchyItemView, HierarchyHeader, HierarchyIndicator, HierarchyViewStyle.
 public struct HierarchyView {
     /// The data source object of hierarchy view.
     let dataSource: any HierarchyViewDataSource

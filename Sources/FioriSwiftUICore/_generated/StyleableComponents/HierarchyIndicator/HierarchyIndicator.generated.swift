@@ -3,9 +3,10 @@
 import Foundation
 import SwiftUI
 
-/// Hierarchy indicator is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
+/// `HierarchyIndicator` is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
 ///
-/// The `HierarchyIndicator` provides properties and actions to manage the visual representation and interaction with hierarchical items in a user interface.
+/// ### Overview
+/// Use HierarchyIndicator to convey an item's relationship or navigability within a hierarchy. It is typically embedded in a HierarchyItemView and, when used inside a HierarchyView, can facilitate forward navigation by returning a child item ID from its onClick action. The indicator can also be used standalone to represent contextual information outside of a hierarchy.
 ///
 /// ## Usage
 /// The indicator is typically used with `HierarchyItemView` within a `HierarchyView`to provide context about the item's status within the hierarchy. It can also be employed
@@ -34,7 +35,8 @@ import SwiftUI
 /// )
 /// ```
 ///
-/// Please refer to `HierarchyItemView` and `HierarchyView` documentation for all supported informtion..
+/// ### See Also
+/// HierarchyView, HierarchyItemView.
 public struct HierarchyIndicator {
     let title: any View
     let icon: any View

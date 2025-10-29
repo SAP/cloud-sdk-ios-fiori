@@ -3,8 +3,18 @@
 import Foundation
 import SwiftUI
 
-/// A header view sits at top of hierarchy view. Header label displays the title of the selected parent item in previous section. You can use left/right button to navigate back or forth in the hierarchy.
+/// `HierarchyViewHeader` provides navigation controls and summary context at the top of a HierarchyView.
 ///
+/// ### Overview
+/// Use `HierarchyViewHeader` to display the title of the currently focused parent item and to offer backward/forward navigation across the hierarchy. The header can be customized to add leading and trailing accessory views. If no custom header is provided, HierarchyView displays a default HierarchyViewHeader.
+///
+/// ### Key Features
+/// - Title content to reflect current hierarchy context.
+/// - Leading and trailing accessory slots for custom navigation controls.
+/// - Integrates with HierarchyView’s activeChildItem to drive forward navigation.
+///
+/// ### See Also
+/// HierarchyView, HierarchyIndicator, HierarchyItemView.
 public struct HierarchyViewHeader {
     let title: any View
     let leadingAccessory: any View

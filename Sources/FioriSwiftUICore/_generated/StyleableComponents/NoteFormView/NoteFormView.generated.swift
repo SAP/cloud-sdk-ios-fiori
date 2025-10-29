@@ -28,6 +28,8 @@ public struct NoteFormView {
     let charCountReachLimitMessage: String?
     /// The custom error message when the character count exceeds the limitation. If this property is `nil`, the default localized message will be used.
     let charCountBeyondLimitMsg: String?
+    /// Determine whether AINoticeView is displayed. The default is `false`.
+    let isAINoticeEnabled: Bool
 
     @Environment(\.noteFormViewStyle) var style
 
@@ -48,6 +50,7 @@ public struct NoteFormView {
                 allowsBeyondLimit: Bool = false,
                 charCountReachLimitMessage: String? = nil,
                 charCountBeyondLimitMsg: String? = nil,
+                isAINoticeEnabled: Bool = false,
                 componentIdentifier: String? = NoteFormView.identifier)
     {
         self._text = text
@@ -63,6 +66,7 @@ public struct NoteFormView {
         self.allowsBeyondLimit = allowsBeyondLimit
         self.charCountReachLimitMessage = charCountReachLimitMessage
         self.charCountBeyondLimitMsg = charCountBeyondLimitMsg
+        self.isAINoticeEnabled = isAINoticeEnabled
         self.componentIdentifier = componentIdentifier ?? NoteFormView.identifier
     }
 }
@@ -84,9 +88,10 @@ public extension NoteFormView {
          isCharCountEnabled: Bool = false,
          allowsBeyondLimit: Bool = false,
          charCountReachLimitMessage: String? = nil,
-         charCountBeyondLimitMsg: String? = nil)
+         charCountBeyondLimitMsg: String? = nil,
+         isAINoticeEnabled: Bool = false)
     {
-        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg)
+        self.init(text: text, placeholder: { OptionalText(placeholder) }, controlState: controlState, errorMessage: errorMessage, minTextEditorHeight: minTextEditorHeight, maxTextEditorHeight: maxTextEditorHeight, maxTextLength: maxTextLength, hintText: hintText, hidesReadOnlyHint: hidesReadOnlyHint, isCharCountEnabled: isCharCountEnabled, allowsBeyondLimit: allowsBeyondLimit, charCountReachLimitMessage: charCountReachLimitMessage, charCountBeyondLimitMsg: charCountBeyondLimitMsg, isAINoticeEnabled: isAINoticeEnabled)
     }
 }
 
@@ -109,6 +114,7 @@ public extension NoteFormView {
         self.allowsBeyondLimit = configuration.allowsBeyondLimit
         self.charCountReachLimitMessage = configuration.charCountReachLimitMessage
         self.charCountBeyondLimitMsg = configuration.charCountBeyondLimitMsg
+        self.isAINoticeEnabled = configuration.isAINoticeEnabled
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -119,7 +125,7 @@ extension NoteFormView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled)).typeErased
                 .transformEnvironment(\.noteFormViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -137,7 +143,7 @@ private extension NoteFormView {
     }
 
     func defaultStyle() -> some View {
-        NoteFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
+        NoteFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled))
             .shouldApplyDefaultStyle(false)
             .noteFormViewStyle(NoteFormViewFioriStyle.ContentFioriStyle())
             .typeErased
