@@ -2614,14 +2614,6 @@ public enum FioriIcon {
         ///
         public static let beforeSearchSpot = Image(fioriName: "fiori.ill.before.search.spot")
         ///
-        public static let beforeSearch2Dialog = Image(fioriName: "fiori.ill.before.search.2.dialog")
-        ///
-        public static let beforeSearch2Dot = Image(fioriName: "fiori.ill.before.search.2.dot")
-        ///
-        public static let beforeSearch2Scene = Image(fioriName: "fiori.ill.before.search.2.scene")
-        ///
-        public static let beforeSearch2Spot = Image(fioriName: "fiori.ill.before.search.2.spot")
-        ///
         public static let connectionDialog = Image(fioriName: "fiori.ill.connection.dialog")
         ///
         public static let connectionDot = Image(fioriName: "fiori.ill.connection.dot")
@@ -2677,6 +2669,14 @@ public enum FioriIcon {
         public static let groupTableScene = Image(fioriName: "fiori.ill.group.table.scene")
         ///
         public static let groupTableSpot = Image(fioriName: "fiori.ill.group.table.spot")
+        ///
+        public static let keyTaskDialog = Image(fioriName: "fiori.ill.key.task.dialog")
+        ///
+        public static let keyTaskDot = Image(fioriName: "fiori.ill.key.task.dot")
+        ///
+        public static let keyTaskScene = Image(fioriName: "fiori.ill.key.task.scene")
+        ///
+        public static let keyTaskSpot = Image(fioriName: "fiori.ill.key.task.spot")
         ///
         public static let newMailDialog = Image(fioriName: "fiori.ill.new.mail.dialog")
         ///
@@ -2742,14 +2742,6 @@ public enum FioriIcon {
         ///
         public static let noMailSpot = Image(fioriName: "fiori.ill.no.mail.spot")
         ///
-        public static let noMailV1Dialog = Image(fioriName: "fiori.ill.no.mail.v1.dialog")
-        ///
-        public static let noMailV1Dot = Image(fioriName: "fiori.ill.no.mail.v1.dot")
-        ///
-        public static let noMailV1Scene = Image(fioriName: "fiori.ill.no.mail.v1.scene")
-        ///
-        public static let noMailV1Spot = Image(fioriName: "fiori.ill.no.mail.v1.spot")
-        ///
         public static let noNotificationsDialog = Image(fioriName: "fiori.ill.no.notifications.dialog")
         ///
         public static let noNotificationsDot = Image(fioriName: "fiori.ill.no.notifications.dot")
@@ -2789,14 +2781,6 @@ public enum FioriIcon {
         public static let noTasksScene = Image(fioriName: "fiori.ill.no.tasks.scene")
         ///
         public static let noTasksSpot = Image(fioriName: "fiori.ill.no.tasks.spot")
-        ///
-        public static let noTasksV1Dialog = Image(fioriName: "fiori.ill.no.tasks.v1.dialog")
-        ///
-        public static let noTasksV1Dot = Image(fioriName: "fiori.ill.no.tasks.v1.dot")
-        ///
-        public static let noTasksV1Scene = Image(fioriName: "fiori.ill.no.tasks.v1.scene")
-        ///
-        public static let noTasksV1Spot = Image(fioriName: "fiori.ill.no.tasks.v1.spot")
         ///
         public static let pageNotFoundDialog = Image(fioriName: "fiori.ill.page.not.found.dialog")
         ///
