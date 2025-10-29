@@ -51,7 +51,7 @@ extension KeyValueItemFioriStyle {
 
         func makeBody(_ configuration: ValueConfiguration) -> some View {
             Value(configuration)
-                .font(.fiori(forTextStyle: .body))
+                .font(.fiori(forTextStyle: .body, weight: .semibold))
                 .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel))
         }
     }

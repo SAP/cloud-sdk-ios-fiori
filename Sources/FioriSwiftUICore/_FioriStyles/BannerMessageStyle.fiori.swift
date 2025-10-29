@@ -405,6 +405,7 @@ struct BannerMessageModifier: ViewModifier {
             var viewDetail = AttributedString(NSLocalizedString("View Details", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             viewDetail.foregroundColor = .preferredColor(.tintColor)
             viewDetail.link = URL(string: "ViewDetails")
+            viewDetail.font = .fiori(forTextStyle: .footnote, weight: .semibold)
             attributedString.append(viewDetail)
             return attributedString
         } else {

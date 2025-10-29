@@ -10,16 +10,16 @@ class ThemeManagerTests: XCTestCase {
     
     #if !os(watchOS)
         func testLatestColorStyle() throws {
-            XCTAssertEqual(ColorStyle.allCases.count, 216)
+            XCTAssertEqual(ColorStyle.allCases.count, 218)
         }
     
         func testPalette8() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v8)
             // following are same as v7
-            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 216)
+            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 218)
             XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
-            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 21)
+            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 23)
             let newStyle_grey1 = tm.hexColor(for: .grey1)
             XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
             let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
@@ -280,7 +280,7 @@ class ThemeManagerTests: XCTestCase {
             let raspberry10 = tm.hexColor(for: .raspberry10)
             XCTAssertEqual(raspberry10, HexColor(lightColor: "FFDCE8FF", darkColor: "71014BFF", contrastLightColor: "FFF0F5FF", contrastDarkColor: "320021FF"))
             let chart1 = tm.hexColor(for: .chart1)
-            XCTAssertEqual(chart1, HexColor(lightColor: "168EFFFF", darkColor: "168EFFFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"))
+            XCTAssertEqual(chart1, HexColor(lightColor: "168EFFFF", darkColor: "3278BEFF", contrastLightColor: "8BABCBFF", contrastDarkColor: "446E97FF"))
             let chart2 = tm.hexColor(for: .chart2)
             XCTAssertEqual(chart2, HexColor(lightColor: "F2A634FF", darkColor: "C87B00FF", contrastLightColor: "ED8859FF", contrastDarkColor: "D74114FF"))
             let chart3 = tm.hexColor(for: .chart3)

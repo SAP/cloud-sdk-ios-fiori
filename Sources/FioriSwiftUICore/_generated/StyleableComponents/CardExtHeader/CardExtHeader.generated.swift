@@ -3,6 +3,60 @@
 import Foundation
 import SwiftUI
 
+/// CardExtHeader: Composite Component Protocol
+///
+/// The `_CardExtHeaderComponent` protocol defines the extended header section of a card.
+/// This protocol combines multiple row components and KPI (Key Performance Indicator) components
+/// to create an extended header layout with structured data display capabilities.
+///
+/// ## Usage
+///
+/// This component is used to create an extended header section that can display structured data in rows and key performance indicators.
+///
+/// ```swift
+/// CardExtHeader(row1: {
+///     HStack {
+///         LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+///             }
+///         LabelItem(title: "Critical")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+///             }
+///         LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+///             }
+///     }
+/// }, row2: {
+///     HStack {
+///         Text("256 reviews")
+///     }
+/// }, row3: {
+///     HStack {
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///     }
+/// }, kpi: {
+///     _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+///                                      .unit("$"),
+///                                      .metric("26.9"),
+///                                      .unit("M")]))
+/// }, kpiCaption: {
+///     Text("Revenue")
+/// })
+/// ```
+///
+/// ```swift
+/// CardExtHeader(row1: { Text("Row 1 Content") },
+///               row2: { Text("Row 2 Content") },
+///               row3: { Text("Row 3 Content") },
+///               kpi: KPIItemData.components([.unit("$"), .metric("26.9"), .unit("M")]),
+///               kpiCaption: "Revenue")
+/// ```
+///
 public struct CardExtHeader {
     let row1: any View
     let row2: any View

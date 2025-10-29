@@ -54,7 +54,7 @@ struct ValuePickerExample: View {
 
     var customizeNoticeActionLabel: AttributedString {
         var result = AttributedString(" View Details ")
-        result.font = .footnote.bold()
+        result.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         result.foregroundColor = .purple
         return result
     }

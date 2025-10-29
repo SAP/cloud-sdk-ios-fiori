@@ -3,6 +3,47 @@
 import Foundation
 import SwiftUI
 
+/// CardMainHeader: Composite Component Protocol
+///
+/// The `_CardMainHeaderComponent` protocol defines the main header section of a card.
+/// This protocol combines title, subtitle, icons, detail image, header action, counter, and flexible item components
+/// to create a comprehensive header layout for card-based UI components.
+///
+/// ## Usage
+///
+/// This component is used to create the primary header section of a card, providing a structured layout for displaying key information and actions.
+///
+/// ```swift
+/// CardMainHeader {
+///     Text("Card Title")
+/// } subtitle: {
+///     Text("Card subtitle with additional information")
+/// } icons: {
+///     IconStack(icons: [TextOrIcon.icon(Image(systemName: "star.fill"))])
+/// } detailImage: {
+///     Image("profile-image")
+///         .resizable()
+///         .clipShape(Circle())
+/// } headerAction: {
+///     FioriButton(title: "Action")
+/// } counter: {
+///     Text("1 of 3")
+/// } flexItem: {
+///     Text("Flexible content")
+/// } flexItemPosition: .aboveTitle
+/// ```
+///
+/// ```swift
+/// CardMainHeader(title: "Card Title",
+///                subtitle: "Card subtitle with additional information",
+///                icons: [TextOrIcon.icon(Image(systemName: "star.fill"))],
+///                detailImage: Image("profile-image"),
+///                headerAction: FioriButton(title: "Action"),
+///                counter: "1 of 3",
+///                flexItem: { Text("Flexible content") },
+///                flexItemPosition: .aboveTitle)
+/// ```
+///
 public struct CardMainHeader {
     let title: any View
     let subtitle: any View
@@ -11,7 +52,9 @@ public struct CardMainHeader {
     let headerAction: any View
     let counter: any View
     let flexItem: any View
-    /// Determine the position of the flexItem
+    /// Determines the position of the flex item within the header layout.
+    /// This property controls where flexible content is placed relative to other header elements.
+    /// Available positions include: `.aboveMainHeader`, `.aboveTitle`, `.betweenTitleAndSubtitle`, `.belowSubtitle`
     var flexItemPosition: FlexItemPositionType?
 
     @Environment(\.cardMainHeaderStyle) var style

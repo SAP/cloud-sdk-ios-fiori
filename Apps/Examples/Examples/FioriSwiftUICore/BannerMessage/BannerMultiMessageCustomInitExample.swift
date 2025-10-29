@@ -64,14 +64,14 @@ struct BannerMultiMessageCustomInitExample: View {
     
     var customizeNoticeMsg: AttributedString {
         var msgText = AttributedString("Customized AI Notice. ")
-        msgText.font = .footnote.italic()
+        msgText.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         msgText.foregroundColor = .purple
         return msgText
     }
 
     var customizeNoticeActionLabel: AttributedString {
         var msgText = AttributedString(" View Details ")
-        msgText.font = .footnote.bold()
+        msgText.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         msgText.foregroundColor = .purple
         return msgText
     }

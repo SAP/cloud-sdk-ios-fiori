@@ -3,7 +3,25 @@
 import Foundation
 import SwiftUI
 
-struct TextInputInfoView {
+/// A protocol that combines informational and counter capabilities for use below a text input field.
+///
+/// This protocol enables a unified component to display auxiliary content beneath a `TextField`,
+/// such as an optional icon, descriptive text, and a character/input counter. The appearance (e.g., color, styling)
+/// is controlled via modifiers like `.textInputInfoViewStyle(.success)`, `.error`, `.informational`, or `.warning`.
+///
+/// Usage example:
+/// ```swift
+/// TextInputInfoView(
+///     icon: Image(systemName: "checkmark.circle"),
+///     description: AttributedString("Valid input"),
+///     counter: AttributedString("10/50")
+/// )
+/// .textInputInfoViewStyle(.success)
+/// .textInputInfoViewStyle(.error)
+/// .textInputInfoViewStyle(.informational)
+/// .textInputInfoViewStyle(.warning)
+/// ```
+public struct TextInputInfoView {
     let icon: any View
     let description: any View
     let counter: any View
@@ -26,11 +44,11 @@ struct TextInputInfoView {
     }
 }
 
-extension TextInputInfoView {
-    public static let identifier = "fiori_textinputinfoview_component"
+public extension TextInputInfoView {
+    static let identifier = "fiori_textinputinfoview_component"
 }
 
-extension TextInputInfoView {
+public extension TextInputInfoView {
     init(icon: Image? = nil,
          description: AttributedString? = nil,
          counter: AttributedString? = nil)
@@ -39,12 +57,12 @@ extension TextInputInfoView {
     }
 }
 
-extension TextInputInfoView {
+public extension TextInputInfoView {
     init(_ configuration: TextInputInfoViewConfiguration) {
         self.init(configuration, shouldApplyDefaultStyle: false)
     }
 
-    init(_ configuration: TextInputInfoViewConfiguration, shouldApplyDefaultStyle: Bool) {
+    internal init(_ configuration: TextInputInfoViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.icon = configuration.icon
         self.description = configuration.description
         self.counter = configuration.counter
