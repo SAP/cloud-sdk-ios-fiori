@@ -76,9 +76,9 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                         }, customEventView: configuration.customEventView)
                                             .frame(width: self.availableWidth - paddingOffset * 2)
                                             .fioriSizeReader { newValue in
-                                                if abs(configuration.model.pageHeights[index] - newValue.height) > 0.1 {
+                                                if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
                                                     DispatchQueue.main.async {
-                                                        configuration.model.pageHeights[index] = newValue.height
+                                                        configuration.model.monthViewHeight = newValue.height
                                                     }
                                                 }
                                             }
@@ -92,20 +92,13 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .frame(width: self.availableWidth - paddingOffset * 2)
-                    .ifApply(configuration.model.scrollPosition != nil && configuration.model.scrollPosition! < configuration.model.pageHeights.count, content: {
+                    .frame(height: {
                         if configuration.model.isDragging, configuration.model.currentMonthOriginHeight > 0 {
-                            return $0.frame(height: configuration.model.currentMonthOriginHeight)
+                            return configuration.model.currentMonthOriginHeight
                         } else {
-                            return $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 300))
+                            return configuration.model.monthViewHeight
                         }
-                    })
-                    .ifApply(configuration.model.scrollPosition == nil, content: {
-                        if configuration.model.isDragging, configuration.model.currentMonthOriginHeight > 0 {
-                            return $0.frame(height: configuration.model.currentMonthOriginHeight)
-                        } else {
-                            return $0.frame(height: max(configuration.model.lastPageHeight, 300))
-                        }
-                    })
+                    }())
                     .clipped()
                     .background(
                         RoundedRectangle(cornerRadius: 8.0)
@@ -123,9 +116,9 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                             self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                         }, customEventView: configuration.customEventView)
                                             .fioriSizeReader { newValue in
-                                                if abs(configuration.model.pageHeights[index] - newValue.height) > 0.1 {
+                                                if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
                                                     DispatchQueue.main.async {
-                                                        configuration.model.pageHeights[index] = newValue.height
+                                                        configuration.model.monthViewHeight = newValue.height
                                                     }
                                                 }
                                             }
@@ -142,11 +135,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(configuration.fillBackgroundColor)
                     )
-                    .ifApply(configuration.model.scrollPosition != nil && configuration.model.calendarStyle == .month && configuration.model.scrollPosition! < configuration.model.pageHeights.count, content: {
-                        $0.frame(height: max(configuration.model.pageHeights[configuration.model.scrollPosition!], 350))
-                    })
-                    .ifApply(configuration.model.scrollPosition == nil && configuration.model.calendarStyle == .month, content: {
-                        $0.frame(height: max(configuration.model.lastPageHeight, 350))
+                    .ifApply(configuration.model.calendarStyle == .month, content: {
+                        $0.frame(height: configuration.model.monthViewHeight)
                     })
                     .padding(EdgeInsets(
                         top: 0,
@@ -163,9 +153,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                 .onChanged { value in
                                     configuration.model.isDragging = true
                                     configuration.model.currentMonthOriginHeight += value.translation.height
-                                    if let scrollPosition = configuration.model.scrollPosition, scrollPosition < configuration.model.pageHeights.count {
-                                        configuration.model.currentMonthOriginHeight = min(configuration.model.currentMonthOriginHeight, configuration.model.pageHeights[scrollPosition])
-                                    }
+                                    configuration.model.currentMonthOriginHeight = min(configuration.model.currentMonthOriginHeight, configuration.model.monthViewHeight)
                                 }
                                 .onEnded { _ in
                                     configuration.model.isDragging = false

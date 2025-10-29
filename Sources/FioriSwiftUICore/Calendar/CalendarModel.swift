@@ -10,7 +10,7 @@ public class CalendarModel: ObservableObject {
     }
     
     /// The calendar style. The default is `.month`.
-    public var calendarStyle: CalendarStyle = .month {
+    public var calendarStyle: CalendarStyle {
         didSet {
             self.updateScrollPosition()
         }
@@ -78,9 +78,9 @@ public class CalendarModel: ObservableObject {
     ///   - selectedDates: The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
     ///   - selectedRange: The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
     ///   - disabledDates: The disabled dates. Default is nil, which means all in month displayed dates are selectable.
-    ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates.
+    ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates. The default is false.
     ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
-    public init(calendarStyle: CalendarStyle, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil) {
+    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
         self.selectedDate = selectedDate
@@ -154,19 +154,16 @@ public class CalendarModel: ObservableObject {
         self.weeks = self.handleWeekInfo()
         self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
         
-        self.pageHeights = Array(repeating: 0, count: self.totalMonths)
-        
         self.updateScrollPosition()
         self.updateTitle()
     }
     
     @Published var totalMonths: Int = 0
     @Published var weeks: [CalendarWeekInfo] = []
-    @Published var pageHeights: [CGFloat] = [0] {
+    
+    @Published var monthViewHeight: CGFloat = 300 {
         didSet {
-            if let scrollPosition, scrollPosition < pageHeights.count {
-                self.currentMonthOriginHeight = self.pageHeights[scrollPosition]
-            }
+            self.currentMonthOriginHeight = self.monthViewHeight
         }
     }
 
@@ -175,11 +172,6 @@ public class CalendarModel: ObservableObject {
     @Published var scrollPosition: Int? = 0 {
         didSet {
             self.handleScrollPositionChange()
-            DispatchQueue.main.async {
-                if let scrollPosition = self.scrollPosition, scrollPosition < self.pageHeights.count {
-                    self.lastPageHeight = self.pageHeights[scrollPosition]
-                }
-            }
         }
     }
 
@@ -188,8 +180,6 @@ public class CalendarModel: ObservableObject {
             self.handleWeekScrollPositionChange(oldValue, self.weekViewScrollPosition)
         }
     }
-    
-    @Published var lastPageHeight: CGFloat = 0
     
     var title: String?
     
