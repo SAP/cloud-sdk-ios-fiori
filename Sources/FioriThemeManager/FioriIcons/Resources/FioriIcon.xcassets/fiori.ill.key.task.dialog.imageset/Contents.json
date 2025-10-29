@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "fiori.ill.before.search.2.dialog.svg",
+      "filename" : "fiori.ill.key.task.dialog.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "fiori.ill.before.search.2.dialog.dark.svg",
+      "filename" : "fiori.ill.key.task.dialog.dark.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },

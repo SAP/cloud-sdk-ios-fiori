@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "fiori.ill.before.search.2.dot.svg",
+      "filename" : "fiori.ill.key.task.spot.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "fiori.ill.before.search.2.dot.dark.svg",
+      "filename" : "fiori.ill.key.task.spot.dark.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
