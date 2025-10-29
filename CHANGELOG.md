@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [25.8.4](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.3...25.8.4) (2025-10-29)
+
+
+### Bug Fixes
+
+* 🐛 [IOSSDKBUG-858]hidden unselected section for ListPicker ([#1307](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1307)) ([067bdb9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/067bdb9414d50f7ffd08a6eb3371169833b0e66b))
+* 🐛 [IOSSDKBUG-975] Fix 25.8 illustrations ([#1312](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1312)) ([c5be6eb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c5be6eb8b00b09d2a6b585eceaeccd9be006d963))
+* 🐛 [IOSSDKBUG-991] revert segment control style in swift5 ([#1304](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1304)) ([40651e9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/40651e9bf1fca3c7371326d265204482dea3f91c))
+* 🐛 Card Focus with button [jira: IOSSDKBUG-898]; cherrypick ([#1301](https://github.com/SAP/cloud-sdk-ios-fiori/issues/1301)) ([0e9089d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0e9089df3761e8779fb59a5a166ced8be122135a))
+
 ### [25.8.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/25.8.2...25.8.3) (2025-10-13)
 
 
