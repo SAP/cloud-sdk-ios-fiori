@@ -2502,6 +2502,7 @@ protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
 }
 
 /// `CalendarWeekView` is used to display the dates in one week.
+/// Developer can set the `.showsWeekNumbers` environment to show the week numberText. If calendarStyle is `.datesSelection` or `.rangeSelection`, and when the first date of the week is out of month, always hide the week number.
 /// ## Usage
 /// ```swift
 /// CalendarWeekView(calendarStyle: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())

@@ -304,7 +304,7 @@ public class CalendarModel: ObservableObject {
                 if dates.count == 1 {
                     title = String(format: "%d Date Selected".localizedFioriString(), 1)
                 } else {
-                    title = String(format: "%d Dates Selected", dates.count)
+                    title = String(format: "%d Dates Selected".localizedFioriString(), dates.count)
                 }
             }
         }

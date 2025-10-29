@@ -201,10 +201,14 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     
     func handleDayViewTapGesture(_ date: Date, state: CalendarDayState, configuration: CalendarViewConfiguration) {
         if configuration.model.calendarStyle == .datesSelection {
-            if let checkDates = configuration.model.selectedDates, checkDates.contains(date) {
-                configuration.model.selectedDates?.remove(date)
+            if let checkDates = configuration.model.selectedDates {
+                if checkDates.contains(date) {
+                    configuration.model.selectedDates?.remove(date)
+                } else {
+                    configuration.model.selectedDates?.insert(date)
+                }
             } else {
-                configuration.model.selectedDates?.insert(date)
+                configuration.model.selectedDates = [date]
             }
         } else {
             let calendar = Calendar.autoupdatingCurrent
