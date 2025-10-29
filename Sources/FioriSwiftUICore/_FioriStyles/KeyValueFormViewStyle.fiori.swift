@@ -92,7 +92,6 @@ extension KeyValueFormViewFioriStyle {
         
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
-                .font(.fiori(forTextStyle: .body, weight: .semibold)) // Apply semibold font to value text
         }
     }
 }
