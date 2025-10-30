@@ -13,30 +13,32 @@ import SwiftUI
 
 // Base Layout style
 public struct SectionFooterBaseStyle: SectionFooterStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
-        // Add default layout here
-        HStack {
-            configuration.title
-                .lineLimit(1)
-            Spacer()
+        SkeletonLoadingContainer {
             HStack {
-                configuration.attribute
+                configuration.title
                     .lineLimit(1)
-                    .multilineTextAlignment(.trailing)
-                
-                if configuration.sectionFooterStyle == .attribute {
-                    AccessoryIcon {
-                        AccessoryType.disclosure.image
+                Spacer()
+                HStack {
+                    configuration.attribute
+                        .lineLimit(1)
+                        .multilineTextAlignment(.trailing)
+                    
+                    if configuration.sectionFooterStyle == .attribute {
+                        AccessoryIcon {
+                            AccessoryType.disclosure.image
+                        }
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits((configuration.didSelectHandler != nil) ? .isButton : .isStaticText)
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
-        }
-        .padding([.top, .bottom], configuration.sectionFooterStyle == .title ? 10 : 12)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            configuration.didSelectHandler?()
+            .padding([.top, .bottom], configuration.sectionFooterStyle == .title ? 10 : 12)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                configuration.didSelectHandler?()
+            }
         }
     }
 }
@@ -52,23 +54,23 @@ extension SectionFooterFioriStyle {
     }
 
     struct TitleFioriStyle: TitleStyle {
+        @Environment(\.isLoading) var isLoading
         let sectionFooterConfiguration: SectionFooterConfiguration
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                // Add default style for Title
-                .foregroundStyle(Color.preferredColor(self.sectionFooterConfiguration.sectionFooterStyle == .title ? .secondaryLabel : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : (self.sectionFooterConfiguration.sectionFooterStyle == .title ? .secondaryLabel : .primaryLabel)))
                 .font(.fiori(forTextStyle: self.sectionFooterConfiguration.sectionFooterStyle == .title ? .subheadline : .body))
         }
     }
 
     struct AttributeFioriStyle: AttributeStyle {
+        @Environment(\.isLoading) var isLoading
         let sectionFooterConfiguration: SectionFooterConfiguration
 
         func makeBody(_ configuration: AttributeConfiguration) -> some View {
             Attribute(configuration)
-                // Add default style for Attribute
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .body))
         }
     }

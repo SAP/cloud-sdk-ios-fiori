@@ -407,6 +407,7 @@ struct BannerMessageModifier: ViewModifier {
             var viewDetail = AttributedString(NSLocalizedString("View Details", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             viewDetail.foregroundColor = .preferredColor(.tintColor)
             viewDetail.link = URL(string: "ViewDetails")
+            viewDetail.font = .fiori(forTextStyle: .footnote, weight: .semibold)
             attributedString.append(viewDetail)
             return attributedString
         } else {
@@ -463,7 +464,11 @@ struct BannerMessageModifier: ViewModifier {
                             self.showingMessageDetail = true
                             
                             if UIDevice.current.userInterfaceIdiom == .phone {
-                                self.isPresented = false
+                                if #available(iOS 26.0, *) {
+                                    // do nothing
+                                } else {
+                                    self.isPresented = false
+                                }
                             }
                         }
                         return .handled
@@ -504,20 +509,26 @@ struct BannerMessageModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         if self.pushContentDown {
-            content
-                .padding(.top, self.isPresented ? -self.offset : 0)
-                .overlay(alignment: .top, content: {
+            // If pushContentDown is true, we use a VStack for an IN-LINE layout.
+            // This places the banner in the normal view hierarchy and will not block taps.
+            VStack(spacing: 0) {
+                if self.isPresented {
                     self.bannerMessage
-                        .offset(y: self.isPresented ? 0 : self.offset)
-                        .clipped()
-                })
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
+                content
+            }
+            .animation(.easeInOut, value: self.isPresented)
         } else {
+            // If pushContentDown is false, we use the OVERLAY layout.
             content
-                .overlay(alignment: .top, content: {
-                    self.bannerMessage
-                        .offset(y: self.isPresented ? 0 : self.offset)
-                        .clipped()
-                })
+                .overlay(alignment: .top) {
+                    if self.isPresented {
+                        self.bannerMessage
+                            .transition(.opacity)
+                    }
+                }
+                .animation(.easeInOut, value: self.isPresented)
         }
     }
 }

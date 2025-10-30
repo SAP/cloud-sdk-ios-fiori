@@ -172,7 +172,8 @@ struct OnBoardingWelcomeScreenExamples: View {
                         } label: { _ in
                             Text("Cancel".localizedFioriString())
                         }
-                        .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .tint).eraseToAnyFioriButtonStyle())
+                        .fioriButtonStyle(FioriNavigationButtonStyle())
+                        .fixedSize()
                     }
                 }
             }

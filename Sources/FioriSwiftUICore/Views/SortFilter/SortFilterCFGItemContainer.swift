@@ -331,6 +331,7 @@ extension SortFilterCFGItemContainer: View {
             Text(e.value)
         }
         .disableEntriesSection(self._items[r][c].picker.disableListEntriesSection)
+        .disableContentSection(self._items[r][c].picker.disableListContentSection)
         .listStyle(.plain)
         .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : nil)
         .scrollContentBackground(.hidden)
@@ -403,7 +404,7 @@ extension SortFilterCFGItemContainer: View {
     private func toolbarForListPicker(v: some View, row r: Int, column c: Int) -> some View {
         v.toolbar {
             var item = self._items[r][c].picker
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 if item.resetButtonConfiguration.isHidden {
                     EmptyView()
                 } else {

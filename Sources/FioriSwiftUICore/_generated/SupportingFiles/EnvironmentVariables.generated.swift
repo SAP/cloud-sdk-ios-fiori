@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -297,6 +297,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+struct AttachmentElementStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentElementStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentElementStyle: any AttachmentElementStyle {
+        self.attachmentElementStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentElementStyleStack: [any AttachmentElementStyle] {
+        get {
+            self[AttachmentElementStyleStackKey.self]
+        }
+        set {
+            self[AttachmentElementStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+struct AttachmentErrorTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentErrorTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentErrorTitleStyle: any AttachmentErrorTitleStyle {
+        self.attachmentErrorTitleStyleStack.last ?? .base
+    }
+
+    var attachmentErrorTitleStyleStack: [any AttachmentErrorTitleStyle] {
+        get {
+            self[AttachmentErrorTitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentErrorTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 struct AttachmentFootnoteStyleStackKey: EnvironmentKey {
@@ -335,6 +377,48 @@ extension EnvironmentValues {
         }
         set {
             self[AttachmentGroupStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+struct AttachmentInProgressStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentInProgressStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentInProgressStyle: any AttachmentInProgressStyle {
+        self.attachmentInProgressStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentInProgressStyleStack: [any AttachmentInProgressStyle] {
+        get {
+            self[AttachmentInProgressStyleStackKey.self]
+        }
+        set {
+            self[AttachmentInProgressStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+struct AttachmentInProgressTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentInProgressTitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentInProgressTitleStyle: any AttachmentInProgressTitleStyle {
+        self.attachmentInProgressTitleStyleStack.last ?? .base
+    }
+
+    var attachmentInProgressTitleStyleStack: [any AttachmentInProgressTitleStyle] {
+        get {
+            self[AttachmentInProgressTitleStyleStackKey.self]
+        }
+        set {
+            self[AttachmentInProgressTitleStyleStackKey.self] = newValue
         }
     }
 }
@@ -398,6 +482,27 @@ extension EnvironmentValues {
         }
         set {
             self[AttachmentTitleStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+struct AttachmentWithErrorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AttachmentWithErrorStyle] = []
+}
+
+extension EnvironmentValues {
+    var attachmentWithErrorStyle: any AttachmentWithErrorStyle {
+        self.attachmentWithErrorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var attachmentWithErrorStyleStack: [any AttachmentWithErrorStyle] {
+        get {
+            self[AttachmentWithErrorStyleStackKey.self]
+        }
+        set {
+            self[AttachmentWithErrorStyleStackKey.self] = newValue
         }
     }
 }
@@ -1469,6 +1574,27 @@ extension EnvironmentValues {
         }
         set {
             self[FioriSliderStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: FlexItemStyle
+
+struct FlexItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FlexItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var flexItemStyle: any FlexItemStyle {
+        self.flexItemStyleStack.last ?? .base
+    }
+
+    var flexItemStyleStack: [any FlexItemStyle] {
+        get {
+            self[FlexItemStyleStackKey.self]
+        }
+        set {
+            self[FlexItemStyleStackKey.self] = newValue
         }
     }
 }
@@ -4325,6 +4451,90 @@ extension EnvironmentValues {
         }
         set {
             self[WelcomeScreenStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+struct WhatsNewListItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewListItemStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewListItemStyle: any WhatsNewListItemStyle {
+        self.whatsNewListItemStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewListItemStyleStack: [any WhatsNewListItemStyle] {
+        get {
+            self[WhatsNewListItemStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewListItemStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+struct WhatsNewListViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewListViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewListViewStyle: any WhatsNewListViewStyle {
+        self.whatsNewListViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewListViewStyleStack: [any WhatsNewListViewStyle] {
+        get {
+            self[WhatsNewListViewStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewListViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+struct WhatsNewPageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewPageStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewPageStyle: any WhatsNewPageStyle {
+        self.whatsNewPageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewPageStyleStack: [any WhatsNewPageStyle] {
+        get {
+            self[WhatsNewPageStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewPageStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+struct WhatsNewPageViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any WhatsNewPageViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var whatsNewPageViewStyle: any WhatsNewPageViewStyle {
+        self.whatsNewPageViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var whatsNewPageViewStyleStack: [any WhatsNewPageViewStyle] {
+        get {
+            self[WhatsNewPageViewStyleStackKey.self]
+        }
+        set {
+            self[WhatsNewPageViewStyleStackKey.self] = newValue
         }
     }
 }

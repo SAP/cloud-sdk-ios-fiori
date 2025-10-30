@@ -20,8 +20,17 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     @ViewBuilder
     func makeContent(_ configuration: UserConsentFormConfiguration) -> some View {
         configuration.userConsentPages.view(at: self.pageIndex).typeErased
-            .navigationBarItems(leading: self.navBarLeadingView(configuration), trailing: self.navBarTrailingView(configuration))
-            .navigationBarTitle(self.navTitle(configuration))
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    self.navBarLeadingView(configuration)
+                        .fixedSize()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    self.navBarTrailingView(configuration)
+                        .fixedSize()
+                }
+            }
+            .navigationTitle(self.navTitle(configuration))
             .alert(configuration: self.alertConfiguration(configuration), isPresented: self.$showAlert.0)
     }
     
@@ -58,7 +67,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     
     private func navTitle(_ configuration: UserConsentFormConfiguration) -> String {
         if configuration.userConsentPages.count > 1 {
-            return "\(NSLocalizedString("Step", comment: "")) \(self.pageIndex + 1) \(NSLocalizedString("of", comment: "")) \(configuration.userConsentPages.count)"
+            return "\(NSLocalizedString("Step", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")) \(self.pageIndex + 1) \(NSLocalizedString("of", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")) \(configuration.userConsentPages.count)"
         } else {
             return ""
         }
@@ -77,7 +86,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                     }
                 }
         default:
-            Button(NSLocalizedString("Back", comment: ""), action: {
+            Button(NSLocalizedString("Back", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), action: {
                 self.pageIndex -= 1
             })
         }
@@ -169,7 +178,7 @@ extension UserConsentFormFioriStyle {
         
         func makeBody(_ configuration: NextActionConfiguration) -> some View {
             NextAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
@@ -178,7 +187,7 @@ extension UserConsentFormFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(FioriPlainButtonStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     

@@ -2,41 +2,34 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/**
- This file provides default fiori style for the component.
-
- 1. Uncomment fhe following code.
- 2. Implement layout and style in corresponding places.
- 3. Delete `.generated` from file name.
- 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
- */
-
 // Base Layout style
 public struct SectionHeaderBaseStyle: SectionHeaderStyle {
+    @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
-        // Add default layout here
-        HStack {
-            configuration.title
-                .lineLimit(1)
-            Spacer()
+        SkeletonLoadingContainer {
             HStack {
-                configuration.attribute
+                configuration.title
                     .lineLimit(1)
-                    .multilineTextAlignment(.trailing)
-                
-                if configuration.sectionHeaderStyle == .attribute {
-                    AccessoryIcon {
-                        AccessoryType.disclosure.image
+                Spacer()
+                HStack {
+                    configuration.attribute
+                        .lineLimit(1)
+                        .multilineTextAlignment(.trailing)
+                    
+                    if configuration.sectionHeaderStyle == .attribute {
+                        AccessoryIcon {
+                            AccessoryType.disclosure.image
+                        }
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits((configuration.didSelectHandler != nil) ? .isButton : .isStaticText)
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
-        }
-        .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            configuration.didSelectHandler?()
+            .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                configuration.didSelectHandler?()
+            }
         }
     }
 }
@@ -52,23 +45,23 @@ extension SectionHeaderFioriStyle {
     }
 
     struct TitleFioriStyle: TitleStyle {
+        @Environment(\.isLoading) var isLoading
         let sectionHeaderConfiguration: SectionHeaderConfiguration
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                // Add default style for Title
-                .foregroundStyle(Color.preferredColor(self.sectionHeaderConfiguration.sectionHeaderStyle == .title ? .secondaryLabel : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : (self.sectionHeaderConfiguration.sectionHeaderStyle == .title ? .secondaryLabel : .primaryLabel)))
                 .font(.fiori(forTextStyle: self.sectionHeaderConfiguration.sectionHeaderStyle == .title ? .subheadline : .body))
         }
     }
 
     struct AttributeFioriStyle: AttributeStyle {
+        @Environment(\.isLoading) var isLoading
         let sectionHeaderConfiguration: SectionHeaderConfiguration
 
         func makeBody(_ configuration: AttributeConfiguration) -> some View {
             Attribute(configuration)
-                // Add default style for Attribute
-                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .primaryLabel))
                 .font(.fiori(forTextStyle: .body))
         }
     }
@@ -76,34 +69,37 @@ extension SectionHeaderFioriStyle {
 
 /// The style determines whether disclosureAccessory of SectionHeader is hidden.
 public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
+    @Environment(\.isLoading) var isLoading
     public var isDisclosureAccessoryHidden: Bool
     public func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
-        HStack {
-            configuration.title
-                .lineLimit(1)
-                .sectionHeaderStyle(.titleStyle(.fiori))
-            Spacer()
+        SkeletonLoadingContainer {
             HStack {
-                configuration.attribute
+                configuration.title
                     .lineLimit(1)
-                    .sectionHeaderStyle(.attributeStyle(.fiori))
-                    .multilineTextAlignment(.trailing)
+                    .sectionHeaderStyle(.titleStyle(.fiori))
+                Spacer()
+                HStack {
+                    configuration.attribute
+                        .lineLimit(1)
+                        .sectionHeaderStyle(.attributeStyle(.fiori))
+                        .multilineTextAlignment(.trailing)
                     
-                if self.isDisclosureAccessoryHidden {
-                    EmptyView()
-                } else {
-                    AccessoryIcon {
-                        AccessoryType.disclosure.image
+                    if self.isDisclosureAccessoryHidden {
+                        EmptyView()
+                    } else {
+                        AccessoryIcon {
+                            AccessoryType.disclosure.image
+                        }
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
-        }
-        .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            configuration.didSelectHandler?()
+            .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                configuration.didSelectHandler?()
+            }
         }
     }
 }

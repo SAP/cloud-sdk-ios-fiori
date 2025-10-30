@@ -103,10 +103,14 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                     self.title
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    self.cancelAction.accessibilityIdentifier("Cancel")
+                    self.cancelAction
+                        .fixedSize()
+                        .accessibilityIdentifier("Cancel")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    self.resetAction.accessibilityIdentifier("Reset")
+                    self.resetAction
+                        .fixedSize()
+                        .accessibilityIdentifier("Reset")
                 }
             }
         }

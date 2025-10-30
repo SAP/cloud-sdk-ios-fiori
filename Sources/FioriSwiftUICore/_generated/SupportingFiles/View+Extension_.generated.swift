@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -241,6 +241,40 @@ public extension View {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+public extension View {
+    func attachmentElementStyle(_ style: some AttachmentElementStyle) -> some View {
+        self.transformEnvironment(\.attachmentElementStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentElementStyle(@ViewBuilder content: @escaping (AttachmentElementConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentElementStyleStack) { stack in
+            let style = AnyAttachmentElementStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+public extension View {
+    func attachmentErrorTitleStyle(_ style: some AttachmentErrorTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentErrorTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentErrorTitleStyleStack) { stack in
+            let style = AnyAttachmentErrorTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 public extension View {
@@ -270,6 +304,40 @@ public extension View {
     func attachmentGroupStyle(@ViewBuilder content: @escaping (AttachmentGroupConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.attachmentGroupStyleStack) { stack in
             let style = AnyAttachmentGroupStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+public extension View {
+    func attachmentInProgressStyle(_ style: some AttachmentInProgressStyle) -> some View {
+        self.transformEnvironment(\.attachmentInProgressStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentInProgressStyle(@ViewBuilder content: @escaping (AttachmentInProgressConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentInProgressStyleStack) { stack in
+            let style = AnyAttachmentInProgressStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+public extension View {
+    func attachmentInProgressTitleStyle(_ style: some AttachmentInProgressTitleStyle) -> some View {
+        self.transformEnvironment(\.attachmentInProgressTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentInProgressTitleStyleStack) { stack in
+            let style = AnyAttachmentInProgressTitleStyle(content)
             stack.append(style)
         }
     }
@@ -321,6 +389,23 @@ public extension View {
     func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.attachmentTitleStyleStack) { stack in
             let style = AnyAttachmentTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+public extension View {
+    func attachmentWithErrorStyle(_ style: some AttachmentWithErrorStyle) -> some View {
+        self.transformEnvironment(\.attachmentWithErrorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func attachmentWithErrorStyle(@ViewBuilder content: @escaping (AttachmentWithErrorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.attachmentWithErrorStyleStack) { stack in
+            let style = AnyAttachmentWithErrorStyle(content)
             stack.append(style)
         }
     }
@@ -1188,6 +1273,23 @@ public extension View {
     func fioriSliderStyle(@ViewBuilder content: @escaping (FioriSliderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.fioriSliderStyleStack) { stack in
             let style = AnyFioriSliderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: FlexItemStyle
+
+public extension View {
+    func flexItemStyle(_ style: some FlexItemStyle) -> some View {
+        self.transformEnvironment(\.flexItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.flexItemStyleStack) { stack in
+            let style = AnyFlexItemStyle(content)
             stack.append(style)
         }
     }
@@ -3048,7 +3150,7 @@ public extension View {
 
 // MARK: TextInputInfoViewStyle
 
-extension View {
+public extension View {
     func textInputInfoViewStyle(_ style: some TextInputInfoViewStyle) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             stack.append(style)
@@ -3500,6 +3602,74 @@ public extension View {
     func welcomeScreenStyle(@ViewBuilder content: @escaping (WelcomeScreenConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.welcomeScreenStyleStack) { stack in
             let style = AnyWelcomeScreenStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+public extension View {
+    func whatsNewListItemStyle(_ style: some WhatsNewListItemStyle) -> some View {
+        self.transformEnvironment(\.whatsNewListItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewListItemStyle(@ViewBuilder content: @escaping (WhatsNewListItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewListItemStyleStack) { stack in
+            let style = AnyWhatsNewListItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+public extension View {
+    func whatsNewListViewStyle(_ style: some WhatsNewListViewStyle) -> some View {
+        self.transformEnvironment(\.whatsNewListViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewListViewStyle(@ViewBuilder content: @escaping (WhatsNewListViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewListViewStyleStack) { stack in
+            let style = AnyWhatsNewListViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+public extension View {
+    func whatsNewPageStyle(_ style: some WhatsNewPageStyle) -> some View {
+        self.transformEnvironment(\.whatsNewPageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewPageStyle(@ViewBuilder content: @escaping (WhatsNewPageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewPageStyleStack) { stack in
+            let style = AnyWhatsNewPageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+public extension View {
+    func whatsNewPageViewStyle(_ style: some WhatsNewPageViewStyle) -> some View {
+        self.transformEnvironment(\.whatsNewPageViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func whatsNewPageViewStyle(@ViewBuilder content: @escaping (WhatsNewPageViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.whatsNewPageViewStyleStack) { stack in
+            let style = AnyWhatsNewPageViewStyle(content)
             stack.append(style)
         }
     }

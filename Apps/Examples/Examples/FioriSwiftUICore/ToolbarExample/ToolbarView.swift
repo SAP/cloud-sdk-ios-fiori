@@ -246,7 +246,7 @@ struct ToolbarView: View {
                         )
                 }
                 .frame(maxWidth: .infinity)
-                .padding()
+                .padding(.horizontal)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)

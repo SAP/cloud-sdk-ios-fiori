@@ -11,7 +11,7 @@ public struct AuthenticationBaseStyle: AuthenticationStyle {
         GeometryReader { proxy in
             let availableHeight = proxy.size.height + proxy.safeAreaInsets.top + proxy.safeAreaInsets.bottom
             let availableWidth = proxy.size.width + proxy.safeAreaInsets.leading + proxy.safeAreaInsets.trailing
-            ScrollView {
+            List {
                 VStack(spacing: 0) {
                     #if !os(visionOS)
                         configuration.detailImage
@@ -35,9 +35,9 @@ public struct AuthenticationBaseStyle: AuthenticationStyle {
                         }
                         .disabled(configuration.isDisabled)
                 }
+                .listRowSeparator(.hidden)
             }
-            .scrollBounceBehavior(.basedOnSize)
-            .scrollIndicators(.hidden)
+            .listStyle(.plain)
             .padding([.leading, .trailing], AuthenticationElement.bothLeftAndRightSamePadding(availableWidth))
         }
     }
@@ -161,14 +161,21 @@ struct AuthInputFieldStyle: AuthInputStyle {
     @Binding var password: String
     @Binding var name: String
     @FocusState private var nameFocused: Bool
+    @FocusState private var passwordFocused: Bool
     
     func makeBody(_ configuration: AuthInputConfiguration) -> some View {
         VStack(spacing: 16) {
             TextFieldFormView(title: "", text: self.$name, placeholder: AttributedString("username".localizedFioriString()))
                 .textFieldFormViewStyle(AuthTextFieldStyle())
                 .focused(self.$nameFocused)
+                .onSubmit {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.passwordFocused = true
+                    }
+                }
             TextFieldFormView(title: "", text: self.$password, isSecureEnabled: true, placeholder: AttributedString("password".localizedFioriString()))
                 .textFieldFormViewStyle(AuthTextFieldStyle())
+                .focused(self.$passwordFocused)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {

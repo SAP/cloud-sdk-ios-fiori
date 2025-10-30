@@ -404,6 +404,12 @@
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Thumbnail";
 
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Uploading %@, please wait...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Uploading %@ failed. Error message: %@";
+
 /* XBUT: Sign In Action in the Authentication */
 "Sign In" = "Sign In";
 
@@ -521,7 +527,6 @@
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
 
-
 /* XBUT: One date selected for .datesSelection style in Calendar view */
 "DateSelectedFormatKey" = "%d Date Selected";
 
@@ -531,3 +536,15 @@
 /* XBUT: Dates selection tips for .datesSelection style in Calendar view*/
 "DatesSelectionBannerMessageKey" = "Tap to select dates";
 //"DatesSelectionBannerMessageKey" = "Tap or swipe to select dates";
+
+/*XTIT: Title for card*/
+"Card title" = "Card title";
+
+/*XTIT: Subtitle for card*/
+"Card subtitle" = "Card subtitle";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Tap to turn on";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Tap to turn off";

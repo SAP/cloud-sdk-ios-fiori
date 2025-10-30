@@ -21,7 +21,7 @@ struct KPIHeaderExample: View {
         KPIItem(kpiCaption: "Big caption and very very very very very very long text", items: [KPISubItemModelImpl(kPISubItemValue: .text("321"), kPISubItemType: .metric)], proposedViewSize: .large, alignment: .center),
         KPIProgressItem(kpiCaption: "Completed", data: .constant(KPIItemData.percent(1.0)), chartSize: .small)
     ]
-    
+    let skeletonData: [KPIHeaderItemModel] = [KPIHeaderSkeletonLoading.kpiProgress]
     var customViewData: [KPIHeaderItemModel] = [
         TestView(width: 120),
         TestView(width: 200),
@@ -29,12 +29,13 @@ struct KPIHeaderExample: View {
         TestView(width: 200)
     ]
     
-    @State var isPresentedBanner: Bool = true
-    
+    @State var isPresentedBanner: Bool = false // true
+    @State var isLoading: Bool = false
     var body: some View {
         ScrollView {
             VStack {
-                KPIHeader(items: self.data, isItemOrderForced: false, isPresented: .constant(false))
+                Toggle("Skeleton Loading", isOn: self.$isLoading)
+                KPIHeader(items: self.isLoading ? self.skeletonData : self.data, isItemOrderForced: false, isPresented: .constant(false))
                 
                 Text("BannerMessage is displayed")
                 KPIHeader(items: self.data, bannerMessage: BannerMessage(icon: {
@@ -50,11 +51,12 @@ struct KPIHeaderExample: View {
                         Image(fioriName: "fiori.decline")
                     }
                 }), isItemOrderForced: true, isPresented: self.$isPresentedBanner)
-
+                
                 Text("Init with custom views")
                 KPIHeader(items: self.customViewData, isPresented: .constant(false))
                 Spacer()
             }
+            .environment(\.isLoading, self.isLoading)
         }
     }
 }

@@ -161,6 +161,12 @@ protocol _OverflowActionComponent {
 }
 
 // sourcery: BaseComponent
+protocol _FlexItemComponent {
+    @ViewBuilder
+    var flexItem: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
 protocol _Row1Component {
 //    var numberOfLines: Int { get set }
     
@@ -563,6 +569,18 @@ protocol _AttachmentSubtitleComponent {
 protocol _AttachmentFootnoteComponent {
     // sourcery: @ViewBuilder
     var attachmentFootnote: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttachmentErrorTitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentErrorTitle: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _AttachmentInProgressTitleComponent {
+    // sourcery: @ViewBuilder
+    var attachmentInProgressTitle: AttributedString { get }
 }
 
 // sourcery: BaseComponent

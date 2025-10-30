@@ -287,7 +287,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                             .font(.fiori(forTextStyle: .body, weight: .semibold))
                     }
                 }
-                .fioriButtonStyle(AIUserFeedbackToolbarItemStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
+                .fixedSize()
                 .onSimultaneousTapGesture {
                     configuration.onCancel?()
                     self.dismiss()
@@ -296,7 +297,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         } else {
             ToolbarItem(placement: .topBarLeading) {
                 configuration.cancelAction
-                    .fioriButtonStyle(AIUserFeedbackToolbarItemStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fixedSize()
                     .onSimultaneousTapGesture {
                         configuration.onCancel?()
                         if configuration.displayMode != .inspector {
@@ -465,25 +467,6 @@ extension AIUserFeedbackFioriStyle {
         func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
             IllustratedMessage(configuration)
         }
-    }
-}
-
-private struct AIUserFeedbackToolbarItemStyle: FioriButtonStyle {
-    func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
-        let foregroundColor: Color
-        switch configuration.state {
-        case .normal:
-            foregroundColor = Color.preferredColor(.tintColor)
-        case .highlighted, .selected:
-            foregroundColor = Color.preferredColor(.tintColorTapState)
-        default:
-            foregroundColor = Color.preferredColor(.separator)
-        }
-        
-        let config = FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: Color.clear, font: .fiori(forTextStyle: .body, weight: .semibold), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-        
-        return configuration.label
-            .fioriButtonConfiguration(config)
     }
 }
 

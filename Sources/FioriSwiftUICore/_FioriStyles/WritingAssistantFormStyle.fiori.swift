@@ -27,7 +27,7 @@ extension WritingAssistantFormFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(NavigationBarActionStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
@@ -36,7 +36,7 @@ extension WritingAssistantFormFioriStyle {
         
         func makeBody(_ configuration: DoneActionConfiguration) -> some View {
             DoneAction(configuration)
-                .fioriButtonStyle(NavigationBarActionStyle())
+                .fioriButtonStyle(FioriNavigationButtonStyle())
         }
     }
     
@@ -146,16 +146,6 @@ struct AIVoteActionButtonStyle: FioriButtonStyle {
         return configuration.label
             .frame(width: 38, height: 38)
             .font(Font.fiori(forTextStyle: .body))
-            .foregroundColor(.preferredColor(isPressed ? .tintColorTapState : isDisabled ? .quaternaryLabel : .tintColor))
-    }
-}
-
-struct NavigationBarActionStyle: FioriButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        let isPressed = configuration.state == .highlighted || configuration.state == .selected
-        let isDisabled = configuration.state == .disabled
-        return configuration.label
-            .font(Font.fiori(forTextStyle: .body, weight: .semibold))
             .foregroundColor(.preferredColor(isPressed ? .tintColorTapState : isDisabled ? .quaternaryLabel : .tintColor))
     }
 }

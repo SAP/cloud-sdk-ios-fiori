@@ -28,11 +28,30 @@ struct InternalWAForm: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                self.topLeadingButton()
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                self.topTrailingButton()
+            if #available(iOS 26.0, *) {
+                ToolbarItem(placement: .topBarLeading) {
+                    self.topLeadingButton()
+                        .fixedSize()
+                }
+                #if !os(visionOS)
+                .sharedBackgroundVisibility(.hidden)
+                #endif
+                ToolbarItem(placement: .topBarTrailing) {
+                    self.topTrailingButton()
+                        .fixedSize()
+                }
+                #if !os(visionOS)
+                .sharedBackgroundVisibility(.hidden)
+                #endif
+            } else {
+                ToolbarItem(placement: .topBarLeading) {
+                    self.topLeadingButton()
+                        .fixedSize()
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    self.topTrailingButton()
+                        .fixedSize()
+                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -53,6 +72,7 @@ struct InternalWAForm: View {
         .alert("Discard all changes?", isPresented: self.$context.showCancelAlert, actions: {
             Button(role: .cancel) {
                 self.context.showCancelAlert = false
+                self.context.updateInWAFlow(true)
             } label: {
                 Text("Keep Working")
                     .font(.fiori(forTextStyle: .caption1))

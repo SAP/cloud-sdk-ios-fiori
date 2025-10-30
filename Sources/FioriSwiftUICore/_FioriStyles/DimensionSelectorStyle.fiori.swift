@@ -6,19 +6,22 @@ import SwiftUI
 // Base Layout style
 public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
     @Environment(\.isEnabled) var isEnabled
+    @Environment(\.isLoading) var isLoading
     @State private var _maxSegmentWidth: CGFloat? = nil
     
     public func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
-        Group {
-            if configuration.segmentWidthMode == .equal {
-                self.getHStack(configuration)
-            } else {
-                ScrollView(.horizontal, showsIndicators: false) {
+        SkeletonLoadingContainer {
+            Group {
+                if configuration.segmentWidthMode == .equal {
                     self.getHStack(configuration)
-                }
-                .onPreferenceChange(SegmentPreferenceKey.self) {
-                    if configuration.segmentWidthMode == .maximum {
-                        self._maxSegmentWidth = $0
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        self.getHStack(configuration)
+                    }
+                    .onPreferenceChange(SegmentPreferenceKey.self) {
+                        if configuration.segmentWidthMode == .maximum {
+                            self._maxSegmentWidth = $0
+                        }
                     }
                 }
             }

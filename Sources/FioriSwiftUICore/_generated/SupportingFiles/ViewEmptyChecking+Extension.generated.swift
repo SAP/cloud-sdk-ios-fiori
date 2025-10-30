@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -102,6 +102,18 @@ extension Attachment: _ViewEmptyChecking {
     }
 }
 
+extension AttachmentElement: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension AttachmentErrorTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentErrorTitle.isEmpty
+    }
+}
+
 extension AttachmentFootnote: _ViewEmptyChecking {
     public var isEmpty: Bool {
         attachmentFootnote.isEmpty
@@ -112,6 +124,18 @@ extension AttachmentGroup: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             operations.isEmpty
+    }
+}
+
+extension AttachmentInProgress: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentInProgressTitle.isEmpty
+    }
+}
+
+extension AttachmentInProgressTitle: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentInProgressTitle.isEmpty
     }
 }
 
@@ -130,6 +154,12 @@ extension AttachmentThumbnail: _ViewEmptyChecking {
 extension AttachmentTitle: _ViewEmptyChecking {
     public var isEmpty: Bool {
         attachmentTitle.isEmpty
+    }
+}
+
+extension AttachmentWithError: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        attachmentErrorTitle.isEmpty
     }
 }
 
@@ -249,6 +279,7 @@ extension Card: _ViewEmptyChecking {
             detailImage.isEmpty &&
             headerAction.isEmpty &&
             counter.isEmpty &&
+            flexItem.isEmpty &&
             row1.isEmpty &&
             row2.isEmpty &&
             row3.isEmpty &&
@@ -291,6 +322,7 @@ extension CardHeader: _ViewEmptyChecking {
             detailImage.isEmpty &&
             headerAction.isEmpty &&
             counter.isEmpty &&
+            flexItem.isEmpty &&
             row1.isEmpty &&
             row2.isEmpty &&
             row3.isEmpty &&
@@ -306,7 +338,8 @@ extension CardMainHeader: _ViewEmptyChecking {
             icons.isEmpty &&
             detailImage.isEmpty &&
             headerAction.isEmpty &&
-            counter.isEmpty
+            counter.isEmpty &&
+            flexItem.isEmpty
     }
 }
 
@@ -515,6 +548,12 @@ extension FioriSlider: _ViewEmptyChecking {
             description.isEmpty &&
             leadingAccessory.isEmpty &&
             trailingAccessory.isEmpty
+    }
+}
+
+extension FlexItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        flexItem.isEmpty
     }
 }
 
@@ -1477,6 +1516,34 @@ extension WelcomeScreen: _ViewEmptyChecking {
             headlineImage.isEmpty &&
             legalText.isEmpty &&
             footerText.isEmpty
+    }
+}
+
+extension WhatsNewListItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
+extension WhatsNewListView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        whatsNewListItems.isEmpty
+    }
+}
+
+extension WhatsNewPage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty &&
+            title.isEmpty &&
+            description.isEmpty
+    }
+}
+
+extension WhatsNewPageView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        whatsNewPages.isEmpty
     }
 }
 

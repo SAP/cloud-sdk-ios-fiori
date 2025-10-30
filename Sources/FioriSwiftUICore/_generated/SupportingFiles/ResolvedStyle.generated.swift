@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -227,6 +227,38 @@ extension AttachmentStyle {
     }
 }
 
+// MARK: AttachmentElementStyle
+
+struct ResolvedAttachmentElementStyle<Style: AttachmentElementStyle>: View {
+    let style: Style
+    let configuration: AttachmentElementConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentElementStyle {
+    func resolve(configuration: AttachmentElementConfiguration) -> some View {
+        ResolvedAttachmentElementStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+struct ResolvedAttachmentErrorTitleStyle<Style: AttachmentErrorTitleStyle>: View {
+    let style: Style
+    let configuration: AttachmentErrorTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentErrorTitleStyle {
+    func resolve(configuration: AttachmentErrorTitleConfiguration) -> some View {
+        ResolvedAttachmentErrorTitleStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 struct ResolvedAttachmentFootnoteStyle<Style: AttachmentFootnoteStyle>: View {
@@ -256,6 +288,38 @@ struct ResolvedAttachmentGroupStyle<Style: AttachmentGroupStyle>: View {
 extension AttachmentGroupStyle {
     func resolve(configuration: AttachmentGroupConfiguration) -> some View {
         ResolvedAttachmentGroupStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentInProgressStyle
+
+struct ResolvedAttachmentInProgressStyle<Style: AttachmentInProgressStyle>: View {
+    let style: Style
+    let configuration: AttachmentInProgressConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentInProgressStyle {
+    func resolve(configuration: AttachmentInProgressConfiguration) -> some View {
+        ResolvedAttachmentInProgressStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+struct ResolvedAttachmentInProgressTitleStyle<Style: AttachmentInProgressTitleStyle>: View {
+    let style: Style
+    let configuration: AttachmentInProgressTitleConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentInProgressTitleStyle {
+    func resolve(configuration: AttachmentInProgressTitleConfiguration) -> some View {
+        ResolvedAttachmentInProgressTitleStyle(style: self, configuration: configuration)
     }
 }
 
@@ -304,6 +368,22 @@ struct ResolvedAttachmentTitleStyle<Style: AttachmentTitleStyle>: View {
 extension AttachmentTitleStyle {
     func resolve(configuration: AttachmentTitleConfiguration) -> some View {
         ResolvedAttachmentTitleStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+struct ResolvedAttachmentWithErrorStyle<Style: AttachmentWithErrorStyle>: View {
+    let style: Style
+    let configuration: AttachmentWithErrorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AttachmentWithErrorStyle {
+    func resolve(configuration: AttachmentWithErrorConfiguration) -> some View {
+        ResolvedAttachmentWithErrorStyle(style: self, configuration: configuration)
     }
 }
 
@@ -1120,6 +1200,22 @@ struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {
 extension FioriSliderStyle {
     func resolve(configuration: FioriSliderConfiguration) -> some View {
         ResolvedFioriSliderStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: FlexItemStyle
+
+struct ResolvedFlexItemStyle<Style: FlexItemStyle>: View {
+    let style: Style
+    let configuration: FlexItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension FlexItemStyle {
+    func resolve(configuration: FlexItemConfiguration) -> some View {
+        ResolvedFlexItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -3296,6 +3392,70 @@ struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
 extension WelcomeScreenStyle {
     func resolve(configuration: WelcomeScreenConfiguration) -> some View {
         ResolvedWelcomeScreenStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+struct ResolvedWhatsNewListItemStyle<Style: WhatsNewListItemStyle>: View {
+    let style: Style
+    let configuration: WhatsNewListItemConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewListItemStyle {
+    func resolve(configuration: WhatsNewListItemConfiguration) -> some View {
+        ResolvedWhatsNewListItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+struct ResolvedWhatsNewListViewStyle<Style: WhatsNewListViewStyle>: View {
+    let style: Style
+    let configuration: WhatsNewListViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewListViewStyle {
+    func resolve(configuration: WhatsNewListViewConfiguration) -> some View {
+        ResolvedWhatsNewListViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+struct ResolvedWhatsNewPageStyle<Style: WhatsNewPageStyle>: View {
+    let style: Style
+    let configuration: WhatsNewPageConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewPageStyle {
+    func resolve(configuration: WhatsNewPageConfiguration) -> some View {
+        ResolvedWhatsNewPageStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+struct ResolvedWhatsNewPageViewStyle<Style: WhatsNewPageViewStyle>: View {
+    let style: Style
+    let configuration: WhatsNewPageViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension WhatsNewPageViewStyle {
+    func resolve(configuration: WhatsNewPageViewConfiguration) -> some View {
+        ResolvedWhatsNewPageViewStyle(style: self, configuration: configuration)
     }
 }
 

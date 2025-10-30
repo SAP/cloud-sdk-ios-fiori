@@ -1079,7 +1079,7 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
-    /// (dark variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/3278BE.png&text=+)          Hex value: 3278BEFF
     /// (light variant) ![](https://dummyimage.com/48x18/168EFF.png&text=+)          Hex value: 168EFFFF
     @available(watchOS, unavailable)
     case chart1
@@ -1329,6 +1329,18 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/D522BF.png&text=+)          Hex value: D522BF
     @available(watchOS, unavailable)
     case jouleGradient2
+    
+    /// jouleSelectedFill
+    /// (dark variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FF
+    /// (light variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CED
+    @available(watchOS, unavailable)
+    case jouleSelectedFill
+    
+    /// jouleSelectedLabel
+    /// (dark variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CED
+    /// (light variant) ![](https://dummyimage.com/48x18/E2D8FF.png&text=+)          Hex value: E2D8FF
+    @available(watchOS, unavailable)
+    case jouleSelectedLabel
     
     // MARK: - Deprecated Basic Colors
     
@@ -1644,7 +1656,7 @@ public enum ColorStyle: String, CaseIterable {
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .chart12,
                                                     .stockUpStroke, .stockDownStroke, .chartBad, .chartCritical, .chartNeutral, .chartGood, .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
-                                                    .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2]
+                                                    .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2, .jouleSelectedFill, .jouleSelectedLabel]
     #else
         public static var allCases: [ColorStyle] = [.primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel, .primaryBackground, .secondaryBackground, .tertiaryBackground, .tintColor, .tintColorTapState, .negativeLabel, .negativeLabelTapState, .criticalLabel, .criticalLabelTapState, .positiveLabel, .positiveLabelTapState, .separator, .separatorOpaque, .accent1, .accent2, .accent3, .accent4, .accent5, .accent6, .accent7, .accent8, .accent9]
     #endif

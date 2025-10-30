@@ -598,6 +598,34 @@ public extension AttachmentStyle where Self == AttachmentAttachmentFootnoteStyle
     }
 }
 
+// MARK: AttachmentElementStyle
+
+public extension AttachmentElementStyle where Self == AttachmentElementBaseStyle {
+    static var base: AttachmentElementBaseStyle {
+        AttachmentElementBaseStyle()
+    }
+}
+
+public extension AttachmentElementStyle where Self == AttachmentElementFioriStyle {
+    static var fiori: AttachmentElementFioriStyle {
+        AttachmentElementFioriStyle()
+    }
+}
+
+// MARK: AttachmentErrorTitleStyle
+
+public extension AttachmentErrorTitleStyle where Self == AttachmentErrorTitleBaseStyle {
+    static var base: AttachmentErrorTitleBaseStyle {
+        AttachmentErrorTitleBaseStyle()
+    }
+}
+
+public extension AttachmentErrorTitleStyle where Self == AttachmentErrorTitleFioriStyle {
+    static var fiori: AttachmentErrorTitleFioriStyle {
+        AttachmentErrorTitleFioriStyle()
+    }
+}
+
 // MARK: AttachmentFootnoteStyle
 
 public extension AttachmentFootnoteStyle where Self == AttachmentFootnoteBaseStyle {
@@ -647,6 +675,55 @@ public extension AttachmentGroupStyle where Self == AttachmentGroupTitleStyle {
     }
 }
 
+// MARK: AttachmentInProgressStyle
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressBaseStyle {
+    static var base: AttachmentInProgressBaseStyle {
+        AttachmentInProgressBaseStyle()
+    }
+}
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressFioriStyle {
+    static var fiori: AttachmentInProgressFioriStyle {
+        AttachmentInProgressFioriStyle()
+    }
+}
+
+public struct AttachmentInProgressAttachmentInProgressTitleStyle: AttachmentInProgressStyle {
+    let style: any AttachmentInProgressTitleStyle
+
+    public func makeBody(_ configuration: AttachmentInProgressConfiguration) -> some View {
+        AttachmentInProgress(configuration)
+            .attachmentInProgressTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentInProgressStyle where Self == AttachmentInProgressAttachmentInProgressTitleStyle {
+    static func attachmentInProgressTitleStyle(_ style: some AttachmentInProgressTitleStyle) -> AttachmentInProgressAttachmentInProgressTitleStyle {
+        AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
+    }
+
+    static func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> AttachmentInProgressAttachmentInProgressTitleStyle {
+        let style = AnyAttachmentInProgressTitleStyle(content)
+        return AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
+    }
+}
+
+// MARK: AttachmentInProgressTitleStyle
+
+public extension AttachmentInProgressTitleStyle where Self == AttachmentInProgressTitleBaseStyle {
+    static var base: AttachmentInProgressTitleBaseStyle {
+        AttachmentInProgressTitleBaseStyle()
+    }
+}
+
+public extension AttachmentInProgressTitleStyle where Self == AttachmentInProgressTitleFioriStyle {
+    static var fiori: AttachmentInProgressTitleFioriStyle {
+        AttachmentInProgressTitleFioriStyle()
+    }
+}
+
 // MARK: AttachmentSubtitleStyle
 
 public extension AttachmentSubtitleStyle where Self == AttachmentSubtitleBaseStyle {
@@ -686,6 +763,41 @@ public extension AttachmentTitleStyle where Self == AttachmentTitleBaseStyle {
 public extension AttachmentTitleStyle where Self == AttachmentTitleFioriStyle {
     static var fiori: AttachmentTitleFioriStyle {
         AttachmentTitleFioriStyle()
+    }
+}
+
+// MARK: AttachmentWithErrorStyle
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorBaseStyle {
+    static var base: AttachmentWithErrorBaseStyle {
+        AttachmentWithErrorBaseStyle()
+    }
+}
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorFioriStyle {
+    static var fiori: AttachmentWithErrorFioriStyle {
+        AttachmentWithErrorFioriStyle()
+    }
+}
+
+public struct AttachmentWithErrorAttachmentErrorTitleStyle: AttachmentWithErrorStyle {
+    let style: any AttachmentErrorTitleStyle
+
+    public func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
+        AttachmentWithError(configuration)
+            .attachmentErrorTitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorAttachmentErrorTitleStyle {
+    static func attachmentErrorTitleStyle(_ style: some AttachmentErrorTitleStyle) -> AttachmentWithErrorAttachmentErrorTitleStyle {
+        AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
+    }
+
+    static func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> AttachmentWithErrorAttachmentErrorTitleStyle {
+        let style = AnyAttachmentErrorTitleStyle(content)
+        return AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
     }
 }
 
@@ -1389,6 +1501,27 @@ public extension CardStyle where Self == CardCounterStyle {
     }
 }
 
+public struct CardFlexItemStyle: CardStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardStyle where Self == CardFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardFlexItemStyle {
+        CardFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardFlexItemStyle(style: style)
+    }
+}
+
 public struct CardRow1Style: CardStyle {
     let style: any Row1Style
 
@@ -2040,6 +2173,27 @@ public extension CardHeaderStyle where Self == CardHeaderCounterStyle {
     }
 }
 
+public struct CardHeaderFlexItemStyle: CardHeaderStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardHeaderStyle where Self == CardHeaderFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardHeaderFlexItemStyle {
+        CardHeaderFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardHeaderFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardHeaderFlexItemStyle(style: style)
+    }
+}
+
 public struct CardHeaderRow1Style: CardHeaderStyle {
     let style: any Row1Style
 
@@ -2345,6 +2499,27 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderCounterStyle {
     static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardMainHeaderCounterStyle {
         let style = AnyCounterStyle(content)
         return CardMainHeaderCounterStyle(style: style)
+    }
+}
+
+public struct CardMainHeaderFlexItemStyle: CardMainHeaderStyle {
+    let style: any FlexItemStyle
+
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .flexItemStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CardMainHeaderStyle where Self == CardMainHeaderFlexItemStyle {
+    static func flexItemStyle(_ style: some FlexItemStyle) -> CardMainHeaderFlexItemStyle {
+        CardMainHeaderFlexItemStyle(style: style)
+    }
+
+    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardMainHeaderFlexItemStyle {
+        let style = AnyFlexItemStyle(content)
+        return CardMainHeaderFlexItemStyle(style: style)
     }
 }
 
@@ -3752,6 +3927,20 @@ public extension FioriSliderStyle where Self == FioriSliderInformationViewStyle 
     static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> FioriSliderInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return FioriSliderInformationViewStyle(style: style)
+    }
+}
+
+// MARK: FlexItemStyle
+
+public extension FlexItemStyle where Self == FlexItemBaseStyle {
+    static var base: FlexItemBaseStyle {
+        FlexItemBaseStyle()
+    }
+}
+
+public extension FlexItemStyle where Self == FlexItemFioriStyle {
+    static var fiori: FlexItemFioriStyle {
+        FlexItemFioriStyle()
     }
 }
 
@@ -8580,19 +8769,19 @@ public extension TextInputFieldStyle where Self == TextInputFieldFioriStyle {
 
 // MARK: TextInputInfoViewStyle
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
     static var base: TextInputInfoViewBaseStyle {
         TextInputInfoViewBaseStyle()
     }
 }
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
     static var fiori: TextInputInfoViewFioriStyle {
         TextInputInfoViewFioriStyle()
     }
 }
 
-struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
     let style: any IconStyle
 
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -8602,7 +8791,7 @@ struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
     }
 }
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
     static func iconStyle(_ style: some IconStyle) -> TextInputInfoViewIconStyle {
         TextInputInfoViewIconStyle(style: style)
     }
@@ -8613,7 +8802,7 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
     }
 }
 
-struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
     let style: any DescriptionStyle
 
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -8623,7 +8812,7 @@ struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
     }
 }
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
     static func descriptionStyle(_ style: some DescriptionStyle) -> TextInputInfoViewDescriptionStyle {
         TextInputInfoViewDescriptionStyle(style: style)
     }
@@ -8634,7 +8823,7 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle
     }
 }
 
-struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
     let style: any CounterStyle
 
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -8644,7 +8833,7 @@ struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
     }
 }
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
     static func counterStyle(_ style: some CounterStyle) -> TextInputInfoViewCounterStyle {
         TextInputInfoViewCounterStyle(style: style)
     }
@@ -8655,7 +8844,7 @@ extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
     }
 }
 
-struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
+public struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
     let style: any InformationViewStyle
 
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
@@ -8665,7 +8854,7 @@ struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
     }
 }
 
-extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
     static func informationViewStyle(_ style: some InformationViewStyle) -> TextInputInfoViewInformationViewStyle {
         TextInputInfoViewInformationViewStyle(style: style)
     }
@@ -9961,6 +10150,188 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenSecondaryActionSt
     static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> WelcomeScreenSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return WelcomeScreenSecondaryActionStyle(style: style)
+    }
+}
+
+// MARK: WhatsNewListItemStyle
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemBaseStyle {
+    static var base: WhatsNewListItemBaseStyle {
+        WhatsNewListItemBaseStyle()
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemFioriStyle {
+    static var fiori: WhatsNewListItemFioriStyle {
+        WhatsNewListItemFioriStyle()
+    }
+}
+
+public struct WhatsNewListItemDetailImageStyle: WhatsNewListItemStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> WhatsNewListItemDetailImageStyle {
+        WhatsNewListItemDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewListItemDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return WhatsNewListItemDetailImageStyle(style: style)
+    }
+}
+
+public struct WhatsNewListItemTitleStyle: WhatsNewListItemStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WhatsNewListItemTitleStyle {
+        WhatsNewListItemTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewListItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WhatsNewListItemTitleStyle(style: style)
+    }
+}
+
+public struct WhatsNewListItemSubtitleStyle: WhatsNewListItemStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewListItemStyle where Self == WhatsNewListItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> WhatsNewListItemSubtitleStyle {
+        WhatsNewListItemSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> WhatsNewListItemSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return WhatsNewListItemSubtitleStyle(style: style)
+    }
+}
+
+// MARK: WhatsNewListViewStyle
+
+public extension WhatsNewListViewStyle where Self == WhatsNewListViewBaseStyle {
+    static var base: WhatsNewListViewBaseStyle {
+        WhatsNewListViewBaseStyle()
+    }
+}
+
+public extension WhatsNewListViewStyle where Self == WhatsNewListViewFioriStyle {
+    static var fiori: WhatsNewListViewFioriStyle {
+        WhatsNewListViewFioriStyle()
+    }
+}
+
+// MARK: WhatsNewPageStyle
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageBaseStyle {
+    static var base: WhatsNewPageBaseStyle {
+        WhatsNewPageBaseStyle()
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageFioriStyle {
+    static var fiori: WhatsNewPageFioriStyle {
+        WhatsNewPageFioriStyle()
+    }
+}
+
+public struct WhatsNewPageDetailImageStyle: WhatsNewPageStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> WhatsNewPageDetailImageStyle {
+        WhatsNewPageDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewPageDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return WhatsNewPageDetailImageStyle(style: style)
+    }
+}
+
+public struct WhatsNewPageTitleStyle: WhatsNewPageStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> WhatsNewPageTitleStyle {
+        WhatsNewPageTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewPageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return WhatsNewPageTitleStyle(style: style)
+    }
+}
+
+public struct WhatsNewPageDescriptionStyle: WhatsNewPageStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: WhatsNewPageConfiguration) -> some View {
+        WhatsNewPage(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension WhatsNewPageStyle where Self == WhatsNewPageDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> WhatsNewPageDescriptionStyle {
+        WhatsNewPageDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WhatsNewPageDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return WhatsNewPageDescriptionStyle(style: style)
+    }
+}
+
+// MARK: WhatsNewPageViewStyle
+
+public extension WhatsNewPageViewStyle where Self == WhatsNewPageViewBaseStyle {
+    static var base: WhatsNewPageViewBaseStyle {
+        WhatsNewPageViewBaseStyle()
+    }
+}
+
+public extension WhatsNewPageViewStyle where Self == WhatsNewPageViewFioriStyle {
+    static var fiori: WhatsNewPageViewFioriStyle {
+        WhatsNewPageViewFioriStyle()
     }
 }
 

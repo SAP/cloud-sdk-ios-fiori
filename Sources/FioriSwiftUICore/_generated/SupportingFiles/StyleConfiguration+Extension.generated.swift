@@ -17,7 +17,7 @@ extension AIUserFeedbackConfiguration {
 
 extension CardConfiguration {
     var _cardHeader: CardHeader {
-        CardHeader(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)), shouldApplyDefaultStyle: true)
+        CardHeader(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), flexItem: .init(self.flexItem), flexItemPosition: self.flexItemPosition, row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)), shouldApplyDefaultStyle: true)
     }
 
     var _cardFooter: CardFooter {
@@ -33,7 +33,7 @@ extension CardHeaderConfiguration {
     }
 
     var _cardMainHeader: CardMainHeader {
-        CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter)), shouldApplyDefaultStyle: true)
+        CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), flexItem: .init(self.flexItem), flexItemPosition: self.flexItemPosition), shouldApplyDefaultStyle: true)
     }
 
     var _cardExtHeader: CardExtHeader {
@@ -101,7 +101,7 @@ extension FioriSliderConfiguration {
 
 extension KeyValueFormViewConfiguration {
     var _noteFormView: NoteFormView {
-        NoteFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg), shouldApplyDefaultStyle: true)
+        NoteFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -153,7 +153,7 @@ extension PlaceholderTextEditorConfiguration {
 
 extension PlaceholderTextFieldConfiguration {
     var _textInputField: TextInputField {
-        TextInputField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled), shouldApplyDefaultStyle: true)
+        TextInputField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -193,7 +193,7 @@ extension SideBarListItemConfiguration {
 
 extension StepperFieldConfiguration {
     var _textInputField: TextInputField {
-        TextInputField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled), shouldApplyDefaultStyle: true)
+        TextInputField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -201,7 +201,7 @@ extension StepperFieldConfiguration {
 
 extension StepperViewConfiguration {
     var _stepperField: StepperField {
-        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported), shouldApplyDefaultStyle: true)
+        StepperField(.init(decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported), shouldApplyDefaultStyle: true)
     }
 
     var _informationView: InformationView {
@@ -221,7 +221,7 @@ extension SwitchViewConfiguration {
 
 extension TextFieldFormViewConfiguration {
     var _titleFormView: TitleFormView {
-        TitleFormView(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg), shouldApplyDefaultStyle: true)
+        TitleFormView(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled), shouldApplyDefaultStyle: true)
     }
 }
 
@@ -237,7 +237,7 @@ extension TextInputInfoViewConfiguration {
 
 extension TitleFormViewConfiguration {
     var _placeholderTextField: PlaceholderTextField {
-        PlaceholderTextField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, placeholder: .init(self.placeholder)), shouldApplyDefaultStyle: true)
+        PlaceholderTextField(.init(text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder)), shouldApplyDefaultStyle: true)
     }
 
     var _formView: FormView {

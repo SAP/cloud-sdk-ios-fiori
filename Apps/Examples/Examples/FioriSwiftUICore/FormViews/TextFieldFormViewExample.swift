@@ -40,6 +40,7 @@ struct TextFieldFormViewExample: View {
     @State var showAINotice: Bool = false
     @State var showBottomSheet: Bool = false
     @State var isLoading: Bool = false
+    @State var showingOptions = false
 
     @State var text = ""
     
@@ -52,89 +53,114 @@ struct TextFieldFormViewExample: View {
 
     var customizeNoticeActionLabel: AttributedString {
         var msgText = AttributedString(" View Details ")
-        msgText.font = .footnote.bold()
+        msgText.font = .fiori(forTextStyle: .footnote, weight: .semibold)
         msgText.foregroundColor = .purple
         return msgText
     }
 
     var body: some View {
         VStack {
-            Text("TextFieldFormViewExample")
-            List {
-                Toggle("Shows Hint Text", isOn: self.$showsHintText)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Shows Char Count", isOn: self.$showsCharCount)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Shows Action", isOn: self.$showsAction)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Mandatory Field", isOn: self.$isRequired)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Secure Mode", isOn: self.$isSecureEnabled)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("AI Notice", isOn: self.$showAINotice)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Toggle("Show SkeletonLoading", isOn: self.$isLoading)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                Button("Dismiss Keyboard") {
-                    hideKeyboard()
-                }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-
-                Text("Default TextFieldForm")
-                    .italic()
-                TextFieldFormView(title: self.key1, text: self.$valueText1, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction1(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                    .aiNoticeView(isPresented: self.$showAINotice)
-
-                Text("Existing Text")
-                    .italic()
-                TextFieldFormView(title: self.key2, text: self.$valueText2, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
-                    .sheet(isPresented: self.$showBottomSheet) {
-                        Text("detail information")
-                            .presentationDetents([.height(250), .medium])
-                            .presentationDragIndicator(.visible)
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16) {
+                    Button("Dismiss Keyboard") {
+                        hideKeyboard()
                     }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                    Text("Default TextFieldForm")
+                        .italic()
+                    TextFieldFormView(title: self.key1, text: self.$valueText1, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction1(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                        .aiNoticeView(isPresented: self.$showAINotice)
 
-                Text("Empty Text")
-                    .italic()
-                TextFieldFormView(title: self.key3, text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction3(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                    Text("Existing Text")
+                        .italic()
+                    TextFieldFormView(title: self.key2, text: self.$valueText2, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                        .sheet(isPresented: self.$showBottomSheet) {
+                            Text("detail information")
+                                .presentationDetents([.height(250), .medium])
+                                .presentationDragIndicator(.visible)
+                        }
 
-                Text("Disabled")
-                TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, isSecureEnabled: self.isSecureEnabled, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
-                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-                    .disabled(true)
+                    Text("Empty Text")
+                        .italic()
+                    TextFieldFormView(title: self.key3, text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction3(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
 
-                Text("Read-Only")
-                TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, isSecureEnabled: self.isSecureEnabled, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
-                    .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
-                    .iconStyle(content: { config in
-                        config.icon.foregroundStyle(Color.purple)
-                    })
-                
-                TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                    Text("Disabled")
+                    TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, isSecureEnabled: self.isSecureEnabled, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                        .disabled(true)
+
+                    Text("Read-Only")
+                    TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, isSecureEnabled: self.isSecureEnabled, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                        .iconStyle(content: { config in
+                            config.icon.foregroundStyle(Color.purple)
+                        })
+                    
+                    TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                }
+                .padding(.horizontal, 16)
             }
             .environment(\.isLoading, self.isLoading)
             #if !os(visionOS)
                 .scrollDismissesKeyboard(.immediately)
             #endif
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Examples")
+                .toolbar {
+                    FioriButton(title: "Options") { _ in
+                        self.showingOptions = true
+                    }
+                }
+                .sheet(isPresented: self.$showingOptions) {
+                    NavigationStack {
+                        List {
+                            Toggle("Shows Hint Text", isOn: self.$showsHintText)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Shows Char Count", isOn: self.$showsCharCount)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Shows Action", isOn: self.$showsAction)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Mandatory Field", isOn: self.$isRequired)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Secure Mode", isOn: self.$isSecureEnabled)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("AI Notice", isOn: self.$showAINotice)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                            Toggle("Show SkeletonLoading", isOn: self.$isLoading)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
+                        }
+                        .navigationTitle("Options")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done") {
+                                    self.showingOptions = false
+                                }
+                            }
+                        }
+                    }
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+                }
         }
     }
 

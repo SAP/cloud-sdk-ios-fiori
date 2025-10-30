@@ -26,6 +26,7 @@ public struct TextFieldFormViewConfiguration {
     public let title: Title
     @Binding public var text: String
     public let isSecureEnabled: Bool?
+    public let formatter: FormattedStringEditing?
     public let placeholder: Placeholder
     public let controlState: ControlState
     public let errorMessage: AttributedString?
@@ -36,6 +37,7 @@ public struct TextFieldFormViewConfiguration {
     public let allowsBeyondLimit: Bool
     public let charCountReachLimitMessage: String?
     public let charCountBeyondLimitMsg: String?
+    public let isAINoticeEnabled: Bool
     public let actionIcon: Image?
     public let action: (() -> Void)?
     public let actionIconAccessibilityLabel: String?

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct KeyValueItemExample: View {
     @State var axis: Axis = .horizontal
+    @State var isLoading: Bool = true
     
     struct CustomKeyValueItemStyle: KeyValueItemStyle {
         func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
@@ -30,6 +31,7 @@ struct KeyValueItemExample: View {
                     Text("Horizontal").tag(Axis.horizontal)
                     Text("Vertical").tag(Axis.vertical)
                 }
+                Toggle("Skeleton Loading", isOn: self.$isLoading)
             }
             Section {
                 Text("Key Value Item (Default Style)")
@@ -39,22 +41,24 @@ struct KeyValueItemExample: View {
                     axis: self.axis
                 )
                 
-                Divider().background(Color.gray)
                 Text("Key Value Item (Long String)")
                 KeyValueItem(
                     key: { Text("Long long long long long long long long long long long long long long long long long long Key") },
                     value: { self.MultipleValues() },
                     axis: self.axis
                 )
-                
-                Divider().background(Color.gray)
+
                 Text("Key Value Item 2 lines (Custom Style)")
                 KeyValueItem(
                     key: { Text("Long long long long long long long long long long long long long long long long long long long long long Key") },
                     value: { Text("Long long long long long long long long long Value") },
                     axis: self.axis
-                ).keyValueItemStyle(CustomKeyValueItemStyle())
+                )
+                .ifApply(!self.isLoading) {
+                    $0.keyValueItemStyle(CustomKeyValueItemStyle())
+                }
             }
+            .environment(\.isLoading, self.isLoading)
         }
     }
     
@@ -64,11 +68,11 @@ struct KeyValueItemExample: View {
             return HStack(spacing: 0) {
                 Text("Long long long long long long long long long Value")
                 Spacer()
-                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!).foregroundColor(.blue)
+                Link("650-000-0000", destination: URL(string: "tel:650-000-0000")!).foregroundColor(.blue).font(.fiori(forTextStyle: .body, weight: .semibold))
                 Spacer()
-                Text("xyz@gmail.com")
+                Text("xyz@gmail.com").font(.fiori(forTextStyle: .body, weight: .semibold))
                 Spacer()
-                Text("www.google.com")
+                Text("www.google.com").font(.fiori(forTextStyle: .body, weight: .semibold))
             }
         case .vertical:
             return VStack(alignment: .leading) {

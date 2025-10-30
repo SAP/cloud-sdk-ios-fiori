@@ -3,6 +3,35 @@
 import Foundation
 import SwiftUI
 
+/// CardFooter: Composite Component Protocol
+///
+/// The `_CardFooterComponent` protocol defines the footer section of a card.
+/// This protocol combines primary, secondary, tertiary, and overflow action components
+/// to create a comprehensive footer layout with multiple interaction options.
+///
+/// ## Usage
+///
+/// This component is used to create a footer section with multiple action buttons and overflow options.
+///
+/// ```swift
+/// CardFooter {
+///     FioriButton(title: "Primary")
+/// } secondaryAction: {
+///     FioriButton(title: "Secondary")
+/// } tertiaryAction: {
+///     FioriButton(title: "Tertiary")
+/// } overflowAction: {
+///     FioriButton(title: "Overflow")
+/// }
+/// ```
+///
+/// ```swift
+/// CardFooter(action: FioriButton(title: "Primary"),
+///            secondaryAction: FioriButton(title: "Secondary"),
+///            tertiaryAction: FioriButton(title: "Tertiary"),
+///            overflowAction: FioriButton(title: "Overflow"))
+/// ```
+///
 public struct CardFooter {
     let action: any View
     let secondaryAction: any View

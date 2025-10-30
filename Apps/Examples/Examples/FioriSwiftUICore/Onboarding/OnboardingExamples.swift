@@ -56,6 +56,12 @@ struct OnboardingExamples: View {
                     Text("_EULA Examples")
                 }
             }
+            
+            NavigationLink(
+                destination: WhatsNewExample())
+            {
+                Text("What's New")
+            }
         }.navigationBarTitle("Onboarding")
     }
 }

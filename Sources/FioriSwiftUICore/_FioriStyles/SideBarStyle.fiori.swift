@@ -15,24 +15,35 @@ import SwiftUI
 // Base Layout style
 public struct SideBarBaseStyle: SideBarStyle {
     @Environment(\.editMode) private var editMode
+    @Environment(\.sidebarLeadingPadding) private var leadingPadding
+    @Environment(\.sidebarTrailingPadding) private var trailingPadding
+    @Environment(\.sidebarWidth) private var sidebarWidth
+    @Environment(\.isSidebarAutoWidth) private var isAutoWidth
     @EnvironmentObject private var modelObject: SideBarModelObject
     @State private var collapsedSections: [UUID] = [] // To keep the collapsed section ID
     
     public func makeBody(_ configuration: SideBarConfiguration) -> some View {
         Group {
+            // See issue HCPSDKFIORIUIKIT-3047, With the iOS 26 Liquid Glass style, the Sidebar does not display fully vertically on the iPad in Portrait mode.
+            // It seems that the primary column's width in NavigationSplitView or UINavigationSplitViewControoler has changed, making the original fixed width of the sidebar (288 + 16 + 16) unusable.
+            // To resolve this issue, we need to implement a flexible width that fits the available content space of its parent.
+            
+            // Additionally, we also expose some environment keys, such as isSidebarAutoWidth, sidebarWidth, sidebarLeadingPadding, and sidebarTrailingPadding, to allow consumers to customize the sidebar's width for different use cases.
             if !configuration.isUsedInSplitView {
-                VStack(spacing: 0, content: {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        LazyVStack(spacing: 0) {
-                            self.buildSideBarList(configuration)
-                        }
-                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .background(Color.preferredColor(.secondaryBackground))
+                GeometryReader { geometry in
+                    VStack(spacing: 0, content: {
+                        ScrollView(.vertical, showsIndicators: false, content: {
+                            LazyVStack(spacing: 0) {
+                                self.buildSideBarList(configuration)
+                            }
+                            .padding(EdgeInsets(top: 0, leading: self.leadingPadding, bottom: 0, trailing: self.trailingPadding))
+                            .background(Color.preferredColor(.secondaryBackground))
+                        })
+                        
+                        configuration.footer.typeErased
                     })
-                    
-                    configuration.footer.typeErased
-                })
-                .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
+                    .frame(width: self.isAutoWidth ? geometry.size.width : self.sidebarWidth)
+                }
             } else {
                 let onEditButtonClicked = {
                     configuration.isEditing.toggle()
@@ -53,31 +64,34 @@ public struct SideBarBaseStyle: SideBarStyle {
                     return configuration.destination(item)
                 }
     
-                NavigationStack {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        LazyVStack(spacing: 0) {
-                            self.buildSideBarList(configuration)
+                // with iOS 26 Liquid Glass style, the Sidebar can't display totally on iPad with Portrait mode. It seems like the width of primary is changed in NavigationSplitView.
+                GeometryReader { geometry in
+                    VStack(spacing: 0, content: {
+                        ScrollView(.vertical, showsIndicators: false, content: {
+                            LazyVStack(spacing: 0) {
+                                self.buildSideBarList(configuration)
+                            }
+                            .navigationDestination(for: SideBarItemModel.self, destination: { item in
+                                destinationCallback(item, configuration).typeErased
+                            })
+                            .padding(EdgeInsets(top: 0, leading: self.leadingPadding, bottom: 0, trailing: self.trailingPadding))
+                        }).background(Color.preferredColor(.secondaryBackground))
+        
+                        configuration.footer.typeErased
+                    })
+                    .frame(width: self.isAutoWidth ? geometry.size.width : self.sidebarWidth)
+                    .navigationTitle(String(configuration.title?.characters ?? AttributedString("").characters))
+                    .navigationBarTitleDisplayMode(.large)
+                    .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
+                    .navigationBarItems(trailing: configuration.editButton
+                        .simultaneousGesture(TapGesture().onEnded {
+                            onEditButtonClicked()
+                        })
+                        .accessibilityAction {
+                            onEditButtonClicked()
                         }
-                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                    })
-    
-                    configuration.footer.typeErased
+                    )
                 }
-                .background(Color.preferredColor(.secondaryBackground))
-                .navigationDestination(for: SideBarItemModel.self) { item in
-                    destinationCallback(item, configuration).typeErased
-                }
-                .navigationTitle(String(configuration.title?.characters ?? AttributedString("").characters))
-                .navigationBarTitleDisplayMode(.large)
-                .environment(\.editMode, .constant(configuration.isEditing ? EditMode.active : EditMode.inactive))
-                .navigationBarItems(trailing: configuration.editButton
-                    .simultaneousGesture(TapGesture().onEnded {
-                        onEditButtonClicked()
-                    })
-                    .accessibilityAction {
-                        onEditButtonClicked()
-                    }
-                )
             }
         }
     }
@@ -430,7 +444,7 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
                     .frame(height: 0.5)
             }
         }
-        .frame(width: self.sizeCategory.isAccessibilityCategory ? nil : (UIDevice.current.userInterfaceIdiom != .pad ? nil : 288), height: self.sizeCategory.isAccessibilityCategory ? nil : 44)
+        .frame(width: nil, height: self.sizeCategory.isAccessibilityCategory ? nil : 44)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isButton)
         .accessibilityAction {
@@ -489,5 +503,70 @@ private struct DraggingItemCornerShape: Shape {
                                 byRoundingCorners: corners,
                                 cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
+    }
+}
+
+/// Represents whether the sidebar width fills the available space from its parent automatically.
+///
+/// The `IsSidebarAutoWidth` key governs the automatic sizing of the sidebar. When set to `true`, the sidebar will adjust its width to fill the available space provided by its parent container.
+/// Otherwise, the sidebar will use the predefined width specified by the `SidebarWidth` key.
+///
+/// Note: The default value is `true`.
+public struct IsSidebarAutoWidth: EnvironmentKey {
+    public static let defaultValue: Bool = true
+}
+
+/// Represents the total width of the sidebar, including any leading and trailing padding.
+///
+/// The `SidebarWidth` key computes the total width of the sidebar by adding the base width of 288 points to the leading and trailing padding values, defined by the `SidebarLeadingPadding` and `SidebarTrailingPadding` keys, respectively.
+///
+/// Note: The default value is `288 + SidebarLeadingPadding.defaultValue + SidebarTrailingPadding.defaultValue`.
+public struct SidebarWidth: EnvironmentKey {
+    public static let defaultValue: CGFloat = 288 + SidebarLeadingPadding.defaultValue + SidebarTrailingPadding.defaultValue
+}
+
+/// Represents the leading padding within the sidebar.
+///
+/// The `SidebarLeadingPadding` key defines the space between the sidebar's content and its leading edge.
+///
+/// Note: The default value is `16` points.
+public struct SidebarLeadingPadding: EnvironmentKey {
+    public static let defaultValue: CGFloat = 16
+}
+
+/// Represents the trailing padding within the sidebar.
+///
+/// The `SidebarTrailingPadding` key defines the space between the sidebar's content and its trailing edge.
+///
+/// Note: The default value is `16` points.
+public struct SidebarTrailingPadding: EnvironmentKey {
+    public static let defaultValue: CGFloat = 16
+}
+
+// MARK: - Extension Documentation
+
+public extension EnvironmentValues {
+    /// A boolean value that indicates whether the sidebar should auto-adjust its width according to parent's available space.
+    var isSidebarAutoWidth: Bool {
+        get { self[IsSidebarAutoWidth.self] }
+        set { self[IsSidebarAutoWidth.self] = newValue }
+    }
+
+    /// The total width of the sidebar, inclusive of leading and trailing padding. It only takes effect when isSidebarAutoWidth is set to false.
+    var sidebarWidth: CGFloat {
+        get { self[SidebarWidth.self] }
+        set { self[SidebarWidth.self] = newValue }
+    }
+
+    /// The leading padding value for the sidebar.
+    var sidebarLeadingPadding: CGFloat {
+        get { self[SidebarLeadingPadding.self] }
+        set { self[SidebarLeadingPadding.self] = newValue }
+    }
+
+    /// The trailing padding value for the sidebar.
+    var sidebarTrailingPadding: CGFloat {
+        get { self[SidebarTrailingPadding.self] }
+        set { self[SidebarTrailingPadding.self] = newValue }
     }
 }

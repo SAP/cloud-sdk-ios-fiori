@@ -5,6 +5,8 @@ import SwiftUI
 
 struct MobileCardExample: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var isPresented: Bool = false
+    @State private var buttonWidthMode: Int = 0
     
     var body: some View {
         List {
@@ -15,7 +17,9 @@ struct MobileCardExample: View {
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
                 }
+                .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 .cardStyle(.card)
+                .cardStyle(.intrinsicHeightCard)
                 .listStyle(.plain)
                 .navigationBarTitle("Cards in List", displayMode: .inline)
             } label: {
@@ -31,6 +35,7 @@ struct MobileCardExample: View {
                                 .cardStyle(.intrinsicHeightCard)
                         }
                         .background(Color.preferredColor(.primaryGroupedBackground))
+                        .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                     }.padding()
                 }
                 .navigationBarTitle("Cards in VStack", displayMode: .inline)
@@ -44,6 +49,7 @@ struct MobileCardExample: View {
                         CardFooterTests.examples[i]
                     }
                     .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                 }
                 .listStyle(.plain)
                 .navigationBarTitle("Footers", displayMode: .inline)
@@ -53,6 +59,7 @@ struct MobileCardExample: View {
             
             NavigationLink {
                 MasonryTestView()
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
                     .navigationBarTitle("Masonry", displayMode: .inline)
             } label: {
                 Text("Masonry")
@@ -61,6 +68,7 @@ struct MobileCardExample: View {
             NavigationLink {
                 CarouselTestView(self.horizontalSizeClass == .compact ? 1 : (UIDevice.current.localizedModel == "iPhone" ? 2 : 3))
                     .navigationBarTitle("Carousel", displayMode: .inline)
+                    .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
             } label: {
                 Text("Carousel")
             }
@@ -307,8 +315,46 @@ struct MobileCardExample: View {
             } label: {
                 Text("Left image card using cardBody")
             }
+            
+            NavigationLink {
+                FioriCardFlexItem()
+            } label: {
+                Text("FlexItem within Card Header")
+            }
         }
-        .navigationBarTitle("Cards", displayMode: .inline)
+        .navigationBarTitle("Cards and Layouts", displayMode: .inline)
+        .sheet(isPresented: self.$isPresented) {
+            Form {
+                Text("Card Footer Button Width Mode")
+                Picker("", selection: self.$buttonWidthMode) {
+                    Text("Auto").tag(0)
+                    Text("Equal").tag(1)
+                    Text("Intrinsic").tag(2)
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .toolbar(content: {
+            FioriButton(title: "Options") { _ in
+                self.isPresented = true
+            }
+        })
+    }
+}
+
+struct FioriCardFlexItem: View {
+    @State private var buttonWidthMode: Int = 0
+    var body: some View {
+        List {
+            ForEach(0 ..< CardTests.flexItemCardSamples.count, id: \.self) { i in
+                CardTests.flexItemCardSamples[i]
+            }
+            .listRowBackground(Color.preferredColor(.primaryGroupedBackground))
+        }
+        .environment(\.cardFooterButtonWidthMode, CardFooterButtonWidthMode(rawValue: self.buttonWidthMode) ?? .auto)
+        .cardStyle(.card)
+        .listStyle(.plain)
+        .navigationBarTitle("FlexItem in card", displayMode: .inline)
     }
 }
 
@@ -439,17 +485,18 @@ extension VerticalAlignment: @retroactive Hashable {
 }
 
 struct CarouselTestView: View {
-    let defaultNumberOfColumns: Double
-    
+    let defaultNumberOfColumns: Int
     @State var isPresented: Bool = false
     @State var isSameHeight: Bool = true
     @State var isSnapping: Bool = true
-    @State var numberOfColumns: Double
+    @State var numberOfColumns: Int
     @State var spacing = 16.0
     @State var padding = 16.0
     @State var alignment = 0
+    @State var cards = CardTests.cardSamples.prefix(8)
+    @Environment(\.layoutDirection) var layoutDirection
     
-    init(_ n: Double = 1) {
+    init(_ n: Int = 1) {
         self.defaultNumberOfColumns = n
         self._numberOfColumns = State(initialValue: n)
     }
@@ -457,26 +504,38 @@ struct CarouselTestView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 24) {
-                Carousel(numberOfColumns: Int(self.numberOfColumns), contentInsets: EdgeInsets(top: 0, leading: self.padding, bottom: 0, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
-                    ForEach(0 ..< min(8, CardTests.cardSamples.count), id: \.self) { i in
-                        NavigationLink {
-                            CardTests.cardSamples[i]
-                        } label: {
-                            CardTests.cardSamples[i]
+                ScrollViewReader { proxy in
+                    Carousel(numberOfColumns: self.numberOfColumns, contentInsets: EdgeInsets(top: 16, leading: self.padding, bottom: 16, trailing: self.padding), spacing: self.spacing, alignment: self.alignment == 0 ? .top : (self.alignment == 1 ? .center : .bottom), isSnapping: self.isSnapping, isSameHeight: self.isSameHeight) {
+                        ForEach(0 ..< self.cards.count, id: \.self) { i in
+                            NavigationLink {
+                                self.cards[i].cardStyle(.card).cardStyle(.intrinsicHeightCard).padding()
+                            } label: {
+                                self.cards[i]
+                                    .id(i)
+                                    .contextMenu {
+                                        Button("Delete") {
+                                            self.cards.remove(at: i)
+                                        }
+                                    }
+                            }
                         }
                     }
-                }
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            proxy.scrollTo(0, anchor: self.layoutDirection == .rightToLeft ? .trailing : .leading)
+                        }
+                    }
+                }.cardStyle(.card)
             }
-            .cardStyle(.card)
         }
         .background(Color.preferredColor(.primaryGroupedBackground))
         .sheet(isPresented: self.$isPresented, content: {
-            VStack {
+            List {
                 Toggle("Same card height", isOn: self.$isSameHeight)
-                
-                HStack {
-                    Text("numberOfColumns: \(Int(self.numberOfColumns))")
-                    Slider(value: self.$numberOfColumns, in: 1 ... self.defaultNumberOfColumns + 2, step: 1)
+                Picker("numberOfColumns", selection: self.$numberOfColumns) {
+                    ForEach(1 ... 3, id: \.self) {
+                        Text("\($0)").tag($0)
+                    }
                 }
                 HStack {
                     Text("spacing: \(Int(self.spacing))")
@@ -493,14 +552,11 @@ struct CarouselTestView: View {
                 }
                 Toggle("isSnapping", isOn: self.$isSnapping)
                 
-                Divider()
-                
                 HStack {
                     Text("contentInsets(top: 0, leading: \(Int(self.padding)), bottom: 0, trailing: \(Int(self.padding)))")
                     Slider(value: self.$padding, in: 0 ... 24, step: 4)
                 }
             }
-            .padding()
             .presentationDetents([.medium])
         })
         .toolbar(content: {

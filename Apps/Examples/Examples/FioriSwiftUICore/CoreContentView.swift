@@ -41,6 +41,7 @@ struct CoreContentView: View {
             MenuItem(title: "Signature Inline View", section: "Views", destination: SignatureCaptureViewExample()),
             MenuItem(title: "(Deprecated)Customized Signature Inline View", section: "Views", destination: SignatureCaptureViewExample2()),
             MenuItem(title: "AI User Feedback", section: "Views", destination: AIUserFeedbackExample()),
+            MenuItem(title: "Tag", section: "Views", destination: TagExample()),
             
             // Scanners
             MenuItem(title: "Document Scanner View", section: "Scanners", destination: DocumentScannerViewExample()),
@@ -60,6 +61,7 @@ struct CoreContentView: View {
             MenuItem(title: "SectionHeader/Footer Example", section: "Headers", destination: SectionHeaderFooterExample()),
             
             // Controls
+            MenuItem(title: "Format Text Input", section: "Controls", destination: TextInputExample()),
             MenuItem(title: "Customized TabView", section: "Controls", destination: TabViewExample()),
             MenuItem(title: "Customized Toolbar", section: "Controls", destination: ToolbarExample()),
             MenuItem(title: "Dimension Selector", section: "Controls", destination: DimensionSelectorExample()),
