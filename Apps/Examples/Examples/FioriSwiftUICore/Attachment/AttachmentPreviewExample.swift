@@ -38,7 +38,7 @@ struct AttachmentPreviewExample: View {
         ScrollView {
             VStack {
                 attachmentGroup
-                    .ifApply(showPreview) {
+                    .ifApply(self.showPreview) {
                         $0.attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
                     }
             }
@@ -56,7 +56,7 @@ struct AttachmentPreviewExample: View {
                             self.showConfiguraton.toggle()
                         }
                         
-                        Toggle(self.showPreview ? "Show Preview" : "No Preview", isOn: self.$showPreview)
+                        Toggle(self.showPreview ? "Show Thumbnail" : "Icon Only ", isOn: self.$showPreview)
                     }
                     .padding()
                     .presentationCompactAdaptation(.popover)

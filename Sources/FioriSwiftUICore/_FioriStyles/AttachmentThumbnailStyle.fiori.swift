@@ -4,7 +4,6 @@ import SwiftUI
 
 // Base Layout style
 public struct AttachmentThumbnailBaseStyle: AttachmentThumbnailStyle {
-
     @ViewBuilder
     public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
         Self.getDefaultThumbnail(url: configuration.url)
