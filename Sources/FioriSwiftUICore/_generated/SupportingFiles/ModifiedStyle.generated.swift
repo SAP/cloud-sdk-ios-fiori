@@ -5079,14 +5079,14 @@ public extension TextInputFieldStyle {
 // MARK: TextInputInfoViewStyle
 
 extension ModifiedStyle: TextInputInfoViewStyle where Style: TextInputInfoViewStyle {
-    func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
             .textInputInfoViewStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifier {
+public struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
@@ -5094,7 +5094,7 @@ struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifi
     }
 }
 
-extension TextInputInfoViewStyle {
+public extension TextInputInfoViewStyle {
     func modifier(_ modifier: some ViewModifier) -> some TextInputInfoViewStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }

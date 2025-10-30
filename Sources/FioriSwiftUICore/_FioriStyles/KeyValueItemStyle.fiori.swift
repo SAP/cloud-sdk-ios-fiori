@@ -40,7 +40,7 @@ extension KeyValueItemFioriStyle {
 
         public func makeBody(_ configuration: KeyConfiguration) -> some View {
             Key(configuration)
-                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundColor(.preferredColor(self.isLoading ? .separator : .primaryLabel))
         }
     }
