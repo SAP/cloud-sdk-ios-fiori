@@ -98,7 +98,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
         )
     }
     
-    func preivew(configuration: AttachmentGroupConfiguration, index: Int) {
+    func preview(configuration: AttachmentGroupConfiguration, index: Int) {
         if let showPreview = configuration.onPreview {
             showPreview(configuration.attachments[index].primaryURL)
         } else {

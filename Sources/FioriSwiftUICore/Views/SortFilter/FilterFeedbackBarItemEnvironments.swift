@@ -108,25 +108,25 @@ public extension EnvironmentValues {
         set { self[FilterFeedbackBarItemCornerRadius.self] = newValue }
     }
     
-    /// Fill color for filter feedback bar item backgroud selected state.
+    /// Fill color for filter feedback bar item background selected state.
     var filterFeedbackBarItemBackgroundSelectedFillColor: Color {
         get { self[FilterFeedbackBarItemBackgroundSelectedFillColor.self] }
         set { self[FilterFeedbackBarItemBackgroundSelectedFillColor.self] = newValue }
     }
     
-    /// Fill color for filter feedback bar item backgroud unselected state.
+    /// Fill color for filter feedback bar item background unselected state.
     var filterFeedbackBarItemBackgroundUnselectedFillColor: Color {
         get { self[FilterFeedbackBarItemBackgroundUnselectedFillColor.self] }
         set { self[FilterFeedbackBarItemBackgroundUnselectedFillColor.self] = newValue }
     }
     
-    /// Stroke color for filter feedback bar item backgroud selected state.
+    /// Stroke color for filter feedback bar item background selected state.
     var filterFeedbackBarItemBackgroundSelectedStrokeColor: Color {
         get { self[FilterFeedbackBarItemBackgroundSelectedStrokeColor.self] }
         set { self[FilterFeedbackBarItemBackgroundSelectedStrokeColor.self] = newValue }
     }
     
-    /// Stroke color for filter feedback bar item backgroud unselected state.
+    /// Stroke color for filter feedback bar item background unselected state.
     var filterFeedbackBarItemBackgroundUnselectedStrokeColor: Color {
         get { self[FilterFeedbackBarItemBackgroundUnselectedStrokeColor.self] }
         set { self[FilterFeedbackBarItemBackgroundUnselectedStrokeColor.self] = newValue }
