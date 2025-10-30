@@ -103,7 +103,11 @@ final class CalendarMonthViewTests: XCTestCase {
         XCTAssertEqual(weeks.count, 6)
         
         if let weekNumber = weeks.first?.weekNumber {
-            XCTAssertEqual(weekNumber, 39)
+            if Calendar.autoupdatingCurrent.firstWeekday == 1 {
+                XCTAssertEqual(weekNumber, 39)
+            } else if Calendar.autoupdatingCurrent.firstWeekday == 2 {
+                XCTAssertEqual(weekNumber, 40)
+            }
         }
         
         if let firstDay = weeks.first?.dates.first {
