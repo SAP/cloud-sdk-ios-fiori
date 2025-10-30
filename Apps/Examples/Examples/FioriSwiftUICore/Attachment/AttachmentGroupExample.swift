@@ -64,7 +64,7 @@ struct AttachmentGroupExample: View {
     var body: some View {
         ScrollView {
             VStack {
-                if showDefaultThumbnailWithPreview {
+                if self.showDefaultThumbnailWithPreview {
                     self.attachments()
                         .attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
                         .border(.red)
@@ -79,47 +79,49 @@ struct AttachmentGroupExample: View {
                     self.showWriteAndUploadView.toggle()
                 }
             }
-            Spacer()
-            HStack {
-                Button("Batch") {
-                    Task {
-                        self.bulkProcessingDisabled.toggle()
-                        await withTaskGroup { group in
-                            for index in self.attachmentInfo.indices {
-                                let url = self.attachmentInfo[index].primaryURL
-                                group.addTask {
-                                    await MainActor.run {
-                                        self.attachmentInfo[index] = .uploading(sourceURL: url)
-                                    }
-                                    
-                                    try? await Task.sleep(nanoseconds: [1000000000, 3000000000, 5000000000].randomElement() ?? 3000000000)
-
-                                    await MainActor.run {
-                                        if Bool.random() {
-                                            self.attachmentInfo[index] = .uploaded(destinationURL: url, sourceURL: url, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
-                                        } else {
-                                            self.attachmentInfo[index] = .error(sourceURL: url, message: ["Simulated error uploading this file.", "Simulated error uploading this file. More to test longer error message."].randomElement() ?? "Simulated error uploading this file.")
+            if self.state == .normal {
+                Spacer()
+                HStack {
+                    Button("Batch") {
+                        Task {
+                            self.bulkProcessingDisabled.toggle()
+                            await withTaskGroup { group in
+                                for index in self.attachmentInfo.indices {
+                                    let url = self.attachmentInfo[index].primaryURL
+                                    group.addTask {
+                                        await MainActor.run {
+                                            self.attachmentInfo[index] = .uploading(sourceURL: url)
+                                        }
+                                        
+                                        try? await Task.sleep(nanoseconds: [1000000000, 3000000000, 5000000000].randomElement() ?? 3000000000)
+                                        
+                                        await MainActor.run {
+                                            if Bool.random() {
+                                                self.attachmentInfo[index] = .uploaded(destinationURL: url, sourceURL: url, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
+                                            } else {
+                                                self.attachmentInfo[index] = .error(sourceURL: url, message: ["Simulated error uploading this file.", "Simulated error uploading this file. More to test longer error message."].randomElement() ?? "Simulated error uploading this file.")
+                                            }
                                         }
                                     }
                                 }
                             }
+                            self.bulkProcessingDisabled.toggle()
+                        }
+                    }
+                    .disabled(self.bulkProcessingDisabled)
+                    Spacer()
+                    Button("Rest") {
+                        self.bulkProcessingDisabled.toggle()
+                        self.attachmentInfo = self.attachmentInfo.map {
+                            .uploaded(destinationURL: $0.primaryURL, sourceURL: $0.primaryURL, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
                         }
                         self.bulkProcessingDisabled.toggle()
                     }
+                    .disabled(self.bulkProcessingDisabled)
                 }
-                .disabled(self.bulkProcessingDisabled)
-                Spacer()
-                Button("Rest") {
-                    self.bulkProcessingDisabled.toggle()
-                    self.attachmentInfo = self.attachmentInfo.map {
-                        .uploaded(destinationURL: $0.primaryURL, sourceURL: $0.primaryURL, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
-                    }
-                    self.bulkProcessingDisabled.toggle()
-                }
-                .disabled(self.bulkProcessingDisabled)
+                .padding()
+                .border(.blue)
             }
-            .padding()
-            .border(.blue)
         }
         .onChange(of: self.appWithoutError) { _, newValue in
             if !newValue {
@@ -497,7 +499,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            getExtraInfoView(configuration)
+            self.getExtraInfoView(configuration)
             
             FioriIcon.actions.delete.padding(.horizontal)
                 .onTapGesture {
@@ -631,7 +633,6 @@ struct MyAttachmentWithErrorStyleForListLayout: AttachmentWithErrorStyle {
         )
     }
 }
-
 
 private extension AttachmentGroupConfiguration {
     func getAttachmentInfo(_ configuration: AttachmentGroupConfiguration, at index: Int) -> Binding<AttachmentInfo> {

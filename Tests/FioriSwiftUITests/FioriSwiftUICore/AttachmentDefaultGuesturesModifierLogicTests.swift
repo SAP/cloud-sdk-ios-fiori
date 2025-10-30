@@ -1,26 +1,26 @@
-import XCTest
-import SwiftUI
 @testable import FioriSwiftUICore
+import SwiftUI
+import XCTest
 
 final class AttachmentDefaultGuesturesModifierLogicTests: XCTestCase {
     fileprivate func getInfo() -> AttachmentInfo {
-        return AttachmentInfo.uploaded(destinationURL: URL(string: "file:///tmp/test.pdf")!, sourceURL: URL(string: "file:///tmp/test.pdf")!)
+        AttachmentInfo.uploaded(destinationURL: URL(string: "file:///tmp/test.pdf")!, sourceURL: URL(string: "file:///tmp/test.pdf")!)
     }
     
     fileprivate func getTitle() -> AttachmentConfiguration.AttachmentTitle {
-        return AttachmentConfiguration.AttachmentTitle(Text("Test Attachment"))
+        AttachmentConfiguration.AttachmentTitle(Text("Test Attachment"))
     }
     
     fileprivate func getSubtitle() -> AttachmentConfiguration.AttachmentSubtitle {
-        return AttachmentConfiguration.AttachmentSubtitle(Text("Subtitle"))
+        AttachmentConfiguration.AttachmentSubtitle(Text("Subtitle"))
     }
     
     fileprivate func getFootnote() -> AttachmentConfiguration.AttachmentFootnote {
-        return AttachmentConfiguration.AttachmentFootnote(Text("Footnote"))
+        AttachmentConfiguration.AttachmentFootnote(Text("Footnote"))
     }
     
     func testPreviewCallbackIsCalled() {
-        let info = getInfo()
+        let info = self.getInfo()
         var previewCalled = false
 
         let config = AttachmentConfiguration(
@@ -40,7 +40,7 @@ final class AttachmentDefaultGuesturesModifierLogicTests: XCTestCase {
     }
 
     func testDeleteCallbackIsCalledInNormalState() {
-        let info = getInfo()
+        let info = self.getInfo()
         var deleteCalled = false
 
         let config = AttachmentConfiguration(
@@ -60,7 +60,7 @@ final class AttachmentDefaultGuesturesModifierLogicTests: XCTestCase {
     }
 
     func testPreviewCallbackIsCalledInReadOnlyState() {
-        let info = getInfo()
+        let info = self.getInfo()
         var previewCalled = false
 
         let config = AttachmentConfiguration(
