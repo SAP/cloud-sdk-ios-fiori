@@ -161,7 +161,6 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                 }
                         )
                 }
-                
             })
             .ifApply(configuration.model.scrollPosition != nil, content: {
                 $0.animation(.spring, value: configuration.model.isExpanded)
@@ -174,8 +173,11 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 configuration.titleChangeCallback?(configuration.model.title ?? "")
             }
             .fioriSizeReader { size in
-                DispatchQueue.main.async {
-                    self.availableWidth = max(paddingOffset * 2, size.width)
+                let availableWidth = max(paddingOffset * 2, size.width)
+                if abs(self.availableWidth - availableWidth) > 0.1 {
+                    DispatchQueue.main.async {
+                        self.availableWidth = availableWidth
+                    }
                 }
             }
             .onGeometryChange(for: EdgeInsets.self, of: { proxy in

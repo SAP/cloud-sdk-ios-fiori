@@ -106,7 +106,7 @@ extension CalendarDayViewFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-//                .font(.fiori(fixedSize: self.titleFontSize, weight: self.titleWeight))
+                .font(.fiori(fixedSize: self.titleFontSize, weight: self.titleWeight))
                 .foregroundStyle(self.titleColor)
         }
         

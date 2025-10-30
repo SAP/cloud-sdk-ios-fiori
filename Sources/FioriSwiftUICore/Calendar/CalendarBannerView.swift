@@ -44,7 +44,7 @@ struct CalendarBannerView: View {
             str.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: NSRange(0 ..< str.length))
             str.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFioriFont(fixedSize: 15.0, weight: .regular), range: NSRange(0 ..< str.length))
 
-            if index == 0 || index == 2 {
+            if index == 0 { //  || index == 2
                 str.addAttribute(NSAttributedString.Key.font, value: UIFont.preferredFioriFont(fixedSize: 15, weight: .bold), range: NSRange(0 ..< str.length))
             }
             attributedSubstringArray.append(str)

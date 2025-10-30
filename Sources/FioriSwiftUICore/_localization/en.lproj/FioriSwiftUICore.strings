@@ -529,4 +529,5 @@
 "DatesSelectedFormatKey" = "%d Dates Selected";
 
 /* XBUT: Dates selection tips for .datesSelection style in Calendar view*/
-"DatesSelectionBannerMessageKey" = "Tap or swipe to select dates";
+"DatesSelectionBannerMessageKey" = "Tap to select dates";
+//"DatesSelectionBannerMessageKey" = "Tap or swipe to select dates";

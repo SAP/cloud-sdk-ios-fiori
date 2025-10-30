@@ -5,14 +5,18 @@ public class CalendarModel: ObservableObject {
     /// The ID of the language to be used when displaying the `CalendarView`.
     var customLanguageId: String? {
         didSet {
-            self.updateTitle()
+            if oldValue != self.customLanguageId {
+                self.updateTitle()
+            }
         }
     }
     
     /// The calendar style. The default is `.month`.
     public var calendarStyle: CalendarStyle {
         didSet {
-            self.updateScrollPosition()
+            if oldValue != self.calendarStyle {
+                self.updateScrollPosition()
+            }
         }
     }
     
@@ -28,8 +32,13 @@ public class CalendarModel: ObservableObject {
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
     @Published public var selectedDate: Date? {
         didSet {
-            self.updateScrollToDate()
-            self.updateTitle()
+            if let oldSelectedDate = oldValue,
+               let newSelectedDate = selectedDate,
+               calendar.compare(oldSelectedDate, to: newSelectedDate, toGranularity: .day) != .orderedSame
+            {
+                self.updateScrollToDate()
+                self.updateTitle()
+            }
         }
     }
     
@@ -163,7 +172,9 @@ public class CalendarModel: ObservableObject {
     
     @Published var monthViewHeight: CGFloat = 300 {
         didSet {
-            self.currentMonthOriginHeight = self.monthViewHeight
+            if oldValue != self.monthViewHeight {
+                self.currentMonthOriginHeight = self.monthViewHeight
+            }
         }
     }
 
@@ -171,13 +182,17 @@ public class CalendarModel: ObservableObject {
     
     @Published var scrollPosition: Int? = 0 {
         didSet {
-            self.handleScrollPositionChange()
+            if oldValue != self.scrollPosition {
+                self.handleScrollPositionChange()
+            }
         }
     }
 
     @Published var weekViewScrollPosition: Int? = 0 {
         didSet {
-            self.handleWeekScrollPositionChange(oldValue, self.weekViewScrollPosition)
+            if oldValue != self.weekViewScrollPosition {
+                self.handleWeekScrollPositionChange(oldValue, self.weekViewScrollPosition)
+            }
         }
     }
     
