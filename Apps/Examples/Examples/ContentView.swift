@@ -26,14 +26,6 @@ struct ContentView: View {
                 {
                     Text("Theme Manager")
                 }
-                
-                Section {
-                    NavigationLink {
-                        CalendarExamples()
-                    } label: {
-                        Text("Calendar")
-                    }
-                }
             }
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())

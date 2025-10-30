@@ -20,7 +20,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State private var title: String?
     
-    @State var firstWeekday: Int = 1
+    @State var firstWeekday: Int?
     
     @State var showScrollToDate = false
     
@@ -34,7 +34,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @StateObject var model: CalendarModel
     
-    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int = 1, showScrollToDate: Bool = false) {
+    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int? = nil, showScrollToDate: Bool = false) {
         self.style = style
         self.startDate = startDate
         self.endDate = endDate
@@ -50,22 +50,34 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
+    @State var maxHeight: CGFloat = 300
+    
     var body: some View {
         ScrollView {
             CalendarView(model: self.model) {
                 self.title = $0
             }
-            .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
             .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
-            .environment(\.firstWeekday, self.firstWeekday)
+            .environment(\.firstWeekday, self.firstWeekday ?? self.settings.firstWeekDay)
+            .frame(maxHeight: self.maxHeight)
+            .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             
             Spacer()
         }
+        .background(
+            Color.clear
+                .onGeometryChange(for: CGSize.self, of: { geometry in
+                    geometry.frame(in: .global).size
+                }, action: { newValue in
+                    self.maxHeight = max(newValue.height, 300)
+                })
+                .hidden()
+        )
         .toolbar(content: {
             if self.showScrollToDate {
                 if self.style == .week {
