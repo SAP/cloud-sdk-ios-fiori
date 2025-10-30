@@ -3281,11 +3281,8 @@ protocol _CalendarMonthViewComponent {
     /// The calendar style.
     var calendarStyle: CalendarStyle { get }
     
-    /// The year that the view belong to, used to produce the weeks info of the month.
-    var year: Int { get }
-    
-    /// The month that the view belong to, used to produce the weeks info of the month.
-    var month: Int { get }
+    /// The date model of the calendar month view.
+    var model: CalendarMonthModel { get }
     
     /// The start date of the calendar.
     var startDate: Date { get }

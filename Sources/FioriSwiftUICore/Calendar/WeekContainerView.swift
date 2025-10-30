@@ -3,14 +3,11 @@ import SwiftUI
 struct WeekContainerView: View {
     @Environment(\.customLanguageId) var customLanguageId
     @Environment(\.customBundle) var customBundle
-    @Environment(\.firstWeekday) var firstWeekday
     
     @Environment(\.showsWeekNumbers) var showWeekNumber
     @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     
-    let maxNumberOfDaysInWeek: Int = 7
-    
-    @State private var availableWidth: CGFloat = 0
+    var firstWeekday: Int = 1
     
     var body: some View {
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber) {

@@ -69,7 +69,6 @@ struct CalendarRangeSelectionExample: View {
             }
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
-            .environment(\.firstWeekday, self.settings.firstWeekDay)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
@@ -84,6 +83,7 @@ struct CalendarRangeSelectionExample: View {
                 self.model.selectedRange = self.settings.testPreselectRange
             }
             self.model.disabledDates = self.settings.checkDisabledDates()
+            self.model.firstWeekday = self.settings.firstWeekDay
         })
         .onChange(of: self.model.selectedRange) {
             if let selectedRange = self.model.selectedRange {

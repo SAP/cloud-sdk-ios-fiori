@@ -24,8 +24,7 @@ struct AnyCalendarMonthViewStyle: CalendarMonthViewStyle {
 public struct CalendarMonthViewConfiguration {
     public var componentIdentifier: String = "fiori_calendarmonthview_component"
     public let calendarStyle: CalendarStyle
-    public let year: Int
-    public let month: Int
+    public let model: CalendarMonthModel
     public let startDate: Date
     public let endDate: Date
     public let showMonthHeader: Bool

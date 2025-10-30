@@ -2,11 +2,6 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-struct CalendarFirstWeekday: EnvironmentKey {
-    // default value conforms system setting
-    public static let defaultValue: Int = Calendar.autoupdatingCurrent.firstWeekday
-}
-
 struct CalendarShowsWeekNumbers: EnvironmentKey {
     public static let defaultValue: Bool = false
 }
@@ -84,18 +79,6 @@ public enum CalendarPropertyRef {
 }
 
 public extension EnvironmentValues {
-    /**
-     The first day of the week for the calendar.
-     
-     The default value of firstWeekday varies by calendar and locale. Your app can reset this value.
-     
-     The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
-     */
-    var firstWeekday: Int {
-        get { self[CalendarFirstWeekday.self] }
-        set { self[CalendarFirstWeekday.self] = newValue }
-    }
-
     /// This property indicates if the calendar view also shows the week number of not. The default is `false`.
     var showsWeekNumbers: Bool {
         get { self[CalendarShowsWeekNumbers.self] }

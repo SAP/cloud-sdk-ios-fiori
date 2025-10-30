@@ -7,10 +7,8 @@ import SwiftUI
 public struct CalendarMonthView {
     /// The calendar style.
     let calendarStyle: CalendarStyle
-    /// The year that the view belong to, used to produce the weeks info of the month.
-    let year: Int
-    /// The month that the view belong to, used to produce the weeks info of the month.
-    let month: Int
+    /// The date model of the calendar month view.
+    let model: CalendarMonthModel
     /// The start date of the calendar.
     let startDate: Date
     /// The end date of the calendar.
@@ -39,8 +37,7 @@ public struct CalendarMonthView {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(calendarStyle: CalendarStyle,
-                year: Int,
-                month: Int,
+                model: CalendarMonthModel,
                 startDate: Date,
                 endDate: Date,
                 showMonthHeader: Bool = false,
@@ -54,8 +51,7 @@ public struct CalendarMonthView {
                 componentIdentifier: String? = CalendarMonthView.identifier)
     {
         self.calendarStyle = calendarStyle
-        self.year = year
-        self.month = month
+        self.model = model
         self.startDate = startDate
         self.endDate = endDate
         self.showMonthHeader = showMonthHeader
@@ -81,8 +77,7 @@ public extension CalendarMonthView {
 
     internal init(_ configuration: CalendarMonthViewConfiguration, shouldApplyDefaultStyle: Bool) {
         self.calendarStyle = configuration.calendarStyle
-        self.year = configuration.year
-        self.month = configuration.month
+        self.model = configuration.model
         self.startDate = configuration.startDate
         self.endDate = configuration.endDate
         self.showMonthHeader = configuration.showMonthHeader
@@ -103,7 +98,7 @@ extension CalendarMonthView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, year: self.year, month: self.month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: self.showMonthHeader, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, model: self.model, startDate: self.startDate, endDate: self.endDate, showMonthHeader: self.showMonthHeader, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)).typeErased
                 .transformEnvironment(\.calendarMonthViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -121,7 +116,7 @@ private extension CalendarMonthView {
     }
 
     func defaultStyle() -> some View {
-        CalendarMonthView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, year: self.year, month: self.month, startDate: self.startDate, endDate: self.endDate, showMonthHeader: self.showMonthHeader, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
+        CalendarMonthView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, model: self.model, startDate: self.startDate, endDate: self.endDate, showMonthHeader: self.showMonthHeader, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)
             .calendarMonthViewStyle(CalendarMonthViewFioriStyle.ContentFioriStyle())
             .typeErased

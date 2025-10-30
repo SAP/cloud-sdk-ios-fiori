@@ -3,7 +3,6 @@ import Foundation
 import SwiftUI
 
 public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
-    @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.showsWeekNumbers) var showWeekNumber
     @Environment(\.hasEventIndicator) var isEventIndicatorVisible
     @Environment(\.alternateCalendarType) var alternateCalendarType

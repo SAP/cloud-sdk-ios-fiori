@@ -40,7 +40,6 @@ struct CalendarMonthViewPersistentExample: View {
             .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
-            .environment(\.firstWeekday, self.settings.firstWeekDay)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
@@ -60,6 +59,7 @@ struct CalendarMonthViewPersistentExample: View {
         }
         .onAppear {
             self.model.disabledDates = self.settings.checkDisabledDates()
+            self.model.firstWeekday = self.settings.firstWeekDay
         }
     }
 }

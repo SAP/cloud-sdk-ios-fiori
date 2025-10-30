@@ -63,7 +63,6 @@ struct CalendarPersistentPreselectDateTestExample: View {
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
             .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
-            .environment(\.firstWeekday, self.firstWeekday ?? self.settings.firstWeekDay)
             .frame(maxHeight: self.maxHeight)
             .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
             
@@ -108,6 +107,10 @@ struct CalendarPersistentPreselectDateTestExample: View {
             } else {
                 print("No date selected")
             }
+        }
+        .onAppear {
+            self.model.disabledDates = self.settings.checkDisabledDates()
+            self.model.firstWeekday = self.firstWeekday ?? self.settings.firstWeekDay
         }
     }
     

@@ -31,7 +31,7 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertNil(model.disabledDates)
         XCTAssertNil(model.displayDateAtStartup)
         XCTAssertEqual(model.scrollPosition, 9)
-        XCTAssertEqual(model.totalMonths, 24)
+        XCTAssertEqual(model.months.count, 24)
         XCTAssertEqual(model.weeks.count, 105)
         XCTAssertNil(model.customLanguageId)
         XCTAssertNil(model.selectedDates)

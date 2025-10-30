@@ -30,13 +30,12 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     }
     
     // swiftlint:disable function_body_length
-    // swiftlint:disable cyclomatic_complexity
     public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
         ZStack(alignment: .bottom, content: {
             let paddingOffset: CGFloat = 8
             
             VStack(spacing: 0, content: {
-                WeekContainerView()
+                WeekContainerView(firstWeekday: configuration.model.firstWeekday)
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: 0, trailing: paddingOffset))
                 
                 if configuration.model.calendarStyle == .week || (configuration.model.calendarStyle == .expandable && !configuration.model.isExpanded && !configuration.model.isDragging) {
@@ -69,23 +68,19 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 } else if configuration.model.calendarStyle == .expandable {
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         LazyHStack {
-                            ForEach(0 ..< configuration.model.totalMonths, id: \.self) { index in
-                                if let nextDate = self.calendar.date(byAdding: .month, value: index, to: configuration.model.startDate) {
-                                    let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
-                                    if let year = startComponents.year, let month = startComponents.month {
-                                        CalendarMonthView(calendarStyle: configuration.model.calendarStyle, year: year, month: month, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: false, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
-                                            self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
-                                        }, customEventView: configuration.customEventView)
-                                            .frame(width: self.availableWidth - paddingOffset * 2)
-                                            .fioriSizeReader { newValue in
-                                                if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
-                                                    DispatchQueue.main.async {
-                                                        configuration.model.monthViewHeight = newValue.height
-                                                    }
-                                                }
+                            ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
+                                let monthModel = configuration.model.months[index]
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: false, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                    self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
+                                }, customEventView: configuration.customEventView)
+                                    .frame(width: self.availableWidth - paddingOffset * 2)
+                                    .fioriSizeReader { newValue in
+                                        if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
+                                            DispatchQueue.main.async {
+                                                configuration.model.monthViewHeight = newValue.height
                                             }
+                                        }
                                     }
-                                }
                             }
                         }
                         .scrollTargetLayout()
@@ -110,22 +105,18 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 } else if configuration.model.calendarStyle == .month || configuration.model.showFullScreen {
                     ScrollView(.vertical, showsIndicators: false, content: {
                         LazyVStack {
-                            ForEach(0 ..< configuration.model.totalMonths, id: \.self) { index in
-                                if let nextDate = calendar.date(byAdding: .month, value: index, to: configuration.model.startDate) {
-                                    let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
-                                    if let year = startComponents.year, let month = startComponents.month {
-                                        CalendarMonthView(calendarStyle: configuration.model.calendarStyle, year: year, month: month, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: true, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
-                                            self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
-                                        }, customEventView: configuration.customEventView)
-                                            .fioriSizeReader { newValue in
-                                                if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
-                                                    DispatchQueue.main.async {
-                                                        configuration.model.monthViewHeight = newValue.height
-                                                    }
-                                                }
+                            ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
+                                let monthModel = configuration.model.months[index]
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: true, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                    self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
+                                }, customEventView: configuration.customEventView)
+                                    .fioriSizeReader { newValue in
+                                        if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
+                                            DispatchQueue.main.async {
+                                                configuration.model.monthViewHeight = newValue.height
                                             }
+                                        }
                                     }
-                                }
                             }
                         }
                         .scrollTargetLayout()

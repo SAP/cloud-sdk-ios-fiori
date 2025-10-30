@@ -4,7 +4,6 @@ import SwiftUI
 
 // Base Layout style
 public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
-    @Environment(\.firstWeekday) var firstWeekday
     @Environment(\.customLanguageId) var customLanguageId
     @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     @Environment(\.monthHeaderDateFormat) var monthHeaderDateFormat
@@ -12,8 +11,6 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
     
     public func makeBody(_ configuration: CalendarMonthViewConfiguration) -> some View {
         VStack(spacing: 0, content: {
-            let weeks = self.weeks(configuration)
-            
             if configuration.showMonthHeader {
                 Text(self.monthText(configuration))
                     .font(.fiori(fixedSize: 17 * self.scaleForSizeChange, weight: .semibold))
@@ -22,7 +19,7 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
                     .padding(.bottom, 14)
             }
             
-            ForEach(weeks, id: \.self) { info in
+            ForEach(configuration.model.weeks, id: \.self) { info in
                 CalendarWeekView(calendarStyle: configuration.calendarStyle, weekInfo: info, startDate: configuration.startDate, endDate: configuration.endDate, showOutOfMonth: configuration.showOutOfMonth, selectedDate: configuration.selectedDate, selectedDates: configuration.selectedDates, selectedRange: configuration.selectedRange, disabledDates: configuration.disabledDates, dayTappedCallback: configuration.dayTappedCallback, customEventView: configuration.customEventView)
             }
         })
@@ -40,7 +37,7 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
         } else {
             fm.locale = Calendar.current.locale
         }
-        let date = fm.date(from: "\(configuration.year) \(configuration.month)")
+        let date = fm.date(from: "\(configuration.model.year) \(configuration.model.month)")
         
         fm.setLocalizedDateFormatFromTemplate(self.monthHeaderDateFormat)
         
@@ -49,44 +46,6 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
         } else {
             return ""
         }
-    }
-    
-    func weeks(_ configuration: CalendarMonthViewConfiguration) -> [CalendarWeekInfo] {
-        let year = configuration.year
-        let month = configuration.month
-        
-        var calendar = Calendar.autoupdatingCurrent
-        calendar.firstWeekday = self.firstWeekday
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        
-        guard let startDate = calendar.date(from: components) else {
-            return []
-        }
-        
-        // Get the first Day of the week
-        guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return [] }
-        
-//        guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return [] }
-        
-        var weeks: [CalendarWeekInfo] = []
-        
-        for _ in 0 ..< 6 {
-            let weekNumber = calendar.component(.weekOfYear, from: firstDayOfWeek)
-            var dates: [Date] = []
-            for dayOffset in 0 ..< 7 {
-                if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
-                    dates.append(date)
-                }
-            }
-            let weekInfo = CalendarWeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
-            weeks.append(weekInfo)
-            
-            guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return [] }
-            firstDayOfWeek = nextFirstDayOfWeek
-        }
-        return weeks
     }
     
     var scaleForSizeChange: Double {
@@ -112,8 +71,8 @@ extension CalendarMonthView: Equatable {
             let components = Calendar.autoupdatingCurrent.dateComponents([.year, .month], from: date)
             if let year = components.year,
                let month = components.month,
-               self.year == year,
-               self.month == month
+               model.year == year,
+               model.month == month
             {
                 return true
             }
@@ -145,7 +104,7 @@ extension CalendarMonthView: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         let lhsContains = lhs.selectedDatesInCurrentMonth()
         let rhsContains = rhs.selectedDatesInCurrentMonth()
-        let result = lhsContains == rhsContains
+        let result = (lhsContains == rhsContains) && (lhs.model.weeks == rhs.model.weeks)
         
         return result
     }

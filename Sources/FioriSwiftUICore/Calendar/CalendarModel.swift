@@ -29,6 +29,14 @@ public class CalendarModel: ObservableObject {
     /// The display date at startup.
     let displayDateAtStartup: Date?
     
+    public var firstWeekday: Int {
+        didSet {
+            self.calendar.firstWeekday = self.firstWeekday
+            self.handleWeekInfo()
+            self.handleMonthInfo()
+        }
+    }
+    
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
     @Published public var selectedDate: Date? {
         didSet {
@@ -75,7 +83,7 @@ public class CalendarModel: ObservableObject {
         }
     }
     
-    let calendar = Calendar.autoupdatingCurrent
+    var calendar = Calendar.autoupdatingCurrent
     
     /// Public initializer for CalendarModel.
     /// - Parameters:
@@ -89,8 +97,9 @@ public class CalendarModel: ObservableObject {
     ///   - disabledDates: The disabled dates. Default is nil, which means all in month displayed dates are selectable.
     ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates. The default is false.
     ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
+    ///   - firstWeekday: The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
     // swiftlint:disable cyclomatic_complexity
-    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil) {
+    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
         self.selectedDate = selectedDate
@@ -99,6 +108,7 @@ public class CalendarModel: ObservableObject {
         self.disabledDates = disabledDates
         self.isPersistentSelection = [.rangeSelection, .datesSelection].contains(calendarStyle) ? true : isPersistentSelection
         self.scrollToDate = scrollToDate ?? displayDateAtStartup ?? .now
+        self.firstWeekday = firstWeekday ?? Calendar.current.firstWeekday
         
         let components: Set<Calendar.Component> = [.day, .month, .year]
         let formatter: DateFormatter = {
@@ -161,15 +171,15 @@ public class CalendarModel: ObservableObject {
         self.startDate = result.startDate
         self.endDate = result.endDate
         
-        self.weeks = self.handleWeekInfo()
-        self.totalMonths = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
+        self.handleWeekInfo()
+        self.handleMonthInfo()
         
         self.updateScrollPosition()
         self.updateTitle()
     }
     
-    @Published var totalMonths: Int = 0
     @Published var weeks: [CalendarWeekInfo] = []
+    @Published var months: [CalendarMonthModel] = []
     
     @Published var monthViewHeight: CGFloat = 300 {
         didSet {
@@ -222,9 +232,9 @@ public class CalendarModel: ObservableObject {
         }
     }
     
-    func handleWeekInfo() -> [CalendarWeekInfo] {
+    func handleWeekInfo() {
         // Get the first Day of the week
-        guard var firstDayOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return [] }
+        guard var firstDayOfWeek = self.calendar.date(from: self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return }
         
         let totalWeeksNumber = self.weeksOffsetBetweenDates(start: self.startDate, end: self.endDate) + 1
         
@@ -240,10 +250,50 @@ public class CalendarModel: ObservableObject {
             let weekInfo = CalendarWeekInfo(weekNumber: weekNumber, dates: dates)
             weeks.append(weekInfo)
             
-            guard let nextFirstDayOfWeek = calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return [] }
+            guard let nextFirstDayOfWeek = self.calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return }
             firstDayOfWeek = nextFirstDayOfWeek
         }
-        return weeks
+        self.weeks = weeks
+    }
+    
+    func handleMonthInfo() {
+        var months: [CalendarMonthModel] = []
+        let total = self.monthsBetweenDates(start: self.startDate, end: self.endDate) + 1
+        for index in 0 ..< total {
+            if let nextDate = self.calendar.date(byAdding: .month, value: index, to: self.startDate) {
+                let startComponents = self.calendar.dateComponents([.year, .month], from: nextDate)
+                if let year = startComponents.year, let month = startComponents.month {
+                    var components = DateComponents()
+                    components.year = year
+                    components.month = month
+                    
+                    guard let startDate = self.calendar.date(from: components) else { return }
+                    
+                    // Get the first Day of the week
+                    guard var firstDayOfWeek = self.calendar.date(from: self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return }
+                    
+                    var weeks: [CalendarWeekInfo] = []
+                    
+                    for _ in 0 ..< 6 {
+                        let weekNumber = self.calendar.component(.weekOfYear, from: firstDayOfWeek)
+                        var dates: [Date] = []
+                        for dayOffset in 0 ..< 7 {
+                            if let date = self.calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
+                                dates.append(date)
+                            }
+                        }
+                        let weekInfo = CalendarWeekInfo(year: year, month: month, weekNumber: weekNumber, dates: dates)
+                        weeks.append(weekInfo)
+                        
+                        guard let nextFirstDayOfWeek = self.calendar.date(byAdding: .day, value: 7, to: firstDayOfWeek) else { return }
+                        firstDayOfWeek = nextFirstDayOfWeek
+                    }
+                    let monthModel = CalendarMonthModel(year: year, month: month, weeks: weeks)
+                    months.append(monthModel)
+                }
+            }
+        }
+        self.months = months
     }
     
     func weeksOffsetBetweenDates(start: Date, end: Date) -> Int {
