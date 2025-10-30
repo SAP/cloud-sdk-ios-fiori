@@ -170,6 +170,13 @@ extension CalendarWeekView: Equatable {
                     }
                 }
             }
+        } else if self.calendarStyle == .rangeSelection, let selectedRange {
+            let interval: TimeInterval = 24 * 60 * 60
+            for date in stride(from: selectedRange.lowerBound, through: selectedRange.upperBound, by: interval) {
+                if self.weekInfo.containsDate(date) {
+                    dates.insert(date)
+                }
+            }
         } else if let selectedDate, weekInfo.containsDate(selectedDate) {
             dates.insert(selectedDate)
         }
