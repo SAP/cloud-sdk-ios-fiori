@@ -31,14 +31,43 @@ struct AttachmentPreviewExample: View {
     ].map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) }
     
     @State var erorMessage: AttributedString? = nil
+    @State var showConfiguraton = false
+    @State var showPreview = false
 
     var body: some View {
         ScrollView {
             VStack {
-                AttachmentGroup(title: { Text("Attachments") }, attachments: self.$attachments, maxCount: 20, controlState: .readOnly, errorMessage: self.$erorMessage) {
-                    AttachmentButtonImage()
+                attachmentGroup
+                    .ifApply(showPreview) {
+                        $0.attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
+                    }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    self.showConfiguraton.toggle()
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+                .popover(isPresented: self.$showConfiguraton) {
+                    VStack {
+                        Button("Close") {
+                            self.showConfiguraton.toggle()
+                        }
+                        
+                        Toggle(self.showPreview ? "Show Preview" : "No Preview", isOn: self.$showPreview)
+                    }
+                    .padding()
+                    .presentationCompactAdaptation(.popover)
                 }
             }
+        }
+    }
+        
+    var attachmentGroup: some View {
+        AttachmentGroup(title: { Text("Attachments") }, attachments: self.$attachments, maxCount: 20, controlState: .readOnly, errorMessage: self.$erorMessage) {
+            AttachmentButtonImage()
         }
     }
 }
