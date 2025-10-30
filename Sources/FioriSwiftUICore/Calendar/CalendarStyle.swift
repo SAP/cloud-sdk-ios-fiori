@@ -55,6 +55,7 @@ public enum AlternateCalendarType: CaseIterable {
 }
 
 public extension String {
+    /// Get trimmed string with customize maxCount.
     func trim(_ maxCount: Int) -> String {
         guard self.count > maxCount else {
             return self

@@ -55,6 +55,7 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
         return true
     }
     
+    // swiftlint:disable cyclomatic_complexity
     func dayState(_ configuration: CalendarWeekViewConfiguration, _ date: Date) -> CalendarDayState {
         let calendar = Calendar.autoupdatingCurrent
         let targetComponents = calendar.dateComponents([.year, .month], from: date)

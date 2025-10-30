@@ -89,6 +89,7 @@ public class CalendarModel: ObservableObject {
     ///   - disabledDates: The disabled dates. Default is nil, which means all in month displayed dates are selectable.
     ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates. The default is false.
     ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
+    // swiftlint:disable cyclomatic_complexity
     public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
@@ -274,6 +275,7 @@ public class CalendarModel: ObservableObject {
         return total
     }
     
+    // swiftlint:disable cyclomatic_complexity
     func updateTitle() {
         let fm = DateFormatter()
         if let customLanguageId {
@@ -314,7 +316,7 @@ public class CalendarModel: ObservableObject {
             }
         } else if self.calendarStyle == .datesSelection {
             if let dates = selectedDates,
-               dates.count > 0
+               !dates.isEmpty
             {
                 if dates.count == 1 {
                     title = String(format: "%d Date Selected".localizedFioriString(), 1)

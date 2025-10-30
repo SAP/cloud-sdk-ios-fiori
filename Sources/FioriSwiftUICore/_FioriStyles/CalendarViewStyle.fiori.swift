@@ -29,6 +29,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
         model.calendarStyle == .datesSelection && self.showBannerMessage
     }
     
+    // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
         ZStack(alignment: .bottom, content: {
             let paddingOffset: CGFloat = 8

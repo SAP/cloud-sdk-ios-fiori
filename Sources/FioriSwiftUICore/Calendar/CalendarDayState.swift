@@ -62,16 +62,27 @@ extension DynamicTypeSize {
     }
 }
 
+/// The state of the calendar day item.
 public enum CalendarDayState {
+    /// The day item's default state.
     case normal
+    /// The day item in `.today` state will have different appearance.
     case today
+    /// The day item is not belong to this month. Like the dates before the first day of this month, or after the last day of this month.
     case outOfMonth
+    /// The day item is single selected.
     case singleSelected
+    /// The day item is single selected and today.
     case singleSelectedAndToday
+    /// The day item is selected,  as the first day of the date range.
     case multiSelectedStart
+    /// The day item is selected, in the middle of the date range.
     case multiSelectedMiddle
+    /// The day item is selected,  as the last day of the date range.
     case multiSelectedEnd
+    /// The day item is disabled.
     case disabled
+    /// The day item is disabled and today.
     case disabledAndToday
     /// A disabled date can only appear in the middle of the selection
     case disabledInMultiSelection
