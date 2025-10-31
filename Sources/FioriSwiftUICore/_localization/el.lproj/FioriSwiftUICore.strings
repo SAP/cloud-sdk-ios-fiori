@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Δεν υπάρχει τίποτα για εμφάνιση ακόμη";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d Ώρες %d Λεπ";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "μηνύματα";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "πληροφορίες";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "πληροφορίες";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "επαληθεύσεις";

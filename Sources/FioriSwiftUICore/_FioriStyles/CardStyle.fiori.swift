@@ -89,7 +89,7 @@ struct CardLayout: Layout {
             let item = cache.rows[i]
             
             var pt = CGPoint(x: item.origin.x + bounds.origin.x, y: item.origin.y + bounds.origin.y)
-            /// If it is the footer and there is exessive height for the card then the footer is moved to the bottom
+            /// If it is the footer and there is excessive height for the card then the footer is moved to the bottom
             if subview.priority == 3, item.origin.y + item.size.height < bounds.size.height {
                 pt.y = bounds.size.height - item.size.height + bounds.origin.y
             }

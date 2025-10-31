@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "没有可显示的内容";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d 小时 %d 分";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "消息";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "信息";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "信息";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "确认";
