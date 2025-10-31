@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -229,6 +229,31 @@ extension BannerMultiMessageSheet: _ViewEmptyChecking {
 extension BodyText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         bodyText.isEmpty
+    }
+}
+
+extension CalendarDayView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
+extension CalendarMonthView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarWeekView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 

@@ -3202,3 +3202,146 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     
     var menus: [[WAMenu]] { get }
 }
+
+/// `CalendarDayView` is used to display a day with title, subtitle and eventIndicator.
+/// ## Usage
+/// ```swift
+/// CalendarDayView(title: "7", isEventIndicatorVisible: true, state: .today)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
+    /// This property indicates whether the event view is to be displayed or not. The default is false.
+    // sourcery: default.value = false
+    var isEventIndicatorVisible: Bool { get }
+    
+    /// The state of the day  view. The default is `.normal`.
+    // sourcery: default.value = .normal
+    var state: CalendarDayState { get }
+    
+    /// This property is used to customize event view.
+    // sourcery: default.value = EmptyView()
+    var customEventView: any View { get }
+}
+
+/// `CalendarWeekView` is used to display the dates in one week.
+/// Developer can set the `.showsWeekNumbers` environment to show the week numberText. If calendarStyle is `.datesSelection` or `.rangeSelection`, and when the first date of the week is out of month, always hide the week number.
+/// ## Usage
+/// ```swift
+/// CalendarWeekView(calendarStyle: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())
+///    .environment(\.showsWeekNumbers, true)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarWeekViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// This property is used to display the dates in one week.
+    var weekInfo: CalendarWeekInfo { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state.
+    // sourcery: default.value = true
+    var showOutOfMonth: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarMonthView` is used to display one month in the calendar.
+// sourcery: CompositeComponent
+protocol _CalendarMonthViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// The date model of the calendar month view.
+    var model: CalendarMonthModel { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show the month header or not. The default is false.
+    // sourcery: default.value = false
+    var showMonthHeader: Bool { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state. The default is true.
+    // sourcery: default.value = true
+    var showOutOfMonth: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarView` is used to display the calendar. The calendar supports `.week`, `.month`, `.expandable`, `.fullScrollMonth`, `.rangeSelection`, and `.datesSelection` style.
+// sourcery: CompositeComponent
+protocol _CalendarViewComponent {
+    /// The model of the calendar view.
+    // sourcery: @ObservedObject
+    var model: CalendarModel { get }
+    
+    /// Callback when the title is Changed.
+    // sourcery: default.value = nil
+    var titleChangeCallback: ((String) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    var customCalendarBackgroundColor: Color? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}

@@ -127,6 +127,9 @@ struct CoreContentView: View {
             MenuItem(title: "Card Skeleton Loading", section: "Skeleton Loading", destination: CardSkeletonLoading()),
             MenuItem(title: "Profile Header Skeleton Loading", section: "Skeleton Loading", destination: ProfileHeaderSkeletonLoading()),
             
+            // Calendar
+            MenuItem(title: "Calendar", section: "Calendar", destination: CalendarExamples()),
+            
             // Experimental
             MenuItem(title: "🚧 Experimental 🚧", section: "ExperimentalContentView", destination: ExperimentalContentView())
         ]
