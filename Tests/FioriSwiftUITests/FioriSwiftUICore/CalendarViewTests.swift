@@ -141,4 +141,56 @@ final class CalendarViewTests: XCTestCase {
         style.handleDayViewTapGesture(self.fm.date(from: "2025 10 15")!, state: .normal, configuration: configuration)
         XCTAssertNil(model.selectedRange)
     }
+    
+    var configuration: CalendarViewConfiguration {
+        let startDate = self.fm.date(from: "2025 01 01")!
+        let endDate = self.fm.date(from: "2025 12 31")!
+        let selectedDate = self.fm.date(from: "2025 10 29")!
+        let displayDateAtStartup = self.fm.date(from: "2025 10 29")!
+        let disabledDates = CalendarDisabledDates(weekdays: [1, 2])
+        let model = CalendarModel(startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, disabledDates: disabledDates, isPersistentSelection: true)
+        
+        let titleChangeCallback: ((String) -> Void)? = {
+            print("\($0)")
+        }
+        let customEventView: ((Date) -> any View) = { _ in
+            Circle()
+        }
+        let customCalendarBackgroundColor = Color.preferredColor(.primaryGroupedBackground)
+        return CalendarViewConfiguration(model: model, titleChangeCallback: titleChangeCallback, customCalendarBackgroundColor: customCalendarBackgroundColor, customEventView: customEventView)
+    }
+    
+    func testCalendarViewBaseStyle() {
+        let style = CalendarViewBaseStyle()
+        let view = style.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testCalendarViewFioriStyle_ContentFioriStyle() {
+        let contentFioriStyle = CalendarViewFioriStyle.ContentFioriStyle()
+        let view = contentFioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+        
+        let fioriStyle = CalendarViewFioriStyle()
+        let v2 = fioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(v2)
+    }
+    
+    func testAnyCalendarViewStyle() {
+        let style = AnyCalendarViewStyle { _ in
+            EmptyView()
+        }
+        let view = style.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testCalendarViewWithConfiguration() {
+        let calendarView = CalendarView(configuration, shouldApplyDefaultStyle: false)
+        XCTAssertNotNil(calendarView.body)
+        
+        let calendarView2 = CalendarView(configuration, shouldApplyDefaultStyle: true)
+        XCTAssertNotNil(calendarView2.body)
+        
+        XCTAssertTrue(self.configuration.isDirectChild("fiori_calendarview_component"))
+    }
 }

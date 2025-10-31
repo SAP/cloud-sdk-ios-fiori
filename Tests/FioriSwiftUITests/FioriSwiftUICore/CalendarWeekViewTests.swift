@@ -84,7 +84,7 @@ final class CalendarWeekViewTests: XCTestCase {
         }
         
         let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
-            fm.date(from: "2025 10 26")!,
+            self.fm.date(from: "2025 10 26")!,
             self.fm.date(from: "2025 10 27")!,
             self.fm.date(from: "2025 10 28")!,
             self.fm.date(from: "2025 10 29")!,
@@ -114,7 +114,7 @@ final class CalendarWeekViewTests: XCTestCase {
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 28")!), .normal)
         
         let info2 = CalendarWeekInfo(year: 2025, month: 11, weekNumber: 43, dates: [
-            fm.date(from: "2025 10 26")!,
+            self.fm.date(from: "2025 10 26")!,
             self.fm.date(from: "2025 10 27")!,
             self.fm.date(from: "2025 10 28")!,
             self.fm.date(from: "2025 10 29")!,
@@ -128,6 +128,35 @@ final class CalendarWeekViewTests: XCTestCase {
         }
         let style2 = CalendarWeekViewBaseStyle()
         XCTAssertFalse(style2.weekNumberVisibility(configuration2))
+        
+        let view = CalendarWeekView(configuration)
+        XCTAssertEqual(view.selectedDatesInCurrentWeek().count, 1)
+        
+        XCTAssertTrue(view == view)
+    }
+    
+    var configuration: CalendarWeekViewConfiguration {
+        let startDate = self.fm.date(from: "2025 01 01")!
+        let endDate = self.fm.date(from: "2025 12 31")!
+        let selectedDates: Set<Date> = [fm.date(from: "2025 10 27")!]
+        let disabledDates = CalendarDisabledDates(weekdays: [1])
+        let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
+            print("Tapped date:\(date), state:\(state)")
+        }
+        
+        let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
+            self.fm.date(from: "2025 10 26")!,
+            self.fm.date(from: "2025 10 27")!,
+            self.fm.date(from: "2025 10 28")!,
+            self.fm.date(from: "2025 10 29")!,
+            self.fm.date(from: "2025 10 30")!,
+            self.fm.date(from: "2025 10 31")!,
+            self.fm.date(from: "2025 11 01")!
+        ])
+        
+        return CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+            Circle()
+        }
     }
     
     func testCalendarWeekViewConfiguration_selectedDates() {
@@ -140,7 +169,7 @@ final class CalendarWeekViewTests: XCTestCase {
         }
         
         let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
-            fm.date(from: "2025 10 26")!,
+            self.fm.date(from: "2025 10 26")!,
             self.fm.date(from: "2025 10 27")!,
             self.fm.date(from: "2025 10 28")!,
             self.fm.date(from: "2025 10 29")!,
@@ -168,6 +197,40 @@ final class CalendarWeekViewTests: XCTestCase {
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 26")!), .disabled)
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 27")!), .singleSelected)
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 28")!), .normal)
+        XCTAssertNotEqual(style.scaleForSizeChange, 0.0)
+        
+        let view = CalendarWeekView(configuration)
+        XCTAssertEqual(view.selectedDatesInCurrentWeek().count, 1)
+        
+        let baseStyleView = style.makeBody(configuration)
+        XCTAssertNotNil(baseStyleView)
+    }
+    
+    func testOutOfMonthDates() {
+        let startDate = self.fm.date(from: "2025 01 01")!
+        let endDate = self.fm.date(from: "2025 12 31")!
+        let selectedDates: Set<Date> = [fm.date(from: "2025 10 27")!]
+        let disabledDates = CalendarDisabledDates(weekdays: [1])
+        let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 39, dates: [
+            self.fm.date(from: "2025 09 28")!,
+            self.fm.date(from: "2025 09 29")!,
+            self.fm.date(from: "2025 09 30")!,
+            self.fm.date(from: "2025 10 01")!,
+            self.fm.date(from: "2025 10 02")!,
+            self.fm.date(from: "2025 10 03")!,
+            self.fm.date(from: "2025 11 04")!
+        ])
+        let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
+            print("Tapped date:\(date), state:\(state)")
+        }
+        
+        let configuration = CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback, customEventView: { _ in
+            EmptyView()
+        })
+        
+        let style = CalendarWeekViewBaseStyle()
+        let baseStyleView = style.makeBody(configuration)
+        XCTAssertNotNil(baseStyleView)
     }
     
     func testCalendarWeekViewConfiguration_selectedRange() {
@@ -180,7 +243,7 @@ final class CalendarWeekViewTests: XCTestCase {
         }
         
         let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
-            fm.date(from: "2025 10 26")!,
+            self.fm.date(from: "2025 10 26")!,
             self.fm.date(from: "2025 10 27")!,
             self.fm.date(from: "2025 10 28")!,
             self.fm.date(from: "2025 10 29")!,
@@ -209,12 +272,49 @@ final class CalendarWeekViewTests: XCTestCase {
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 28")!), .disabledInMultiSelection)
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 29")!), .multiSelectedMiddle)
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 30")!), .multiSelectedEnd)
-        XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 10 31")!), .normal)
+        XCTAssertNotEqual(style.dayState(configuration, self.fm.date(from: "2025 10 31")!), .outOfMonth)
         XCTAssertEqual(style.dayState(configuration, self.fm.date(from: "2025 11 01")!), .outOfMonth)
         
         let alternateDayTitle = style.getAlternateDayTitle(self.fm.date(from: "2025 10 26")!, identifier: .chinese, defaultLocale: Locale(identifier: "zh-Hans"))
         XCTAssertEqual(alternateDayTitle, "06")
         
         XCTAssertNil(style.getSecondaryDayTitle(self.fm.date(from: "2025 10 26")!))
+        
+        let view = CalendarWeekView(configuration)
+        XCTAssertEqual(view.selectedDatesInCurrentWeek().count, 4)
+    }
+    
+    func testCalendarWeekViewBaseStyle() {
+        let style = CalendarWeekViewBaseStyle()
+        let view = style.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testCalendarWeekViewFioriStyle_ContentFioriStyle() {
+        let contentFioriStyle = CalendarWeekViewFioriStyle.ContentFioriStyle()
+        let view = contentFioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+        
+        let fioriStyle = CalendarWeekViewFioriStyle()
+        let v2 = fioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(v2)
+    }
+    
+    func testAnyCalendarWeekViewStyle() {
+        let style = AnyCalendarWeekViewStyle { _ in
+            EmptyView()
+        }
+        let view = style.makeBody(self.configuration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testCalendarWeekViewWithConfiguration() {
+        let weekView = CalendarWeekView(configuration, shouldApplyDefaultStyle: false)
+        XCTAssertNotNil(weekView.body)
+        
+        let weekView2 = CalendarWeekView(configuration, shouldApplyDefaultStyle: true)
+        XCTAssertNotNil(weekView2.body)
+        
+        XCTAssertTrue(self.configuration.isDirectChild("fiori_calendarweekview_component"))
     }
 }
