@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Нет элементов для отображения";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d ч. %d мин.";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "сообщения";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "информация";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "информация";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "подтверждения";

@@ -79,7 +79,7 @@ public struct AIUserFeedback {
     /// The action to be performed when the down vote button is tapped.
     let onDownVote: (() -> Void)?
     /// The action to be performed when the submit button is tapped.
-    /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
+    /// Application can get the user feedback values, can tell the component the submission result with the `submitResult` call back.
     let onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)?
     @Binding var voteState: AIUserFeedbackVoteState
     @Binding var submitButtonState: AIUserFeedbackSubmitButtonState
