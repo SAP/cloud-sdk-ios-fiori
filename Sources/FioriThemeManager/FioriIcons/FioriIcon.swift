@@ -579,6 +579,10 @@ public enum FioriIcon {
         public static let zoomIn = Image(fioriName: "fiori.zoom.in")
         ///
         public static let zoomOut = Image(fioriName: "fiori.zoom.out")
+        
+        public static let hierarchyOff = Image(fioriName: "fiori.hierarchy.off")
+        
+        public static let hierarchyOn = Image(fioriName: "fiori.hierarchy.on")
     }
 
     public enum arrows {

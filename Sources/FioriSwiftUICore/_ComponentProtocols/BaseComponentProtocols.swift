@@ -827,3 +827,10 @@ protocol _BackActionComponent {
     // sourcery: resultBuilder.defaultValue = "{ FioriButton._backButton }"
     var backAction: FioriButton? { get }
 }
+
+// sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
+protocol _AccessoryViewComponent {
+    // sourcery: defaultValue = .none
+    var accessoryType: AccessoryType { get }
+}
