@@ -8,35 +8,41 @@ struct ContentView: View {
     @State var fioriLocale: Locale = .none
 
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(
-                    // putting `ChartsContentView` in a `LazyView` allows to demonstrate that overridden colors will be applied by `FioriCharts` views
-                    destination: LazyView(ChartsContentView())
-                ) {
-                    Text("Charts")
-                }
-                NavigationLink(
-                    destination: CoreContentView())
-                {
-                    Text("Core Elements")
-                }
-                NavigationLink(
-                    destination: FioriThemeManagerContentView())
-                {
-                    Text("Theme Manager")
-                }
-            }
-            .navigationBarTitle("Examples")
-            .navigationViewStyle(StackNavigationViewStyle())
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        self.showSettings.toggle()
-                    }) {
-                        Image(systemName: "gear.circle")
+        GeometryReader { geo in
+            NavigationView {
+                List {
+                    NavigationLink(
+                        // putting `ChartsContentView` in a `LazyView` allows to demonstrate that overridden colors will be applied by `FioriCharts` views
+                        destination: LazyView(ChartsContentView())
+                    ) {
+                        Text("Charts")
+                    }
+                    NavigationLink(
+                        destination: CoreContentView())
+                    {
+                        Text("Core Elements")
+                    }
+                    NavigationLink(
+                        destination: FioriThemeManagerContentView())
+                    {
+                        Text("Theme Manager")
                     }
                 }
+                .navigationBarTitle("Examples")
+                .navigationViewStyle(StackNavigationViewStyle())
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            self.showSettings.toggle()
+                        }) {
+                            Image(systemName: "gear.circle")
+                        }
+                    }
+                }
+            }
+            .overlay {
+                ToastMessage(title: "Toast Message", duration: 1, position: .unset)
+                    .offset(CGSize(width: geo.size.width / 2, height: geo.size.height * 0.8))
             }
         }
         .sheet(isPresented: self.$showSettings) {

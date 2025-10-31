@@ -15,6 +15,7 @@ public enum ToastMessagePosition: String, CaseIterable, Identifiable {
     case above
     case center
     case below
+    case unset
     public var id: Self { self }
 }
 
@@ -54,6 +55,7 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
             self.size = size
         }
         .toastMessageShadow(configuration.shadow)
+        .allowsHitTesting(false) // TODO: verify if taps should go through the toast message
     }
 }
 
@@ -75,6 +77,8 @@ private func getPositionOffset(position: ToastMessagePosition, spacing: CGFloat,
         viewCoordinates.y = parentViewSize.height / 2
     case .below:
         viewCoordinates.y = parentViewSize.height + viewSize.height / 2 + correctedSpacing
+    case .unset:
+        return .zero
     }
 
     viewCoordinates.x = round(viewCoordinates.x * 10) / 10
