@@ -59,9 +59,9 @@ final class DateRangePickerTests: XCTestCase {
         XCTAssert(modelObject.tapCount == 0)
         XCTAssert(modelObject.selectedDates.isEmpty)
         XCTAssertEqual(configuration.selectedRange, nil)
-        
-        let startDate = Date.now
-        let endDate = Date(timeIntervalSinceNow: 24 * 60 * 60 * 4)
+
+        let startDate = rangeFormatter.date(from: "2025/11/01")!
+        let endDate = rangeFormatter.date(from: "2025/11/05")!
 
         let startNewSelection = Calendar.current.dateComponents(
             modelObject.components, from: startDate
@@ -85,20 +85,32 @@ final class DateRangePickerTests: XCTestCase {
             XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: endDate))
         }
         
-        // click any day to cancel the selection
+        // click any day within the range to cancel the selection
         modelObject.handleDateSelection(configuration, newSelection: [endNewSelection])
         XCTAssert(modelObject.tapCount == 0)
         XCTAssert(modelObject.selectedDates.isEmpty)
         XCTAssertEqual(configuration.selectedRange, nil)
         
-        // select range in one day
+        // select range in one day (when user tapped the start date twice, the newSelection will become empty).
         modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
+        modelObject.handleDateSelection(configuration, newSelection: [])
         XCTAssert(modelObject.selectedDates.count == 1)
         if let selectedRange = configuration.selectedRange {
             let rangeFormatter = DateFormatter()
             XCTAssertEqual(rangeFormatter.string(from: selectedRange.lowerBound), rangeFormatter.string(from: startDate))
             XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: startDate))
         }
+
+        // select endDate to start new selection
+        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
+        XCTAssert(modelObject.tapCount == 1)
+        XCTAssert(modelObject.selectedDates.count == 1)
+        XCTAssertNil(configuration.selectedRange)
+
+        // select startDate to new range
+        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
+        XCTAssertEqual(modelObject.tapCount, 2)
+        XCTAssertEqual(modelObject.selectedDates.count, 5)
+        XCTAssertNotNil(configuration.selectedRange)
     }
 }
