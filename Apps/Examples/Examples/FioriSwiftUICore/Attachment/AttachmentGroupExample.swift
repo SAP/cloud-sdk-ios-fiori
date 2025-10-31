@@ -1,5 +1,6 @@
 import FioriSwiftUICore
 import FioriThemeManager
+import OSLog
 import PhotosUI
 import SwiftUI
 
@@ -24,6 +25,7 @@ struct AttachmentGroupExample: View {
     @State private var bulkProcessingDisabled: Bool
     @State private var showExtranInfo: Bool
     @State private var useDemoDelegate: Bool
+    @State private var showDefaultThumbnailWithPreview: Bool
 
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {
@@ -56,13 +58,20 @@ struct AttachmentGroupExample: View {
         self.bulkProcessingDisabled = false
         self.showExtranInfo = false
         self.useDemoDelegate = false
+        self.showDefaultThumbnailWithPreview = false
     }
     
     var body: some View {
         ScrollView {
             VStack {
-                self.attachments()
-                    .border(.red)
+                if self.showDefaultThumbnailWithPreview {
+                    self.attachments()
+                        .attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
+                        .border(.red)
+                } else {
+                    self.attachments()
+                        .border(.red)
+                }
             }
             .sheet(isPresented: self.$showWriteAndUploadView) {
                 WriteAndUploadView { attachmentName, attachmentContent in
@@ -70,47 +79,49 @@ struct AttachmentGroupExample: View {
                     self.showWriteAndUploadView.toggle()
                 }
             }
-            Spacer()
-            HStack {
-                Button("Batch") {
-                    Task {
-                        self.bulkProcessingDisabled.toggle()
-                        await withTaskGroup { group in
-                            for index in self.attachmentInfo.indices {
-                                let url = self.attachmentInfo[index].primaryURL
-                                group.addTask {
-                                    await MainActor.run {
-                                        self.attachmentInfo[index] = .uploading(sourceURL: url)
-                                    }
-                                    
-                                    try? await Task.sleep(nanoseconds: [1000000000, 3000000000, 5000000000].randomElement() ?? 3000000000)
-
-                                    await MainActor.run {
-                                        if Bool.random() {
-                                            self.attachmentInfo[index] = .uploaded(destinationURL: url, sourceURL: url, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
-                                        } else {
-                                            self.attachmentInfo[index] = .error(sourceURL: url, message: ["Simulated error uploading this file.", "Simulated error uploading this file. More to test longer error message."].randomElement() ?? "Simulated error uploading this file.")
+            if self.state == .normal {
+                Spacer()
+                HStack {
+                    Button("Batch") {
+                        Task {
+                            self.bulkProcessingDisabled.toggle()
+                            await withTaskGroup { group in
+                                for index in self.attachmentInfo.indices {
+                                    let url = self.attachmentInfo[index].primaryURL
+                                    group.addTask {
+                                        await MainActor.run {
+                                            self.attachmentInfo[index] = .uploading(sourceURL: url)
+                                        }
+                                        
+                                        try? await Task.sleep(nanoseconds: [1000000000, 3000000000, 5000000000].randomElement() ?? 3000000000)
+                                        
+                                        await MainActor.run {
+                                            if Bool.random() {
+                                                self.attachmentInfo[index] = .uploaded(destinationURL: url, sourceURL: url, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
+                                            } else {
+                                                self.attachmentInfo[index] = .error(sourceURL: url, message: ["Simulated error uploading this file.", "Simulated error uploading this file. More to test longer error message."].randomElement() ?? "Simulated error uploading this file.")
+                                            }
                                         }
                                     }
                                 }
                             }
+                            self.bulkProcessingDisabled.toggle()
+                        }
+                    }
+                    .disabled(self.bulkProcessingDisabled)
+                    Spacer()
+                    Button("Rest") {
+                        self.bulkProcessingDisabled.toggle()
+                        self.attachmentInfo = self.attachmentInfo.map {
+                            .uploaded(destinationURL: $0.primaryURL, sourceURL: $0.primaryURL, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
                         }
                         self.bulkProcessingDisabled.toggle()
                     }
+                    .disabled(self.bulkProcessingDisabled)
                 }
-                .disabled(self.bulkProcessingDisabled)
-                Spacer()
-                Button("Rest") {
-                    self.bulkProcessingDisabled.toggle()
-                    self.attachmentInfo = self.attachmentInfo.map {
-                        .uploaded(destinationURL: $0.primaryURL, sourceURL: $0.primaryURL, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
-                    }
-                    self.bulkProcessingDisabled.toggle()
-                }
-                .disabled(self.bulkProcessingDisabled)
+                .padding()
+                .border(.blue)
             }
-            .padding()
-            .border(.blue)
         }
         .onChange(of: self.appWithoutError) { _, newValue in
             if !newValue {
@@ -145,20 +156,24 @@ struct AttachmentGroupExample: View {
                         Stepper("Max # \(self.maxCount != nil ? String(self.maxCount!) : "nil")",
                                 value: Binding<Int>(get: { self.maxCount ?? self.attachmentInfo.count + 3 }, set: { self.maxCount = $0 < self.attachmentInfo.count ? nil : $0 }))
                         
-                        Toggle(self.opsAsMenu ? "Operation Menu" : "Operation Dialog", isOn: self.$opsAsMenu)
+                        Toggle(self.opsAsMenu ? "Use Operation Menu" : "Use Operation Dialog", isOn: self.$opsAsMenu)
 
-                        Toggle(self.useDemoDelegate ? "Slow Upload with Random Error Demo" : "Faster BasicAttachmentDelegate", isOn: self.$useDemoDelegate)
+                        Toggle(self.useDemoDelegate ? "Demo Slow Upload with Random Error" : "Demo Fast Upload without Error", isOn: self.$useDemoDelegate)
 
                         #if os(iOS)
-                            Toggle(self.defaultPreview ? "SwiftUI QuickLookPreview" : "Custom Preview", isOn: self.$defaultPreview)
+                            Toggle(self.defaultPreview ? "Use QuickLookPreview" : "Use Custom Preview", isOn: self.$defaultPreview)
                         #endif
                         
-                        Toggle(self.defaultGridLayout ? "Use Grid Layout" : "Use List Layout", isOn: self.$defaultGridLayout)
+                        Toggle(self.defaultGridLayout ? "Use Default Grid Layout" : "Use Custom List Layout", isOn: self.$defaultGridLayout)
 
-                        Toggle(self.defaultThumbnail ? "Use Default Thumbnail & Info" : "Use My Own Thumbnail & Info", isOn: self.$defaultThumbnail)
+                        Toggle(self.defaultThumbnail ? "Use Default Attachment Style" : "Use Custom Attachment Style", isOn: self.$defaultThumbnail)
 
                         if !self.defaultThumbnail || !self.defaultGridLayout {
                             Toggle(self.showExtranInfo ? "Show Extra Info" : "No Extra Info", isOn: self.$showExtranInfo)
+                        }
+                        
+                        if self.defaultThumbnail {
+                            Toggle(self.showDefaultThumbnailWithPreview ? "Show Thumbnail" : "No Thumbnail", isOn: self.$showDefaultThumbnailWithPreview)
                         }
 
                         Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
@@ -271,16 +286,16 @@ struct AttachmentGroupExample: View {
             }
         }
         #endif
-        .ifApply(!self.defaultThumbnail && self.defaultGridLayout) {
-            $0.attachmentStyle(MyAttachmentStyle())
+        .ifApply(self.defaultGridLayout && !self.defaultThumbnail) {
+            $0.attachmentStyle(MyAttachmentThumbnailMaskStyle())
         }
-        .ifApply(!self.defaultThumbnail && !self.defaultGridLayout) {
-            $0.attachmentGroupStyle(MyAttachmentGroupStyle())
+        .ifApply(!self.defaultGridLayout) {
+            $0.attachmentGroupStyle(MyAttachmentGroupListStyle())
         }
     }
 }
 
-struct MyAttachmentStyle: AttachmentStyle {
+struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         VStack {
             ZStack {
@@ -302,6 +317,7 @@ struct MyAttachmentStyle: AttachmentStyle {
                 .foregroundStyle(.red)
         }
         .frame(width: AttachmentConstants.thumbnailWidth)
+        .attachmentDefaultGuestures(configuration: configuration)
     }
     
     @ViewBuilder
@@ -407,114 +423,8 @@ struct WriteAndUploadView: View {
     }
 }
 
-struct MyAttachmentGroupStyle: AttachmentGroupStyle {
-    @State private var showingConfirmation = false
+struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
     @State var previewURL: URL? = nil
-    @State var deleteIndex: Int? = nil
-    
-    @ViewBuilder
-    func makeAttachemnt(of configuration: AttachmentGroupConfiguration, at index: Int) -> some View {
-        if let (name, fileSize, _) = getFileInfo(fileUrl: configuration.attachments[index].primaryURL) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("\(name)")
-                        .font(.footnote)
-                        .foregroundStyle(.blue)
-                    if let fileSize {
-                        Text(format(size: fileSize))
-                            .font(.footnote)
-                            .foregroundStyle(.blue)
-                    }
-                }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                self.getExtraInfoView(configuration, at: index)
-                
-                FioriIcon.actions.delete.padding(.horizontal)
-                    .onTapGesture {
-                        configuration.context.delete(attachment: configuration.attachments[index].primaryURL)
-                    }
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.blue, lineWidth: 2)
-            )
-        } else {
-            EmptyView()
-        }
-    }
-
-    @ViewBuilder
-    func getExtraInfoView(_ configuration: AttachmentGroupConfiguration, at index: Int) -> some View {
-        if case .uploaded(_, _, let extraInfo) = configuration.attachments[index] {
-            if let extraInfo = extraInfo as? MyExtraInfo {
-                if let bValue = extraInfo.boolValue {
-                    self.getSwitch(configuration, at: index, value: bValue)
-                } else if let iValue = extraInfo.intValue {
-                    self.getStepper(configuration, at: index, value: iValue)
-                }
-            }
-        } else {
-            EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    func getSwitch(_ configuration: AttachmentGroupConfiguration, at index: Int, value: Bool) -> some View {
-        HStack {
-            VStack {
-                Text("Shared?")
-                    .font(.footnote)
-                    .foregroundStyle(.blue)
-                Toggle("Shared?", isOn: Binding<Bool>(
-                    get: {
-                        if case .uploaded = configuration.attachments[index] {
-                            return value
-                        } else {
-                            return false
-                        }
-                    },
-                    set: {
-                        switch configuration.attachments[index] {
-                        case .uploading, .error:
-                            break
-                        case .uploaded(let destinationURL, let sourceURL, _):
-                            configuration.attachments[index] = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: MyExtraInfo.create(extraInfo: $0))
-                        }
-                    }
-                ))
-                .labelsHidden()
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func getStepper(_ configuration: AttachmentGroupConfiguration, at index: Int, value: Int) -> some View {
-        HStack {
-            VStack {
-                Text("Count: \(value)")
-                    .font(.footnote)
-                    .foregroundStyle(.blue)
-                Stepper("", value: Binding<Int>(
-                    get: {
-                        value
-                    },
-                    set: {
-                        switch configuration.attachments[index] {
-                        case .uploading, .error:
-                            return
-                        case .uploaded(let destinationURL, let sourceURL, _):
-                            configuration.attachments[index] = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: MyExtraInfo.create(extraInfo: $0))
-                        }
-                    }
-                ), in: 0 ... 100)
-                    .labelsHidden()
-                    .controlSize(ControlSize.mini)
-                    .scaleEffect(0.75)
-            }
-        }
-    }
 
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
@@ -523,50 +433,24 @@ struct MyAttachmentGroupStyle: AttachmentGroupStyle {
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
     
             ForEach(0 ..< configuration.attachments.count, id: \.self) { index in
-                switch configuration.attachments[index] {
-                case .uploaded:
-                    self.makeAttachemnt(of: configuration, at: index)
-                case .uploading(let sourceURL):
-                    HStack {
-                        VStack(alignment: .leading) {
-                            ProgressView()
-                            Text(sourceURL.lastPathComponent)
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
+                AttachmentElement(
+                    attachmentInfo: configuration.attachments[index],
+                    controlState: configuration.controlState,
+                    onExtraInfoChange: { newValue in
+                        switch configuration.attachments[index] {
+                        case .uploading, .error:
+                            break
+                        case .uploaded(let destinationURL, let sourceURL, _):
+                            configuration.attachments[index] = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: newValue)
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        FioriIcon.actions.delete.padding(.horizontal)
-                            .onTapGesture {
-                                configuration.context.delete(attachment: configuration.attachments[index].primaryURL)
-                            }
+                    },
+                    onPreview: { info in
+                        self.previewURL = info.primaryURL
+                    },
+                    onDelete: { attachmentInfo in
+                        configuration.context.delete(attachment: attachmentInfo.primaryURL)
                     }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
-                case .error(let sourceURL, let message):
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(sourceURL.lastPathComponent)
-                                .font(.footnote)
-                                .foregroundStyle(.red)
-                            Text(message)
-                                .font(.footnote)
-                                .foregroundStyle(.red)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        FioriIcon.actions.delete.padding(.horizontal)
-                            .onTapGesture {
-                                configuration.context.delete(attachment: configuration.attachments[index].primaryURL)
-                            }
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
-                }
+                )
             }
             
             if configuration.controlState != .readOnly {
@@ -590,26 +474,163 @@ struct MyAttachmentGroupStyle: AttachmentGroupStyle {
             {
                 configuration.context.delegate = configuration.delegate
                 configuration.context.configuration = configuration
+                configuration.context.onDefaultExtraInfo = configuration.defaultAttachmentExtraInfo
                 return configuration.context
             }()
+        )
+        .quickLookPreview(self.$previewURL, in: configuration.attachments.map(\.primaryURL))
+        .attachmentStyle(MyAttachmentStyleForListLayout())
+        .attachmentInProgressStyle(MyAttachmentInProgressStyleForListLayout())
+        .attachmentWithErrorStyle(MyAttachmentWithErrorStyleForListLayout())
+    }
+}
+
+struct MyAttachmentStyleForListLayout: AttachmentStyle {
+    @Environment(AttachmentContext.self) var context
+    
+    public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                configuration.attachmentTitle
+                configuration.attachmentSubtitle
+            }
+            .font(.footnote)
+            .foregroundStyle(.gray)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            self.getExtraInfoView(configuration)
+            
+            FioriIcon.actions.delete.padding(.horizontal)
+                .onTapGesture {
+                    configuration.onDelete?(configuration.attachmentInfo)
+                }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.blue, lineWidth: 2)
+        )
+        .contentShape(Rectangle())
+        .attachmentDefaultGuestures(configuration: configuration)
+    }
+    
+    @ViewBuilder
+    func getExtraInfoView(_ configuration: AttachmentConfiguration) -> some View {
+        if case .uploaded(_, _, let extraInfo) = configuration.attachmentInfo {
+            if let extraInfo = extraInfo as? MyExtraInfo {
+                if let bValue = extraInfo.boolValue {
+                    self.getSwitch(configuration, value: bValue)
+                } else if let iValue = extraInfo.intValue {
+                    self.getStepper(configuration, value: iValue)
+                }
+            } else {
+                EmptyView()
+            }
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func getSwitch(_ configuration: AttachmentConfiguration, value: Bool) -> some View {
+        HStack {
+            VStack {
+                Text("Shared?")
+                    .font(.footnote)
+                    .foregroundStyle(.blue)
+                Toggle("Shared?", isOn: Binding<Bool>(
+                    get: {
+                        if case .uploaded = configuration.attachmentInfo {
+                            return value
+                        } else {
+                            return false
+                        }
+                    },
+                    set: {
+                        switch configuration.attachmentInfo {
+                        case .uploading, .error:
+                            break
+                        case .uploaded(let destinationURL, let sourceURL, _):
+                            configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
+                        }
+                    }
+                ))
+                .labelsHidden()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func getStepper(_ configuration: AttachmentConfiguration, value: Int) -> some View {
+        HStack {
+            VStack {
+                Text("Count: \(value)")
+                    .font(.footnote)
+                    .foregroundStyle(.blue)
+                Stepper("", value: Binding<Int>(
+                    get: {
+                        value
+                    },
+                    set: {
+                        switch configuration.attachmentInfo {
+                        case .uploading, .error:
+                            return
+                        case .uploaded(let destinationURL, let sourceURL, _):
+                            configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
+                        }
+                    }
+                ), in: 0 ... 100)
+                    .labelsHidden()
+                    .controlSize(ControlSize.mini)
+                    .scaleEffect(0.75)
+            }
+        }
+    }
+}
+
+struct MyAttachmentInProgressStyleForListLayout: AttachmentInProgressStyle {
+    public func makeBody(_ configuration: AttachmentInProgressConfiguration) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                ProgressView()
+                Text(configuration.attachmentInfo.primaryURL.lastPathComponent)
+            }
+            .font(.footnote)
+            .foregroundStyle(.gray)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            FioriIcon.actions.delete.padding(.horizontal)
+                .onTapGesture {
+                    configuration.onDelete?(configuration.attachmentInfo)
+                }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.blue, lineWidth: 2)
         )
     }
 }
 
-extension MyAttachmentGroupStyle {
-    func getFileInfo(fileUrl: URL) -> (String, Int?, Date?)? {
-        guard let resourceValues = try? fileUrl.resourceValues(forKeys: [.fileSizeKey, .creationDateKey, .contentModificationDateKey, .nameKey]) else { return nil }
-        return (fileUrl.lastPathComponent, resourceValues.fileSize, resourceValues.contentModificationDate)
-    }
-    
-    func format(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
-    
-    func format(size: Int) -> String {
-        ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)
+struct MyAttachmentWithErrorStyleForListLayout: AttachmentWithErrorStyle {
+    public func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                configuration.attachmentErrorTitle
+                Text(configuration.attachmentInfo.errorMessage ?? "Unknown error")
+            }
+            .font(.footnote)
+            .foregroundStyle(.red)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            FioriIcon.actions.delete.padding(.horizontal)
+                .onTapGesture {
+                    configuration.onDelete?(configuration.attachmentInfo)
+                }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.blue, lineWidth: 2)
+        )
     }
 }
 
