@@ -95,6 +95,7 @@ public class CalendarModel {
     
     var calendar = Calendar.autoupdatingCurrent
     
+    // swiftlint:disable cyclomatic_complexity
     /// Public initializer for CalendarModel.
     /// - Parameters:
     ///   - calendarStyle: The calendar style. The default is `.month`.
@@ -110,7 +111,6 @@ public class CalendarModel {
     ///   - firstWeekday: The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
     ///   - showMonthHeader: This property indicates whether the month header should display.
     ///   - expandableStyleInWeekMode: This property indicates whether the expandable style in week mode first. Default is false. Only available when style is `.expandable`.
-    // swiftlint:disable cyclomatic_complexity
     public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil, showMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
