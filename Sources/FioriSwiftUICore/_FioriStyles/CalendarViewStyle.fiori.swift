@@ -56,7 +56,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: configuration.$model.weekViewScrollPosition, anchor: .leading)
+                    .scrollPosition(id: Binding<Int?>(get: { configuration.model.weekViewScrollPosition }, set: { configuration.model.weekViewScrollPosition = $0 }), anchor: .leading)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .background(
@@ -70,7 +70,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         LazyHStack {
                             ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
                                 let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: false, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: configuration.model.showMonthHeader, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                 }, customEventView: configuration.customEventView)
                                     .frame(width: self.availableWidth - paddingOffset * 2)
@@ -85,7 +85,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: configuration.$model.scrollPosition, anchor: .leading)
+                    .scrollPosition(id: self.$scrollPosition, anchor: .leading)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .frame(width: self.availableWidth - paddingOffset * 2)
@@ -107,7 +107,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         LazyVStack {
                             ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
                                 let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: true, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: configuration.model.showMonthHeader, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                 }, customEventView: configuration.customEventView)
                                     .fioriSizeReader { newValue in
@@ -121,7 +121,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         }
                         .scrollTargetLayout()
                     })
-                    .scrollPosition(id: configuration.$model.scrollPosition, anchor: .top)
+                    .scrollPosition(id: self.$scrollPosition, anchor: .top)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                     .scrollBounceBehavior(.always)
                     .background(
@@ -161,9 +161,20 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
             .onAppear(perform: {
                 configuration.model.customLanguageId = self.customLanguageId
                 configuration.titleChangeCallback?(configuration.model.title ?? "")
+                DispatchQueue.main.async {
+                    self.scrollPosition = configuration.model.scrollPosition
+                }
             })
             .setOnChange(of: configuration.model.title) {
                 configuration.titleChangeCallback?(configuration.model.title ?? "")
+            }
+            .setOnChange(of: configuration.model.scrollPosition) {
+                DispatchQueue.main.async {
+                    self.scrollPosition = configuration.model.scrollPosition
+                }
+            }
+            .setOnChange(of: self.scrollPosition) {
+                configuration.model.scrollPosition = self.scrollPosition
             }
             .fioriSizeReader { size in
                 let availableWidth = max(paddingOffset * 2, size.width)
@@ -193,6 +204,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
             }
         })
     }
+    
+    @State var scrollPosition: Int?
     
     func handleDayViewTapGesture(_ date: Date, state: CalendarDayState, configuration: CalendarViewConfiguration) {
         if configuration.model.calendarStyle == .datesSelection {

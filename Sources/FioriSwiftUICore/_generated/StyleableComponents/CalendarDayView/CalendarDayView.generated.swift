@@ -4,9 +4,30 @@ import Foundation
 import SwiftUI
 
 /// `CalendarDayView` is used to display a day with title, subtitle and eventIndicator.
+///
 /// ## Usage
 /// ```swift
-/// CalendarDayView(title: "7", isEventIndicatorVisible: true, state: .today)
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ]
+///     ]
+///     return result
+/// }
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .singleSelectedAndToday, customEventView: Rectangle().foregroundStyle(Color.red))
+/// .environment(\.eventViewColor, .red)
+/// .environment(\.selectionSingleColor, .yellow)
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .disabled)
+/// .environment(\.eventViewColorDisabled, .gray)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .multiSelectedStart)
+/// .environment(\.selectionRangeColor, .red)
 /// ```
 public struct CalendarDayView {
     let title: any View

@@ -12,9 +12,20 @@ struct CalendarExamples: View {
     var body: some View {
         List {
             Section {
-                NavigationLink("CalendarProtocolTestDemo") {
-                    CalendarProtocolTestDemo()
+                NavigationLink("CalendarProtocolDayViewExample") {
+                    CalendarProtocolDayViewExample()
                 }
+                NavigationLink("CalendarProtocolWeekViewExample") {
+                    CalendarProtocolWeekViewExample()
+                }
+                NavigationLink("CalendarProtocolMonthViewExample") {
+                    CalendarProtocolMonthViewExample()
+                }
+                NavigationLink("CalendarProtocolCalendarViewExample") {
+                    CalendarProtocolCalendarViewExample()
+                }
+            } header: {
+                Text("Calendar Protocol")
             }
             
             Section {
@@ -71,6 +82,14 @@ struct CalendarExamples: View {
                     CalendarPersistentPreselectDateTestExample(
                         isPersistentSelection: false,
                         firstWeekday: 2
+                    )
+                    .environmentObject(self.settings)
+                }
+                NavigationLink("Default weekStartDay: Mon (Hide month header)") {
+                    CalendarPersistentPreselectDateTestExample(
+                        isPersistentSelection: false,
+                        firstWeekday: 2,
+                        showMonthHeader: false
                     )
                     .environmentObject(self.settings)
                 }
@@ -147,6 +166,14 @@ struct CalendarExamples: View {
                     CalendarPersistentPreselectDateTestExample(
                         style: .expandable,
                         isPersistentSelection: false,
+                    )
+                    .environmentObject(self.settings)
+                }
+                NavigationLink("Not Persistent, No PreselectDate (in week mode)") {
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .expandable,
+                        isPersistentSelection: false,
+                        expandableStyleInWeekMode: true
                     )
                     .environmentObject(self.settings)
                 }

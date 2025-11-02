@@ -4,11 +4,71 @@ import Foundation
 import SwiftUI
 
 /// `CalendarView` is used to display the calendar. The calendar supports `.week`, `.month`, `.expandable`, `.fullScrollMonth`, `.rangeSelection`, and `.datesSelection` style.
+///
+/// ## Usage:
+/// ```swift
+///     @State var model = CalendarModel(calendarStyle: .month)
+///     var fm: DateFormatter {
+///         let fm = DateFormatter()
+///         fm.timeZone = Calendar.current.timeZone
+///         fm.locale = Calendar.current.locale
+///         fm.dateFormat = "yyyy MM dd"
+///         return fm
+///     }
+///     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///         let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///             .title: [
+///                 .normal: Color(UIColor.blue),
+///                 .disabled: Color(UIColor.red),
+///                 .highlighted: Color(UIColor.green),
+///                 .selected: Color(UIColor.yellow)
+///             ],
+///             .monthHeaderText: [
+///                 .normal: Color(UIColor.green)
+///             ],
+///             .weekDayText: [
+///                 .normal: Color(UIColor.blue),
+///                 .highlighted: Color(UIColor.green)
+///             ],
+///             .weekNumberText: [
+///                 .normal: Color(UIColor.green)
+///             ]
+///         ]
+///         return result
+///     }
+///     VStack {
+///         CalendarView(model: model, titleChangeCallback: { _ in
+///         }, customCalendarBackgroundColor: .white) { date in
+///             Rectangle()
+///         }
+///         .environment(\.showsWeekNumbers, true)
+///         .environment(\.hasEventIndicator, true)
+///         .environment(\.alternateCalendarType, .chinese)
+///         .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+///         .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///         .environment(\.customLanguageId, "zh-Hans")
+///         Spacer()
+///     }
+///
+/// ScrollView {
+///     CalendarView(model: self.model)
+///     .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
+///     .frame(maxHeight: self.maxHeight)
+/// }
+/// .onGeometryChange(for: CGSize.self, of: { proxy in
+///     proxy.size
+/// }, action: { size in
+///     self.maxHeight = size.height
+/// })
+/// ```
+/// ## Notes:
+/// When style is `.fullScrollMonth`, `.rangeSelection`, or `.datesSelection`, and the CalendarView is used in ScrollView or List, the maxHeight of the CalendarView should be configured (e.g., the available screen height), otherwise it will slow down the scrolling, and the whole CalendarView will scroll in the ScrollView or List.
 public struct CalendarView {
     /// The model of the calendar view.
-    @ObservedObject var model: CalendarModel
+    let model: CalendarModel
     /// Callback when the title is Changed.
     let titleChangeCallback: ((String) -> Void)?
+    /// Customized background color for the calendar view.
     let customCalendarBackgroundColor: Color?
     /// This property is used to customize event view for each date.
     let customEventView: (Date) -> any View

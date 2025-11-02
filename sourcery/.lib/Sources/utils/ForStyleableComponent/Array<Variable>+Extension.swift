@@ -24,8 +24,6 @@ extension [Variable] {
                 varDecl += "let \(variable.name): \(type)"
             } else if variable.isBinding {
                 varDecl += "@Binding var \(variable.name): \(variable.typeName)"
-            } else if variable.isObservedObject {
-                varDecl += "@ObservedObject var \(variable.name): \(variable.typeName)"
             } else {
                 let letOrVar = variable.isMutable ? "var" : "let"
                 varDecl += "\(letOrVar) \(variable.name): \(variable.typeName)"
@@ -222,8 +220,6 @@ extension [Variable] {
                 `typealias`.append("public typealias \(name.capitalizingFirst()) = \(type)")
             } else if variable.isBinding {
                 props.append("@Binding public var \(name): \(variable.typeName)")
-            } else if variable.isObservedObject {
-                props.append("@ObservedObject public var \(name): \(variable.typeName)")
             } else {
                 props.append("public let \(name): \(variable.typeName)")
             }

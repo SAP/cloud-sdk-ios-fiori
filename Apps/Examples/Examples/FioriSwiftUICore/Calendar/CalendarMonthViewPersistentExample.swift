@@ -4,7 +4,7 @@ import SwiftUI
 struct CalendarMonthViewPersistentExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @StateObject var model = CalendarModel(calendarStyle: .month, isPersistentSelection: true)
+    @State var model = CalendarModel(calendarStyle: .month, isPersistentSelection: true)
     
     @State private var title: String?
     

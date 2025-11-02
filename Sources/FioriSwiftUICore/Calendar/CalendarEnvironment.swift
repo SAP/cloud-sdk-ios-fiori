@@ -149,6 +149,7 @@ public extension EnvironmentValues {
 
     /**
      The color of calendar item in different state, only support foregroundColor.
+     
      For .weekDayText, only .normal and .highlighted states will be used.
      For .monthHeaderText, only .normal state will be used.
      For .weekNumberText, only .normal state will be used.

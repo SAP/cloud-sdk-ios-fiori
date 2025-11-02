@@ -1,7 +1,8 @@
 import Foundation
 
 /// The date model of the calendar.
-public class CalendarModel: ObservableObject {
+@Observable
+public class CalendarModel {
     /// The ID of the language to be used when displaying the `CalendarView`.
     var customLanguageId: String? {
         didSet {
@@ -29,6 +30,14 @@ public class CalendarModel: ObservableObject {
     /// The display date at startup.
     let displayDateAtStartup: Date?
     
+    /// This property indicates whether the month header should display.
+    ///
+    /// It's available when the style is `.month`, `.expandable`, `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
+    /// It's true by default when the style is `.month`, `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
+    /// It's false by default when the style is `.expandable`.
+    let showMonthHeader: Bool
+    
+    /// The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
     public var firstWeekday: Int {
         didSet {
             self.calendar.firstWeekday = self.firstWeekday
@@ -38,7 +47,7 @@ public class CalendarModel: ObservableObject {
     }
     
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
-    @Published public var selectedDate: Date? {
+    public var selectedDate: Date? {
         didSet {
             if let oldSelectedDate = oldValue,
                let newSelectedDate = selectedDate,
@@ -51,14 +60,14 @@ public class CalendarModel: ObservableObject {
     }
     
     /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
-    @Published public var selectedDates: Set<Date>? {
+    public var selectedDates: Set<Date>? {
         didSet {
             self.updateTitle()
         }
     }
     
     /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
-    @Published public var selectedRange: ClosedRange<Date>? {
+    public var selectedRange: ClosedRange<Date>? {
         didSet {
             self.updateTitle()
         }
@@ -68,13 +77,14 @@ public class CalendarModel: ObservableObject {
     public var disabledDates: CalendarDisabledDates?
     
     /// Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates.
+    ///
     /// The default is false for `month`, `week`, and `expandable` styles except for `rangeSelection` and `datesSelection` styles, which is always true (hence, if the developer sets `isPersistentSelection` to false, it will have no effect).
     /// In `month` style, the default behavior is that the first date of every month is selected when the month is displayed. (If the particular month contains today's date, then it is selected instead.) Also, the selection is not persistent. For example, on startup of the calendar, assume that January is displayed with Jan 1st selected. Then, if a user clicks on another date, for example Jan 25th, it is selected now. If the user then scrolls to Feb, then Feb 1st shows as selected. Scrolling back to January, the 1st of January is selected now and not the 25th as the user had previously selected.
     /// In the case where `isPersistentSelection` is true, then the behavior is as follows: No date is selected when the calendar is displayed or scrolled to another month, except if a date was set by the `selectDate`: (for month, week, expandable, and `datesSelection`) or `selectDateRange`:(for `multipleSelection View`) by the developer. When the user then selects another date, then this date is now selected, regardless of whether the user scrolls to any other month.
     let isPersistentSelection: Bool
     
     /// The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
-    @Published public var scrollToDate: Date {
+    public var scrollToDate: Date {
         didSet {
             self.checkScrollToDate()
             if self.calendar.compare(oldValue, to: self.scrollToDate, toGranularity: .day) != .orderedSame {
@@ -98,8 +108,10 @@ public class CalendarModel: ObservableObject {
     ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates. The default is false.
     ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
     ///   - firstWeekday: The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
+    ///   - showMonthHeader: This property indicates whether the month header should display.
+    ///   - expandableStyleInWeekMode: This property indicates whether the expandable style in week mode first. Default is false. Only available when style is `.expandable`.
     // swiftlint:disable cyclomatic_complexity
-    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil) {
+    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil, showMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
         self.selectedDate = selectedDate
@@ -118,10 +130,11 @@ public class CalendarModel: ObservableObject {
         }()
         
         var result: (startDate: Date, endDate: Date) = (Date.now, Date.now)
+        let calendar = Calendar.autoupdatingCurrent
         if let startDate {
             result.startDate = startDate
         } else if let endDate {
-            let dateComponents = self.calendar.dateComponents(components, from: endDate)
+            let dateComponents = calendar.dateComponents(components, from: endDate)
             if let endDateYear = dateComponents.year {
                 let startYear = String(endDateYear - 1)
                 let startYearStr = startYear + " 01 01"
@@ -134,7 +147,7 @@ public class CalendarModel: ObservableObject {
         if let endDate {
             result.endDate = endDate
         } else if let startDate {
-            let dateComponents = self.calendar.dateComponents(components, from: startDate)
+            let dateComponents = calendar.dateComponents(components, from: startDate)
             if let startDateYear = dateComponents.year {
                 let endYear = String(startDateYear + 1)
                 let endYearStr = endYear + " 12 31"
@@ -151,7 +164,7 @@ public class CalendarModel: ObservableObject {
         
         // startDate must be smaller than endDate, otherwise the default dates will be used.
         if (startDate == nil && endDate == nil) || compareResult == .orderedDescending {
-            let components = self.calendar.dateComponents(components, from: displayDateAtStartup ?? .now)
+            let components = calendar.dateComponents(components, from: displayDateAtStartup ?? .now)
             if let currentYear = components.year {
                 let startYear = String(currentYear)
                 let startYearStr = startYear + " 01 01"
@@ -171,17 +184,21 @@ public class CalendarModel: ObservableObject {
         self.startDate = result.startDate
         self.endDate = result.endDate
         
+        self.showMonthHeader = showMonthHeader ?? (calendarStyle != .expandable)
+        self.isExpanded = !expandableStyleInWeekMode
+        
         self.handleWeekInfo()
         self.handleMonthInfo()
+        self.checkScrollToDate()
         
         self.updateScrollPosition()
         self.updateTitle()
     }
     
-    @Published var weeks: [CalendarWeekInfo] = []
-    @Published var months: [CalendarMonthModel] = []
+    var weeks: [CalendarWeekInfo] = []
+    var months: [CalendarMonthModel] = []
     
-    @Published var monthViewHeight: CGFloat = 300 {
+    var monthViewHeight: CGFloat = 300 {
         didSet {
             if oldValue != self.monthViewHeight {
                 self.currentMonthOriginHeight = self.monthViewHeight
@@ -189,9 +206,9 @@ public class CalendarModel: ObservableObject {
         }
     }
 
-    @Published var currentMonthOriginHeight: CGFloat = 0
+    var currentMonthOriginHeight: CGFloat = 0
     
-    @Published var scrollPosition: Int? = 0 {
+    var scrollPosition: Int? = 0 {
         didSet {
             if oldValue != self.scrollPosition {
                 self.handleScrollPositionChange()
@@ -199,7 +216,7 @@ public class CalendarModel: ObservableObject {
         }
     }
 
-    @Published var weekViewScrollPosition: Int? = 0 {
+    var weekViewScrollPosition: Int? = 0 {
         didSet {
             if oldValue != self.weekViewScrollPosition {
                 self.handleWeekScrollPositionChange(oldValue, self.weekViewScrollPosition)
@@ -209,8 +226,8 @@ public class CalendarModel: ObservableObject {
     
     var title: String?
     
-    @Published var isDragging = false
-    @Published var isExpanded = true {
+    var isDragging = false
+    var isExpanded = true {
         didSet {
             self.updateScrollPosition()
         }
@@ -271,6 +288,8 @@ public class CalendarModel: ObservableObject {
                     
                     // Get the first Day of the week
                     guard var firstDayOfWeek = self.calendar.date(from: self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return }
+                    
+//                    guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return }
                     
                     var weeks: [CalendarWeekInfo] = []
                     

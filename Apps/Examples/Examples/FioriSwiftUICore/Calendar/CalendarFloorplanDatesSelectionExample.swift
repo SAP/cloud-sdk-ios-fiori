@@ -4,7 +4,7 @@ import SwiftUI
 struct CalendarFloorplanDatesSelectionExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @StateObject var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
+    @State var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
     
     @State private var title: String?
     
@@ -49,6 +49,7 @@ struct CalendarFloorplanDatesSelectionExample: View {
                 }
             }
             .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
+            .frame(maxHeight: self.maxHeight)
             .environment(\.hasEventIndicator, self.settings.testsEventViews)
             .environment(\.showsWeekNumbers, self.settings.showsWeekNumber)
             .environment(\.alternateCalendarType, self.settings.testsAlternateCalendar)
@@ -64,6 +65,11 @@ struct CalendarFloorplanDatesSelectionExample: View {
                 .disabled(self.clearAllDisabled)
             }
         })
+        .onGeometryChange(for: CGSize.self, of: { proxy in
+            proxy.size
+        }, action: { size in
+            self.maxHeight = size.height
+        })
         .navigationTitle(self.title ?? "Dates Selection")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: self.model.selectedDates) {
@@ -78,6 +84,8 @@ struct CalendarFloorplanDatesSelectionExample: View {
             self.model.firstWeekday = self.settings.firstWeekDay
         }
     }
+    
+    @State var maxHeight: CGFloat = 0
     
     var customCalendarBackgroundColor: Color? {
         self.settings.testsCustomCalBgColor ? .preferredColor(.blue1) : nil

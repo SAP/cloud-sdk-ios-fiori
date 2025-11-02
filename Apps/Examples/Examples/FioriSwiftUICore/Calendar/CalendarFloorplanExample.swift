@@ -5,7 +5,7 @@ import SwiftUI
 struct CalendarFloorplanExample: View {
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @StateObject var model: CalendarModel
+    @State var model: CalendarModel
     
     @State private var title: String?
     
@@ -23,7 +23,7 @@ struct CalendarFloorplanExample: View {
         self.withToolBar = withToolBar
         
         let model = CalendarModel(calendarStyle: calendarStyle)
-        _model = StateObject(wrappedValue: model)
+        _model = State(wrappedValue: model)
     }
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass

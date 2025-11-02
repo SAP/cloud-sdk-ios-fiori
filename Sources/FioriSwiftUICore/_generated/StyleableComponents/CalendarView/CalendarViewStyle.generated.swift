@@ -23,7 +23,7 @@ struct AnyCalendarViewStyle: CalendarViewStyle {
 
 public struct CalendarViewConfiguration {
     public var componentIdentifier: String = "fiori_calendarview_component"
-    @ObservedObject public var model: CalendarModel
+    public let model: CalendarModel
     public let titleChangeCallback: ((String) -> Void)?
     public let customCalendarBackgroundColor: Color?
     public let customEventView: (Date) -> any View

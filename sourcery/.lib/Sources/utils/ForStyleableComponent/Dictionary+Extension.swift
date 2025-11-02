@@ -27,10 +27,6 @@ extension [String: NSObject] {
     var isBinding: Bool {
         self["@Binding"] != nil ? true : false
     }
-
-    var isObservedObject: Bool {
-        self["@ObservedObject"] != nil ? true : false
-    }
     
     var isComponent: Bool {
         self.isBaseComponent || self.isCompositeComponent

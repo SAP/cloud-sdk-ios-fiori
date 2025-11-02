@@ -14,7 +14,7 @@ struct CalendarDatesSelectionExample: View {
         return result
     }
     
-    @StateObject var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
+    @State var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
     
     var body: some View {
         VStack {

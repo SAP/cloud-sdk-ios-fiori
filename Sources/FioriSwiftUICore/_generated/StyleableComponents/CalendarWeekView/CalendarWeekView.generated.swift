@@ -4,11 +4,52 @@ import Foundation
 import SwiftUI
 
 /// `CalendarWeekView` is used to display the dates in one week.
+///
 /// Developer can set the `.showsWeekNumbers` environment to show the week numberText. If calendarStyle is `.datesSelection` or `.rangeSelection`, and when the first date of the week is out of month, always hide the week number.
 /// ## Usage
 /// ```swift
-/// CalendarWeekView(calendarStyle: .fullScreenMonth, weekInfo: weekInfo, startDate: weekInfo.dates.first ?? Date(), endDate: weekInfo.dates.last ?? Date())
-///    .environment(\.showsWeekNumbers, true)
+/// var fm: DateFormatter {
+///     let fm = DateFormatter()
+///     fm.timeZone = Calendar.current.timeZone
+///     fm.locale = Calendar.current.locale
+///     fm.dateFormat = "yyyy MM dd"
+///     return fm
+/// }
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ],
+///         .weekNumberText: [
+///             .normal: Color(UIColor.green)
+///         ]
+///     ]
+///     return result
+/// }
+/// let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
+///     self.fm.date(from: "2025 10 26")!,
+///     self.fm.date(from: "2025 10 27")!,
+///     self.fm.date(from: "2025 10 28")!,
+///     self.fm.date(from: "2025 10 29")!,
+///     self.fm.date(from: "2025 10 30")!,
+///     self.fm.date(from: "2025 10 31")!,
+///     self.fm.date(from: "2025 11 01")!
+/// ])
+/// @State var selectedDate: Date? = .now
+/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showOutOfMonth: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
+///     print("Tap on a date:\(date), with state:\(state)")
+///     self.selectedDate = date
+/// }, customEventView: { date in
+///     Rectangle()
+/// })
+/// .environment(\.showsWeekNumbers, true)
+/// .environment(\.hasEventIndicator, true)
+/// .environment(\.alternateCalendarType, .chinese)
+/// .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
 /// ```
 public struct CalendarWeekView {
     /// The calendar style.

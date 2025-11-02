@@ -8,7 +8,7 @@ struct CalendarRangeSelectionExample: View {
     
     @State private var title: String?
     
-    @StateObject var model: CalendarModel
+    @State var model: CalendarModel
     
     init(isPreselected: Bool = false) {
         self.isCustomPreselected = isPreselected
@@ -27,7 +27,7 @@ struct CalendarRangeSelectionExample: View {
                 model.selectedRange = startDate ... endDate
             }
         }
-        _model = StateObject(wrappedValue: model)
+        _model = State(wrappedValue: model)
     }
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {

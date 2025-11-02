@@ -2,26 +2,10 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct CalendarPersistentPreselectDateTestExample: View {
-    @State var style: CalendarStyle = .month
-    
     @EnvironmentObject var settings: CalendarTestSetting
     
-    @State var startDate: Date?
-    
-    @State var endDate: Date?
-    
-    @State var displayDateAtStartup: Date? = .now
-    
-    @State var scrollToDate: Date?
-    
-    @State var selectedDate: Date?
-    
-    @State var isPersistentSelection: Bool = true
-    
     @State private var title: String?
-    
     @State var firstWeekday: Int?
-    
     @State var showScrollToDate = false
     
     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
@@ -32,20 +16,13 @@ struct CalendarPersistentPreselectDateTestExample: View {
         return result
     }
     
-    @StateObject var model: CalendarModel
+    @State var model: CalendarModel
     
-    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int? = nil, showScrollToDate: Bool = false) {
-        self.style = style
-        self.startDate = startDate
-        self.endDate = endDate
-        self.displayDateAtStartup = displayDateAtStartup
-        self.scrollToDate = scrollToDate
-        self.selectedDate = selectedDate
-        self.isPersistentSelection = isPersistentSelection
+    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int? = nil, showScrollToDate: Bool = false, showMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
         self.title = title
         self.firstWeekday = firstWeekday
         self.showScrollToDate = showScrollToDate
-        _model = StateObject(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate))
+        _model = State(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate, showMonthHeader: showMonthHeader, expandableStyleInWeekMode: expandableStyleInWeekMode))
     }
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -79,7 +56,7 @@ struct CalendarPersistentPreselectDateTestExample: View {
         )
         .toolbar(content: {
             if self.showScrollToDate {
-                if self.style == .week {
+                if self.model.calendarStyle == .week {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Scroll2") {
                             self.scrollDate2()
@@ -101,8 +78,8 @@ struct CalendarPersistentPreselectDateTestExample: View {
         })
         .navigationTitle(self.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: self.selectedDate) { _, _ in
-            if let selectedDate {
+        .onChange(of: self.model.selectedDate) { _, _ in
+            if let selectedDate = self.model.selectedDate {
                 print("selectedDate:\(selectedDate)")
             } else {
                 print("No date selected")
