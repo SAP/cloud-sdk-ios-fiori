@@ -17,6 +17,9 @@ public class CalendarModel {
         didSet {
             if oldValue != self.calendarStyle {
                 self.updateScrollPosition()
+                if oldValue == .month || self.calendarStyle == .month {
+                    self.handleMonthInfo()
+                }
             }
         }
     }
@@ -289,11 +292,13 @@ public class CalendarModel {
                     // Get the first Day of the week
                     guard var firstDayOfWeek = self.calendar.date(from: self.calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: startDate)) else { return }
                     
-//                    guard let range = calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return }
+                    guard let range = self.calendar.range(of: .weekOfMonth, in: .month, for: startDate) else { return }
                     
                     var weeks: [CalendarWeekInfo] = []
                     
-                    for _ in 0 ..< 6 {
+                    let weeksCountInMonth = self.calendarStyle == .month ? 6 : range.count
+                    
+                    for _ in 0 ..< weeksCountInMonth {
                         let weekNumber = self.calendar.component(.weekOfYear, from: firstDayOfWeek)
                         var dates: [Date] = []
                         for dayOffset in 0 ..< 7 {
