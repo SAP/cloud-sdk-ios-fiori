@@ -3111,7 +3111,7 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     var onDownVote: (() -> Void)? { get }
     
     /// The action to be performed when the submit button is tapped.
-    /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
+    /// Application can get the user feedback values, can tell the component the submission result with the `submitResult` call back.
     // sourcery: default.value = nil
     // sourcery: no_view
     var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? { get }

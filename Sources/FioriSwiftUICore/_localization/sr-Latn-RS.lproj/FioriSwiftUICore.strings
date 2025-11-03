@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Nema još ništa za prikaz";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d sata/i %d min.";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "poruke";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "informacije";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "informacije";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "potvrde";
