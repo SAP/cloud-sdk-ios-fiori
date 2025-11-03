@@ -1,7 +1,7 @@
 import Foundation
 import UniformTypeIdentifiers
 
-/// Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behavoirs by overriding functions.
+/// Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behaviors by overriding functions.
 open class BasicAttachmentDelegate: AttachmentDelegate {
     /// Default folder
     public static let demoFolderName = "AttachmentDemoFolder"
@@ -54,7 +54,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         }
     }
     
-    /// Save an attachment to local folder asynchronously. The local copy is identifed by the URL.
+    /// Save an attachment to local folder asynchronously. The local copy is identified by the URL.
     open func saveLocally(url: URL, identifier: String, onCompletion: @escaping (URL?, Error?) -> Void) {
         do {
             let copy = try self.getAttachmentNameAndExt(from: url, utTypeidentifier: identifier)
