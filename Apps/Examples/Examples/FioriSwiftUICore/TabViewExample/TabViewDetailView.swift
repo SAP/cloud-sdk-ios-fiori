@@ -70,6 +70,7 @@ struct TabViewDetailView: View {
                 .tag(index)
                 .tabItem {
                     Label(model.name, systemImage: model.imageName)
+                        .accessibilityAddTraits(self.selection == index ? [.isSelected] : [])
                 }
             }
         }

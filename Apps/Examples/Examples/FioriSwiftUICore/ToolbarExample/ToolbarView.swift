@@ -206,7 +206,6 @@ struct ToolbarView: View {
                 FioriButton { _ in
                     Text(button.title)
                 }
-                .background(.yellow)
                 .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity).eraseToAnyFioriButtonStyle())
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             } else if button.type == 3 {
