@@ -266,15 +266,6 @@ struct ToolbarView: View {
         }
         return mergedButtons
     }
-    
-    @ViewBuilder
-    func createHelperText() -> some View {
-        if self.helperText.isEmpty {
-            EmptyView()
-        } else {
-            Text(self.helperText)
-        }
-    }
 }
 
 #Preview {
