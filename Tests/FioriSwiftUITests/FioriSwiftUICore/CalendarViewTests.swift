@@ -19,8 +19,9 @@ final class CalendarViewTests: XCTestCase {
     
     func testCalendarModel() {
         let year = 2025
-        let selectedDate: Date = self.fm.date(from: "\(year) 10 29")!
-        let model = CalendarModel(selectedDate: selectedDate)
+        let selectedDate: Date = self.fm.date(from: "\(year) 09 29")!
+        let scrollToDate: Date = self.fm.date(from: "\(year) 09 29")!
+        let model = CalendarModel(selectedDate: selectedDate, scrollToDate: scrollToDate)
         
         XCTAssertEqual(model.calendarStyle, .month)
         XCTAssertFalse(model.isPersistentSelection)
@@ -30,7 +31,7 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: selectedDate, toGranularity: .day) == .orderedSame)
         XCTAssertNil(model.disabledDates)
         XCTAssertNil(model.displayDateAtStartup)
-        XCTAssertEqual(model.scrollPosition, 9)
+        XCTAssertEqual(model.scrollPosition, 8)
         XCTAssertEqual(model.months.count, 24)
         XCTAssertEqual(model.weeks.count, 105)
         XCTAssertNil(model.customLanguageId)
@@ -38,24 +39,24 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertNil(model.selectedRange)
         XCTAssertEqual(model.monthViewHeight, 300)
         XCTAssertEqual(model.currentMonthOriginHeight, 0)
-        XCTAssertEqual(model.title, "Oct 2025")
+        XCTAssertEqual(model.title, "Sep 2025")
         XCTAssertFalse(model.isDragging)
         XCTAssertTrue(model.isExpanded)
         XCTAssertTrue(model.showOutOfMonth)
         XCTAssertFalse(model.showFullScreen)
         
         model.scrollPosition = model.scrollPosition! + 1
-        XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "\(year) 11 01")!, toGranularity: .day) == .orderedSame)
+        XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "\(year) 10 01")!, toGranularity: .day) == .orderedSame)
         
         model.calendarStyle = .week
-        XCTAssertEqual(model.weekViewScrollPosition, 43)
+        XCTAssertEqual(model.weekViewScrollPosition, 39)
         model.weekViewScrollPosition = model.weekViewScrollPosition! - 1
-        XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "\(year) 10 25")!, toGranularity: .day) == .orderedSame)
-        XCTAssertTrue(Calendar.current.compare(model.scrollToDate, to: self.fm.date(from: "\(year) 10 25")!, toGranularity: .day) == .orderedSame)
+        XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "\(year) 09 24")!, toGranularity: .day) == .orderedSame)
+        XCTAssertTrue(Calendar.current.compare(model.scrollToDate, to: self.fm.date(from: "\(year) 09 24")!, toGranularity: .day) == .orderedSame)
         
         model.customLanguageId = "zh-hans"
         XCTAssertEqual(model.customLanguageId, model.customLanguageId)
-        XCTAssertEqual(model.title, "2025年10月")
+        XCTAssertEqual(model.title, "2025年9月")
         
         model.monthViewHeight = 350
         XCTAssertEqual(model.currentMonthOriginHeight, 350)
