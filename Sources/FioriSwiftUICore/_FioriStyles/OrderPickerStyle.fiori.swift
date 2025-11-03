@@ -168,7 +168,7 @@ public struct OrderPickerItemModel: Identifiable, Hashable, Equatable, CustomStr
             case .selected(let index, let isSelected):
                 return "Selected changed: index = \(index), isSelected = \(isSelected)"
             case .ascending(let index, let isAscending):
-                return "asceding changed: index = \(index), isAscending = \(isAscending)"
+                return "ascending changed: index = \(index), isAscending = \(isAscending)"
             case .order(let sourceIndex, let destinationIndex):
                 return "Order changed: sourceIndex = \(sourceIndex), destinationIndex = \(destinationIndex)"
             }
