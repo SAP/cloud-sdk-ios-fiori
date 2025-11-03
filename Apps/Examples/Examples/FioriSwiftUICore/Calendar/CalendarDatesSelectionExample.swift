@@ -15,9 +15,11 @@ struct CalendarDatesSelectionExample: View {
     }
     
     @State var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
+    @State var showBannerMessage: Bool = true
+    @State var safeAreaInsets: EdgeInsets = .init(.zero)
     
     var body: some View {
-        VStack {
+        ZStack(alignment: .bottom, content: {
             CalendarView(model: self.model, titleChangeCallback: {
                 self.title = $0
             }, customCalendarBackgroundColor: self.customCalendarBackgroundColor) { date in
@@ -51,7 +53,24 @@ struct CalendarDatesSelectionExample: View {
             .environment(\.alternateCalendarLocale, self.settings.testAlternateCalendarLocale())
             .environment(\.customLanguageId, self.settings.testLanguage)
             .environment(\.calendarItemTintAttributes, self.calendarItemTintAttributes)
-        }
+            
+            if self.showBannerMessage {
+                CalendarBannerView(title: "Tap to select dates", bottomPadding: self.safeAreaInsets.bottom) {
+                    self.showBannerMessage = false
+                }
+            }
+        })
+        .onGeometryChange(for: EdgeInsets.self, of: { proxy in
+            proxy.safeAreaInsets
+        }, action: { newValue in
+            if self.safeAreaInsets.bottom >= 0.0,
+               self.safeAreaInsets != newValue
+            {
+                DispatchQueue.main.async {
+                    self.safeAreaInsets = newValue
+                }
+            }
+        })
         .navigationTitle(self.title ?? "Dates Selection")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: self.model.selectedDates) {

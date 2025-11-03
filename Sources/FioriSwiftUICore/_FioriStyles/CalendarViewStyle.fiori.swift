@@ -19,15 +19,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     @State var weekViewHeight: CGFloat = 60
     
     @State var availableWidth: CGFloat = 16
-    @State var safeAreaInsets: EdgeInsets = .init(.zero)
-    
-    @State var showBannerMessage: Bool = true
     
     @Environment(\.customLanguageId) var customLanguageId
-    
-    func datesSelectionAndShowBannerMessage(_ model: CalendarModel) -> Bool {
-        model.calendarStyle == .datesSelection && self.showBannerMessage
-    }
     
     // swiftlint:disable function_body_length
     public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
@@ -134,7 +127,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     .padding(EdgeInsets(
                         top: 0,
                         leading: paddingOffset,
-                        bottom: configuration.model.showFullScreen ? -1 * self.safeAreaInsets.bottom : paddingOffset,
+                        bottom: paddingOffset,
                         trailing: paddingOffset
                     ))
                 }
@@ -182,24 +175,6 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     DispatchQueue.main.async {
                         self.availableWidth = availableWidth
                     }
-                }
-            }
-            .onGeometryChange(for: EdgeInsets.self, of: { proxy in
-                proxy.safeAreaInsets
-            }, action: { newValue in
-                if self.datesSelectionAndShowBannerMessage(configuration.model),
-                   self.safeAreaInsets.bottom >= 0.0,
-                   self.safeAreaInsets != newValue
-                {
-                    DispatchQueue.main.async {
-                        self.safeAreaInsets = newValue
-                    }
-                }
-            })
-            
-            if self.datesSelectionAndShowBannerMessage(configuration.model) {
-                CalendarBannerView(title: "DatesSelectionBannerMessageKey".localizedFioriString(), bottomPadding: self.safeAreaInsets.bottom) {
-                    self.showBannerMessage = false
                 }
             }
         })

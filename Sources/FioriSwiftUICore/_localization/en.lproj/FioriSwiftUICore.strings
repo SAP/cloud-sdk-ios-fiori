@@ -533,10 +533,6 @@
 /* XBUT: Multiple dates selected for .datesSelection style in Calendar view */
 "DatesSelectedFormatKey" = "%d Dates Selected";
 
-/* XBUT: Dates selection tips for .datesSelection style in Calendar view*/
-"DatesSelectionBannerMessageKey" = "Tap to select dates";
-//"DatesSelectionBannerMessageKey" = "Tap or swipe to select dates";
-
 /*XTIT: Title for card*/
 "Card title" = "Card title";
 
