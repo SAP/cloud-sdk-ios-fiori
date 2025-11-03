@@ -6,6 +6,7 @@ struct FioriButtonContentView: View {
     var body: some View {
         List {
             NavigationLink("FioriButton", destination: LazyView(FioriButtonExample()))
+            NavigationLink("ExtendableFioriButton", destination: LazyView(ExtendableFioriButtonExample()))
             NavigationLink("StatefulButtonStyle", destination: LazyView(StatefulButtonStyleExample()))
             NavigationLink("Button Tests", destination: LazyView(FioriButtonTestsExample()))
             NavigationLink("Button Style Toggle", destination: LazyView(FioriButtonStyleToggleExample()))
