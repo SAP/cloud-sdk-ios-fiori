@@ -201,10 +201,11 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                        calendar.compare(date, to: checkRange.lowerBound, toGranularity: .day) != .orderedAscending
                     {
                         configuration.model.selectedRange = checkRange.lowerBound ... date
+                        configuration.model.selectedDate = nil
                     } else {
                         configuration.model.selectedRange = nil
+                        configuration.model.selectedDate = date
                     }
-                    configuration.model.selectedDate = nil
                 } else if let boundDate = configuration.model.selectedDate {
                     let bounds = [boundDate, date].sorted()
                     if let first = bounds.first, let last = bounds.last {
