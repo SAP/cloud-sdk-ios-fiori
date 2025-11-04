@@ -3,6 +3,103 @@
 import Foundation
 import SwiftUI
 
+/// Card: Composite Component Protocol
+///
+/// The `_CardComponent` protocol defines the complete card structure.
+/// This protocol combines header, body, and footer components to create a comprehensive card layout
+/// that provides a complete container for displaying structured content with consistent styling and behavior.
+///
+/// ## Usage
+///
+/// This is the top-level component that combines all card sections into a unified interface.
+///
+/// ```swift
+/// Card {
+///     Image("attachment009")
+///         .resizable()
+///         .aspectRatio(contentMode: .fill)
+///         .frame(height: 145)
+/// } description: {
+///     Text("Title")
+/// } title: {
+///     Text("Title that goes to two lines before truncating")
+/// } subtitle: {
+///     Text("Subtitle that goes to multiple lines before truncating")
+/// } icons: {
+///     IconStack(icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+///                      TextOrIcon.icon(Image(systemName: "paperclip")),
+///                      TextOrIcon.text("1")])
+/// } detailImage: {
+///     Image("ProfilePic")
+///         .resizable()
+///         .clipShape(Circle())
+/// } headerAction: {
+///     FioriButton(title: "Action")
+/// } counter: {
+///     Text("1 of 3")
+/// } row1: {
+///     HStack {
+///         LabelItem(icon: Image(systemName: "exclamationmark.triangle.fill"), title: "Negative")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.negativeLabel))
+///             }
+///         LabelItem(title: "Critical")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.criticalLabel))
+///             }
+///         LabelItem(icon: Image(systemName: "checkmark.circle"), title: "Positive")
+///             .titleStyle { config in
+///                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
+///             }
+///     }
+/// } row2: {
+///     HStack {
+///         Text("256 reviews")
+///     }
+/// } row3: {
+///     HStack {
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///         Tag(verbatim: "Tag")
+///     }
+/// } kpi: {
+///     _KPIItem(KPIItemData.components([.icon(Image(systemName: "arrowtriangle.up.fill")),
+///                                      .unit("$"),
+///                                      .metric("26.9"),
+///                                      .unit("M")]))
+/// } kpiCaption: {
+///     Text("Revenue")
+/// } cardBody: {
+///     VStack(alignment: .leading, spacing: 4) {
+///         DataTable(model: tableModel)
+///             .frame(height: 80)
+///
+///         Divider()
+///
+///         TagExample(num: 4, withDot: true)
+///     }
+/// } action: {
+///     FioriButton(title: "Approve")
+/// } secondaryAction: {
+///     FioriButton(title: "Decline")
+/// }
+/// ```
+///
+/// ```swift
+/// Card(mediaImage: Image("attachment009"),
+///      description: "Title",
+///      title: "Title",
+///      subtitle: "Subtitle",
+///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],
+///      detailImage: Image("ProfilePic"),
+///      headerAction: FioriButton(title: "Action"),
+///      counter: "1 of 3",
+///      kpi: KPIItemData.components([.unit("$"), .metric("26.9"), .unit("M")]),
+///      kpiCaption: "Revenue",
+///      action: FioriButton(title: "Primary"),
+///      secondaryAction: FioriButton(title: "Secondary"))
+/// ```
+///
 public struct Card {
     let mediaImage: any View
     let description: any View
@@ -13,7 +110,9 @@ public struct Card {
     let headerAction: any View
     let counter: any View
     let flexItem: any View
-    /// Determine the position of the flexItem
+    /// Determines the position of the flex item within the header layout.
+    /// This property controls where flexible content is placed relative to other header elements.
+    /// Available positions include: `.aboveMainHeader`, `.aboveTitle`, `.betweenTitleAndSubtitle`, `.belowSubtitle`
     var flexItemPosition: FlexItemPositionType?
     let row1: any View
     let row2: any View

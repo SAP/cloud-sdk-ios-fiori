@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Nie ma jeszcze nic do wyświetlenia";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d Godz. %d Min";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "komunikaty";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "informacje";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "informacje";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "potwierdzenia";
