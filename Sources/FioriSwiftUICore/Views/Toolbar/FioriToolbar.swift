@@ -53,11 +53,6 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background {
-                self.sizeCheckView()
-                    .hidden()
-                    .accessibilityHidden(true)
-            }
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
                     if UIDevice.current.userInterfaceIdiom == .pad {
@@ -67,10 +62,12 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                         if LiquidGlassHelper.usesLiquidGlassUI {
                             self.toolbarContent()
                         } else {
-                            HStack(spacing: self.sizeHandler.defaultFixedPadding) {
+                            HStack(spacing: 0) {
                                 self.toolbarContent()
                             }
                         }
+                    } else {
+                        self.sizeCheckView()
                     }
                 }
             }
@@ -91,6 +88,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             let itemWidth = self.sizeHandler.itemsWidth[index].1
             if itemIndex >= 0 {
                 self.items.view(at: itemIndex)
+                    .fixedSize()
                     .frame(width: itemWidth)
                     .onChange(of: self.dynamicTypeSize) { _, _ in
                         self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
@@ -106,7 +104,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             }
             if !LiquidGlassHelper.usesLiquidGlassUI, index < self.sizeHandler.itemsWidth.count - 1 {
                 if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
-                    Spacer().frame(minWidth: 8)
+                    Spacer().frame(minWidth: self.sizeHandler.defaultFixedPadding)
                 } else {
                     Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
                 }
