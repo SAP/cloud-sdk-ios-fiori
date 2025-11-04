@@ -55,7 +55,7 @@ enum FioriOnboardingUtil {
     
     /// Get current supported type
     /// - Parameter height: The height should be got from GeometryReader
-    /// - Returns: Suppported Type
+    /// - Returns: Supported Type
     static func currentSupportedType(height: CGFloat) -> SupportedType {
         switch height {
         case 375 ... 440:

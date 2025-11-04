@@ -23,7 +23,7 @@ public protocol FormattedStringEditing: AnyObject {
      - parameter attrs: The default attributes for the formatted `NSAttributedString`.
      - parameter cursorPosition: The cursor position of a `UITextField` or other similar UI components.
 
-     - returns: A tupple containing the `NSAttributedString` after format, and the adjusted cursor position.
+     - returns: A tuple containing the `NSAttributedString` after format, and the adjusted cursor position.
 
      */
     func attributedString(for string: String, withDefaultAttributes attrs: [NSAttributedString.Key: Any]?, cursorPosition: Int) -> (formattedAttributedString: NSAttributedString?, adjustedCursorPosition: Int)?
@@ -35,13 +35,13 @@ public protocol FormattedStringEditing: AnyObject {
      - parameter string: The original string to be formatted.
      - parameter cursorPosition: The cursor position of a `UITextField` or other similar UI components.
 
-     - returns: A tupple containing the string after format, and the adjusted cursor position.
+     - returns: A tuple containing the string after format, and the adjusted cursor position.
 
      */
     func string(for string: String, cursorPosition: Int) -> (formattedString: String?, adjustedCursorPosition: Int)?
 
     /**
-     This function returns the string user typped from formatted string.
+     This function returns the string user typed from formatted string.
 
      This function is similar to the function with the same signature as in the standard iOS SDK `Formatter`.
 

@@ -20,35 +20,7 @@ public struct AttachmentBaseStyle: AttachmentStyle {
         .id("Attachment:Thumbnail\(configuration.attachmentInfo.primaryURL.absoluteString)")
         .accessibilityIdentifier("Attachment:Thumbnail\(configuration.attachmentInfo.primaryURL.absoluteString)")
         .accessibilityElement(children: .combine)
-        .onTapGesture {
-            configuration.onPreview?(configuration.attachmentInfo)
-        }
-        .ifApply(configuration.controlState == .normal || configuration.controlState == .readOnly) {
-            $0.accessibilityAction(named: NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview")) {
-                configuration.onPreview?(configuration.attachmentInfo)
-            }
-            .ifApply(configuration.controlState == .normal) {
-                $0.accessibilityAction(named: NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete")) {
-                    configuration.onDelete?(configuration.attachmentInfo)
-                }
-            }
-        }
-        .ifApply(configuration.controlState == .normal || configuration.controlState == .readOnly) {
-            $0.contextMenu {
-                Button {
-                    configuration.onPreview?(configuration.attachmentInfo)
-                } label: {
-                    Label(NSLocalizedString("Preview", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Preview"), systemImage: "viewfinder")
-                }
-                if configuration.controlState == .normal {
-                    Button(role: .destructive) {
-                        configuration.onDelete?(configuration.attachmentInfo)
-                    } label: {
-                        Label(NSLocalizedString("Delete", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Delete"), systemImage: "delete.left")
-                    }
-                }
-            }
-        }
+        .attachmentDefaultGuestures(configuration: configuration)
     }
 }
 

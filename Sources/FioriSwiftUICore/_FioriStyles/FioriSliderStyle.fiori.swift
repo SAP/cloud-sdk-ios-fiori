@@ -142,7 +142,7 @@ extension FioriSliderFioriStyle {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.fiori(forTextStyle: .subheadline))
                 .fontWeight(.semibold)
-                .foregroundStyle(self.isEnabled ? (self.stateObject.isFocused ? self.trailingTextFieldStyle.focusedBorderColor : Color.preferredColor(.primaryLabel)) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
                 .accessibilitySortPriority(self.fioriSliderConfiguration.isRangeSlider ? 7 : 0) // Need to set sort priority when the control was Range Slider
         }
     }
