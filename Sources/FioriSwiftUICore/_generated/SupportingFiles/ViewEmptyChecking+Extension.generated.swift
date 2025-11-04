@@ -28,6 +28,12 @@ extension AccessoryIcon: _ViewEmptyChecking {
     }
 }
 
+extension AccessoryView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension Action: _ViewEmptyChecking {
     public var isEmpty: Bool {
         action.isEmpty
@@ -613,6 +619,39 @@ extension HeaderChart: _ViewEmptyChecking {
 extension HelperText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         helperText.isEmpty
+    }
+}
+
+extension HierarchyIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            icon.isEmpty
+    }
+}
+
+extension HierarchyItemView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            footnote.isEmpty &&
+            icons.isEmpty &&
+            detailImage.isEmpty &&
+            status.isEmpty &&
+            hierarchyIndicator.isEmpty
+    }
+}
+
+extension HierarchyView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        header.isEmpty
+    }
+}
+
+extension HierarchyViewHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            leadingAccessory.isEmpty &&
+            trailingAccessory.isEmpty
     }
 }
 

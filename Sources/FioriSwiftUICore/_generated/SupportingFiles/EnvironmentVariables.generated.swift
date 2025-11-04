@@ -66,6 +66,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: AccessoryViewStyle
+
+struct AccessoryViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AccessoryViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var accessoryViewStyle: any AccessoryViewStyle {
+        self.accessoryViewStyleStack.last ?? .base
+    }
+
+    var accessoryViewStyleStack: [any AccessoryViewStyle] {
+        get {
+            self[AccessoryViewStyleStackKey.self]
+        }
+        set {
+            self[AccessoryViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ActionStyle
 
 struct ActionStyleStackKey: EnvironmentKey {
@@ -1784,6 +1805,90 @@ extension EnvironmentValues {
         }
         set {
             self[HelperTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+struct HierarchyIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyIndicatorStyle: any HierarchyIndicatorStyle {
+        self.hierarchyIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyIndicatorStyleStack: [any HierarchyIndicatorStyle] {
+        get {
+            self[HierarchyIndicatorStyleStackKey.self]
+        }
+        set {
+            self[HierarchyIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+struct HierarchyItemViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyItemViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyItemViewStyle: any HierarchyItemViewStyle {
+        self.hierarchyItemViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyItemViewStyleStack: [any HierarchyItemViewStyle] {
+        get {
+            self[HierarchyItemViewStyleStackKey.self]
+        }
+        set {
+            self[HierarchyItemViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+struct HierarchyViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyViewStyle: any HierarchyViewStyle {
+        self.hierarchyViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyViewStyleStack: [any HierarchyViewStyle] {
+        get {
+            self[HierarchyViewStyleStackKey.self]
+        }
+        set {
+            self[HierarchyViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+struct HierarchyViewHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyViewHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyViewHeaderStyle: any HierarchyViewHeaderStyle {
+        self.hierarchyViewHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyViewHeaderStyleStack: [any HierarchyViewHeaderStyle] {
+        get {
+            self[HierarchyViewHeaderStyleStackKey.self]
+        }
+        set {
+            self[HierarchyViewHeaderStyleStackKey.self] = newValue
         }
     }
 }

@@ -54,6 +54,23 @@ public extension View {
     }
 }
 
+// MARK: AccessoryViewStyle
+
+public extension View {
+    func accessoryViewStyle(_ style: some AccessoryViewStyle) -> some View {
+        self.transformEnvironment(\.accessoryViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func accessoryViewStyle(@ViewBuilder content: @escaping (AccessoryViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.accessoryViewStyleStack) { stack in
+            let style = AnyAccessoryViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ActionStyle
 
 public extension View {
@@ -1443,6 +1460,74 @@ public extension View {
     func helperTextStyle(@ViewBuilder content: @escaping (HelperTextConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.helperTextStyleStack) { stack in
             let style = AnyHelperTextStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+public extension View {
+    func hierarchyIndicatorStyle(_ style: some HierarchyIndicatorStyle) -> some View {
+        self.transformEnvironment(\.hierarchyIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func hierarchyIndicatorStyle(@ViewBuilder content: @escaping (HierarchyIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.hierarchyIndicatorStyleStack) { stack in
+            let style = AnyHierarchyIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+public extension View {
+    func hierarchyItemViewStyle(_ style: some HierarchyItemViewStyle) -> some View {
+        self.transformEnvironment(\.hierarchyItemViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func hierarchyItemViewStyle(@ViewBuilder content: @escaping (HierarchyItemViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.hierarchyItemViewStyleStack) { stack in
+            let style = AnyHierarchyItemViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+public extension View {
+    func hierarchyViewStyle(_ style: some HierarchyViewStyle) -> some View {
+        self.transformEnvironment(\.hierarchyViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func hierarchyViewStyle(@ViewBuilder content: @escaping (HierarchyViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.hierarchyViewStyleStack) { stack in
+            let style = AnyHierarchyViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+public extension View {
+    func hierarchyViewHeaderStyle(_ style: some HierarchyViewHeaderStyle) -> some View {
+        self.transformEnvironment(\.hierarchyViewHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func hierarchyViewHeaderStyle(@ViewBuilder content: @escaping (HierarchyViewHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.hierarchyViewHeaderStyleStack) { stack in
+            let style = AnyHierarchyViewHeaderStyle(content)
             stack.append(style)
         }
     }

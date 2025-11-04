@@ -206,7 +206,6 @@ struct ToolbarView: View {
                 FioriButton { _ in
                     Text(button.title)
                 }
-                .background(.yellow)
                 .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity).eraseToAnyFioriButtonStyle())
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             } else if button.type == 3 {
@@ -266,15 +265,6 @@ struct ToolbarView: View {
             mergedButtons.insert((1, self.primaryButtonText), at: 1)
         }
         return mergedButtons
-    }
-    
-    @ViewBuilder
-    func createHelperText() -> some View {
-        if self.helperText.isEmpty {
-            EmptyView()
-        } else {
-            Text(self.helperText)
-        }
     }
 }
 

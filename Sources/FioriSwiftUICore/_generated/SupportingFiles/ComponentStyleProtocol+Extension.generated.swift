@@ -234,6 +234,20 @@ public extension AccessoryIconStyle where Self == AccessoryIconFioriStyle {
     }
 }
 
+// MARK: AccessoryViewStyle
+
+public extension AccessoryViewStyle where Self == AccessoryViewBaseStyle {
+    static var base: AccessoryViewBaseStyle {
+        AccessoryViewBaseStyle()
+    }
+}
+
+public extension AccessoryViewStyle where Self == AccessoryViewFioriStyle {
+    static var fiori: AccessoryViewFioriStyle {
+        AccessoryViewFioriStyle()
+    }
+}
+
 // MARK: ActionStyle
 
 public extension ActionStyle where Self == ActionBaseStyle {
@@ -4172,6 +4186,314 @@ public extension HelperTextStyle where Self == HelperTextBaseStyle {
 public extension HelperTextStyle where Self == HelperTextFioriStyle {
     static var fiori: HelperTextFioriStyle {
         HelperTextFioriStyle()
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorBaseStyle {
+    static var base: HierarchyIndicatorBaseStyle {
+        HierarchyIndicatorBaseStyle()
+    }
+}
+
+public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorFioriStyle {
+    static var fiori: HierarchyIndicatorFioriStyle {
+        HierarchyIndicatorFioriStyle()
+    }
+}
+
+public struct HierarchyIndicatorTitleStyle: HierarchyIndicatorStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> some View {
+        HierarchyIndicator(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> HierarchyIndicatorTitleStyle {
+        HierarchyIndicatorTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyIndicatorTitleStyle {
+        let style = AnyTitleStyle(content)
+        return HierarchyIndicatorTitleStyle(style: style)
+    }
+}
+
+public struct HierarchyIndicatorIconStyle: HierarchyIndicatorStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> some View {
+        HierarchyIndicator(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> HierarchyIndicatorIconStyle {
+        HierarchyIndicatorIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> HierarchyIndicatorIconStyle {
+        let style = AnyIconStyle(content)
+        return HierarchyIndicatorIconStyle(style: style)
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewBaseStyle {
+    static var base: HierarchyItemViewBaseStyle {
+        HierarchyItemViewBaseStyle()
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewFioriStyle {
+    static var fiori: HierarchyItemViewFioriStyle {
+        HierarchyItemViewFioriStyle()
+    }
+}
+
+public struct HierarchyItemViewTitleStyle: HierarchyItemViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> HierarchyItemViewTitleStyle {
+        HierarchyItemViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyItemViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return HierarchyItemViewTitleStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewSubtitleStyle: HierarchyItemViewStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> HierarchyItemViewSubtitleStyle {
+        HierarchyItemViewSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HierarchyItemViewSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return HierarchyItemViewSubtitleStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewFootnoteStyle: HierarchyItemViewStyle {
+    let style: any FootnoteStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .footnoteStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> HierarchyItemViewFootnoteStyle {
+        HierarchyItemViewFootnoteStyle(style: style)
+    }
+
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> HierarchyItemViewFootnoteStyle {
+        let style = AnyFootnoteStyle(content)
+        return HierarchyItemViewFootnoteStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewIconsStyle: HierarchyItemViewStyle {
+    let style: any IconsStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .iconsStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewIconsStyle {
+    static func iconsStyle(_ style: some IconsStyle) -> HierarchyItemViewIconsStyle {
+        HierarchyItemViewIconsStyle(style: style)
+    }
+
+    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> HierarchyItemViewIconsStyle {
+        let style = AnyIconsStyle(content)
+        return HierarchyItemViewIconsStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewDetailImageStyle: HierarchyItemViewStyle {
+    let style: any DetailImageStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> HierarchyItemViewDetailImageStyle {
+        HierarchyItemViewDetailImageStyle(style: style)
+    }
+
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> HierarchyItemViewDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return HierarchyItemViewDetailImageStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewStatusStyle: HierarchyItemViewStyle {
+    let style: any StatusStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .statusStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewStatusStyle {
+    static func statusStyle(_ style: some StatusStyle) -> HierarchyItemViewStatusStyle {
+        HierarchyItemViewStatusStyle(style: style)
+    }
+
+    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> HierarchyItemViewStatusStyle {
+        let style = AnyStatusStyle(content)
+        return HierarchyItemViewStatusStyle(style: style)
+    }
+}
+
+public struct HierarchyItemViewAccessoryViewStyle: HierarchyItemViewStyle {
+    let style: any AccessoryViewStyle
+
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .accessoryViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyItemViewStyle where Self == HierarchyItemViewAccessoryViewStyle {
+    static func accessoryViewStyle(_ style: some AccessoryViewStyle) -> HierarchyItemViewAccessoryViewStyle {
+        HierarchyItemViewAccessoryViewStyle(style: style)
+    }
+
+    static func accessoryViewStyle(@ViewBuilder content: @escaping (AccessoryViewConfiguration) -> some View) -> HierarchyItemViewAccessoryViewStyle {
+        let style = AnyAccessoryViewStyle(content)
+        return HierarchyItemViewAccessoryViewStyle(style: style)
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+public extension HierarchyViewStyle where Self == HierarchyViewBaseStyle {
+    static var base: HierarchyViewBaseStyle {
+        HierarchyViewBaseStyle()
+    }
+}
+
+public extension HierarchyViewStyle where Self == HierarchyViewFioriStyle {
+    static var fiori: HierarchyViewFioriStyle {
+        HierarchyViewFioriStyle()
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderBaseStyle {
+    static var base: HierarchyViewHeaderBaseStyle {
+        HierarchyViewHeaderBaseStyle()
+    }
+}
+
+public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderFioriStyle {
+    static var fiori: HierarchyViewHeaderFioriStyle {
+        HierarchyViewHeaderFioriStyle()
+    }
+}
+
+public struct HierarchyViewHeaderTitleStyle: HierarchyViewHeaderStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: HierarchyViewHeaderConfiguration) -> some View {
+        HierarchyViewHeader(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> HierarchyViewHeaderTitleStyle {
+        HierarchyViewHeaderTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyViewHeaderTitleStyle {
+        let style = AnyTitleStyle(content)
+        return HierarchyViewHeaderTitleStyle(style: style)
+    }
+}
+
+public struct HierarchyViewHeaderLeadingAccessoryStyle: HierarchyViewHeaderStyle {
+    let style: any LeadingAccessoryStyle
+
+    public func makeBody(_ configuration: HierarchyViewHeaderConfiguration) -> some View {
+        HierarchyViewHeader(configuration)
+            .leadingAccessoryStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderLeadingAccessoryStyle {
+    static func leadingAccessoryStyle(_ style: some LeadingAccessoryStyle) -> HierarchyViewHeaderLeadingAccessoryStyle {
+        HierarchyViewHeaderLeadingAccessoryStyle(style: style)
+    }
+
+    static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderLeadingAccessoryStyle {
+        let style = AnyLeadingAccessoryStyle(content)
+        return HierarchyViewHeaderLeadingAccessoryStyle(style: style)
+    }
+}
+
+public struct HierarchyViewHeaderTrailingAccessoryStyle: HierarchyViewHeaderStyle {
+    let style: any TrailingAccessoryStyle
+
+    public func makeBody(_ configuration: HierarchyViewHeaderConfiguration) -> some View {
+        HierarchyViewHeader(configuration)
+            .trailingAccessoryStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderTrailingAccessoryStyle {
+    static func trailingAccessoryStyle(_ style: some TrailingAccessoryStyle) -> HierarchyViewHeaderTrailingAccessoryStyle {
+        HierarchyViewHeaderTrailingAccessoryStyle(style: style)
+    }
+
+    static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderTrailingAccessoryStyle {
+        let style = AnyTrailingAccessoryStyle(content)
+        return HierarchyViewHeaderTrailingAccessoryStyle(style: style)
     }
 }
 

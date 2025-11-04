@@ -51,6 +51,22 @@ extension AccessoryIconStyle {
     }
 }
 
+// MARK: AccessoryViewStyle
+
+struct ResolvedAccessoryViewStyle<Style: AccessoryViewStyle>: View {
+    let style: Style
+    let configuration: AccessoryViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension AccessoryViewStyle {
+    func resolve(configuration: AccessoryViewConfiguration) -> some View {
+        ResolvedAccessoryViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: ActionStyle
 
 struct ResolvedActionStyle<Style: ActionStyle>: View {
@@ -1360,6 +1376,70 @@ struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
 extension HelperTextStyle {
     func resolve(configuration: HelperTextConfiguration) -> some View {
         ResolvedHelperTextStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+struct ResolvedHierarchyIndicatorStyle<Style: HierarchyIndicatorStyle>: View {
+    let style: Style
+    let configuration: HierarchyIndicatorConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HierarchyIndicatorStyle {
+    func resolve(configuration: HierarchyIndicatorConfiguration) -> some View {
+        ResolvedHierarchyIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+struct ResolvedHierarchyItemViewStyle<Style: HierarchyItemViewStyle>: View {
+    let style: Style
+    let configuration: HierarchyItemViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HierarchyItemViewStyle {
+    func resolve(configuration: HierarchyItemViewConfiguration) -> some View {
+        ResolvedHierarchyItemViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+struct ResolvedHierarchyViewStyle<Style: HierarchyViewStyle>: View {
+    let style: Style
+    let configuration: HierarchyViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HierarchyViewStyle {
+    func resolve(configuration: HierarchyViewConfiguration) -> some View {
+        ResolvedHierarchyViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+struct ResolvedHierarchyViewHeaderStyle<Style: HierarchyViewHeaderStyle>: View {
+    let style: Style
+    let configuration: HierarchyViewHeaderConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension HierarchyViewHeaderStyle {
+    func resolve(configuration: HierarchyViewHeaderConfiguration) -> some View {
+        ResolvedHierarchyViewHeaderStyle(style: self, configuration: configuration)
     }
 }
 
