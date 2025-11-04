@@ -2,26 +2,26 @@ import FioriSwiftUICore
 import SwiftUI
 
 class CalendarTestSetting: ObservableObject {
-    @Published var showsWeekNumber: Bool = true
+    @Published var showsWeekNumber: Bool = false
     @Published var firstWeekDay: Int = Calendar.autoupdatingCurrent.firstWeekday
-    @Published var testsWeekNumberTintColor: Bool = true
+    @Published var testsWeekNumberTintColor: Bool = false
     @Published var testsDisabledDates: Bool = false
-    @Published var testsDisabledDatesWithBefore: Bool = true
-    @Published var testsDisabledDatesWithAfter: Bool = true
-    @Published var testsDisabledDatesWithToday: Bool = true
-    @Published var testsDisabledDatesWithWeekends: Bool = true
-    @Published var testsEnLocalOnAlternateCalendar: Bool = true
-    @Published var testsAlternateCalendar: AlternateCalendarType = .chinese
-    @Published var testsEventViews: Bool = true
-    @Published var customizesEventViews: Bool = true
-    @Published var testsCustomCalBgColor: Bool = true
+    @Published var testsDisabledDatesWithBefore: Bool = false
+    @Published var testsDisabledDatesWithAfter: Bool = false
+    @Published var testsDisabledDatesWithToday: Bool = false
+    @Published var testsDisabledDatesWithWeekends: Bool = false
+    @Published var testsEnLocalOnAlternateCalendar: Bool = false
+    @Published var testsAlternateCalendar: AlternateCalendarType = .none
+    @Published var testsEventViews: Bool = false
+    @Published var customizesEventViews: Bool = false
+    @Published var testsCustomCalBgColor: Bool = false
     @Published var rangePreselectionType: Int = 1
     @Published var languageCode: Int = 0
     
     // not handled as follows:
     @Published var preselectDateTriggersDelegateCall = false
     @Published var expandableStyleStartsWithWeek = false
-    @Published var showsOutOfMonthStyleForWeekView = false
+    @Published var showsOutOfMonthDatesStyleForWeekView = false
     
     var testLanguage: String? {
         switch self.languageCode {
@@ -156,7 +156,7 @@ struct CalendarTestSettingExample: View {
             Toggle("Customize Calendar Background Color", isOn: self.$settings.testsCustomCalBgColor)
 //            Toggle("Preselect date triggers delegate call", isOn: self.$settings.preselectDateTriggersDelegateCall)
 //            Toggle("Expandable style starts with week", isOn: self.$settings.expandableStyleStartsWithWeek)
-//            Toggle("Shows out-of-month style for week", isOn: self.$settings.showsOutOfMonthStyleForWeekView)
+//            Toggle("Shows out-of-month style for week", isOn: self.$settings.showsOutOfMonthDatesStyleForWeekView)
             Picker("Preselect Range", selection: self.$settings.rangePreselectionType) {
                 ForEach(0 ..< self.rangePreselections.count, id: \.self) { index in
                     Text(self.rangePreselections[index])

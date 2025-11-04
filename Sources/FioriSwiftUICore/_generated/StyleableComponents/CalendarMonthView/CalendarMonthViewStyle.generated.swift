@@ -27,8 +27,8 @@ public struct CalendarMonthViewConfiguration {
     public let model: CalendarMonthModel
     public let startDate: Date
     public let endDate: Date
-    public let showMonthHeader: Bool
-    public let showOutOfMonth: Bool
+    public let showsMonthHeader: Bool
+    public let showsOutOfMonthDates: Bool
     public let selectedDate: Date?
     public let selectedDates: Set<Date>?
     public let selectedRange: ClosedRange<Date>?

@@ -63,7 +63,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         LazyHStack {
                             ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
                                 let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: configuration.model.showMonthHeader, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: configuration.model.showsMonthHeader, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                 }, customEventView: configuration.customEventView)
                                     .frame(width: self.availableWidth - paddingOffset * 2)
@@ -100,7 +100,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         LazyVStack {
                             ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
                                 let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showMonthHeader: configuration.model.showMonthHeader, showOutOfMonth: configuration.model.showOutOfMonth, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: configuration.model.showsMonthHeader, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                 }, customEventView: configuration.customEventView)
                                     .fioriSizeReader { newValue in

@@ -11,7 +11,7 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
     
     public func makeBody(_ configuration: CalendarMonthViewConfiguration) -> some View {
         VStack(spacing: 0, content: {
-            if configuration.showMonthHeader {
+            if configuration.showsMonthHeader {
                 Text(self.monthText(configuration))
                     .font(.fiori(fixedSize: 17 * self.scaleForSizeChange, weight: .semibold))
                     .foregroundStyle(self.monthHeaderForegroundStyle)
@@ -20,7 +20,7 @@ public struct CalendarMonthViewBaseStyle: CalendarMonthViewStyle {
             }
             
             ForEach(configuration.model.weeks, id: \.self) { info in
-                CalendarWeekView(calendarStyle: configuration.calendarStyle, weekInfo: info, startDate: configuration.startDate, endDate: configuration.endDate, showOutOfMonth: configuration.showOutOfMonth, selectedDate: configuration.selectedDate, selectedDates: configuration.selectedDates, selectedRange: configuration.selectedRange, disabledDates: configuration.disabledDates, dayTappedCallback: configuration.dayTappedCallback, customEventView: configuration.customEventView)
+                CalendarWeekView(calendarStyle: configuration.calendarStyle, weekInfo: info, startDate: configuration.startDate, endDate: configuration.endDate, showsOutOfMonthDates: configuration.showsOutOfMonthDates, selectedDate: configuration.selectedDate, selectedDates: configuration.selectedDates, selectedRange: configuration.selectedRange, disabledDates: configuration.disabledDates, dayTappedCallback: configuration.dayTappedCallback, customEventView: configuration.customEventView)
             }
         })
     }

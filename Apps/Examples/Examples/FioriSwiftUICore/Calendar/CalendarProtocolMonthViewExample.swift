@@ -48,7 +48,7 @@ struct CalendarProtocolMonthViewExample: View {
             CalendarWeekInfo(year: year, month: month, weekNumber: 43, dates: [self.fm.date(from: "2025 10 26")!, self.fm.date(from: "2025 10 27")!, self.fm.date(from: "2025 10 28")!, self.fm.date(from: "2025 10 29")!, self.fm.date(from: "2025 10 30")!, self.fm.date(from: "2025 10 31")!, self.fm.date(from: "2025 11 01")!])
         ]
         let model = CalendarMonthModel(year: year, month: month, weeks: weeks)
-        CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, selectedDate: self.selectedDate, disabledDates: disabledDates, dayTappedCallback: { date, state in
+        CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, selectedDate: self.selectedDate, disabledDates: disabledDates, dayTappedCallback: { date, state in
             print("Tapped date:\(date), state:\(state)")
             self.selectedDate = date
         }) { _ in

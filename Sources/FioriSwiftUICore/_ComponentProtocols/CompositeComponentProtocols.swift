@@ -3280,7 +3280,7 @@ protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
 ///     self.fm.date(from: "2025 11 01")!
 /// ])
 /// @State var selectedDate: Date? = .now
-/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showOutOfMonth: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
+/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showsOutOfMonthDates: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
 ///     print("Tap on a date:\(date), with state:\(state)")
 ///     self.selectedDate = date
 /// }, customEventView: { date in
@@ -3308,7 +3308,7 @@ protocol _CalendarWeekViewComponent {
     
     /// Whether to show a day or not when the day is in `.outOfMonth` state.
     // sourcery: default.value = true
-    var showOutOfMonth: Bool { get }
+    var showsOutOfMonthDates: Bool { get }
     
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
     // sourcery: default.value = nil
@@ -3386,7 +3386,7 @@ protocol _CalendarWeekViewComponent {
 ///     let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
 ///         print("Tapped date:\(date), state:\(state)")
 ///     }
-///     CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+///     CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
 ///         Circle()
 ///     }
 ///     .background(
@@ -3415,11 +3415,11 @@ protocol _CalendarMonthViewComponent {
     
     /// Whether to show the month header or not. The default is false.
     // sourcery: default.value = false
-    var showMonthHeader: Bool { get }
+    var showsMonthHeader: Bool { get }
     
     /// Whether to show a day or not when the day is in `.outOfMonth` state. The default is true.
     // sourcery: default.value = true
-    var showOutOfMonth: Bool { get }
+    var showsOutOfMonthDates: Bool { get }
     
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
     // sourcery: default.value = nil

@@ -36,7 +36,7 @@ struct CalendarProtocolWeekViewExample: View {
             self.fm.date(from: "2025 10 31")!,
             self.fm.date(from: "2025 11 01")!
         ])
-        CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showOutOfMonth: true, selectedDate: self.selectedDate, dayTappedCallback: { date, state in
+        CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showsOutOfMonthDates: true, selectedDate: self.selectedDate, dayTappedCallback: { date, state in
             print("Tap on a date:\(date), with state:\(state)")
             self.selectedDate = date
         }, customEventView: { _ in

@@ -85,11 +85,11 @@ struct CalendarExamples: View {
                     )
                     .environmentObject(self.settings)
                 }
-                NavigationLink("Default weekStartDay: Mon (Hide month header)") {
+                NavigationLink("Default weekStartDay: Mon (Show month header)") {
                     CalendarPersistentPreselectDateTestExample(
                         isPersistentSelection: false,
                         firstWeekday: 2,
-                        showMonthHeader: false
+                        showsMonthHeader: true
                     )
                     .environmentObject(self.settings)
                 }

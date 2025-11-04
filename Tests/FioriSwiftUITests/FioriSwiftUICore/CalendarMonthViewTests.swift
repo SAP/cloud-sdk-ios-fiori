@@ -35,8 +35,8 @@ final class CalendarMonthViewTests: XCTestCase {
         XCTAssertEqual(view.model.month, 10)
         XCTAssertEqual(view.startDate, startDate)
         XCTAssertEqual(view.endDate, endDate)
-        XCTAssertFalse(view.showMonthHeader)
-        XCTAssertTrue(view.showOutOfMonth)
+        XCTAssertFalse(view.showsMonthHeader)
+        XCTAssertTrue(view.showsOutOfMonthDates)
         XCTAssertNil(view.selectedDate)
         XCTAssertNil(view.selectedDates)
         XCTAssertNil(view.selectedRange)
@@ -66,7 +66,7 @@ final class CalendarMonthViewTests: XCTestCase {
         let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
             print("Tapped date:\(date), state:\(state)")
         }
-        let view = CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let view = CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         
@@ -76,8 +76,8 @@ final class CalendarMonthViewTests: XCTestCase {
         XCTAssertEqual(view.model.month, 10)
         XCTAssertEqual(view.startDate, startDate)
         XCTAssertEqual(view.endDate, endDate)
-        XCTAssertTrue(view.showMonthHeader)
-        XCTAssertTrue(view.showOutOfMonth)
+        XCTAssertTrue(view.showsMonthHeader)
+        XCTAssertTrue(view.showsOutOfMonthDates)
         XCTAssertEqual(view.selectedDate, selectedDate)
         XCTAssertNil(view.selectedDates)
         XCTAssertNil(view.selectedRange)
@@ -109,7 +109,7 @@ final class CalendarMonthViewTests: XCTestCase {
         let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
             print("Tapped date:\(date), state:\(state)")
         }
-        return CalendarMonthViewConfiguration(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, showOutOfMonth: true, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        return CalendarMonthViewConfiguration(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, showsOutOfMonthDates: true, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
     }
@@ -121,8 +121,8 @@ final class CalendarMonthViewTests: XCTestCase {
         XCTAssertEqual(self.configuration.model.month, 10)
         XCTAssertEqual(self.configuration.startDate, self.configuration.startDate)
         XCTAssertEqual(self.configuration.endDate, self.configuration.endDate)
-        XCTAssertTrue(self.configuration.showMonthHeader)
-        XCTAssertTrue(self.configuration.showOutOfMonth)
+        XCTAssertTrue(self.configuration.showsMonthHeader)
+        XCTAssertTrue(self.configuration.showsOutOfMonthDates)
         XCTAssertEqual(self.configuration.selectedDate, self.configuration.selectedDate)
         XCTAssertNil(self.configuration.selectedDates)
         XCTAssertNil(self.configuration.selectedRange)
@@ -173,7 +173,7 @@ final class CalendarMonthViewTests: XCTestCase {
         let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
             print("Tapped date:\(date), state:\(state)")
         }
-        let configuration = CalendarMonthViewConfiguration(calendarStyle: .datesSelection, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, showOutOfMonth: true, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration = CalendarMonthViewConfiguration(calendarStyle: .datesSelection, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, showsOutOfMonthDates: true, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         let view = CalendarMonthView(configuration)
@@ -203,7 +203,7 @@ final class CalendarMonthViewTests: XCTestCase {
         let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
             print("Tapped date:\(date), state:\(state)")
         }
-        let configuration = CalendarMonthViewConfiguration(calendarStyle: .rangeSelection, model: model, startDate: startDate, endDate: endDate, showMonthHeader: true, showOutOfMonth: true, selectedDate: nil, selectedDates: nil, selectedRange: selectedRange, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration = CalendarMonthViewConfiguration(calendarStyle: .rangeSelection, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, showsOutOfMonthDates: true, selectedDate: nil, selectedDates: nil, selectedRange: selectedRange, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         let view = CalendarMonthView(configuration)

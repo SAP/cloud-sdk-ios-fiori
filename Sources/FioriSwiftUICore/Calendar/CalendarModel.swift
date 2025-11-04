@@ -36,9 +36,9 @@ public class CalendarModel {
     /// This property indicates whether the month header should display.
     ///
     /// It's available when the style is `.month`, `.expandable`, `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
-    /// It's true by default when the style is `.month`, `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
-    /// It's false by default when the style is `.expandable`.
-    let showMonthHeader: Bool
+    /// It's true by default when the style is `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
+    /// It's false by default when the style is `.expandable` or `.month`, .
+    let showsMonthHeader: Bool
     
     /// The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
     public var firstWeekday: Int {
@@ -112,9 +112,9 @@ public class CalendarModel {
     ///   - isPersistentSelection: Boolean indicates whether or not a selected date stays selected when the user scrolls away to another set of dates. The default is false.
     ///   - scrollToDate: The property is used to scroll to customize date. Developer can use this property to display whatever date in the available date range.
     ///   - firstWeekday: The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
-    ///   - showMonthHeader: This property indicates whether the month header should display.
+    ///   - showsMonthHeader: This property indicates whether the month header should display.
     ///   - expandableStyleInWeekMode: This property indicates whether the expandable style in week mode first. Default is false. Only available when style is `.expandable`.
-    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil, showMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
+    public init(calendarStyle: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, selectedDate: Date? = nil, selectedDates: Set<Date>? = nil, selectedRange: ClosedRange<Date>? = nil, disabledDates: CalendarDisabledDates? = nil, isPersistentSelection: Bool = false, scrollToDate: Date? = nil, firstWeekday: Int? = nil, showsMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
         self.calendarStyle = calendarStyle
         self.displayDateAtStartup = displayDateAtStartup
         self.selectedDate = selectedDate
@@ -187,7 +187,7 @@ public class CalendarModel {
         self.startDate = result.startDate
         self.endDate = result.endDate
         
-        self.showMonthHeader = showMonthHeader ?? (calendarStyle != .expandable)
+        self.showsMonthHeader = showsMonthHeader ?? (![.expandable, .month].contains(calendarStyle))
         self.isExpanded = !expandableStyleInWeekMode
         
         self.handleWeekInfo()
@@ -494,7 +494,7 @@ public class CalendarModel {
         }
     }
     
-    var showOutOfMonth: Bool {
+    var showsOutOfMonthDates: Bool {
         let notIncludeConditions: [CalendarStyle] = [
             .datesSelection,
             .rangeSelection,

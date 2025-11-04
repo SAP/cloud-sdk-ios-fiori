@@ -25,7 +25,7 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
                 let day = Calendar.autoupdatingCurrent.component(.day, from: date)
                 let state = self.dayState(configuration, date)
                 
-                if state == .outOfMonth, !configuration.showOutOfMonth {
+                if state == .outOfMonth, !configuration.showsOutOfMonthDates {
                     Spacer(minLength: 0)
                 } else {
                     CalendarDayView(title: AttributedString("\(day)"), subtitle: self.getSecondaryDayTitle(date), isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: configuration.customEventView(date))

@@ -39,7 +39,7 @@ import SwiftUI
 ///     self.fm.date(from: "2025 11 01")!
 /// ])
 /// @State var selectedDate: Date? = .now
-/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showOutOfMonth: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
+/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showsOutOfMonthDates: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
 ///     print("Tap on a date:\(date), with state:\(state)")
 ///     self.selectedDate = date
 /// }, customEventView: { date in
@@ -61,7 +61,7 @@ public struct CalendarWeekView {
     /// The end date of the calendar.
     let endDate: Date
     /// Whether to show a day or not when the day is in `.outOfMonth` state.
-    let showOutOfMonth: Bool
+    let showsOutOfMonthDates: Bool
     /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
     let selectedDate: Date?
     /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
@@ -85,7 +85,7 @@ public struct CalendarWeekView {
                 weekInfo: CalendarWeekInfo,
                 startDate: Date,
                 endDate: Date,
-                showOutOfMonth: Bool = true,
+                showsOutOfMonthDates: Bool = true,
                 selectedDate: Date? = nil,
                 selectedDates: Set<Date>? = nil,
                 selectedRange: ClosedRange<Date>? = nil,
@@ -98,7 +98,7 @@ public struct CalendarWeekView {
         self.weekInfo = weekInfo
         self.startDate = startDate
         self.endDate = endDate
-        self.showOutOfMonth = showOutOfMonth
+        self.showsOutOfMonthDates = showsOutOfMonthDates
         self.selectedDate = selectedDate
         self.selectedDates = selectedDates
         self.selectedRange = selectedRange
@@ -123,7 +123,7 @@ public extension CalendarWeekView {
         self.weekInfo = configuration.weekInfo
         self.startDate = configuration.startDate
         self.endDate = configuration.endDate
-        self.showOutOfMonth = configuration.showOutOfMonth
+        self.showsOutOfMonthDates = configuration.showsOutOfMonthDates
         self.selectedDate = configuration.selectedDate
         self.selectedDates = configuration.selectedDates
         self.selectedRange = configuration.selectedRange
@@ -140,7 +140,7 @@ extension CalendarWeekView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, weekInfo: self.weekInfo, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, weekInfo: self.weekInfo, startDate: self.startDate, endDate: self.endDate, showsOutOfMonthDates: self.showsOutOfMonthDates, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView)).typeErased
                 .transformEnvironment(\.calendarWeekViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -158,7 +158,7 @@ private extension CalendarWeekView {
     }
 
     func defaultStyle() -> some View {
-        CalendarWeekView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, weekInfo: self.weekInfo, startDate: self.startDate, endDate: self.endDate, showOutOfMonth: self.showOutOfMonth, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
+        CalendarWeekView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, weekInfo: self.weekInfo, startDate: self.startDate, endDate: self.endDate, showsOutOfMonthDates: self.showsOutOfMonthDates, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)
             .calendarWeekViewStyle(CalendarWeekViewFioriStyle.ContentFioriStyle())
             .typeErased

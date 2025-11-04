@@ -18,11 +18,11 @@ struct CalendarPersistentPreselectDateTestExample: View {
     
     @State var model: CalendarModel
     
-    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int? = nil, showScrollToDate: Bool = false, showMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
+    init(style: CalendarStyle = .month, startDate: Date? = nil, endDate: Date? = nil, displayDateAtStartup: Date? = nil, scrollToDate: Date? = nil, selectedDate: Date? = nil, isPersistentSelection: Bool = true, title: String? = nil, firstWeekday: Int? = nil, showScrollToDate: Bool = false, showsMonthHeader: Bool? = nil, expandableStyleInWeekMode: Bool = false) {
         self.title = title
         self.firstWeekday = firstWeekday
         self.showScrollToDate = showScrollToDate
-        _model = State(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate, showMonthHeader: showMonthHeader, expandableStyleInWeekMode: expandableStyleInWeekMode))
+        _model = State(wrappedValue: CalendarModel(calendarStyle: style, startDate: startDate, endDate: endDate, displayDateAtStartup: displayDateAtStartup, selectedDate: selectedDate, isPersistentSelection: isPersistentSelection, scrollToDate: scrollToDate, showsMonthHeader: showsMonthHeader, expandableStyleInWeekMode: expandableStyleInWeekMode))
     }
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass

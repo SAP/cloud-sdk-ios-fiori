@@ -44,7 +44,7 @@ final class CalendarWeekViewTests: XCTestCase {
         XCTAssertNotNil(weekView)
         XCTAssertEqual(weekView.startDate, startDate)
         XCTAssertEqual(weekView.endDate, endDate)
-        XCTAssertTrue(weekView.showOutOfMonth)
+        XCTAssertTrue(weekView.showsOutOfMonthDates)
         XCTAssertNil(weekView.selectedDate)
         XCTAssertNil(weekView.selectedDates)
         XCTAssertNil(weekView.selectedRange)
@@ -61,12 +61,12 @@ final class CalendarWeekViewTests: XCTestCase {
         let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
             print("Tapped date:\(date), state:\(state)")
         }
-        let weekView = CalendarWeekView(calendarStyle: .month, weekInfo: weekInfo, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let weekView = CalendarWeekView(calendarStyle: .month, weekInfo: weekInfo, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
         }
         XCTAssertNotNil(weekView)
         XCTAssertEqual(weekView.startDate, startDate)
         XCTAssertEqual(weekView.endDate, endDate)
-        XCTAssertFalse(weekView.showOutOfMonth)
+        XCTAssertFalse(weekView.showsOutOfMonthDates)
         XCTAssertEqual(weekView.selectedDate, selectedDate)
         XCTAssertTrue(disabledDates.isDisabled(self.weekInfo.dates.first!))
         XCTAssertFalse(disabledDates.isDisabled(self.weekInfo.dates.last!))
@@ -93,13 +93,13 @@ final class CalendarWeekViewTests: XCTestCase {
             self.fm.date(from: "2025 11 01")!
         ])
         
-        let configuration = CalendarWeekViewConfiguration(calendarStyle: .month, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration = CalendarWeekViewConfiguration(calendarStyle: .month, weekInfo: info, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         XCTAssertNotNil(configuration)
         XCTAssertEqual(configuration.startDate, startDate)
         XCTAssertEqual(configuration.endDate, endDate)
-        XCTAssertFalse(configuration.showOutOfMonth)
+        XCTAssertFalse(configuration.showsOutOfMonthDates)
         XCTAssertEqual(configuration.selectedDate, selectedDate)
         XCTAssertTrue(disabledDates.isDisabled(self.weekInfo.dates.first!))
         XCTAssertFalse(disabledDates.isDisabled(self.weekInfo.dates.last!))
@@ -123,7 +123,7 @@ final class CalendarWeekViewTests: XCTestCase {
             self.fm.date(from: "2025 11 01")!
         ])
         
-        let configuration2 = CalendarWeekViewConfiguration(calendarStyle: .fullScreenMonth, weekInfo: info2, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration2 = CalendarWeekViewConfiguration(calendarStyle: .fullScreenMonth, weekInfo: info2, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: selectedDate, selectedDates: nil, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         let style2 = CalendarWeekViewBaseStyle()
@@ -154,7 +154,7 @@ final class CalendarWeekViewTests: XCTestCase {
             self.fm.date(from: "2025 11 01")!
         ])
         
-        return CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        return CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
     }
@@ -178,13 +178,13 @@ final class CalendarWeekViewTests: XCTestCase {
             self.fm.date(from: "2025 11 01")!
         ])
         
-        let configuration = CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration = CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         XCTAssertNotNil(configuration)
         XCTAssertEqual(configuration.startDate, startDate)
         XCTAssertEqual(configuration.endDate, endDate)
-        XCTAssertFalse(configuration.showOutOfMonth)
+        XCTAssertFalse(configuration.showsOutOfMonthDates)
         XCTAssertEqual(configuration.selectedDates, selectedDates)
         XCTAssertTrue(disabledDates.isDisabled(self.weekInfo.dates.first!))
         XCTAssertFalse(disabledDates.isDisabled(self.weekInfo.dates.last!))
@@ -224,7 +224,7 @@ final class CalendarWeekViewTests: XCTestCase {
             print("Tapped date:\(date), state:\(state)")
         }
         
-        let configuration = CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback, customEventView: { _ in
+        let configuration = CalendarWeekViewConfiguration(calendarStyle: .datesSelection, weekInfo: info, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: nil, selectedDates: selectedDates, selectedRange: nil, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback, customEventView: { _ in
             EmptyView()
         })
         
@@ -252,13 +252,13 @@ final class CalendarWeekViewTests: XCTestCase {
             self.fm.date(from: "2025 11 01")!
         ])
         
-        let configuration = CalendarWeekViewConfiguration(calendarStyle: .rangeSelection, weekInfo: info, startDate: startDate, endDate: endDate, showOutOfMonth: false, selectedDate: nil, selectedDates: nil, selectedRange: selectedRange, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+        let configuration = CalendarWeekViewConfiguration(calendarStyle: .rangeSelection, weekInfo: info, startDate: startDate, endDate: endDate, showsOutOfMonthDates: false, selectedDate: nil, selectedDates: nil, selectedRange: selectedRange, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
             Circle()
         }
         XCTAssertNotNil(configuration)
         XCTAssertEqual(configuration.startDate, startDate)
         XCTAssertEqual(configuration.endDate, endDate)
-        XCTAssertFalse(configuration.showOutOfMonth)
+        XCTAssertFalse(configuration.showsOutOfMonthDates)
         XCTAssertEqual(configuration.selectedRange, selectedRange)
         XCTAssertTrue(disabledDates.isDisabled(self.weekInfo.dates.first!))
         XCTAssertFalse(disabledDates.isDisabled(self.weekInfo.dates.last!))

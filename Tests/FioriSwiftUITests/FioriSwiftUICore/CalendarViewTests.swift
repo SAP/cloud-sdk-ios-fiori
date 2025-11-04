@@ -42,7 +42,7 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertEqual(model.title, "Sep 2025")
         XCTAssertFalse(model.isDragging)
         XCTAssertTrue(model.isExpanded)
-        XCTAssertTrue(model.showOutOfMonth)
+        XCTAssertTrue(model.showsOutOfMonthDates)
         XCTAssertFalse(model.showFullScreen)
         
         model.scrollPosition = model.scrollPosition! + 1
