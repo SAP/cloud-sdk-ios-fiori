@@ -101,6 +101,7 @@ extension WritingAssistantFormFioriStyle {
                 .downVoteActionStyle(DownVoteButtonSelectedStyle(isSelected: self.context.feedbackDownvoted))
                 .fioriButtonStyle(AIVoteActionButtonStyle())
                 .accessibilityLabel(NSLocalizedString("Negative feedback", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Negative feedback"))
+                .accessibilityAddTraits(.isButton)
         }
     }
     
