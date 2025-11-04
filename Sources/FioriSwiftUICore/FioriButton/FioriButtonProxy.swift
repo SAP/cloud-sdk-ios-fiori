@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// /// A closure that creates and configures the underlying standard `Button<EmptyView>` used by `FioriButton`.
+/// A closure that creates and configures the underlying standard `Button<EmptyView>` used by `FioriButton`.
 /// - Parameter action: The Fiori-specific action to inject into the button.
 /// - Returns: A fully configured `Button<EmptyView>` (e.g., with init params like `role`).
 public typealias ButtonCreator = (@escaping () -> Void) -> Button<EmptyView>
