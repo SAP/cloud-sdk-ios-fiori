@@ -52,47 +52,47 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        content.background {
-            self.sizeCheckView()
-                .hidden()
-                .accessibilityHidden(true)
-        }
-        .toolbar {
-            if LiquidGlassHelper.usesLiquidGlassUI {
-                #if !os(visionOS)
-                    if #available(iOS 26.0, *) {
-                        if UIDevice.current.userInterfaceIdiom == .pad {
-                            ToolbarSpacer(.flexible, placement: .bottomBar)
+        content
+            .toolbar {
+                if LiquidGlassHelper.usesLiquidGlassUI {
+                    #if !os(visionOS)
+                        if #available(iOS 26.0, *) {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                ToolbarSpacer(.flexible, placement: .bottomBar)
+                            }
                         }
-                    }
-                #endif
-                ToolbarItemGroup(placement: .bottomBar) {
-                    if self.sizeHandler.needLayoutSubviews {
-                        self.toolbarContent()
-                    }
-                }
-            } else {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        Spacer()
-                            .frame(width: 500)
-                    }
-                    if self.sizeHandler.needLayoutSubviews {
-                        HStack(spacing: self.sizeHandler.defaultFixedPadding) {
+                    #endif
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        if self.sizeHandler.needLayoutSubviews {
                             self.toolbarContent()
+                        } else {
+                            self.sizeCheckView()
+                        }
+                    }
+                } else {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            Spacer()
+                                .frame(width: 500)
+                        }
+                        if self.sizeHandler.needLayoutSubviews {
+                            HStack(spacing: 0) {
+                                self.toolbarContent()
+                            }
+                        } else {
+                            self.sizeCheckView()
                         }
                     }
                 }
             }
-        }
-        .sizeReader { size in
-            self.sizeHandler.containerSize = size
-            if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
-                self.sizeHandler.rtlMargin = 40
-            } else {
-                self.sizeHandler.rtlMargin = 160
+            .sizeReader { size in
+                self.sizeHandler.containerSize = size
+                if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
+                    self.sizeHandler.rtlMargin = 40
+                } else {
+                    self.sizeHandler.rtlMargin = 160
+                }
             }
-        }
     }
     
     @ViewBuilder
@@ -103,10 +103,12 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             
             if itemIndex >= 0 {
                 self.items.view(at: itemIndex)
+                    .fixedSize()
                     .frame(width: itemWidth)
                     .onChange(of: self.dynamicTypeSize) { _, _ in
                         self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
                     }
+                    .fixedSize()
             } else {
                 if itemIndex == -1 {
                     self.helperTextView()
@@ -119,7 +121,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             
             if !LiquidGlassHelper.usesLiquidGlassUI, index < self.sizeHandler.itemsWidth.count - 1 {
                 if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
-                    Spacer().frame(minWidth: 8)
+                    Spacer().frame(minWidth: self.sizeHandler.defaultFixedPadding)
                 } else {
                     Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
                 }

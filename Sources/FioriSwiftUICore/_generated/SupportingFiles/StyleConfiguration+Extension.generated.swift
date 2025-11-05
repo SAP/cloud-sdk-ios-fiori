@@ -97,6 +97,14 @@ extension FioriSliderConfiguration {
     }
 }
 
+// MARK: HierarchyItemViewConfiguration
+
+extension HierarchyItemViewConfiguration {
+    var _accessoryView: AccessoryView {
+        AccessoryView(.init(accessoryType: self.accessoryType), shouldApplyDefaultStyle: true)
+    }
+}
+
 // MARK: KeyValueFormViewConfiguration
 
 extension KeyValueFormViewConfiguration {
