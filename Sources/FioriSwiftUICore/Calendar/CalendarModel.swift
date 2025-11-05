@@ -404,10 +404,10 @@ public class CalendarModel {
     
     func updateScrollPosition() {
         if self.calendarStyle == .week || (self.calendarStyle == .expandable && !self.isExpanded && !self.isDragging) {
-            if self.weeks.count > 0 {
+            if !self.weeks.isEmpty {
                 self.weekViewScrollPosition = self.weeksOffsetBetweenDates(start: self.startDate, end: self.scrollToDate)
             }
-        } else if self.months.count > 0 {
+        } else if !self.months.isEmpty {
             self.scrollPosition = self.monthsBetweenDates(start: self.startDate, end: self.scrollToDate)
         }
     }
