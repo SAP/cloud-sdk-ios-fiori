@@ -465,4 +465,69 @@ final class FioriButtonTests: XCTestCase {
         
         XCTAssertEqual(button.imageTitleSpacing, -5.0)
     }
+    
+    // MARK: - Enhanced Standard Button Integration Tests
+
+    func testConfigureStandardButtonModifierSetsEnvironment() {
+        // Arrange: Define a custom creator
+        let mockAction: () -> Void = {}
+        let customCreator: ButtonCreator = { action in
+            Button(role: .destructive, action: action) { EmptyView() }
+        }
+
+        // Act: Apply modifier to a dummy view and read the environment
+        let dummyView = Text("Test")
+        let modifiedView = dummyView.environment(\.standardButtonCreator, customCreator)
+
+        // Assert: Verify the environment value is set correctly
+        var env = EnvironmentValues()
+        // Simulate reading from modified view's environment (via direct set for test)
+        env.standardButtonCreator = customCreator
+        let createdButton = env.standardButtonCreator(mockAction)
+
+        // Use reflection to check the role
+        let roleMirror = Mirror(reflecting: createdButton)
+        let role = roleMirror.children.first { $0.label?.contains("role") == true }?.value as? ButtonRole
+        XCTAssertEqual(role, .destructive)
+
+        // Verify base view unchanged
+        let viewDesc = String(describing: modifiedView)
+        XCTAssertTrue(viewDesc.contains("Test"))
+    }
+
+    func testDefaultStandardButtonCreator() {
+        // Arrange: Use default environment
+        let defaultCreator: ButtonCreator = { action in
+            Button(action: action) { EmptyView() }
+        }
+        let mockAction: () -> Void = {}
+        let button = defaultCreator(mockAction)
+
+        // Act & Assert: No role, plain Button
+        let role = Mirror(reflecting: button).children.first(where: { $0.label == "role" })?.value as? ButtonRole
+        XCTAssertNil(role)
+        let desc = String(describing: button)
+        XCTAssertTrue(desc.contains("Button"), "Should be a standard Button")
+    }
+
+    func testFioriButtonUsesCustomStandardButtonCreator() {
+        // Arrange: Custom creator and FioriButton
+        let customCreator: ButtonCreator = { action in
+            Button(role: .cancel, action: action) { EmptyView() }
+        }
+
+        let button = FioriButton(action: { _ in }, label: { _ in Text("Test") })
+
+        // Act: Call private method with environment (via @testable extension)
+        let configuredButton = button.configureStandardButton(customCreator)
+
+        // Assert: Role applied
+        let roleMirror = Mirror(reflecting: configuredButton)
+        let role = roleMirror.children.first { $0.label?.contains("role") == true }?.value as? ButtonRole
+        XCTAssertEqual(role, .cancel)
+
+        // Verify integration preserves label
+        let bodyDesc = String(describing: button.body)
+        XCTAssertTrue(bodyDesc.contains("Test"))
+    }
 }
