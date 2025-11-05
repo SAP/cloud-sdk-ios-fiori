@@ -10,10 +10,10 @@ struct CalendarRangeSelectionExample: View {
     
     @State var model: CalendarModel
     
-    init(isPreselected: Bool = false) {
+    init(isPreselected: Bool = false, showsMonthHeader: Bool = false) {
         self.isCustomPreselected = isPreselected
         
-        let model = CalendarModel(calendarStyle: .rangeSelection)
+        let model = CalendarModel(calendarStyle: .rangeSelection, showsMonthHeader: showsMonthHeader)
         if isPreselected {
             let fm = DateFormatter()
             fm.timeZone = Calendar.current.timeZone

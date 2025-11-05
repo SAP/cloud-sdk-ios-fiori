@@ -21,6 +21,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     @State var availableWidth: CGFloat = 16
     
     @Environment(\.customLanguageId) var customLanguageId
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
     // swiftlint:disable function_body_length
     public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
@@ -100,7 +101,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                         LazyVStack {
                             ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
                                 let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: configuration.model.showsMonthHeader, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: true, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
                                 }, customEventView: configuration.customEventView)
                                     .fioriSizeReader { newValue in
@@ -110,7 +111,9 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                             }
                                         }
                                     }
+                                    .padding(.bottom, self.monthViewPaddingBottom(index: index, configuration))
                             }
+                            .padding(.top, configuration.model.showsMonthHeader ? 0 : -self.monthHeaderHeight)
                         }
                         .scrollTargetLayout()
                     })
@@ -122,7 +125,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                             .fill(configuration.fillBackgroundColor)
                     )
                     .ifApply(configuration.model.calendarStyle == .month, content: {
-                        $0.frame(height: configuration.model.monthViewHeight)
+                        $0.frame(height: configuration.model.monthViewHeight - (configuration.model.showsMonthHeader ? 0 : self.monthHeaderHeight))
                     })
                     .padding(EdgeInsets(
                         top: 0,
@@ -181,6 +184,18 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     }
     
     @State var scrollPosition: Int?
+    
+    func monthViewPaddingBottom(index: Int, _ configuration: CalendarViewConfiguration) -> CGFloat {
+        (index == configuration.model.months.count - 1) ? 0 : (configuration.model.showsMonthHeader ? 0 : (configuration.model.calendarStyle == .month ? 30 : self.monthHeaderHeight))
+    }
+    
+    var monthHeaderHeight: CGFloat {
+        44 + 17 * self.scaleForSizeChange
+    }
+    
+    var scaleForSizeChange: Double {
+        sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
+    }
     
     func handleDayViewTapGesture(_ date: Date, state: CalendarDayState, configuration: CalendarViewConfiguration) {
         if configuration.model.calendarStyle == .datesSelection {

@@ -33,11 +33,7 @@ public class CalendarModel {
     /// The display date at startup.
     let displayDateAtStartup: Date?
     
-    /// This property indicates whether the month header should display.
-    ///
-    /// It's available when the style is `.month`, `.expandable`, `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
-    /// It's true by default when the style is `.fullScreenMonth`, `.datesSelection` or `.rangeSelection`.
-    /// It's false by default when the style is `.expandable` or `.month`, .
+    /// This property indicates whether the month header should display. It's false by default.
     let showsMonthHeader: Bool
     
     /// The first day of the week for the calendar, default confirms system setting. The weekday units are one-based. For Gregorian and ISO 8601 calendars, 1 is Sunday, 2 is Monday, 3 is Tuesday, 4 is Wednesday, 5 is Thursday, 6 is Friday and 7 is Saturday.
@@ -187,7 +183,7 @@ public class CalendarModel {
         self.startDate = result.startDate
         self.endDate = result.endDate
         
-        self.showsMonthHeader = showsMonthHeader ?? (![.expandable, .month].contains(calendarStyle))
+        self.showsMonthHeader = showsMonthHeader ?? false
         self.isExpanded = !expandableStyleInWeekMode
         
         self.handleWeekInfo()

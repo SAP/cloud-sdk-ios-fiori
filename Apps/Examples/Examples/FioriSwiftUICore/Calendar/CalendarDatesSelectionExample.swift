@@ -14,9 +14,14 @@ struct CalendarDatesSelectionExample: View {
         return result
     }
     
-    @State var model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [])
+    @State var model: CalendarModel
     @State var showBannerMessage: Bool = true
     @State var safeAreaInsets: EdgeInsets = .init(.zero)
+    
+    init(showsMonthHeader: Bool = false) {
+        let model = CalendarModel(calendarStyle: .datesSelection, selectedDates: [], showsMonthHeader: showsMonthHeader)
+        _model = State(wrappedValue: model)
+    }
     
     var body: some View {
         ZStack(alignment: .bottom, content: {

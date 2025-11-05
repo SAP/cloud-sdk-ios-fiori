@@ -57,9 +57,14 @@ struct CalendarExamples: View {
                     )
                     .environmentObject(self.settings)
                 }
-//                NavigationLink("Persistent, PreselectDate: Mar 23 (full screen shows month header)") {
-//                    Text("TODO")
-//                }
+                NavigationLink("Persistent, PreselectDate: Mar 23 (full screen shows month header)") {
+                    CalendarPersistentPreselectDateTestExample(
+                        style: .fullScreenMonth,
+                        selectedDate: self.fm.date(from: "\(self.year) 03 23"),
+                        showsMonthHeader: true
+                    )
+                    .environmentObject(self.settings)
+                }
                 NavigationLink("Persistent, PreselectDate: Mar 23, 2015") {
                     CalendarPersistentPreselectDateTestExample(
                         startDate: self.fm.date(from: "2015 01 01"),
@@ -217,9 +222,12 @@ struct CalendarExamples: View {
                     CalendarRangeSelectionExample()
                         .environmentObject(self.settings)
                 }
-//                NavigationLink("RangeSelectionView (shows month header)") {
-//                    Text("TODO")
-//                }
+                NavigationLink("RangeSelectionView (shows month header)") {
+                    CalendarRangeSelectionExample(
+                        showsMonthHeader: true
+                    )
+                    .environmentObject(self.settings)
+                }
 //                NavigationLink("RangeSelectionView-Preselect") {
 //                    CalendarRangeSelectionExample()
 //                        .environmentObject(self.settings)
@@ -228,9 +236,12 @@ struct CalendarExamples: View {
                     CalendarDatesSelectionExample()
                         .environmentObject(self.settings)
                 }
-//                NavigationLink("DatesSelectionView (shows month header)") {
-//                    Text("TODO")
-//                }
+                NavigationLink("DatesSelectionView (shows month header)") {
+                    CalendarDatesSelectionExample(
+                        showsMonthHeader: true
+                    )
+                    .environmentObject(self.settings)
+                }
             }
             
             Section {
