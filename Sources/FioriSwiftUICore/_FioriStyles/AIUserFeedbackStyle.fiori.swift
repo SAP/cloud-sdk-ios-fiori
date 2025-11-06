@@ -312,7 +312,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func defaultErrorView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.errorView.isEmpty {
             return IllustratedMessage(detailImage: {
-                Image(fioriName: "fiori.ill.simple.connection.spot")
+                Image(fioriName: "fiori.ill.unable.to.upload.small")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }, title: {
