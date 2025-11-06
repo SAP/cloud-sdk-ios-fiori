@@ -238,6 +238,31 @@ extension BodyText: _ViewEmptyChecking {
     }
 }
 
+extension CalendarDayView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
+extension CalendarMonthView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarWeekView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension CancelAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         cancelAction.isEmpty

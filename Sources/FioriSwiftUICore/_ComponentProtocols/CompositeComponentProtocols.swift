@@ -3203,6 +3203,331 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     var menus: [[WAMenu]] { get }
 }
 
+/// `CalendarDayView` is used to display a day with title, subtitle and eventIndicator.
+///
+/// ## Usage
+/// ```swift
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ]
+///     ]
+///     return result
+/// }
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .singleSelectedAndToday, customEventView: Rectangle().foregroundStyle(Color.red))
+/// .environment(\.eventViewColor, .red)
+/// .environment(\.selectionSingleColor, .yellow)
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .disabled)
+/// .environment(\.eventViewColorDisabled, .gray)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .multiSelectedStart)
+/// .environment(\.selectionRangeColor, .red)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
+    /// This property indicates whether the event view is to be displayed or not. The default is false.
+    // sourcery: default.value = false
+    var isEventIndicatorVisible: Bool { get }
+    
+    /// The state of the day  view. The default is `.normal`.
+    // sourcery: default.value = .normal
+    var state: CalendarDayState { get }
+    
+    /// This property is used to customize event view.
+    // sourcery: default.value = EmptyView()
+    var customEventView: any View { get }
+}
+
+/// `CalendarWeekView` is used to display the dates in one week.
+///
+/// Developer can set the `.showsWeekNumbers` environment to show the week numberText. If calendarStyle is `.datesSelection` or `.rangeSelection`, and when the first date of the week is out of month, always hide the week number.
+/// ## Usage
+/// ```swift
+/// var fm: DateFormatter {
+///     let fm = DateFormatter()
+///     fm.timeZone = Calendar.current.timeZone
+///     fm.locale = Calendar.current.locale
+///     fm.dateFormat = "yyyy MM dd"
+///     return fm
+/// }
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ],
+///         .weekNumberText: [
+///             .normal: Color(UIColor.green)
+///         ]
+///     ]
+///     return result
+/// }
+/// let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
+///     self.fm.date(from: "2025 10 26")!,
+///     self.fm.date(from: "2025 10 27")!,
+///     self.fm.date(from: "2025 10 28")!,
+///     self.fm.date(from: "2025 10 29")!,
+///     self.fm.date(from: "2025 10 30")!,
+///     self.fm.date(from: "2025 10 31")!,
+///     self.fm.date(from: "2025 11 01")!
+/// ])
+/// @State var selectedDate: Date? = .now
+/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showsOutOfMonthDates: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
+///     print("Tap on a date:\(date), with state:\(state)")
+///     self.selectedDate = date
+/// }, customEventView: { date in
+///     Rectangle()
+/// })
+/// .environment(\.showsWeekNumbers, true)
+/// .environment(\.hasEventIndicator, true)
+/// .environment(\.alternateCalendarType, .chinese)
+/// .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarWeekViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// This property is used to display the dates in one week.
+    var weekInfo: CalendarWeekInfo { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state.
+    // sourcery: default.value = true
+    var showsOutOfMonthDates: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarMonthView` is used to display one month in the calendar.
+///
+/// ## Usage
+/// ```swift
+///     var fm: DateFormatter {
+///         let fm = DateFormatter()
+///         fm.timeZone = Calendar.current.timeZone
+///         fm.locale = Calendar.current.locale
+///         fm.dateFormat = "yyyy MM dd"
+///         return fm
+///     }
+///     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///         let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///             .title: [
+///                 .normal: Color(UIColor.blue),
+///                 .disabled: Color(UIColor.red),
+///                 .highlighted: Color(UIColor.green),
+///                 .selected: Color(UIColor.yellow)
+///             ],
+///             .monthHeaderText: [
+///                 .normal: Color(UIColor.green)
+///             ],
+///             .weekDayText: [
+///                 .normal: Color(UIColor.blue),
+///                 .highlighted: Color(UIColor.green)
+///             ],
+///             .weekNumberText: [
+///                 .normal: Color(UIColor.green)
+///             ]
+///         ]
+///         return result
+///     }
+///     let year = 2025
+///     let month = 10
+///     let startDate = self.fm.date(from: "2025 01 01")!
+///     let endDate = self.fm.date(from: "2025 12 31")!
+///     let selectedDate = self.fm.date(from: "2025 10 27")!
+///     let disabledDates = CalendarDisabledDates(weekdays: [1, 2])
+///     let weeks: [CalendarWeekInfo] = [
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 39, dates: [self.fm.date(from: "2025 09 28")!, self.fm.date(from: "2025 09 29")!, self.fm.date(from: "2025 09 30")!, self.fm.date(from: "2025 10 01")!, self.fm.date(from: "2025 10 02")!, self.fm.date(from: "2025 10 03")!, self.fm.date(from: "2025 10 04")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 40, dates: [self.fm.date(from: "2025 10 05")!, self.fm.date(from: "2025 10 06")!, self.fm.date(from: "2025 10 07")!, self.fm.date(from: "2025 10 08")!, self.fm.date(from: "2025 10 09")!, self.fm.date(from: "2025 10 10")!, self.fm.date(from: "2025 10 11")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 41, dates: [self.fm.date(from: "2025 10 12")!, self.fm.date(from: "2025 10 13")!, self.fm.date(from: "2025 10 14")!, self.fm.date(from: "2025 10 15")!, self.fm.date(from: "2025 10 16")!, self.fm.date(from: "2025 10 17")!, self.fm.date(from: "2025 10 18")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 42, dates: [self.fm.date(from: "2025 10 19")!, self.fm.date(from: "2025 10 20")!, self.fm.date(from: "2025 10 21")!, self.fm.date(from: "2025 10 22")!, self.fm.date(from: "2025 10 23")!, self.fm.date(from: "2025 10 24")!, self.fm.date(from: "2025 10 25")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 43, dates: [self.fm.date(from: "2025 10 26")!, self.fm.date(from: "2025 10 27")!, self.fm.date(from: "2025 10 28")!, self.fm.date(from: "2025 10 29")!, self.fm.date(from: "2025 10 30")!, self.fm.date(from: "2025 10 31")!, self.fm.date(from: "2025 11 01")!])
+///     ]
+///     let model = CalendarMonthModel(year: year, month: month, weeks: weeks)
+///     let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
+///         print("Tapped date:\(date), state:\(state)")
+///     }
+///     CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+///         Circle()
+///     }
+///     .background(
+///         Color.preferredColor(.primaryGroupedBackground)
+///     )
+///     .environment(\.showsWeekNumbers, true)
+///     .environment(\.hasEventIndicator, true)
+///     .environment(\.alternateCalendarType, .chinese)
+///     .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+///     .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///     .environment(\.customLanguageId, "en")
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarMonthViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// The date model of the calendar month view.
+    var model: CalendarMonthModel { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show the month header or not. The default is false.
+    // sourcery: default.value = false
+    var showsMonthHeader: Bool { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state. The default is true.
+    // sourcery: default.value = true
+    var showsOutOfMonthDates: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarView` is used to display the calendar. The calendar supports `.week`, `.month`, `.expandable`, `.fullScrollMonth`, `.rangeSelection`, and `.datesSelection` style.
+///
+/// ## Usage:
+/// ```swift
+///     @State var model = CalendarModel(calendarStyle: .month)
+///     var fm: DateFormatter {
+///         let fm = DateFormatter()
+///         fm.timeZone = Calendar.current.timeZone
+///         fm.locale = Calendar.current.locale
+///         fm.dateFormat = "yyyy MM dd"
+///         return fm
+///     }
+///     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///         let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///             .title: [
+///                 .normal: Color(UIColor.blue),
+///                 .disabled: Color(UIColor.red),
+///                 .highlighted: Color(UIColor.green),
+///                 .selected: Color(UIColor.yellow)
+///             ],
+///             .monthHeaderText: [
+///                 .normal: Color(UIColor.green)
+///             ],
+///             .weekDayText: [
+///                 .normal: Color(UIColor.blue),
+///                 .highlighted: Color(UIColor.green)
+///             ],
+///             .weekNumberText: [
+///                 .normal: Color(UIColor.green)
+///             ]
+///         ]
+///         return result
+///     }
+///     VStack {
+///         CalendarView(model: model, titleChangeCallback: { _ in
+///         }, customCalendarBackgroundColor: .white) { date in
+///             Rectangle()
+///         }
+///         .environment(\.showsWeekNumbers, true)
+///         .environment(\.hasEventIndicator, true)
+///         .environment(\.alternateCalendarType, .chinese)
+///         .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+///         .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///         .environment(\.customLanguageId, "zh-Hans")
+///         Spacer()
+///     }
+///
+/// ScrollView {
+///     CalendarView(model: self.model)
+///     .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
+///     .frame(maxHeight: self.maxHeight)
+/// }
+/// .onGeometryChange(for: CGSize.self, of: { proxy in
+///     proxy.size
+/// }, action: { size in
+///     self.maxHeight = size.height
+/// })
+/// ```
+/// ## Notes:
+/// When style is `.fullScrollMonth`, `.rangeSelection`, or `.datesSelection`, and the CalendarView is used in ScrollView or List, the maxHeight of the CalendarView should be configured (e.g., the available screen height), otherwise it will slow down the scrolling, and the whole CalendarView will scroll in the ScrollView or List.
+// sourcery: CompositeComponent
+protocol _CalendarViewComponent {
+    /// The model of the calendar view.
+    var model: CalendarModel { get }
+    
+    /// Callback when the title is Changed.
+    // sourcery: default.value = nil
+    var titleChangeCallback: ((String) -> Void)? { get }
+    
+    /// Customized background color for the calendar view.
+    // sourcery: default.value = nil
+    var customCalendarBackgroundColor: Color? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
 /// `HierarchyIndicator` is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
 ///
 /// ### Overview

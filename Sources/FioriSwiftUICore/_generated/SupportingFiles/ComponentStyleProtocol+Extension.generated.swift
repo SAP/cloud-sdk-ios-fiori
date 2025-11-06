@@ -1207,6 +1207,104 @@ public extension BodyTextStyle where Self == BodyTextFioriStyle {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+public extension CalendarDayViewStyle where Self == CalendarDayViewBaseStyle {
+    static var base: CalendarDayViewBaseStyle {
+        CalendarDayViewBaseStyle()
+    }
+}
+
+public extension CalendarDayViewStyle where Self == CalendarDayViewFioriStyle {
+    static var fiori: CalendarDayViewFioriStyle {
+        CalendarDayViewFioriStyle()
+    }
+}
+
+public struct CalendarDayViewTitleStyle: CalendarDayViewStyle {
+    let style: any TitleStyle
+
+    public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
+        CalendarDayView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CalendarDayViewStyle where Self == CalendarDayViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> CalendarDayViewTitleStyle {
+        CalendarDayViewTitleStyle(style: style)
+    }
+
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CalendarDayViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return CalendarDayViewTitleStyle(style: style)
+    }
+}
+
+public struct CalendarDayViewSubtitleStyle: CalendarDayViewStyle {
+    let style: any SubtitleStyle
+
+    public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
+        CalendarDayView(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension CalendarDayViewStyle where Self == CalendarDayViewSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> CalendarDayViewSubtitleStyle {
+        CalendarDayViewSubtitleStyle(style: style)
+    }
+
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CalendarDayViewSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return CalendarDayViewSubtitleStyle(style: style)
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+public extension CalendarMonthViewStyle where Self == CalendarMonthViewBaseStyle {
+    static var base: CalendarMonthViewBaseStyle {
+        CalendarMonthViewBaseStyle()
+    }
+}
+
+public extension CalendarMonthViewStyle where Self == CalendarMonthViewFioriStyle {
+    static var fiori: CalendarMonthViewFioriStyle {
+        CalendarMonthViewFioriStyle()
+    }
+}
+
+// MARK: CalendarViewStyle
+
+public extension CalendarViewStyle where Self == CalendarViewBaseStyle {
+    static var base: CalendarViewBaseStyle {
+        CalendarViewBaseStyle()
+    }
+}
+
+public extension CalendarViewStyle where Self == CalendarViewFioriStyle {
+    static var fiori: CalendarViewFioriStyle {
+        CalendarViewFioriStyle()
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+public extension CalendarWeekViewStyle where Self == CalendarWeekViewBaseStyle {
+    static var base: CalendarWeekViewBaseStyle {
+        CalendarWeekViewBaseStyle()
+    }
+}
+
+public extension CalendarWeekViewStyle where Self == CalendarWeekViewFioriStyle {
+    static var fiori: CalendarWeekViewFioriStyle {
+        CalendarWeekViewFioriStyle()
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension CancelActionStyle where Self == CancelActionBaseStyle {

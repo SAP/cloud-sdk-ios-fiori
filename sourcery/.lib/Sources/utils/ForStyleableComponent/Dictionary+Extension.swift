@@ -1,6 +1,6 @@
 import Foundation
 
-extension Dictionary where Key == String, Value == NSObject {
+extension [String: NSObject] {
     // annotation: genericParameter.name = ActionView
     var resultBuilderName: String? {
         self["resultBuilder.name"] as? String
@@ -23,7 +23,7 @@ extension Dictionary where Key == String, Value == NSObject {
     }
 }
 
-extension Dictionary where Key == String, Value == NSObject {
+extension [String: NSObject] {
     var isBinding: Bool {
         self["@Binding"] != nil ? true : false
     }

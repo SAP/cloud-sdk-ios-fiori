@@ -527,6 +527,12 @@
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
 
+/* XBUT: One date selected for .datesSelection style in Calendar view */
+"DateSelectedFormatKey" = "%d Date Selected";
+
+/* XBUT: Multiple dates selected for .datesSelection style in Calendar view */
+"DatesSelectedFormatKey" = "%d Dates Selected";
+
 /*XTIT: Title for card*/
 "Card title" = "Card title";
 

@@ -988,6 +988,118 @@ public extension BodyTextStyle {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+extension ModifiedStyle: CalendarDayViewStyle where Style: CalendarDayViewStyle {
+    public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
+        CalendarDayView(configuration)
+            .calendarDayViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarDayViewStyleModifier<Style: CalendarDayViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarDayViewStyle(self.style)
+    }
+}
+
+public extension CalendarDayViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarDayViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarDayViewStyle) -> some CalendarDayViewStyle {
+        style.modifier(CalendarDayViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+extension ModifiedStyle: CalendarMonthViewStyle where Style: CalendarMonthViewStyle {
+    public func makeBody(_ configuration: CalendarMonthViewConfiguration) -> some View {
+        CalendarMonthView(configuration)
+            .calendarMonthViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarMonthViewStyleModifier<Style: CalendarMonthViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarMonthViewStyle(self.style)
+    }
+}
+
+public extension CalendarMonthViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarMonthViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarMonthViewStyle) -> some CalendarMonthViewStyle {
+        style.modifier(CalendarMonthViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarViewStyle
+
+extension ModifiedStyle: CalendarViewStyle where Style: CalendarViewStyle {
+    public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
+        CalendarView(configuration)
+            .calendarViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarViewStyleModifier<Style: CalendarViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarViewStyle(self.style)
+    }
+}
+
+public extension CalendarViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarViewStyle) -> some CalendarViewStyle {
+        style.modifier(CalendarViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+extension ModifiedStyle: CalendarWeekViewStyle where Style: CalendarWeekViewStyle {
+    public func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
+        CalendarWeekView(configuration)
+            .calendarWeekViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarWeekViewStyleModifier<Style: CalendarWeekViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarWeekViewStyle(self.style)
+    }
+}
+
+public extension CalendarWeekViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarWeekViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarWeekViewStyle) -> some CalendarWeekViewStyle {
+        style.modifier(CalendarWeekViewStyleModifier(style: self))
+    }
+}
+
 // MARK: CancelActionStyle
 
 extension ModifiedStyle: CancelActionStyle where Style: CancelActionStyle {
