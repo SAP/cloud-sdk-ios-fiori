@@ -36,6 +36,14 @@ extension View {
             .hidden()
         )
     }
+    
+    func fioriSizeReader(in coordinateSpace: CoordinateSpace = .global, size: @escaping (CGSize) -> Void) -> some View {
+        onGeometryChange(for: CGSize.self, of: { geometry in
+            geometry.frame(in: coordinateSpace).size
+        }, action: { newValue in
+            size(newValue)
+        })
+    }
 }
 
 struct ContentFrameReaderPreferenceKey: PreferenceKey {
@@ -44,6 +52,11 @@ struct ContentFrameReaderPreferenceKey: PreferenceKey {
 }
 
 struct ContentSizeReaderPreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize { .zero }
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
+}
+
+struct CalendarSizeReaderPreferenceKey: PreferenceKey {
     static var defaultValue: CGSize { .zero }
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
 }
