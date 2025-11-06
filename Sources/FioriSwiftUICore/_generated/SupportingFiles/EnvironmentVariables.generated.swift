@@ -738,6 +738,90 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+struct CalendarDayViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarDayViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarDayViewStyle: any CalendarDayViewStyle {
+        self.calendarDayViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarDayViewStyleStack: [any CalendarDayViewStyle] {
+        get {
+            self[CalendarDayViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarDayViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+struct CalendarMonthViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarMonthViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarMonthViewStyle: any CalendarMonthViewStyle {
+        self.calendarMonthViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarMonthViewStyleStack: [any CalendarMonthViewStyle] {
+        get {
+            self[CalendarMonthViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarMonthViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarViewStyle
+
+struct CalendarViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarViewStyle: any CalendarViewStyle {
+        self.calendarViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarViewStyleStack: [any CalendarViewStyle] {
+        get {
+            self[CalendarViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+struct CalendarWeekViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarWeekViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarWeekViewStyle: any CalendarWeekViewStyle {
+        self.calendarWeekViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarWeekViewStyleStack: [any CalendarWeekViewStyle] {
+        get {
+            self[CalendarWeekViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarWeekViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {

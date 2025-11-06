@@ -563,6 +563,70 @@ extension BodyTextStyle {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+struct ResolvedCalendarDayViewStyle<Style: CalendarDayViewStyle>: View {
+    let style: Style
+    let configuration: CalendarDayViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarDayViewStyle {
+    func resolve(configuration: CalendarDayViewConfiguration) -> some View {
+        ResolvedCalendarDayViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+struct ResolvedCalendarMonthViewStyle<Style: CalendarMonthViewStyle>: View {
+    let style: Style
+    let configuration: CalendarMonthViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarMonthViewStyle {
+    func resolve(configuration: CalendarMonthViewConfiguration) -> some View {
+        ResolvedCalendarMonthViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CalendarViewStyle
+
+struct ResolvedCalendarViewStyle<Style: CalendarViewStyle>: View {
+    let style: Style
+    let configuration: CalendarViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarViewStyle {
+    func resolve(configuration: CalendarViewConfiguration) -> some View {
+        ResolvedCalendarViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+struct ResolvedCalendarWeekViewStyle<Style: CalendarWeekViewStyle>: View {
+    let style: Style
+    let configuration: CalendarWeekViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension CalendarWeekViewStyle {
+    func resolve(configuration: CalendarWeekViewConfiguration) -> some View {
+        ResolvedCalendarWeekViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: CancelActionStyle
 
 struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {

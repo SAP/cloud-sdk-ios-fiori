@@ -20,6 +20,8 @@ public enum BannerMultiMessageType: Int {
 
 /// Base Layout style
 public struct BannerMessageBaseStyle: BannerMessageStyle {
+    @Environment(\.bannerMessageBackgroundColor) var bannerMessageBackgroundColor
+    
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             configuration.topDivider.frame(height: 4)
@@ -60,7 +62,7 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
             }
         }
         .drawingGroup()
-        .background(Color.preferredColor(.tertiaryBackground))
+        .background(self.bannerMessageBackgroundColor ?? Color.preferredColor(.tertiaryBackground))
     }
     
     func getLeadingPadding(configuration: BannerMessageConfiguration) -> CGFloat {

@@ -598,6 +598,74 @@ public extension View {
     }
 }
 
+// MARK: CalendarDayViewStyle
+
+public extension View {
+    func calendarDayViewStyle(_ style: some CalendarDayViewStyle) -> some View {
+        self.transformEnvironment(\.calendarDayViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarDayViewStyle(@ViewBuilder content: @escaping (CalendarDayViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarDayViewStyleStack) { stack in
+            let style = AnyCalendarDayViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+public extension View {
+    func calendarMonthViewStyle(_ style: some CalendarMonthViewStyle) -> some View {
+        self.transformEnvironment(\.calendarMonthViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarMonthViewStyle(@ViewBuilder content: @escaping (CalendarMonthViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarMonthViewStyleStack) { stack in
+            let style = AnyCalendarMonthViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CalendarViewStyle
+
+public extension View {
+    func calendarViewStyle(_ style: some CalendarViewStyle) -> some View {
+        self.transformEnvironment(\.calendarViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarViewStyle(@ViewBuilder content: @escaping (CalendarViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarViewStyleStack) { stack in
+            let style = AnyCalendarViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+public extension View {
+    func calendarWeekViewStyle(_ style: some CalendarWeekViewStyle) -> some View {
+        self.transformEnvironment(\.calendarWeekViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func calendarWeekViewStyle(@ViewBuilder content: @escaping (CalendarWeekViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.calendarWeekViewStyleStack) { stack in
+            let style = AnyCalendarWeekViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: CancelActionStyle
 
 public extension View {
