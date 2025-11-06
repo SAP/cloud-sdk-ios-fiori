@@ -13,6 +13,7 @@ struct InternalWAForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.waHelperAction) private var waHelperAction
     
+    @AccessibilityFocusState private var focusOnTitle: Bool
     var configuration: WritingAssistantFormConfiguration
     let menus: [[WAMenu]]
     let isTopLevel: Bool
@@ -66,6 +67,17 @@ struct InternalWAForm: View {
                         self.versionView()
                     }
                 }
+                .accessibilityFocused(self.$focusOnTitle)
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.focusOnTitle = true
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        UIAccessibility.post(notification: .announcement, argument: NSLocalizedString("AI Writing Assistant panel opened. Use provided prompts to refine your text content.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "AI Writing Assistant panel opened. Use provided prompts to refine your text content."))
+                    }
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -97,6 +109,9 @@ struct InternalWAForm: View {
                 Section {
                     ForEach(section.menus) { menu in
                         self.row(menu)
+                            .listRowBackground(
+                                menu == self.context.lastSelection ? .preferredColor(.secondaryFill) : Color.clear
+                            )
                     }
                 } header: {
                     if self.context.rewriteTextSet.count > 1, section.id == sections.first?.id {
@@ -175,6 +190,9 @@ struct InternalWAForm: View {
             .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
             .font(Font.fiori(forTextStyle: .body))
             .tag(item)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(NSLocalizedString("Double tap to activate", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap to activate"))
+            .accessibilityAddTraits(.isButton)
         } else {
             NavigationLink {
                 InternalWAForm(configuration: self.configuration, menus: [item.children], isTopLevel: false, navigationBarTitleString: item.title)
@@ -182,6 +200,8 @@ struct InternalWAForm: View {
                 Text(item.title)
                     .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
                     .font(Font.fiori(forTextStyle: .body))
+                    .accessibilityHint("\(String(format: NSLocalizedString("Open to see %@ options", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), item.title))")
+                    .accessibilityAddTraits(.isButton)
             }
         }
     }
@@ -191,12 +211,28 @@ struct InternalWAForm: View {
             self.configuration.undoAction
                 .onSimultaneousTapGesture {
                     self.context.revertToPreviousValue()
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            let formatString = "Undo to Version %d of %d".localizedFioriString()
+                            let versionString = String(format: formatString, self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
+
+                            UIAccessibility.post(notification: .announcement, argument: versionString)
+                        }
+                    }
                 }
                 .disabled(!self.context.revertIsEnabled)
             
             self.configuration.redoAction
                 .onSimultaneousTapGesture {
                     self.context.forwardToNextValue()
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            let formatString = "Redo to Version %d of %d".localizedFioriString()
+                            let versionString = String(format: formatString, self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
+
+                            UIAccessibility.post(notification: .announcement, argument: versionString)
+                        }
+                    }
                 }
                 .disabled(!self.context.forwardIsEnabled)
         }
