@@ -67,6 +67,7 @@ public struct FioriButton: View {
     @Environment(\.isLoading) var isLoading
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.fioriButtonStyle) private var fioriButtonStyle
+    @Environment(\.standardButtonCreator) private var standardButtonCreator
     @State private var _state: UIControl.State = .normal
 
     var state: UIControl.State {
@@ -151,22 +152,17 @@ public struct FioriButton: View {
     public var body: some View {
         SkeletonLoadingContainer {
             // For menu use case, fioriButton should be based on Button
-            Button {
-                // This will be called when tapped for use case in Menu component
-                self.action?(.normal)
-            } label: {
-                EmptyView()
-            }
-            .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
-            .overlay(GeometryReader { proxy in
-                Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
-            })
-            .setOnChange(of: self.isSelectionPersistent) {
-                self._state = .normal
-            }
-            .ifApply(self.isLoading) { view in
-                view.opacity(0.25)
-            }
+            self.createStandardButtonWithProps()
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
+                .overlay(GeometryReader { proxy in
+                    Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
+                })
+                .setOnChange(of: self.isSelectionPersistent) {
+                    self._state = .normal
+                }
+                .ifApply(self.isLoading) { view in
+                    view.opacity(0.25)
+                }
         }
     }
     
@@ -272,4 +268,22 @@ public enum FioriButtonImagePosition {
     case bottom
     /// place the image along the trailing edge of the button.
     case trailing
+}
+
+private extension FioriButton {
+    /// Creates and returns the underlying standard `Button<EmptyView>` configured via environment props and the `standardButtonCreator`.
+    ///
+    /// This method injects the Fiori-specific action into the button created by the environment's `ButtonCreator`. It
+    /// enables seamless integration with Apple's `Button` features (e.g., `role: .destructive` via custom creators).
+    ///
+    /// - Returns: A configured `Button<EmptyView>`.
+    private func createStandardButtonWithProps() -> some View {
+        // Inject Fiori action
+        let fioriAction: () -> Void = { self.action?(.normal) }
+        
+        // Use the environment creator
+        let configuredButton = self.standardButtonCreator(fioriAction)
+        
+        return configuredButton
+    }
 }

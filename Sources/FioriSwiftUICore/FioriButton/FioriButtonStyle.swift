@@ -92,7 +92,7 @@ public struct FioriButtonStyleConfiguration {
     }
     
     @ViewBuilder
-    func containerView(_ loadingState: FioriButtonLoadingState) -> some View {
+    public func containerView(_ loadingState: FioriButtonLoadingState) -> some View {
         let showImageView = showImageView(loadingState, image: image)
         switch self.imagePosition {
         case .top:
