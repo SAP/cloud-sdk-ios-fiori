@@ -92,6 +92,7 @@
 		8732C2C72C3524B6002110E9 /* TimelineItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */; };
 		8732C2C92C3524C9002110E9 /* SimpleTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */; };
 		8732C2CB2C3524D9002110E9 /* CustomTimelineExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */; };
+		8737C0BB2EB857C700CD0425 /* ExtendableFioriButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C0BA2EB857B700CD0425 /* ExtendableFioriButtonExample.swift */; };
 		876964222D6B7D0C005AB5B2 /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876964212D6B7D0C005AB5B2 /* KPIViewExample.swift */; };
 		878219C42BEE128E002FDFBC /* StepperViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878219C32BEE128E002FDFBC /* StepperViewExample.swift */; };
 		87F14B1A2CD86F65004A69A0 /* DocumentScannerViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F14B182CD86F65004A69A0 /* DocumentScannerViewExample.swift */; };
@@ -383,6 +384,7 @@
 		8732C2C62C3524B6002110E9 /* TimelineItemsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItemsExample.swift; sourceTree = "<group>"; };
 		8732C2C82C3524C9002110E9 /* SimpleTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimelineExample.swift; sourceTree = "<group>"; };
 		8732C2CA2C3524D9002110E9 /* CustomTimelineExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimelineExample.swift; sourceTree = "<group>"; };
+		8737C0BA2EB857B700CD0425 /* ExtendableFioriButtonExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendableFioriButtonExample.swift; sourceTree = "<group>"; };
 		876964212D6B7D0C005AB5B2 /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		878219C32BEE128E002FDFBC /* StepperViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperViewExample.swift; sourceTree = "<group>"; };
 		87F14B182CD86F65004A69A0 /* DocumentScannerViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerViewExample.swift; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 		1F3C939B25E05E0200A99A07 /* FioriButton */ = {
 			isa = PBXGroup;
 			children = (
+				8737C0BA2EB857B700CD0425 /* ExtendableFioriButtonExample.swift */,
 				1F90888B261A59820015A84D /* FioriButtonExample.swift */,
 				1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */,
 				6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */,
@@ -1617,6 +1620,7 @@
 				5A91FABE2D923BF80024F316 /* _DurationPickerExample.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
+				8737C0BB2EB857C700CD0425 /* ExtendableFioriButtonExample.swift in Sources */,
 				6D6E866F2C539CDE00EDB6F4 /* InPlaceLoadingFlexibleButtonExample.swift in Sources */,
 				B1F384322C815A540090A858 /* AvatarStackExample.swift in Sources */,
 				A6DFDE582D9BE0B300666A51 /* AuthenticationScreenSample.swift in Sources */,
