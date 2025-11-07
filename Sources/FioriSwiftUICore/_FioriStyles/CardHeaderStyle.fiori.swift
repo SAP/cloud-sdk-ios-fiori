@@ -269,7 +269,7 @@ extension CardHeaderFioriStyle {
 }
 
 #Preview("") {
-    CardHeader(mediaImage: Image("attachment009"),
+    CardHeader(mediaImage: Image("productThumbnail"),
                description: "Title",
                title: "Title",
                subtitle: "Subtitle",
@@ -368,7 +368,7 @@ extension CardHeaderFioriStyle {
 }
 
 #Preview("") {
-    CardHeader(mediaImage: Image("attachment009"),
+    CardHeader(mediaImage: Image("productThumbnail"),
                description: "Title",
                title: "Title",
                subtitle: "Subtitle",

@@ -18,6 +18,26 @@ final class DateTimePickerTests: XCTestCase {
         XCTAssertEqual(picker.pickerComponents, [.date, .hourAndMinute])
     }
     
+    func testSeparatorVisibility() {
+        let dateBinding = Binding<Date?>(get: { Date() }, set: { _ in })
+        let visibilityBinding = Binding<Bool>(get: { false }, set: { _ in })
+        
+        let picker = DateTimePicker(
+            title: { Text("Test Title") },
+            selectedDate: dateBinding,
+            pickerVisible: visibilityBinding
+        )
+        XCTAssertFalse(picker.hidesSeparator)
+        
+        let picker2 = DateTimePicker(
+            title: { Text("Test Title") },
+            selectedDate: dateBinding,
+            pickerVisible: visibilityBinding,
+            hidesSeparator: true
+        )
+        XCTAssertTrue(picker2.hidesSeparator)
+    }
+    
     func testStyleConfigurations() {
         let picker = DateTimePicker(
             title: AttributedString("Style Test"),

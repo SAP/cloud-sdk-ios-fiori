@@ -283,7 +283,7 @@ extension CardMainHeaderFioriStyle {
     CardMainHeader {
         Text("Title that goes to two lines before truncating just like that")
     } detailImage: {
-        Image("attachment009")
+        Image("productThumbnail")
             .resizable()
 //            .frame(width: 60, height: 60)
     } headerAction: {

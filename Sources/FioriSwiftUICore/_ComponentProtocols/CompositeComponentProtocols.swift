@@ -201,7 +201,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 ///
 /// ```swift
 /// CardHeader {
-///     Image("attachment009")
+///     Image("productThumbnail")
 ///         .resizable()
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
@@ -259,7 +259,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 /// ```
 ///
 /// ```swift
-/// CardHeader(mediaImage: Image("attachment009"),
+/// CardHeader(mediaImage: Image("productThumbnail"),
 ///            description: "Title",
 ///            title: "Title",
 ///            subtitle: "Subtitle",
@@ -286,7 +286,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///
 /// ```swift
 /// Card {
-///     Image("attachment009")
+///     Image("productThumbnail")
 ///         .resizable()
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
@@ -357,7 +357,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 /// ```
 ///
 /// ```swift
-/// Card(mediaImage: Image("attachment009"),
+/// Card(mediaImage: Image("productThumbnail"),
 ///      description: "Title",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
@@ -987,6 +987,10 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: @Binding
     /// This property indicates whether the picker is to be displayed.
     var pickerVisible: Bool { get set }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the separator is to be displayed. Default is false.
+    var hidesSeparator: Bool { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.

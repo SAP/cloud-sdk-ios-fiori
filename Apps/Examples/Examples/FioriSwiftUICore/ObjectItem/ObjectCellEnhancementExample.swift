@@ -17,7 +17,7 @@ struct ObjectCellEnhancementExample: View {
             }, description: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
@@ -36,7 +36,7 @@ struct ObjectCellEnhancementExample: View {
             }, status: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
@@ -57,7 +57,7 @@ struct ObjectCellEnhancementExample: View {
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 FioriButton(title: "Button", action: { _ in
                     print("accessory action button selected")
@@ -74,7 +74,7 @@ struct ObjectCellEnhancementExample: View {
             }, description: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 Menu {
                     Text("1").tag(1)
@@ -104,7 +104,7 @@ struct ObjectCellEnhancementExample: View {
             }, status: {
                 Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 Menu {
                     Text("1").tag(1)
@@ -136,7 +136,7 @@ struct ObjectCellEnhancementExample: View {
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
-                Image("attachment009").resizable().frame(width: 45, height: 45)
+                Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
                 Menu {
                     Text("1").tag(1)

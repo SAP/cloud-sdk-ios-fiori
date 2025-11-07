@@ -127,7 +127,7 @@ struct BannerMessageCustomInitExample: View {
         }, substatus: {
             Text("High Priority")
         }, detailImage: {
-            Image("attachment009").resizable()
+            Image("productThumbnail").resizable()
         }, detailContent: {
             HeaderChart(title: {
                 Text("Temperature")
