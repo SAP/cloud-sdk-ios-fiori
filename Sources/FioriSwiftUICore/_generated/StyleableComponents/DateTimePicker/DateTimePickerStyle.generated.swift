@@ -35,6 +35,7 @@ public struct DateTimePickerConfiguration {
     public let timeStyle: Date.FormatStyle.TimeStyle
     public let noDateSelectedString: String?
     @Binding public var pickerVisible: Bool
+    public let hidesSeparator: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
