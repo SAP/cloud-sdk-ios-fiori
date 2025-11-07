@@ -50,7 +50,7 @@ struct ObjectCellSkeletonLoading: View {
                 }, substatus: {
                     Text("Verified")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(0.33)
                 

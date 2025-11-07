@@ -80,7 +80,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -113,7 +113,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, status: {
                 Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)

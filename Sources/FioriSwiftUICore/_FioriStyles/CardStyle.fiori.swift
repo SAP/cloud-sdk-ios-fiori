@@ -741,7 +741,7 @@ public enum CardTests {
     }
     
     static let sampleCard8 = Card {
-        Image("attachment009")
+        Image("productThumbnail")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: 145)
@@ -827,7 +827,7 @@ public enum CardTests {
     }
     
     static let sampleCard11 = Card {
-        Image("attachment009")
+        Image("productThumbnail")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: 345)

@@ -77,7 +77,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -185,7 +185,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -255,7 +255,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -287,7 +287,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -314,7 +314,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -379,7 +379,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -406,7 +406,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, status: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("")
@@ -475,7 +475,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -490,7 +490,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -520,7 +520,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days. Temperature sensor predicts overheating failure in 4 days.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)

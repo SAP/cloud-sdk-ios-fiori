@@ -381,7 +381,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -397,7 +397,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
          
@@ -426,7 +426,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -442,7 +442,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
 
@@ -471,7 +471,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -487,7 +487,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
          
@@ -514,7 +514,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -529,7 +529,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -557,7 +557,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -572,7 +572,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -635,7 +635,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -650,7 +650,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -678,7 +678,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -693,7 +693,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -765,7 +765,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -781,7 +781,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
             
@@ -812,7 +812,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -833,7 +833,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -868,7 +868,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -885,7 +885,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -915,7 +915,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             } else {
@@ -932,7 +932,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
                 .splitPercent(nil)
             }
@@ -962,7 +962,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -978,7 +978,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
             
@@ -1168,7 +1168,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 60, height: 60)
+                    Image("productThumbnail").resizable().frame(width: 60, height: 60)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -1184,7 +1184,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 60, height: 60)
+                    Image("productThumbnail").resizable().frame(width: 60, height: 60)
                 })
             }
             
@@ -1228,7 +1228,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -1248,7 +1248,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -1331,7 +1331,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -1343,7 +1343,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
             
@@ -1365,7 +1365,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -1377,7 +1377,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, status: {
                     Text("High")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
             
@@ -1751,7 +1751,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -1767,7 +1767,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 45, height: 45)
+                    Image("productThumbnail").resizable().frame(width: 45, height: 45)
                 })
             }
             
@@ -1798,7 +1798,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 60, height: 60)
+                    Image("productThumbnail").resizable().frame(width: 60, height: 60)
                 })
             } else {
                 oi = _ObjectItem(title: {
@@ -1814,7 +1814,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
-                    Image("attachment009").resizable().frame(width: 60, height: 60)
+                    Image("productThumbnail").resizable().frame(width: 60, height: 60)
                 })
             }
         

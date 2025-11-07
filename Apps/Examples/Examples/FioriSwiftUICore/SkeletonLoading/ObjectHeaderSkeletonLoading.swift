@@ -22,7 +22,7 @@ struct ObjectHeaderSkeletonLoading: View {
         }, substatus: {
             Text("High excel")
         }, detailImage: {
-            Image("attachment009").resizable()
+            Image("productThumbnail").resizable()
         })
         .frame(minHeight: 180)
         .padding(.horizontal)

@@ -79,7 +79,7 @@ extension CardMediaFioriStyle {
 
 #Preview("Image2") {
     ZStack(alignment: .bottomLeading) {
-        Image("attachment009")
+        Image("productThumbnail")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: 745)
@@ -95,7 +95,7 @@ extension CardMediaFioriStyle {
 }
 
 #Preview("Header") {
-    CardHeader(mediaImage: Image("attachment009"),
+    CardHeader(mediaImage: Image("productThumbnail"),
                description: "Title",
                title: "Title",
                subtitle: "Subtitle",
@@ -149,7 +149,7 @@ extension CardMediaFioriStyle {
 }
 
 #Preview("Data Image") {
-    CardMedia(mediaImage: Image("attachment009"), description: "Title")
+    CardMedia(mediaImage: Image("productThumbnail"), description: "Title")
         .border(Color.green)
         .mediaImageStyle { config in
             config.mediaImage
@@ -161,7 +161,7 @@ extension CardMediaFioriStyle {
 
 #Preview("VB") {
     CardMedia {
-        Image("attachment009")
+        Image("productThumbnail")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(maxWidth: .infinity, maxHeight: 245)
