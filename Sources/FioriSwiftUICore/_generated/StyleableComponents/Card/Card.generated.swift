@@ -15,7 +15,7 @@ import SwiftUI
 ///
 /// ```swift
 /// Card {
-///     Image("attachment009")
+///     Image("productThumbnail")
 ///         .resizable()
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
@@ -86,7 +86,7 @@ import SwiftUI
 /// ```
 ///
 /// ```swift
-/// Card(mediaImage: Image("attachment009"),
+/// Card(mediaImage: Image("productThumbnail"),
 ///      description: "Title",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
