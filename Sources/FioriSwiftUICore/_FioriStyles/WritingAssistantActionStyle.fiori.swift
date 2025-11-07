@@ -26,5 +26,9 @@ struct AIWAButtonStyle: FioriButtonStyle {
         return configuration.label
             .font(Font.fiori(forTextStyle: .body, weight: .semibold))
             .foregroundColor(.preferredColor(isPressed ? .tintColorTapState : .tintColor))
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(NSLocalizedString("AI Writing Assistant", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "AI Writing Assistant"))
+            .accessibilityHint(NSLocalizedString("double tap to open AI Writing Assistant and edit text", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "double tap to open AI Writing Assistant and edit text"))
+            .accessibilityAddTraits(.isButton)
     }
 }

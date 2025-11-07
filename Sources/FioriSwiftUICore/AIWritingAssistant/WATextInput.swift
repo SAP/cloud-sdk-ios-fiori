@@ -160,6 +160,15 @@ struct WATextInputModifier: ViewModifier {
             .onChange(of: self.context.selection) { _, menu in
                 if let menu {
                     self.context.startMenuTask(menu: menu)
+                    
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            let formatString = "Text updated to Version %d of %d".localizedFioriString()
+                            let versionString = String(format: formatString, self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
+
+                            UIAccessibility.post(notification: .announcement, argument: versionString)
+                        }
+                    }
                 }
             }
             .onChange(of: self.waHelperAction.wrappedValue) { _, newValue in

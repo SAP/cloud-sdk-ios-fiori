@@ -544,3 +544,39 @@
 
 /* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
 "Switch Item Off" = "Tap to turn off";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI Writing Assistant panel opened. Use provided prompts to refine your text content.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Double tap to activate";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Open to see %@ options";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Undo to Version %d of %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Redo to Version %d of %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Text updated to Version %d of %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI Writing Assistant";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "double tap to open AI Writing Assistant and edit text";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Undo change";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Rodo change";
+
+/* XBUT: Writing assistant positive feedback accessibility label */
+"Positive feedback" = "Positive feedback";
+
+/* XBUT: Writing assistant negative feedback accessibility label */
+"Negative feedback" = "Negative feedback";
