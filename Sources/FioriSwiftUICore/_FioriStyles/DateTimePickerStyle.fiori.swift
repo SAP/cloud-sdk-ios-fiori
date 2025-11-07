@@ -27,7 +27,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 
                 if configuration.pickerVisible {
                     LazyVStack {
-                        if !configuration.hideSeparator {
+                        if !configuration.hidesSeparator {
                             Divider()
                                 .frame(height: 0.33)
                                 .foregroundStyle(Color.preferredColor(.separatorOpaque))

@@ -80,7 +80,7 @@ struct DateTimePickerExample: View {
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.informational)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Date only(No separator)", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date], pickerVisible: self.$pickerVisible1, hideSeparator: true)
+                DateTimePicker(title: "Date only(No separator)", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date], pickerVisible: self.$pickerVisible1, hidesSeparator: true)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")

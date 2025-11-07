@@ -990,7 +990,7 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     
     // sourcery: defaultValue = false
     /// This property indicates whether the separator is to be displayed. Default is false.
-    var hideSeparator: Bool { get }
+    var hidesSeparator: Bool { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
