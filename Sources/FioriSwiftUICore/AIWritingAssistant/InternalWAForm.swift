@@ -110,7 +110,7 @@ struct InternalWAForm: View {
                     ForEach(section.menus) { menu in
                         self.row(menu)
                             .listRowBackground(
-                                menu == self.context.lastSelection ? .preferredColor(.secondaryFill) : Color.clear
+                                menu == self.context.lastSelection ? .preferredColor(.secondaryFill) : Color.preferredColor(.secondaryGroupedBackground)
                             )
                     }
                 } header: {
