@@ -150,6 +150,15 @@ struct ShimmerViewModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
+        if #available(watchOS 10.0, *) {
+            shimmerContent(content: content)
+                .focusEffectDisabled(self.isLoading)
+        } else {
+            self.shimmerContent(content: content)
+        }
+    }
+    
+    func shimmerContent(content: Content) -> some View {
         content
             .foregroundColor(self.redactedForegroundColor)
             .redacted(reason: self.isLoading ? .placeholder : [])
