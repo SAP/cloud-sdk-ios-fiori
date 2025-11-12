@@ -88,11 +88,11 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             let itemWidth = self.sizeHandler.itemsWidth[index].1
             if itemIndex >= 0 {
                 self.items.view(at: itemIndex)
-                    .fixedSize()
                     .frame(width: itemWidth)
                     .onChange(of: self.dynamicTypeSize) { _, _ in
                         self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
                     }
+                    .fixedSize()
             } else {
                 if itemIndex == -1 {
                     self.helperTextView()
