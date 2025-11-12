@@ -103,7 +103,6 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             
             if itemIndex >= 0 {
                 self.items.view(at: itemIndex)
-                    .fixedSize()
                     .frame(width: itemWidth)
                     .onChange(of: self.dynamicTypeSize) { _, _ in
                         self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
