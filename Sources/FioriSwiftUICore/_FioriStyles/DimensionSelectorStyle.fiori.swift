@@ -86,7 +86,7 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
 extension DimensionSelectorFioriStyle {
     struct ContentFioriStyle: DimensionSelectorStyle {
         func makeBody(_ configuration: DimensionSelectorConfiguration) -> some View {
-            DimensionSelectorBaseStyle().makeBody(configuration)
+            DimensionSelector(configuration)
         }
     }
 }
