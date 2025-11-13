@@ -40,6 +40,11 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
             }
             .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
         }
+        .onAppear {
+            if let configuredDate = configuration.selectedDate {
+                self.selectedDate = configuredDate
+            }
+        }
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.locale, FioriLocale.shared.locale!)
         }
