@@ -12,38 +12,27 @@ public struct SideBarExample: View {
     public var body: some View {
         List {
             NavigationLink {
-                OutdatedSideBarExample()
+                EditableSideBarExample(allowEdit: false)
             } label: {
-                Text("Outdated Sidebar")
+                Text("Readonly Sidebar")
             }
             NavigationLink {
-                List {
-                    NavigationLink {
-                        EditableSideBarExample(allowEdit: false)
-                    } label: {
-                        Text("Readonly Sidebar")
-                    }
-                    NavigationLink {
-                        EditableSideBarExample()
-                    } label: {
-                        Text("Editable Sidebar")
-                    }
-                    NavigationLink {
-                        EditableSideBarExample(isCustom: true)
-                    } label: {
-                        Text("Customized Sidebar")
-                    }
-                    NavigationLink {
-                        EditableSideBarExample(isPartialCustom: true)
-                    } label: {
-                        Text("Customized Sidebar-2")
-                    }
-                }
-                .navigationBarHidden(false)
+                EditableSideBarExample()
             } label: {
-                Text("Sidebar")
+                Text("Editable Sidebar")
+            }
+            NavigationLink {
+                EditableSideBarExample(isCustom: true)
+            } label: {
+                Text("Customized Sidebar")
+            }
+            NavigationLink {
+                EditableSideBarExample(isPartialCustom: true)
+            } label: {
+                Text("Customized Sidebar-2")
             }
         }
+        .navigationBarHidden(false)
     }
 }
 

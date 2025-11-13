@@ -35,6 +35,30 @@ import SwiftUI
 ///    }
 /// )
 /// ```
+///
+/// How the `AttachmentGroup` Works and App Responsibilities:
+/// The primary data model is an array of AttachmentInfo, which contains the URL(s) and the attachment state. `AttachmentGroup` relies on the app to prepare attachments for display.
+/// Apps are responsible for pre-configuring attachments (e.g., for a "download" use case) in the app’s local folder.
+/// Eager downloading is the recommended default approach for attachment previewing.
+///
+/// How Apps Handle Uploading:
+/// The AttachmentGroup component is agnostic about the upload destination and method. It uses a delegate pattern for upload logic.
+/// Apps must provide an app-specific AttachmentDelegate (a Swift protocol) to handle the actual upload process.
+/// A [`BasicAttachmentDelegate`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Sources/FioriSwiftUICore/Attachment/BasicAttachmentDelegate.swift) is provided for demonstration or as a base for customization.
+///
+/// Styling and Customizing the UI:
+/// By default, all SDK components are **Fiori Design compliant**. However, Apps have significant control over the UI, including layout, fonts, and colors.
+/// Apps can fully customize the attachment icon, information, and even add interactive elements. See `MyAttachmentThumbnailMaskStyle` in
+///  [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+/// Apps can also use a completely different layout see `MyAttachmentGroupListStyle`, `MyAttachmentStyleForListLayout`, `MyAttachmentInProgressStyleForListLayout`,
+/// and `MyAttachmentWithErrorStyleForListLayout` in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+///
+/// Custom Preview:
+/// Apps can override the default preview behavior by providing an onPreview closure. See the`onPreview` closure, see `onPreview` parameter in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+///
+/// Apps-Specific Attachment Cache:
+/// The `BasicAttachmentDelegate` includes a "cache" folder concept that may suit your requirements.
+/// Apps can use similar code in the "Batch" button action in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift) for synchroizing attachments between App local storage and backend server.
 public struct AttachmentGroup {
     let title: any View
     let context: AttachmentContext

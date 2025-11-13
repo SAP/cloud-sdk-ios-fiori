@@ -27,33 +27,39 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
             }
         }
         .environmentObject(DimensionSegmentModelObject(_maxSegmentWidth: self._maxSegmentWidth, segmentWidthMode: configuration.segmentWidthMode))
+        .onChange(of: self.isEnabled) { _, newValue in
+            if !newValue, configuration.selectedIndex != nil {
+                configuration.selectedIndex = nil
+            }
+        }
+        .accessibilityElement(children: .contain)
     }
     
     func getHStack(_ configuration: DimensionSelectorConfiguration) -> some View {
-        if !self.isEnabled, configuration.selectedIndex != nil {
-            configuration.selectedIndex = nil
-        }
-        return HStack(alignment: .center, spacing: configuration.interItemSpacing) {
+        HStack(alignment: .center, spacing: configuration.interItemSpacing) {
             ForEach(configuration.titles.indices, id: \.self) { index in
                 let segment = configuration.segment(configuration.titles[index])
-                if !segment.isEmpty {
+                let segmentView: AnyView = if !segment.isEmpty {
                     AnyView(segment)
-                        .onTapGesture {
-                            self.segmentTapped(configuration, for: index)
-                        }
                 } else {
-                    DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: configuration.selectedIndex == index)
-                        .onTapGesture {
-                            self.segmentTapped(configuration, for: index)
-                        }
+                    AnyView(DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: configuration.selectedIndex == index))
                 }
+                Button(action: {
+                    self.segmentTapped(configuration, for: index)
+                }) {
+                    segmentView
+                }
+                .buttonStyle(PlainButtonStyle())
+                .accessibilityLabel(configuration.titles[index])
+                .accessibilityAddTraits(.isButton)
+                .accessibilityAddTraits(configuration.selectedIndex == index ? .isSelected : [])
+                .background(GeometryReader { geometry in
+                    Color.clear.preference(
+                        key: SegmentPreferenceKey.self,
+                        value: geometry.size.width
+                    )
+                })
             }
-            .background(GeometryReader { geometry in
-                Color.clear.preference(
-                    key: SegmentPreferenceKey.self,
-                    value: geometry.size.width
-                )
-            })
         }
         .padding(configuration.contentInset ?? EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         .lineLimit(1)
