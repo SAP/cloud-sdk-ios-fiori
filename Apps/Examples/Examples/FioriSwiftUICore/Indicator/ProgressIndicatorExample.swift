@@ -57,7 +57,7 @@ struct ProgressIndicatorExample: View {
                     self.isProcessing2 = false
                 }
                 Spacer()
-                Button("Set Paused") {
+                Button(self.isPaused ? "Set Paused" : "Set Resumed") {
                     self.isPaused.toggle()
                 }
             }.padding()
