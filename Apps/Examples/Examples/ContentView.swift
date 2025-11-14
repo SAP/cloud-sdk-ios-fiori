@@ -4,6 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showSettings = false
+    @State var showGlobalToastMessage: Bool = false
     @State var envLocale: Locale = .none
     @State var fioriLocale: Locale = .none
 
@@ -40,10 +41,8 @@ struct ContentView: View {
                     }
                 }
             }
-            .overlay {
-                ToastMessage(title: "Toast Message", duration: 1, position: .unset)
-                    .offset(CGSize(width: geo.size.width / 2, height: geo.size.height * 0.8))
-            }
+            .toastMessage(isPresented: self.$showGlobalToastMessage, title: { Text("Toast Message") }, duration: 10, customPosition: CGPoint(x: geo.size.width / 2, y: geo.size.height * 0.8))
+            .environment(\.showGlobalToastMessage, self.$showGlobalToastMessage)
         }
         .sheet(isPresented: self.$showSettings) {
             SettingsView(envLocale: self.$envLocale, fioriLocale: self.$fioriLocale)

@@ -260,6 +260,48 @@ public extension View {
     func toastMessage(toast: Binding<ToastMessage?>) -> some View {
         self.modifier(ToastMessageOverlayModifier(toast: toast))
     }
+    
+    /// Show a toast message as an overlay above the view. Instantiating the toast message in this way allows it to be placed in locations other than those defined by ToastMessagePosition.
+    /// - Parameters:
+    ///   - isPresented: A binding to a Boolean value that determines whether to present the banner message.
+    ///   - icon: Icon image in front of the text. The default is a checkmark icon.
+    ///   - title: The message to display.
+    ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
+    ///   - customPosition: The coordinates of the toast message, relative to the view that the .toastMessage() modifier was applied to.
+    ///   - cornerRadius: A number specifying how rounded the corners of the view should be. The default value is `14`.
+    ///   - backgroundColor: The background color of the view. The default value is `Color.preferredColor(.tertiaryFill)`.
+    ///   - borderWidth: The width of the border surrounding the toast message. The default value is `0`.
+    ///   - borderColor: The color of the border surrounding the toast message. The default value is `Color.clear`.
+    ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
+    ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
+    ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    /// - Returns: A new `View` with the toast message.
+    func toastMessage(isPresented: Binding<Bool>,
+                      @ViewBuilder icon: () -> any View = { EmptyView() },
+                      @ViewBuilder title: () -> any View,
+                      duration: Double = 1,
+                      customPosition: CGPoint,
+                      cornerRadius: CGFloat = 14,
+                      backgroundColor: Color = Color.preferredColor(.tertiaryFill),
+                      borderWidth: CGFloat = 0,
+                      borderColor: Color = Color.clear,
+                      borderWidthIC: CGFloat = 1,
+                      borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
+    {
+        self.modifier(ToastMessageCustomPositionModifier(icon: icon(),
+                                                         title: title(),
+                                                         duration: duration,
+                                                         customPosition: customPosition,
+                                                         cornerRadius: cornerRadius,
+                                                         backgroundColor: backgroundColor,
+                                                         borderWidth: borderWidth,
+                                                         borderColor: borderColor,
+                                                         borderWidthIC: borderWidthIC,
+                                                         borderColorIC: borderColorIC,
+                                                         shadow: shadow,
+                                                         isPresented: isPresented))
+    }
 }
 
 struct ToastMessageOverlayModifier: ViewModifier {
@@ -358,6 +400,76 @@ struct ToastMessageModifier: ViewModifier {
                     borderWidthIC: self.borderWidthIC,
                     borderColorIC: self.borderColorIC,
                     shadow: self.shadow)
+                }
+            })
+            .setOnChange(of: self.isPresented) {
+                self.showToast()
+            }
+    }
+    
+    private func showToast() {
+        if self.duration > 0 {
+            self.workItem?.cancel()
+            
+            let task = DispatchWorkItem {
+                self.dismissToast()
+            }
+         
+            if UIAccessibility.isVoiceOverRunning, !self.title.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: self.title)
+                }
+            }
+            
+            self.workItem = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.duration, execute: task)
+        }
+    }
+    
+    private func dismissToast() {
+        withAnimation(.easeInOut) {
+            self.isPresented = false
+        }
+        
+        self.workItem?.cancel()
+        self.workItem = nil
+    }
+}
+
+struct ToastMessageCustomPositionModifier: ViewModifier {
+    let icon: any View
+    var title: any View
+    var duration: Double
+    var customPosition: CGPoint
+    var cornerRadius: CGFloat
+    var backgroundColor: Color
+    var borderWidth: CGFloat
+    var borderColor: Color
+    var borderWidthIC: CGFloat
+    var borderColorIC: Color
+    var shadow: FioriShadowStyle?
+
+    @Binding var isPresented: Bool
+    @State private var workItem: DispatchWorkItem?
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(alignment: .top, content: {
+                if self.isPresented {
+                    ToastMessage(icon: {
+                        self.icon
+                    }, title: {
+                        self.title
+                    }, position: .unset,
+                    spacing: 0,
+                    cornerRadius: self.cornerRadius,
+                    backgroundColor: self.backgroundColor,
+                    borderWidth: self.borderWidth,
+                    borderColor: self.borderColor,
+                    borderWidthIC: self.borderWidthIC,
+                    borderColorIC: self.borderColorIC,
+                    shadow: self.shadow)
+                        .offset(CGSize(width: self.customPosition.x, height: self.customPosition.y))
                 }
             })
             .setOnChange(of: self.isPresented) {

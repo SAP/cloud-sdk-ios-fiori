@@ -15,10 +15,12 @@ struct ToastMessageExample: View {
             Button("Sheet View UI Hang") {
                 self.showSheetView.toggle()
             }
-            .sheet(isPresented: self.$showSheetView) {
-                ToastMessageSheetViewExample()
-                    .presentationDetents([.medium, .large])
-            }
+            NavigationLink("Persistent Toast Message",
+                           destination: PersistentToastMessageExample())
+                .sheet(isPresented: self.$showSheetView) {
+                    ToastMessageSheetViewExample()
+                        .presentationDetents([.medium, .large])
+                }
         }
         .navigationTitle("Toast Message")
     }
@@ -209,4 +211,26 @@ struct ToastMessageSheetViewExample: View {
         }
         .toastMessage(isPresented: .constant(true), icon: {}, title: "Unable to send message", duration: 6, position: .above, spacing: 0, cornerRadius: 14, backgroundColor: .preferredColor(.tertiaryFill))
     }
+}
+
+struct PersistentToastMessageExample: View {
+    @Environment(\.showGlobalToastMessage) var showGlobalToastMessage
+
+    var body: some View {
+        List {
+            ForEach(0 ..< 6) { index in
+                Text("cell at index: \(index)")
+            }
+            Button {
+                self.showGlobalToastMessage.wrappedValue.toggle()
+            } label: {
+                Text("Show / Hide")
+            }
+        }
+        .navigationTitle("Toast Message")
+    }
+}
+
+extension EnvironmentValues {
+    @Entry var showGlobalToastMessage: Binding<Bool> = .constant(false)
 }
