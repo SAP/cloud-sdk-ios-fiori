@@ -12,7 +12,7 @@ public struct CameraView: UIViewControllerRepresentable {
         let camera = UIImagePickerController()
         camera.sourceType = .camera
         camera.mediaTypes = [UTType.image.identifier, UTType.movie.identifier]
-        camera.allowsEditing = false
+        camera.allowsEditing = true
         camera.delegate = context.coordinator
         return camera
     }
@@ -34,7 +34,7 @@ public struct CameraView: UIViewControllerRepresentable {
             if (info[.mediaType] as? String) == UTType.movie.identifier {
                 self.parent.onSaveVideo?(info[.mediaURL] as? URL)
             } else {
-                self.parent.onSaveImage(info[UIImagePickerController.InfoKey.originalImage] as? UIImage)
+                self.parent.onSaveImage(info[UIImagePickerController.InfoKey.editedImage] as? UIImage)
             }
             self.parent.presentationMode.wrappedValue.dismiss()
         }
