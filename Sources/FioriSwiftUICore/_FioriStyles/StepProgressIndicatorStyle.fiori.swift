@@ -8,7 +8,7 @@ struct ISSPIVerticalContentPresentedKey: EnvironmentKey {
 
 public extension EnvironmentValues {
     /// Indicate whether to show vertical content in `StepProgressIndicator`.
-    /// Allow to control the presentation state of vertical content in `StepProgressIndicator` programatically.
+    /// Allow to control the presentation state of vertical content in `StepProgressIndicator` programmatically.
     var isSPIVerticalContentPresented: Binding<Bool> {
         get { self[ISSPIVerticalContentPresentedKey.self] }
         set { self[ISSPIVerticalContentPresentedKey.self] = newValue }

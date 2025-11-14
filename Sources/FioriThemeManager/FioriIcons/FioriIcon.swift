@@ -579,6 +579,10 @@ public enum FioriIcon {
         public static let zoomIn = Image(fioriName: "fiori.zoom.in")
         ///
         public static let zoomOut = Image(fioriName: "fiori.zoom.out")
+        
+        public static let hierarchyOff = Image(fioriName: "fiori.hierarchy.off")
+        
+        public static let hierarchyOn = Image(fioriName: "fiori.hierarchy.on")
     }
 
     public enum arrows {
@@ -2574,1103 +2578,1914 @@ public enum FioriIcon {
     
     public enum illustrations {
         ///
-        public static let addColumnDialog = Image(fioriName: "fiori.ill.add.column.dialog")
+        public static let achievementExtraSmall = Image(fioriName: "fiori.ill.achievement.extrasmall")
         ///
-        public static let addColumnDot = Image(fioriName: "fiori.ill.add.column.dot")
+        public static let achievementLarge = Image(fioriName: "fiori.ill.achievement.large")
         ///
-        public static let addColumnScene = Image(fioriName: "fiori.ill.add.column.scene")
+        public static let achievementMedium = Image(fioriName: "fiori.ill.achievement.medium")
         ///
-        public static let addColumnSpot = Image(fioriName: "fiori.ill.add.column.spot")
+        public static let achievementSmall = Image(fioriName: "fiori.ill.achievement.small")
         ///
-        public static let addDimensionsDialog = Image(fioriName: "fiori.ill.add.dimensions.dialog")
+        public static let addDimensionsExtraSmall = Image(fioriName: "fiori.ill.add.dimensions.extrasmall")
         ///
-        public static let addDimensionsDot = Image(fioriName: "fiori.ill.add.dimensions.dot")
+        public static let addDimensionsLarge = Image(fioriName: "fiori.ill.add.dimensions.large")
         ///
-        public static let addDimensionsScene = Image(fioriName: "fiori.ill.add.dimensions.scene")
+        public static let addDimensionsMedium = Image(fioriName: "fiori.ill.add.dimensions.medium")
         ///
-        public static let addDimensionsSpot = Image(fioriName: "fiori.ill.add.dimensions.spot")
+        public static let addDimensionsSmall = Image(fioriName: "fiori.ill.add.dimensions.small")
         ///
-        public static let addPeopleDialog = Image(fioriName: "fiori.ill.add.people.dialog")
+        public static let addPeopleToCalendarExtraSmall = Image(fioriName: "fiori.ill.add.people.to.calendar.extrasmall")
         ///
-        public static let addPeopleDot = Image(fioriName: "fiori.ill.add.people.dot")
+        public static let addPeopleToCalendarLarge = Image(fioriName: "fiori.ill.add.people.to.calendar.large")
         ///
-        public static let addPeopleScene = Image(fioriName: "fiori.ill.add.people.scene")
+        public static let addPeopleToCalendarMedium = Image(fioriName: "fiori.ill.add.people.to.calendar.medium")
         ///
-        public static let addPeopleSpot = Image(fioriName: "fiori.ill.add.people.spot")
+        public static let addPeopleToCalendarSmall = Image(fioriName: "fiori.ill.add.people.to.calendar.small")
         ///
-        public static let balloonSkyDialog = Image(fioriName: "fiori.ill.balloon.sky.dialog")
+        public static let addingColumnsExtraSmall = Image(fioriName: "fiori.ill.adding.columns.extrasmall")
         ///
-        public static let balloonSkyDot = Image(fioriName: "fiori.ill.balloon.sky.dot")
+        public static let addingColumnsLarge = Image(fioriName: "fiori.ill.adding.columns.large")
         ///
-        public static let balloonSkyScene = Image(fioriName: "fiori.ill.balloon.sky.scene")
+        public static let addingColumnsMedium = Image(fioriName: "fiori.ill.adding.columns.medium")
         ///
-        public static let balloonSkySpot = Image(fioriName: "fiori.ill.balloon.sky.spot")
+        public static let addingColumnsSmall = Image(fioriName: "fiori.ill.adding.columns.small")
         ///
-        public static let beforeSearchDialog = Image(fioriName: "fiori.ill.before.search.dialog")
+        public static let beforeSearchExtraSmall = Image(fioriName: "fiori.ill.before.search.extrasmall")
         ///
-        public static let beforeSearchDot = Image(fioriName: "fiori.ill.before.search.dot")
+        public static let beforeSearchLarge = Image(fioriName: "fiori.ill.before.search.large")
         ///
-        public static let beforeSearchScene = Image(fioriName: "fiori.ill.before.search.scene")
+        public static let beforeSearchMedium = Image(fioriName: "fiori.ill.before.search.medium")
         ///
-        public static let beforeSearchSpot = Image(fioriName: "fiori.ill.before.search.spot")
+        public static let beforeSearchSmall = Image(fioriName: "fiori.ill.before.search.small")
         ///
-        public static let beforeSearch2Dialog = Image(fioriName: "fiori.ill.before.search.2.dialog")
+        public static let dragFilesToUploadExtraSmall = Image(fioriName: "fiori.ill.drag.files.to.upload.extrasmall")
         ///
-        public static let beforeSearch2Dot = Image(fioriName: "fiori.ill.before.search.2.dot")
+        public static let dragFilesToUploadLarge = Image(fioriName: "fiori.ill.drag.files.to.upload.large")
         ///
-        public static let beforeSearch2Scene = Image(fioriName: "fiori.ill.before.search.2.scene")
+        public static let dragFilesToUploadMedium = Image(fioriName: "fiori.ill.drag.files.to.upload.medium")
         ///
-        public static let beforeSearch2Spot = Image(fioriName: "fiori.ill.before.search.2.spot")
+        public static let dragFilesToUploadSmall = Image(fioriName: "fiori.ill.drag.files.to.upload.small")
         ///
-        public static let connectionDialog = Image(fioriName: "fiori.ill.connection.dialog")
+        public static let emptyPlanningCalendarExtraSmall = Image(fioriName: "fiori.ill.empty.planning.calendar.extrasmall")
         ///
-        public static let connectionDot = Image(fioriName: "fiori.ill.connection.dot")
+        public static let emptyPlanningCalendarLarge = Image(fioriName: "fiori.ill.empty.planning.calendar.large")
         ///
-        public static let connectionScene = Image(fioriName: "fiori.ill.connection.scene")
+        public static let emptyPlanningCalendarMedium = Image(fioriName: "fiori.ill.empty.planning.calendar.medium")
         ///
-        public static let connectionSpot = Image(fioriName: "fiori.ill.connection.spot")
+        public static let emptyPlanningCalendarSmall = Image(fioriName: "fiori.ill.empty.planning.calendar.small")
         ///
-        public static let emptyCalendarDialog = Image(fioriName: "fiori.ill.empty.calendar.dialog")
+        public static let filteringColumnsExtraSmall = Image(fioriName: "fiori.ill.filtering.columns.extrasmall")
         ///
-        public static let emptyCalendarDot = Image(fioriName: "fiori.ill.empty.calendar.dot")
+        public static let filteringColumnsLarge = Image(fioriName: "fiori.ill.filtering.columns.large")
         ///
-        public static let emptyCalendarScene = Image(fioriName: "fiori.ill.empty.calendar.scene")
+        public static let filteringColumnsMedium = Image(fioriName: "fiori.ill.filtering.columns.medium")
         ///
-        public static let emptyCalendarSpot = Image(fioriName: "fiori.ill.empty.calendar.spot")
+        public static let filteringColumnsSmall = Image(fioriName: "fiori.ill.filtering.columns.small")
         ///
-        public static let emptyListDialog = Image(fioriName: "fiori.ill.empty.list.dialog")
+        public static let groupingColumnsExtraSmall = Image(fioriName: "fiori.ill.grouping.columns.extrasmall")
         ///
-        public static let emptyListDot = Image(fioriName: "fiori.ill.empty.list.dot")
+        public static let groupingColumnsLarge = Image(fioriName: "fiori.ill.grouping.columns.large")
         ///
-        public static let emptyListScene = Image(fioriName: "fiori.ill.empty.list.scene")
+        public static let groupingColumnsMedium = Image(fioriName: "fiori.ill.grouping.columns.medium")
         ///
-        public static let emptyListSpot = Image(fioriName: "fiori.ill.empty.list.spot")
+        public static let groupingColumnsSmall = Image(fioriName: "fiori.ill.grouping.columns.small")
         ///
-        public static let emptyPlanningCalendarDialog = Image(fioriName: "fiori.ill.empty.planning.calendar.dialog")
+        public static let keyTaskExtraSmall = Image(fioriName: "fiori.ill.key.task.extrasmall")
         ///
-        public static let emptyPlanningCalendarDot = Image(fioriName: "fiori.ill.empty.planning.calendar.dot")
+        public static let keyTaskLarge = Image(fioriName: "fiori.ill.key.task.large")
         ///
-        public static let emptyPlanningCalendarScene = Image(fioriName: "fiori.ill.empty.planning.calendar.scene")
+        public static let keyTaskMedium = Image(fioriName: "fiori.ill.key.task.medium")
         ///
-        public static let emptyPlanningCalendarSpot = Image(fioriName: "fiori.ill.empty.planning.calendar.spot")
+        public static let keyTaskSmall = Image(fioriName: "fiori.ill.key.task.small")
         ///
-        public static let errorScreenDialog = Image(fioriName: "fiori.ill.error.screen.dialog")
+        public static let newMailExtraSmall = Image(fioriName: "fiori.ill.new.mail.extrasmall")
         ///
-        public static let errorScreenDot = Image(fioriName: "fiori.ill.error.screen.dot")
+        public static let newMailLarge = Image(fioriName: "fiori.ill.new.mail.large")
         ///
-        public static let errorScreenScene = Image(fioriName: "fiori.ill.error.screen.scene")
+        public static let newMailMedium = Image(fioriName: "fiori.ill.new.mail.medium")
         ///
-        public static let errorScreenSpot = Image(fioriName: "fiori.ill.error.screen.spot")
+        public static let newMailSmall = Image(fioriName: "fiori.ill.new.mail.small")
         ///
-        public static let filterTableDialog = Image(fioriName: "fiori.ill.filter.table.dialog")
+        public static let noActivitiesExtraSmall = Image(fioriName: "fiori.ill.no.activities.extrasmall")
         ///
-        public static let filterTableDot = Image(fioriName: "fiori.ill.filter.table.dot")
+        public static let noActivitiesLarge = Image(fioriName: "fiori.ill.no.activities.large")
         ///
-        public static let filterTableScene = Image(fioriName: "fiori.ill.filter.table.scene")
+        public static let noActivitiesMedium = Image(fioriName: "fiori.ill.no.activities.medium")
         ///
-        public static let filterTableSpot = Image(fioriName: "fiori.ill.filter.table.spot")
+        public static let noActivitiesSmall = Image(fioriName: "fiori.ill.no.activities.small")
         ///
-        public static let groupTableDialog = Image(fioriName: "fiori.ill.group.table.dialog")
+        public static let noChartDataExtraSmall = Image(fioriName: "fiori.ill.no.chart.data.extrasmall")
         ///
-        public static let groupTableDot = Image(fioriName: "fiori.ill.group.table.dot")
+        public static let noChartDataLarge = Image(fioriName: "fiori.ill.no.chart.data.large")
         ///
-        public static let groupTableScene = Image(fioriName: "fiori.ill.group.table.scene")
+        public static let noChartDataMedium = Image(fioriName: "fiori.ill.no.chart.data.medium")
         ///
-        public static let groupTableSpot = Image(fioriName: "fiori.ill.group.table.spot")
+        public static let noChartDataSmall = Image(fioriName: "fiori.ill.no.chart.data.small")
         ///
-        public static let newMailDialog = Image(fioriName: "fiori.ill.new.mail.dialog")
+        public static let noColumnsSetExtraSmall = Image(fioriName: "fiori.ill.no.columns.set.extrasmall")
         ///
-        public static let newMailDot = Image(fioriName: "fiori.ill.new.mail.dot")
+        public static let noColumnsSetLarge = Image(fioriName: "fiori.ill.no.columns.set.large")
         ///
-        public static let newMailScene = Image(fioriName: "fiori.ill.new.mail.scene")
+        public static let noColumnsSetMedium = Image(fioriName: "fiori.ill.no.columns.set.medium")
         ///
-        public static let newMailSpot = Image(fioriName: "fiori.ill.new.mail.spot")
+        public static let noColumnsSetSmall = Image(fioriName: "fiori.ill.no.columns.set.small")
         ///
-        public static let noActivitiesDialog = Image(fioriName: "fiori.ill.no.activities.dialog")
+        public static let noDataExtraSmall = Image(fioriName: "fiori.ill.no.data.extrasmall")
         ///
-        public static let noActivitiesDot = Image(fioriName: "fiori.ill.no.activities.dot")
+        public static let noDataLarge = Image(fioriName: "fiori.ill.no.data.large")
         ///
-        public static let noActivitiesScene = Image(fioriName: "fiori.ill.no.activities.scene")
+        public static let noDataMedium = Image(fioriName: "fiori.ill.no.data.medium")
         ///
-        public static let noActivitiesSpot = Image(fioriName: "fiori.ill.no.activities.spot")
+        public static let noDataSmall = Image(fioriName: "fiori.ill.no.data.small")
         ///
-        public static let noColumnsSetDialog = Image(fioriName: "fiori.ill.no.columns.set.dialog")
+        public static let noEntriesExtraSmall = Image(fioriName: "fiori.ill.no.entries.extrasmall")
         ///
-        public static let noColumnsSetDot = Image(fioriName: "fiori.ill.no.columns.set.dot")
+        public static let noEntriesLarge = Image(fioriName: "fiori.ill.no.entries.large")
         ///
-        public static let noColumnsSetScene = Image(fioriName: "fiori.ill.no.columns.set.scene")
+        public static let noEntriesMedium = Image(fioriName: "fiori.ill.no.entries.medium")
         ///
-        public static let noColumnsSetSpot = Image(fioriName: "fiori.ill.no.columns.set.spot")
+        public static let noEntriesSmall = Image(fioriName: "fiori.ill.no.entries.small")
         ///
-        public static let noDataDialog = Image(fioriName: "fiori.ill.no.data.dialog")
+        public static let noFilterResultsExtraSmall = Image(fioriName: "fiori.ill.no.filter.results.extrasmall")
         ///
-        public static let noDataDot = Image(fioriName: "fiori.ill.no.data.dot")
+        public static let noFilterResultsLarge = Image(fioriName: "fiori.ill.no.filter.results.large")
         ///
-        public static let noDataScene = Image(fioriName: "fiori.ill.no.data.scene")
+        public static let noFilterResultsMedium = Image(fioriName: "fiori.ill.no.filter.results.medium")
         ///
-        public static let noDataSpot = Image(fioriName: "fiori.ill.no.data.spot")
+        public static let noFilterResultsSmall = Image(fioriName: "fiori.ill.no.filter.results.small")
         ///
-        public static let noDimensionsSetDialog = Image(fioriName: "fiori.ill.no.dimensions.set.dialog")
+        public static let noMailExtraSmall = Image(fioriName: "fiori.ill.no.mail.extrasmall")
         ///
-        public static let noDimensionsSetDot = Image(fioriName: "fiori.ill.no.dimensions.set.dot")
+        public static let noMailLarge = Image(fioriName: "fiori.ill.no.mail.large")
         ///
-        public static let noDimensionsSetScene = Image(fioriName: "fiori.ill.no.dimensions.set.scene")
+        public static let noMailMedium = Image(fioriName: "fiori.ill.no.mail.medium")
         ///
-        public static let noDimensionsSetSpot = Image(fioriName: "fiori.ill.no.dimensions.set.spot")
+        public static let noMailSmall = Image(fioriName: "fiori.ill.no.mail.small")
         ///
-        public static let noEntriesDialog = Image(fioriName: "fiori.ill.no.entries.dialog")
+        public static let noNotificationsExtraSmall = Image(fioriName: "fiori.ill.no.notifications.extrasmall")
         ///
-        public static let noEntriesDot = Image(fioriName: "fiori.ill.no.entries.dot")
+        public static let noNotificationsLarge = Image(fioriName: "fiori.ill.no.notifications.large")
         ///
-        public static let noEntriesScene = Image(fioriName: "fiori.ill.no.entries.scene")
+        public static let noNotificationsMedium = Image(fioriName: "fiori.ill.no.notifications.medium")
         ///
-        public static let noEntriesSpot = Image(fioriName: "fiori.ill.no.entries.spot")
+        public static let noNotificationsSmall = Image(fioriName: "fiori.ill.no.notifications.small")
         ///
-        public static let noFilterResultsDialog = Image(fioriName: "fiori.ill.no.filter.results.dialog")
+        public static let noSavedItemsExtraSmall = Image(fioriName: "fiori.ill.no.saved.items.extrasmall")
         ///
-        public static let noFilterResultsDot = Image(fioriName: "fiori.ill.no.filter.results.dot")
+        public static let noSavedItemsLarge = Image(fioriName: "fiori.ill.no.saved.items.large")
         ///
-        public static let noFilterResultsScene = Image(fioriName: "fiori.ill.no.filter.results.scene")
+        public static let noSavedItemsMedium = Image(fioriName: "fiori.ill.no.saved.items.medium")
         ///
-        public static let noFilterResultsSpot = Image(fioriName: "fiori.ill.no.filter.results.spot")
+        public static let noSavedItemsSmall = Image(fioriName: "fiori.ill.no.saved.items.small")
         ///
-        public static let noMailDialog = Image(fioriName: "fiori.ill.no.mail.dialog")
+        public static let noSearchResultsExtraSmall = Image(fioriName: "fiori.ill.no.search.results.extrasmall")
         ///
-        public static let noMailDot = Image(fioriName: "fiori.ill.no.mail.dot")
+        public static let noSearchResultsLarge = Image(fioriName: "fiori.ill.no.search.results.large")
         ///
-        public static let noMailScene = Image(fioriName: "fiori.ill.no.mail.scene")
+        public static let noSearchResultsMedium = Image(fioriName: "fiori.ill.no.search.results.medium")
         ///
-        public static let noMailSpot = Image(fioriName: "fiori.ill.no.mail.spot")
+        public static let noSearchResultsSmall = Image(fioriName: "fiori.ill.no.search.results.small")
         ///
-        public static let noMailV1Dialog = Image(fioriName: "fiori.ill.no.mail.v1.dialog")
+        public static let noTasksExtraSmall = Image(fioriName: "fiori.ill.no.tasks.extrasmall")
         ///
-        public static let noMailV1Dot = Image(fioriName: "fiori.ill.no.mail.v1.dot")
+        public static let noTasksLarge = Image(fioriName: "fiori.ill.no.tasks.large")
         ///
-        public static let noMailV1Scene = Image(fioriName: "fiori.ill.no.mail.v1.scene")
+        public static let noTasksMedium = Image(fioriName: "fiori.ill.no.tasks.medium")
         ///
-        public static let noMailV1Spot = Image(fioriName: "fiori.ill.no.mail.v1.spot")
+        public static let noTasksSmall = Image(fioriName: "fiori.ill.no.tasks.small")
         ///
-        public static let noNotificationsDialog = Image(fioriName: "fiori.ill.no.notifications.dialog")
+        public static let pageNotFoundExtraSmall = Image(fioriName: "fiori.ill.page.not.found.extrasmall")
         ///
-        public static let noNotificationsDot = Image(fioriName: "fiori.ill.no.notifications.dot")
+        public static let pageNotFoundLarge = Image(fioriName: "fiori.ill.page.not.found.large")
         ///
-        public static let noNotificationsScene = Image(fioriName: "fiori.ill.no.notifications.scene")
+        public static let pageNotFoundMedium = Image(fioriName: "fiori.ill.page.not.found.medium")
         ///
-        public static let noNotificationsSpot = Image(fioriName: "fiori.ill.no.notifications.spot")
+        public static let pageNotFoundSmall = Image(fioriName: "fiori.ill.page.not.found.small")
         ///
-        public static let noSavedItemsDialog = Image(fioriName: "fiori.ill.no.saved.items.dialog")
+        public static let receiveAppreciationExtraSmall = Image(fioriName: "fiori.ill.receive.appreciation.extrasmall")
         ///
-        public static let noSavedItemsDot = Image(fioriName: "fiori.ill.no.saved.items.dot")
+        public static let receiveAppreciationLarge = Image(fioriName: "fiori.ill.receive.appreciation.large")
         ///
-        public static let noSavedItemsScene = Image(fioriName: "fiori.ill.no.saved.items.scene")
+        public static let receiveAppreciationMedium = Image(fioriName: "fiori.ill.receive.appreciation.medium")
         ///
-        public static let noSavedItemsSpot = Image(fioriName: "fiori.ill.no.saved.items.spot")
+        public static let receiveAppreciationSmall = Image(fioriName: "fiori.ill.receive.appreciation.small")
         ///
-        public static let noSavedItemsV1Dialog = Image(fioriName: "fiori.ill.no.saved.items.v1.dialog")
+        public static let resizingColumnsExtraSmall = Image(fioriName: "fiori.ill.resizing.columns.extrasmall")
         ///
-        public static let noSavedItemsV1Dot = Image(fioriName: "fiori.ill.no.saved.items.v1.dot")
+        public static let resizingColumnsLarge = Image(fioriName: "fiori.ill.resizing.columns.large")
         ///
-        public static let noSavedItemsV1Scene = Image(fioriName: "fiori.ill.no.saved.items.v1.scene")
+        public static let resizingColumnsMedium = Image(fioriName: "fiori.ill.resizing.columns.medium")
         ///
-        public static let noSavedItemsV1Spot = Image(fioriName: "fiori.ill.no.saved.items.v1.spot")
+        public static let resizingColumnsSmall = Image(fioriName: "fiori.ill.resizing.columns.small")
         ///
-        public static let noSearchResultsDialog = Image(fioriName: "fiori.ill.no.search.results.dialog")
+        public static let signOutExtraSmall = Image(fioriName: "fiori.ill.sign.out.extrasmall")
         ///
-        public static let noSearchResultsDot = Image(fioriName: "fiori.ill.no.search.results.dot")
+        public static let signOutLarge = Image(fioriName: "fiori.ill.sign.out.large")
         ///
-        public static let noSearchResultsScene = Image(fioriName: "fiori.ill.no.search.results.scene")
+        public static let signOutMedium = Image(fioriName: "fiori.ill.sign.out.medium")
         ///
-        public static let noSearchResultsSpot = Image(fioriName: "fiori.ill.no.search.results.spot")
+        public static let signOutSmall = Image(fioriName: "fiori.ill.sign.out.small")
         ///
-        public static let noTasksDialog = Image(fioriName: "fiori.ill.no.tasks.dialog")
+        public static let sortingColumnsExtraSmall = Image(fioriName: "fiori.ill.sorting.columns.extrasmall")
         ///
-        public static let noTasksDot = Image(fioriName: "fiori.ill.no.tasks.dot")
+        public static let sortingColumnsLarge = Image(fioriName: "fiori.ill.sorting.columns.large")
         ///
-        public static let noTasksScene = Image(fioriName: "fiori.ill.no.tasks.scene")
+        public static let sortingColumnsMedium = Image(fioriName: "fiori.ill.sorting.columns.medium")
         ///
-        public static let noTasksSpot = Image(fioriName: "fiori.ill.no.tasks.spot")
+        public static let sortingColumnsSmall = Image(fioriName: "fiori.ill.sorting.columns.small")
         ///
-        public static let noTasksV1Dialog = Image(fioriName: "fiori.ill.no.tasks.v1.dialog")
+        public static let surveyExtraSmall = Image(fioriName: "fiori.ill.survey.extrasmall")
         ///
-        public static let noTasksV1Dot = Image(fioriName: "fiori.ill.no.tasks.v1.dot")
+        public static let surveyLarge = Image(fioriName: "fiori.ill.survey.large")
         ///
-        public static let noTasksV1Scene = Image(fioriName: "fiori.ill.no.tasks.v1.scene")
+        public static let surveyMedium = Image(fioriName: "fiori.ill.survey.medium")
         ///
-        public static let noTasksV1Spot = Image(fioriName: "fiori.ill.no.tasks.v1.spot")
+        public static let surveySmall = Image(fioriName: "fiori.ill.survey.small")
         ///
-        public static let pageNotFoundDialog = Image(fioriName: "fiori.ill.page.not.found.dialog")
+        public static let unableToLoadExtraSmall = Image(fioriName: "fiori.ill.unable.to.load.extrasmall")
         ///
-        public static let pageNotFoundDot = Image(fioriName: "fiori.ill.page.not.found.dot")
+        public static let unableToLoadImageExtraSmall = Image(fioriName: "fiori.ill.unable.to.load.image.extrasmall")
         ///
-        public static let pageNotFoundScene = Image(fioriName: "fiori.ill.page.not.found.scene")
+        public static let unableToLoadImageLarge = Image(fioriName: "fiori.ill.unable.to.load.image.large")
         ///
-        public static let pageNotFoundSpot = Image(fioriName: "fiori.ill.page.not.found.spot")
+        public static let unableToLoadImageMedium = Image(fioriName: "fiori.ill.unable.to.load.image.medium")
         ///
-        public static let reloadScreenDialog = Image(fioriName: "fiori.ill.reload.screen.dialog")
+        public static let unableToLoadImageSmall = Image(fioriName: "fiori.ill.unable.to.load.image.small")
         ///
-        public static let reloadScreenDot = Image(fioriName: "fiori.ill.reload.screen.dot")
+        public static let unableToLoadLarge = Image(fioriName: "fiori.ill.unable.to.load.large")
         ///
-        public static let reloadScreenScene = Image(fioriName: "fiori.ill.reload.screen.scene")
+        public static let unableToLoadMedium = Image(fioriName: "fiori.ill.unable.to.load.medium")
         ///
-        public static let reloadScreenSpot = Image(fioriName: "fiori.ill.reload.screen.spot")
+        public static let unableToLoadSmall = Image(fioriName: "fiori.ill.unable.to.load.small")
         ///
-        public static let resizeColumnDialog = Image(fioriName: "fiori.ill.resize.column.dialog")
+        public static let unableToUploadExtraSmall = Image(fioriName: "fiori.ill.unable.to.upload.extrasmall")
         ///
-        public static let resizeColumnDot = Image(fioriName: "fiori.ill.resize.column.dot")
+        public static let unableToUploadLarge = Image(fioriName: "fiori.ill.unable.to.upload.large")
         ///
-        public static let resizeColumnScene = Image(fioriName: "fiori.ill.resize.column.scene")
+        public static let unableToUploadMedium = Image(fioriName: "fiori.ill.unable.to.upload.medium")
         ///
-        public static let resizeColumnSpot = Image(fioriName: "fiori.ill.resize.column.spot")
+        public static let unableToUploadSmall = Image(fioriName: "fiori.ill.unable.to.upload.small")
         ///
-        public static let searchEarthDialog = Image(fioriName: "fiori.ill.search.earth.dialog")
+        public static let uploadToCloudExtraSmall = Image(fioriName: "fiori.ill.upload.to.cloud.extrasmall")
         ///
-        public static let searchEarthDot = Image(fioriName: "fiori.ill.search.earth.dot")
+        public static let uploadToCloudLarge = Image(fioriName: "fiori.ill.upload.to.cloud.large")
         ///
-        public static let searchEarthScene = Image(fioriName: "fiori.ill.search.earth.scene")
+        public static let uploadToCloudMedium = Image(fioriName: "fiori.ill.upload.to.cloud.medium")
         ///
-        public static let searchEarthSpot = Image(fioriName: "fiori.ill.search.earth.spot")
+        public static let uploadToCloudSmall = Image(fioriName: "fiori.ill.upload.to.cloud.small")
         ///
-        public static let searchFolderDialog = Image(fioriName: "fiori.ill.search.folder.dialog")
+        public static let userHasSignedUpExtraSmall = Image(fioriName: "fiori.ill.user.has.signed.up.extrasmall")
         ///
-        public static let searchFolderDot = Image(fioriName: "fiori.ill.search.folder.dot")
+        public static let userHasSignedUpLarge = Image(fioriName: "fiori.ill.user.has.signed.up.large")
         ///
-        public static let searchFolderScene = Image(fioriName: "fiori.ill.search.folder.scene")
+        public static let userHasSignedUpMedium = Image(fioriName: "fiori.ill.user.has.signed.up.medium")
         ///
-        public static let searchFolderSpot = Image(fioriName: "fiori.ill.search.folder.spot")
+        public static let userHasSignedUpSmall = Image(fioriName: "fiori.ill.user.has.signed.up.small")
+
+        // Illustrations that were removed in 25.11
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsMedium")
+        public static let addColumnDialog = EmptyView()
         ///
-        public static let signOutDialog = Image(fioriName: "fiori.ill.sign.out.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsExtraSmall")
+        public static let addColumnDot = EmptyView()
         ///
-        public static let signOutDot = Image(fioriName: "fiori.ill.sign.out.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsLarge")
+        public static let addColumnScene = EmptyView()
         ///
-        public static let signOutScene = Image(fioriName: "fiori.ill.sign.out.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsSmall")
+        public static let addColumnSpot = EmptyView()
         ///
-        public static let signOutSpot = Image(fioriName: "fiori.ill.sign.out.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsMedium")
+        public static let addDimensionsDialog = EmptyView()
         ///
-        public static let simpleBalloonDialog = Image(fioriName: "fiori.ill.simple.balloon.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsExtraSmall")
+        public static let addDimensionsDot = EmptyView()
         ///
-        public static let simpleBalloonDot = Image(fioriName: "fiori.ill.simple.balloon.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsLarge")
+        public static let addDimensionsScene = EmptyView()
         ///
-        public static let simpleBalloonScene = Image(fioriName: "fiori.ill.simple.balloon.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsSmall")
+        public static let addDimensionsSpot = EmptyView()
         ///
-        public static let simpleBalloonSpot = Image(fioriName: "fiori.ill.simple.balloon.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarMedium")
+        public static let addPeopleDialog = EmptyView()
         ///
-        public static let simpleBellDialog = Image(fioriName: "fiori.ill.simple.bell.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarExtraSmall")
+        public static let addPeopleDot = EmptyView()
         ///
-        public static let simpleBellDot = Image(fioriName: "fiori.ill.simple.bell.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarLarge")
+        public static let addPeopleScene = EmptyView()
         ///
-        public static let simpleBellScene = Image(fioriName: "fiori.ill.simple.bell.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarSmall")
+        public static let addPeopleSpot = EmptyView()
         ///
-        public static let simpleBellSpot = Image(fioriName: "fiori.ill.simple.bell.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
+        public static let balloonSkyDialog = EmptyView()
         ///
-        public static let simpleCalendarDialog = Image(fioriName: "fiori.ill.simple.calendar.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
+        public static let balloonSkyDot = EmptyView()
         ///
-        public static let simpleCalendarDot = Image(fioriName: "fiori.ill.simple.calendar.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
+        public static let balloonSkyScene = EmptyView()
         ///
-        public static let simpleCalendarScene = Image(fioriName: "fiori.ill.simple.calendar.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
+        public static let balloonSkySpot = EmptyView()
         ///
-        public static let simpleCalendarSpot = Image(fioriName: "fiori.ill.simple.calendar.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
+        public static let beforeSearchDialog = EmptyView()
         ///
-        public static let simpleCheckMarkDialog = Image(fioriName: "fiori.ill.simple.check.mark.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
+        public static let beforeSearchDot = EmptyView()
         ///
-        public static let simpleCheckMarkDot = Image(fioriName: "fiori.ill.simple.check.mark.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
+        public static let beforeSearchScene = EmptyView()
         ///
-        public static let simpleCheckMarkScene = Image(fioriName: "fiori.ill.simple.check.mark.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
+        public static let beforeSearchSpot = EmptyView()
         ///
-        public static let simpleCheckMarkSpot = Image(fioriName: "fiori.ill.simple.check.mark.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
+        public static let beforeSearch2Dialog = EmptyView()
         ///
-        public static let simpleConnectionDialog = Image(fioriName: "fiori.ill.simple.connection.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
+        public static let beforeSearch2Dot = EmptyView()
         ///
-        public static let simpleConnectionDot = Image(fioriName: "fiori.ill.simple.connection.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
+        public static let beforeSearch2Scene = EmptyView()
         ///
-        public static let simpleConnectionScene = Image(fioriName: "fiori.ill.simple.connection.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
+        public static let beforeSearch2Spot = EmptyView()
         ///
-        public static let simpleConnectionSpot = Image(fioriName: "fiori.ill.simple.connection.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let connectionDialog = EmptyView()
         ///
-        public static let simpleEmptyDocDialog = Image(fioriName: "fiori.ill.simple.empty.doc.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let connectionDot = EmptyView()
         ///
-        public static let simpleEmptyDocDot = Image(fioriName: "fiori.ill.simple.empty.doc.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let connectionScene = EmptyView()
         ///
-        public static let simpleEmptyDocScene = Image(fioriName: "fiori.ill.simple.empty.doc.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let connectionSpot = EmptyView()
         ///
-        public static let simpleEmptyDocSpot = Image(fioriName: "fiori.ill.simple.empty.doc.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
+        public static let emptyCalendarDialog = EmptyView()
         ///
-        public static let simpleEmptyListDialog = Image(fioriName: "fiori.ill.simple.empty.list.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
+        public static let emptyCalendarDot = EmptyView()
         ///
-        public static let simpleEmptyListDot = Image(fioriName: "fiori.ill.simple.empty.list.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
+        public static let emptyCalendarScene = EmptyView()
         ///
-        public static let simpleEmptyListScene = Image(fioriName: "fiori.ill.simple.empty.list.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
+        public static let emptyCalendarSpot = EmptyView()
         ///
-        public static let simpleEmptyListSpot = Image(fioriName: "fiori.ill.simple.empty.list.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
+        public static let emptyListDialog = EmptyView()
         ///
-        public static let simpleErrorDialog = Image(fioriName: "fiori.ill.simple.error.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
+        public static let emptyListDot = EmptyView()
         ///
-        public static let simpleErrorDot = Image(fioriName: "fiori.ill.simple.error.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
+        public static let emptyListScene = EmptyView()
         ///
-        public static let simpleErrorScene = Image(fioriName: "fiori.ill.simple.error.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
+        public static let emptyListSpot = EmptyView()
         ///
-        public static let simpleErrorSpot = Image(fioriName: "fiori.ill.simple.error.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarMedium")
+        public static let emptyPlanningCalendarDialog = EmptyView()
         ///
-        public static let simpleMagnifierDialog = Image(fioriName: "fiori.ill.simple.magnifier.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarExtraSmall")
+        public static let emptyPlanningCalendarDot = EmptyView()
         ///
-        public static let simpleMagnifierDot = Image(fioriName: "fiori.ill.simple.magnifier.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarLarge")
+        public static let emptyPlanningCalendarScene = EmptyView()
         ///
-        public static let simpleMagnifierScene = Image(fioriName: "fiori.ill.simple.magnifier.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarSmall")
+        public static let emptyPlanningCalendarSpot = EmptyView()
         ///
-        public static let simpleMagnifierSpot = Image(fioriName: "fiori.ill.simple.magnifier.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
+        public static let errorScreenDialog = EmptyView()
         ///
-        public static let simpleMailDialog = Image(fioriName: "fiori.ill.simple.mail.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
+        public static let errorScreenDot = EmptyView()
         ///
-        public static let simpleMailDot = Image(fioriName: "fiori.ill.simple.mail.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
+        public static let errorScreenScene = EmptyView()
         ///
-        public static let simpleMailScene = Image(fioriName: "fiori.ill.simple.mail.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
+        public static let errorScreenSpot = EmptyView()
         ///
-        public static let simpleMailSpot = Image(fioriName: "fiori.ill.simple.mail.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsMedium")
+        public static let filterTableDialog = EmptyView()
         ///
-        public static let simpleNoSavedItemsDialog = Image(fioriName: "fiori.ill.simple.no.saved.items.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsExtraSmall")
+        public static let filterTableDot = EmptyView()
         ///
-        public static let simpleNoSavedItemsDot = Image(fioriName: "fiori.ill.simple.no.saved.items.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsLarge")
+        public static let filterTableScene = EmptyView()
         ///
-        public static let simpleNoSavedItemsScene = Image(fioriName: "fiori.ill.simple.no.saved.items.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsSmall")
+        public static let filterTableSpot = EmptyView()
         ///
-        public static let simpleNoSavedItemsSpot = Image(fioriName: "fiori.ill.simple.no.saved.items.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsMedium")
+        public static let groupTableDialog = EmptyView()
         ///
-        public static let simpleNotFoundMagnifierDialog = Image(fioriName: "fiori.ill.simple.not.found.magnifier.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsExtraSmall")
+        public static let groupTableDot = EmptyView()
         ///
-        public static let simpleNotFoundMagnifierDot = Image(fioriName: "fiori.ill.simple.not.found.magnifier.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsLarge")
+        public static let groupTableScene = EmptyView()
         ///
-        public static let simpleNotFoundMagnifierScene = Image(fioriName: "fiori.ill.simple.not.found.magnifier.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsSmall")
+        public static let groupTableSpot = EmptyView()
         ///
-        public static let simpleNotFoundMagnifierSpot = Image(fioriName: "fiori.ill.simple.not.found.magnifier.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailMedium")
+        public static let newMailDialog = EmptyView()
         ///
-        public static let simpleReloadDialog = Image(fioriName: "fiori.ill.simple.reload.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailExtraSmall")
+        public static let newMailDot = EmptyView()
         ///
-        public static let simpleReloadDot = Image(fioriName: "fiori.ill.simple.reload.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailLarge")
+        public static let newMailScene = EmptyView()
         ///
-        public static let simpleReloadScene = Image(fioriName: "fiori.ill.simple.reload.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailSmall")
+        public static let newMailSpot = EmptyView()
         ///
-        public static let simpleReloadSpot = Image(fioriName: "fiori.ill.simple.reload.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
+        public static let noActivitiesDialog = EmptyView()
         ///
-        public static let simpleTaskDialog = Image(fioriName: "fiori.ill.simple.task.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
+        public static let noActivitiesDot = EmptyView()
         ///
-        public static let simpleTaskDot = Image(fioriName: "fiori.ill.simple.task.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
+        public static let noActivitiesScene = EmptyView()
         ///
-        public static let simpleTaskScene = Image(fioriName: "fiori.ill.simple.task.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
+        public static let noActivitiesSpot = EmptyView()
         ///
-        public static let simpleTaskSpot = Image(fioriName: "fiori.ill.simple.task.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetMedium")
+        public static let noColumnsSetDialog = EmptyView()
         ///
-        public static let sleepingBellDialog = Image(fioriName: "fiori.ill.sleeping.bell.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetExtraSmall")
+        public static let noColumnsSetDot = EmptyView()
         ///
-        public static let sleepingBellDot = Image(fioriName: "fiori.ill.sleeping.bell.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetLarge")
+        public static let noColumnsSetScene = EmptyView()
         ///
-        public static let sleepingBellScene = Image(fioriName: "fiori.ill.sleeping.bell.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetSmall")
+        public static let noColumnsSetSpot = EmptyView()
         ///
-        public static let sleepingBellSpot = Image(fioriName: "fiori.ill.sleeping.bell.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
+        public static let noDataDialog = EmptyView()
         ///
-        public static let sortColumnDialog = Image(fioriName: "fiori.ill.sort.column.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
+        public static let noDataDot = EmptyView()
         ///
-        public static let sortColumnDot = Image(fioriName: "fiori.ill.sort.column.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
+        public static let noDataScene = EmptyView()
         ///
-        public static let sortColumnScene = Image(fioriName: "fiori.ill.sort.column.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
+        public static let noDataSpot = EmptyView()
         ///
-        public static let sortColumnSpot = Image(fioriName: "fiori.ill.sort.column.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataMedium")
+        public static let noDimensionsSetDialog = EmptyView()
         ///
-        public static let successBalloonScene = Image(fioriName: "fiori.ill.success.balloon.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataExtraSmall")
+        public static let noDimensionsSetDot = EmptyView()
         ///
-        public static let successBalloonDialog = Image(fioriName: "fiori.ill.success.balloon.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataLarge")
+        public static let noDimensionsSetScene = EmptyView()
         ///
-        public static let successBalloonDot = Image(fioriName: "fiori.ill.success.balloon.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataSmall")
+        public static let noDimensionsSetSpot = EmptyView()
         ///
-        public static let successBalloonSpot = Image(fioriName: "fiori.ill.success.balloon.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
+        public static let noEntriesDialog = EmptyView()
         ///
-        public static let successCheckMarkDialog = Image(fioriName: "fiori.ill.success.check.mark.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
+        public static let noEntriesDot = EmptyView()
         ///
-        public static let successCheckMarkDot = Image(fioriName: "fiori.ill.success.check.mark.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
+        public static let noEntriesScene = EmptyView()
         ///
-        public static let successCheckMarkScene = Image(fioriName: "fiori.ill.success.check.mark.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
+        public static let noEntriesSpot = EmptyView()
         ///
-        public static let successCheckMarkSpot = Image(fioriName: "fiori.ill.success.check.mark.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsMedium")
+        public static let noFilterResultsDialog = EmptyView()
         ///
-        public static let successHighFiveDialog = Image(fioriName: "fiori.ill.success.high.five.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsExtraSmall")
+        public static let noFilterResultsDot = EmptyView()
         ///
-        public static let successHighFiveDot = Image(fioriName: "fiori.ill.success.high.five.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsLarge")
+        public static let noFilterResultsScene = EmptyView()
         ///
-        public static let successHighFiveScene = Image(fioriName: "fiori.ill.success.high.five.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsSmall")
+        public static let noFilterResultsSpot = EmptyView()
         ///
-        public static let successHighFiveSpot = Image(fioriName: "fiori.ill.success.high.five.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
+        public static let noMailDialog = EmptyView()
         ///
-        public static let successScreenDialog = Image(fioriName: "fiori.ill.success.screen.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
+        public static let noMailDot = EmptyView()
         ///
-        public static let successScreenDot = Image(fioriName: "fiori.ill.success.screen.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
+        public static let noMailScene = EmptyView()
         ///
-        public static let successScreenScene = Image(fioriName: "fiori.ill.success.screen.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
+        public static let noMailSpot = EmptyView()
         ///
-        public static let successScreenSpot = Image(fioriName: "fiori.ill.success.screen.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
+        public static let noMailV1Dialog = EmptyView()
         ///
-        public static let surveyDialog = Image(fioriName: "fiori.ill.survey.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
+        public static let noMailV1Dot = EmptyView()
         ///
-        public static let surveyDot = Image(fioriName: "fiori.ill.survey.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
+        public static let noMailV1Scene = EmptyView()
         ///
-        public static let surveyScene = Image(fioriName: "fiori.ill.survey.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
+        public static let noMailV1Spot = EmptyView()
         ///
-        public static let surveySpot = Image(fioriName: "fiori.ill.survey.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
+        public static let noNotificationsDialog = EmptyView()
         ///
-        public static let tentDialog = Image(fioriName: "fiori.ill.tent.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
+        public static let noNotificationsDot = EmptyView()
         ///
-        public static let tentDot = Image(fioriName: "fiori.ill.tent.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
+        public static let noNotificationsScene = EmptyView()
         ///
-        public static let tentScene = Image(fioriName: "fiori.ill.tent.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
+        public static let noNotificationsSpot = EmptyView()
         ///
-        public static let tentSpot = Image(fioriName: "fiori.ill.tent.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
+        public static let noSavedItemsDialog = EmptyView()
         ///
-        public static let tntAvatarDialog = Image(fioriName: "fiori.ill.tnt.avatar.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
+        public static let noSavedItemsDot = EmptyView()
         ///
-        public static let tntAvatarDot = Image(fioriName: "fiori.ill.tnt.avatar.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
+        public static let noSavedItemsScene = EmptyView()
         ///
-        public static let tntAvatarScene = Image(fioriName: "fiori.ill.tnt.avatar.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
+        public static let noSavedItemsSpot = EmptyView()
         ///
-        public static let tntAvatarSpot = Image(fioriName: "fiori.ill.tnt.avatar.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
+        public static let noSavedItemsV1Dialog = EmptyView()
         ///
-        public static let tntCalculatorDialog = Image(fioriName: "fiori.ill.tnt.calculator.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
+        public static let noSavedItemsV1Dot = EmptyView()
         ///
-        public static let tntCalculatorDot = Image(fioriName: "fiori.ill.tnt.calculator.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
+        public static let noSavedItemsV1Scene = EmptyView()
         ///
-        public static let tntCalculatorScene = Image(fioriName: "fiori.ill.tnt.calculator.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
+        public static let noSavedItemsV1Spot = EmptyView()
         ///
-        public static let tntCalculatorSpot = Image(fioriName: "fiori.ill.tnt.calculator.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
+        public static let noSearchResultsDialog = EmptyView()
         ///
-        public static let tntChartDoughnutDialog = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
+        public static let noSearchResultsDot = EmptyView()
         ///
-        public static let tntChartDoughnutDot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
+        public static let noSearchResultsScene = EmptyView()
         ///
-        public static let tntChartDoughnutScene = Image(fioriName: "fiori.ill.tnt.chart.doughnut.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
+        public static let noSearchResultsSpot = EmptyView()
         ///
-        public static let tntChartDoughnutSpot = Image(fioriName: "fiori.ill.tnt.chart.doughnut.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
+        public static let noTasksDialog = EmptyView()
         ///
-        public static let tntChartAreaDialog = Image(fioriName: "fiori.ill.tnt.chart.area.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
+        public static let noTasksDot = EmptyView()
         ///
-        public static let tntChartAreaDot = Image(fioriName: "fiori.ill.tnt.chart.area.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
+        public static let noTasksScene = EmptyView()
         ///
-        public static let tntChartAreaScene = Image(fioriName: "fiori.ill.tnt.chart.area.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
+        public static let noTasksSpot = EmptyView()
         ///
-        public static let tntChartAreaSpot = Image(fioriName: "fiori.ill.tnt.chart.area.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
+        public static let noTasksV1Dialog = EmptyView()
         ///
-        public static let tntChartArea2Dialog = Image(fioriName: "fiori.ill.tnt.chart.area2.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
+        public static let noTasksV1Dot = EmptyView()
         ///
-        public static let tntChartArea2Dot = Image(fioriName: "fiori.ill.tnt.chart.area2.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
+        public static let noTasksV1Scene = EmptyView()
         ///
-        public static let tntChartArea2Scene = Image(fioriName: "fiori.ill.tnt.chart.area2.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
+        public static let noTasksV1Spot = EmptyView()
         ///
-        public static let tntChartArea2Spot = Image(fioriName: "fiori.ill.tnt.chart.area2.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundMedium")
+        public static let pageNotFoundDialog = EmptyView()
         ///
-        public static let tntChartBarDialog = Image(fioriName: "fiori.ill.tnt.chart.bar.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundExtraSmall")
+        public static let pageNotFoundDot = EmptyView()
         ///
-        public static let tntChartBarDot = Image(fioriName: "fiori.ill.tnt.chart.bar.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundLarge")
+        public static let pageNotFoundScene = EmptyView()
         ///
-        public static let tntChartBarScene = Image(fioriName: "fiori.ill.tnt.chart.bar.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundSmall")
+        public static let pageNotFoundSpot = EmptyView()
         ///
-        public static let tntChartBarSpot = Image(fioriName: "fiori.ill.tnt.chart.bar.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let reloadScreenDialog = EmptyView()
         ///
-        public static let tntChartBpmnFlowDialog = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let reloadScreenDot = EmptyView()
         ///
-        public static let tntChartBpmnFlowDot = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let reloadScreenScene = EmptyView()
         ///
-        public static let tntChartBpmnFlowScene = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let reloadScreenSpot = EmptyView()
         ///
-        public static let tntChartBpmnFlowSpot = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsMedium")
+        public static let resizeColumnDialog = EmptyView()
         ///
-        public static let tntChartBulletDialog = Image(fioriName: "fiori.ill.tnt.chart.bullet.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsExtraSmall")
+        public static let resizeColumnDot = EmptyView()
         ///
-        public static let tntChartBulletDot = Image(fioriName: "fiori.ill.tnt.chart.bullet.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsLarge")
+        public static let resizeColumnScene = EmptyView()
         ///
-        public static let tntChartBulletScene = Image(fioriName: "fiori.ill.tnt.chart.bullet.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsSmall")
+        public static let resizeColumnSpot = EmptyView()
         ///
-        public static let tntChartBulletSpot = Image(fioriName: "fiori.ill.tnt.chart.bullet.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
+        public static let searchEarthDialog = EmptyView()
         ///
-        public static let tntChartFlowDialog = Image(fioriName: "fiori.ill.tnt.chart.flow.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
+        public static let searchEarthDot = EmptyView()
         ///
-        public static let tntChartFlowDot = Image(fioriName: "fiori.ill.tnt.chart.flow.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
+        public static let searchEarthScene = EmptyView()
         ///
-        public static let tntChartFlowScene = Image(fioriName: "fiori.ill.tnt.chart.flow.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
+        public static let searchEarthSpot = EmptyView()
         ///
-        public static let tntChartFlowSpot = Image(fioriName: "fiori.ill.tnt.chart.flow.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
+        public static let searchFolderDialog = EmptyView()
         ///
-        public static let tntChartGanttDialog = Image(fioriName: "fiori.ill.tnt.chart.gantt.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
+        public static let searchFolderDot = EmptyView()
         ///
-        public static let tntChartGanttDot = Image(fioriName: "fiori.ill.tnt.chart.gantt.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
+        public static let searchFolderScene = EmptyView()
         ///
-        public static let tntChartGanttScene = Image(fioriName: "fiori.ill.tnt.chart.gantt.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
+        public static let searchFolderSpot = EmptyView()
         ///
-        public static let tntChartGanttSpot = Image(fioriName: "fiori.ill.tnt.chart.gantt.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutMedium")
+        public static let signOutDialog = EmptyView()
         ///
-        public static let tntChartOrgDialog = Image(fioriName: "fiori.ill.tnt.chart.org.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutExtraSmall")
+        public static let signOutDot = EmptyView()
         ///
-        public static let tntChartOrgDot = Image(fioriName: "fiori.ill.tnt.chart.org.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutLarge")
+        public static let signOutScene = EmptyView()
         ///
-        public static let tntChartOrgScene = Image(fioriName: "fiori.ill.tnt.chart.org.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutSmall")
+        public static let signOutSpot = EmptyView()
         ///
-        public static let tntChartOrgSpot = Image(fioriName: "fiori.ill.tnt.chart.org.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
+        public static let simpleBalloonDialog = EmptyView()
         ///
-        public static let tntChartPieDialog = Image(fioriName: "fiori.ill.tnt.chart.pie.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
+        public static let simpleBalloonDot = EmptyView()
         ///
-        public static let tntChartPieDot = Image(fioriName: "fiori.ill.tnt.chart.pie.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
+        public static let simpleBalloonScene = EmptyView()
         ///
-        public static let tntChartPieScene = Image(fioriName: "fiori.ill.tnt.chart.pie.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
+        public static let simpleBalloonSpot = EmptyView()
         ///
-        public static let tntChartPieSpot = Image(fioriName: "fiori.ill.tnt.chart.pie.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
+        public static let simpleBellDialog = EmptyView()
         ///
-        public static let tntCodePlaceholderDialog = Image(fioriName: "fiori.ill.tnt.code.placeholder.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
+        public static let simpleBellDot = EmptyView()
         ///
-        public static let tntCodePlaceholderDot = Image(fioriName: "fiori.ill.tnt.code.placeholder.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
+        public static let simpleBellScene = EmptyView()
         ///
-        public static let tntCodePlaceholderScene = Image(fioriName: "fiori.ill.tnt.code.placeholder.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
+        public static let simpleBellSpot = EmptyView()
         ///
-        public static let tntCodePlaceholderSpot = Image(fioriName: "fiori.ill.tnt.code.placeholder.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
+        public static let simpleCalendarDialog = EmptyView()
         ///
-        public static let tntCompanyDialog = Image(fioriName: "fiori.ill.tnt.company.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
+        public static let simpleCalendarDot = EmptyView()
         ///
-        public static let tntCompanyDot = Image(fioriName: "fiori.ill.tnt.company.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
+        public static let simpleCalendarScene = EmptyView()
         ///
-        public static let tntCompanyScene = Image(fioriName: "fiori.ill.tnt.company.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
+        public static let simpleCalendarSpot = EmptyView()
         ///
-        public static let tntCompanySpot = Image(fioriName: "fiori.ill.tnt.company.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
+        public static let simpleCheckMarkDialog = EmptyView()
         ///
-        public static let tntCompassDialog = Image(fioriName: "fiori.ill.tnt.compass.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
+        public static let simpleCheckMarkDot = EmptyView()
         ///
-        public static let tntCompassDot = Image(fioriName: "fiori.ill.tnt.compass.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
+        public static let simpleCheckMarkScene = EmptyView()
         ///
-        public static let tntCompassScene = Image(fioriName: "fiori.ill.tnt.compass.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
+        public static let simpleCheckMarkSpot = EmptyView()
         ///
-        public static let tntCompassSpot = Image(fioriName: "fiori.ill.tnt.compass.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let simpleConnectionDialog = EmptyView()
         ///
-        public static let tntComponentsDialog = Image(fioriName: "fiori.ill.tnt.components.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let simpleConnectionDot = EmptyView()
         ///
-        public static let tntComponentsDot = Image(fioriName: "fiori.ill.tnt.components.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let simpleConnectionScene = EmptyView()
         ///
-        public static let tntComponentsScene = Image(fioriName: "fiori.ill.tnt.components.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let simpleConnectionSpot = EmptyView()
         ///
-        public static let tntComponentsSpot = Image(fioriName: "fiori.ill.tnt.components.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
+        public static let simpleEmptyDocDialog = EmptyView()
         ///
-        public static let tntDialogDialog = Image(fioriName: "fiori.ill.tnt.dialog.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
+        public static let simpleEmptyDocDot = EmptyView()
         ///
-        public static let tntDialogDot = Image(fioriName: "fiori.ill.tnt.dialog.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
+        public static let simpleEmptyDocScene = EmptyView()
         ///
-        public static let tntDialogScene = Image(fioriName: "fiori.ill.tnt.dialog.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
+        public static let simpleEmptyDocSpot = EmptyView()
         ///
-        public static let tntDialogSpot = Image(fioriName: "fiori.ill.tnt.dialog.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
+        public static let simpleEmptyListDialog = EmptyView()
         ///
-        public static let tntExternalLinkDialog = Image(fioriName: "fiori.ill.tnt.external.link.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
+        public static let simpleEmptyListDot = EmptyView()
         ///
-        public static let tntExternalLinkDot = Image(fioriName: "fiori.ill.tnt.external.link.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
+        public static let simpleEmptyListScene = EmptyView()
         ///
-        public static let tntExternalLinkScene = Image(fioriName: "fiori.ill.tnt.external.link.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
+        public static let simpleEmptyListSpot = EmptyView()
         ///
-        public static let tntExternalLinkSpot = Image(fioriName: "fiori.ill.tnt.external.link.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
+        public static let simpleErrorDialog = EmptyView()
         ///
-        public static let tntFaceIdDialog = Image(fioriName: "fiori.ill.tnt.face.id.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
+        public static let simpleErrorDot = EmptyView()
         ///
-        public static let tntFaceIdDot = Image(fioriName: "fiori.ill.tnt.face.id.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
+        public static let simpleErrorScene = EmptyView()
         ///
-        public static let tntFaceIdScene = Image(fioriName: "fiori.ill.tnt.face.id.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
+        public static let simpleErrorSpot = EmptyView()
         ///
-        public static let tntFaceIdSpot = Image(fioriName: "fiori.ill.tnt.face.id.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
+        public static let simpleMagnifierDialog = EmptyView()
         ///
-        public static let tntFingerprintDialog = Image(fioriName: "fiori.ill.tnt.fingerprint.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
+        public static let simpleMagnifierDot = EmptyView()
         ///
-        public static let tntFingerprintDot = Image(fioriName: "fiori.ill.tnt.fingerprint.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
+        public static let simpleMagnifierScene = EmptyView()
         ///
-        public static let tntFingerprintScene = Image(fioriName: "fiori.ill.tnt.fingerprint.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
+        public static let simpleMagnifierSpot = EmptyView()
         ///
-        public static let tntFingerprintSpot = Image(fioriName: "fiori.ill.tnt.fingerprint.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
+        public static let simpleMailDialog = EmptyView()
         ///
-        public static let tntHandshakeDialog = Image(fioriName: "fiori.ill.tnt.handshake.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
+        public static let simpleMailDot = EmptyView()
         ///
-        public static let tntHandshakeDot = Image(fioriName: "fiori.ill.tnt.handshake.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
+        public static let simpleMailScene = EmptyView()
         ///
-        public static let tntHandshakeScene = Image(fioriName: "fiori.ill.tnt.handshake.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
+        public static let simpleMailSpot = EmptyView()
         ///
-        public static let tntHandshakeSpot = Image(fioriName: "fiori.ill.tnt.handshake.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
+        public static let simpleNoSavedItemsDialog = EmptyView()
         ///
-        public static let tntHelpDialog = Image(fioriName: "fiori.ill.tnt.help.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
+        public static let simpleNoSavedItemsDot = EmptyView()
         ///
-        public static let tntHelpDot = Image(fioriName: "fiori.ill.tnt.help.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
+        public static let simpleNoSavedItemsScene = EmptyView()
         ///
-        public static let tntHelpScene = Image(fioriName: "fiori.ill.tnt.help.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
+        public static let simpleNoSavedItemsSpot = EmptyView()
         ///
-        public static let tntHelpSpot = Image(fioriName: "fiori.ill.tnt.help.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
+        public static let simpleNotFoundMagnifierDialog = EmptyView()
         ///
-        public static let tntLockDialog = Image(fioriName: "fiori.ill.tnt.lock.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
+        public static let simpleNotFoundMagnifierDot = EmptyView()
         ///
-        public static let tntLockDot = Image(fioriName: "fiori.ill.tnt.lock.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
+        public static let simpleNotFoundMagnifierScene = EmptyView()
         ///
-        public static let tntLockScene = Image(fioriName: "fiori.ill.tnt.lock.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
+        public static let simpleNotFoundMagnifierSpot = EmptyView()
         ///
-        public static let tntLockSpot = Image(fioriName: "fiori.ill.tnt.lock.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let simpleReloadDialog = EmptyView()
         ///
-        public static let tntMissionDialog = Image(fioriName: "fiori.ill.tnt.mission.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let simpleReloadDot = EmptyView()
         ///
-        public static let tntMissionDot = Image(fioriName: "fiori.ill.tnt.mission.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let simpleReloadScene = EmptyView()
         ///
-        public static let tntMissionFailedDialog = Image(fioriName: "fiori.ill.tnt.mission.failed.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let simpleReloadSpot = EmptyView()
         ///
-        public static let tntMissionFailedDot = Image(fioriName: "fiori.ill.tnt.mission.failed.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
+        public static let simpleTaskDialog = EmptyView()
         ///
-        public static let tntMissionFailedScene = Image(fioriName: "fiori.ill.tnt.mission.failed.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
+        public static let simpleTaskDot = EmptyView()
         ///
-        public static let tntMissionFailedSpot = Image(fioriName: "fiori.ill.tnt.mission.failed.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
+        public static let simpleTaskScene = EmptyView()
         ///
-        public static let tntMissionScene = Image(fioriName: "fiori.ill.tnt.mission.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
+        public static let simpleTaskSpot = EmptyView()
         ///
-        public static let tntMissionSpot = Image(fioriName: "fiori.ill.tnt.mission.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
+        public static let sleepingBellDialog = EmptyView()
         ///
-        public static let tntNoApplicationsDialog = Image(fioriName: "fiori.ill.tnt.no.applications.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
+        public static let sleepingBellDot = EmptyView()
         ///
-        public static let tntNoApplicationsDot = Image(fioriName: "fiori.ill.tnt.no.applications.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
+        public static let sleepingBellScene = EmptyView()
         ///
-        public static let tntNoApplicationsScene = Image(fioriName: "fiori.ill.tnt.no.applications.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
+        public static let sleepingBellSpot = EmptyView()
         ///
-        public static let tntNoApplicationsSpot = Image(fioriName: "fiori.ill.tnt.no.applications.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsMedium")
+        public static let sortColumnDialog = EmptyView()
         ///
-        public static let tntNoFlowsDialog = Image(fioriName: "fiori.ill.tnt.no.flows.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsExtraSmall")
+        public static let sortColumnDot = EmptyView()
         ///
-        public static let tntNoFlowsDot = Image(fioriName: "fiori.ill.tnt.no.flows.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsLarge")
+        public static let sortColumnScene = EmptyView()
         ///
-        public static let tntNoFlowsScene = Image(fioriName: "fiori.ill.tnt.no.flows.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsSmall")
+        public static let sortColumnSpot = EmptyView()
         ///
-        public static let tntNoFlowsSpot = Image(fioriName: "fiori.ill.tnt.no.flows.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
+        public static let successBalloonScene = EmptyView()
         ///
-        public static let tntNoUsersDialog = Image(fioriName: "fiori.ill.tnt.no.users.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
+        public static let successBalloonDialog = EmptyView()
         ///
-        public static let tntNoUsersDot = Image(fioriName: "fiori.ill.tnt.no.users.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
+        public static let successBalloonDot = EmptyView()
         ///
-        public static let tntNoUsersScene = Image(fioriName: "fiori.ill.tnt.no.users.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
+        public static let successBalloonSpot = EmptyView()
         ///
-        public static let tntNoUsersSpot = Image(fioriName: "fiori.ill.tnt.no.users.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
+        public static let successCheckMarkDialog = EmptyView()
         ///
-        public static let tntRadarDialog = Image(fioriName: "fiori.ill.tnt.radar.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
+        public static let successCheckMarkDot = EmptyView()
         ///
-        public static let tntRadarDot = Image(fioriName: "fiori.ill.tnt.radar.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
+        public static let successCheckMarkScene = EmptyView()
         ///
-        public static let tntRadarScene = Image(fioriName: "fiori.ill.tnt.radar.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
+        public static let successCheckMarkSpot = EmptyView()
         ///
-        public static let tntRadarSpot = Image(fioriName: "fiori.ill.tnt.radar.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationMedium")
+        public static let successHighFiveDialog = EmptyView()
         ///
-        public static let tntRoadMapDialog = Image(fioriName: "fiori.ill.tnt.road.map.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationExtraSmall")
+        public static let successHighFiveDot = EmptyView()
         ///
-        public static let tntRoadMapDot = Image(fioriName: "fiori.ill.tnt.road.map.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationLarge")
+        public static let successHighFiveScene = EmptyView()
         ///
-        public static let tntRoadMapScene = Image(fioriName: "fiori.ill.tnt.road.map.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationSmall")
+        public static let successHighFiveSpot = EmptyView()
         ///
-        public static let tntRoadMapSpot = Image(fioriName: "fiori.ill.tnt.road.map.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
+        public static let successScreenDialog = EmptyView()
         ///
-        public static let tntSecretsDialog = Image(fioriName: "fiori.ill.tnt.secrets.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
+        public static let successScreenDot = EmptyView()
         ///
-        public static let tntSecretsDot = Image(fioriName: "fiori.ill.tnt.secrets.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
+        public static let successScreenScene = EmptyView()
         ///
-        public static let tntSecretsScene = Image(fioriName: "fiori.ill.tnt.secrets.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
+        public static let successScreenSpot = EmptyView()
         ///
-        public static let tntSecretsSpot = Image(fioriName: "fiori.ill.tnt.secrets.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyMedium")
+        public static let surveyDialog = EmptyView()
         ///
-        public static let tntServicesDialog = Image(fioriName: "fiori.ill.tnt.services.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyExtraSmall")
+        public static let surveyDot = EmptyView()
         ///
-        public static let tntServicesDot = Image(fioriName: "fiori.ill.tnt.services.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyLarge")
+        public static let surveyScene = EmptyView()
         ///
-        public static let tntServicesScene = Image(fioriName: "fiori.ill.tnt.services.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveySmall")
+        public static let surveySpot = EmptyView()
         ///
-        public static let tntServicesSpot = Image(fioriName: "fiori.ill.tnt.services.spot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
+        public static let tentDialog = EmptyView()
         ///
-        public static let tntSessionExpiredDialog = Image(fioriName: "fiori.ill.tnt.session.expired.dialog")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
+        public static let tentDot = EmptyView()
         ///
-        public static let tntSessionExpiredDot = Image(fioriName: "fiori.ill.tnt.session.expired.dot")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
+        public static let tentScene = EmptyView()
         ///
-        public static let tntSessionExpiredScene = Image(fioriName: "fiori.ill.tnt.session.expired.scene")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
+        public static let tentSpot = EmptyView()
         ///
-        public static let tntSessionExpiredSpot = Image(fioriName: "fiori.ill.tnt.session.expired.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntAvatarDialog = EmptyView()
         ///
-        public static let tntSessionExpiringDialog = Image(fioriName: "fiori.ill.tnt.session.expiring.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntAvatarDot = EmptyView()
         ///
-        public static let tntSessionExpiringDot = Image(fioriName: "fiori.ill.tnt.session.expiring.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntAvatarScene = EmptyView()
         ///
-        public static let tntSessionExpiringScene = Image(fioriName: "fiori.ill.tnt.session.expiring.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntAvatarSpot = EmptyView()
         ///
-        public static let tntSessionExpiringSpot = Image(fioriName: "fiori.ill.tnt.session.expiring.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCalculatorDialog = EmptyView()
         ///
-        public static let tntSettingsDialog = Image(fioriName: "fiori.ill.tnt.settings.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCalculatorDot = EmptyView()
         ///
-        public static let tntSettingsDot = Image(fioriName: "fiori.ill.tnt.settings.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCalculatorScene = EmptyView()
         ///
-        public static let tntSettingsScene = Image(fioriName: "fiori.ill.tnt.settings.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCalculatorSpot = EmptyView()
         ///
-        public static let tntSettingsSpot = Image(fioriName: "fiori.ill.tnt.settings.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartDoughnutDialog = EmptyView()
         ///
-        public static let tntSuccessDialog = Image(fioriName: "fiori.ill.tnt.success.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartDoughnutDot = EmptyView()
         ///
-        public static let tntSuccessDot = Image(fioriName: "fiori.ill.tnt.success.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartDoughnutScene = EmptyView()
         ///
-        public static let tntSuccessScene = Image(fioriName: "fiori.ill.tnt.success.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartDoughnutSpot = EmptyView()
         ///
-        public static let tntSuccessSpot = Image(fioriName: "fiori.ill.tnt.success.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartAreaDialog = EmptyView()
         ///
-        public static let tntSuccessfulAuthDialog = Image(fioriName: "fiori.ill.tnt.successful.auth.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartAreaDot = EmptyView()
         ///
-        public static let tntSuccessfulAuthDot = Image(fioriName: "fiori.ill.tnt.successful.auth.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartAreaScene = EmptyView()
         ///
-        public static let tntSuccessfulAuthScene = Image(fioriName: "fiori.ill.tnt.successful.auth.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartAreaSpot = EmptyView()
         ///
-        public static let tntSuccessfulAuthSpot = Image(fioriName: "fiori.ill.tnt.successful.auth.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartArea2Dialog = EmptyView()
         ///
-        public static let tntSystemsDialog = Image(fioriName: "fiori.ill.tnt.systems.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartArea2Dot = EmptyView()
         ///
-        public static let tntSystemsDot = Image(fioriName: "fiori.ill.tnt.systems.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartArea2Scene = EmptyView()
         ///
-        public static let tntSystemsScene = Image(fioriName: "fiori.ill.tnt.systems.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartArea2Spot = EmptyView()
         ///
-        public static let tntSystemsSpot = Image(fioriName: "fiori.ill.tnt.systems.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBarDialog = EmptyView()
         ///
-        public static let tntTeamsDialog = Image(fioriName: "fiori.ill.tnt.teams.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBarDot = EmptyView()
         ///
-        public static let tntTeamsDot = Image(fioriName: "fiori.ill.tnt.teams.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBarScene = EmptyView()
         ///
-        public static let tntTeamsScene = Image(fioriName: "fiori.ill.tnt.teams.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBarSpot = EmptyView()
         ///
-        public static let tntTeamsSpot = Image(fioriName: "fiori.ill.tnt.teams.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBpmnFlowDialog = EmptyView()
         ///
-        public static let tntToolsDialog = Image(fioriName: "fiori.ill.tnt.tools.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBpmnFlowDot = EmptyView()
         ///
-        public static let tntToolsDot = Image(fioriName: "fiori.ill.tnt.tools.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBpmnFlowScene = EmptyView()
         ///
-        public static let tntToolsScene = Image(fioriName: "fiori.ill.tnt.tools.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBpmnFlowSpot = EmptyView()
         ///
-        public static let tntToolsSpot = Image(fioriName: "fiori.ill.tnt.tools.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBulletDialog = EmptyView()
         ///
-        public static let tntTutorialsDialog = Image(fioriName: "fiori.ill.tnt.tutorials.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBulletDot = EmptyView()
         ///
-        public static let tntTutorialsDot = Image(fioriName: "fiori.ill.tnt.tutorials.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBulletScene = EmptyView()
         ///
-        public static let tntTutorialsScene = Image(fioriName: "fiori.ill.tnt.tutorials.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartBulletSpot = EmptyView()
         ///
-        public static let tntTutorialsSpot = Image(fioriName: "fiori.ill.tnt.tutorials.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartFlowDialog = EmptyView()
         ///
-        public static let tntUnableToLoadDialog = Image(fioriName: "fiori.ill.tnt.unable.to.load.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartFlowDot = EmptyView()
         ///
-        public static let tntUnableToLoadDot = Image(fioriName: "fiori.ill.tnt.unable.to.load.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartFlowScene = EmptyView()
         ///
-        public static let tntUnableToLoadScene = Image(fioriName: "fiori.ill.tnt.unable.to.load.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartFlowSpot = EmptyView()
         ///
-        public static let tntUnableToLoadSpot = Image(fioriName: "fiori.ill.tnt.unable.to.load.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartGanttDialog = EmptyView()
         ///
-        public static let tntUnlockDialog = Image(fioriName: "fiori.ill.tnt.unlock.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartGanttDot = EmptyView()
         ///
-        public static let tntUnlockDot = Image(fioriName: "fiori.ill.tnt.unlock.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartGanttScene = EmptyView()
         ///
-        public static let tntUnlockScene = Image(fioriName: "fiori.ill.tnt.unlock.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartGanttSpot = EmptyView()
         ///
-        public static let tntUnlockSpot = Image(fioriName: "fiori.ill.tnt.unlock.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartOrgDialog = EmptyView()
         ///
-        public static let tntUnsuccessfulAuthDialog = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartOrgDot = EmptyView()
         ///
-        public static let tntUnsuccessfulAuthDot = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartOrgScene = EmptyView()
         ///
-        public static let tntUnsuccessfulAuthScene = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartOrgSpot = EmptyView()
         ///
-        public static let tntUnsuccessfulAuthSpot = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartPieDialog = EmptyView()
         ///
-        public static let tntUser2Dialog = Image(fioriName: "fiori.ill.tnt.user2.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartPieDot = EmptyView()
         ///
-        public static let tntUser2Dot = Image(fioriName: "fiori.ill.tnt.user2.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartPieScene = EmptyView()
         ///
-        public static let tntUser2Scene = Image(fioriName: "fiori.ill.tnt.user2.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntChartPieSpot = EmptyView()
         ///
-        public static let tntUser2Spot = Image(fioriName: "fiori.ill.tnt.user2.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCodePlaceholderDialog = EmptyView()
         ///
-        public static let unableToLoadDialog = Image(fioriName: "fiori.ill.unable.to.load.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCodePlaceholderDot = EmptyView()
         ///
-        public static let unableToLoadDot = Image(fioriName: "fiori.ill.unable.to.load.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCodePlaceholderScene = EmptyView()
         ///
-        public static let unableToLoadImageDialog = Image(fioriName: "fiori.ill.unable.to.load.image.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCodePlaceholderSpot = EmptyView()
         ///
-        public static let unableToLoadImageDot = Image(fioriName: "fiori.ill.unable.to.load.image.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompanyDialog = EmptyView()
         ///
-        public static let unableToLoadImageScene = Image(fioriName: "fiori.ill.unable.to.load.image.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompanyDot = EmptyView()
         ///
-        public static let unableToLoadImageSpot = Image(fioriName: "fiori.ill.unable.to.load.image.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompanyScene = EmptyView()
         ///
-        public static let unableToLoadScene = Image(fioriName: "fiori.ill.unable.to.load.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompanySpot = EmptyView()
         ///
-        public static let unableToLoadSpot = Image(fioriName: "fiori.ill.unable.to.load.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompassDialog = EmptyView()
         ///
-        public static let unableToUploadDialog = Image(fioriName: "fiori.ill.unable.to.upload.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompassDot = EmptyView()
         ///
-        public static let unableToUploadDot = Image(fioriName: "fiori.ill.unable.to.upload.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompassScene = EmptyView()
         ///
-        public static let unableToUploadScene = Image(fioriName: "fiori.ill.unable.to.upload.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntCompassSpot = EmptyView()
         ///
-        public static let unableToUploadSpot = Image(fioriName: "fiori.ill.unable.to.upload.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntComponentsDialog = EmptyView()
         ///
-        public static let uploadCollectionDialog = Image(fioriName: "fiori.ill.upload.collection.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntComponentsDot = EmptyView()
         ///
-        public static let uploadCollectionDot = Image(fioriName: "fiori.ill.upload.collection.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntComponentsScene = EmptyView()
         ///
-        public static let uploadCollectionScene = Image(fioriName: "fiori.ill.upload.collection.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntComponentsSpot = EmptyView()
         ///
-        public static let uploadCollectionSpot = Image(fioriName: "fiori.ill.upload.collection.spot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntDialogDialog = EmptyView()
         ///
-        public static let uploadToCloudDialog = Image(fioriName: "fiori.ill.upload.to.cloud.dialog")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntDialogDot = EmptyView()
         ///
-        public static let uploadToCloudDot = Image(fioriName: "fiori.ill.upload.to.cloud.dot")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntDialogScene = EmptyView()
         ///
-        public static let uploadToCloudScene = Image(fioriName: "fiori.ill.upload.to.cloud.scene")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntDialogSpot = EmptyView()
         ///
-        public static let uploadToCloudSpot = Image(fioriName: "fiori.ill.upload.to.cloud.spot")
-        
-        // V3
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntExternalLinkDialog = EmptyView()
         ///
-        public static let addColumnDialogV3 = Image(fioriName: "fiori.ill.add.column.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntExternalLinkDot = EmptyView()
         ///
-        public static let addColumnDotV3 = Image(fioriName: "fiori.ill.add.column.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntExternalLinkScene = EmptyView()
         ///
-        public static let addColumnSceneV3 = Image(fioriName: "fiori.ill.add.column.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntExternalLinkSpot = EmptyView()
         ///
-        public static let addColumnSpotV3 = Image(fioriName: "fiori.ill.add.column.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFaceIdDialog = EmptyView()
         ///
-        public static let addDimensionsDialogV3 = Image(fioriName: "fiori.ill.add.dimensions.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFaceIdDot = EmptyView()
         ///
-        public static let addDimensionsDotV3 = Image(fioriName: "fiori.ill.add.dimensions.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFaceIdScene = EmptyView()
         ///
-        public static let addDimensionsSceneV3 = Image(fioriName: "fiori.ill.add.dimensions.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFaceIdSpot = EmptyView()
         ///
-        public static let addDimensionsSpotV3 = Image(fioriName: "fiori.ill.add.dimensions.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFingerprintDialog = EmptyView()
         ///
-        public static let addPeopleDialogV3 = Image(fioriName: "fiori.ill.add.people.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFingerprintDot = EmptyView()
         ///
-        public static let addPeopleDotV3 = Image(fioriName: "fiori.ill.add.people.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFingerprintScene = EmptyView()
         ///
-        public static let addPeopleSceneV3 = Image(fioriName: "fiori.ill.add.people.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntFingerprintSpot = EmptyView()
         ///
-        public static let addPeopleSpotV3 = Image(fioriName: "fiori.ill.add.people.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHandshakeDialog = EmptyView()
         ///
-        public static let beforeSearchDialogV3 = Image(fioriName: "fiori.ill.before.search.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHandshakeDot = EmptyView()
         ///
-        public static let beforeSearchDotV3 = Image(fioriName: "fiori.ill.before.search.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHandshakeScene = EmptyView()
         ///
-        public static let beforeSearchSceneV3 = Image(fioriName: "fiori.ill.before.search.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHandshakeSpot = EmptyView()
         ///
-        public static let beforeSearchSpotV3 = Image(fioriName: "fiori.ill.before.search.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHelpDialog = EmptyView()
         ///
-        public static let connectionDialogV3 = Image(fioriName: "fiori.ill.connection.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHelpDot = EmptyView()
         ///
-        public static let connectionDotV3 = Image(fioriName: "fiori.ill.connection.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHelpScene = EmptyView()
         ///
-        public static let connectionSceneV3 = Image(fioriName: "fiori.ill.connection.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntHelpSpot = EmptyView()
         ///
-        public static let connectionSpotV3 = Image(fioriName: "fiori.ill.connection.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntLockDialog = EmptyView()
         ///
-        public static let emptyPlanningCalendarDialogV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntLockDot = EmptyView()
         ///
-        public static let emptyPlanningCalendarDotV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntLockScene = EmptyView()
         ///
-        public static let emptyPlanningCalendarSceneV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntLockSpot = EmptyView()
         ///
-        public static let emptyPlanningCalendarSpotV3 = Image(fioriName: "fiori.ill.empty.planning.calendar.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionDialog = EmptyView()
         ///
-        public static let errorScreenDialogV3 = Image(fioriName: "fiori.ill.error.screen.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionDot = EmptyView()
         ///
-        public static let errorScreenDotV3 = Image(fioriName: "fiori.ill.error.screen.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionFailedDialog = EmptyView()
         ///
-        public static let errorScreenSceneV3 = Image(fioriName: "fiori.ill.error.screen.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionFailedDot = EmptyView()
         ///
-        public static let errorScreenSpotV3 = Image(fioriName: "fiori.ill.error.screen.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionFailedScene = EmptyView()
         ///
-        public static let filterTableDialogV3 = Image(fioriName: "fiori.ill.filter.table.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionFailedSpot = EmptyView()
         ///
-        public static let filterTableDotV3 = Image(fioriName: "fiori.ill.filter.table.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionScene = EmptyView()
         ///
-        public static let filterTableSceneV3 = Image(fioriName: "fiori.ill.filter.table.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntMissionSpot = EmptyView()
         ///
-        public static let filterTableSpotV3 = Image(fioriName: "fiori.ill.filter.table.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoApplicationsDialog = EmptyView()
         ///
-        public static let groupTableDialogV3 = Image(fioriName: "fiori.ill.group.table.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoApplicationsDot = EmptyView()
         ///
-        public static let groupTableDotV3 = Image(fioriName: "fiori.ill.group.table.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoApplicationsScene = EmptyView()
         ///
-        public static let groupTableSceneV3 = Image(fioriName: "fiori.ill.group.table.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoApplicationsSpot = EmptyView()
         ///
-        public static let groupTableSpotV3 = Image(fioriName: "fiori.ill.group.table.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoFlowsDialog = EmptyView()
         ///
-        public static let newMailDialogV3 = Image(fioriName: "fiori.ill.new.mail.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoFlowsDot = EmptyView()
         ///
-        public static let newMailDotV3 = Image(fioriName: "fiori.ill.new.mail.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoFlowsScene = EmptyView()
         ///
-        public static let newMailSceneV3 = Image(fioriName: "fiori.ill.new.mail.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoFlowsSpot = EmptyView()
         ///
-        public static let newMailSpotV3 = Image(fioriName: "fiori.ill.new.mail.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoUsersDialog = EmptyView()
         ///
-        public static let noActivitiesDialogV3 = Image(fioriName: "fiori.ill.no.activities.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoUsersDot = EmptyView()
         ///
-        public static let noActivitiesDotV3 = Image(fioriName: "fiori.ill.no.activities.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoUsersScene = EmptyView()
         ///
-        public static let noActivitiesSceneV3 = Image(fioriName: "fiori.ill.no.activities.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntNoUsersSpot = EmptyView()
         ///
-        public static let noActivitiesSpotV3 = Image(fioriName: "fiori.ill.no.activities.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRadarDialog = EmptyView()
         ///
-        public static let noColumnsSetDialogV3 = Image(fioriName: "fiori.ill.no.columns.set.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRadarDot = EmptyView()
         ///
-        public static let noColumnsSetDotV3 = Image(fioriName: "fiori.ill.no.columns.set.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRadarScene = EmptyView()
         ///
-        public static let noColumnsSetSceneV3 = Image(fioriName: "fiori.ill.no.columns.set.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRadarSpot = EmptyView()
         ///
-        public static let noColumnsSetSpotV3 = Image(fioriName: "fiori.ill.no.columns.set.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRoadMapDialog = EmptyView()
         ///
-        public static let noDataDialogV3 = Image(fioriName: "fiori.ill.no.data.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRoadMapDot = EmptyView()
         ///
-        public static let noDataDotV3 = Image(fioriName: "fiori.ill.no.data.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRoadMapScene = EmptyView()
         ///
-        public static let noDataSceneV3 = Image(fioriName: "fiori.ill.no.data.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntRoadMapSpot = EmptyView()
         ///
-        public static let noDataSpotV3 = Image(fioriName: "fiori.ill.no.data.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSecretsDialog = EmptyView()
         ///
-        public static let noDimensionsSetDialogV3 = Image(fioriName: "fiori.ill.no.dimensions.set.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSecretsDot = EmptyView()
         ///
-        public static let noDimensionsSetDotV3 = Image(fioriName: "fiori.ill.no.dimensions.set.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSecretsScene = EmptyView()
         ///
-        public static let noDimensionsSetSceneV3 = Image(fioriName: "fiori.ill.no.dimensions.set.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSecretsSpot = EmptyView()
         ///
-        public static let noDimensionsSetSpotV3 = Image(fioriName: "fiori.ill.no.dimensions.set.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntServicesDialog = EmptyView()
         ///
-        public static let noEntriesDialogV3 = Image(fioriName: "fiori.ill.no.entries.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntServicesDot = EmptyView()
         ///
-        public static let noEntriesDotV3 = Image(fioriName: "fiori.ill.no.entries.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntServicesScene = EmptyView()
         ///
-        public static let noEntriesSceneV3 = Image(fioriName: "fiori.ill.no.entries.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntServicesSpot = EmptyView()
         ///
-        public static let noEntriesSpotV3 = Image(fioriName: "fiori.ill.no.entries.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiredDialog = EmptyView()
         ///
-        public static let noFilterResultsDialogV3 = Image(fioriName: "fiori.ill.no.filter.results.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiredDot = EmptyView()
         ///
-        public static let noFilterResultsDotV3 = Image(fioriName: "fiori.ill.no.filter.results.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiredScene = EmptyView()
         ///
-        public static let noFilterResultsSceneV3 = Image(fioriName: "fiori.ill.no.filter.results.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiredSpot = EmptyView()
         ///
-        public static let noFilterResultsSpotV3 = Image(fioriName: "fiori.ill.no.filter.results.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiringDialog = EmptyView()
         ///
-        public static let noMailDialogV3 = Image(fioriName: "fiori.ill.no.mail.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiringDot = EmptyView()
         ///
-        public static let noMailDotV3 = Image(fioriName: "fiori.ill.no.mail.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiringScene = EmptyView()
         ///
-        public static let noMailSceneV3 = Image(fioriName: "fiori.ill.no.mail.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSessionExpiringSpot = EmptyView()
         ///
-        public static let noMailSpotV3 = Image(fioriName: "fiori.ill.no.mail.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSettingsDialog = EmptyView()
         ///
-        public static let noNotificationsDialogV3 = Image(fioriName: "fiori.ill.no.notifications.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSettingsDot = EmptyView()
         ///
-        public static let noNotificationsDotV3 = Image(fioriName: "fiori.ill.no.notifications.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSettingsScene = EmptyView()
         ///
-        public static let noNotificationsSceneV3 = Image(fioriName: "fiori.ill.no.notifications.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSettingsSpot = EmptyView()
         ///
-        public static let noNotificationsSpotV3 = Image(fioriName: "fiori.ill.no.notifications.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessDialog = EmptyView()
         ///
-        public static let noSavedItemsDialogV3 = Image(fioriName: "fiori.ill.no.saved.items.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessDot = EmptyView()
         ///
-        public static let noSavedItemsDotV3 = Image(fioriName: "fiori.ill.no.saved.items.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessScene = EmptyView()
         ///
-        public static let noSavedItemsSceneV3 = Image(fioriName: "fiori.ill.no.saved.items.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessSpot = EmptyView()
         ///
-        public static let noSavedItemsSpotV3 = Image(fioriName: "fiori.ill.no.saved.items.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessfulAuthDialog = EmptyView()
         ///
-        public static let noSearchResultsDialogV3 = Image(fioriName: "fiori.ill.no.search.results.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessfulAuthDot = EmptyView()
         ///
-        public static let noSearchResultsDotV3 = Image(fioriName: "fiori.ill.no.search.results.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessfulAuthScene = EmptyView()
         ///
-        public static let noSearchResultsSceneV3 = Image(fioriName: "fiori.ill.no.search.results.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSuccessfulAuthSpot = EmptyView()
         ///
-        public static let noSearchResultsSpotV3 = Image(fioriName: "fiori.ill.no.search.results.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSystemsDialog = EmptyView()
         ///
-        public static let noTasksDialogV3 = Image(fioriName: "fiori.ill.no.tasks.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSystemsDot = EmptyView()
         ///
-        public static let noTasksDotV3 = Image(fioriName: "fiori.ill.no.tasks.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSystemsScene = EmptyView()
         ///
-        public static let noTasksSceneV3 = Image(fioriName: "fiori.ill.no.tasks.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntSystemsSpot = EmptyView()
         ///
-        public static let noTasksSpotV3 = Image(fioriName: "fiori.ill.no.tasks.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTeamsDialog = EmptyView()
         ///
-        public static let resizeColumnDialogV3 = Image(fioriName: "fiori.ill.resize.column.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTeamsDot = EmptyView()
         ///
-        public static let resizeColumnDotV3 = Image(fioriName: "fiori.ill.resize.column.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTeamsScene = EmptyView()
         ///
-        public static let resizeColumnSceneV3 = Image(fioriName: "fiori.ill.resize.column.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTeamsSpot = EmptyView()
         ///
-        public static let resizeColumnSpotV3 = Image(fioriName: "fiori.ill.resize.column.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntToolsDialog = EmptyView()
         ///
-        public static let signOutDialogV3 = Image(fioriName: "fiori.ill.sign.out.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntToolsDot = EmptyView()
         ///
-        public static let signOutDotV3 = Image(fioriName: "fiori.ill.sign.out.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntToolsScene = EmptyView()
         ///
-        public static let signOutSceneV3 = Image(fioriName: "fiori.ill.sign.out.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntToolsSpot = EmptyView()
         ///
-        public static let signOutSpotV3 = Image(fioriName: "fiori.ill.sign.out.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTutorialsDialog = EmptyView()
         ///
-        public static let sortColumnDialogV3 = Image(fioriName: "fiori.ill.sort.column.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTutorialsDot = EmptyView()
         ///
-        public static let sortColumnDotV3 = Image(fioriName: "fiori.ill.sort.column.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTutorialsScene = EmptyView()
         ///
-        public static let sortColumnSceneV3 = Image(fioriName: "fiori.ill.sort.column.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntTutorialsSpot = EmptyView()
         ///
-        public static let sortColumnSpotV3 = Image(fioriName: "fiori.ill.sort.column.spot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let tntUnableToLoadDialog = EmptyView()
         ///
-        public static let successCheckMarkDialogV3 = Image(fioriName: "fiori.ill.success.check.mark.dialog.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let tntUnableToLoadDot = EmptyView()
         ///
-        public static let successCheckMarkDotV3 = Image(fioriName: "fiori.ill.success.check.mark.dot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let tntUnableToLoadScene = EmptyView()
         ///
-        public static let successCheckMarkSceneV3 = Image(fioriName: "fiori.ill.success.check.mark.scene.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let tntUnableToLoadSpot = EmptyView()
         ///
-        public static let successCheckMarkSpotV3 = Image(fioriName: "fiori.ill.success.check.mark.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnlockDialog = EmptyView()
         ///
-        public static let successHighFiveDialogV3 = Image(fioriName: "fiori.ill.success.high.five.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnlockDot = EmptyView()
         ///
-        public static let successHighFiveDotV3 = Image(fioriName: "fiori.ill.success.high.five.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnlockScene = EmptyView()
         ///
-        public static let successHighFiveSceneV3 = Image(fioriName: "fiori.ill.success.high.five.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnlockSpot = EmptyView()
         ///
-        public static let successHighFiveSpotV3 = Image(fioriName: "fiori.ill.success.high.five.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnsuccessfulAuthDialog = EmptyView()
         ///
-        public static let successScreenDialogV3 = Image(fioriName: "fiori.ill.success.screen.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnsuccessfulAuthDot = EmptyView()
         ///
-        public static let successScreenDotV3 = Image(fioriName: "fiori.ill.success.screen.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnsuccessfulAuthScene = EmptyView()
         ///
-        public static let successScreenSceneV3 = Image(fioriName: "fiori.ill.success.screen.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUnsuccessfulAuthSpot = EmptyView()
         ///
-        public static let successScreenSpotV3 = Image(fioriName: "fiori.ill.success.screen.spot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUser2Dialog = EmptyView()
         ///
-        public static let unableToLoadImageDialogV3 = Image(fioriName: "fiori.ill.unable.to.load.image.dialog.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUser2Dot = EmptyView()
         ///
-        public static let unableToLoadImageDotV3 = Image(fioriName: "fiori.ill.unable.to.load.image.dot.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUser2Scene = EmptyView()
         ///
-        public static let unableToLoadImageSceneV3 = Image(fioriName: "fiori.ill.unable.to.load.image.scene.v3")
+        @available(*, unavailable, message: "Illustration was removed")
+        public static let tntUser2Spot = EmptyView()
         ///
-        public static let unableToLoadImageSpotV3 = Image(fioriName: "fiori.ill.unable.to.load.image.spot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let unableToLoadDialog = EmptyView()
         ///
-        public static let unableToLoadScreenDialogV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.dialog.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let unableToLoadDot = EmptyView()
         ///
-        public static let unableToLoadScreenDotV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.dot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageMedium")
+        public static let unableToLoadImageDialog = EmptyView()
         ///
-        public static let unableToLoadScreenSceneV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.scene.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageExtraSmall")
+        public static let unableToLoadImageDot = EmptyView()
         ///
-        public static let unableToLoadScreenSpotV3 = Image(fioriName: "fiori.ill.unable.to.load.screen.spot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageLarge")
+        public static let unableToLoadImageScene = EmptyView()
         ///
-        public static let uploadCollectionDialogV3 = Image(fioriName: "fiori.ill.upload.collection.dialog.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageSmall")
+        public static let unableToLoadImageSpot = EmptyView()
         ///
-        public static let uploadCollectionDotV3 = Image(fioriName: "fiori.ill.upload.collection.dot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let unableToLoadScene = EmptyView()
         ///
-        public static let uploadCollectionSceneV3 = Image(fioriName: "fiori.ill.upload.collection.scene.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let unableToLoadSpot = EmptyView()
         ///
-        public static let uploadCollectionSpotV3 = Image(fioriName: "fiori.ill.upload.collection.spot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
+        public static let unableToUploadDialog = EmptyView()
         ///
-        public static let uploadToCloudDialogV3 = Image(fioriName: "fiori.ill.upload.to.cloud.dialog.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
+        public static let unableToUploadDot = EmptyView()
         ///
-        public static let uploadToCloudDotV3 = Image(fioriName: "fiori.ill.upload.to.cloud.dot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
+        public static let unableToUploadScene = EmptyView()
         ///
-        public static let uploadToCloudSceneV3 = Image(fioriName: "fiori.ill.upload.to.cloud.scene.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
+        public static let unableToUploadSpot = EmptyView()
         ///
-        public static let uploadToCloudSpotV3 = Image(fioriName: "fiori.ill.upload.to.cloud.spot.v3")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadMedium")
+        public static let uploadCollectionDialog = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadExtraSmall")
+        public static let uploadCollectionDot = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadLarge")
+        public static let uploadCollectionScene = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadSmall")
+        public static let uploadCollectionSpot = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudMedium")
+        public static let uploadToCloudDialog = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudExtraSmall")
+        public static let uploadToCloudDot = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudLarge")
+        public static let uploadToCloudScene = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudSmall")
+        public static let uploadToCloudSpot = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsMedium")
+        public static let addColumnDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsExtraSmall")
+        public static let addColumnDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsLarge")
+        public static let addColumnSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsSmall")
+        public static let addColumnSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsMedium")
+        public static let addDimensionsDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsExtraSmall")
+        public static let addDimensionsDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsLarge")
+        public static let addDimensionsSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsSmall")
+        public static let addDimensionsSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarMedium")
+        public static let addPeopleDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarExtraSmall")
+        public static let addPeopleDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarLarge")
+        public static let addPeopleSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarSmall")
+        public static let addPeopleSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
+        public static let beforeSearchDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
+        public static let beforeSearchDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
+        public static let beforeSearchSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
+        public static let beforeSearchSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let connectionDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let connectionDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let connectionSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let connectionSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarMedium")
+        public static let emptyPlanningCalendarDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarExtraSmall")
+        public static let emptyPlanningCalendarDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarLarge")
+        public static let emptyPlanningCalendarSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarSmall")
+        public static let emptyPlanningCalendarSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
+        public static let errorScreenDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
+        public static let errorScreenDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
+        public static let errorScreenSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
+        public static let errorScreenSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsMedium")
+        public static let filterTableDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsExtraSmall")
+        public static let filterTableDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsLarge")
+        public static let filterTableSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsSmall")
+        public static let filterTableSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsMedium")
+        public static let groupTableDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsExtraSmall")
+        public static let groupTableDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsLarge")
+        public static let groupTableSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsSmall")
+        public static let groupTableSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailMedium")
+        public static let newMailDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailExtraSmall")
+        public static let newMailDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailLarge")
+        public static let newMailSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailSmall")
+        public static let newMailSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
+        public static let noActivitiesDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
+        public static let noActivitiesDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
+        public static let noActivitiesSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
+        public static let noActivitiesSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetMedium")
+        public static let noColumnsSetDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetExtraSmall")
+        public static let noColumnsSetDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetLarge")
+        public static let noColumnsSetSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetSmall")
+        public static let noColumnsSetSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
+        public static let noDataDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
+        public static let noDataDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
+        public static let noDataSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
+        public static let noDataSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataMedium")
+        public static let noDimensionsSetDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataExtraSmall")
+        public static let noDimensionsSetDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataLarge")
+        public static let noDimensionsSetSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataSmall")
+        public static let noDimensionsSetSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
+        public static let noEntriesDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
+        public static let noEntriesDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
+        public static let noEntriesSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
+        public static let noEntriesSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsMedium")
+        public static let noFilterResultsDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsExtraSmall")
+        public static let noFilterResultsDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsLarge")
+        public static let noFilterResultsSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsSmall")
+        public static let noFilterResultsSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
+        public static let noMailDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
+        public static let noMailDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
+        public static let noMailSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
+        public static let noMailSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
+        public static let noNotificationsDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
+        public static let noNotificationsDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
+        public static let noNotificationsSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
+        public static let noNotificationsSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
+        public static let noSavedItemsDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
+        public static let noSavedItemsDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
+        public static let noSavedItemsSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
+        public static let noSavedItemsSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
+        public static let noSearchResultsDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
+        public static let noSearchResultsDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
+        public static let noSearchResultsSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
+        public static let noSearchResultsSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
+        public static let noTasksDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
+        public static let noTasksDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
+        public static let noTasksSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
+        public static let noTasksSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsMedium")
+        public static let resizeColumnDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsExtraSmall")
+        public static let resizeColumnDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsLarge")
+        public static let resizeColumnSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsSmall")
+        public static let resizeColumnSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutMedium")
+        public static let signOutDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutExtraSmall")
+        public static let signOutDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutLarge")
+        public static let signOutSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutSmall")
+        public static let signOutSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsMedium")
+        public static let sortColumnDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsExtraSmall")
+        public static let sortColumnDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsLarge")
+        public static let sortColumnSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsSmall")
+        public static let sortColumnSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
+        public static let successCheckMarkDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
+        public static let successCheckMarkDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
+        public static let successCheckMarkSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
+        public static let successCheckMarkSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationMedium")
+        public static let successHighFiveDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationExtraSmall")
+        public static let successHighFiveDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationLarge")
+        public static let successHighFiveSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationSmall")
+        public static let successHighFiveSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
+        public static let successScreenDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
+        public static let successScreenDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
+        public static let successScreenSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
+        public static let successScreenSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageMedium")
+        public static let unableToLoadImageDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageExtraSmall")
+        public static let unableToLoadImageDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageLarge")
+        public static let unableToLoadImageSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageSmall")
+        public static let unableToLoadImageSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
+        public static let unableToLoadScreenDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
+        public static let unableToLoadScreenDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
+        public static let unableToLoadScreenSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
+        public static let unableToLoadScreenSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadMedium")
+        public static let uploadCollectionDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadExtraSmall")
+        public static let uploadCollectionDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadLarge")
+        public static let uploadCollectionSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadSmall")
+        public static let uploadCollectionSpotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudMedium")
+        public static let uploadToCloudDialogV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudExtraSmall")
+        public static let uploadToCloudDotV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudLarge")
+        public static let uploadToCloudSceneV3 = EmptyView()
+        ///
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudSmall")
+        public static let uploadToCloudSpotV3 = EmptyView()
     }
 }
 

@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "अभी तक प्रदर्शित करने के लिए कुछ भी नहीं है";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d घंटे %d मिनट";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -250,8 +250,8 @@
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "संदेश";
 
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "जानकारी";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "जानकारी";
 
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "पुष्टि करें";

@@ -33,7 +33,7 @@ struct DimensionSelectorExample: View {
                 }
                 .environment(\.isLoading, self.isLoading)
             } else {
-                DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex)
+                DimensionSelector(titles: self.segmentTitles, selectedIndex: self.$selectedIndex, allowEmptySelection: false)
                     .onChange(of: self.selectedIndex) {
                         self.stockModel.indexOfStockSeries = self.selectedIndex ?? -1
                     }

@@ -39,7 +39,7 @@ private extension View {
 public enum FilterFeedbackBarResetButtonType {
     /// Reset to origin values.
     case reset
-    /// Clear selected value, only effective for sinlge selection.
+    /// Clear selected value, only effective for single selection.
     case clearAll
 }
 

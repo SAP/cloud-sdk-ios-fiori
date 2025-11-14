@@ -44,7 +44,7 @@ struct WritingAssistantExample: View {
             if withLoading { self.isLoading = true }
             try? await Task.sleep(nanoseconds: 1500000000)
             if withLoading { self.isLoading = false }
-            return .failure(WAError(detailImage: FioriIcon.illustrations.simpleConnectionSpot, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
+            return .failure(WAError(detailImage: FioriIcon.illustrations.unableToUploadSmall, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
         } else {
             if menu == .analyzeText {
                 return .customDestination(self.customDestination)
@@ -60,7 +60,7 @@ struct WritingAssistantExample: View {
     private func submitFeedback(state: AIUserFeedbackVoteState, values: [String]) async -> WAFeedbackResult {
         try? await Task.sleep(nanoseconds: 1500000000)
         if self.errorOccurred {
-            return .failure(WAError(detailImage: FioriIcon.illustrations.simpleConnectionSpot, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
+            return .failure(WAError(detailImage: FioriIcon.illustrations.unableToUploadSmall, title: "Error Title", description: "Error Description", action: self.illustratedMessageAction, detailImageSize: .small))
         } else {
             return .success
         }

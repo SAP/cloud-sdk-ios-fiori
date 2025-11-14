@@ -38,7 +38,7 @@ struct ObjectHeaderTestApp: View {
         }, substatus: {
             Text("High High excel")
         }, detailImage: {
-            Image("attachment009").resizable()
+            Image("productThumbnail").resizable()
         }, detailContent: {
             ChartView(ChartModel(chartType: .line,
                                  data: [[200, 170, 165, 143, 166, 82, 110]],

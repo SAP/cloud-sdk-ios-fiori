@@ -36,7 +36,7 @@ struct TabViewDetailView: View {
     
     var tabs: [TabBarModel] = [TabBarModel(name: "Overview", badge: "2", imageName: "house.fill"),
                                TabBarModel(name: "Cart", imageName: "cart"),
-                               TabBarModel(name: "Saved", badge: "NEW", imageName: "bookmark"),
+                               TabBarModel(name: "Saved", badge: "4", imageName: "bookmark"),
                                TabBarModel(name: "Profile", imageName: "person.crop.circle"),
                                TabBarModel(name: "To-Dos", imageName: "tray.and.arrow.down"),
                                TabBarModel(name: "2", imageName: "2.circle"),
@@ -70,6 +70,7 @@ struct TabViewDetailView: View {
                 .tag(index)
                 .tabItem {
                     Label(model.name, systemImage: model.imageName)
+                        .accessibilityAddTraits(self.selection == index ? [.isSelected] : [])
                 }
             }
         }

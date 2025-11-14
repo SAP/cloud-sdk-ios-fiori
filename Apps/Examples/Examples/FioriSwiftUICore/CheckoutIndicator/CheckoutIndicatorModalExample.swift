@@ -36,7 +36,7 @@ struct ModalView: View {
             }
             .pickerStyle(.segmented)
             .padding(.top, 20)
-            .frame(maxWidth: 300)
+            .frame(maxWidth: 400)
 
             Button("Dismiss Modal") {
                 self.dismiss()

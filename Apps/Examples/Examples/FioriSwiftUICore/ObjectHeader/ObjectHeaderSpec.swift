@@ -72,7 +72,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -92,7 +92,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, status: {
                 Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -205,7 +205,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -236,7 +236,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -317,7 +317,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -356,7 +356,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("Very High Priority")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -377,7 +377,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -426,7 +426,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, status: {
                 Text("Very High Priority")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Total Sales Q2")
@@ -449,7 +449,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Temperature")
@@ -518,7 +518,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("High")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -542,7 +542,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, subtitle: {
                 Text("Job 819701")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             }, detailContent: {
                 HeaderChart(title: {
                     Text("Total Sales Q2")
@@ -582,7 +582,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)
@@ -602,7 +602,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             let oh = ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor Long Job Title Wrapping Two Lines Inspect Electric Pump Motor Long Job Title Wrapping Two Lines")
             }, detailImage: {
-                Image("attachment009").resizable()
+                Image("productThumbnail").resizable()
             })
             
             return AnyView(oh)

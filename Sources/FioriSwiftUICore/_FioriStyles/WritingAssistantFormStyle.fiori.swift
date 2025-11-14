@@ -63,6 +63,8 @@ extension WritingAssistantFormFioriStyle {
         func makeBody(_ configuration: UndoActionConfiguration) -> some View {
             UndoAction(configuration)
                 .fioriButtonStyle(AIWAActionButtonStyle())
+                .accessibilityLabel(NSLocalizedString("Undo change", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Undo change"))
+                .accessibilityAddTraits(.isButton)
         }
     }
     
@@ -72,6 +74,8 @@ extension WritingAssistantFormFioriStyle {
         func makeBody(_ configuration: RedoActionConfiguration) -> some View {
             RedoAction(configuration)
                 .fioriButtonStyle(AIWAActionButtonStyle())
+                .accessibilityLabel(NSLocalizedString("Rodo change", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Redo change"))
+                .accessibilityAddTraits(.isButton)
         }
     }
     
@@ -83,6 +87,8 @@ extension WritingAssistantFormFioriStyle {
             UpVoteAction(configuration)
                 .upVoteActionStyle(UpVoteButtonSelectedStyle(isSelected: self.context.feedbackUpvoted))
                 .fioriButtonStyle(AIVoteActionButtonStyle())
+                .accessibilityLabel(NSLocalizedString("Positive feedback", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Positive feedback"))
+                .accessibilityAddTraits(.isButton)
         }
     }
     
@@ -94,6 +100,8 @@ extension WritingAssistantFormFioriStyle {
             DownVoteAction(configuration)
                 .downVoteActionStyle(DownVoteButtonSelectedStyle(isSelected: self.context.feedbackDownvoted))
                 .fioriButtonStyle(AIVoteActionButtonStyle())
+                .accessibilityLabel(NSLocalizedString("Negative feedback", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Negative feedback"))
+                .accessibilityAddTraits(.isButton)
         }
     }
     

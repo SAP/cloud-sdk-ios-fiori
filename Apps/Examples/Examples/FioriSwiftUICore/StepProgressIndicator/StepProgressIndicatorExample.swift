@@ -460,6 +460,8 @@ struct SPIExampleWithoutName: View {
 }
 
 struct SPIExampleByBuilder: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    
     let isDeprecated: Bool
     @State var selection: String = ""
     var body: some View {
@@ -532,7 +534,7 @@ struct SPIExampleByBuilder: View {
                         }
                     }
                     .nodeStyle { c in
-                        c.node.font(Font.fiori(fixedSize: 16))
+                        c.node
                             .foregroundStyle(Color.preferredColor(.blue7))
                     }
                     
@@ -559,9 +561,6 @@ struct SPIExampleByBuilder: View {
                             }
                         }
                     }
-                    .nodeStyle { c in
-                        c.node.font(Font.fiori(fixedSize: 12))
-                    }
                     .lineStyle { c in
                         c.line.foregroundStyle(Color.preferredColor(.negativeLabel))
                     }
@@ -579,9 +578,24 @@ struct SPIExampleByBuilder: View {
         ZStack {
             background
             Text(s)
+                .minimumScaleFactor(0.6)
         }
-        .frame(width: 40, height: 40)
+        .frame(width: self.minSide, height: self.minSide)
         .border(self.selection == s ? Color.black : Color.clear, width: 2)
+    }
+    
+    private var minSide: CGFloat {
+        switch self.dynamicTypeSize {
+        case .xSmall, .small, .medium, .large: 40
+        case .xLarge, .xxLarge: 48
+        case .xxxLarge: 56
+        case .accessibility1: 64
+        case .accessibility2: 72
+        case .accessibility3: 80
+        case .accessibility4: 88
+        case .accessibility5: 96
+        @unknown default: 40
+        }
     }
 }
 

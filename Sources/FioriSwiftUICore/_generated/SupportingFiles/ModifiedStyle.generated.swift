@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -89,6 +89,34 @@ public extension AccessoryIconStyle {
 
     func concat(_ style: some AccessoryIconStyle) -> some AccessoryIconStyle {
         style.modifier(AccessoryIconStyleModifier(style: self))
+    }
+}
+
+// MARK: AccessoryViewStyle
+
+extension ModifiedStyle: AccessoryViewStyle where Style: AccessoryViewStyle {
+    public func makeBody(_ configuration: AccessoryViewConfiguration) -> some View {
+        AccessoryView(configuration)
+            .accessoryViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct AccessoryViewStyleModifier<Style: AccessoryViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.accessoryViewStyle(self.style)
+    }
+}
+
+public extension AccessoryViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some AccessoryViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some AccessoryViewStyle) -> some AccessoryViewStyle {
+        style.modifier(AccessoryViewStyleModifier(style: self))
     }
 }
 
@@ -957,6 +985,118 @@ public extension BodyTextStyle {
 
     func concat(_ style: some BodyTextStyle) -> some BodyTextStyle {
         style.modifier(BodyTextStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarDayViewStyle
+
+extension ModifiedStyle: CalendarDayViewStyle where Style: CalendarDayViewStyle {
+    public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
+        CalendarDayView(configuration)
+            .calendarDayViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarDayViewStyleModifier<Style: CalendarDayViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarDayViewStyle(self.style)
+    }
+}
+
+public extension CalendarDayViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarDayViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarDayViewStyle) -> some CalendarDayViewStyle {
+        style.modifier(CalendarDayViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+extension ModifiedStyle: CalendarMonthViewStyle where Style: CalendarMonthViewStyle {
+    public func makeBody(_ configuration: CalendarMonthViewConfiguration) -> some View {
+        CalendarMonthView(configuration)
+            .calendarMonthViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarMonthViewStyleModifier<Style: CalendarMonthViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarMonthViewStyle(self.style)
+    }
+}
+
+public extension CalendarMonthViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarMonthViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarMonthViewStyle) -> some CalendarMonthViewStyle {
+        style.modifier(CalendarMonthViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarViewStyle
+
+extension ModifiedStyle: CalendarViewStyle where Style: CalendarViewStyle {
+    public func makeBody(_ configuration: CalendarViewConfiguration) -> some View {
+        CalendarView(configuration)
+            .calendarViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarViewStyleModifier<Style: CalendarViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarViewStyle(self.style)
+    }
+}
+
+public extension CalendarViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarViewStyle) -> some CalendarViewStyle {
+        style.modifier(CalendarViewStyleModifier(style: self))
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+extension ModifiedStyle: CalendarWeekViewStyle where Style: CalendarWeekViewStyle {
+    public func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
+        CalendarWeekView(configuration)
+            .calendarWeekViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CalendarWeekViewStyleModifier<Style: CalendarWeekViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.calendarWeekViewStyle(self.style)
+    }
+}
+
+public extension CalendarWeekViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CalendarWeekViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CalendarWeekViewStyle) -> some CalendarWeekViewStyle {
+        style.modifier(CalendarWeekViewStyleModifier(style: self))
     }
 }
 
@@ -2273,6 +2413,118 @@ public extension HelperTextStyle {
 
     func concat(_ style: some HelperTextStyle) -> some HelperTextStyle {
         style.modifier(HelperTextStyleModifier(style: self))
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+extension ModifiedStyle: HierarchyIndicatorStyle where Style: HierarchyIndicatorStyle {
+    public func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> some View {
+        HierarchyIndicator(configuration)
+            .hierarchyIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HierarchyIndicatorStyleModifier<Style: HierarchyIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.hierarchyIndicatorStyle(self.style)
+    }
+}
+
+public extension HierarchyIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HierarchyIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HierarchyIndicatorStyle) -> some HierarchyIndicatorStyle {
+        style.modifier(HierarchyIndicatorStyleModifier(style: self))
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+extension ModifiedStyle: HierarchyItemViewStyle where Style: HierarchyItemViewStyle {
+    public func makeBody(_ configuration: HierarchyItemViewConfiguration) -> some View {
+        HierarchyItemView(configuration)
+            .hierarchyItemViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HierarchyItemViewStyleModifier<Style: HierarchyItemViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.hierarchyItemViewStyle(self.style)
+    }
+}
+
+public extension HierarchyItemViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HierarchyItemViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HierarchyItemViewStyle) -> some HierarchyItemViewStyle {
+        style.modifier(HierarchyItemViewStyleModifier(style: self))
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+extension ModifiedStyle: HierarchyViewStyle where Style: HierarchyViewStyle {
+    public func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
+        HierarchyView(configuration)
+            .hierarchyViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HierarchyViewStyleModifier<Style: HierarchyViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.hierarchyViewStyle(self.style)
+    }
+}
+
+public extension HierarchyViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HierarchyViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HierarchyViewStyle) -> some HierarchyViewStyle {
+        style.modifier(HierarchyViewStyleModifier(style: self))
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+extension ModifiedStyle: HierarchyViewHeaderStyle where Style: HierarchyViewHeaderStyle {
+    public func makeBody(_ configuration: HierarchyViewHeaderConfiguration) -> some View {
+        HierarchyViewHeader(configuration)
+            .hierarchyViewHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HierarchyViewHeaderStyleModifier<Style: HierarchyViewHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.hierarchyViewHeaderStyle(self.style)
+    }
+}
+
+public extension HierarchyViewHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HierarchyViewHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HierarchyViewHeaderStyle) -> some HierarchyViewHeaderStyle {
+        style.modifier(HierarchyViewHeaderStyleModifier(style: self))
     }
 }
 
