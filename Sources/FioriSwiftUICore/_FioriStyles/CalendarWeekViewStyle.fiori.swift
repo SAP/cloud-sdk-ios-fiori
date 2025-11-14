@@ -8,6 +8,7 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
     @Environment(\.alternateCalendarType) var alternateCalendarType
     @Environment(\.alternateCalendarLocale) var alternateCalendarLocale
     @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
+    @Environment(\.customLanguageId) var customLanguageId
     
     public func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
         CalendarWeekContainerHStack(showWeekNumber: self.showWeekNumber, verticalGuide: .titleFirstTextBaseline) {
@@ -30,6 +31,9 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
                 } else {
                     CalendarDayView(title: AttributedString("\(day)"), subtitle: self.getSecondaryDayTitle(date), isEventIndicatorVisible: self.isEventIndicatorVisible, state: state, customEventView: configuration.customEventView(date))
                         .contentShape(Rectangle())
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(Text(self.accessibilityLabel(configuration, date: date, state: state)))
+                        .accessibilityHint(Text(self.accessibilityHint(configuration, state: state) ?? ""))
                         .ifApply(!state.isDisabled, content: {
                             $0.onTapGesture {
                                 configuration.dayTappedCallback?(date, state)
@@ -38,6 +42,52 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
                 }
             }
         }
+    }
+    
+    func accessibilityLabel(_ configuration: CalendarWeekViewConfiguration, date: Date, state: CalendarDayState) -> String {
+        var locale = Locale.current
+        if let customLanguageId {
+            locale = Locale(identifier: customLanguageId)
+        }
+        
+        let dateFullDescStr = self.getAlternateDayTitle(date, identifier: .gregorian, defaultLocale: locale, dateStyle: .full)
+        let alternativeCalendarDayFullDescStr = self.getSecondaryDayTitle(date, dateStyle: .long)
+        
+        var dateStatusDesc = ""
+        if state == .today {
+            dateStatusDesc = "Today".localizedFioriString() + ", "
+        } else if state.isSelected {
+            dateStatusDesc = "Date selected".localizedFioriString() + ", "
+        } else if state.isDisabled {
+            dateStatusDesc = "Disabled date".localizedFioriString() + ", "
+        }
+        
+        var accLabel = dateStatusDesc + String(dateFullDescStr.characters)
+        if let alternativeCalendarDayFullDescStr {
+            accLabel += "; " + String(alternativeCalendarDayFullDescStr.characters)
+        }
+        if self.isEventIndicatorVisible {
+            accLabel += (", " + "has event".localizedFioriString())
+        }
+        return accLabel
+    }
+    
+    func accessibilityHint(_ configuration: CalendarWeekViewConfiguration, state: CalendarDayState) -> String? {
+        if state.isDisabled {
+            return nil
+        }
+        switch configuration.calendarStyle {
+        case .rangeSelection:
+            return "Double tap to change the selection".localizedFioriString()
+        case .datesSelection:
+            return state.isSelected ? "Double tap to unselect".localizedFioriString() : "Double tap to select".localizedFioriString()
+        default:
+            // For single selection, cannot deselect selected
+            if !state.isSelected {
+                return "Double tap to select".localizedFioriString()
+            }
+        }
+        return nil
     }
     
     func weekNumberVisibility(_ configuration: CalendarWeekViewConfiguration) -> Bool {
@@ -118,25 +168,28 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
         sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .xxxLarge)
     }
     
-    func getSecondaryDayTitle(_ date: Date) -> AttributedString? {
+    func getSecondaryDayTitle(_ date: Date, dateStyle: DateFormatter.Style = .short) -> AttributedString? {
         switch self.alternateCalendarType {
         case .chinese:
-            return self.getAlternateDayTitle(date, identifier: .chinese, defaultLocale: Locale(identifier: "zh-Hans"))
+            return self.getAlternateDayTitle(date, identifier: .chinese, defaultLocale: Locale(identifier: "zh-Hans"), dateStyle: dateStyle)
         case .hebrew:
-            return self.getAlternateDayTitle(date, identifier: .hebrew, defaultLocale: Locale(identifier: "he"))
+            return self.getAlternateDayTitle(date, identifier: .hebrew, defaultLocale: Locale(identifier: "he"), dateStyle: dateStyle)
         case .islamic:
-            return self.getAlternateDayTitle(date, identifier: .islamic, defaultLocale: Locale(identifier: "ar"))
+            return self.getAlternateDayTitle(date, identifier: .islamic, defaultLocale: Locale(identifier: "ar"), dateStyle: dateStyle)
         default:
             return nil
         }
     }
 
-    func getAlternateDayTitle(_ date: Date, identifier: Calendar.Identifier, defaultLocale: Locale) -> AttributedString {
+    func getAlternateDayTitle(_ date: Date, identifier: Calendar.Identifier, defaultLocale: Locale, dateStyle: DateFormatter.Style = .short) -> AttributedString {
         let calendar = Calendar(identifier: identifier)
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = calendar
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = dateStyle
         dateFormatter.locale = self.alternateCalendarLocale ?? defaultLocale
+        if dateStyle != .short {
+            return AttributedString(dateFormatter.string(from: date))
+        }
         let day = calendar.component(.day, from: date)
         if day == 1 {
             dateFormatter.dateFormat = "MMMM"

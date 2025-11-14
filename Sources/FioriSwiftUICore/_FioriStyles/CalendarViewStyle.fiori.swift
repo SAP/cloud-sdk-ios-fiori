@@ -137,6 +137,8 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 
                 if configuration.model.calendarStyle == .expandable {
                     CalendarDragView()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(Text("Handle to switch from month view to week view".localizedFioriString()))
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
