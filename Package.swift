@@ -25,6 +25,9 @@ let package = Package(
             targets: ["FioriThemeManager"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/nalexn/ViewInspector.git", .branch("0.10.3"))
+    ],
     targets: [
         .target(
             name: "FioriSwiftUI",
@@ -65,7 +68,7 @@ let package = Package(
         ),
         .testTarget(
             name: "FioriSwiftUICoreTests",
-            dependencies: ["FioriSwiftUICore"],
+            dependencies: ["FioriSwiftUICore", "ViewInspector"],
             path: "Tests/FioriSwiftUITests/FioriSwiftUICore"
         )
     ]

@@ -21,6 +21,7 @@ public struct SwitchViewBaseStyle: SwitchViewStyle {
                 }
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

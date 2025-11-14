@@ -201,7 +201,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 ///
 /// ```swift
 /// CardHeader {
-///     Image("attachment009")
+///     Image("productThumbnail")
 ///         .resizable()
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
@@ -259,7 +259,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 /// ```
 ///
 /// ```swift
-/// CardHeader(mediaImage: Image("attachment009"),
+/// CardHeader(mediaImage: Image("productThumbnail"),
 ///            description: "Title",
 ///            title: "Title",
 ///            subtitle: "Subtitle",
@@ -286,7 +286,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///
 /// ```swift
 /// Card {
-///     Image("attachment009")
+///     Image("productThumbnail")
 ///         .resizable()
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
@@ -357,7 +357,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 /// ```
 ///
 /// ```swift
-/// Card(mediaImage: Image("attachment009"),
+/// Card(mediaImage: Image("productThumbnail"),
 ///      description: "Title",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
@@ -987,6 +987,10 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: @Binding
     /// This property indicates whether the picker is to be displayed.
     var pickerVisible: Bool { get set }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the separator is to be displayed. Default is false.
+    var hidesSeparator: Bool { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
@@ -1971,6 +1975,30 @@ protocol _AttachmentButtonImageComponent {
 ///    }
 /// )
 /// ```
+///
+/// How the `AttachmentGroup` Works and App Responsibilities:
+/// The primary data model is an array of AttachmentInfo, which contains the URL(s) and the attachment state. `AttachmentGroup` relies on the app to prepare attachments for display.
+/// Apps are responsible for pre-configuring attachments (e.g., for a "download" use case) in the app’s local folder.
+/// Eager downloading is the recommended default approach for attachment previewing.
+///
+/// How Apps Handle Uploading:
+/// The AttachmentGroup component is agnostic about the upload destination and method. It uses a delegate pattern for upload logic.
+/// Apps must provide an app-specific AttachmentDelegate (a Swift protocol) to handle the actual upload process.
+/// A [`BasicAttachmentDelegate`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Sources/FioriSwiftUICore/Attachment/BasicAttachmentDelegate.swift) is provided for demonstration or as a base for customization.
+///
+/// Styling and Customizing the UI:
+/// By default, all SDK components are **Fiori Design compliant**. However, Apps have significant control over the UI, including layout, fonts, and colors.
+/// Apps can fully customize the attachment icon, information, and even add interactive elements. See `MyAttachmentThumbnailMaskStyle` in
+///  [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+/// Apps can also use a completely different layout see `MyAttachmentGroupListStyle`, `MyAttachmentStyleForListLayout`, `MyAttachmentInProgressStyleForListLayout`,
+/// and `MyAttachmentWithErrorStyleForListLayout` in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+///
+/// Custom Preview:
+/// Apps can override the default preview behavior by providing an onPreview closure. See the`onPreview` closure, see `onPreview` parameter in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift).
+///
+/// Apps-Specific Attachment Cache:
+/// The `BasicAttachmentDelegate` includes a "cache" folder concept that may suit your requirements.
+/// Apps can use similar code in the "Batch" button action in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift) for synchroizing attachments between App local storage and backend server.
 // sourcery: CompositeComponent
 protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: @StateObject
@@ -3111,7 +3139,7 @@ protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionCo
     var onDownVote: (() -> Void)? { get }
     
     /// The action to be performed when the submit button is tapped.
-    /// Application can get the user feedback values, can tell the component the submition result with the `submitResult` call back.
+    /// Application can get the user feedback values, can tell the component the submission result with the `submitResult` call back.
     // sourcery: default.value = nil
     // sourcery: no_view
     var onSubmit: ((_ voteState: AIUserFeedbackVoteState, _ feedbacks: [String], _ additional: String, _ submitResult: @escaping (Bool) -> Void) -> Void)? { get }
@@ -3201,4 +3229,620 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
     var text: String { get }
     
     var menus: [[WAMenu]] { get }
+}
+
+/// `CalendarDayView` is used to display a day with title, subtitle and eventIndicator.
+///
+/// ## Usage
+/// ```swift
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ]
+///     ]
+///     return result
+/// }
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .singleSelectedAndToday, customEventView: Rectangle().foregroundStyle(Color.red))
+/// .environment(\.eventViewColor, .red)
+/// .environment(\.selectionSingleColor, .yellow)
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .disabled)
+/// .environment(\.eventViewColorDisabled, .gray)
+///
+/// CalendarDayView(title: "10", subtitle: "22", isEventIndicatorVisible: true, state: .multiSelectedStart)
+/// .environment(\.selectionRangeColor, .red)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
+    /// This property indicates whether the event view is to be displayed or not. The default is false.
+    // sourcery: default.value = false
+    var isEventIndicatorVisible: Bool { get }
+    
+    /// The state of the day  view. The default is `.normal`.
+    // sourcery: default.value = .normal
+    var state: CalendarDayState { get }
+    
+    /// This property is used to customize event view.
+    // sourcery: default.value = EmptyView()
+    var customEventView: any View { get }
+}
+
+/// `CalendarWeekView` is used to display the dates in one week.
+///
+/// Developer can set the `.showsWeekNumbers` environment to show the week numberText. If calendarStyle is `.datesSelection` or `.rangeSelection`, and when the first date of the week is out of month, always hide the week number.
+/// ## Usage
+/// ```swift
+/// var fm: DateFormatter {
+///     let fm = DateFormatter()
+///     fm.timeZone = Calendar.current.timeZone
+///     fm.locale = Calendar.current.locale
+///     fm.dateFormat = "yyyy MM dd"
+///     return fm
+/// }
+/// var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///     let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///         .title: [
+///             .normal: Color(UIColor.blue),
+///             .disabled: Color(UIColor.red),
+///             .highlighted: Color(UIColor.green),
+///             .selected: Color(UIColor.yellow)
+///         ],
+///         .weekNumberText: [
+///             .normal: Color(UIColor.green)
+///         ]
+///     ]
+///     return result
+/// }
+/// let info = CalendarWeekInfo(year: 2025, month: 10, weekNumber: 43, dates: [
+///     self.fm.date(from: "2025 10 26")!,
+///     self.fm.date(from: "2025 10 27")!,
+///     self.fm.date(from: "2025 10 28")!,
+///     self.fm.date(from: "2025 10 29")!,
+///     self.fm.date(from: "2025 10 30")!,
+///     self.fm.date(from: "2025 10 31")!,
+///     self.fm.date(from: "2025 11 01")!
+/// ])
+/// @State var selectedDate: Date? = .now
+/// CalendarWeekView(calendarStyle: .month, weekInfo: info, startDate: self.fm.date(from: "2025 01 01")!, endDate: self.fm.date(from: "2025 12 31")!, showsOutOfMonthDates: true, selectedDate: selectedDate, dayTappedCallback: { date, state in
+///     print("Tap on a date:\(date), with state:\(state)")
+///     self.selectedDate = date
+/// }, customEventView: { date in
+///     Rectangle()
+/// })
+/// .environment(\.showsWeekNumbers, true)
+/// .environment(\.hasEventIndicator, true)
+/// .environment(\.alternateCalendarType, .chinese)
+/// .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+/// .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarWeekViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// This property is used to display the dates in one week.
+    var weekInfo: CalendarWeekInfo { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state.
+    // sourcery: default.value = true
+    var showsOutOfMonthDates: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarMonthView` is used to display one month in the calendar.
+///
+/// ## Usage
+/// ```swift
+///     var fm: DateFormatter {
+///         let fm = DateFormatter()
+///         fm.timeZone = Calendar.current.timeZone
+///         fm.locale = Calendar.current.locale
+///         fm.dateFormat = "yyyy MM dd"
+///         return fm
+///     }
+///     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///         let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///             .title: [
+///                 .normal: Color(UIColor.blue),
+///                 .disabled: Color(UIColor.red),
+///                 .highlighted: Color(UIColor.green),
+///                 .selected: Color(UIColor.yellow)
+///             ],
+///             .monthHeaderText: [
+///                 .normal: Color(UIColor.green)
+///             ],
+///             .weekDayText: [
+///                 .normal: Color(UIColor.blue),
+///                 .highlighted: Color(UIColor.green)
+///             ],
+///             .weekNumberText: [
+///                 .normal: Color(UIColor.green)
+///             ]
+///         ]
+///         return result
+///     }
+///     let year = 2025
+///     let month = 10
+///     let startDate = self.fm.date(from: "2025 01 01")!
+///     let endDate = self.fm.date(from: "2025 12 31")!
+///     let selectedDate = self.fm.date(from: "2025 10 27")!
+///     let disabledDates = CalendarDisabledDates(weekdays: [1, 2])
+///     let weeks: [CalendarWeekInfo] = [
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 39, dates: [self.fm.date(from: "2025 09 28")!, self.fm.date(from: "2025 09 29")!, self.fm.date(from: "2025 09 30")!, self.fm.date(from: "2025 10 01")!, self.fm.date(from: "2025 10 02")!, self.fm.date(from: "2025 10 03")!, self.fm.date(from: "2025 10 04")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 40, dates: [self.fm.date(from: "2025 10 05")!, self.fm.date(from: "2025 10 06")!, self.fm.date(from: "2025 10 07")!, self.fm.date(from: "2025 10 08")!, self.fm.date(from: "2025 10 09")!, self.fm.date(from: "2025 10 10")!, self.fm.date(from: "2025 10 11")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 41, dates: [self.fm.date(from: "2025 10 12")!, self.fm.date(from: "2025 10 13")!, self.fm.date(from: "2025 10 14")!, self.fm.date(from: "2025 10 15")!, self.fm.date(from: "2025 10 16")!, self.fm.date(from: "2025 10 17")!, self.fm.date(from: "2025 10 18")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 42, dates: [self.fm.date(from: "2025 10 19")!, self.fm.date(from: "2025 10 20")!, self.fm.date(from: "2025 10 21")!, self.fm.date(from: "2025 10 22")!, self.fm.date(from: "2025 10 23")!, self.fm.date(from: "2025 10 24")!, self.fm.date(from: "2025 10 25")!]),
+///         CalendarWeekInfo(year: year, month: month, weekNumber: 43, dates: [self.fm.date(from: "2025 10 26")!, self.fm.date(from: "2025 10 27")!, self.fm.date(from: "2025 10 28")!, self.fm.date(from: "2025 10 29")!, self.fm.date(from: "2025 10 30")!, self.fm.date(from: "2025 10 31")!, self.fm.date(from: "2025 11 01")!])
+///     ]
+///     let model = CalendarMonthModel(year: year, month: month, weeks: weeks)
+///     let dayTappedCallback: (Date, CalendarDayState) -> Void = { date, state in
+///         print("Tapped date:\(date), state:\(state)")
+///     }
+///     CalendarMonthView(calendarStyle: .month, model: model, startDate: startDate, endDate: endDate, showsMonthHeader: true, selectedDate: selectedDate, disabledDates: disabledDates, dayTappedCallback: dayTappedCallback) { _ in
+///         Circle()
+///     }
+///     .background(
+///         Color.preferredColor(.primaryGroupedBackground)
+///     )
+///     .environment(\.showsWeekNumbers, true)
+///     .environment(\.hasEventIndicator, true)
+///     .environment(\.alternateCalendarType, .chinese)
+///     .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+///     .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///     .environment(\.customLanguageId, "en")
+/// ```
+// sourcery: CompositeComponent
+protocol _CalendarMonthViewComponent {
+    /// The calendar style.
+    var calendarStyle: CalendarStyle { get }
+    
+    /// The date model of the calendar month view.
+    var model: CalendarMonthModel { get }
+    
+    /// The start date of the calendar.
+    var startDate: Date { get }
+    
+    /// The end date of the calendar.
+    var endDate: Date { get }
+    
+    /// Whether to show the month header or not. The default is false.
+    // sourcery: default.value = false
+    var showsMonthHeader: Bool { get }
+    
+    /// Whether to show a day or not when the day is in `.outOfMonth` state. The default is true.
+    // sourcery: default.value = true
+    var showsOutOfMonthDates: Bool { get }
+    
+    /// The selected date in the calendar, used to single select, when the style is `.month`, `.fullScreenMonth`, `.week` or `.expandable`.
+    // sourcery: default.value = nil
+    var selectedDate: Date? { get }
+    
+    /// The selected dates in the calendar, used to multi select, when the style is `.datesSelection`.
+    // sourcery: default.value = nil
+    var selectedDates: Set<Date>? { get }
+    
+    /// The selected range in the calendar, used to range select, when the style is `.rangeSelection`.
+    // sourcery: default.value = nil
+    var selectedRange: ClosedRange<Date>? { get }
+    
+    /// The disabled dates. Default is nil, which means all in month displayed dates are selectable.
+    // sourcery: default.value = nil
+    var disabledDates: CalendarDisabledDates? { get }
+    
+    /// Callback when a day is tapped. The day should be in available state to response to tap gesture, like .normal, .today, .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle and multiSelectedEnd.
+    // sourcery: default.value = nil
+    var dayTappedCallback: ((Date, CalendarDayState) -> Void)? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `CalendarView` is used to display the calendar. The calendar supports `.week`, `.month`, `.expandable`, `.fullScrollMonth`, `.rangeSelection`, and `.datesSelection` style.
+///
+/// ## Usage:
+/// ```swift
+///     @State var model = CalendarModel(calendarStyle: .month)
+///     var fm: DateFormatter {
+///         let fm = DateFormatter()
+///         fm.timeZone = Calendar.current.timeZone
+///         fm.locale = Calendar.current.locale
+///         fm.dateFormat = "yyyy MM dd"
+///         return fm
+///     }
+///     var calendarItemTintAttributes: [CalendarPropertyRef: [CalendarItemControlState: Color]] {
+///         let result: [CalendarPropertyRef: [CalendarItemControlState: Color]] = [
+///             .title: [
+///                 .normal: Color(UIColor.blue),
+///                 .disabled: Color(UIColor.red),
+///                 .highlighted: Color(UIColor.green),
+///                 .selected: Color(UIColor.yellow)
+///             ],
+///             .monthHeaderText: [
+///                 .normal: Color(UIColor.green)
+///             ],
+///             .weekDayText: [
+///                 .normal: Color(UIColor.blue),
+///                 .highlighted: Color(UIColor.green)
+///             ],
+///             .weekNumberText: [
+///                 .normal: Color(UIColor.green)
+///             ]
+///         ]
+///         return result
+///     }
+///     VStack {
+///         CalendarView(model: model, titleChangeCallback: { _ in
+///         }, customCalendarBackgroundColor: .white) { date in
+///             Rectangle()
+///         }
+///         .environment(\.showsWeekNumbers, true)
+///         .environment(\.hasEventIndicator, true)
+///         .environment(\.alternateCalendarType, .chinese)
+///         .environment(\.alternateCalendarLocale, Locale(identifier: "en"))
+///         .environment(\.calendarItemTintAttributes, calendarItemTintAttributes)
+///         .environment(\.customLanguageId, "zh-Hans")
+///         Spacer()
+///     }
+///
+/// ScrollView {
+///     CalendarView(model: self.model)
+///     .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 0 : 50)
+///     .frame(maxHeight: self.maxHeight)
+/// }
+/// .onGeometryChange(for: CGSize.self, of: { proxy in
+///     proxy.size
+/// }, action: { size in
+///     self.maxHeight = size.height
+/// })
+/// ```
+/// ## Notes:
+/// When style is `.fullScrollMonth`, `.rangeSelection`, or `.datesSelection`, and the CalendarView is used in ScrollView or List, the maxHeight of the CalendarView should be configured (e.g., the available screen height), otherwise it will slow down the scrolling, and the whole CalendarView will scroll in the ScrollView or List.
+// sourcery: CompositeComponent
+protocol _CalendarViewComponent {
+    /// The model of the calendar view.
+    var model: CalendarModel { get }
+    
+    /// Callback when the title is Changed.
+    // sourcery: default.value = nil
+    var titleChangeCallback: ((String) -> Void)? { get }
+    
+    /// Customized background color for the calendar view.
+    // sourcery: default.value = nil
+    var customCalendarBackgroundColor: Color? { get }
+    
+    /// This property is used to customize event view for each date.
+    // sourcery: defaultValue = "{ _ in EmptyView() }"
+    // sourcery: resultBuilder.defaultValue = "{ _ in EmptyView() }"
+    @ViewBuilder
+    var customEventView: (Date) -> any View { get }
+}
+
+/// `HierarchyIndicator` is a stack view including an icon and the specific title text. It is intended to be used with `HierarchItemView`.
+///
+/// ### Overview
+/// Use HierarchyIndicator to convey an item's relationship or navigability within a hierarchy. It is typically embedded in a HierarchyItemView and, when used inside a HierarchyView, can facilitate forward navigation by returning a child item ID from its onClick action. The indicator can also be used standalone to represent contextual information outside of a hierarchy.
+///
+/// ## Usage
+/// The indicator is typically used with `HierarchyItemView` within a `HierarchyView`to provide context about the item's status within the hierarchy. It can also be employed
+/// independently to represent information outside of a structured view. Consumers of this component should initialize the indicator based on their specific use cases,
+/// ensuring that it accurately represents the appropriate data and state depending on whether it is used in conjunction with `HierarchyItemView` and `HierarchyView`, or as a standalone component.
+///
+/// Within a `HierarchyView`, consumers should provide the `onClick` event handler that returns the item's UUID. This ensures that the data can be navigated correctly when the next button in the `HierarchyHeader` is clicked.
+/// ```swift
+///
+/// @State var activeChildItem: String?
+/// HierarchyView(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in
+///         hierarchyIndicator: {
+///             let childrenCount = dataSource.numberOfChildren(for: id)
+///             HierarchyIndicator(
+///                 title: AttributedString(String("\(id)")),
+///                 isMultiline: self.isMultiline,
+///                 isSelected: activeChildItem == id,
+///                 isClickable: childrenCount > 0
+///          ){
+///             id
+///          }
+///    },
+///    activeChildItem: self.$activeChildItem
+/// )
+/// ```
+///
+/// ### See Also
+/// HierarchyView, HierarchyItemView.
+// sourcery: CompositeComponent
+protocol _HierarchyIndicatorComponent: _TitleComponent, _IconComponent {
+    /// A Boolean value indicating whether the indicator should support multiline content.
+    ///
+    /// The default value is `true`, meaning that the indicator will display content in multiple lines if necessary.
+    // sourcery: defaultValue = "true"
+    var isMultiline: Bool { get }
+    
+    /// A Boolean value indicating whether the indicator represents a selected hierarchy item.
+    ///
+    /// The default value is `false`, meaning the indicator will not display the item as selected by default.
+    // sourcery: defaultValue = "false"
+    var isSelected: Bool { get }
+    
+    /// A Boolean value indicating whether the hierarchy indicator is interactive (clickable).
+    ///
+    /// The default value is `true`, but the indicator may be set to non-clickable if the item does not have any child items in the `HierarchyView`.
+    // sourcery: defaultValue = "true"
+    var isClickable: Bool { get }
+    
+    /// The action that will be performed be performed when the clickable indicator is clicked.
+    ///
+    /// Returning a non-empty hierarchy child item ID is mandatory when the indicator is used with `HierarchyItemView` in the `HierarchyView`;
+    /// the selected item will be set as the current item displayed in the hierarchy header view.
+    ///
+    /// However, if it is used with `HierarchyItemView` independently, without `HierarchyView`, the returned ID is not mandatory.
+    /// Consumers may provide event handling according to their specific use case.
+    var onClick: (() -> String?)? { get }
+}
+
+/// A `HierarchyItemView` representing a component for displaying a collection item's business object content and hierarchy information in a user interface.
+///
+/// ### Overview
+/// It serves as the default item view for presenting hierarchy items within a `HierarchyItemView`. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
+/// The `HierarchyItemView` can be utilized within a `HierarchyView` to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.
+///
+/// ### Key Features
+/// - Composable content slots: title, subtitle, footnote, icons, detail image, status, accessory view.
+/// - Optional hierarchyIndicator slot for navigation or contextual counts.
+/// - Integrates with HierarchyView for navigation and selection.
+/// - Supports standard accessory styles (e.g. disclosure).
+///
+/// ## Usage Independent:
+/// To use `HierarchyItemView` independently and without `HierarchyView`.
+///
+/// ```swift
+/// List {
+///     ForEach(0..<5) { index in
+///         HierarchyItemView(
+///             title: { Text("Title \(index)") },
+///             subtitle: { Text("Subtitle \(index)") },
+///             footnote: { Text("Footnote \(index)") },
+///             icons: {
+///                 FioriIcon.message.badge.foregroundStyle(Color.preferredColor(.tintColor))
+///                 FioriIcon.actions.bookmark.foregroundStyle(Color.preferredColor(.tintColor))
+///                 FioriIcon.actions.attachment.foregroundStyle(Color.preferredColor(.tintColor))
+///             },
+///             detailImage: { FioriIcon.message.messageInformation.resizable().foregroundStyle(Color.preferredColor(.tintColor)) },
+///             status: { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)) },
+///             accessoryType: .disclosure,
+///             hierarchyIndicator: {
+///                 HierarchyIndicator(
+///                     title: index == 4 ? { EmptyView()} : { Text(self.formatNumber(indicatorNumber[index])) },
+///                     isMultiline: false,
+///                     isSelected: false,
+///                     isClickable: false
+///                 )
+///             })
+///    }
+/// }
+/// ```
+///
+/// ### See Also
+/// HierarchyView, HierarchyIndicator.
+// sourcery: CompositeComponent
+protocol _HierarchyItemViewComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _IconsComponent, _DetailImageComponent, _StatusComponent, _AccessoryViewComponent {
+    @ViewBuilder
+    /// The indicator view of the hierarchy view
+    var hierarchyIndicator: (() -> any View)? { get }
+}
+
+/// `HierarchyViewHeader` provides navigation controls and summary context at the top of a HierarchyView.
+///
+/// ### Overview
+/// Use `HierarchyViewHeader` to display the title of the currently focused parent item and to offer backward/forward navigation across the hierarchy. The header can be customized to add leading and trailing accessory views. If no custom header is provided, HierarchyView displays a default HierarchyViewHeader.
+///
+/// ### Key Features
+/// - Title content to reflect current hierarchy context.
+/// - Leading and trailing accessory slots for custom navigation controls.
+/// - Integrates with HierarchyView’s activeChildItem to drive forward navigation.
+///
+/// ### See Also
+/// HierarchyView, HierarchyIndicator, HierarchyItemView.
+// sourcery: CompositeComponent
+protocol _HierarchyViewHeaderComponent: _TitleComponent, _LeadingAccessoryComponent, _TrailingAccessoryComponent {}
+
+/// `HierarchyView` displays tree-structured data using `HierarchyItemView` rows and an optional `HierarchyHeader`, which is available for customization purposes.
+///
+/// ### Overview
+/// Use `HierarchyView` when you need to browse, navigate, and (optionally) select items in a hierarchical data set (parent/child relationships).
+/// The component delegates data access to a `HierarchyViewDataSource` so large or dynamic trees can be served efficiently.
+///
+/// ### Key Features
+/// - Pluggable data source (HierarchyViewDataSource) defining root, children, parent lookups, and titles.
+/// - Custom per-item view content via the hierarchyItem closure.
+/// - Optional header view for customized navigation controls / summary information.
+/// - Built-in selection handling (single / multiple / none) controlled by the hierarchyItemSelectionMode environment value.
+/// - Style system (Fiori & custom) applied through hierarchyViewStyle modifiers.
+///
+/// ### Data Source Contract (Summary)
+/// Your data source must provide stable, unique String identifiers for every item. Child counts and IDs should remain consistent during a single render pass.
+/// See HierarchyViewDataSource for full protocol requirements.
+///
+/// ```swift
+/// struct HierarchySimpleDataSource: HierarchyViewDataSource {
+///     func rootID() -> String {
+///         return "100"
+///     }
+///
+///     func numberOfChildren(for id: String) -> Int {
+///         return Int.random(in: 0...5)
+///     }
+///
+///     func childID(idForChildItemAt index: Int, with parentID: String) -> String {
+///         if let intValue = Int(parentID) {
+///             return String(intValue + index)
+///         } else {
+///             return ""
+///         }
+///     }
+///
+///     func parentID(for id: String) -> String? {
+///         if let intValue = Int(id), intValue > 100 {
+///             return String(intValue - 100)
+///         } else {
+///             return nil
+///         }
+///     }
+///
+///     func itemTitle(for id: String) -> String? {
+///         return id
+///     }
+/// }
+/// ```
+///
+/// ### State Bindings
+/// - activeChildItem: The identifier that will become active (e.g. next navigated child) when the user invokes forward navigation in the header.
+/// - selectedItems: Collection of currently selected item IDs (optional array in the generated initializer).
+/// In single-selection mode only the first element is considered; in multiple-selection mode all elements are used.
+///
+/// ### Selection Mode
+/// Controlled externally via environment:
+/// ```swift
+/// .environment(\.hierarchyItemSelectionMode, .none)     // selection disabled
+/// .environment(\.hierarchyItemSelectionMode, .single)   // single selection
+/// .environment(\.hierarchyItemSelectionMode, .multiple) // multi selection
+/// ```
+/// Selection affordances (selection buttons) are only visible while EditMode is .active and the selection mode is not .none.
+///
+/// ### Usage
+/// #### 1. Simple Initialization (generated initializer)
+///
+/// ```swift
+/// @State var activeChildItem: String?
+/// @State var selectedItems: [String]? = []
+/// @State var isEditing = true
+/// @State var selectionMode = HierarchyItemSelectionMode.single
+///
+/// let dataSource = HierarchySimpleDataSource()
+///
+/// HierarchyView(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in
+///         title: { Text(id) },
+///         hierarchyIndicator: {
+///             let childrenCount = dataSource.numberOfChildren(for: id)
+///             HierarchyIndicator(
+///                 title: AttributedString(String("Indicator \(id)")),
+///                 isMultiline: self.isMultiline,
+///                 isSelected: activeChildItem == id,
+///                 isClickable: childrenCount > 0
+///          ){
+///             id
+///          }
+///    },
+///    activeChildItem: self.$activeChildItem,
+///    selectedItems: self.$selectedItems
+/// )
+/// .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
+/// .environment(\.hierarchyItemSelectionMode, selectionMode)
+/// ```
+///
+/// #### 2. Single Selection Convenience (see public API extension)
+///
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selected: String? = nil
+/// HierarchyView.singleSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItem: $selected
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .single)
+/// ```
+///
+/// #### 3. Multi Selection With Set (see public API extension)
+///
+/// ```swift
+/// @State private var activeChild: String? = nil
+/// @State private var selectedSet: Set<String> = []
+/// HierarchyView.multiSelection(
+///     dataSource: dataSource,
+///     hierarchyItem: { id in Text(id) },
+///     activeChildItem: $activeChild,
+///     selectedItems: $selectedSet
+/// )
+/// .environment(\.hierarchyItemSelectionMode, .multiple)
+/// ```
+///
+/// ### Styling
+///
+/// Apply or compose styles using:
+/// ```swift
+/// HierarchyView(...)
+/// .hierarchyViewStyle(MyCustomHierarchyStyle())
+/// ```
+/// Custom styles implement HierarchyViewStyle and can be layered; the environment maintains an internal style stack.
+///
+/// ### See Also
+/// HierarchyViewDataSource, HierarchyItemView, HierarchyHeader, HierarchyIndicator, HierarchyViewStyle.
+// sourcery: CompositeComponent
+protocol _HierarchyViewComponent {
+    /// The data source object of hierarchy view.
+    var dataSource: any HierarchyViewDataSource { get }
+    
+    /// The header view for the `HierarchyView`, represented by `HierarchyViewHeader`.
+    ///
+    /// By default, a header view is not specified unless customization is desired.
+    /// Consumers can provide a custom header view to tailor the appearance and behavior of the hierarchy view to meet specific requirements.
+    @ViewBuilder
+    var header: (() -> any View)? { get }
+    
+    /// The hierarchy item view, represented by `HierarchyItemView`, is used as a child item view within the `HierarchyView`.
+    /// Consumers can provide an instance of `HierarchyItemView` based on the given child item id to customize the representation of each item in the hierarchy.
+    @ViewBuilder
+    var hierarchyItem: (String) -> any View { get }
+    
+    /// Indicates the ID of the child hierarchy item that will be displayed when the next button in the `HierarchyHeader` is clicked.
+    // sourcery: @Binding
+    var activeChildItem: String? { get }
+    
+    /// Indicates the ID of the selected hierarchy item. IIn `HierarchyItemSelectionMode.single` mode, only one item can be selected.
+    // sourcery: @Binding
+    var selectedItems: [String]? { get }
 }

@@ -28,11 +28,29 @@ class DateRangePickerModelObject: ObservableObject {
             self.selectedDates = newSelection
             self.tapCount = 1
         } else if self.selectedDates.count == 1, self.tapCount < 2 {
-            self.selectedDates = self.updateDateRange(self.selectedDates, newSelection)
+            if !newSelection.isEmpty {
+                self.selectedDates = self.updateDateRange(self.selectedDates, newSelection)
+            }
+            // If newSelection isEmpty means user tapped the same date.
+            // Since we support range with 1 date, do not set selectedDates to empty.
             self.tapCount = 2
         } else if isTapped {
-            self.selectedDates = []
-            self.tapCount = 0
+            var isNewStart = false
+            if newSelection.count - self.selectedDates.count == 1 {
+                // User tapped another date outside of the selected dates. Use that date as the start date.
+                let sub = newSelection.subtracting(self.selectedDates)
+                if let first = sub.first {
+                    self.selectedDates = [first]
+                    self.tapCount = 1
+                    isNewStart = true
+                }
+            }
+
+            if !isNewStart {
+                // Could not get the date user tapped. In this case, just clear all dates
+                self.selectedDates = []
+                self.tapCount = 0
+            }
         }
         
         let result = self.selectedDates.sorted {

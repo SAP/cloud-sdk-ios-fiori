@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -25,6 +25,12 @@ extension AIUserFeedback: _ViewEmptyChecking {
 extension AccessoryIcon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         accessoryIcon.isEmpty
+    }
+}
+
+extension AccessoryView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 
@@ -229,6 +235,31 @@ extension BannerMultiMessageSheet: _ViewEmptyChecking {
 extension BodyText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         bodyText.isEmpty
+    }
+}
+
+extension CalendarDayView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty
+    }
+}
+
+extension CalendarMonthView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension CalendarWeekView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 
@@ -588,6 +619,39 @@ extension HeaderChart: _ViewEmptyChecking {
 extension HelperText: _ViewEmptyChecking {
     public var isEmpty: Bool {
         helperText.isEmpty
+    }
+}
+
+extension HierarchyIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            icon.isEmpty
+    }
+}
+
+extension HierarchyItemView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            subtitle.isEmpty &&
+            footnote.isEmpty &&
+            icons.isEmpty &&
+            detailImage.isEmpty &&
+            status.isEmpty &&
+            hierarchyIndicator.isEmpty
+    }
+}
+
+extension HierarchyView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        header.isEmpty
+    }
+}
+
+extension HierarchyViewHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty &&
+            leadingAccessory.isEmpty &&
+            trailingAccessory.isEmpty
     }
 }
 

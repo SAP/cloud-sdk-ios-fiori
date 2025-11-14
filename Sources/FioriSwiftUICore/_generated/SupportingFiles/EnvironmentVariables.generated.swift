@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -62,6 +62,27 @@ extension EnvironmentValues {
         }
         set {
             self[AccessoryIconStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: AccessoryViewStyle
+
+struct AccessoryViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any AccessoryViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var accessoryViewStyle: any AccessoryViewStyle {
+        self.accessoryViewStyleStack.last ?? .base
+    }
+
+    var accessoryViewStyleStack: [any AccessoryViewStyle] {
+        get {
+            self[AccessoryViewStyleStackKey.self]
+        }
+        set {
+            self[AccessoryViewStyleStackKey.self] = newValue
         }
     }
 }
@@ -713,6 +734,90 @@ extension EnvironmentValues {
         }
         set {
             self[BodyTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarDayViewStyle
+
+struct CalendarDayViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarDayViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarDayViewStyle: any CalendarDayViewStyle {
+        self.calendarDayViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarDayViewStyleStack: [any CalendarDayViewStyle] {
+        get {
+            self[CalendarDayViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarDayViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarMonthViewStyle
+
+struct CalendarMonthViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarMonthViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarMonthViewStyle: any CalendarMonthViewStyle {
+        self.calendarMonthViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarMonthViewStyleStack: [any CalendarMonthViewStyle] {
+        get {
+            self[CalendarMonthViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarMonthViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarViewStyle
+
+struct CalendarViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarViewStyle: any CalendarViewStyle {
+        self.calendarViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarViewStyleStack: [any CalendarViewStyle] {
+        get {
+            self[CalendarViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: CalendarWeekViewStyle
+
+struct CalendarWeekViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any CalendarWeekViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var calendarWeekViewStyle: any CalendarWeekViewStyle {
+        self.calendarWeekViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var calendarWeekViewStyleStack: [any CalendarWeekViewStyle] {
+        get {
+            self[CalendarWeekViewStyleStackKey.self]
+        }
+        set {
+            self[CalendarWeekViewStyleStackKey.self] = newValue
         }
     }
 }
@@ -1700,6 +1805,90 @@ extension EnvironmentValues {
         }
         set {
             self[HelperTextStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyIndicatorStyle
+
+struct HierarchyIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyIndicatorStyle: any HierarchyIndicatorStyle {
+        self.hierarchyIndicatorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyIndicatorStyleStack: [any HierarchyIndicatorStyle] {
+        get {
+            self[HierarchyIndicatorStyleStackKey.self]
+        }
+        set {
+            self[HierarchyIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyItemViewStyle
+
+struct HierarchyItemViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyItemViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyItemViewStyle: any HierarchyItemViewStyle {
+        self.hierarchyItemViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyItemViewStyleStack: [any HierarchyItemViewStyle] {
+        get {
+            self[HierarchyItemViewStyleStackKey.self]
+        }
+        set {
+            self[HierarchyItemViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyViewStyle
+
+struct HierarchyViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyViewStyle: any HierarchyViewStyle {
+        self.hierarchyViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyViewStyleStack: [any HierarchyViewStyle] {
+        get {
+            self[HierarchyViewStyleStackKey.self]
+        }
+        set {
+            self[HierarchyViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: HierarchyViewHeaderStyle
+
+struct HierarchyViewHeaderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any HierarchyViewHeaderStyle] = []
+}
+
+extension EnvironmentValues {
+    var hierarchyViewHeaderStyle: any HierarchyViewHeaderStyle {
+        self.hierarchyViewHeaderStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var hierarchyViewHeaderStyleStack: [any HierarchyViewHeaderStyle] {
+        get {
+            self[HierarchyViewHeaderStyleStackKey.self]
+        }
+        set {
+            self[HierarchyViewHeaderStyleStackKey.self] = newValue
         }
     }
 }

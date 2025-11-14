@@ -97,7 +97,7 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "There is nothing to display yet";
 
-/* XBUT: Default duration foramtter in DataTable */
+/* XBUT: Default duration formatter in DataTable */
 "%d Hrs %d Min" = "%d Hrs %d Min";
 
 /* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
@@ -251,8 +251,8 @@
 
 /* XBUT: banner message type desc in plural form, messages */
 "messages" = "messages";
-/* XBUT: banner message type desc in plural form, informations */
-"informations" = "informations";
+/* XBUT: banner message type desc in plural form, information */
+"information" = "information";
 /* XBUT: banner message type desc in plural form, confirmations */
 "confirmations" = "confirmations";
 /* XBUT: banner message type desc in plural form, warnings */
@@ -527,6 +527,12 @@
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
 
+/* XBUT: One date selected for .datesSelection style in Calendar view */
+"DateSelectedFormatKey" = "%d Date Selected";
+
+/* XBUT: Multiple dates selected for .datesSelection style in Calendar view */
+"DatesSelectedFormatKey" = "%d Dates Selected";
+
 /*XTIT: Title for card*/
 "Card title" = "Card title";
 
@@ -539,3 +545,38 @@
 /* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
 "Switch Item Off" = "Tap to turn off";
 
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI Writing Assistant panel opened. Use provided prompts to refine your text content.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Double tap to activate";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Open to see %@ options";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Undo to Version %d of %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Redo to Version %d of %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Text updated to Version %d of %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI Writing Assistant";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "double tap to open AI Writing Assistant and edit text";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Undo change";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Rodo change";
+
+/* XBUT: Writing assistant positive feedback accessibility label */
+"Positive feedback" = "Positive feedback";
+
+/* XBUT: Writing assistant negative feedback accessibility label */
+"Negative feedback" = "Negative feedback";

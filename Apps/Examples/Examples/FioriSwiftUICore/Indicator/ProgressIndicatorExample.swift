@@ -12,7 +12,8 @@ struct ProgressIndicatorExample: View {
     var body: some View {
         VStack {
             HStack {
-                TextField("", text: self.$textInput)
+                TextField("Enter progress (e.g. 0.5)", text: self.$textInput)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Set Progress") {
                     if let newProgress = Double(self.textInput) {
                         self.progress = newProgress
@@ -56,7 +57,7 @@ struct ProgressIndicatorExample: View {
                     self.isProcessing2 = false
                 }
                 Spacer()
-                Button("Set Paused") {
+                Button(self.isPaused ? "Set Paused" : "Set Resumed") {
                     self.isPaused.toggle()
                 }
             }.padding()

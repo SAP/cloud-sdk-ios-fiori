@@ -52,123 +52,111 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        content.toolbar {
-            if #available(iOS 26, *) {
-                #if !os(visionOS)
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        ToolbarSpacer(.flexible, placement: .bottomBar)
-                    }
-                #endif
-                ToolbarItemGroup(placement: .bottomBar) {
-                    if self.sizeHandler.needLayoutSubviews {
-                        ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
-                            let itemIndex = self.sizeHandler.itemsWidth[index].0
-                            let itemWidth = self.sizeHandler.itemsWidth[index].1
-                            if itemIndex >= 0 {
-                                self.items.view(at: itemIndex)
-                                    .frame(width: itemWidth)
-                                    .onChange(of: self.dynamicTypeSize) { _, _ in
-                                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
-                                    }
-                            } else {
-                                if itemIndex == -1 {
-                                    self.helperTextView()
-                                        .frame(width: itemWidth)
-                                } else if itemIndex == -2 {
-                                    self.moreAction()
-                                        .frame(width: itemWidth)
-                                }
+        content
+            .toolbar {
+                if LiquidGlassHelper.usesLiquidGlassUI {
+                    #if !os(visionOS)
+                        if #available(iOS 26.0, *) {
+                            if UIDevice.current.userInterfaceIdiom == .pad {
+                                ToolbarSpacer(.flexible, placement: .bottomBar)
                             }
                         }
-                    } else {
-                        LazyHStack(spacing: self.sizeHandler.defaultFixedPadding) {
-                            self.helperTextView()
-                                .sizeReader { size in
-                                    self.sizeHandler.helperTextWidth = size.width
-                                }
-                            ForEach(0 ..< self.items.count,
-                                    id: \.self)
-                            { index in
-                                self.items.view(at: index)
-                                    .sizeReader { size in
-                                        self.sizeHandler.itemsSize[index] = size
-                                    }
-                            }.background {
-                                self.moreAction()
-                                    .sizeReader(size: { size in
-                                        self.sizeHandler.totalItemsCount = self.items.count
-                                        self.sizeHandler.moreActionWidth = size.width
-                                    })
-                                    .hidden()
-                            }
+                    #endif
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        if self.sizeHandler.needLayoutSubviews {
+                            self.toolbarContent()
+                        } else {
+                            self.sizeCheckView()
                         }
                     }
-                }
-            } else {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        Spacer()
-                            .frame(width: 500)
-                    }
-                    if self.sizeHandler.needLayoutSubviews {
-                        ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
-                            let itemIndex = self.sizeHandler.itemsWidth[index].0
-                            let itemWidth = self.sizeHandler.itemsWidth[index].1
-                            if itemIndex >= 0 {
-                                self.items.view(at: itemIndex)
-                                    .frame(width: itemWidth)
-                                    .onChange(of: self.dynamicTypeSize) { _, _ in
-                                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
-                                    }
-                            } else {
-                                if itemIndex == -1 {
-                                    self.helperTextView()
-                                        .frame(width: itemWidth)
-                                } else if itemIndex == -2 {
-                                    self.moreAction()
-                                        .frame(width: itemWidth)
-                                }
-                            }
-                            if index < self.sizeHandler.itemsWidth.count - 1 {
-                                if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
-                                    Spacer().frame(minWidth: 8)
-                                } else {
-                                    Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
-                                }
-                            }
+                } else {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            Spacer()
+                                .frame(width: 500)
                         }
-                    } else {
-                        LazyHStack(spacing: self.sizeHandler.defaultFixedPadding) {
-                            self.helperTextView()
-                                .sizeReader { size in
-                                    self.sizeHandler.helperTextWidth = size.width
-                                }
-                            ForEach(0 ..< self.items.count,
-                                    id: \.self)
-                            { index in
-                                self.items.view(at: index)
-                                    .sizeReader { size in
-                                        self.sizeHandler.itemsSize[index] = size
-                                    }
-                            }.background {
-                                self.moreAction()
-                                    .sizeReader(size: { size in
-                                        self.sizeHandler.totalItemsCount = self.items.count
-                                        self.sizeHandler.moreActionWidth = size.width
-                                    })
-                                    .hidden()
+                        if self.sizeHandler.needLayoutSubviews {
+                            HStack(spacing: 0) {
+                                self.toolbarContent()
                             }
+                        } else {
+                            self.sizeCheckView()
                         }
                     }
                 }
             }
-        }
-        .sizeReader { size in
-            self.sizeHandler.containerSize = size
-            if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
-                self.sizeHandler.rtlMargin = 40
+            .sizeReader { size in
+                self.sizeHandler.containerSize = size
+                if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
+                    self.sizeHandler.rtlMargin = 40
+                } else {
+                    self.sizeHandler.rtlMargin = 160
+                }
+            }
+    }
+    
+    @ViewBuilder
+    func toolbarContent() -> some View {
+        ForEach(0 ..< self.sizeHandler.itemsWidth.count, id: \.self) { index in
+            let itemIndex = self.sizeHandler.itemsWidth[index].0
+            let itemWidth = self.sizeHandler.itemsWidth[index].1
+            
+            if itemIndex >= 0 {
+                self.items.view(at: itemIndex)
+                    .frame(width: itemWidth)
+                    .onChange(of: self.dynamicTypeSize) { _, _ in
+                        self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
+                    }
+                    .fixedSize()
             } else {
-                self.sizeHandler.rtlMargin = 160
+                if itemIndex == -1 {
+                    self.helperTextView()
+                        .frame(width: itemWidth)
+                } else if itemIndex == -2 {
+                    self.moreAction()
+                        .frame(width: itemWidth)
+                }
+            }
+            
+            if !LiquidGlassHelper.usesLiquidGlassUI, index < self.sizeHandler.itemsWidth.count - 1 {
+                if itemIndex == -1 || !self.sizeHandler.useFixedPadding {
+                    Spacer().frame(minWidth: self.sizeHandler.defaultFixedPadding)
+                } else {
+                    Spacer().frame(width: self.sizeHandler.defaultFixedPadding)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func sizeCheckView() -> some View {
+        ZStack {
+            HStack(spacing: 0) {
+                Spacer()
+                self.helperTextView().fixedSize()
+                    .sizeReader { size in
+                        self.sizeHandler.helperTextWidth = size.width
+                    }
+            }
+            ForEach(0 ..< self.items.count, id: \.self) { index in
+                HStack(spacing: 0) {
+                    Spacer()
+                    self.items.view(at: index).fixedSize()
+                        .sizeReader { size in
+                            self.sizeHandler.itemsSize[index] = CGSize(width: ceil(size.width), height: ceil(size.height))
+                        }
+                }
+                .border(Color.black, width: 2)
+            }.background {
+                HStack(spacing: 0) {
+                    Spacer()
+                    self.moreAction().fixedSize()
+                        .sizeReader(size: { size in
+                            self.sizeHandler.totalItemsCount = self.items.count
+                            self.sizeHandler.moreActionWidth = ceil(size.width)
+                        })
+                        .hidden()
+                }
             }
         }
     }
@@ -217,7 +205,9 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
 class FioriToolbarHandler: ObservableObject {
     var containerSize: CGSize = .zero {
         didSet {
-            self.calculateItemsSize()
+            if oldValue != self.containerSize {
+                self.calculateItemsSize()
+            }
         }
     }
     
@@ -225,19 +215,25 @@ class FioriToolbarHandler: ObservableObject {
     
     var itemsSize: [Int: CGSize] = [:] {
         didSet {
-            self.calculateItemsSize()
+            if oldValue != self.itemsSize {
+                self.calculateItemsSize()
+            }
         }
     }
 
     var helperTextWidth: CGFloat = 0 {
         didSet {
-            self.calculateItemsSize()
+            if oldValue != self.helperTextWidth {
+                self.calculateItemsSize()
+            }
         }
     }
     
     var moreActionWidth: CGFloat = 0 {
         didSet {
-            self.calculateItemsSize()
+            if oldValue != self.moreActionWidth {
+                self.calculateItemsSize()
+            }
         }
     }
     
@@ -248,7 +244,7 @@ class FioriToolbarHandler: ObservableObject {
     var useFixedPadding: Bool = true
     var rtlMargin: CGFloat = 40
     var defaultFixedPadding: CGFloat {
-        if #available(iOS 26, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI, UIDevice.current.userInterfaceIdiom == .phone {
             // more padding for iOS 26.
             return 12
         } else {
@@ -257,7 +253,7 @@ class FioriToolbarHandler: ObservableObject {
     }
     
     var liquidGlassContainerPadding: CGFloat {
-        if #available(iOS 26, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             // Liquid glass container need more padding for iOS 26.
             if UIDevice.current.userInterfaceIdiom == .phone {
                 return 10
@@ -283,7 +279,6 @@ class FioriToolbarHandler: ObservableObject {
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     func calculateItemsSize(_ dynamicTypeSize: DynamicTypeSize? = nil) {
         guard self.totalItemsCount == self.itemsSize.count, self.containerSize.width > 0 else {
-            self.needLayoutSubviews = false
             return
         }
         self.moreActionsIndex.removeAll()
@@ -326,6 +321,9 @@ class FioriToolbarHandler: ObservableObject {
             var allWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map(\.value.width).reduce(0, +)
             allWidth += CGFloat(self.itemsSize.count - 1) * self.defaultFixedPadding
             allWidth += CGFloat(self.itemsSize.count) * self.liquidGlassContainerPadding
+            if self.itemsSize.count < self.numOfDisplayItems {
+                self.numOfDisplayItems = self.itemsSize.count
+            }
             
             var hasMoreItems = allWidth > availableItemWidth
 
@@ -362,6 +360,7 @@ class FioriToolbarHandler: ObservableObject {
                 }
 
                 var noItemForAvailableWidth = true
+                let someItemsMayBeCompressed = someItemsMayBeCompressed(in: availableItemWidth)
                 for (index, item) in self.itemsSize.sorted(by: { $0.key < $1.key }).enumerated() {
                     if self.numOfDisplayItems > 0 {
                         noItemForAvailableWidth = false
@@ -378,7 +377,9 @@ class FioriToolbarHandler: ObservableObject {
                                 } else {
                                     itemWidth = item.value.width
                                 }
-                                itemWidth = min(itemWidth, fixedItemWidth)
+                                if someItemsMayBeCompressed {
+                                    itemWidth = min(itemWidth, fixedItemWidth)
+                                }
                                 self.itemsWidth.append((item.key, itemWidth))
                                 currentWidth += itemWidth + self.liquidGlassContainerPadding
                             }
@@ -426,6 +427,7 @@ class FioriToolbarHandler: ObservableObject {
                     if self.numOfDisplayItems < 1 {
                         self.itemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map { ($0.key, $0.value.width) }
                     } else {
+                        let someItemsMayBeCompressed = someItemsMayBeCompressed(in: availableItemWidth)
                         self.itemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).map { item in
                             var itemWidth: CGFloat
                             if let dynamicTypeSize {
@@ -433,8 +435,10 @@ class FioriToolbarHandler: ObservableObject {
                             } else {
                                 itemWidth = item.value.width
                             }
-                            let maxItemWidth = availableItemWidth / CGFloat(self.numOfDisplayItems)
-                            itemWidth = min(itemWidth, maxItemWidth)
+                            if someItemsMayBeCompressed {
+                                let maxItemWidth = availableItemWidth / CGFloat(self.numOfDisplayItems)
+                                itemWidth = min(itemWidth, maxItemWidth)
+                            }
                             currentWidth += (itemWidth + self.liquidGlassContainerPadding)
                             return (item.key, itemWidth)
                         }
@@ -457,5 +461,18 @@ class FioriToolbarHandler: ObservableObject {
             self.needLayoutSubviews = true
             objectWillChange.send()
         }
+    }
+    
+    func someItemsMayBeCompressed(in availableItemWidth: CGFloat) -> Bool {
+        let someItemsMayBeCompressed: Bool
+        if self.numOfDisplayItems > 0 {
+            let allDisplayedItemsWidth = self.itemsSize.sorted(by: { $0.key < $1.key }).prefix(self.numOfDisplayItems).map(\.value.width).reduce(0, +)
+            let allItemsPadding = CGFloat(numOfDisplayItems) * self.liquidGlassContainerPadding
+            let allItemsSpacer = CGFloat(numOfDisplayItems - 1) * self.defaultFixedPadding
+            someItemsMayBeCompressed = allDisplayedItemsWidth + allItemsPadding + allItemsSpacer > availableItemWidth
+        } else {
+            someItemsMayBeCompressed = false
+        }
+        return someItemsMayBeCompressed
     }
 }

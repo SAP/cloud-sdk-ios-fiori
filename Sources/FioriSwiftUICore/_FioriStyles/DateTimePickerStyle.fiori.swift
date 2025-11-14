@@ -27,15 +27,23 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 
                 if configuration.pickerVisible {
                     LazyVStack {
-                        Divider()
-                            .frame(height: 0.33)
-                            .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                        if !configuration.hidesSeparator {
+                            Divider()
+                                .frame(height: 0.33)
+                                .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                                .padding(.top, 14)
+                        }
                         self.showPicker(configuration)
                     }
                     .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
+        }
+        .onAppear {
+            if let configuredDate = configuration.selectedDate {
+                self.selectedDate = configuredDate
+            }
         }
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.locale, FioriLocale.shared.locale!)
