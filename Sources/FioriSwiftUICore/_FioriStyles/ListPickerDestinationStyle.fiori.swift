@@ -888,12 +888,16 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                                      rowContent: self.rowContent)
                     }
                 } else {
+                    let accessibilityLabel = self.generateAccessibilityLabel(for: element as? SortFilterItem.PickerItem.ValueOptionModel)
                     ListPickerDestinationRow(content: self.rowContent(element),
                                              isSelected: self.isItemSelected(id_value))
                         .contentShape(Rectangle())
                         .onTapGesture {
                             self.handleSelections(id_value)
                         }
+                        .accessibilityElement()
+                        .accessibilityLabel(accessibilityLabel)
+                        .accessibilityIdentifier("\(id_value)")
                 }
             }
         }
@@ -903,13 +907,24 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         let selectedData = selectedData()
         ForEach(selectedData, id: self.id) { element in
             let id_value = element[keyPath: id]
+            let accessibilityLabel = self.generateAccessibilityLabel(for: element as? SortFilterItem.PickerItem.ValueOptionModel)
             ListPickerDestinationRow(content: self.rowContent(element),
                                      isSelected: self.isItemSelected(id_value))
                 .contentShape(Rectangle())
                 .onTapGesture {
                     self.handleSelections(id_value)
                 }
+                .accessibilityElement()
+                .accessibilityLabel(accessibilityLabel)
+                .accessibilityIdentifier("\(id_value)_selected")
         }
+    }
+    
+    private func generateAccessibilityLabel(for element: SortFilterItem.PickerItem.ValueOptionModel?) -> String {
+        guard let idValue = element?.id as? ID else { return "" }
+        let accessibilityText = "\(element?.value ?? "")"
+        let selectionStatus = self.isItemSelected(idValue) ? "selected" : "unselected"
+        return "\(accessibilityText), \(selectionStatus)"
     }
     
     func selectedData() -> [Data.Element] {
