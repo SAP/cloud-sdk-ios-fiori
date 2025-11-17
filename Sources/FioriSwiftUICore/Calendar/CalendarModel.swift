@@ -292,7 +292,7 @@ public class CalendarModel {
                     
                     var weeks: [CalendarWeekInfo] = []
                     
-                    let weeksCountInMonth = self.calendarStyle == .month ? 6 : range.count
+                    let weeksCountInMonth = [.month, .expandable].contains(self.calendarStyle) ? 6 : range.count
                     
                     for _ in 0 ..< weeksCountInMonth {
                         let weekNumber = self.calendar.component(.weekOfYear, from: firstDayOfWeek)

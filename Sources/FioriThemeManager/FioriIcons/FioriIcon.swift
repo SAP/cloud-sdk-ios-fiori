@@ -2842,1649 +2842,1649 @@ public enum FioriIcon {
         ///
         public static let userHasSignedUpSmall = Image(fioriName: "fiori.ill.user.has.signed.up.small")
 
-        // Removed illustrations
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        // Illustrations that were removed in 25.11
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsMedium")
         public static let addColumnDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsExtraSmall")
         public static let addColumnDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsLarge")
         public static let addColumnScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsSmall")
         public static let addColumnSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsMedium")
         public static let addDimensionsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsExtraSmall")
         public static let addDimensionsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsLarge")
         public static let addDimensionsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsSmall")
         public static let addDimensionsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarMedium")
         public static let addPeopleDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarExtraSmall")
         public static let addPeopleDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarLarge")
         public static let addPeopleScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarSmall")
         public static let addPeopleSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
         public static let balloonSkyDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
         public static let balloonSkyDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
         public static let balloonSkyScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
         public static let balloonSkySpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
         public static let beforeSearchDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
         public static let beforeSearchDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
         public static let beforeSearchScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
         public static let beforeSearchSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
         public static let beforeSearch2Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
         public static let beforeSearch2Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
         public static let beforeSearch2Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
         public static let beforeSearch2Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let connectionDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let connectionDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let connectionScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let connectionSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
         public static let emptyCalendarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
         public static let emptyCalendarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
         public static let emptyCalendarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
         public static let emptyCalendarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
         public static let emptyListDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
         public static let emptyListDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
         public static let emptyListScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
         public static let emptyListSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarMedium")
         public static let emptyPlanningCalendarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarExtraSmall")
         public static let emptyPlanningCalendarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarLarge")
         public static let emptyPlanningCalendarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarSmall")
         public static let emptyPlanningCalendarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
         public static let errorScreenDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
         public static let errorScreenDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
         public static let errorScreenScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
         public static let errorScreenSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsMedium")
         public static let filterTableDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsExtraSmall")
         public static let filterTableDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsLarge")
         public static let filterTableScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsSmall")
         public static let filterTableSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsMedium")
         public static let groupTableDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsExtraSmall")
         public static let groupTableDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsLarge")
         public static let groupTableScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsSmall")
         public static let groupTableSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailMedium")
         public static let newMailDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailExtraSmall")
         public static let newMailDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailLarge")
         public static let newMailScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailSmall")
         public static let newMailSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
         public static let noActivitiesDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
         public static let noActivitiesDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
         public static let noActivitiesScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
         public static let noActivitiesSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetMedium")
         public static let noColumnsSetDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetExtraSmall")
         public static let noColumnsSetDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetLarge")
         public static let noColumnsSetScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetSmall")
         public static let noColumnsSetSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
         public static let noDataDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
         public static let noDataDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
         public static let noDataScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
         public static let noDataSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataMedium")
         public static let noDimensionsSetDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataExtraSmall")
         public static let noDimensionsSetDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataLarge")
         public static let noDimensionsSetScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataSmall")
         public static let noDimensionsSetSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
         public static let noEntriesDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
         public static let noEntriesDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
         public static let noEntriesScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
         public static let noEntriesSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsMedium")
         public static let noFilterResultsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsExtraSmall")
         public static let noFilterResultsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsLarge")
         public static let noFilterResultsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsSmall")
         public static let noFilterResultsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
         public static let noMailDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
         public static let noMailDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
         public static let noMailScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
         public static let noMailSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
         public static let noMailV1Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
         public static let noMailV1Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
         public static let noMailV1Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
         public static let noMailV1Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
         public static let noNotificationsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
         public static let noNotificationsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
         public static let noNotificationsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
         public static let noNotificationsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
         public static let noSavedItemsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
         public static let noSavedItemsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
         public static let noSavedItemsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
         public static let noSavedItemsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
         public static let noSavedItemsV1Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
         public static let noSavedItemsV1Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
         public static let noSavedItemsV1Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
         public static let noSavedItemsV1Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
         public static let noSearchResultsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
         public static let noSearchResultsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
         public static let noSearchResultsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
         public static let noSearchResultsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
         public static let noTasksDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
         public static let noTasksDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
         public static let noTasksScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
         public static let noTasksSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
         public static let noTasksV1Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
         public static let noTasksV1Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
         public static let noTasksV1Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
         public static let noTasksV1Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundMedium")
         public static let pageNotFoundDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundExtraSmall")
         public static let pageNotFoundDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundLarge")
         public static let pageNotFoundScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "pageNotFoundSmall")
         public static let pageNotFoundSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let reloadScreenDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let reloadScreenDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let reloadScreenScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let reloadScreenSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsMedium")
         public static let resizeColumnDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsExtraSmall")
         public static let resizeColumnDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsLarge")
         public static let resizeColumnScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsSmall")
         public static let resizeColumnSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
         public static let searchEarthDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
         public static let searchEarthDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
         public static let searchEarthScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
         public static let searchEarthSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
         public static let searchFolderDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
         public static let searchFolderDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
         public static let searchFolderScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
         public static let searchFolderSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutMedium")
         public static let signOutDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutExtraSmall")
         public static let signOutDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutLarge")
         public static let signOutScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutSmall")
         public static let signOutSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
         public static let simpleBalloonDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
         public static let simpleBalloonDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
         public static let simpleBalloonScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
         public static let simpleBalloonSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
         public static let simpleBellDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
         public static let simpleBellDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
         public static let simpleBellScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
         public static let simpleBellSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
         public static let simpleCalendarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
         public static let simpleCalendarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
         public static let simpleCalendarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
         public static let simpleCalendarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
         public static let simpleCheckMarkDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
         public static let simpleCheckMarkDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
         public static let simpleCheckMarkScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
         public static let simpleCheckMarkSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let simpleConnectionDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let simpleConnectionDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let simpleConnectionScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let simpleConnectionSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
         public static let simpleEmptyDocDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
         public static let simpleEmptyDocDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
         public static let simpleEmptyDocScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
         public static let simpleEmptyDocSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
         public static let simpleEmptyListDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
         public static let simpleEmptyListDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
         public static let simpleEmptyListScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
         public static let simpleEmptyListSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
         public static let simpleErrorDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
         public static let simpleErrorDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
         public static let simpleErrorScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
         public static let simpleErrorSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
         public static let simpleMagnifierDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
         public static let simpleMagnifierDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
         public static let simpleMagnifierScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
         public static let simpleMagnifierSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
         public static let simpleMailDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
         public static let simpleMailDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
         public static let simpleMailScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
         public static let simpleMailSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
         public static let simpleNoSavedItemsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
         public static let simpleNoSavedItemsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
         public static let simpleNoSavedItemsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
         public static let simpleNoSavedItemsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
         public static let simpleNotFoundMagnifierDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
         public static let simpleNotFoundMagnifierDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
         public static let simpleNotFoundMagnifierScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
         public static let simpleNotFoundMagnifierSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let simpleReloadDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let simpleReloadDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let simpleReloadScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let simpleReloadSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
         public static let simpleTaskDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
         public static let simpleTaskDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
         public static let simpleTaskScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
         public static let simpleTaskSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
         public static let sleepingBellDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
         public static let sleepingBellDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
         public static let sleepingBellScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
         public static let sleepingBellSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsMedium")
         public static let sortColumnDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsExtraSmall")
         public static let sortColumnDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsLarge")
         public static let sortColumnScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsSmall")
         public static let sortColumnSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpLarge")
         public static let successBalloonScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpMedium")
         public static let successBalloonDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpExtraSmall")
         public static let successBalloonDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "userHasSignedUpSmall")
         public static let successBalloonSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
         public static let successCheckMarkDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
         public static let successCheckMarkDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
         public static let successCheckMarkScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
         public static let successCheckMarkSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationMedium")
         public static let successHighFiveDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationExtraSmall")
         public static let successHighFiveDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationLarge")
         public static let successHighFiveScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationSmall")
         public static let successHighFiveSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
         public static let successScreenDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
         public static let successScreenDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
         public static let successScreenScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
         public static let successScreenSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyMedium")
         public static let surveyDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyExtraSmall")
         public static let surveyDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveyLarge")
         public static let surveyScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "surveySmall")
         public static let surveySpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
         public static let tentDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
         public static let tentDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
         public static let tentScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
         public static let tentSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntAvatarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntAvatarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntAvatarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntAvatarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCalculatorDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCalculatorDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCalculatorScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCalculatorSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartDoughnutDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartDoughnutDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartDoughnutScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartDoughnutSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartAreaDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartAreaDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartAreaScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartAreaSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartArea2Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartArea2Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartArea2Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartArea2Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBpmnFlowDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBpmnFlowDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBpmnFlowScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBpmnFlowSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBulletDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBulletDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBulletScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartBulletSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartFlowDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartFlowDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartFlowScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartFlowSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartGanttDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartGanttDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartGanttScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartGanttSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartOrgDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartOrgDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartOrgScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartOrgSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartPieDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartPieDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartPieScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntChartPieSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCodePlaceholderDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCodePlaceholderDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCodePlaceholderScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCodePlaceholderSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompanyDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompanyDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompanyScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompanySpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompassDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompassDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompassScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntCompassSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntComponentsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntComponentsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntComponentsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntComponentsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntDialogDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntDialogDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntDialogScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntDialogSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntExternalLinkDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntExternalLinkDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntExternalLinkScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntExternalLinkSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFaceIdDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFaceIdDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFaceIdScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFaceIdSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFingerprintDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFingerprintDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFingerprintScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntFingerprintSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHandshakeDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHandshakeDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHandshakeScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHandshakeSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHelpDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHelpDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHelpScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntHelpSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntLockDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntLockDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntLockScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntLockSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionFailedDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionFailedDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionFailedScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionFailedSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntMissionSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoApplicationsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoApplicationsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoApplicationsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoApplicationsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoFlowsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoFlowsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoFlowsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoFlowsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoUsersDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoUsersDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoUsersScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntNoUsersSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRadarDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRadarDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRadarScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRadarSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRoadMapDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRoadMapDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRoadMapScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntRoadMapSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSecretsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSecretsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSecretsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSecretsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntServicesDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntServicesDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntServicesScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntServicesSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiredDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiredDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiredScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiredSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiringDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiringDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiringScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSessionExpiringSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSettingsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSettingsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSettingsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSettingsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessfulAuthDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessfulAuthDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessfulAuthScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSuccessfulAuthSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSystemsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSystemsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSystemsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntSystemsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTeamsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTeamsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTeamsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTeamsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntToolsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntToolsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntToolsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntToolsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTutorialsDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTutorialsDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTutorialsScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntTutorialsSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let tntUnableToLoadDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let tntUnableToLoadDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let tntUnableToLoadScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let tntUnableToLoadSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnlockDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnlockDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnlockScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnlockSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnsuccessfulAuthDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnsuccessfulAuthDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnsuccessfulAuthScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUnsuccessfulAuthSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUser2Dialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUser2Dot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUser2Scene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was removed")
         public static let tntUser2Spot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let unableToLoadDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let unableToLoadDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageMedium")
         public static let unableToLoadImageDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageExtraSmall")
         public static let unableToLoadImageDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageLarge")
         public static let unableToLoadImageScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageSmall")
         public static let unableToLoadImageSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let unableToLoadScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let unableToLoadSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
         public static let unableToUploadDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
         public static let unableToUploadDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
         public static let unableToUploadScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
         public static let unableToUploadSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadMedium")
         public static let uploadCollectionDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadExtraSmall")
         public static let uploadCollectionDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadLarge")
         public static let uploadCollectionScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadSmall")
         public static let uploadCollectionSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudMedium")
         public static let uploadToCloudDialog = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudExtraSmall")
         public static let uploadToCloudDot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudLarge")
         public static let uploadToCloudScene = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudSmall")
         public static let uploadToCloudSpot = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsMedium")
         public static let addColumnDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsExtraSmall")
         public static let addColumnDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsLarge")
         public static let addColumnSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addingColumnsSmall")
         public static let addColumnSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsMedium")
         public static let addDimensionsDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsExtraSmall")
         public static let addDimensionsDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsLarge")
         public static let addDimensionsSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addDimensionsSmall")
         public static let addDimensionsSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarMedium")
         public static let addPeopleDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarExtraSmall")
         public static let addPeopleDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarLarge")
         public static let addPeopleSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "addPeopleToCalendarSmall")
         public static let addPeopleSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchMedium")
         public static let beforeSearchDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchExtraSmall")
         public static let beforeSearchDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchLarge")
         public static let beforeSearchSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "beforeSearchSmall")
         public static let beforeSearchSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let connectionDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let connectionDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let connectionSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let connectionSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarMedium")
         public static let emptyPlanningCalendarDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarExtraSmall")
         public static let emptyPlanningCalendarDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarLarge")
         public static let emptyPlanningCalendarSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "emptyPlanningCalendarSmall")
         public static let emptyPlanningCalendarSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadMedium")
         public static let errorScreenDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadExtraSmall")
         public static let errorScreenDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadLarge")
         public static let errorScreenSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToUploadSmall")
         public static let errorScreenSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsMedium")
         public static let filterTableDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsExtraSmall")
         public static let filterTableDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsLarge")
         public static let filterTableSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "filteringColumnsSmall")
         public static let filterTableSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsMedium")
         public static let groupTableDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsExtraSmall")
         public static let groupTableDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsLarge")
         public static let groupTableSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "groupingColumnsSmall")
         public static let groupTableSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailMedium")
         public static let newMailDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailExtraSmall")
         public static let newMailDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailLarge")
         public static let newMailSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "newMailSmall")
         public static let newMailSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesMedium")
         public static let noActivitiesDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesExtraSmall")
         public static let noActivitiesDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesLarge")
         public static let noActivitiesSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noActivitiesSmall")
         public static let noActivitiesSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetMedium")
         public static let noColumnsSetDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetExtraSmall")
         public static let noColumnsSetDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetLarge")
         public static let noColumnsSetSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noColumnsSetSmall")
         public static let noColumnsSetSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataMedium")
         public static let noDataDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataExtraSmall")
         public static let noDataDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataLarge")
         public static let noDataSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
         public static let noDataSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataMedium")
         public static let noDimensionsSetDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataExtraSmall")
         public static let noDimensionsSetDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataLarge")
         public static let noDimensionsSetSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noChartDataSmall")
         public static let noDimensionsSetSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesMedium")
         public static let noEntriesDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesExtraSmall")
         public static let noEntriesDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesLarge")
         public static let noEntriesSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noEntriesSmall")
         public static let noEntriesSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsMedium")
         public static let noFilterResultsDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsExtraSmall")
         public static let noFilterResultsDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsLarge")
         public static let noFilterResultsSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noFilterResultsSmall")
         public static let noFilterResultsSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailMedium")
         public static let noMailDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailExtraSmall")
         public static let noMailDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailLarge")
         public static let noMailSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noMailSmall")
         public static let noMailSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsMedium")
         public static let noNotificationsDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsExtraSmall")
         public static let noNotificationsDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsLarge")
         public static let noNotificationsSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noNotificationsSmall")
         public static let noNotificationsSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsMedium")
         public static let noSavedItemsDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsExtraSmall")
         public static let noSavedItemsDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsLarge")
         public static let noSavedItemsSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSavedItemsSmall")
         public static let noSavedItemsSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsMedium")
         public static let noSearchResultsDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsExtraSmall")
         public static let noSearchResultsDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsLarge")
         public static let noSearchResultsSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noSearchResultsSmall")
         public static let noSearchResultsSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksMedium")
         public static let noTasksDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksExtraSmall")
         public static let noTasksDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksLarge")
         public static let noTasksSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "noTasksSmall")
         public static let noTasksSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsMedium")
         public static let resizeColumnDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsExtraSmall")
         public static let resizeColumnDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsLarge")
         public static let resizeColumnSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "resizingColumnsSmall")
         public static let resizeColumnSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutMedium")
         public static let signOutDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutExtraSmall")
         public static let signOutDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutLarge")
         public static let signOutSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "signOutSmall")
         public static let signOutSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsMedium")
         public static let sortColumnDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsExtraSmall")
         public static let sortColumnDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsLarge")
         public static let sortColumnSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "sortingColumnsSmall")
         public static let sortColumnSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
         public static let successCheckMarkDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
         public static let successCheckMarkDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
         public static let successCheckMarkSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
         public static let successCheckMarkSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationMedium")
         public static let successHighFiveDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationExtraSmall")
         public static let successHighFiveDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationLarge")
         public static let successHighFiveSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "receiveAppreciationSmall")
         public static let successHighFiveSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskMedium")
         public static let successScreenDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskExtraSmall")
         public static let successScreenDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskLarge")
         public static let successScreenSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "keyTaskSmall")
         public static let successScreenSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageMedium")
         public static let unableToLoadImageDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageExtraSmall")
         public static let unableToLoadImageDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageLarge")
         public static let unableToLoadImageSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadImageSmall")
         public static let unableToLoadImageSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let unableToLoadScreenDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
         public static let unableToLoadScreenDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
         public static let unableToLoadScreenSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
         public static let unableToLoadScreenSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadMedium")
         public static let uploadCollectionDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadExtraSmall")
         public static let uploadCollectionDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadLarge")
         public static let uploadCollectionSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "dragFilesToUploadSmall")
         public static let uploadCollectionSpotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudMedium")
         public static let uploadToCloudDialogV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudExtraSmall")
         public static let uploadToCloudDotV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudLarge")
         public static let uploadToCloudSceneV3 = EmptyView()
         ///
-        @available(swift, obsoleted: 5.0, message: "Illustration was removed")
+        @available(*, unavailable, message: "Illustration was replaced", renamed: "uploadToCloudSmall")
         public static let uploadToCloudSpotV3 = EmptyView()
     }
 }

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct DateTimePickerExample: View {
     @State var s1: Date? = .init(timeIntervalSince1970: 0.0)
-    @State var s2: Date? = nil
+    @State var s2: Date? = Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
     @State var s3: Date? = nil
     @State var s4: Date? = nil
     @State var s5: Date? = .now
