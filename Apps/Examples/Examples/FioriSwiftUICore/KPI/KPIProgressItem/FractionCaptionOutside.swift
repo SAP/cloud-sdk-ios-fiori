@@ -9,6 +9,10 @@ public struct FractionCaptionOutside: View {
             let fractionData = KPIItemData.fraction(76, 90, self.numberFormatterProvider.numberFormatter)
             KPIProgressItem(footnote: "Completed", data: .constant(fractionData))
             KPIProgressItem(footnote: "Loooooooong footnote", data: .constant(fractionData), chartSize: .small)
+                .footnoteStyle(content: { config in
+                    Footnote(config)
+                        .lineLimit(nil)
+                })
         }
     }
 }
