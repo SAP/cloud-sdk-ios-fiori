@@ -464,30 +464,18 @@ struct BannerMessageModifier: ViewModifier {
                             self.showingMessageDetail = true
                             
                             if UIDevice.current.userInterfaceIdiom == .phone {
-                                if #available(iOS 26.0, *) {
-                                    // do nothing
-                                } else {
-                                    self.isPresented = false
-                                }
+                                self.isPresented = false
                             }
                         }
                         return .handled
                     }))
                     .frame(minWidth: (UIDevice.current.userInterfaceIdiom != .phone && self.alignment != .center) ? 393 : nil, alignment: .leading)
-                    .popover(isPresented: self.$showingMessageDetail) {
-                        BannerMultiMessageSheet(title: {
-                            EmptyView()
-                        }, closeAction: {
-                            EmptyView()
-                        }, dismissAction: {
-                            self.showingMessageDetail = false
-                        }, removeAction: { _, _ in
-                            if self.bannerMultiMessages.isEmpty {
-                                self.isPresented = false
-                            }
-                        }, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, bannerMultiMessages: self.$bannerMultiMessages)
-                            .presentationDetents([.medium, .large])
-                    }
+                    .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: {
+                        $0.popover(isPresented: self.$showingMessageDetail) {
+                            self.bannerMultiMessageSheet
+                                .presentationDetents([.medium, .large])
+                        }
+                    })
             }
         }, closeAction: {
             FioriButton { state in
@@ -517,6 +505,12 @@ struct BannerMessageModifier: ViewModifier {
                         .transition(.move(edge: .top).combined(with: .opacity))
                 }
                 content
+                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                        $0.popover(isPresented: self.$showingMessageDetail) {
+                            self.bannerMultiMessageSheet
+                                .presentationDetents([.medium, .large])
+                        }
+                    })
             }
             .animation(.easeInOut, value: self.isPresented)
         } else {
@@ -529,6 +523,26 @@ struct BannerMessageModifier: ViewModifier {
                     }
                 }
                 .animation(.easeInOut, value: self.isPresented)
+                .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                    $0.popover(isPresented: self.$showingMessageDetail) {
+                        self.bannerMultiMessageSheet
+                            .presentationDetents([.medium, .large])
+                    }
+                })
         }
+    }
+    
+    @ViewBuilder var bannerMultiMessageSheet: some View {
+        BannerMultiMessageSheet(title: {
+            EmptyView()
+        }, closeAction: {
+            EmptyView()
+        }, dismissAction: {
+            self.showingMessageDetail = false
+        }, removeAction: { _, _ in
+            if self.bannerMultiMessages.isEmpty {
+                self.isPresented = false
+            }
+        }, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, bannerMultiMessages: self.$bannerMultiMessages)
     }
 }
