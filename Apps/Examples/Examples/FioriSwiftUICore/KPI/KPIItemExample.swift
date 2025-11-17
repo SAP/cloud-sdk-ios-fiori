@@ -36,6 +36,10 @@ public struct KPIItemExample: View {
             }
             HStack {
                 KPIItem(kpiCaption: "looooooooooooooooooooooooooooooooong caption", items: self.item0, proposedViewSize: .medium, alignment: .leading)
+                    .kpiCaptionStyle(content: { config in
+                        KpiCaption(config)
+                            .lineLimit(5)
+                    })
                 Spacer()
             }
             HStack {
