@@ -12,6 +12,7 @@ struct InternalWAForm: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dismiss) private var dismiss
     @Environment(\.waHelperAction) private var waHelperAction
+    @Environment(\.hideWAFeedbackFooter) private var hideWAFeedbackFooter
     
     @AccessibilityFocusState private var focusOnTitle: Bool
     var configuration: WritingAssistantFormConfiguration
@@ -239,7 +240,7 @@ struct InternalWAForm: View {
     }
     
     @ViewBuilder func sectionFooter() -> some View {
-        if self.context.feedbackHandler != nil {
+        if !self.hideWAFeedbackFooter {
             HStack {
                 self.configuration.footnote
                 Spacer()
@@ -264,5 +265,25 @@ struct InternalWAForm: View {
         Text("\(versionString)")
             .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
             .font(.fiori(forTextStyle: .caption1))
+    }
+}
+
+struct HideWAFeedbackFooterKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+    var hideWAFeedbackFooter: Bool {
+        get { self[HideWAFeedbackFooterKey.self] }
+        set { self[HideWAFeedbackFooterKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Hide feedback section footer for writing assistant.
+    /// - Parameter hide: A boolean value to indicate if hide/show the feedback footer.
+    /// - Returns: A new view with hidden or shown feedback footer for writing assistant.
+    func hideWAFeedbackFooter(_ hide: Bool = true) -> some View {
+        self.environment(\.hideWAFeedbackFooter, hide)
     }
 }
