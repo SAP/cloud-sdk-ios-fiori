@@ -605,3 +605,6 @@
 
 /* XBUT: Writing assistant negative feedback accessibility label */
 "Negative feedback" = "Negative feedback";
+
+/* XBUT: Close button title */
+"Close" = "Close";
