@@ -218,7 +218,7 @@ struct WATextInputModifier: ViewModifier {
             }
             .onDisappear {
                 self.context.showCancelAlert = false
-                self.context.isPresented = true
+                self.context.isPresented = false
             }
             .popover(isPresented: self.$context.isPresented, attachmentAnchor: .point(.center)) {
                 self.formView
