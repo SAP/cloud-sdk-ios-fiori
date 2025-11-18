@@ -60,18 +60,51 @@ struct StepButtonStyle: ButtonStyle {
                                            isSelected: self.isSelected,
                                            isLastStep: self.isLastStep,
                                            axis: self.stepAxis)
-        InnerSingleStep(id: self.id,
-                        title: self.generateTitle(stepConfig),
-                        node: self.generateNode(stepConfig),
-                        line: self.generateLine(stepConfig),
-                        isTitleEmptyView: self.isTitleEmptyView,
-                        top: self.top,
-                        bottom: self.bottom,
-                        leading: self.leading,
-                        trailing: self.trailing,
-                        horizontalSpacing: self.horizontalSpacing,
-                        verticalSpacing: self.verticalSpacing,
-                        lineSize: self.lineSize)
+        ZStack {
+            InnerSingleStep(id: self.id,
+                            title: self.generateTitle(stepConfig),
+                            node: self.generateNode(stepConfig),
+                            line: self.generateLine(stepConfig),
+                            isTitleEmptyView: self.isTitleEmptyView,
+                            top: self.top,
+                            bottom: self.bottom,
+                            leading: self.leading,
+                            trailing: self.trailing,
+                            horizontalSpacing: self.horizontalSpacing,
+                            verticalSpacing: self.verticalSpacing,
+                            lineSize: self.lineSize)
+            self.stateAccessibilityLabel(by: self.stateAccessibilityLabelValue)
+        }
+        .accessibilityElement(children: .combine)
+    }
+    
+    @ViewBuilder func stateAccessibilityLabel(by value: String) -> some View {
+        if value.isEmpty {
+            EmptyView()
+        } else {
+            Color.clear
+                .frame(width: 0.1, height: 0.1)
+                .accessibilityHidden(false)
+                .accessibilityLabel(value)
+        }
+    }
+    
+    var stateAccessibilityLabelValue: String {
+        guard let state else {
+            return ""
+        }
+        switch state {
+        case .completed:
+            return "complete".localizedFioriString()
+        case .error:
+            return self.isSelected ? "error active".localizedFioriString() : "error".localizedFioriString()
+        case .disabled:
+            return "read-only".localizedFioriString()
+        case .normal:
+            return self.isSelected ? "active".localizedFioriString() : ""
+        default:
+            return ""
+        }
     }
     
     @ViewBuilder func generateNode(_ stepConfig: StepConfiguration) -> some View {
