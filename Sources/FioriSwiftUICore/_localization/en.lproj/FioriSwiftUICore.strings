@@ -555,8 +555,7 @@
 "Disabled date" = "Disabled date";
 
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
-"Handle to switch from month view to week view" = "Handle to switch from month view to week view"
-
+"Handle to switch from month view to week view" = "Handle to switch from month view to week view";
 
 /*XTIT: Title for card*/
 "Card title" = "Card title";
