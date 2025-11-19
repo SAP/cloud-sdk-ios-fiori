@@ -83,6 +83,7 @@ struct BannerMultiMessageCustomInitExample: View {
                     if self.showAINotice, self.showAINoticeOnBanner {
                         BannerMessage(icon: {
                             Image(fioriName: "fiori.ai")
+                                .accessibilityLabel(Text("ai notice"))
                         }, title: {
                             self.noticeTitleView
                         }, bannerTapAction: {
