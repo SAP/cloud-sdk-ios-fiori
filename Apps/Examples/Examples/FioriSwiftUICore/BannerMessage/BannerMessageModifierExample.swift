@@ -67,8 +67,10 @@ struct BannerMessageModifierExample: View {
                            icon: {
                                if self.showAINotice {
                                    Image(fioriName: "fiori.ai")
+                                       .accessibilityLabel(Text("ai notice"))
                                } else {
                                    Image(systemName: "info.circle")
+                                       .accessibilityLabel(Text("negative"))
                                }
                            },
                            title: {
