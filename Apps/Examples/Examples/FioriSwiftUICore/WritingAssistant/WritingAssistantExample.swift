@@ -92,7 +92,7 @@ struct WritingAssistantExample: View {
                 })
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
-                .hideWAFeedbackFooter(self.hideFeedbackSection)
+                .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
             
             TextFieldFormView(title: {
                 Text("TextFieldFormView Title")
