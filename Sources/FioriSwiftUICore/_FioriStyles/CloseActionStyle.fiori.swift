@@ -16,6 +16,7 @@ public struct CloseActionFioriStyle: CloseActionStyle {
     public func makeBody(_ configuration: CloseActionConfiguration) -> some View {
         CloseAction(configuration)
             .fioriButtonStyle(CloseActionStyle())
+            .accessibilityLabel(NSLocalizedString("Close", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Close"))
     }
     
     struct CloseActionStyle: FioriButtonStyle {
