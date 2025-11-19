@@ -92,7 +92,7 @@ struct WritingAssistantExample: View {
                 })
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
-                .hideWAFeedbackFooter(self.hideFeedbackSection)
+                .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
             
             NoteFormView(text: self.$text2, placeholder: "NoteFormView2", allowsBeyondLimit: false)
                 .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
