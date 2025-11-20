@@ -50,7 +50,6 @@ extension IllustratedMessageFioriStyle {
     struct ContentFioriStyle: IllustratedMessageStyle {
         func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
             IllustratedMessage(configuration)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
