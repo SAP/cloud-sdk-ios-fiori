@@ -60,33 +60,19 @@ struct StepButtonStyle: ButtonStyle {
                                            isSelected: self.isSelected,
                                            isLastStep: self.isLastStep,
                                            axis: self.stepAxis)
-        ZStack {
-            InnerSingleStep(id: self.id,
-                            title: self.generateTitle(stepConfig),
-                            node: self.generateNode(stepConfig),
-                            line: self.generateLine(stepConfig),
-                            isTitleEmptyView: self.isTitleEmptyView,
-                            top: self.top,
-                            bottom: self.bottom,
-                            leading: self.leading,
-                            trailing: self.trailing,
-                            horizontalSpacing: self.horizontalSpacing,
-                            verticalSpacing: self.verticalSpacing,
-                            lineSize: self.lineSize)
-            self.stateAccessibilityLabel(by: self.stateAccessibilityLabelValue)
-        }
-        .accessibilityElement(children: .combine)
-    }
-    
-    @ViewBuilder func stateAccessibilityLabel(by value: String) -> some View {
-        if value.isEmpty {
-            EmptyView()
-        } else {
-            Color.clear
-                .frame(width: 0.1, height: 0.1)
-                .accessibilityHidden(false)
-                .accessibilityLabel(value)
-        }
+        InnerSingleStep(id: self.id,
+                        title: self.generateTitle(stepConfig),
+                        node: self.generateNode(stepConfig),
+                        line: self.generateLine(stepConfig),
+                        isTitleEmptyView: self.isTitleEmptyView,
+                        top: self.top,
+                        bottom: self.bottom,
+                        leading: self.leading,
+                        trailing: self.trailing,
+                        horizontalSpacing: self.horizontalSpacing,
+                        verticalSpacing: self.verticalSpacing,
+                        lineSize: self.lineSize)
+            .accessibilityElement(children: .combine)
     }
     
     var stateAccessibilityLabelValue: String {
@@ -108,27 +94,38 @@ struct StepButtonStyle: ButtonStyle {
     }
     
     @ViewBuilder func generateNode(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeNode(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeNode(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeNode(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeNode(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilitySortPriority(1)
     }
     
     @ViewBuilder func generateTitle(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeTitle(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeTitle(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeTitle(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeTitle(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilitySortPriority(0.5)
     }
     
     @ViewBuilder func generateLine(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeLine(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeLine(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeLine(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeLine(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilityHidden(false)
+        .accessibilityLabel(self.stateAccessibilityLabelValue)
+        .accessibilitySortPriority(0)
     }
 }
 
