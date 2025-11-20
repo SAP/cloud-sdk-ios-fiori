@@ -247,21 +247,6 @@
 /* XBUT: banner message type desc, error */
 "error" = "tõrge";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "teated";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "teabeüksused";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "kinnitused";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "hoiatused";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "tõrked";
-
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Lähtesta";
 

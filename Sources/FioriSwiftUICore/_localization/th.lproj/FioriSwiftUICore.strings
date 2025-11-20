@@ -247,21 +247,6 @@
 /* XBUT: banner message type desc, error */
 "error" = "ข้อผิดพลาด";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "ข้อความ";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "ข้อมูล";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "การยืนยัน";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "คำเตือน";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "ข้อผิดพลาด";
-
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "รีเซ็ต";
 
