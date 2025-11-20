@@ -555,8 +555,7 @@
 "Disabled date" = "Disabled date";
 
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
-"Handle to switch from month view to week view" = "Handle to switch from month view to week view"
-
+"Handle to switch from month view to week view" = "Handle to switch from month view to week view";
 
 /*XTIT: Title for card*/
 "Card title" = "Card title";
@@ -606,14 +605,17 @@
 /* XBUT: Writing assistant negative feedback accessibility label */
 "Negative feedback" = "Negative feedback";
 
+/* XBUT: Close button title */
+"Close" = "Close";
+
 /* XMSG: Accessibility label for completed state in step progress indicator */
-"complete" = "complete"
+"complete" = "complete";
 
 /* XMSG: Accessibility label for active state in step progress indicator */
-"active" = "active"
+"active" = "active";
 
 /* XMSG: Accessibility label for error active state in step progress indicator */
-"error active" = "error active"
+"error active" = "error active";
 
 /* XMSG: Accessibility label for read-only state in step progress indicator */
-"read-only" = "read-only"
+"read-only" = "read-only";
