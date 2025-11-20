@@ -607,3 +607,9 @@
 
 /* XBUT: Close button title */
 "Close" = "Close";
+
+/* XMSG: Sort&Filter search no results announcement */
+"no matching data is available" = "no matching data is available";
+
+/* XMSG: Sort&Filter search results announcement */
+"%d number of items found" = "%d number of items found";

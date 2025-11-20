@@ -957,6 +957,17 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                 filteredResult.append((sectionData.title, filteredValues))
             }
         }
+        
+        if UIAccessibility.isVoiceOverRunning {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                var formatString = "no matching data is available".localizedFioriString()
+                if !filteredResult.isEmpty {
+                    formatString = String(format: "%d number of items found".localizedFioriString(), filteredResult[0].1.count)
+                }
+                UIAccessibility.post(notification: .announcement, argument: formatString)
+            }
+        }
+        
         return filteredResult
     }
     
