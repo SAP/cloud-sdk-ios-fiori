@@ -476,6 +476,7 @@ struct BannerMessageModifier: ViewModifier {
                                 .presentationDetents([.medium, .large])
                         }
                     })
+                    .accessibilityAddTraits(.isLink)
             }
         }, closeAction: {
             FioriButton { state in
