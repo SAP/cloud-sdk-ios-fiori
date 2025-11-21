@@ -72,30 +72,60 @@ struct StepButtonStyle: ButtonStyle {
                         horizontalSpacing: self.horizontalSpacing,
                         verticalSpacing: self.verticalSpacing,
                         lineSize: self.lineSize)
+            .accessibilityElement(children: .combine)
+    }
+    
+    var stateAccessibilityLabelValue: String {
+        guard let state else {
+            return ""
+        }
+        switch state {
+        case .completed:
+            return "complete".localizedFioriString()
+        case .error:
+            return self.isSelected ? "error active".localizedFioriString() : "error".localizedFioriString()
+        case .disabled:
+            return "read-only".localizedFioriString()
+        case .normal:
+            return self.isSelected ? "active".localizedFioriString() : ""
+        default:
+            return ""
+        }
     }
     
     @ViewBuilder func generateNode(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeNode(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeNode(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeNode(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeNode(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilitySortPriority(1)
     }
     
     @ViewBuilder func generateTitle(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeTitle(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeTitle(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeTitle(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeTitle(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilitySortPriority(0.5)
     }
     
     @ViewBuilder func generateLine(_ stepConfig: StepConfiguration) -> some View {
-        if let s = stepStyle(id) {
-            s.makeLine(configuration: stepConfig).typeErased
-        } else {
-            DefaultStepStyle().makeLine(configuration: stepConfig).typeErased
+        Group {
+            if let s = stepStyle(id) {
+                s.makeLine(configuration: stepConfig).typeErased
+            } else {
+                DefaultStepStyle().makeLine(configuration: stepConfig).typeErased
+            }
         }
+        .accessibilityHidden(false)
+        .accessibilityLabel(self.stateAccessibilityLabelValue)
+        .accessibilitySortPriority(0)
     }
 }
 
