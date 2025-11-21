@@ -41,7 +41,7 @@ public struct BannerMessageItemModel: Identifiable {
         case .negative:
             NSLocalizedString("error", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         case .aiNotice:
-            NSLocalizedString("information", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            NSLocalizedString("AI notice", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
     }
     
