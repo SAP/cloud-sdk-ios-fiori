@@ -216,6 +216,10 @@ struct WATextInputModifier: ViewModifier {
                     self.restoreSelectedRange()
                 }
             }
+            .onDisappear {
+                self.context.showCancelAlert = false
+                self.context.isPresented = false
+            }
             .popover(isPresented: self.$context.isPresented, attachmentAnchor: .point(.center)) {
                 self.formView
                     .frame(idealWidth: 400, idealHeight: 400)

@@ -247,21 +247,6 @@
 /* XBUT: banner message type desc, error */
 "error" = "오류";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "메시지";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "정보";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "확인";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "경고";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "오류";
-
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "재설정";
 

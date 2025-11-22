@@ -79,6 +79,7 @@ struct SortFilterExample: View {
                                 }
                             }
                     }
+                    .fullConfigurationItem(itemContent: .name("All Configuration"), position: .leading)
             } else {
                 FilterFeedbackBar(items: self.$items, onUpdate: self.performSortAndFilter)
                     .fullConfigurationItem(itemContent: .name("All Configuration"), position: .leading)
