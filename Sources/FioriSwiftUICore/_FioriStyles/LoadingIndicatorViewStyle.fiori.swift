@@ -132,6 +132,7 @@ extension LoadingIndicatorFioriStyle {
     
         func makeBody(_ configuration: ProgressConfiguration) -> some View {
             Progress(configuration)
+                .accessibilityHidden(true)
         }
     }
 }
