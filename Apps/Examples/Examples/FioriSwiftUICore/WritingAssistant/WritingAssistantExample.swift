@@ -33,6 +33,8 @@ struct WritingAssistantExample: View {
     @State var isLoading = false
     @FocusState var isFocused: Bool
     
+    @State var hideFeedbackSection: Bool = true
+    
     @ViewBuilder
     var customDestination: some View {
         WACustomDestination(helperAction: self.$helperAction)
@@ -52,6 +54,7 @@ struct WritingAssistantExample: View {
                 if withLoading { self.isLoading = true }
                 try? await Task.sleep(nanoseconds: 1500000000)
                 if withLoading { self.isLoading = false }
+                self.hideFeedbackSection = false
                 return .success("Mock Async Value - \(menu.title)")
             }
         }
@@ -89,6 +92,7 @@ struct WritingAssistantExample: View {
                 })
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
+                .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
             
             TextFieldFormView(title: {
                 Text("TextFieldFormView Title")

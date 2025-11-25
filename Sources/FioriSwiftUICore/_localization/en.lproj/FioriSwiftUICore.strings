@@ -592,3 +592,9 @@
 
 /* XBUT: Close button title */
 "Close" = "Close";
+
+/* XACT: The accessibility value for Stepper decrement*/
+"Decrease the value by %f" = "Decrease the value by %f";
+
+/* XACT: The accessibility value for Stepper increment*/
+"Increase the value by %f" = "Increase the value by %f";

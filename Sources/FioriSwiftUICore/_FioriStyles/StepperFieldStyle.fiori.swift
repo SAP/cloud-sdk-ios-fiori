@@ -253,7 +253,7 @@ extension StepperFieldFioriStyle {
 
         func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
             let isDecrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.lowerBound > self.stepperFieldConfiguration.stepRange.lowerBound ? true : false : false
-            let decrementDescFormat = NSLocalizedString("Decrease the value by %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            let decrementDescFormat = NSLocalizedString("Decrease the value by %f", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let decrementDesc = String(format: decrementDescFormat, stepperFieldConfiguration.step)
             return DecrementAction(configuration)
                 .foregroundColor(.preferredColor(.tintColor))
@@ -282,7 +282,7 @@ extension StepperFieldFioriStyle {
 
         func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
             let isIncrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.upperBound < self.stepperFieldConfiguration.stepRange.upperBound ? true : false : false
-            let incrementDescFormat = NSLocalizedString("Increase the value by %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            let incrementDescFormat = NSLocalizedString("Increase the value by %f", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let incrementDesc = String(format: incrementDescFormat, stepperFieldConfiguration.step)
             return IncrementAction(configuration)
                 .foregroundColor(.preferredColor(.tintColor))
