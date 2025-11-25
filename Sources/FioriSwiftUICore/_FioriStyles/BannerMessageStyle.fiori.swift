@@ -53,7 +53,9 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                 }
                 Spacer()
                 if configuration.messageType != .aiNotice {
-                    configuration.closeAction.padding(.trailing)
+                    configuration.closeAction
+                        .frame(minWidth: 44, minHeight: 30)
+                        .contentShape(Rectangle())
                 }
             }
             .frame(minHeight: 39)
