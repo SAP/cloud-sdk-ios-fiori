@@ -247,21 +247,6 @@
 /* XBUT: banner message type desc, error */
 "error" = "error";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "messages";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "information";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "confirmations";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "warnings";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "errors";
-
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reset";
 

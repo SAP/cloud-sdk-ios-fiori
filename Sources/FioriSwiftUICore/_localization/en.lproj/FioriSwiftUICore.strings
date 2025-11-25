@@ -248,17 +248,8 @@
 "warning" = "warning";
 /* XBUT: banner message type desc, error */
 "error" = "error";
-
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "messages";
-/* XBUT: banner message type desc in plural form, information */
-"information" = "information";
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "confirmations";
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "warnings";
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "errors";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI notice";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reset";
@@ -598,12 +589,6 @@
 
 /* XBUT: Writing assistant redo accessibility label */
 "Rodo change" = "Rodo change";
-
-/* XBUT: Writing assistant positive feedback accessibility label */
-"Positive feedback" = "Positive feedback";
-
-/* XBUT: Writing assistant negative feedback accessibility label */
-"Negative feedback" = "Negative feedback";
 
 /* XBUT: Close button title */
 "Close" = "Close";
