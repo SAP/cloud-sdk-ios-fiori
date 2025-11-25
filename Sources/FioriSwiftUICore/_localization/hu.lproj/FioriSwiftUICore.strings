@@ -247,21 +247,6 @@
 /* XBUT: banner message type desc, error */
 "error" = "hiba";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "üzenet";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "információ";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "visszaigazolás";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "figyelmeztetés";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "hiba";
-
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Visszaállítás";
 
