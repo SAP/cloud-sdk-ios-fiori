@@ -803,6 +803,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                                     dimensions[.leading] - 16
                                 }
+                                .accessibilityHidden(true)
                         #endif
                     }
                 }.textCase(.none)

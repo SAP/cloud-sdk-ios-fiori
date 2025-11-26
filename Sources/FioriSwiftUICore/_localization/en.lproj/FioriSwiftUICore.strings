@@ -599,6 +599,18 @@
 /* XMSG: Sort&Filter search results announcement */
 "%d number of items found" = "%d number of items found";
 
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "complete";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "active";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "error active";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "read-only";
+
 /* XACT: The accessibility value for Stepper decrement*/
 "Decrease the value by %f" = "Decrease the value by %f";
 
