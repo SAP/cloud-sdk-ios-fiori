@@ -24,6 +24,7 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
         }
         .environment(\.isPressed, self.isPressed)
         .frame(width: self.getFrameWidth(configuration: configuration))
+        .frame(maxWidth: configuration.chartSize == .large ? 150 : 124, maxHeight: configuration.chartSize == .large ? 150 : 124)
         .contentShape(.rect)
         .simultaneousGesture(self.createGesture())
     }
