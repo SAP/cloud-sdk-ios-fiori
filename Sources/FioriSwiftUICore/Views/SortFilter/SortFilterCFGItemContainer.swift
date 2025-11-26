@@ -283,22 +283,34 @@ extension SortFilterCFGItemContainer: View {
             Text(self._items[r][c].picker.name)
                 .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
                 .foregroundColor(Color.preferredColor(.primaryLabel))
+                .accessibilityElement()
+                .accessibilityLabel(self._items[r][c].picker.name)
         }, value: {
             let workingValue = Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 })
             if workingValue.count == 1 {
                 switch self._items[r][c].picker.barItemDisplayMode {
                 case .name:
                     Text(self._items[r][c].picker.name)
+                        .accessibilityElement()
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 case .value:
                     Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                        .accessibilityElement()
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
+                        .accessibilityLabel(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
                 case .nameAndValue:
                     Text(self._items[r][c].picker.name + ": " + self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                        .accessibilityElement()
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
+                        .accessibilityLabel(self._items[r][c].picker.name + ": " + self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
                 }
             } else {
                 if self._items[r][c].picker.allowsMultipleSelection, workingValue.count >= 1 {
                     Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 } else {
                     Text(self._items[r][c].picker.name)
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 }
             }
         }, axis: .horizontal, destination: {
