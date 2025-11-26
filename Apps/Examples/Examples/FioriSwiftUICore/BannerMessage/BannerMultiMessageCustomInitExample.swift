@@ -83,6 +83,7 @@ struct BannerMultiMessageCustomInitExample: View {
                     if self.showAINotice, self.showAINoticeOnBanner {
                         BannerMessage(icon: {
                             Image(fioriName: "fiori.ai")
+                                .accessibilityLabel(Text("ai notice"))
                         }, title: {
                             self.noticeTitleView
                         }, bannerTapAction: {
@@ -130,7 +131,10 @@ struct BannerMultiMessageCustomInitExample: View {
                         }, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: { id in
                             if let (message, category) = getItemData(with: id) {
                                 BannerMessage(icon: {
-                                    (message.icon ?? EmptyView()).typeErased
+                                    (message.icon ?? EmptyView())
+                                        .typeErased
+                                        .accessibilityLabel(Text(message.typeDesc))
+                                    
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
                                 }, closeAction: {

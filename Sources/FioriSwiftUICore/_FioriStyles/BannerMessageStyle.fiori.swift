@@ -53,7 +53,9 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                 }
                 Spacer()
                 if configuration.messageType != .aiNotice {
-                    configuration.closeAction.padding(.trailing)
+                    configuration.closeAction
+                        .frame(minWidth: 44, minHeight: 30)
+                        .contentShape(Rectangle())
                 }
             }
             .frame(minHeight: 39)
@@ -476,12 +478,14 @@ struct BannerMessageModifier: ViewModifier {
                                 .presentationDetents([.medium, .large])
                         }
                     })
+                    .accessibilityAddTraits(.isLink)
             }
         }, closeAction: {
             FioriButton { state in
                 if state == .normal {
                     withAnimation {
                         self.isPresented = false
+                        self.focusState = true
                     }
                 }
             } label: { _ in
@@ -492,6 +496,9 @@ struct BannerMessageModifier: ViewModifier {
                 if abs(self.offset + size.height) > 0.1, !self.showingMessageDetail {
                     self.offset = -size.height
                 }
+            }
+            .onAppear {
+                self.focusState = false
             }
     }
     
@@ -512,6 +519,7 @@ struct BannerMessageModifier: ViewModifier {
                         }
                     })
             }
+            .focused(self.$focusState)
             .animation(.easeInOut, value: self.isPresented)
         } else {
             // If pushContentDown is false, we use the OVERLAY layout.
@@ -529,8 +537,11 @@ struct BannerMessageModifier: ViewModifier {
                             .presentationDetents([.medium, .large])
                     }
                 })
+                .focused(self.$focusState)
         }
     }
+    
+    @FocusState var focusState: Bool
     
     @ViewBuilder var bannerMultiMessageSheet: some View {
         BannerMultiMessageSheet(title: {
