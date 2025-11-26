@@ -389,6 +389,7 @@ extension SignatureCaptureViewFioriStyle {
             Xmark(configuration)
                 .foregroundColor(Color.preferredColor(.quaternaryLabel))
                 .font(.fiori(forTextStyle: .body))
+                .accessibilityHidden(true)
         }
     }
     
