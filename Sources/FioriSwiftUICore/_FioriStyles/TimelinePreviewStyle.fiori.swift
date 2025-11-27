@@ -13,6 +13,7 @@ public struct TimelinePreviewBaseStyle: TimelinePreviewStyle {
         VStack(alignment: .leading, spacing: 0) {
             if !configuration.optionalTitle.isEmpty || !configuration.action.isEmpty {
                 BuildHeader(configuration: configuration, itemCount: configuration.items.count)
+                    .accessibilityElement(children: .contain)
             }
             BuildTimelinePreviewItem(configuration: configuration, displayItems: self.getDisplayItemCount(VSWidth: self.VSize.width))
         }
@@ -47,6 +48,8 @@ struct BuildHeader: View {
     var body: some View {
         HStack {
             self.configuration.optionalTitle
+                .accessibilityAddTraits(.isHeader)
+                .accessibilitySortPriority(1)
             Spacer()
             self.configuration.action
                 .actionStyle(content: { actionConfig in
@@ -55,6 +58,10 @@ struct BuildHeader: View {
                         let labelString = String(format: labelFormat, self.itemCount)
                         FioriButton(label: { _ in Label(labelString, systemImage: "chevron.forward").labelStyle(SeeAllActionLabelStyle()) })
                             .fioriButtonStyle(FioriPlainButtonStyle())
+                            .accessibilityLabel(NSLocalizedString("See All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                            .accessibilityValue(String(format: NSLocalizedString("%d items", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), self.itemCount))
+                            .accessibilityHint(NSLocalizedString("Shows all timeline items in a list", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                            .accessibilityAddTraits(.isButton)
                     } else {
                         self.configuration.action
                     }
@@ -70,17 +77,49 @@ struct BuildTimelinePreviewItem: View {
 
     var body: some View {
         HStack(alignment: .timelinePreviewAlignmentGuide, spacing: 4) {
-            ForEach(self.filterItems(itemsData: self.configuration.items), id: \.id) { item in
-                let itemLabelFormat = NSLocalizedString("Item %d of %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-                let itemLabelString = String(format: itemLabelFormat, item.formatter.string(from: item.due), item.title)
+            let filteredItems = self.filterItems(itemsData: self.configuration.items)
+            let totalCount = filteredItems.count
+            
+            ForEach(Array(filteredItems.enumerated()), id: \.element.id) { index, item in
                 let dateString = item.formatter.string(from: item.due)
-                let timestampFormat = NSLocalizedString("Today, %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                let timestampFormat = NSLocalizedString("Today, %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
                 let timestampString = String(format: timestampFormat, dateString)
-                let dateAttributedString = AttributedString(Date.compareTwoDates(first: item.due, second: Date()) == .orderedSame ? timestampString : dateString)
-                TimelinePreviewItem(title: AttributedString(item.title), icon: item.icon, timelineNode: item.timelineNode, timestamp: dateAttributedString, isFuture: item.isFuture ?? false, nodeType: item.timelineNode)
+                let isToday = Date.compareTwoDates(first: item.due, second: Date()) == .orderedSame
+                let dateAttributedString = AttributedString(isToday ? timestampString : dateString)
+                let a11yTime = isToday ? NSLocalizedString("Today", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : dateString
+                let isFuture = item.isFuture ?? false
+                let statusDescription = isToday ? NSLocalizedString("Current", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : (isFuture ? NSLocalizedString("Future", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Past", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                let typeDescription = self.getNodeDescription(for: item.timelineNode)
+                let combinedStatusInfo = "\(statusDescription) \(typeDescription)"
+                let a11yLabel = item.title
+                let fullA11yLabel = String(format: NSLocalizedString("Item %d of %d, %@, %@, %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""),
+                                           index + 1,
+                                           totalCount,
+                                           a11yTime,
+                                           combinedStatusInfo,
+                                           a11yLabel)
+
+                TimelinePreviewItem(title: AttributedString(item.title), icon: item.icon, timelineNode: item.timelineNode, timestamp: dateAttributedString, isFuture: isFuture, nodeType: item.timelineNode)
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(itemLabelString)
+                    .accessibilityLabel(fullA11yLabel)
+                    .accessibilityAddTraits(.isButton)
             }
+        }
+        .accessibilityElement(children: .contain)
+    }
+
+    func getNodeDescription(for nodeType: TimelineNodeType) -> String {
+        switch nodeType {
+        case .start:
+            return NSLocalizedString("Start", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .end:
+            return NSLocalizedString("End", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .complete:
+            return NSLocalizedString("Completed", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .open:
+            return NSLocalizedString("Open", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        default:
+            return NSLocalizedString("Task", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
     }
 

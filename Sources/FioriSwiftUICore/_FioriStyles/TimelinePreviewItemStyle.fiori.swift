@@ -18,6 +18,7 @@ public struct TimelinePreviewItemBaseStyle: TimelinePreviewItemStyle {
                         .frame(height: 2)
                         .foregroundColor(Color.preferredColor(configuration.isFuture ? .separatorOpaque : .tintColor))
                         .padding(.trailing, -3)
+                        .accessibilityHidden(true)
                 } else {
                     Spacer()
                 }
@@ -60,6 +61,7 @@ extension TimelinePreviewItemFioriStyle {
             Icon(configuration)
                 .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
                 .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.isFuture ? .separatorOpaque : .tintColor))
+                .accessibilityHidden(true)
         }
     }
 
@@ -71,6 +73,7 @@ extension TimelinePreviewItemFioriStyle {
                 .font(TimelineStyleHelpers.getFontSize(for: self.timelinePreviewItemConfiguration))
                 .fontWeight(.bold)
                 .foregroundColor(Color.preferredColor(self.timelinePreviewItemConfiguration.isFuture ? .separatorOpaque : .tintColor))
+                .accessibilityHidden(true)
         }
     }
 
