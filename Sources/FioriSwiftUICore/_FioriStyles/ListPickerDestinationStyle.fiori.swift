@@ -648,10 +648,10 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             if self.searchFilter != nil {
                 if self.isFilterFeedbackBarListPickerStyle {
                     self.listContentForFilterFeedbackBarListPicker()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: self.searchPrompt.map { Text($0) } ?? nil)
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: self.searchPrompt.map { Text($0) })
                 } else {
                     self.listContent()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer, prompt: self.searchPrompt.map { Text($0) } ?? nil)
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer, prompt: self.searchPrompt.map { Text($0) })
                 }
             } else {
                 if self.isFilterFeedbackBarListPickerStyle {
