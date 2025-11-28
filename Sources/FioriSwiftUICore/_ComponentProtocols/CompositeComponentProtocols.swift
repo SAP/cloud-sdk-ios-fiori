@@ -679,6 +679,10 @@ protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionC
     // sourcery: defaultValue = false
     var hideSeparator: Bool { get }
     
+    /// Hides close action or not. The default is false.
+    // sourcery: defaultValue = false
+    var hidesCloseAction: Bool { get }
+    
     /// The icon and title's type. The default is `negative`.
     // sourcery: defaultValue = .negative
     var messageType: BannerMultiMessageType { get }

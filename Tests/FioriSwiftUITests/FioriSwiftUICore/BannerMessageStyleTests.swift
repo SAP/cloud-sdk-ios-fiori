@@ -12,6 +12,7 @@ final class BannerMessageStyleTests: XCTestCase {
         messageType: BannerMultiMessageType = .neutral,
         alignment: HorizontalAlignment = .center,
         hideSeparator: Bool = false,
+        hidesCloseAction: Bool = false,
         showDetailLink: Bool = false,
         bannerTapAction: (() -> Void)? = nil
     ) -> BannerMessageConfiguration {
@@ -24,6 +25,7 @@ final class BannerMessageStyleTests: XCTestCase {
             bannerTapAction: bannerTapAction,
             alignment: alignment,
             hideSeparator: hideSeparator,
+            hidesCloseAction: hidesCloseAction,
             messageType: messageType,
             showDetailLink: showDetailLink
         )
@@ -142,6 +144,44 @@ final class BannerMessageStyleTests: XCTestCase {
         XCTAssertEqual(padding, 16)
     }
     
+    func testBannerMessageBaseStyle_GetTrailingPaddingLeadingAlignment() {
+        // Given
+        let style = BannerMessageBaseStyle()
+        let configuration = self.createTestConfiguration(alignment: .leading)
+        // When
+        let padding = style.getTrailingPadding(configuration: configuration)
+        // Then
+        XCTAssertEqual(padding, style.closeActionWidth)
+        
+        let configuration2 = self.createTestConfiguration(alignment: .leading, hidesCloseAction: true)
+        // When
+        let padding2 = style.getTrailingPadding(configuration: configuration2)
+        // Then
+        XCTAssertEqual(padding2, 16)
+    }
+    
+    func testBannerMessageBaseStyle_GetTrailingPaddingCenterAlignment() {
+        // Given
+        let style = BannerMessageBaseStyle()
+        let configuration = self.createTestConfiguration(alignment: .center, hidesCloseAction: true)
+        // When
+        let padding = style.getTrailingPadding(configuration: configuration)
+        // Then
+        XCTAssertEqual(padding, 16)
+        
+        let configuration2 = self.createTestConfiguration(alignment: .center)
+        // When
+        let padding2 = style.getTrailingPadding(configuration: configuration2)
+        // Then
+        XCTAssertEqual(padding2, style.closeActionWidth)
+        
+        let configuration3 = self.createTestConfiguration(messageType: .aiNotice, alignment: .center)
+        // When
+        let padding3 = style.getTrailingPadding(configuration: configuration3)
+        // Then
+        XCTAssertEqual(padding3, 0)
+    }
+    
     func testBannerMessageBaseStyle_BannerTapAction() {
         // Given
         var actionCalled = false
@@ -181,6 +221,18 @@ final class BannerMessageStyleTests: XCTestCase {
         XCTAssertNotNil(expectedColor)
         // Verify colors are both valid instances rather than comparing exact equality
         XCTAssertTrue(String(describing: color).contains("neutralLabel") || String(describing: color).contains("UIDynamicProviderColor"))
+    }
+    
+    func testBannerMessageFioriStyle_TitleForegroundColorOffline() {
+        // Given/When
+        let color = BannerMessageFioriStyle.titleForegroundColor(type: .offline)
+        let expectedColor = Color.preferredColor(.tertiaryLabel)
+        
+        // Then
+        XCTAssertNotNil(color)
+        XCTAssertNotNil(expectedColor)
+        // Verify colors are both valid instances rather than comparing exact equality
+        XCTAssertTrue(String(describing: color).contains("offlineLabel") || String(describing: color).contains("UIDynamicProviderColor"))
     }
     
     func testBannerMessageFioriStyle_TitleForegroundColorNegative() {
@@ -249,6 +301,16 @@ final class BannerMessageStyleTests: XCTestCase {
         // Given/When
         let style = BannerMessageNeutralStyle()
         let configuration = self.createTestConfiguration(messageType: .neutral)
+        let view = style.makeBody(configuration)
+        
+        // Then
+        XCTAssertNotNil(view)
+    }
+    
+    func testBannerMessageOfflineStyle_Creation() {
+        // Given/When
+        let style = BannerMessageOfflineStyle()
+        let configuration = self.createTestConfiguration(messageType: .offline)
         let view = style.makeBody(configuration)
         
         // Then
@@ -651,6 +713,7 @@ final class BannerMessageStyleIntegrationTests: XCTestCase {
         let criticalStyle: any BannerMessageStyle = BannerMessageCriticalStyle()
         let positiveStyle: any BannerMessageStyle = BannerMessagePositiveStyle()
         let informativeStyle: any BannerMessageStyle = BannerMessageInformativeStyle()
+        let offlineStyle: any BannerMessageStyle = BannerMessageOfflineStyle()
         
         XCTAssertNotNil(baseStyle)
         XCTAssertNotNil(fioriStyle)
@@ -659,6 +722,7 @@ final class BannerMessageStyleIntegrationTests: XCTestCase {
         XCTAssertNotNil(criticalStyle)
         XCTAssertNotNil(positiveStyle)
         XCTAssertNotNil(informativeStyle)
+        XCTAssertNotNil(offlineStyle)
     }
     
     func testBannerMessageStyle_AllStylesCanRenderWithAllMessageTypes() {
@@ -670,7 +734,8 @@ final class BannerMessageStyleIntegrationTests: XCTestCase {
             BannerMessageNegativeStyle(),
             BannerMessageCriticalStyle(),
             BannerMessagePositiveStyle(),
-            BannerMessageInformativeStyle()
+            BannerMessageInformativeStyle(),
+            BannerMessageOfflineStyle()
         ]
         
         let messageTypes: [BannerMultiMessageType] = [
@@ -689,6 +754,7 @@ final class BannerMessageStyleIntegrationTests: XCTestCase {
                     bannerTapAction: nil,
                     alignment: .center,
                     hideSeparator: false,
+                    hidesCloseAction: false,
                     messageType: messageType,
                     showDetailLink: false
                 )
