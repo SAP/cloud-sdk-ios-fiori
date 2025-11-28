@@ -59,6 +59,17 @@ final class BannerMessageTests: XCTestCase {
         XCTAssertEqual(bannerMessage.messageType, .neutral)
     }
     
+    func testBannerMessage_OfflineMessageType() {
+        // Given/When
+        let bannerMessage = BannerMessage(
+            title: { Text("Offline Message") },
+            messageType: .offline
+        )
+        
+        // Then
+        XCTAssertEqual(bannerMessage.messageType, .offline)
+    }
+    
     func testBannerMessage_InformativeMessageType() {
         // Given/When
         let bannerMessage = BannerMessage(
@@ -328,15 +339,16 @@ final class BannerMultiMessageTypeTests: XCTestCase {
         XCTAssertEqual(BannerMultiMessageType(rawValue: 3), .positive)
         XCTAssertEqual(BannerMultiMessageType(rawValue: 4), .critical)
         XCTAssertEqual(BannerMultiMessageType(rawValue: 5), .negative)
+        XCTAssertEqual(BannerMultiMessageType(rawValue: 6), .offline)
         XCTAssertNil(BannerMultiMessageType(rawValue: 99))
     }
     
     func testBannerMultiMessageType_AllCases() {
         // Test that all cases are defined
         let allTypes: [BannerMultiMessageType] = [
-            .neutral, .informative, .aiNotice, .positive, .critical, .negative
+            .neutral, .informative, .aiNotice, .positive, .critical, .negative, .offline
         ]
         
-        XCTAssertEqual(allTypes.count, 6)
+        XCTAssertEqual(allTypes.count, 7)
     }
 }
