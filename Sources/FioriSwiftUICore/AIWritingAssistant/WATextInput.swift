@@ -135,6 +135,7 @@ struct WATextInputModifier: ViewModifier {
                                 self.waAction
                                     .fixedSize()
                                     .onSimultaneousTapGesture {
+                                        self.context.originalValue = self.text
                                         self.context.updateOriginalSelectedRange()
                                         self.context.isPresented = true
                                     }
