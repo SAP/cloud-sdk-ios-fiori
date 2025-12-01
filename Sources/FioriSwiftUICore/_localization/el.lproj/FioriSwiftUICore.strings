@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Δεν επιλέχθηκαν ημερομηνίες";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Δεν επιλέχθηκε εύρος";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "πατήστε διάστημα για να ορίσετε μια τιμή εύρους";
+
 /* XBUT: calendar time component label */
 "Time" = "Ώρα";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "σφάλμα";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "μηνύματα";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "πληροφορίες";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "επαληθεύσεις";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "προειδοποιήσεις";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "σφάλματα";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Ειδοποίηση AI";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Επαναφορά";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Προτεινόμενο από ΑΙ. Επαλήθευση πριν τη χρήση. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Φωτογραφίες";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Αρχεία";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Κάμερα";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Σάρωση";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Προεπισκόπηση";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Διαγραφή Συνημμένου;";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Διαγραφή";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Προσθήκη Συνημμένου";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Κάντε διπλό κλικ για να προσθέσετε συνημμένο";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Μικρογραφία";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Γίνεται φόρτωση %@, περιμένετε...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Η φόρτωση %@ απέτυχε. Μήνυμα σφάλματος: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Σύνδεση";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "όνομα χρήστη";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "κωδικός πρόσβασης";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Υποβολή";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Η υποβολή απέτυχε";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Προέκυψε σφάλμα. Δοκιμάστε ξανά αργότερα.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Επανάληψη";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Θετικά σχόλια";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Αρνητικά σχόλια";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "ενεργοποιήθηκε";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Σάρωση Ανεπιτυχής";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Επιλέξτε μία εικόνα κωδικού QR.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Άκυρος Κωδικός QR";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Ο κωδικός QR δεν αναγνωρίστηκε.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Επιτρέπεται η Πρόσβαση σε Φωτογραφίες";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Για να επιλέξετε μία εικόνα κωδικού QR, πρέπει να επιτρέψετε την πρόσβαση στις φωτογραφίες σας από τις ρυθμίσεις απορρήτου της συσκευής σας.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Επιτρέπεται η Πρόσβαση στην Κάμερα";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Για να σαρώσετε με την κάμερα, πρέπει να επιτρέψετε την πρόσβαση στην κάμερά σας από τις ρυθμίσεις απορρήτου της συσκευής σας.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Ρυθμίσεις";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "βέλος προς τα κάτω";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "βέλος προς τα πάνω";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "το φλας απενεργοποιήθηκε";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "το φλας ενεργοποιήθηκε";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Φωτογραφία %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Η σάρωση ήταν επιτυχής. Θα συνδεθείτε με:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Συνέχεια";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Βοηθός Σύνταξης";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Έκδοση %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Ανάκληση";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Επαναφορά";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Θέλετε να αναιρέσετε τις επεξεργασίες που έγιναν από τον Βοηθό Εγγραφής και να επαναφέρετε το κείμενο στην αρχική του κατάσταση;";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Απόρριψη όλων των αλλαγών;";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Συνεχίστε";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Απόρριψη";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Σας ευχαριστούμε για τα σχόλιά σας";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Τι δεν σας άρεσε σε αυτή την έκδοση;";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Βαθμολογήστε την εμπειρία σας για να μας βοηθήσετε να βελτιωθούμε.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Σχολιασμός";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Πως ήταν αυτή η απάντηση;";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d Ημερομηνία Επιλέχθηκε";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d Ημερομηνίες Επιλέχθηκαν";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "έχει συμβάν";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Κάντε διπλό κλικ για να αλλάξετε την επιλογή";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Διπλό άγγιγμα για επιλογή";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Διπλό άγγιγμα για αποεπιλογή";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Η ημερομηνία επιλέχθηκε";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Σήμερα";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Απενεργοποιημένη Ημερομηνία";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Χειρισμός αλλαγής από μηνιαία προβολή σε εβδομαδιαία προβολή";
+
+/* XTIT: Title for card */
+"Card title" = "Τίτλος κάρτας";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Υπότιτλος κάρτας";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Αγγίξτε για ενεργοποίηση";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Αγγίξτε για απενεργοποίηση";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Πίνακας Βοηθού Συγγραφής ΑΙ άνοιξε. Χρησιμοποιήστε τις παρεχόμενες υποδείξεις για να περιορίσετε το περιεχόμενο του κειμένου σας.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Πατήστε δύο φορές για ενεργοποίηση";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Ανοίξτε για να δείτε %@ επιλογές";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Αναίρεση σε Έκδοση %d του %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Επανεκτέλεση σε Έκδοση %d του %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Κείμενο ενημερώθηκε σε Έκδοση %d του %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Βοηθός Συγγραφής ΑΙ";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "διπλό πάτημα για άνοιγμα του Βοηθού Συγγραφής ΑΙ και επεξεργασία κειμένου";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Αναίρεση αλλαγής";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Επανεκτέλεση αλλαγής";
+
+/* XBUT: Close button title */
+"Close" = "Κλείσιμο";
 

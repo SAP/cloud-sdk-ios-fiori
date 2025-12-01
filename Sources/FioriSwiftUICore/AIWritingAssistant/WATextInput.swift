@@ -135,6 +135,7 @@ struct WATextInputModifier: ViewModifier {
                                 self.waAction
                                     .fixedSize()
                                     .onSimultaneousTapGesture {
+                                        self.context.originalValue = self.text
                                         self.context.updateOriginalSelectedRange()
                                         self.context.isPresented = true
                                     }
@@ -215,6 +216,10 @@ struct WATextInputModifier: ViewModifier {
                     self.isTextInputFocused = true
                     self.restoreSelectedRange()
                 }
+            }
+            .onDisappear {
+                self.context.showCancelAlert = false
+                self.context.isPresented = false
             }
             .popover(isPresented: self.$context.isPresented, attachmentAnchor: .point(.center)) {
                 self.formView

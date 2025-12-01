@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Není vybráno datum";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Není vybrán žádný rozsah";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "Pro nastavení hodnoty rozsahu stiskněte mezerník";
+
 /* XBUT: calendar time component label */
 "Time" = "Čas";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "chyba";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "zprávy";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informace";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "potvrzení";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "upozornění";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "chyby";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Upozornění umělé inteligence";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Resetovat";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Navrženo umělou inteligencí. Před použitím ověřte. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotografie";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Soubory";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skenování";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Náhled";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Odstranit přílohu?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Odstranit";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Přidat přílohu";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Poklepáním přidáte přílohu";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Miniatura";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Probíhá odesílání %@, vyčkejte...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Odesílání %@neúspěšné. Chybová zpráva: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Přihlásit se";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "uživatelské jméno";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "heslo";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Odeslat";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Odeslání se nezdařilo";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Došlo k chybě. Zkuste to znovu později.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Opakovat";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Pozitivní zpětná vazba";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negativní zpětná vazba";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "aktivováno";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skenování neúspěšné";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Zvolte obrázek QR kódu.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Neplatný QR kód";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR kód nebyl rozpoznán.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Povolit přístup k fotografiím";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Pro výběr obrázku QR kódu zadejte pro zařízení v nastaveních soukromí přístup k vašim fotografiím.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Povolit přístup ke kameře";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Pro skenování pomocí kamery zadejte pro zařízení v nastaveních soukromí přístup ke kameře.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Nastavení";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "šipka dolů";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "šipka nahoru";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash deaktivován";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash aktivován";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotografie %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skenování úspěšné. Budete připojeni k:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Pokračovat";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Asistent psaní";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Verze %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Vrátit zpět";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Provést znovu";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Chcete anulovat úpravy provedené asistentem psaní a vrátit text do původního stavu?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Zahodit všechny změny?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Pokračovat v práci";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Zahodit";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Děkujeme za vaši zpětnou vazbu";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Co se vám na této verzi nelíbilo?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Ohodnotě vaši zkušenost, abyste nám pomohli zlepšit náš produkt.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Zpětná vazba";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Jaká byla tato odezva?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d vybrané datum ";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d vybraná data";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "má událost";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Poklepáním změníte výběr";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Poklepáním vyberte";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Poklepáním zrušte výběr";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Vybrané datum";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Dnes";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Datum deaktivace";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Přepněte ze zobrazení měsíce na zobrazení týdne";
+
+/* XTIT: Title for card */
+"Card title" = "Název karty";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Podtitul karty";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Klepnutím zapněte";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Klepnutím vypněte";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Otevřel se panel asistenta psaní s umělou inteligencí. Pomocí výzev upřesněte obsah vašeho textu.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Poklepáním aktivujte";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Otevřete pro zobrazení %@ možností";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Zpět na verzi %d z %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Znovu na verzi %d z %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Text aktualizován na verzi %d z %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Asistent psaní s umělou inteligencí";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "poklepáním otevřete asistenta psaní s umělou inteligencí a upravte text";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Vrátit změnu";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Opakovat změnu";
+
+/* XBUT: Close button title */
+"Close" = "Zavřít";
 

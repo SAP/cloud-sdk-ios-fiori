@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "日付未選択";
 
+/* Default value for DateRangePicker */
+"No range selected" = "範囲未選択";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "スペースを押して範囲値を設定";
+
 /* XBUT: calendar time component label */
 "Time" = "時刻";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "エラー";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "メッセージ";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "情報";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "確認";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "警告";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "エラー";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI 通知";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "リセット";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "AI が提案しました。使用前に確認してください。 ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "写真";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "ファイル";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "カメラ";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "スキャン";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "プレビュー";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "添付ファイルを削除しますか?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "削除";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "添付ファイルを追加";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "ダブルタップして添付ファイルを追加";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "サムネイル";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@ をアップロードしています。お待ちください...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ のアップロードに失敗しました。エラーメッセージ: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "サインイン";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "ユーザ名";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "パスワード";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "送信";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "送信失敗";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "エラーが発生しました。後で再び試してください。";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "再試行";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "肯定的なフィードバック";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "否定的なフィードバック";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "有効";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "スキャン失敗";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "QR コードイメージを選択してください。";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "無効な QR コード";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR コードが認識されませんでした。";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "写真へのアクセスを許可";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR コードイメージを選択するために、デバイスのプライバシー設定で写真へのアクセスを許可してください。";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "カメラへのアクセスを許可";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "カメラを使用してスキャンするために、デバイスのプライバシー設定でカメラへのアクセスを許可してください。";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "設定";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "下矢印";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "上矢印";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "フラッシュ無効";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "フラッシュ有効";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "写真 %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "スキャンが完了しました。以下の操作に接続されます。";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "続行";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "ライティングアシスタント";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "バージョン %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "元に戻す";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "繰り返す";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "ライティングアシスタントが行った編集内容を取り消し、テキストを基の状態に戻しますか?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "すべての変更を破棄しますか？";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "操作を続ける";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "破棄";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "フィードバックをお寄せくださり、ありがとうございました";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "本バージョンがお気に召さなかった点は何でしょうか?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "改善のために、使用感を評価してください。";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "フィードバック";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "この応答はいかがでしたか?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d 日付が選択されました";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d 日付が選択されました";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "イベントあり";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "ダブルタップで選択を変更";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "ダブルタップして選択";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "ダブルタップして選択を解除する";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "選択された日付";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "本日";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "無効化された日付";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "月次ビューから週次ビューに切り替えるハンドル";
+
+/* XTIT: Title for card */
+"Card title" = "カードタイトル";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "カードのサブタイトル";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "タップしてオンにする";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "タップしてオフにする";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI ライティングアシスタントパネルが表示されました。提示されたプロンプトを使用して、テキストコンテンツを校正してください。";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "ダブルタップして有効化する";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "開いて %@ オプションを表示する";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "バージョン %d / %d を元に戻す";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "バージョン %d / %d をやり直す";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "バージョン %d / %d にテキストが反映されました";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI ライティングアシスタント";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "ダブルタップして AI ライティングアシスタントを開き、テキストを編集します";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "変更を元に戻す";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "変更をやり直す";
+
+/* XBUT: Close button title */
+"Close" = "閉じる";
 

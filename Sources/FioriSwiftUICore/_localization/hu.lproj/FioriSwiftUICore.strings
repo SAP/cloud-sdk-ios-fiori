@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Nincs kiválasztva dátum";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Nincs kiválasztva tartomány";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "nyomja meg a szóközt a tartományérték beállításához";
+
 /* XBUT: calendar time component label */
 "Time" = "Időpont";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "hiba";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "üzenet";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "információ";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "visszaigazolás";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "figyelmeztetés";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "hiba";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI-közlemény";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Visszaállítás";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "AI általi javaslat. Használat előtt ellenőrizze. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotók";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Fájlok";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Szkennelés";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Előnézet";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Törli a mellékletet?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Törlés";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Melléklet hozzáadása";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Melléklet hozzáadásához koppintson duplán";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Bélyegkép";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@ feltöltése folyamatban, kis türelmet...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ feltöltése sikertelen. Hibaüzenet: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Bejelentkezés";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "felhasználónév";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "jelszó";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Küldés";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "A küldés sikertelen";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Hiba történt. Próbálkozzon később.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Újra";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Pozitív visszajelzés";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negatív visszajelzés";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "engedélyezve";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Sikertelen beolvasás";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Kérjük, válasszon ki QR-kód képet.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Érvénytelen QR-kód";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Nem sikerült felismerni a QR-kódot.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "A fényképekhez való hozzáférés engedélyezése";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Hogy ki lehessen választani a QR-kód képét, kérjük, adjon hozzáférést a fényképekhez a készülék adatvédelmi beállításaiban.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "A kamerához való hozzáférés engedélyezése";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "A kamerával való szkenneléshez, kérjük, adjon hozzáférést a kamerához a készülék adatvédelmi beállításaiban.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Beállítások";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "lefelé mutató nyíl";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "felfelé mutató nyíl";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "vaku inaktiválva";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "vaku aktiválva";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "%d. fénykép";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "A szkennelés sikerült. Össze lesz kapcsolva a következővel:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Folytatás";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Írási asszisztens";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "%d/%d verzió";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Visszavonás";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Helyreállítás";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Vissza szeretné vonni az Írási asszisztens által végzett szerkesztéseket, és vissza szeretné állítani a szöveg eredeti állapotát?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Elveti az összes módosítást?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Munka folytatása";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Elvetés";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Köszönjük visszajelzését";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Mit nem kedvelt ebben a verzióban?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Kérjük, értékelje tapasztalatait, segítsen, hogy fejlődjünk.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Visszajelzés";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Milyen volt ez a válasz?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d dátum kiválasztva";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d dátum kiválasztva";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "van eseménye";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Dupla koppintás a kiválasztás módosításához";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Dupla koppintás kiválasztáshoz";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Dupla koppintás kiválasztás megszüntetéséhez";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Dátum kiválasztva";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Ma";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Letiltott dátum";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Kezelő a hónap-hét nézet váltásához";
+
+/* XTIT: Title for card */
+"Card title" = "Kártya címe";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kártya alcíme";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Koppintson a bekapcsoláshoz";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Koppintson a kikapcsoláshoz";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Megnyílt az AI írási asszisztens panel. Használja a megadott utasításokat a szöveg tartalmának finomításához.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Az aktiváláshoz koppintson duplán";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Nyissa meg a(z) %@ opciók megtekintéséhez";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Vonja vissza erre a verzióra: %d/%d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Állítsa vissza erre a verzióra: %d/%d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Szöveg frissítve erre a verzióra: %d/%d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI írási asszisztens";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "koppintson duplán az AI írási asszisztens megnyitásához és a szöveg szerkesztéséhez";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Módosítás visszavonása";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Módosítás visszaállítása";
+
+/* XBUT: Close button title */
+"Close" = "Bezárás";
 

@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Күн таңдалмады";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Ауқым таңдалмады";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "ауқым мәнін орнату үшін бос орын пернесін басыңыз";
+
 /* XBUT: calendar time component label */
 "Time" = "Уақыт";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "қате";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "хабарлар";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "ақпараттар";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "растаулар";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "ескертулер";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "қателер";
+/* XBUT: banner message type desc, error */
+"AI notice" = "ЖИ хабарламасы";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Бастапқы қалпына келтіру";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "ЖИ ұсынған. Пайдаланбас бұрын тексеріңіз. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Фотосуреттер";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Файлдар";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Камера";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Сканерлеу";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Алдын ала көру";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Тіркемені жою қажет пе?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Жою";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Тіркеме қосу";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Тіркеме қосу үшін екі рет түртіңіз";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Нобай";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@ жүктеп салынуда, күте тұрыңыз";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ жүктеп салу сәтсіз аяқталды. Қате туралы хабар: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Жүйеге кіру";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "пайдаланушы аты";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "құпиясөз";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Жіберу";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Жіберу сәтсіз аяқталды";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Қате орын алды. Әрекетті кейінірек қайталаңыз.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Әрекетті қайталау";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Оң кері байланыс";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Теріс кері байланыс";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "қосылды";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Сканерлеу сәтсіз аяқталды";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "QR кодының кескінін таңдаңыз.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Жарамсыз QR коды";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR коды танылмады.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Фотосуреттерге қол жеткізуге рұқсат ету";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR кодының кескінін таңдау үшін құрылғының құпиялылық параметрлерінде фотосуреттерге қол жеткізу рұқсатын беріңіз.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Камераға қол жеткізуге рұқсат ету";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Камера көмегімен сканерлеу үшін құрылғының құпиялылық параметрлерінде камераға қол жеткізу рұқсатын беріңіз.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Параметрлер";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "төмен көрсеткі";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "жоғары көрсеткі";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "жарқыл өшірілген";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "жарқыл белсендірілген";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Фотосурет %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Сканерлеу сәтті орындалды. Келесіге қосыласыз:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Жалғастыру";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Жазу бойынша көмекші";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Нұсқа %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Болдырмау";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Қайта орындау";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Жазу бойынша көмекші жасаған өзгерістерді болдырмау және мәтінді бастапқы күйіне қайтару қажет пе?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Барлық өзгерістерден бас тарту қажет пе?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Жұмысты жалғастыру";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Бас тарту";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Кері байланысыңыз үшін рақмет";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Бұл нұсқада сізге не ұнамады?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Біздің жақсаруымызға көмектесу үшін тәжірибеңізді бағалаңыз.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Кері байланыс";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Бұл жауап қалай болды?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d күн таңдалды";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d күн таңдалды";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "оқиға бар";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Таңдауды өзгерту үшін екі рет түртіңіз";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Таңдау үшін екі рет түртіңіз";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Таңдауды алу үшін екі рет түртіңіз";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Күн таңдалды";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Бүгін";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Ажыратылған күні";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Ай көрінісінен апта көрінісіне ауысу үшін өңдеу";
+
+/* XTIT: Title for card */
+"Card title" = "Карта тақырыбы";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Карта тақырыпшасы";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Қосу үшін түртіңіз";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Өшіру үшін түртіңіз";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "ЖИ жазу көмекшісінің панелі ашылды. Мәтін мазмұнын нақтылау үшін берілген мәтіндік сұрауларды пайдаланыңыз.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Белсендіру үшін екі рет түртіңіз";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "%@ опцияларды көру үшін ашу";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "%d/%d нұсқасына қайтару";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "%d/%d нұсқасына қайтаруды қалпына келтіру";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Мәтін %d/%d нұсқасына жаңартылды";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "ЖИ жазу көмекшісі";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "ЖИ жазу көмекшісін ашып, мәтінді өңдеу үшін екі рет түртіңіз";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Өзгерісті болдырмау";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Өзгерісті болдырмауды қалпына келтіру";
+
+/* XBUT: Close button title */
+"Close" = "Жабу";
 

@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "未選擇日期";
 
+/* Default value for DateRangePicker */
+"No range selected" = "未選擇範圍";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "按下空白鍵以設定範圍值";
+
 /* XBUT: calendar time component label */
 "Time" = "時間";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "錯誤";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "訊息";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "資訊";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "確認";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "警告";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "錯誤";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI 通知";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "重設";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "由 AI 所建立，使用前請驗證。 ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "照片";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "檔案";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "相機";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "掃描";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "預覽";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "是否刪除附件？";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "刪除";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "新增附件";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "點兩下以新增附件";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "縮圖";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "正在上傳 %@，請稍候...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ 上傳失敗。錯誤訊息：%@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "登入";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "使用者名稱";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "密碼";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "提交";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "提交失敗";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "發生錯誤，請稍後再試一次。";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "重試";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "正向回饋";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "反向回饋";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "已啟用";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "掃描失敗";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "請選擇 QR 代碼圖像。";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "QR 代碼無效";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "未識別 QR 代碼。";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "允許存取照片";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "若要選擇 QR 代碼圖像，請在裝置隱私權設定中允許存取您的照片。";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "允許存取相機";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "若要使用相機掃描，請在裝置隱私權設定中提供相機的存取權限。";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "設定";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "向下箭頭";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "向上箭頭";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "已停用 Flash";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "已啟用 Flash";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "照片 %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "掃描成功，您將連線至：";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "繼續";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "書寫助手";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "版本 %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "復原";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "取消復原";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "您要復原書寫助手所做的編輯內容，並將內文回覆為原始狀態嗎？";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "捨棄所有更改內容嗎？";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "繼續作業";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "捨棄";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "感謝您的反饋。";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "您不喜歡關於此版本的哪一部份？";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "請為您的體驗評分來協助我們改善。";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "反饋";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "此回應如何？";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d 個日期已選擇";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d 個日期已選擇";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "有活動";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "點兩下更改選擇";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "點兩下選擇";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "點兩下取消選擇";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "已選擇日期";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "今天";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "停用日期";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "處理以從月檢視切換至週檢視";
+
+/* XTIT: Title for card */
+"Card title" = "卡片標題";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "卡片子標題";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "點擊以開啟";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "點擊以關閉";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI 書寫助手面板已開啟。請使用提供的提示以簡化您的內文內容。";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "點兩下以啟用";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "開啟以查看 %@ 選項";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "復原為版本 %d/%d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "復原為版本 %d/%d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "內文已更新為版本 %d/%d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI 書寫助手";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "點兩下以開啟 AI 書寫助手並編輯內文";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "復原更改";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "重做更改";
+
+/* XBUT: Close button title */
+"Close" = "關閉";
 

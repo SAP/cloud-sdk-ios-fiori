@@ -18,6 +18,7 @@ struct BannerMessageModifierExample: View {
         if self.showAINotice {
             if self.withLink {
                 Text("\(noticeText) with [link](https://www.sap.com)")
+                    .accessibilityAddTraits(.isLink)
             } else if self.withAttachedAction {
                 Text("\(noticeText)") + Text("View more").foregroundStyle(Color.preferredColor(.tintColor)).font(.fiori(forTextStyle: .footnote, weight: .semibold))
             } else {
@@ -26,6 +27,7 @@ struct BannerMessageModifierExample: View {
         } else {
             if self.withLink {
                 Text("\(text) with [link](https://www.sap.com)")
+                    .accessibilityAddTraits(.isLink)
             } else if self.withAttachedAction {
                 HStack {
                     Text("\(text)")
@@ -67,8 +69,10 @@ struct BannerMessageModifierExample: View {
                            icon: {
                                if self.showAINotice {
                                    Image(fioriName: "fiori.ai")
+                                       .accessibilityLabel(Text("ai notice"))
                                } else {
                                    Image(systemName: "info.circle")
+                                       .accessibilityLabel(Text("negative"))
                                }
                            },
                            title: {

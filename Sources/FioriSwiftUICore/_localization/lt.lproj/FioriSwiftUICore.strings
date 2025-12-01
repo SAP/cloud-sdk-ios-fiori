@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Nepasirinkta data";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Intervalas nepasirinktas";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "spustelėkite tarpą, kad nustatytumėte diapazono reikšmę";
+
 /* XBUT: calendar time component label */
 "Time" = "Laikas";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "klaida";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "pranešimai";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informacija";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "patvirtinimai";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "įspėjimai";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "klaidos";
+/* XBUT: banner message type desc, error */
+"AI notice" = "DI pastaba";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Nustatyti iš naujo";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "DI pasiūlymas. Prieš naudodami patikrinkite. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Nuotraukos";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Failai";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Nuskaityti";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Peržiūra";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Naikinti priedą?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Naikinti";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Pridėti priedą";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Dukart spustelėkite, kad pridėtumėte priedą";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Miniatiūra";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Įkeliama %@, palaukite...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Įkeliama %@, palaukite. Klaidos pranešimas: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Prisijungti";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "vartotojo vardas";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "slaptažodis";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Pateikti";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Pateikti nepavyko";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Įvyko klaida. Vėliau pabandykite dar kartą.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Bandyti iš naujo";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Teigiamas atsiliepimas";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Neigiamas atsiliepimas";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "įjungta";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Nuskaityti nepavyko";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Pažymėkite QR kodo vaizdą.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Netinkamas QR kodas";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR kodas neatpažintas.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Leisti prieigą prie nuotraukų";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Kad galėtumėte pasirinkti QR kodo vaizdą, įrenginio privatumo parametruose suteikite prieigą prie nuotraukų.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Leisti prieigą prie kameros";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Norėdami nuskaityti pasitelkę kamerą, įrenginio privatumo parametruose suteikite prieigą prie kameros.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Parametrai";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "rodyklė žemyn";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "rodyklė aukštyn";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "blykstė išjungta";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "blykstė įjungta";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Nuotrauka %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Sėkmingai nuskaityta. Būsite prijungti prie:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Tęsti";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Pildymo pagalbininkas";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versija %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Anuliuoti";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Perdaryti";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Ar norite anuliuoti pildymo pagalbininko atliktą redagavimą ir grąžinti tekstą į pradinę būseną?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Atmesti visus keitimus?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Dirbti toliau";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Atmesti";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Dėkojame už jūsų atsiliepimą";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Kas jums nepatiko šioje versijoje?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Įvertinkite savo patirtį, kad padėtumėte mums tobulėti.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Atsiliepimas";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Ką manote apie šį atsakymą?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "Pasirinkta %d data";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "Pasirinkta %d datos (-ų)";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "su įvykiu";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Dukart bakstelėkite, kad pakeistumėte pasirinkimą";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Norėdami pažymėti, bakstelėkite du kartus";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Norėdami atžymėti, bakstelėkite du kartus";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Pasirinkta data";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Šiandien";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Išjungimo data";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Slankiklis, skirtas perjungti iš mėnesio rodinio į savaitės rodinį";
+
+/* XTIT: Title for card */
+"Card title" = "Kortelės antraštė";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kortelės paantraštė";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Bakstelėkite norėdami įjungti";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Bakstelėkite norėdami išjungti";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Atidarytas DI rašymo asistento skydelis. Norėdami patikslinti teksto turinį, naudokite pateiktus raginimus.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Du kartus bakstelėkite, norėdami aktyvuoti";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Atidarykite norėdami peržiūrėti %@ parinktis";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Grąžinti į %d versiją iš %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Perdaryti į %d versiją iš %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Tekstas atnaujintas į %d versiją iš %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "DI rašymo asistentas";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "dukart bakstelėkite, kad atidarytumėte DI rašymo asistentą ir redaguotumėte tekstą";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Anuliuoti keitimą";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Perdaryti keitimą";
+
+/* XBUT: Close button title */
+"Close" = "Uždaryti";
 

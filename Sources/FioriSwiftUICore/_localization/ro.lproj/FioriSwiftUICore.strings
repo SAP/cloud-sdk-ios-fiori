@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Nicio dată selectată";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Niciun interval selectat";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "apăsați spațiu pentru a seta o valoare de interval";
+
 /* XBUT: calendar time component label */
 "Time" = "Timp";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "eroare";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "mesaje";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informații";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "confirmări";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "avertizări";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "erori";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Notă despre AI";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Resetare";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Sugerat de AI. Verificați înainte de utilizare. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotografii";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Fișiere";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Cameră";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Scanare";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Previzualizare";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Ștergeți anexa?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Ștergere";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Adăugare anexă";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Atingeți de două ori pentru a adăuga anexă";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Miniatură";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Se încarcă %@, așteptați...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Încărcare %@ nereușită. Mesaj de eroare: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Conectare";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "nume de utilizator";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "parolă";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Transmitere";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Transmitere nereușită";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "A apărut o eroare. Încercați din nou mai târziu.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Reîncercare";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Feedback pozitiv";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Feedback negativ";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "activat";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Scanare nereușită";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Selectați o imagine pentru codul QR.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Cod QR nevalabil";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Codul QR nu a fost recunoscut.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Permitere acces la fotografii";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Pentru a alege o imagine pentru codul QR, oferiți acces la fotografiile dvs. în setările de confidențialitate ale dispozitivului.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Permitere acces la cameră";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Pentru a scana utilizând camera, oferiți acces la camera dvs. în setările de confidențialitate ale dispozitivului.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Setări";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "săgeată jos";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "săgeată sus";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash dezactivat";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash activat";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotografie %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Scanare reușită. Veți fi conectat la:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Continuare";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Asistent de scriere";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versiune %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Anulare";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Restaurare";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Doriți să anulați editările efectuate de asistentul de scriere și să readuceți textul la starea sa originală?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Renunțați la toate modificările?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Continuare activitate";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Renunțare";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Vă mulțumim pentru feedback!";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Ce nu v-a plăcut în privința acestei versiuni?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Evaluați experiența dvs. pentru a ne ajuta să ne îmbunătățim.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Feedback";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Cum a fost acest răspuns?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d dată selectată";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d termene selectate";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "are eveniment";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Atingeți de două ori pentru a modifica selecția";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Atingeți de două ori pentru selectare";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Atingeți de două ori pentru deselectare";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Dată selectată";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Astăzi";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Dată dezactivată";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Nume de identificare pentru comutare de la imagine lună la imagine săptămână";
+
+/* XTIT: Title for card */
+"Card title" = "Titlu card";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Subtitlu card";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Atingeți pentru activare";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Atingeți pentru dezactivare";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Panoul Asistent de scriere AI a fost deschis. Utilizați prompturile furnizate pentru a rafina conținutul textului dvs.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Atingeți de două ori pentru a activa";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Deschideți pentru a vedea opțiunile %@";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Renunțare la versiunea %d din %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Restaurare versiunea %d din %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Text actualizat la versiunea %d din %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Asistent de scriere AI";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "atingeți de două ori pentru a deschide Asistentul de scriere AI și pentru a edita textul";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Renunțare la modificare";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Restaurare modificare";
+
+/* XBUT: Close button title */
+"Close" = "Închidere";
 

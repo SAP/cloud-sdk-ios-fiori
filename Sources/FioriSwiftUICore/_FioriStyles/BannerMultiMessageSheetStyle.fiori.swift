@@ -41,7 +41,7 @@ public struct BannerMessageItemModel: Identifiable {
         case .negative:
             NSLocalizedString("error", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         case .aiNotice:
-            NSLocalizedString("information", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            NSLocalizedString("AI notice", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         }
     }
     
@@ -313,7 +313,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                 AnyView(configuration.messageItemView(message.id))
                             } else {
                                 BannerMessage(icon: {
-                                    (message.icon ?? self.defaultIcon(message.messageType)).typeErased
+                                    (message.icon ?? self.defaultIcon(message.messageType))
+                                        .typeErased
+                                        .accessibilityLabel(Text(message.typeDesc))
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
                                         .environment(\.openURL, OpenURLAction(handler: { url in

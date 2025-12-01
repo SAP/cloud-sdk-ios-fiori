@@ -38,7 +38,7 @@
 "Canceled" = "Dibatalkan";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Next" = "Lanjut";
+"Next" = "Selanjutnya";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Ok" = "Oke";
@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Tidak ada tanggal yang dipilih";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Tidak ada rentang yang dipilih";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "tekan spasi untuk menentukan nilai rentang";
+
 /* XBUT: calendar time component label */
 "Time" = "Waktu";
 
@@ -155,7 +161,7 @@
 "Value: %d" = "Nilai: %d";
 
 /* XMSG: a toast message for read-only cell in DataTable */
-"Tapped cell is read-only." = "Sel yang diketuk hanya untuk dibaca";
+"Tapped cell is read-only." = "Sel yang diketuk hanya untuk dibaca.";
 
 /* Default hint text for Read-only Field for NoteFormView and TextFieldFormView */
 "Read-only field" = "Bidang hanya untuk dibaca";
@@ -167,10 +173,10 @@
 "Reduce the number of characters" = "Kurangi jumlah karakter";
 
 /* XBUT: voice over label for decrement action in stepper */
-"Stepper decrease" = "Kurangi penggerak";
+"Stepper decrease" = "Turunkan penggerak";
 
 /* XBUT: voice over description for decrement action in stepper */
-"Decrease the value by %d" = "Kurangi nilainya sebesar %d";
+"Decrease the value by %d" = "Turunkan nilainya sebesar %d";
 
 /* XBUT: voice over label for increment action in stepper */
 "Stepper increase" = "Tingkatkan penggerak";
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "kesalahan";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "pesan";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informasi";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "konfirmasi";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "peringatan";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "kesalahan";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Pemberitahuan AI";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Atur Ulang";
@@ -380,5 +374,233 @@
 "All Steps" = "Semua Langkah";
 
 /* XMSG: AI Notice message */
-"Suggested by AI. Verify before use. " = "Disarankan berdasarkan AI. Verifikasi sebelum digunakan. ";
+"Suggested by AI. Verify before use. " = "Disarankan oleh AI. Verifikasi sebelum digunakan. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Foto";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "File";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Pindai";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Pratinjau";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Hapus Lampiran?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Hapus";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Tambahkan lampiran";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Ketuk dua kali untuk menambahkan lampiran";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Gambar Mini";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Mengunggah %@, harap tunggu...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Gagal mengunggah %@. Pesan kesalahan: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Masuk";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "nama pengguna";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "kata sandi";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Kirim";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Pengiriman gagal";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Terjadi kesalahan. Silakan coba lagi nanti.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Coba Lagi";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Umpan balik positif";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Umpan balik negatif";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "diaktifkan";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Pemindaian Gagal";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Silakan pilih gambar kode QR.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Kode QR Tidak Valid";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Kode QR tidak dikenali.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Izinkan Akses ke Foto";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Untuk memilih gambar kode QR, berikan akses ke foto di pengaturan privasi perangkat Anda.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Izinkan Akses ke Kamera";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Untuk memindai menggunakan kamera, berikan akses ke kamera di pengaturan privasi perangkat Anda.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Pengaturan";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "panah bawah";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "panah atas";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "cahaya dinonaktifkan";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "cahaya diaktifkan";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Foto %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Pemindaian berhasil. Anda akan terhubung ke:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Lanjutkan";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Asisten Penulisan";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versi %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Urungkan";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Ulangi";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Apakah Anda ingin membatalkan hasil edit yang dibuat oleh Asisten Penulisan dan mengembalikan teks ke keadaan aslinya?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Buang semua perubahan?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Tetap di Halaman Ini";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Buang";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Terima kasih atas umpan balik Anda";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Hal apa yang kurang Anda sukai dari versi ini?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Beri penilaian atas pengalaman Anda agar kami dapat meningkatkan layanan.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Umpan Balik";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Bagaimana tanggapan ini menurut Anda?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d Tanggal Dipilih";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d Tanggal Dipilih";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "memiliki peristiwa";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Ketuk dua kali untuk mengubah pilihan";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Ketuk dua kali untuk memilih";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Ketuk dua kali untuk membatalkan pilihan";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Tanggal dipilih";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Hari Ini";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Tanggal yang dinonaktifkan";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Tarik untuk beralih dari tampilan bulan ke tampilan minggu";
+
+/* XTIT: Title for card */
+"Card title" = "Judul kartu";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Subjudul kartu";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Ketuk untuk mengaktifkan";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Ketuk untuk menonaktifkan";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Panel Asisten Penulisan Berbasis AI telah dibuka. Gunakan prompt yang tersedia untuk menyempurnakan konten teks Anda.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Ketuk dua kali untuk mengaktifkan";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Buka untuk melihat opsi %@";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Urungkan ke Versi %d dari %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Ulangi ke Versi %d dari %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Teks diperbarui ke Versi %d dari %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Asisten Penulisan Berbasis AI";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "ketuk dua kali untuk membuka Asisten Penulisan Berbasis AI dan mengedit teks";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Urungkan perubahan";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Ulangi perubahan";
+
+/* XBUT: Close button title */
+"Close" = "Tutup";
 

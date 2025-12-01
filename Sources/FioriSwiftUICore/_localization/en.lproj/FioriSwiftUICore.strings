@@ -248,17 +248,8 @@
 "warning" = "warning";
 /* XBUT: banner message type desc, error */
 "error" = "error";
-
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "messages";
-/* XBUT: banner message type desc in plural form, information */
-"information" = "information";
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "confirmations";
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "warnings";
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "errors";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI notice";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reset";
@@ -527,11 +518,35 @@
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "How was this response?";
 
-/* XBUT: One date selected for .datesSelection style in Calendar view */
-"DateSelectedFormatKey" = "%d Date Selected";
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d Date Selected";
 
-/* XBUT: Multiple dates selected for .datesSelection style in Calendar view */
-"DatesSelectedFormatKey" = "%d Dates Selected";
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d Dates Selected";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "has event";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Double tap to change the selection";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Double tap to select";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Double tap to unselect";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Date selected";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Today";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Disabled date";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Handle to switch from month view to week view";
 
 /*XTIT: Title for card*/
 "Card title" = "Card title";
@@ -575,8 +590,22 @@
 /* XBUT: Writing assistant redo accessibility label */
 "Rodo change" = "Rodo change";
 
-/* XBUT: Writing assistant positive feedback accessibility label */
-"Positive feedback" = "Positive feedback";
+/* XBUT: Close button title */
+"Close" = "Close";
 
-/* XBUT: Writing assistant negative feedback accessibility label */
-"Negative feedback" = "Negative feedback";
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "complete";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "active";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "error active";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "read-only";
+/* XACT: The accessibility value for Stepper decrement*/
+"Decrease the value by %f" = "Decrease the value by %f";
+
+/* XACT: The accessibility value for Stepper increment*/
+"Increase the value by %f" = "Increase the value by %f";

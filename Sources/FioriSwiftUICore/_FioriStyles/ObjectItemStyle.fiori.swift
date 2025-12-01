@@ -741,6 +741,7 @@ public struct ObjectItemBorderedAction: ActionStyle {
             .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
             .lineLimit(2)
+            .accessibilityElement(children: .combine)
     }
 }
 

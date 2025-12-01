@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Nav atlasīts neviens datums";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Nav atlasīts diapazons";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "nospiediet atstarpes taustiņu, lai iestatītu diapazona vērtību";
+
 /* XBUT: calendar time component label */
 "Time" = "Laiks";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "kļūda";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "ziņojumi";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informācijas";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "apstiprinājumi";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "brīdinājumi";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "kļūdas";
+/* XBUT: banner message type desc, error */
+"AI notice" = "MI paziņojums";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Atiestatīt";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Ierosināja AI. Pārbaudiet pirms lietošanas. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotoattēli";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Faili";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skenēt";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Priekšskatīt";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Vai dzēst pielikumu?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Dzēst";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Pievienot pielikumu";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Veiciet dubultskārienu, lai pievienotu pielikumu";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Sīktēls";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Tiek augšupielādēts %@, lūdzu, uzgaidiet...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Neizdevās augšupielādēt %@. Kļūdas ziņojums: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Pierakstīties";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "lietotājvārds";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "parole";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Iesniegt";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Iesniegšana neizdevās";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Radās kļūda. Lūdzu, vēlāk mēģiniet vēlreiz.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Mēģināt vēlreiz";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Pozitīva atsauksme";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negatīva atsauksme";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "iespējots";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skenēšana nesekmīga";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Lūdzu, atlasiet kvadrātkoda attēlu.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Nederīgs kvadrātkods";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Kvadrātkods netika atpazīts.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Atļaut piekļuvi fotoattēliem";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Lai izvēlētos kvadrātkoda attēlu, lūdzu, sniedziet piekļuvi jūsu fotoattēliem ierīces konfidencialitātes iestatījumos.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Atļaut piekļuvi kamerai";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Lai skenētu, izmantojot kameru, lūdzu, sniedziet piekļuvi kamerai ierīces konfidencialitātes iestatījumos.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Iestatījumi";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "bultiņa uz leju";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "bultiņa uz augšu";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "Flash deaktivizēts";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "Flash aktivizēts";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotoattēls %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skenēšana sekmīga. Jums tiks izveidots savienojums ar:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Turpināt";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Rakstīšanas palīgs";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versija %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Atsaukt";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Atcelt atsaukšanu";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Vai vēlaties atsaukt Rakstīšanas palīga veiktos rediģējumus atgriezt tekstu tā sākotnējā stāvoklī?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Vai atmest visas izmaiņas?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Turpināt strādāt";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Atmest";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Paldies par jūsu atsauksmi";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Kas jums nepatika saistībā ar šo versiju?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Lūdzu, novērtējiet savu pieredzi, lai palīdzētu mums uzlaboties.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Atsauksme";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Kāda bija šī atbilde?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d datums atlasīts";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d datumi atlasīti";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "ir notikums";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Veiciet dubultskārienu, lai mainītu atlasi";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Veiciet dubultskārienu, lai atlasītu";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Veiciet dubultskārienu, lai noņemtu atlasi";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Datums atlasīts";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Šodien";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Atspējots datums";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Turis pārslēgšanai no mēneša skata uz nedēļas skatu";
+
+/* XTIT: Title for card */
+"Card title" = "Kartītes virsraksts";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kartītes apakšvirsraksts";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Pieskarieties, lai ieslēgtu";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Pieskarieties, lai izslēgtu";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "MI rakstīšanas palīga panelis atvērts. Izmantojiet nodrošinātās uzvednes, lai precizētu sava teksta saturu.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Veiciet dubultskārienu, lai aktivizētu";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Atveriet, lai redzētu %@ iespējas";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Atsaukt uz versiju %d no %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Atcelt atsaukšanu uz versiju %d no %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Teksts atjaunināts uz versiju %d no %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "MI rakstīšanas palīgs";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "veiciet dubultskārienu, lai atvērtu MI rakstīšanas palīgu un rediģētu tekstu";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Atsaukt izmaiņas";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Atcelt izmaiņu atsaukšanu";
+
+/* XBUT: Close button title */
+"Close" = "Aizvērt";
 

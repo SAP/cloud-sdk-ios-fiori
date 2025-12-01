@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Päivämäärää ei ole valittu";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Väliä ei ole valittu";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "Määritä välin arvo painamalla välilyöntinäppäintä";
+
 /* XBUT: calendar time component label */
 "Time" = "Kellonaika";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "virhe";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "viestit";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "tiedot";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "vahvistukset";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "varoitukset";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "virheet";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Tekoälyilmoitus";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Palauta";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Tekoälyn ehdottama. Vahvista ennen käyttöä. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Valokuvat";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Tiedostot";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skannaa";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Esikatselu";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Poistetaanko liite?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Poista";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Lisää liite";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Lisää liite kaksoisnapauttamalla";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Pienoiskuva";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Ladataan liitettä %@, odota...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Liitteen %@ lataus epäonnistui. Virhesanoma: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Kirjaudu";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "käyttäjänimi";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "salasana";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Lähetä";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Lähetys epäonnistui";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "On tapahtunut virhe. Yritä myöhemmin uudelleen.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Yritä uudelleen";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positiivinen palaute";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negatiivinen palaute";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "aktivoitu";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skannaus epäonnistui";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Valitse QR-koodikuva.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Virheellinen QR-koodi";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR-koodia ei tunnistettu.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Salli valokuvien käyttö";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Jotta voit valita QR-koodikuvan, salli valokuvien käyttö laitteesi yksityisyyttä koskevissa asetuksissa.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Salli kameran käyttö";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Jotta voit skannata kameran avulla, salli kameran käyttö laitteesi yksityisyyttä koskevissa asetuksissa.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Asetukset";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "Alanuoli";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "Ylänuoli";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "salaman aktivointi poistettu";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "salama aktivoitu";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Valokuva %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skannaus onnistui. Yhteys muodostetaan:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Jatka";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Kirjoitusavustaja";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versio %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Peruuta";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Tee uudelleen";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Haluatko kumota kirjoitusavustajan tekemät muokkaukset ja palauttaa tekstin alkuperäiseen tilaan?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Hylätäänkö kaikki muutokset?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Jatka käsittelyä";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Hylkää";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Kiitos palautteestasi.";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Mikä tässä versiossa ei miellyttänyt sinua?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Auta meitä kehittymään arvioimalla kokemuksesi.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Palaute";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Millainen tämä vastaus oli?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d päivämäärä valittu";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d päivämäärää valittu";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "tapahtuma sisältyy";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Vaihda valinta kaksoisnapauttamalla";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Valitse kaksoisnapauttamalla";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Poista valinta kaksoisnapauttamalla";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Päivämäärä valittu";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Tänään";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Käytöstäpoistopäivämäärä";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Kahva kuukausinäkymästä viikkonäkymään vaihtamista varten";
+
+/* XTIT: Title for card */
+"Card title" = "Kortin otsikko";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kortin alaotsikko";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Ota käyttöön napauttamalla";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Poista käytöstä napauttamalla";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Tekoälykirjoitusavustajapaneeli avattu. Käytä annettuja kehotteita tekstisisällön tarkentamiseen.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Aktivoi kaksoisnapauttamalla";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Avaa näyttääksesi %@ vaihtoehtoa";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Kumoa versioon %d / %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Tee uudelleen versioon %d / %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Teksti päivitetty versioon %d / %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Tekoälykirjoitusavustaja";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "avaa tekoälykirjoitusavustaja kaksoisnapauttamalla ja muokkaa tekstiä";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Kumoa muutos";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Tee muutos uudelleen";
+
+/* XBUT: Close button title */
+"Close" = "Sulje";
 

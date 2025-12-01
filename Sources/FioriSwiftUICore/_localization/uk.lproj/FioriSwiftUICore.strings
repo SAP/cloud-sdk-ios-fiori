@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Дата не вибрана";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Діапазон не вибраний";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "натиснути пробіл, щоб встановити значення діапазону";
+
 /* XBUT: calendar time component label */
 "Time" = "Час";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "помилка";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "повідомлення";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "інформація";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "підтвердження";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "застереження";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "помилки";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Нотатка ШІ";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Скинути";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Запропоновано ШІ. Перевірте перед використанням. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Фотографії";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Файли";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Камера";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Сканувати";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Попередній перегляд";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Видалити вкладення?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Видалити";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Додати вкладення";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Натисніть двічі, щоб додати вкладення";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Мініатюра";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Триває вивантаження %@, зачекайте...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Не вдалося вивантажити %@. Повідомлення про помилку: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Увійти";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "ім'я користувача";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "пароль";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Надіслати";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Не вдалося надіслати";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Сталася помилка. Повторіть спробу пізніше.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Повторити спробу";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Позитивний відгук";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Негативний відгук";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "активовано";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Невдале сканування";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Виберіть зображення QR-коду.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Недійсний QR-код";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR-код не розпізнано.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Дозволити доступ до фотографій";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Щоб обрати зображення QR-коду, надайте доступ до фотографій у настройках захисту даних вашого пристрою.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Дозволити доступ до камери";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Щоб сканувати за допомогою камери, надайте доступ до камери у настройках захисту даних вашого пристрою.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Настройки";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "стрілка вниз";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "стрілка уверх";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "ліхтарик деактивовано";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "ліхтарик активовано";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Фото %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Сканування успішно виконано. Зараз вас буде підключено до:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Продовжити";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Майстер заповнення";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Версія %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Відмінити";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Повторити";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Cкасувати правки, зроблені Асистентом із заповнення, і повернути текст до початкового стану?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Відхилити всі зміни?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Продовжити роботу";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Відхилити";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Дякуємо за ваш відгук";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Що вам не сподобалось у цій версії?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Будь ласка, оцініть свій досвід, щоб допомогти нам стати краще.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Відгуки";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Якою була ця відповідь?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "Вибрана %d дата";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "Вибрано %d дат(и)";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "має подію";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Торкніться двічі, щоб змінити вибір";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Торкніться двічі, щоб вибрати";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Торкніться двічі, щоб скасувати вибір";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Дата вибрана";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Сьогодні";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Дата деактивації";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Перемикач для переходу з місячного подання на тижневе";
+
+/* XTIT: Title for card */
+"Card title" = "Заголовок картки";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Підзаголовок картки";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Торкніться, щоб увімкнути";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Торкніться, щоб вимкнути";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Панель майстра заповнення ШІ відкрита. Оновіть ваш текстовий вміст за допомогою наданих запитів.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Торкніться двічі, щоб активувати";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Відкрити, щоб побачити опції %@";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Скасувати до версії %d %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Повторити до версії %d %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Текст оновлено до версії %d %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Майстер заповнення ШІ";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "торкніться двічі, щоб відкрити Майстер заповнення ШІ і відредагувати текст";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Скасувати зміну";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Повторити зміну";
+
+/* XBUT: Close button title */
+"Close" = "Закрити";
 

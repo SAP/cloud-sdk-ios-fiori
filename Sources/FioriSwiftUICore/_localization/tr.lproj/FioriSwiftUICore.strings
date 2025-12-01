@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Tarih seçilmedi";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Aralık seçilmedi";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "aralık değeri ayarlamak için boşluk tuşuna basın";
+
 /* XBUT: calendar time component label */
 "Time" = "Zaman";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "hata";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "iletiler";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "bilgiler";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "teyitler";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "uyarılar";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "hatalar";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Yapay zeka bildirimi";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Sıfırla";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Yapay zeka tarafından önerildi. Kullanmadan önce doğrulayın. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotoğraflar";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Dosyalar";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Tara";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Önizleme";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Ek silinsin mi?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Sil";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Ek ekle";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Ek eklemek için çift dokunun";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Küçük resim";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@ yükleniyor, bekleyin...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ yüklenemedi. Hata iletisi: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Oturum aç";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "kullanıcı adı";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "parola";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Gönder";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Gönderme başarısız oldu";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Hata oluştu. Daha sonra yeniden deneyin.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Yeniden dene";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Olumlu geri bildirim";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Olumsuz geri bildirim";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "etkinleştirildi";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Tarama başarısız";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Lütfen bir QR kodu resmi seçin.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Geçersiz QR kodu";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR kodu tanınmadı.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Fotoğraflara erişime izin ver";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR kodu resmi seçmek için lütfen aygıtınızın gizlilik ayarlarında fotoğraflarınıza erişim verin.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Kameraya erişime izin ver";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Kamerayı kullanarak tarama yapmak için lütfen aygıtınızın gizlilik ayarlarında kameranıza erişim verin.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Ayarlar";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "aşağı ok";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "yukarı ok";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash devre dışı bırakıldı";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash etkinleştirildi";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotoğraf %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Tarama başarılı oldu. Şuna bağlanacaksınız:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Devam";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Yazım asistanı";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versiyon %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Geri al";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Yinele";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Yazım asistanı tarafından yapılan düzeltmeleri geri almak ve metni asıl durumuna geri almak istiyor musunuz?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Tüm değişiklikler atılsın mı?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Çalışmaya devam et";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "At";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Geri bildiriminiz için teşekkür ederiz";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Bu versiyonla ilgili neleri beğenmediniz?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "İyileştirmemize yardımcı olmak için lütfen deneyiminizi derecelendirin.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Geri bildirim";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Bu yanıt nasıldı?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d tarih seçildi";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d tarih seçildi";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "etkinlik içeriyor";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Seçimi değiştirmek için iki kez dokunun";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Seçmek için iki kez dokunun";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Seçimi kaldırmak için iki kez dokunun";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Seçilen tarih";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Bugün";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Devre dışı bırakılma tarihi";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Ay görünümünden hafta görünümüne geçme tutamacı";
+
+/* XTIT: Title for card */
+"Card title" = "Kart başlığı";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kart alt başlığı";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Açmak için dokunun";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Kapatmak için dokunun";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Yapay zeka yazım asistanı paneli açıldı. Metin içeriğinizi detaylandırmak için sağlanan istemleri kullanın.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Etkinleştirmek için iki kez dokunun";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "%@ seçeneklerini görmek için açın";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "%d %d versiyonuna geri al";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "%d %d versiyonuna yinele";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Metin %d %d versiyonuna güncellendi";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Yapay zeka yazım asistanı";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "Yapay zeka yazım asistanını açmak ve metni düzenlemek için çift dokunun";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Değişikliği geri al";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Değişikliği yinele";
+
+/* XBUT: Close button title */
+"Close" = "Kapat";
 

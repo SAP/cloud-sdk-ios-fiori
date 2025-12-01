@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Kuupäeva pole valitud";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Vahemikku pole valitud";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "vahemikuväärtuse määramiseks vajutage tühikuklahvi";
+
 /* XBUT: calendar time component label */
 "Time" = "Kellaaeg";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "tõrge";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "teated";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "teabeüksused";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "kinnitused";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "hoiatused";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "tõrked";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Tehisintellekti teade";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Lähtesta";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Tehisintellekti soovitatud. Enne kasutamist kontrollige üle. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotod";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Failid";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kaamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skanni";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Eelvaade";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Kas soovite manuse kustutada?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Kustuta";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Lisa manus";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Manuse lisamiseks topeltpuudutage";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Pisipilt";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Manust %@ laaditakse üles, palun oodake...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Manuse %@ üleslaadimine nurjus. Tõrketeade: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Logi sisse";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "kasutajanimi";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "parool";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Esita";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Esitamine nurjus";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Ilmnes tõrge. Proovige hiljem uuesti.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Proovi uuesti";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positiivne tagasiside";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negatiivne tagasiside";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "lubatud";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skannimine nurjus";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Valige QR-koodi pilt.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Sobimatu QR-kood";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR-koodi ei tuvastatud.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Luba juurdepääs fotodele";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR-koodi pildi valimiseks andke oma seadme privaatsussätetes juurdepääs oma fotodele.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Luba juurdepääs kaamerale";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Kaamera abil skannimiseks andke seadme privaatsussätetes juurdepääs oma kaamerale.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Sätted";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "allanool";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "ülesnool";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "välklamp on inaktiveeritud";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "välklamp on aktiveeritud";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Foto %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skannimine õnnestus. Teie jaoks luuakse ühendus järgmisega:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Jätka";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Kirjutamisabiline";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versioon %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Võta tagasi";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Tee uuesti";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Kas soovite kirjutamisabilise tehtud muudatused tagasi võtta ja taastada teksti algse oleku?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Kas soovite kõik muudatused hüljata?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Jätka tööd";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Hülga";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Aitäh tagasiside eest!";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Mis teile selle versiooni juures ei meeldinud?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Palun andke kasutuskogemusele hinnang, et saaksime seda paremaks muuta.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Tagasiside";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Kuidas see vastus tundus?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d kuupäev on valitud";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d kuupäeva on valitud";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "on sündmusega";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Valiku muutmiseks topeltpuudutage";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Valimiseks topeltpuudutage";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Valiku tühistamiseks topeltpuudutage";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Kuupäev on valitud";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Täna";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Keelatud kuupäev";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Pide kuuvaate vahetamiseks nädalavaate vastu";
+
+/* XTIT: Title for card */
+"Card title" = "Kaardi pealkiri";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Kaardi alapealkiri";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Puudutage sisselülitamiseks";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Puudutage väljalülitamiseks";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Tehisintellektipõhise kirjutamisabilise paneel on avatud. Tekstisisu täpsustamiseks kasutage esitatud juhiseid.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Aktiveerimiseks topeltpuudutage";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Avage, et kuvada sätte %@ suvandid";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Võta tagasi versioonile %d, kokku on %d versiooni";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Tee uuesti versiooniks %d, kokku on %d versiooni";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Tekst on värskendatud versiooniks %d, kokku on %d versiooni";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Tehisintellektipõhine kirjutamisabiline";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "Topeltpuudutage tehisintellektipõhise kirjutamisabilise avamiseks ja teksti redigeerimiseks";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Võta muudatus tagasi";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Tee muudatus uuesti";
+
+/* XBUT: Close button title */
+"Close" = "Sule";
 

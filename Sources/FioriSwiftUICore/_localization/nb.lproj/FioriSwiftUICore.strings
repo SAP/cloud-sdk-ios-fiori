@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Ingen dato valgt";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Intervall er ikke valgt";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "Klikk på mellomrom for å definere en intervallverdi";
+
 /* XBUT: calendar time component label */
 "Time" = "Tid";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "feil";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "meldinger";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informasjonsmeldinger";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "bekreftelser";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "advarsler";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "feil";
+/* XBUT: banner message type desc, error */
+"AI notice" = "KI-merknad";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Tilbakestill";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Foreslått av KI. Verifiser før bruk. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Bilder";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Filer";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Kamera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Skann";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Forhåndsvisning";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Slette vedlegg?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Slett";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Legg til vedlegg";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Dobbelttrykk for å legge til vedlegg";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Miniatyrbilde";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Laster opp %@. Vent litt ...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Kan ikke laste opp %@. Feilmelding: %@.";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Logg på";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "brukernavn";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "passord";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Send";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Sending mislyktes";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "En feil har oppstått. Prøv igjen senere.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Prøv igjen";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Positiv tilbakemelding";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Negativ tilbakemelding";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "aktivert";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Skanning mislyktes";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Velg et QR-kodebilde.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Ugyldig QR-kode";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR-koden ble ikke gjenkjent.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Tillat tilgang til bilder";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "For å velge et QR-kodebilde, må du gi tilgang til dine bilder under databeskyttelsesinnstillingene på enheten din.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Tillat tilgang til kamera";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "For å skanne med kamera, må du gi tilgang til kameraet i databeskyttelsesinnstillingene på enheten din.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Innstillinger";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "Pil ned";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "Pil opp";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "blits deaktivert";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "blits aktivert";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Bilde %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Skanning utført. Du blir koblet til:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Fortsett";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Tekstassistent";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versjon %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Angre";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Gjør om";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Vil du angre endringene som ble gjort av tekstassistenten og tilbakestille teksten til slik den var opprinnelig?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Forkaste alle endringer?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Fortsett å arbeide";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Forkast";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Takk for tilbakemeldingen";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Hva likte du med denne versjonen?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Vurder opplevelsen din for å hjelpe oss med å bli bedre.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Tilbakemelding";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Hvordan var dette svaret?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d dato valgt";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d datoer valgt";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "har hendelse";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Dobbelttrykk for å endre utvalg";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Dobbelttrykk for å velge";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Dobbelttrykk for å oppheve valg";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Dato valgt";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "I dag";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Dato for deaktivering";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Bryter for å bytte fra månedsvisning til ukevisning";
+
+/* XTIT: Title for card */
+"Card title" = "Korttittel";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Undertittel på kort";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Trykk for å slå på";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Trykk for å slå av";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Panelet for KI-tekstassistent er åpnet. Bruk de oppgitte ledetekstene for å justere tekstinnholdet.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Dobbelttrykk for å aktivere";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Åpne for å se %@-alternativer";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Angre for versjon %d av %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Gjenta for versjon %d av %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Tekst oppdatert til versjon %d av %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "KI-tekstassistent";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "dobbelttrykk for å åpne KI-tekstassistent og redigere tekst";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Angre endring";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Gjenta endring";
+
+/* XBUT: Close button title */
+"Close" = "Lukk";
 

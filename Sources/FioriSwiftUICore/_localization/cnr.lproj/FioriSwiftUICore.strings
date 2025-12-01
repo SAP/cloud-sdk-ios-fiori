@@ -8,7 +8,7 @@
 "Re-enter Signature" = "Ponovo unesi potpis";
 
 /* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Clear" = "Poništi";
+"Clear" = "Izbriši";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Cancel" = "Odustani";
@@ -253,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "grešku";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "poruka";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informacije";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "potvrda";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "upozorenja";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "grešaka";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Obavještenje o vještačkoj inteligenciji";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Poništi";
@@ -418,6 +406,12 @@
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Sličica";
 
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Otpremanje %@ u toku, sačekajte...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Otpremanje %@ nije uspjelo. Poruka o grešci: %@";
+
 /* XBUT: Sign In Action in the Authentication */
 "Sign In" = "Prijavi se";
 
@@ -514,17 +508,11 @@
 /* XTIT: Writing assistant cancel alert title */
 "Discard all changes?" = "Odbaciti sve promjene?";
 
-/* XTIT: Writing assistant cancel alert title */
-"Close Writing Assistant without saving changes?" = "Zatvoriti pomoćnika pri pisanju bez snimanja promjena?";
-
 /* XBUT: Writing assistant cancel alert action title for keep working */
 "Keep Working" = "Nastavi sa radom";
 
 /* XBUT: Writing assistant cancel alert action title for discard */
 "Discard" = "Odbaci";
-
-/* XBUT: Writing assistant cancel alert action title for close */
-"Close" = "Zatvori";
 
 /* XMSG: A success toast message for feedback flow in writing assistant */
 "Thank you for your feedback" = "Hvala na povratnim informacijama";
@@ -540,4 +528,79 @@
 
 /* XTIT: Footnote text for feedback in writing assistant */
 "How was this response?" = "Kakav je bio ovaj odgovor?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d datum odabran";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d datuma odabrano ";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "ima događaj";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Dodirnite dvaput da promijenite odabir";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Dodirnite dvaput da biste odabrali";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Dodirnite dvaput da biste poništili odabir";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Odabrani datum ";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Danas";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Datum deaktiviranja";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Regulator za prelazak sa mjesečnog na nedjeljni prikaz";
+
+/* XTIT: Title for card */
+"Card title" = "Naziv kartice";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Podnaslov kartice";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Dodirnite da biste uključili";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Dodirnite da biste isključili";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Otvoren je panel pomoćnika pri pisanju uz upotrebu vještačke inteligencije. Koristite ponuđene predloge da biste unaprijedili sadržaj teksta.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Dodirnite dvaput da biste aktivirali.";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Otvorite da vidite %@ opcije/a";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Vrati na verziju %d od %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Ponovo postavi verziju %d od %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Tekst ažuriran na verziju %d od %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Pomoćnik pri pisanju uz upotrebu vještačke inteligencije";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "Dodirnite dvaput da otvorite pomoćnik pri pisanju uz upotrebu vještačke inteligencije i uredite tekst";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Poništi promjenu";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Ponovo izvrši promjenu";
+
+/* XBUT: Close button title */
+"Close" = "Zatvori";
 

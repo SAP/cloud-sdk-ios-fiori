@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Dim data wedi'i ddewis";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Dim ystod wedi'i ddewis";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "pwyswch space i osod gwerth ystod";
+
 /* XBUT: calendar time component label */
 "Time" = "Amser";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "gwall";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "negeseuon";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "gwybodaeth";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "cadarnhad";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "rhybuddion";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "gwallau";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Hysbysiad AI";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Ailosod";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Awgrymwyd gan AI. Dilysu cyn defnyddio. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Lluniau";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Ffeiliau";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Camera";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Sganio";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Gweld Rhagolwg";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Dileu'r Atodiad?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Dileu";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Ychwanegu atodiad";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Tapiwch ddwywaith i ychwanegu atodiad";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Mân-lun";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Wrthi'n uwchlwytho %@, arhoswch...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Wedi methu uwchlwytho %@. Neges wall: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Mewngofnodi";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "enw defnyddiwr";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "cyfrinair";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Cyflwyno";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Wedi methu cyflwyno";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Gwall wedi codi. Rhowch gynnig arall arni yn nes ymlaen.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Ailgynnig";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Adborth cadarnhaol";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Adborth negyddol";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "wedi galluogi";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Heb Lwyddo i Sganio";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Dewiswch ddelwedd cod QR.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Cod QR Annilys";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "Heb adnabod y cod QR.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Caniatáu Mynediad at Luniau";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "I ddewis delwedd cod QR, rhowch fynediad at eich lluniau yng ngosodiadau preifatrwydd eich dyfais.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Caniatáu Mynediad at Gamera";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "I sganio gyda'r camera, rhowch fynediad at eich camera yng ngosodiadau preifatrwydd eich dyfais.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Gosodiadau";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "saeth i lawr";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "saeth i fyny";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "wedi analluogi'r fflach";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "wedi galluogi'r fflach";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Llun %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Wedi llwyddo i sganio. Byddwch yn cael eich cysylltu â:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Bwrw ymlaen";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Cynorthwyydd Ysgrifennu";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Fersiwn %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Dadwneud";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Ailwneud";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Ydych chi eisiau dadwneud y newidiadau a wnaed gan y Cynorthwyydd Ysgrifennu, a newid y testun yn ôl i'w gyflwr gwreiddiol?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Gwaredu’r holl newidiadau?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Parhau i Weithio";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Gwaredu";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Diolch am eich adborth";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Beth wnaethoch chi ddim hoffi am y fersiwn hon?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Rhowch sgôr ar eich profiad i'n helpu ni i wella.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Adborth";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Sut oedd yr ymateb hwn?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d Dyddiad wedi'i Ddewis";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d Dyddiad wedi'u Dewis";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "gyda dyddiad";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Tapiwch ddwywaith i newid y dewis";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Tapiwch ddwywaith i ddewis";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Tapiwch ddwywaith i ddad-ddewis";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Dyddiad wedi'i ddewis";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Heddiw";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Dyddiad analluogi";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Handlen i newid o'r wedd mis i'r wedd wythnos";
+
+/* XTIT: Title for card */
+"Card title" = "Teitl y cerdyn";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Is-deitl y cerdyn";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Tapiwch i'w droi ymlaen";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Tapiwch i'w droi i ffwrdd";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Wedi agor y panel Cynorthwyydd Ysgrifennu AI. Defnyddiwch y sbardunau a ddarperir i fireinio cynnwys eich testun.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Tapiwch ddwywaith i alluogi";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Agorwch i weld %@ opsiwn";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Dad-wneud i Fersiwn %d o %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Ail-wneud i Fersiwn %d o %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Testun wedi'i ddiweddaru i Fersiwn %d o %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Cynorthwyydd Ysgrifennu AI";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "tapiwch ddwywaith i agor y Cynorthwyydd Ysgrifennu AI a golygu'r testun";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Dad-wneud y newid";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Ail-wneud y newid";
+
+/* XBUT: Close button title */
+"Close" = "Cau";
 

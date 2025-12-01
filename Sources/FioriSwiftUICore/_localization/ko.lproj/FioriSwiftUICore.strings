@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "선택된 날짜 없음";
 
+/* Default value for DateRangePicker */
+"No range selected" = "선택된 범위 없음";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "공간을 눌러 범위 값 설정";
+
 /* XBUT: calendar time component label */
 "Time" = "시간";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "오류";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "메시지";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "정보";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "확인";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "경고";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "오류";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI 알림";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "재설정";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "AI에 의해 제안되었습니다. 사용하기 전에 확인하십시오. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "사진";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "파일";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "카메라";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "스캔";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "미리보기";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "첨부파일을 삭제하시겠습니까?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "삭제";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "첨부파일 추가";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "더블 탭하여 첨부파일 추가";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "썸네일";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@을(를) 업로드 중입니다. 잠시 기다려 주십시오.";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ 업로드에 실패했습니다. 오류 메시지: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "로그인";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "사용자 이름";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "비밀번호";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "제출";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "제출 실패";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "오류가 발생했습니다. 나중에 다시 시도하십시오.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "재시도";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "긍정적 피드백";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "부정적 피드백";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "활성화됨";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "스캔 실패";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "QR 코드 이미지를 선택하십시오.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "잘못된 QR 코드";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR 코드가 인식되지 않았습니다.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "사진 액세스 허용";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR 코드 이미지를 선택하려면 장치의 개인정보 보호 설정에서 사진에 대한 액세스 권한을 부여하십시오.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "카메라 액세스 허용";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "카메라를 사용하여 스캔하려면 장치의 개인정보 보호 설정에서 카메라에 대한 액세스 권한을 부여하십시오.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "설정";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "아래쪽 화살표";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "위쪽 화살표";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "플래시 비활성화됨";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "플래시 활성화됨";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "사진 %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "스캔이 완료되었습니다. 다음에 연결됩니다.";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "계속";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "작성 도우미";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "버전 %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "실행 취소";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "재실행";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "작성 도우미가 수행한 편집 내용을 취소하고 텍스트를 원래 상태로 되돌리시겠습니까?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "변경사항을 모두 무시하시겠습니까?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "계속 작업";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "무시";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "피드백을 주셔서 감사합니다.";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "이 버전에서 불만족스러운 부분";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "고객 경험 향상에 도움이 되도록 평가해 주십시오.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "피드백";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "이 응답에 대한 피드백을 제공해 주십시오.";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d개의 일자가 선택됨";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d개의 일자가 선택됨";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "이벤트 있음";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "두 번 눌러 선택 변경";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "두 번 눌러 선택";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "두 번 눌러 선택 해제";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "일자 선택됨";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "오늘";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "비활성화된 일자";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "월간 보기에서 주간 보기로 전환";
+
+/* XTIT: Title for card */
+"Card title" = "카드 제목";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "카드 부제목";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "탭하여 켜기";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "탭하여 끄기";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI 작성 도우미 패널이 열렸습니다. 제공된 프롬프트를 사용하여 텍스트 컨텐트를 다듬으십시오.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "두 번 탭하여 활성화";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "%@ 옵션을 보려면 열기";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "%d의 %d 버전으로 되돌리기";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "%d의 %d 버전으로 재실행";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "텍스트가 %d의 %d 버전으로 업데이트됨";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI 작성 도우미";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "AI 작성 도우미를 열고 텍스트를 수정하려면 두 번 탭하기";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "변경 취소";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "변경 재실행";
+
+/* XBUT: Close button title */
+"Close" = "닫기";
 

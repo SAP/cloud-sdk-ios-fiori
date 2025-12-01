@@ -147,6 +147,7 @@ public extension ListPickerDestination {
         selection: Binding<ID?>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -167,6 +168,7 @@ public extension ListPickerDestination {
             isSingleSelection: true,
             allowEmpty: true,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -198,6 +200,7 @@ public extension ListPickerDestination {
         selection: Binding<ID>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -219,6 +222,7 @@ public extension ListPickerDestination {
             isSingleSelection: true,
             allowEmpty: false,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -250,6 +254,7 @@ public extension ListPickerDestination {
         selections: Binding<Set<ID>?>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -266,6 +271,7 @@ public extension ListPickerDestination {
             isSingleSelection: false,
             allowEmpty: true,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -299,6 +305,7 @@ public extension ListPickerDestination {
         allowEmpty: Bool = true,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element) -> some View
     ) {
@@ -310,6 +317,7 @@ public extension ListPickerDestination {
             isSingleSelection: false,
             allowEmpty: allowEmpty,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -345,6 +353,7 @@ public extension ListPickerDestination {
         selection: Binding<ID?>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -365,6 +374,7 @@ public extension ListPickerDestination {
             isSingleSelection: true,
             allowEmpty: true,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -396,6 +406,7 @@ public extension ListPickerDestination {
         selection: Binding<ID>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -417,6 +428,7 @@ public extension ListPickerDestination {
             isSingleSelection: true,
             allowEmpty: false,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -448,6 +460,7 @@ public extension ListPickerDestination {
         selections: Binding<Set<ID>?>,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -464,6 +477,7 @@ public extension ListPickerDestination {
             isSingleSelection: false,
             allowEmpty: true,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -497,6 +511,7 @@ public extension ListPickerDestination {
         allowEmpty: Bool = true,
         isTrackingLiveChanges: Bool = true,
         prompt: AttributedString? = nil,
+        searchPrompt: String? = nil,
         searchFilter: ((Data.Element.Data.Element, String) -> Bool)? = nil,
         @ViewBuilder rowContent: @escaping (Data.Element.Data.Element) -> some View
     ) where Data.Element: ListPickerSectionModel {
@@ -508,6 +523,7 @@ public extension ListPickerDestination {
             isSingleSelection: false,
             allowEmpty: allowEmpty,
             isTrackingLiveChanges: isTrackingLiveChanges,
+            searchPrompt: searchPrompt,
             searchFilter: searchFilter,
             rowContent: rowContent
         )
@@ -552,6 +568,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     let children: KeyPath<Data.Element, Data?>?
     let rowContent: (Data.Element) -> RowContent
     let isTrackingLiveChanges: Bool
+    let searchPrompt: String?
     let searchFilter: ((Data.Element, String) -> Bool)?
 
     // MARK: - Internal state
@@ -567,6 +584,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
          isSingleSelection: Bool,
          allowEmpty: Bool,
          isTrackingLiveChanges: Bool,
+         searchPrompt: String?,
          searchFilter: ((Data.Element, String) -> Bool)?,
          isTopLevel: Bool = true,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
@@ -578,6 +596,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         self.isSingleSelection = isSingleSelection
         self.allowEmpty = allowEmpty
         self.isTrackingLiveChanges = isTrackingLiveChanges
+        self.searchPrompt = searchPrompt
         self.searchFilter = searchFilter
         
         self.isTopLevel = isTopLevel
@@ -598,6 +617,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
          isSingleSelection: Bool,
          allowEmpty: Bool,
          isTrackingLiveChanges: Bool,
+         searchPrompt: String?,
          searchFilter: ((Data.Element, String) -> Bool)?,
          isTopLevel: Bool = true,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
@@ -609,6 +629,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         self.isSingleSelection = isSingleSelection
         self.allowEmpty = allowEmpty
         self.isTrackingLiveChanges = isTrackingLiveChanges
+        self.searchPrompt = searchPrompt
         self.searchFilter = searchFilter
         
         self.isTopLevel = isTopLevel
@@ -627,10 +648,10 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             if self.searchFilter != nil {
                 if self.isFilterFeedbackBarListPickerStyle {
                     self.listContentForFilterFeedbackBarListPicker()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always))
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: self.searchPrompt.map { Text($0) })
                 } else {
                     self.listContent()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer)
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer, prompt: self.searchPrompt.map { Text($0) })
                 }
             } else {
                 if self.isFilterFeedbackBarListPickerStyle {
@@ -803,6 +824,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                                     dimensions[.leading] - 16
                                 }
+                                .accessibilityHidden(true)
                         #endif
                     }
                 }.textCase(.none)
@@ -883,17 +905,22 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                                      isSingleSelection: self.isSingleSelection,
                                                      allowEmpty: self.allowEmpty,
                                                      isTrackingLiveChanges: true,
+                                                     searchPrompt: self.searchPrompt,
                                                      searchFilter: self.searchFilter,
                                                      isTopLevel: false,
                                                      rowContent: self.rowContent)
                     }
                 } else {
+                    let accessibilityLabel = self.generateAccessibilityLabel(for: element as? SortFilterItem.PickerItem.ValueOptionModel)
                     ListPickerDestinationRow(content: self.rowContent(element),
                                              isSelected: self.isItemSelected(id_value))
                         .contentShape(Rectangle())
                         .onTapGesture {
                             self.handleSelections(id_value)
                         }
+                        .accessibilityElement()
+                        .accessibilityLabel(accessibilityLabel)
+                        .accessibilityIdentifier("\(id_value)")
                 }
             }
         }
@@ -903,13 +930,24 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         let selectedData = selectedData()
         ForEach(selectedData, id: self.id) { element in
             let id_value = element[keyPath: id]
+            let accessibilityLabel = self.generateAccessibilityLabel(for: element as? SortFilterItem.PickerItem.ValueOptionModel)
             ListPickerDestinationRow(content: self.rowContent(element),
                                      isSelected: self.isItemSelected(id_value))
                 .contentShape(Rectangle())
                 .onTapGesture {
                     self.handleSelections(id_value)
                 }
+                .accessibilityElement()
+                .accessibilityLabel(accessibilityLabel)
+                .accessibilityIdentifier("\(id_value)_selected")
         }
+    }
+    
+    private func generateAccessibilityLabel(for element: SortFilterItem.PickerItem.ValueOptionModel?) -> String {
+        guard let idValue = element?.id as? ID else { return "" }
+        let accessibilityText = "\(element?.value ?? "")"
+        let selectionStatus = self.isItemSelected(idValue) ? "selected" : "unselected"
+        return "\(accessibilityText), \(selectionStatus)"
     }
     
     func selectedData() -> [Data.Element] {
@@ -1023,6 +1061,7 @@ extension ListPickerDestinationContent {
          children: KeyPath<Data.Element, Data?>? = nil,
          selection: Binding<ID?>,
          isTrackingLiveChanges: Bool = true,
+         searchPrompt: String? = nil,
          searchFilter: ((Data.Element, String) -> Bool)? = nil,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
@@ -1042,6 +1081,7 @@ extension ListPickerDestinationContent {
                   isSingleSelection: true,
                   allowEmpty: true,
                   isTrackingLiveChanges: isTrackingLiveChanges,
+                  searchPrompt: searchPrompt,
                   searchFilter: searchFilter,
                   rowContent: rowContent)
     }
@@ -1052,6 +1092,7 @@ extension ListPickerDestinationContent {
          children: KeyPath<Data.Element, Data?>? = nil,
          selection: Binding<ID>,
          isTrackingLiveChanges: Bool = true,
+         searchPrompt: String? = nil,
          searchFilter: ((Data.Element, String) -> Bool)? = nil,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
@@ -1071,6 +1112,7 @@ extension ListPickerDestinationContent {
                   isSingleSelection: true,
                   allowEmpty: false,
                   isTrackingLiveChanges: isTrackingLiveChanges,
+                  searchPrompt: searchPrompt,
                   searchFilter: searchFilter,
                   rowContent: rowContent)
     }
@@ -1081,6 +1123,7 @@ extension ListPickerDestinationContent {
          children: KeyPath<Data.Element, Data?>? = nil,
          selections: Binding<Set<ID>?>,
          isTrackingLiveChanges: Bool = true,
+         searchPrompt: String? = nil,
          searchFilter: ((Data.Element, String) -> Bool)? = nil,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
@@ -1096,6 +1139,7 @@ extension ListPickerDestinationContent {
                   isSingleSelection: false,
                   allowEmpty: true,
                   isTrackingLiveChanges: isTrackingLiveChanges,
+                  searchPrompt: searchPrompt,
                   searchFilter: searchFilter,
                   rowContent: rowContent)
     }
@@ -1106,6 +1150,7 @@ extension ListPickerDestinationContent {
          children: KeyPath<Data.Element, Data?>? = nil,
          selections: Binding<Set<ID>>,
          isTrackingLiveChanges: Bool = true,
+         searchPrompt: String? = nil,
          searchFilter: ((Data.Element, String) -> Bool)? = nil,
          @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
@@ -1116,6 +1161,7 @@ extension ListPickerDestinationContent {
                   isSingleSelection: false,
                   allowEmpty: true,
                   isTrackingLiveChanges: isTrackingLiveChanges,
+                  searchPrompt: searchPrompt,
                   searchFilter: searchFilter,
                   rowContent: rowContent)
     }

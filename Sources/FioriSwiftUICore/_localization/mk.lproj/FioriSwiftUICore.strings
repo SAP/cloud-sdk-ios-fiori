@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Не е избран датум";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Не е избран опсег";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "притиснете Space за да поставите вредност за опсег";
+
 /* XBUT: calendar time component label */
 "Time" = "Време";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "грешка";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "пораки";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "информации";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "потврди";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "предупредувања";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "грешки";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Известување за вештачка интелигенција";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Ресетирај";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Предложено од вештачка интелигенција. Потврдете пред употреба. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Фотографии";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Датотеки";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Камера";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Скенирај";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Преглед";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Да се избрише прилогот?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Избриши";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Додај прилог";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Допрете двапати за додавање прилог";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Сликичка";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "Се поставува %@, почекајте...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "Поставувањето на %@ не успеа. Порака за грешка: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Најави се";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "корисничко име";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "лозинка";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Поднеси";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Поднесувањето не успеа";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Настана грешка. Обидете се повторно подоцна.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Обиди се повторно";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Позитивни повратни информации";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Негативни повратни информации";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "овозможено";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Скенирањето не успеа";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Изберете слика со QR-код.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Неважечки QR-код";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR-кодот не е препознаен.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Дозволи пристап до фотографии";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "За да изберете слика со QR-код, овозможете пристап до вашите фотографии во поставките за приватност на уредот.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Дозволи пристап до камерата";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "За да скенирате со помош на камерата, овозможете пристап до камерата во поставките за приватност на уредот.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Поставки";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "стрелка за надолу";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "стрелка за нагоре";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "Flash e деактивиран";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "Flash e активиран";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Фотографија %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Скенирањето успеа. Ќе се поврзете со:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Продолжи";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Помошник за пишување";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Верзија %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Врати";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Повтори";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Дали сакате да ги поништите уредувањата направени од Помошникот за пишување и да го вратите текстот во својата првична состојба?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Отфрлете ги сите промени?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Продолжи со работа";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Отфрли";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Ви благодариме за повратните информации";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "Што не ви се допаѓа кај оваа верзија?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Оценете го искуството за да ни помогнете да се подобриме.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Повратни информации";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Каков беше овој одговор?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d избран датум";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d избрани датуми";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "има настан";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Допрете двапати за да го промените изборот";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Допрете двапати за да изберете";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Допрете двапати за да го поништите изборот";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Датумот е избран";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Денес";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Датум на деактивирање";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Рачка за префрлање од месечен во неделен приказ";
+
+/* XTIT: Title for card */
+"Card title" = "Наслов на картичката";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Поднаслов на картичката";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Допрете за да се вклучи";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Допрете за да се исклучи";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Панелот за ВИ-помошникот за пишување е отворен. Користете ги дадените барања за да ја подобрите текстуалната содржина.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Допрете двапати за да се активира";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Отворете за да видите %@ опции";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Врати на верзијата %d од %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Повтори на верзијата %d од %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Текстот е ажуриран на верзијата %d од %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "ВИ-помошник за пишување";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "допрете двапати за да го отворите ВИ-помошникот за пишување и да уредувате текст";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Врати промена";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Повторни промена";
+
+/* XBUT: Close button title */
+"Close" = "Затвори";
 

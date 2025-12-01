@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "Nenhuma data selecionada";
 
+/* Default value for DateRangePicker */
+"No range selected" = "Nenhum intervalo selecionado";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "prima espaço para definir um valor do intervalo";
+
 /* XBUT: calendar time component label */
 "Time" = "Hora";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "erro";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "mensagens";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "informações";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "confirmações";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "avisos";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "erros";
+/* XBUT: banner message type desc, error */
+"AI notice" = "Aviso de IA";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Repor";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "Sugerido por IA. Verificar antes da utilização. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "Fotografias";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "Ficheiros";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "Câmara";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "Digitalizar";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "Pré-visualização";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "Eliminar anexo?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "Eliminar";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "Adicionar anexo";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "Toque duas vezes para adicionar anexo";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "Miniatura";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "A carregar %@, aguarde...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "O carregamento de %@ falhou. Mensagem de erro: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "Iniciar sessão";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "nome de utilizador";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "palavra-passe";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "Enviar";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "Falha no envio";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "Ocorreu um erro. Tente novamente mais tarde.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "Repetir";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "Feedback positivo";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "Feedback negativo";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "ativado";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "Digitalização sem êxito";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "Selecione uma imagem de código QR.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "Código QR inválido";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "O código QR não foi reconhecido.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "Permitir acesso a fotografias";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "Para escolher uma imagem de código QR, permita o acesso às suas fotografias nas definições de privacidade do dispositivo.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "Permitir acesso à câmara";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Para digitalizar com a câmara, permita o acesso à câmara nas definições de privacidade do dispositivo.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "Definições";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "seta para baixo";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "seta para cima";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "flash desativado";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "flash ativado";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "Fotografia %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "Digitalização com êxito. Será ligado a:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "Continuar";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "Assistente de escrita";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "Versão %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "Anular";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "Refazer";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "Pretende anular as edições efetuadas pelo Assistente de escrita e reverter o texto para o seu estado original?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "Rejeitar todas as alterações?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "Continuar a trabalhar";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "Rejeitar";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "Obrigado pelo seu feedback";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "O que não gostou sobre esta versão?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "Avalie a sua experiência para nos ajudar a melhorar.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "Feedback";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "Como foi esta resposta?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d Data selecionada";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d Datas selecionadas";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "tem evento";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "Toque duas vezes para alterar a seleção";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "Toque duas vezes para selecionar";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "Toque duas vezes para anular seleção";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "Data selecionada";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "Hoje";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "Data desativada";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "Manipulador para mudar de vista do mês para vista da semana";
+
+/* XTIT: Title for card */
+"Card title" = "Título do cartão";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "Subtítulo do cartão";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "Toque para ligar";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "Toque para desligar";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "Painel do assistente de escrita de IA aberto. Utilize os pedidos fornecidos para  refinar o conteúdo do seu texto.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "Toque duas vezes para ativar.";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "Abrir para ver %@ opções";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "Anular para versão %d de %d";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "Refazer para versão %d de %d";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "Texto atualizado para versão %d de %d";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "Assistente de escrita de IA";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "Toque duas vezes para abrir o Assistente de escrita de IA e editar texto";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "Anular alteração";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "Refazer alteração";
+
+/* XBUT: Close button title */
+"Close" = "Fechar";
 

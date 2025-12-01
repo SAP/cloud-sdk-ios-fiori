@@ -148,6 +148,12 @@
 /* Default value for DateTimePicker */
 "No date selected" = "कोई तिथि चयनित नहीं है";
 
+/* Default value for DateRangePicker */
+"No range selected" = "कोई श्रेणी चयनित नहीं";
+
+/* DateRangePicker press space to set a range value */
+"PressSpaceToSelectRangeKey" = "एक सीमा मान सेट करने के लिए स्पेस दबाएं";
+
 /* XBUT: calendar time component label */
 "Time" = "समय";
 
@@ -247,20 +253,8 @@
 /* XBUT: banner message type desc, error */
 "error" = "त्रुटी";
 
-/* XBUT: banner message type desc in plural form, messages */
-"messages" = "संदेश";
-
-/* XBUT: banner message type desc in plural form, information */
-"information" = "जानकारी";
-
-/* XBUT: banner message type desc in plural form, confirmations */
-"confirmations" = "पुष्टि करें";
-
-/* XBUT: banner message type desc in plural form, warnings */
-"warnings" = "चेतावनी ";
-
-/* XBUT: banner message type desc in plural form, errors */
-"errors" = "त्रुटियां";
+/* XBUT: banner message type desc, error */
+"AI notice" = "AI सूचना";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "रीसेट करें";
@@ -381,4 +375,232 @@
 
 /* XMSG: AI Notice message */
 "Suggested by AI. Verify before use. " = "AI द्वारा सुझाया गया. उपयोग करने से पहले सत्यापित करें. ";
+
+/* XBUT: Attachment operation menu item - Photos, which stands for Photo Library */
+"Photos" = "फ़ोटो";
+
+/* XBUT: Attachment operation menu item - Files, which stands for documents available for upload residing in Files */
+"Files" = "फ़ाइल";
+
+/* XBUT: Attachment operation menu item - Camera, which can be used for taking photos and movies */
+"Camera" = "कैमरा";
+
+/* XBUT: Attachment operation menu item - Scan. Use camera as scanner and generate PDF files */
+"Scan" = "स्कैन करें";
+
+/* XACT: The accessibility preview action for the attachment */
+"Preview" = "पूर्वावलोकन";
+
+/* XTIT: Attachment title of deletion confirmation */
+"Delete Attachment?" = "अनुलग्नक हटाएं?";
+
+/* XBUT: Attachment deletion confirmation button */
+"Delete" = "हटाएं";
+
+/* XBUT: Attachment add button */
+"Add attachment" = "अनुलग्नक जोड़ें";
+
+/* XACT: The accessibility hint for add button */
+"Double tap to add attachment" = "अनुलग्नक जोड़ने के लिए दो बार टैप करें";
+
+/* XMSG: Attachment thumbnail */
+"Thumbnail" = "थंबनेल";
+
+/* XMSG: Attachment uploading */
+"Attachment uploading" = "%@ को अपलोड कर रहा है, कृपया प्रतीक्षा करें...";
+
+/* XMSG: Attachment error */
+"Attachment error" = "%@ को अपलोड करना विफल रहा. त्रुटि संदेश: %@";
+
+/* XBUT: Sign In Action in the Authentication */
+"Sign In" = "साइन इन";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"username" = "उपयोगकर्ता नाम";
+
+/* XMSG: Placeholder text for inputView in the Authentication */
+"password" = "पासवर्ड";
+
+/* XBUT: Submit action title in AI User Feedback */
+"Submit" = "सबमिट करें";
+
+/* XMSG: Submission failed title in AI User Feedback */
+"Submission failed" = "सबमिशन विफल रहा";
+
+/* XMSG: Submission failed description in AI User Feedback */
+"An error has occurred. Please try again later." = "एक त्रुटि हुई है. कृपया बाद में पुनः प्रयास करें.";
+
+/* XBUT: Retry action title in AI User Feedback */
+"Retry" = "पुन: प्रयास करें";
+
+/* XACT: The accessibility label for the like button in AI User Feedback */
+"Positive feedback" = "सकारात्मक फ़ीडबैक";
+
+/* XACT: The accessibility label for the dislike button in AI User Feedback */
+"Negative feedback" = "नकारात्मक फ़ीडबैक";
+
+/* XACT: The accessibility label for the vote buttons in AI User Feedback */
+"enabled" = "समक्ष किया गया";
+
+/* XMSG: Onboarding scan view title for scan unsuccessful */
+"Scan Unsuccessful" = "स्कैन असफल रहा";
+
+/* XMSG: Onboarding scan view hint for scan unsuccessful */
+"Please select a QR code image." = "कृपया एक QR कोड छवि चुनें.";
+
+/* XMSG: Onboarding scan view title for invalid QR code */
+"Invalid QR Code" = "अमान्य QR कोड";
+
+/* XMSG: Onboarding scan view hint for invalid QR code */
+"The QR code was not recognized." = "QR  कोड की पहचान नहीं हो पाई.";
+
+/* XTIT: Onboarding scan view title for request access to photos library */
+"Allow Access to Photos" = "फ़ोटो तक पहुंच की अनुमति दें";
+
+/* XMSG: Onboarding scan view hint for request access to photos library */
+"To choose a QR code image, please give access to your photos in your device's privacy settings." = "QR कोड छवि चुनने के लिए, कृपया अपने डिवाइस की गोपनीयता सेटिंग में अपनी तस्वीरों तक पहुंच प्रदान करें.";
+
+/* XTIT: Onboarding scan view title for request access to camera */
+"Allow Access to Camera" = "कैमरे तक पहुंच की अनुमति दें";
+
+/* XMSG: Onboarding scan view hint for request access to camera */
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "कैमरे का उपयोग करके स्कैन करने के लिए, कृपया अपने डिवाइस की गोपनीयता सेटिंग में अपने कैमरे तक पहुंच प्रदान करें.";
+
+/* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
+"Settings" = "सेटिंग";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"down arrow" = "नीचे की ओर तीर";
+
+/* XACT: The accessibility hint for arrow button in onboarding scan view */
+"up arrow" = "ऊपर की ओर तीर";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash deactivated" = "फ़्लैश निष्क्रिय किया गया";
+
+/* XACT: The accessibility hint for flash in onboarding scan view */
+"flash activated" = "फ़्लैश सक्रिय किया गया";
+
+/* XACT: The accessibility hint for photos in onboarding photo picker view */
+"Photo %d" = "फ़ोटो %d";
+
+/* XMSG: Onboarding confirm view success message */
+"Scan succeeded. You will be connected to:" = "स्कैन सफल रहा. आप इससे जुड़े रहेंगे:";
+
+/* XBUT: Onboarding confirm view action title for continue button */
+"Continue" = "जारी रखें";
+
+/* XTIT: Title for writing assistant */
+"Writing Assistant" = "लेखन सहायक";
+
+/* XMSG: Writing assistant version control */
+"Version %d/%d" = "संस्करण %d/%d";
+
+/* XBUT: Writing assistant undo action title */
+"Undo" = "पूर्ववत करें";
+
+/* XBUT: Writing assistant redo action title */
+"Redo" = "फ़िर से करें";
+
+/* XTIT: Writing assistant cancel alert message */
+"Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?" = "क्या आप लेखन सहायक द्वारा किए गए संपादनों को पूर्ववत करना चाहते हैं और टेक्स्ट को इसकी मूल स्थिति में वापस लाना चाहते हैं?";
+
+/* XTIT: Writing assistant cancel alert title */
+"Discard all changes?" = "सभी परिवर्तनों को रद्द करें?";
+
+/* XBUT: Writing assistant cancel alert action title for keep working */
+"Keep Working" = "कार्य करना जारी रखें";
+
+/* XBUT: Writing assistant cancel alert action title for discard */
+"Discard" = "हटाएं";
+
+/* XMSG: A success toast message for feedback flow in writing assistant */
+"Thank you for your feedback" = "आपके फ़ीडबैक के लिए धन्यवाद";
+
+/* XTIT: Title for feedback downvote flow in writing assistant */
+"What didn’t you like about this version?" = "आपको इस संस्करण में क्या पसंद नहीं आया?";
+
+/* XTIT: Subtitle for feedback downvote flow in writing assistant */
+"Please rate your experience to help us improve." = "कृपया अपने अनुभव को रेट करें, ताकि हम सुधार कर सकें.";
+
+/* XTIT: Navigation bar title for feedback flow */
+"Feedback" = "फ़ीडबैक";
+
+/* XTIT: Footnote text for feedback in writing assistant */
+"How was this response?" = "यह प्रतिसाद कैसा था?";
+
+/* XMSG: One date selected for .datesSelection style in Calendar view */
+"%d Date Selected" = "%d दिनांक का चयन किया गया";
+
+/* XMSG: Multiple dates selected for .datesSelection style in Calendar view */
+"%d Dates Selected" = "%d दिनांकों का चयन किया गया";
+
+/* XMSG: Has event, used in voice over in calendar view */
+"has event" = "ईवेंट है";
+
+/* XMSG: Double tap to change the selection, used in voice over in calendar view */
+"Double tap to change the selection" = "चयन में परिवर्तन करने के लिए दो बार टैप करें";
+
+/* XMSG: Double tap to select, used in voice over in calendar view */
+"Double tap to select" = "चयन करने के लिए डबल टैप";
+
+/* XMSG: Double tap to unselect, used in voice over in calendar view */
+"Double tap to unselect" = "चयन नहीं करने के लिए डबल टैप";
+
+/* XMSG: Date selected, used in voiceOver in calendar view */
+"Date selected" = "दिनांक चयनित";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Today" = "आज";
+
+/* XMSG: Date is today, used in voiceOver in calendar view */
+"Disabled date" = "अक्षम दिनांक";
+
+/* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
+"Handle to switch from month view to week view" = "महीने के दृश्य से सप्ताह के दृश्य में स्विच करने के लिए हैंडल";
+
+/* XTIT: Title for card */
+"Card title" = "कार्ड का शिर्षक";
+
+/* XTIT: Subtitle for card */
+"Card subtitle" = "कार्ड का उपशीर्षक";
+
+/* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
+"Switch Item On" = "चालू करने के लिए टैप करें";
+
+/* XACT: The accessibility label for the switchItem turn off button in FilterFeedbackBar */
+"Switch Item Off" = "बंद करने के लिए टैप करें";
+
+/* XMSG: Writing assistant panel opening announcement */
+"AI Writing Assistant panel opened. Use provided prompts to refine your text content." = "AI लेखन सहायक पैनल खुला. अपने टेक्स्ट की सामग्री को परिष्कृत करने के लिए प्रदान किए गए प्रॉम्प्ट उपयोग करें.";
+
+/* XMSG: Writing assistant activation cell hint for accessibility */
+"Double tap to activate" = "सक्रिय करने के लिए दो बार टैप करें";
+
+/* XMSG: Writing assistant options entry cell hint for accessibility */
+"Open to see %@ options" = "%@ विकल्प देखने के लिए खोलें";
+
+/* XMSG: Writing assistant undo announcement */
+"Undo to Version %d of %d" = "%d के संस्करण %d के लिए पूर्ववत करें";
+
+/* XMSG: Writing assistant redo announcement */
+"Redo to Version %d of %d" = "%d के संस्करण %d के लिए फिर से करें";
+
+/* XMSG: Writing assistant version update announcement */
+"Text updated to Version %d of %d" = "%d के संस्करण %d के लिए टेक्स्ट अपडेट किया गया";
+
+/* XTIT: Writing assistant title accessibility label */
+"AI Writing Assistant" = "AI लेखन सहायक";
+
+/* XMSG: Writing assistant accessibility instruction for text editing */
+"double tap to open AI Writing Assistant and edit text" = "AI लेखन सहायक खोलने के लिए दो बार टैप करें और टेक्स्ट संपादित करें";
+
+/* XBUT: Writing assistant undo accessibility label */
+"Undo change" = "परिवर्तन पूर्ववत करें";
+
+/* XBUT: Writing assistant redo accessibility label */
+"Rodo change" = "परिवर्तन फिर से करें";
+
+/* XBUT: Close button title */
+"Close" = "बंद करें";
 

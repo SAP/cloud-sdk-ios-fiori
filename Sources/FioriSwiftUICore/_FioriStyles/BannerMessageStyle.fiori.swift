@@ -53,7 +53,9 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                 }
                 Spacer()
                 if configuration.messageType != .aiNotice {
-                    configuration.closeAction.padding(.trailing)
+                    configuration.closeAction
+                        .frame(minWidth: 44, minHeight: 30)
+                        .contentShape(Rectangle())
                 }
             }
             .frame(minHeight: 39)
@@ -464,36 +466,26 @@ struct BannerMessageModifier: ViewModifier {
                             self.showingMessageDetail = true
                             
                             if UIDevice.current.userInterfaceIdiom == .phone {
-                                if #available(iOS 26.0, *) {
-                                    // do nothing
-                                } else {
-                                    self.isPresented = false
-                                }
+                                self.isPresented = false
                             }
                         }
                         return .handled
                     }))
                     .frame(minWidth: (UIDevice.current.userInterfaceIdiom != .phone && self.alignment != .center) ? 393 : nil, alignment: .leading)
-                    .popover(isPresented: self.$showingMessageDetail) {
-                        BannerMultiMessageSheet(title: {
-                            EmptyView()
-                        }, closeAction: {
-                            EmptyView()
-                        }, dismissAction: {
-                            self.showingMessageDetail = false
-                        }, removeAction: { _, _ in
-                            if self.bannerMultiMessages.isEmpty {
-                                self.isPresented = false
-                            }
-                        }, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, bannerMultiMessages: self.$bannerMultiMessages)
-                            .presentationDetents([.medium, .large])
-                    }
+                    .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: {
+                        $0.popover(isPresented: self.$showingMessageDetail) {
+                            self.bannerMultiMessageSheet
+                                .presentationDetents([.medium, .large])
+                        }
+                    })
+                    .accessibilityAddTraits(.isLink)
             }
         }, closeAction: {
             FioriButton { state in
                 if state == .normal {
                     withAnimation {
                         self.isPresented = false
+                        self.focusState = true
                     }
                 }
             } label: { _ in
@@ -504,6 +496,9 @@ struct BannerMessageModifier: ViewModifier {
                 if abs(self.offset + size.height) > 0.1, !self.showingMessageDetail {
                     self.offset = -size.height
                 }
+            }
+            .onAppear {
+                self.focusState = false
             }
     }
     
@@ -517,7 +512,14 @@ struct BannerMessageModifier: ViewModifier {
                         .transition(.move(edge: .top).combined(with: .opacity))
                 }
                 content
+                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                        $0.popover(isPresented: self.$showingMessageDetail) {
+                            self.bannerMultiMessageSheet
+                                .presentationDetents([.medium, .large])
+                        }
+                    })
             }
+            .focused(self.$focusState)
             .animation(.easeInOut, value: self.isPresented)
         } else {
             // If pushContentDown is false, we use the OVERLAY layout.
@@ -529,6 +531,29 @@ struct BannerMessageModifier: ViewModifier {
                     }
                 }
                 .animation(.easeInOut, value: self.isPresented)
+                .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                    $0.popover(isPresented: self.$showingMessageDetail) {
+                        self.bannerMultiMessageSheet
+                            .presentationDetents([.medium, .large])
+                    }
+                })
+                .focused(self.$focusState)
         }
+    }
+    
+    @FocusState var focusState: Bool
+    
+    @ViewBuilder var bannerMultiMessageSheet: some View {
+        BannerMultiMessageSheet(title: {
+            EmptyView()
+        }, closeAction: {
+            EmptyView()
+        }, dismissAction: {
+            self.showingMessageDetail = false
+        }, removeAction: { _, _ in
+            if self.bannerMultiMessages.isEmpty {
+                self.isPresented = false
+            }
+        }, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, bannerMultiMessages: self.$bannerMultiMessages)
     }
 }

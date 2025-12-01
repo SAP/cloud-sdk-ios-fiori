@@ -52,6 +52,7 @@ extension StepperViewFioriStyle {
                                 .foregroundColor(.preferredColor(self.isFocused ? .tintColor : .separator))
                         )
                         .focused(self.$isFocused)
+                        .fixedSize(horizontal: true, vertical: false)
                 }
         }
     }
@@ -87,7 +88,6 @@ extension StepperViewFioriStyle {
                 .frame(minWidth: 44)
                 .multilineTextAlignment(.center)
                 .textFieldStyle(PlainTextFieldStyle())
-                .fixedSize(horizontal: true, vertical: false)
         }
     }
 
