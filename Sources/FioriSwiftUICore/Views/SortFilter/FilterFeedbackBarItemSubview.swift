@@ -35,6 +35,7 @@ struct SliderMenuItem: View {
     @State private var geometrySizeHeight: CGFloat = 0
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
+    @AccessibilityFocusState private var isBarItemFocused: Bool
     
     var onUpdate: () -> Void
 
@@ -45,8 +46,18 @@ struct SliderMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    // Use AccessibilityFocusState to restore focus - this is more reliable and SwiftUI-native
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -269,6 +280,7 @@ struct PickerMenuItem: View {
     let popoverWidth = 393.0
     @State var _keyboardHeight = 0.0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
         
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -312,8 +324,17 @@ struct PickerMenuItem: View {
     @ViewBuilder
     var button: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -432,8 +453,17 @@ struct PickerMenuItem: View {
     
     @MainActor private func phoneView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -474,9 +504,18 @@ struct PickerMenuItem: View {
     
     @MainActor private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .contentShape(Rectangle())
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
                 CancellableResettableDialogNavigationForm {
@@ -591,6 +630,7 @@ struct PickerMenuItem: View {
                 selections: self.$item.workingValueSet,
                 allowEmpty: self.item.allowsEmptySelection,
                 isTrackingLiveChanges: true,
+                searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
@@ -601,6 +641,7 @@ struct PickerMenuItem: View {
                 id: \.id,
                 selection: selectionBinding,
                 isTrackingLiveChanges: true,
+                searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
@@ -681,6 +722,7 @@ struct DateTimeMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
     
     var onUpdate: () -> Void
     
@@ -750,8 +792,17 @@ struct DateTimeMenuItem: View {
     
     private func phoneView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -798,8 +849,17 @@ struct DateTimeMenuItem: View {
     
     private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
                 CancellableResettableDialogNavigationForm {
@@ -881,6 +941,7 @@ struct StepperMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
 
     var onUpdate: () -> Void
     
@@ -896,8 +957,17 @@ struct StepperMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -1043,6 +1113,7 @@ struct TitleMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
 
     var onUpdate: () -> Void
     
@@ -1055,8 +1126,17 @@ struct TitleMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -1142,6 +1222,7 @@ struct NoteMenuItem: View {
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
     @State var _keyboardHeight = 0.0
+    @AccessibilityFocusState private var isBarItemFocused: Bool
 
     var onUpdate: () -> Void
     
@@ -1154,8 +1235,17 @@ struct NoteMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {
@@ -1291,6 +1381,7 @@ struct DurationPickerMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
 
     var onUpdate: () -> Void
     
@@ -1303,8 +1394,17 @@ struct DurationPickerMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -1382,6 +1482,7 @@ struct OrderPickerMenuItem: View {
 
     @State var detentHeight: CGFloat = 0
     @State var barItemFrame: CGRect = .zero
+    @AccessibilityFocusState private var isBarItemFocused: Bool
 
     var onUpdate: () -> Void
     
@@ -1394,8 +1495,17 @@ struct OrderPickerMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 CancellableResettableDialogNavigationForm {
@@ -1496,6 +1606,7 @@ struct FullCFGMenuItem: View {
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
     @State var detentHeight: CGFloat = 0
+    @AccessibilityFocusState private var isBarItemFocused: Bool
     let popoverWidth = 393.0
 
     var onUpdate: () -> Void
@@ -1509,8 +1620,17 @@ struct FullCFGMenuItem: View {
     
     var body: some View {
         FilterFeedbackBarItem(icon: icon(name: self.fullCFGButton.icon, isVisible: true), title: self.fullCFGButton.name.attributedString ?? "", isSelected: true)
+            .accessibilityFocused(self.$isBarItemFocused)
             .onTapGesture {
                 self.isSheetVisible.toggle()
+            }
+            .onChange(of: self.isSheetVisible) { _, newValue in
+                // When popover is closed (either via Close button or pull-down gesture), restore VoiceOver focus to the FilterFeedbackBarItem
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isBarItemFocused = true
+                    }
+                }
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.modifier(PopoverSizeModifier(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection(), popoverSize: CGSize(width: self.popoverWidth, height: self.detentHeight), popoverContent: {

@@ -18,8 +18,10 @@ struct BannerMessageCustomInitExample: View {
         BannerMessage(icon: {
             if self.showAINotice {
                 Image(fioriName: "fiori.ai")
+                    .accessibilityLabel(Text("ai notice"))
             } else {
                 Image(systemName: "info.circle")
+                    .accessibilityLabel(Text("negative"))
             }
         }, title: {
             if self.showAINotice {
@@ -75,13 +77,22 @@ struct BannerMessageCustomInitExample: View {
                 }
                 
                 Toggle("With Custom Style", isOn: self.$isCustomStyle)
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        0
+                    })
                 
                 Picker("Header Type", selection: self.$headerSelection) {
                     Text("Object Header").tag(BannerHeader.object)
                     Text("KPI Header").tag(BannerHeader.kpi)
                 }
+                .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                    0
+                })
                 
                 Toggle("AI Notice", isOn: self.$showAINotice)
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                        0
+                    })
             } header: {}
         }.listStyle(.plain)
             .navigationTitle("Custom Creation")

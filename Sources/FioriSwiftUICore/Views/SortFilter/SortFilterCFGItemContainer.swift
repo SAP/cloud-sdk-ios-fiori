@@ -289,16 +289,22 @@ extension SortFilterCFGItemContainer: View {
                 switch self._items[r][c].picker.barItemDisplayMode {
                 case .name:
                     Text(self._items[r][c].picker.name)
+                        .accessibilityElement()
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 case .value:
                     Text(self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 case .nameAndValue:
                     Text(self._items[r][c].picker.name + ": " + self._items[r][c].picker.valueOptions[workingValue.wrappedValue[0]])
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 }
             } else {
                 if self._items[r][c].picker.allowsMultipleSelection, workingValue.count >= 1 {
                     Text("\(self._items[r][c].picker.name) (\(workingValue.count))")
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 } else {
                     Text(self._items[r][c].picker.name)
+                        .accessibilityHint("Double tap to change the selection".localizedFioriString())
                 }
             }
         }, axis: .horizontal, destination: {

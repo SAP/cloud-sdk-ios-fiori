@@ -16,16 +16,20 @@ public enum BannerMultiMessageType: Int {
     case critical
     // Use this variant when a negative message is provided. For example, an error.
     case negative
+    // Use this variant when to provide contextual information. For example, the offline status of the application.
+    case offline
 }
 
 /// Base Layout style
 public struct BannerMessageBaseStyle: BannerMessageStyle {
     @Environment(\.bannerMessageBackgroundColor) var bannerMessageBackgroundColor
     
+    let closeActionWidth: CGFloat = 44.0
+    
     public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             configuration.topDivider.frame(height: 4)
-            HStack {
+            ZStack(alignment: .trailing, content: {
                 HStack(alignment: .firstTextBaseline, spacing: 6, content: {
                     switch configuration.alignment {
                     case .leading:
@@ -47,16 +51,20 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
                     }
                 })
                 .padding(.leading, self.getLeadingPadding(configuration: configuration))
-                .padding(.trailing, configuration.alignment == .center ? 0 : 16)
+                .padding(.trailing, self.getTrailingPadding(configuration: configuration))
                 .onTapGesture {
                     configuration.bannerTapAction?()
                 }
-                Spacer()
-                if configuration.messageType != .aiNotice {
-                    configuration.closeAction.padding(.trailing)
+                if configuration.messageType != .aiNotice, !configuration.hidesCloseAction {
+                    configuration.closeAction
+                        .frame(width: self.closeActionWidth)
+                        .frame(minHeight: 30)
+                        .contentShape(Rectangle())
                 }
-            }
+            })
             .frame(minHeight: 39)
+            .frame(maxWidth: .infinity)
+            
             if !configuration.hideSeparator {
                 Color.preferredColor(.separator).frame(height: 0.33)
             }
@@ -67,9 +75,17 @@ public struct BannerMessageBaseStyle: BannerMessageStyle {
     
     func getLeadingPadding(configuration: BannerMessageConfiguration) -> CGFloat {
         if configuration.alignment == .center {
-            return configuration.messageType == .aiNotice ? 0 : 44
+            return configuration.messageType == .aiNotice ? 0 : (configuration.hidesCloseAction ? 16 : self.closeActionWidth)
         } else {
             return 16
+        }
+    }
+    
+    func getTrailingPadding(configuration: BannerMessageConfiguration) -> CGFloat {
+        if configuration.alignment == .center, configuration.messageType == .aiNotice {
+            return 0
+        } else {
+            return configuration.hidesCloseAction ? 16 : self.closeActionWidth
         }
     }
 }
@@ -79,6 +95,15 @@ struct BannerMessageNeutralStyle: BannerMessageStyle {
         BannerMessage(configuration)
             .iconStyle { c in
                 c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .neutral))
+            }
+    }
+}
+
+struct BannerMessageOfflineStyle: BannerMessageStyle {
+    public func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .iconStyle { c in
+                c.icon.foregroundStyle(BannerMessageFioriStyle.titleForegroundColor(type: .offline))
             }
     }
 }
@@ -135,7 +160,7 @@ struct BannerMessageInformativeStyle: BannerMessageStyle {
 extension BannerMessageFioriStyle {
     static func titleForegroundColor(type: BannerMultiMessageType) -> Color {
         switch type {
-        case .neutral:
+        case .neutral, .aiNotice, .offline:
             Color.preferredColor(.neutralLabel)
         case .negative:
             Color.preferredColor(.negativeLabel)
@@ -145,8 +170,15 @@ extension BannerMessageFioriStyle {
             Color.preferredColor(.positiveLabel)
         case .informative:
             Color.preferredColor(.informativeLabel)
-        case .aiNotice:
-            Color.preferredColor(.neutralLabel)
+        }
+    }
+
+    static func topDividerBackgroundColor(type: BannerMultiMessageType) -> Color {
+        switch type {
+        case .offline:
+            .clear
+        default:
+            self.titleForegroundColor(type: type)
         }
     }
     
@@ -189,7 +221,7 @@ extension BannerMessageFioriStyle {
     
         func makeBody(_ configuration: TopDividerConfiguration) -> some View {
             TopDivider(configuration)
-                .background(BannerMessageFioriStyle.titleForegroundColor(type: self.bannerMessageConfiguration.messageType))
+                .background(BannerMessageFioriStyle.topDividerBackgroundColor(type: self.bannerMessageConfiguration.messageType))
         }
     }
 }
@@ -201,6 +233,9 @@ public extension View {
     ///   - pushContentDown: A binding to a Boolean value that determines whether push the content down below the banner message.
     ///   - title: Attributed string for the title.
     ///   - bannerTapped: Action for banner tapped.
+    ///   - alignment: A alignment for the icon and title.
+    ///   - hidesCloseAction: Hides close action or not. Default is false.
+    ///   - messageType: The type of message. Default is .negative.
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
@@ -208,6 +243,7 @@ public extension View {
                            title: AttributedString,
                            bannerTapped: (() -> Void)? = nil,
                            alignment: HorizontalAlignment? = nil,
+                           hidesCloseAction: Bool = false,
                            messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
@@ -217,6 +253,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
+                                            hidesCloseAction: hidesCloseAction,
                                             messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
@@ -229,6 +266,9 @@ public extension View {
     ///   - pushContentDown: A binding to a Boolean value that determines whether push the content down below the banner message.
     ///   - title: String for the title.
     ///   - bannerTapped: Action for banner tapped.
+    ///   - alignment: A alignment for the icon and title.
+    ///   - hidesCloseAction: Hides close action or not. Default is false.
+    ///   - messageType: The type of message. Default is .negative.
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
@@ -236,6 +276,7 @@ public extension View {
                            title: String,
                            bannerTapped: (() -> Void)? = nil,
                            alignment: HorizontalAlignment? = nil,
+                           hidesCloseAction: Bool = false,
                            messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
@@ -245,6 +286,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
+                                            hidesCloseAction: hidesCloseAction,
                                             messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
@@ -258,7 +300,9 @@ public extension View {
     ///   - title: A view for the title.
     ///   - bannerTapped: Action for banner tapped.
     ///   - icon: A view for the icon.
-    ///   - alignment: A alignment for the icon and title
+    ///   - alignment: A alignment for the icon and title.
+    ///   - hidesCloseAction: Hides close action or not. Default is false.
+    ///   - messageType: The type of message. Default is .negative.
     /// - Returns: A new `View` with banner message.
     func bannerMessageView(isPresented: Binding<Bool>,
                            pushContentDown: Binding<Bool> = .constant(false),
@@ -266,6 +310,7 @@ public extension View {
                            @ViewBuilder title: () -> any View,
                            bannerTapped: (() -> Void)? = nil,
                            alignment: HorizontalAlignment? = nil,
+                           hidesCloseAction: Bool = false,
                            messageType: BannerMultiMessageType? = .negative) -> some View
     {
         self.modifier(BannerMessageModifier(icon: icon(),
@@ -275,6 +320,7 @@ public extension View {
                                             bannerTapped: bannerTapped,
                                             alignment: alignment ?? .center,
                                             hideSeparator: false,
+                                            hidesCloseAction: hidesCloseAction,
                                             messageType: messageType ?? .negative,
                                             turnOnSectionHeader: true,
                                             showDetailLink: false,
@@ -290,6 +336,7 @@ public extension View {
     ///   - viewDetailAction: View the message detail callback, the parameter is message id, developer can use the id to scroll to the relative item
     ///   - alignment: A alignment for the icon and title.
     ///   - hideSeparator: Hide bottom separator or not.
+    ///   - hidesCloseAction: Hides close action or not. Default is false.
     ///   - messageType: The type of message, default is .negative
     ///   - turnOnSectionHeader: Show message detail section header or not, default is true
     ///   - showDetailLink: Show view details link or not
@@ -302,6 +349,7 @@ public extension View {
                            viewDetailAction: ((UUID) -> Void)? = nil,
                            alignment: HorizontalAlignment = .center,
                            hideSeparator: Bool = false,
+                           hidesCloseAction: Bool = false,
                            messageType: BannerMultiMessageType? = .negative,
                            turnOnSectionHeader: Bool = true,
                            showDetailLink: Bool = false,
@@ -326,6 +374,7 @@ public extension View {
                                                    viewDetailAction: viewDetailAction,
                                                    alignment: alignment,
                                                    hideSeparator: hideSeparator,
+                                                   hidesCloseAction: hidesCloseAction,
                                                    messageType: finalMessageType ?? .negative,
                                                    turnOnSectionHeader: turnOnSectionHeader,
                                                    showDetailLink: showDetailLink,
@@ -348,13 +397,14 @@ struct BannerMessageModifier: ViewModifier {
     var messageType: BannerMultiMessageType
     var turnOnSectionHeader: Bool
     var showDetailLink: Bool
+    var hidesCloseAction: Bool = false
     @State var offset: CGFloat = 0
     
     @Binding private var bannerMultiMessages: [BannerMessageListModel]
     
     @State private var showingMessageDetail: Bool = false
     
-    init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
+    init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, hidesCloseAction: Bool = false, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
         self.icon = icon
         self.title = title
         _isPresented = isPresented
@@ -363,6 +413,7 @@ struct BannerMessageModifier: ViewModifier {
         self.viewDetailAction = viewDetailAction
         self.alignment = alignment
         self.hideSeparator = hideSeparator
+        self.hidesCloseAction = hidesCloseAction
         self.messageType = messageType
         self.turnOnSectionHeader = turnOnSectionHeader
         self.showDetailLink = showDetailLink
@@ -430,17 +481,15 @@ struct BannerMessageModifier: ViewModifier {
             key = "error"
         case .aiNotice:
             key = "information"
+        case .offline:
+            key = "offline"
         }
         return NSLocalizedString(key + (count > 1 ? "s" : ""), tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
     }
     
     @ViewBuilder var defaultIcon: some View {
         switch self.messageType {
-        case .neutral:
-            Image(fioriName: "fiori.hint")
-        case .informative:
-            Image(fioriName: "fiori.hint")
-        case .positive:
+        case .neutral, .informative, .positive, .offline:
             Image(fioriName: "fiori.hint")
         case .critical:
             Image(fioriName: "fiori.warning2")
@@ -476,22 +525,27 @@ struct BannerMessageModifier: ViewModifier {
                                 .presentationDetents([.medium, .large])
                         }
                     })
+                    .accessibilityAddTraits(.isLink)
             }
         }, closeAction: {
             FioriButton { state in
                 if state == .normal {
                     withAnimation {
                         self.isPresented = false
+                        self.focusState = true
                     }
                 }
             } label: { _ in
                 Image(fioriName: "fiori.decline")
             }
-        }, bannerTapAction: self.bannerTapped, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink)
+        }, bannerTapAction: self.bannerTapped, alignment: self.alignment, hideSeparator: self.hideSeparator, hidesCloseAction: self.hidesCloseAction, messageType: self.messageType, showDetailLink: self.showDetailLink)
             .sizeReader { size in
                 if abs(self.offset + size.height) > 0.1, !self.showingMessageDetail {
                     self.offset = -size.height
                 }
+            }
+            .onAppear {
+                self.focusState = false
             }
     }
     
@@ -512,6 +566,7 @@ struct BannerMessageModifier: ViewModifier {
                         }
                     })
             }
+            .focused(self.$focusState)
             .animation(.easeInOut, value: self.isPresented)
         } else {
             // If pushContentDown is false, we use the OVERLAY layout.
@@ -529,8 +584,11 @@ struct BannerMessageModifier: ViewModifier {
                             .presentationDetents([.medium, .large])
                     }
                 })
+                .focused(self.$focusState)
         }
     }
+    
+    @FocusState var focusState: Bool
     
     @ViewBuilder var bannerMultiMessageSheet: some View {
         BannerMultiMessageSheet(title: {

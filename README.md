@@ -109,14 +109,14 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Section Header | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
-| BarcodeScanner | :x: |
+| BarcodeScanner | :white_check_mark: |
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
 | Skeleton Loading | :white_check_mark: |
 | Value Picker | :white_check_mark: |
-| Hierarchy View | :x: |
-| Calendar | :x: |
+| Hierarchy View | :white_check_mark: |
+| Calendar | :white_check_mark: |
 | Search To Select | :x: |
 | Progress Indicator | :white_check_mark: |
 | Processing Indicator | :white_check_mark: |

@@ -37,7 +37,7 @@ struct KPIHeaderExample: View {
                 Toggle("Skeleton Loading", isOn: self.$isLoading)
                 KPIHeader(items: self.isLoading ? self.skeletonData : self.data, isItemOrderForced: false, isPresented: .constant(false))
                 
-                Text("BannerMessage is displayed")
+                Text(self.isLoading ? "KPI Header is loading" : "KPI Header is displayed")
                 KPIHeader(items: self.data, bannerMessage: BannerMessage(icon: {
                     Image(systemName: "info.circle")
                 }, title: {
@@ -52,7 +52,7 @@ struct KPIHeaderExample: View {
                     }
                 }), isItemOrderForced: true, isPresented: self.$isPresentedBanner)
                 
-                Text("Init with custom views")
+                Text(self.isLoading ? "KPI Header is loading" : "KPI Header created by custom views")
                 KPIHeader(items: self.customViewData, isPresented: .constant(false))
                 Spacer()
             }
