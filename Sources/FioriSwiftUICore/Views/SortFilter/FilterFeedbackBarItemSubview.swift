@@ -630,6 +630,7 @@ struct PickerMenuItem: View {
                 selections: self.$item.workingValueSet,
                 allowEmpty: self.item.allowsEmptySelection,
                 isTrackingLiveChanges: true,
+                searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
@@ -640,6 +641,7 @@ struct PickerMenuItem: View {
                 id: \.id,
                 selection: selectionBinding,
                 isTrackingLiveChanges: true,
+                searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
                 Text(e.value)
