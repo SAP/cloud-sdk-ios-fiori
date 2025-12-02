@@ -286,6 +286,8 @@
 "error" = "error";
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI notice";
+/* XMSG: banner message type desc, offline */
+"offline" = "offline";
 
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reset";
