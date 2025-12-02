@@ -61,6 +61,8 @@ struct BasicComponentSkeletonLoading: View {
                             .fill(Color.preferredColor(.tertiaryFill))
                             .frame(width: 80, height: 80)
                     )
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("profile image")
                     .skeletonLoading(isLoading: self.isLoading)
                
                 Image(fioriName: "fiori.person.placeholder")
@@ -73,6 +75,8 @@ struct BasicComponentSkeletonLoading: View {
                             .fill(Color.preferredColor(.tertiaryFill))
                             .frame(width: 60, height: 60)
                     )
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("profile image")
                     .skeletonLoading(isLoading: self.isLoading)
                 
                 Image("flower")

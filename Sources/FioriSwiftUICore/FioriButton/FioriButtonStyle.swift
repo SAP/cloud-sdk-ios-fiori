@@ -262,6 +262,7 @@ public struct FioriNavigationButtonStyle: FioriButtonStyle {
                                               padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         return configuration.containerView(.unspecified)
             .fioriButtonConfiguration(config)
+            .contentShape(.accessibility, .rect.scale(x: 1.4, y: 1.1))
     }
 }
 
