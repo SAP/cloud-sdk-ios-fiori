@@ -1,3 +1,6 @@
+# print Xcode build for debugging purpose
+xcodebuild -version
+
 # generate overview page
 jazzy --sourcekitten-sourcefile ./jazzy/empty.json --clean --readme=./jazzy/Overview_README.md --disable-search --hide-documentation-coverage
 
