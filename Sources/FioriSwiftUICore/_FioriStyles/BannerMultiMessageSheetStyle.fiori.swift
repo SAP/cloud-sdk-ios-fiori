@@ -42,6 +42,8 @@ public struct BannerMessageItemModel: Identifiable {
             NSLocalizedString("error", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         case .aiNotice:
             NSLocalizedString("AI notice", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        case .offline:
+            "offline".localizedFioriString()
         }
     }
     
@@ -227,16 +229,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             return BannerMessageInformativeStyle()
         case .aiNotice:
             return BannerMessageNeutralStyle()
+        case .offline:
+            return BannerMessageOfflineStyle()
         }
     }
     
     func defaultIcon(_ messageType: BannerMultiMessageType) -> some View {
         switch messageType {
-        case .neutral:
-            Image(fioriName: "fiori.hint")
-        case .informative:
-            Image(fioriName: "fiori.hint")
-        case .positive:
+        case .neutral, .informative, .positive, .offline:
             Image(fioriName: "fiori.hint")
         case .critical:
             Image(fioriName: "fiori.warning2")
