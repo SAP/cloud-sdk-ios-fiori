@@ -9,7 +9,7 @@ struct ContentView: View {
     @State var fioriLocale: Locale = .none
 
     var body: some View {
-        GeometryReader { geo in
+        GeometryReader { _ in
             NavigationView {
                 List {
                     NavigationLink(
@@ -41,7 +41,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .toastMessage(isPresented: self.$showGlobalToastMessage, title: { Text("Toast Message") }, duration: 10, customPosition: CGPoint(x: geo.size.width / 2, y: geo.size.height * 0.8))
+            .toastMessage(isPresented: self.$showGlobalToastMessage, title: { Text("Toast Message") }, duration: 10, verticalPosition: 0.8)
             .environment(\.showGlobalToastMessage, self.$showGlobalToastMessage)
         }
         .sheet(isPresented: self.$showSettings) {
