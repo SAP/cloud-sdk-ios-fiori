@@ -14,6 +14,8 @@ public struct BannerMessage {
     let alignment: HorizontalAlignment
     /// Hide bottom separator or not. The default is false.
     let hideSeparator: Bool
+    /// Hides close action or not. The default is false.
+    let hidesCloseAction: Bool
     /// The icon and title's type. The default is `negative`.
     let messageType: BannerMultiMessageType
     /// Show detail link or not. The default is false. When showDetailLink is true, and click the link will perform to popup the detail sheet.
@@ -32,6 +34,7 @@ public struct BannerMessage {
                 bannerTapAction: (() -> Void)? = nil,
                 alignment: HorizontalAlignment = .center,
                 hideSeparator: Bool = false,
+                hidesCloseAction: Bool = false,
                 messageType: BannerMultiMessageType = .negative,
                 showDetailLink: Bool = false,
                 componentIdentifier: String? = BannerMessage.identifier)
@@ -43,6 +46,7 @@ public struct BannerMessage {
         self.bannerTapAction = bannerTapAction
         self.alignment = alignment
         self.hideSeparator = hideSeparator
+        self.hidesCloseAction = hidesCloseAction
         self.messageType = messageType
         self.showDetailLink = showDetailLink
         self.componentIdentifier = componentIdentifier ?? BannerMessage.identifier
@@ -61,10 +65,11 @@ public extension BannerMessage {
          bannerTapAction: (() -> Void)? = nil,
          alignment: HorizontalAlignment = .center,
          hideSeparator: Bool = false,
+         hidesCloseAction: Bool = false,
          messageType: BannerMultiMessageType = .negative,
          showDetailLink: Bool = false)
     {
-        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, messageType: messageType, showDetailLink: showDetailLink)
+        self.init(icon: { icon }, title: { Text(title) }, closeAction: { closeAction }, topDivider: topDivider, bannerTapAction: bannerTapAction, alignment: alignment, hideSeparator: hideSeparator, hidesCloseAction: hidesCloseAction, messageType: messageType, showDetailLink: showDetailLink)
     }
 }
 
@@ -81,6 +86,7 @@ public extension BannerMessage {
         self.bannerTapAction = configuration.bannerTapAction
         self.alignment = configuration.alignment
         self.hideSeparator = configuration.hideSeparator
+        self.hidesCloseAction = configuration.hidesCloseAction
         self.messageType = configuration.messageType
         self.showDetailLink = configuration.showDetailLink
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
@@ -93,7 +99,7 @@ extension BannerMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, hidesCloseAction: self.hidesCloseAction, messageType: self.messageType, showDetailLink: self.showDetailLink)).typeErased
                 .transformEnvironment(\.bannerMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -111,7 +117,7 @@ private extension BannerMessage {
     }
 
     func defaultStyle() -> some View {
-        BannerMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, messageType: self.messageType, showDetailLink: self.showDetailLink))
+        BannerMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, hidesCloseAction: self.hidesCloseAction, messageType: self.messageType, showDetailLink: self.showDetailLink))
             .shouldApplyDefaultStyle(false)
             .bannerMessageStyle(BannerMessageFioriStyle.ContentFioriStyle())
             .typeErased

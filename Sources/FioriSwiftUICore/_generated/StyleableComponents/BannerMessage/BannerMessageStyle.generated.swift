@@ -30,6 +30,7 @@ public struct BannerMessageConfiguration {
     public let bannerTapAction: (() -> Void)?
     public let alignment: HorizontalAlignment
     public let hideSeparator: Bool
+    public let hidesCloseAction: Bool
     public let messageType: BannerMultiMessageType
     public let showDetailLink: Bool
 
