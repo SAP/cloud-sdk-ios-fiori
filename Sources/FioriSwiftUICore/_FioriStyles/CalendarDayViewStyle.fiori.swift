@@ -113,7 +113,7 @@ public struct CalendarDayViewBaseStyle: CalendarDayViewStyle {
 extension CalendarDayViewConfiguration {
     var hasSubTitle: Bool {
         if let subtitle {
-            return subtitle.characters.count > 0
+            return !subtitle.characters.isEmpty
         }
         return false
     }
