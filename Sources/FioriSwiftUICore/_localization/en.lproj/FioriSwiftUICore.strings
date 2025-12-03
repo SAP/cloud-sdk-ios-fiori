@@ -398,7 +398,7 @@
 "read only" = "read only";
 
 /* XACT: The accessibility hint for attachment section */
-"actions avaiable" = "actions avaiable";
+"actions available" = "actions available";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Thumbnail";
