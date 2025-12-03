@@ -3262,7 +3262,11 @@ protocol _WritingAssistantFormComponent: _CancelActionComponent, _DoneActionComp
 /// .environment(\.selectionRangeColor, .red)
 /// ```
 // sourcery: CompositeComponent
-protocol _CalendarDayViewComponent: _TitleComponent, _SubtitleComponent {
+protocol _CalendarDayViewComponent {
+    /// The day of the date in Calendar.
+    var title: AttributedString { get }
+    /// The day of the date in alternative Calendar.
+    var subtitle: AttributedString? { get }
     /// This property indicates whether the event view is to be displayed or not. The default is false.
     // sourcery: default.value = false
     var isEventIndicatorVisible: Bool { get }

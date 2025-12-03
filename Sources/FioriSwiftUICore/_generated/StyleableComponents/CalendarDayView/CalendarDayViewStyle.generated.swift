@@ -23,14 +23,11 @@ struct AnyCalendarDayViewStyle: CalendarDayViewStyle {
 
 public struct CalendarDayViewConfiguration {
     public var componentIdentifier: String = "fiori_calendardayview_component"
-    public let title: Title
-    public let subtitle: Subtitle
+    public let title: AttributedString
+    public let subtitle: AttributedString?
     public let isEventIndicatorVisible: Bool
     public let state: CalendarDayState
     public let customEventView: any View
-
-    public typealias Title = ConfigurationViewWrapper
-    public typealias Subtitle = ConfigurationViewWrapper
 }
 
 extension CalendarDayViewConfiguration {
@@ -42,7 +39,5 @@ extension CalendarDayViewConfiguration {
 public struct CalendarDayViewFioriStyle: CalendarDayViewStyle {
     public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
         CalendarDayView(configuration)
-            .titleStyle(TitleFioriStyle(calendarDayViewConfiguration: configuration))
-            .subtitleStyle(SubtitleFioriStyle(calendarDayViewConfiguration: configuration))
     }
 }
