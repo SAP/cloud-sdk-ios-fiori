@@ -127,7 +127,7 @@ public struct CalendarWeekViewBaseStyle: CalendarWeekViewStyle {
             }
             return .disabled
         } else if style == .rangeSelection, let selectedRange = configuration.selectedRange, checkDateRangeContainsDate(selectedRange, date: date) {
-            if selectedRange.lowerBound == selectedRange.upperBound {
+            if calendar.compare(selectedRange.lowerBound, to: selectedRange.upperBound, toGranularity: .day) == .orderedSame {
                 return .singleSelected
             } else if calendar.compare(date, to: selectedRange.lowerBound, toGranularity: .day) == .orderedSame {
                 return .multiSelectedStart

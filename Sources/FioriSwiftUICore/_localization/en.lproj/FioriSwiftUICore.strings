@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "See All (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "See All";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d items";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Shows all timeline items in a list";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Current";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Future";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Past";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Item %d of %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Start";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "End";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Completed";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Open";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Task";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Item %d of %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Today, %d";
+"Today, %@" = "Today, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d of %d";
