@@ -30,8 +30,10 @@ import SwiftUI
 /// .environment(\.selectionRangeColor, .red)
 /// ```
 public struct CalendarDayView {
-    let title: any View
-    let subtitle: any View
+    /// The day of the date in Calendar.
+    let title: AttributedString
+    /// The day of the date in alternative Calendar.
+    let subtitle: AttributedString?
     /// This property indicates whether the event view is to be displayed or not. The default is false.
     let isEventIndicatorVisible: Bool
     /// The state of the day  view. The default is `.normal`.
@@ -45,15 +47,15 @@ public struct CalendarDayView {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder subtitle: () -> any View = { EmptyView() },
+    public init(title: AttributedString,
+                subtitle: AttributedString? = nil,
                 isEventIndicatorVisible: Bool = false,
                 state: CalendarDayState = .normal,
                 customEventView: any View = EmptyView(),
                 componentIdentifier: String? = CalendarDayView.identifier)
     {
-        self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.subtitle = Subtitle(subtitle: subtitle, componentIdentifier: componentIdentifier)
+        self.title = title
+        self.subtitle = subtitle
         self.isEventIndicatorVisible = isEventIndicatorVisible
         self.state = state
         self.customEventView = customEventView
@@ -63,17 +65,6 @@ public struct CalendarDayView {
 
 public extension CalendarDayView {
     static let identifier = "fiori_calendardayview_component"
-}
-
-public extension CalendarDayView {
-    init(title: AttributedString,
-         subtitle: AttributedString? = nil,
-         isEventIndicatorVisible: Bool = false,
-         state: CalendarDayState = .normal,
-         customEventView: any View = EmptyView())
-    {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, isEventIndicatorVisible: isEventIndicatorVisible, state: state, customEventView: customEventView)
-    }
 }
 
 public extension CalendarDayView {
@@ -97,7 +88,7 @@ extension CalendarDayView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.state, customEventView: self.customEventView)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: self.title, subtitle: self.subtitle, isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.state, customEventView: self.customEventView)).typeErased
                 .transformEnvironment(\.calendarDayViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -115,7 +106,7 @@ private extension CalendarDayView {
     }
 
     func defaultStyle() -> some View {
-        CalendarDayView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.state, customEventView: self.customEventView))
+        CalendarDayView(.init(componentIdentifier: self.componentIdentifier, title: self.title, subtitle: self.subtitle, isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.state, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)
             .calendarDayViewStyle(CalendarDayViewFioriStyle.ContentFioriStyle())
             .typeErased

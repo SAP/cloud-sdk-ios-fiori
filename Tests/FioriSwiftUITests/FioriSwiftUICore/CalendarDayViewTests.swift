@@ -13,7 +13,7 @@ final class CalendarDayViewTests: XCTestCase {
         let dayView = CalendarDayView(title: "28")
         XCTAssertNotNil(dayView)
         XCTAssertNotNil(dayView.title)
-        XCTAssertTrue(dayView.subtitle.isEmpty)
+        XCTAssertNil(dayView.subtitle)
         XCTAssertFalse(dayView.isEventIndicatorVisible)
         XCTAssertEqual(dayView.state, .normal)
         XCTAssertTrue(dayView.customEventView.isEmpty)
@@ -24,7 +24,7 @@ final class CalendarDayViewTests: XCTestCase {
         let dayView = CalendarDayView(title: "28", subtitle: "08", isEventIndicatorVisible: true, state: .today, customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red)))
         XCTAssertNotNil(dayView)
         XCTAssertNotNil(dayView.title)
-        XCTAssertFalse(dayView.subtitle.isEmpty)
+        XCTAssertNotNil(dayView.subtitle)
         XCTAssertTrue(dayView.isEventIndicatorVisible)
         XCTAssertEqual(dayView.state, .today)
         XCTAssertFalse(dayView.customEventView.isEmpty)
@@ -40,15 +40,15 @@ final class CalendarDayViewTests: XCTestCase {
     
     func testCalendarDayViewConfiguration() {
         let configuration = CalendarDayViewConfiguration(
-            title: CalendarDayViewConfiguration.Title(Text("28")),
-            subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
+            title: "28",
+            subtitle: "08",
             isEventIndicatorVisible: true,
             state: .singleSelected,
             customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red))
         )
         XCTAssertNotNil(configuration)
         XCTAssertNotNil(configuration.title)
-        XCTAssertFalse(configuration.subtitle.isEmpty)
+        XCTAssertNotNil(configuration.subtitle)
         XCTAssertTrue(configuration.isEventIndicatorVisible)
         XCTAssertEqual(configuration.state, .singleSelected)
         XCTAssertFalse(configuration.customEventView.isEmpty)
@@ -69,10 +69,21 @@ final class CalendarDayViewTests: XCTestCase {
         XCTAssertTrue(configuration.isDirectChild("fiori_calendardayview_component"))
     }
     
+    func testCalendarDayViewConfiguration_hasSubtitle() {
+        let configuration = CalendarDayViewConfiguration(
+            title: "28",
+            subtitle: nil,
+            isEventIndicatorVisible: true,
+            state: .singleSelectedAndToday,
+            customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red))
+        )
+        XCTAssertFalse(configuration.hasSubTitle)
+    }
+    
     func testCalendarDayViewConfiguration_singleSelectedAndToday() {
         let configuration = CalendarDayViewConfiguration(
-            title: CalendarDayViewConfiguration.Title(Text("28")),
-            subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
+            title: "28",
+            subtitle: "08",
             isEventIndicatorVisible: true,
             state: .singleSelectedAndToday,
             customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red))
@@ -86,8 +97,8 @@ final class CalendarDayViewTests: XCTestCase {
     
     func testCalendarDayViewConfiguration_multiSelectedStart() {
         let configuration = CalendarDayViewConfiguration(
-            title: CalendarDayViewConfiguration.Title(Text("28")),
-            subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
+            title: "28",
+            subtitle: "08",
             isEventIndicatorVisible: true,
             state: .multiSelectedStart,
             customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red))
@@ -99,8 +110,8 @@ final class CalendarDayViewTests: XCTestCase {
     }
     
     var configuration = CalendarDayViewConfiguration(
-        title: CalendarDayViewConfiguration.Title(Text("28")),
-        subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
+        title: "28",
+        subtitle: "08",
         isEventIndicatorVisible: true,
         state: .normal,
         customEventView: Rectangle().aspectRatio(contentMode: .fit).frame(width: 5, height: 5).foregroundStyle(Color(UIColor.red))
@@ -118,47 +129,17 @@ final class CalendarDayViewTests: XCTestCase {
     
     func titleColor(state: CalendarDayState) -> Color {
         let configuration = CalendarDayViewConfiguration(
-            title: CalendarDayViewConfiguration.Title(Text("28")),
-            subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
+            title: "28",
+            subtitle: "08",
             isEventIndicatorVisible: true,
             state: state,
             customEventView: EmptyView()
         )
-        let style = CalendarDayViewFioriStyle.TitleFioriStyle(calendarDayViewConfiguration: configuration)
-        return style.titleColor
+        return CalendarDayViewBaseStyle().titleColor(configuration)
     }
     
-    func testCalendarDayViewFioriStyle_TitleFioriStyle() {
-        let style = CalendarDayViewFioriStyle.TitleFioriStyle(calendarDayViewConfiguration: self.configuration)
-        let view = style.makeBody(TitleConfiguration(title: self.configuration.title))
-        XCTAssertNotNil(view)
-        XCTAssertNotEqual(style.titleFontSize, 0.0)
-        XCTAssertEqual(style.titleWeight, .regular)
-        XCTAssertNotEqual(style.scaleForSizeChange, 0.0)
-        
-        XCTAssertNotNil(self.titleColor(state: .normal))
-        XCTAssertNotNil(self.titleColor(state: .today))
-        XCTAssertNotNil(self.titleColor(state: .singleSelected))
-        XCTAssertNotNil(self.titleColor(state: .disabled))
-        XCTAssertNotNil(self.titleColor(state: .outOfMonth))
-    }
-    
-    func subtitleColor(state: CalendarDayState) -> Color {
-        let configuration = CalendarDayViewConfiguration(
-            title: CalendarDayViewConfiguration.Title(Text("28")),
-            subtitle: CalendarDayViewConfiguration.Subtitle(Text("08")),
-            isEventIndicatorVisible: true,
-            state: state,
-            customEventView: EmptyView()
-        )
-        let style = CalendarDayViewFioriStyle.SubtitleFioriStyle(calendarDayViewConfiguration: configuration)
-        return style.titleColor
-    }
-    
-    func testCalendarDayViewFioriStyle_SubtitleFioriStyle() {
-        let style = CalendarDayViewFioriStyle.SubtitleFioriStyle(calendarDayViewConfiguration: self.configuration)
-        let view = style.makeBody(SubtitleConfiguration(subtitle: self.configuration.subtitle))
-        XCTAssertNotNil(view)
+    func testCalendarDayViewFioriStyle_titleColor() {
+        let style = CalendarDayViewBaseStyle()
         XCTAssertNotEqual(style.scaleForSizeChange, 0.0)
         
         XCTAssertNotNil(self.titleColor(state: .normal))
