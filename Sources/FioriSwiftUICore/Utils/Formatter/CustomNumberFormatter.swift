@@ -93,7 +93,7 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
         }
         if !suffix.isEmpty {
             let middlePrefixLen = max(middlePart.count - 1, 0)
-            if middlePart.count > 0 {
+            if !middlePart.isEmpty {
                 attrString.append(NSAttributedString(string: String(middlePart.prefix(middlePrefixLen)), attributes: normalAttrs))
                 attrString.append(NSAttributedString(string: String(middlePart.suffix(1)), attributes: attrsForPad))
             }
@@ -168,7 +168,7 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
             if let formattedString = self.string(from: number) {
                 resultString = self.formattedString(formattedString, with: decimalSuffix)
             }
-        } else if decimalText == self.minusSign || (self.minusSign.count > 0 && decimalText == self.defaultFormatter.minusSign) {
+        } else if decimalText == self.minusSign || (!self.minusSign.isEmpty && decimalText == self.defaultFormatter.minusSign) {
             resultString = self.minusSign
         }
         
@@ -201,9 +201,9 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
         var finalScalarView = String.UnicodeScalarView()
 
         var decimalText = string
-        if self.negativePrefix.count > 0, let nPrefix = self.negativePrefix, decimalText.hasPrefix(nPrefix) {
+        if !self.negativePrefix.isEmpty, let nPrefix = self.negativePrefix, decimalText.hasPrefix(nPrefix) {
             decimalText = "-" + String(decimalText.dropFirst(nPrefix.count))
-        } else if self.positivePrefix.count > 0, let pPrefix = self.positivePrefix, decimalText.hasPrefix(pPrefix) {
+        } else if !self.positivePrefix.isEmpty, let pPrefix = self.positivePrefix, decimalText.hasPrefix(pPrefix) {
             decimalText = String(decimalText.dropFirst(pPrefix.count))
         }
         for c in decimalText.unicodeScalars {
