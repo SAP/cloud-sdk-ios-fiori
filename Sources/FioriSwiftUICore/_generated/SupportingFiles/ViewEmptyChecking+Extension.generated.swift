@@ -240,8 +240,7 @@ extension BodyText: _ViewEmptyChecking {
 
 extension CalendarDayView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty &&
-            subtitle.isEmpty
+        false
     }
 }
 
