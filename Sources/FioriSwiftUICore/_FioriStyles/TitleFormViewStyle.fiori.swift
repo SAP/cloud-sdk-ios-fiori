@@ -25,7 +25,11 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
     }
 
     func getCounterString(_ configuration: TitleFormViewConfiguration) -> AttributedString? {
-        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCounterString()
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCounterInfo().string
+    }
+    
+    func getCounterLeft(_ configuration: TitleFormViewConfiguration) -> Int? {
+        TextInputFormViewConfiguration(configuration, isFocused: self.isFocused).getCounterInfo().leftCount
     }
 
     func getInfoString(_ configuration: TitleFormViewConfiguration) -> AttributedString? {
@@ -38,22 +42,24 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
 
     func getAccessibilityHint(_ configuration: TitleFormViewConfiguration, isFocused: Bool) -> String {
         var accHintString = ""
-
+        if let leftCount = self.getCounterLeft(configuration) {
+            accHintString = leftCount > 1 ? String(format: "%d characters left".localizedFioriString(), leftCount) : String(format: "%d character left".localizedFioriString(), leftCount)
+        }
         switch configuration.controlState {
         case .normal:
+            accHintString += " "
             if isFocused {
                 if configuration.text.isEmpty {
-                    accHintString = NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing")
+                    accHintString += NSLocalizedString("Text field, is editing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing")
                 } else {
-                    accHintString = NSLocalizedString("Text field, is editing. Double tap to clear text", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing. Double tap to clear text")
+                    accHintString += NSLocalizedString("Text field, is editing. Double tap to clear text", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, is editing. Double tap to clear text")
                 }
             } else {
-                accHintString = NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")
+                accHintString += NSLocalizedString("Text field, Double tap to edit", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Text field, Double tap to edit")
             }
         default:
             break
         }
-
         return accHintString
     }
 }

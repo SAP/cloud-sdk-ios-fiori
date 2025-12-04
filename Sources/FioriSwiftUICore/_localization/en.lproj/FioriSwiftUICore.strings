@@ -310,6 +310,12 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Text field, Double tap to edit";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d character left.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d characters left.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
 "Text field, is editing" = "Text field, is editing";
 
