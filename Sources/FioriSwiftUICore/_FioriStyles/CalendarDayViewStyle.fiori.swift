@@ -9,6 +9,7 @@ public struct CalendarDayViewBaseStyle: CalendarDayViewStyle {
     @Environment(\.selectionRangeColor) var selectionRangeColor
     @Environment(\.selectionSingleColor) var selectionSingleColor
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
     
     public func makeBody(_ configuration: CalendarDayViewConfiguration) -> some View {
         ZStack(alignment: .top, content: {
@@ -39,13 +40,17 @@ public struct CalendarDayViewBaseStyle: CalendarDayViewStyle {
             }
             
             VStack(spacing: 0, content: {
-                configuration.title
+                Text(configuration.title)
+                    .font(.fiori(fixedSize: self.titleFontSize(configuration), weight: self.titleWeight(configuration)))
+                    .foregroundStyle(self.titleColor(configuration))
                     .frame(height: 22 * self.scaleForSizeChange)
                     .padding(.top, configuration.hasSubTitle ? 4 : 9)
                     .alignmentGuide(.titleFirstTextBaseline) { $0[.firstTextBaseline] }
                 
-                if configuration.hasSubTitle {
-                    configuration.subtitle
+                if let subtitle = configuration.subtitle {
+                    Text(subtitle)
+                        .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
+                        .foregroundStyle(self.titleColor(configuration))
                         .padding(.top, -3)
                         .padding(.bottom, 1)
                 }
@@ -80,11 +85,37 @@ public struct CalendarDayViewBaseStyle: CalendarDayViewStyle {
     func multiSelectedBackgroundColor(_ configuration: CalendarDayViewConfiguration) -> Color {
         [.disabledInMultiSelection, .disabledAndTodayInMultiSelection].contains(configuration.state) ? .preferredColor(.quaternaryFill) : self.selectionRangeColor
     }
+    
+    func titleFontSize(_ configuration: CalendarDayViewConfiguration) -> CGFloat {
+        (configuration.state.isTitleBold ? 17 : 16) * self.scaleForSizeChange
+    }
+    
+    func titleWeight(_ configuration: CalendarDayViewConfiguration) -> Font.FioriWeight {
+        configuration.state.isTitleBold ? .bold : .regular
+    }
+    
+    func titleColor(_ configuration: CalendarDayViewConfiguration) -> Color {
+        switch configuration.state {
+        case .normal:
+            return self.calendarItemTintAttributes[.title]?[.normal] ?? .preferredColor(.primaryLabel)
+        case .today:
+            return self.calendarItemTintAttributes[.title]?[.highlighted] ?? .preferredColor(.tintColor)
+        case .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle, .multiSelectedEnd:
+            return self.calendarItemTintAttributes[.title]?[.selected] ?? .preferredColor(.primaryBackground)
+        case .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
+            return self.calendarItemTintAttributes[.title]?[.disabled] ?? .preferredColor(.quaternaryLabel)
+        case .outOfMonth:
+            return .preferredColor(.quaternaryLabel)
+        }
+    }
 }
 
 extension CalendarDayViewConfiguration {
     var hasSubTitle: Bool {
-        !subtitle.isEmpty
+        if let subtitle {
+            return !subtitle.characters.isEmpty
+        }
+        return false
     }
 }
 
@@ -95,79 +126,6 @@ extension CalendarDayViewFioriStyle {
             CalendarDayView(configuration)
             // Add default style for its content
             // .background()
-        }
-    }
-
-    struct TitleFioriStyle: TitleStyle {
-        let calendarDayViewConfiguration: CalendarDayViewConfiguration
-        
-        @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
-        @Environment(\.dynamicTypeSize) var dynamicTypeSize
-
-        func makeBody(_ configuration: TitleConfiguration) -> some View {
-            Title(configuration)
-                .font(.fiori(fixedSize: self.titleFontSize, weight: self.titleWeight))
-                .foregroundStyle(self.titleColor)
-        }
-        
-        var titleFontSize: CGFloat {
-            (self.calendarDayViewConfiguration.state.isTitleBold ? 17 : 16) * self.scaleForSizeChange
-        }
-        
-        var titleWeight: Font.FioriWeight {
-            self.calendarDayViewConfiguration.state.isTitleBold ? .bold : .regular
-        }
-        
-        var titleColor: Color {
-            switch self.calendarDayViewConfiguration.state {
-            case .normal:
-                return self.calendarItemTintAttributes[.title]?[.normal] ?? .preferredColor(.primaryLabel)
-            case .today:
-                return self.calendarItemTintAttributes[.title]?[.highlighted] ?? .preferredColor(.tintColor)
-            case .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle, .multiSelectedEnd:
-                return self.calendarItemTintAttributes[.title]?[.selected] ?? .preferredColor(.primaryBackground)
-            case .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
-                return self.calendarItemTintAttributes[.title]?[.disabled] ?? .preferredColor(.quaternaryLabel)
-            case .outOfMonth:
-                return .preferredColor(.quaternaryLabel)
-            }
-        }
-        
-        /// Limit max type size to save more space to display all the contents
-        var scaleForSizeChange: Double {
-            sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
-        }
-    }
-
-    struct SubtitleFioriStyle: SubtitleStyle {
-        let calendarDayViewConfiguration: CalendarDayViewConfiguration
-        @Environment(\.calendarItemTintAttributes) var calendarItemTintAttributes
-        @Environment(\.dynamicTypeSize) var dynamicTypeSize
-
-        func makeBody(_ configuration: SubtitleConfiguration) -> some View {
-            Subtitle(configuration)
-                .font(.fiori(fixedSize: 11 * self.scaleForSizeChange, weight: .regular))
-                .foregroundStyle(self.titleColor)
-        }
-        
-        var titleColor: Color {
-            switch self.calendarDayViewConfiguration.state {
-            case .normal:
-                return self.calendarItemTintAttributes[.title]?[.normal] ?? .preferredColor(.primaryLabel)
-            case .today:
-                return self.calendarItemTintAttributes[.title]?[.highlighted] ?? .preferredColor(.tintColor)
-            case .singleSelected, .singleSelectedAndToday, .multiSelectedStart, .multiSelectedMiddle, .multiSelectedEnd:
-                return self.calendarItemTintAttributes[.title]?[.selected] ?? .preferredColor(.primaryBackground)
-            case .disabled, .disabledAndToday, .disabledInMultiSelection, .disabledAndTodayInMultiSelection:
-                return self.calendarItemTintAttributes[.title]?[.disabled] ?? .preferredColor(.quaternaryLabel)
-            case .outOfMonth:
-                return .preferredColor(.quaternaryLabel)
-            }
-        }
-        
-        /// Limit max type size to save more space to display all the contents
-        var scaleForSizeChange: Double {
-            sizeEnumToValue(dynamicTypeSize: self.dynamicTypeSize, limitMaxTypeSize: .accessibility1)
         }
     }
 }
