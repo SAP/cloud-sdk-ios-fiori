@@ -102,6 +102,22 @@ extension CalendarMonthView: Equatable {
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
+        if lhs.selectedDate != nil || rhs.selectedDate != nil,
+           lhs.selectedDate != rhs.selectedDate
+        {
+            return false
+        }
+        if lhs.selectedDates != nil || rhs.selectedDates != nil,
+           lhs.selectedDates != rhs.selectedDates
+        {
+            return false
+        }
+        if lhs.selectedRange != nil || rhs.selectedRange != nil,
+           lhs.selectedRange != rhs.selectedRange
+        {
+            return false
+        }
+        
         let lhsContains = lhs.selectedDatesInCurrentMonth()
         let rhsContains = rhs.selectedDatesInCurrentMonth()
         let result = (lhsContains == rhsContains) && (lhs.model.weeks == rhs.model.weeks)
