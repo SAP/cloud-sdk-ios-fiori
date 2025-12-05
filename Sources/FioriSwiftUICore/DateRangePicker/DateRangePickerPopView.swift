@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct DateRangePickerPopView: View {
+struct DateRangePickerPopView: View {
     @State var model: CalendarModel
     
     let dateFormatter: DateFormatter?
