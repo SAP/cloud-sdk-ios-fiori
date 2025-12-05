@@ -24,7 +24,7 @@ public struct KPIProgressItemBaseStyle: KPIProgressItemStyle {
         }
         .environment(\.isPressed, self.isPressed)
         .frame(width: self.getFrameWidth(configuration: configuration))
-        .contentShape(.rect)
+        .contentShape(.accessibility, .rect.scale(1.2))
         .simultaneousGesture(self.createGesture())
     }
     
