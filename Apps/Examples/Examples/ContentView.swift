@@ -26,6 +26,10 @@ struct ContentView: View {
                 {
                     Text("Theme Manager")
                 }
+                
+                NavigationLink(destination: DateRangePickerPopView()) {
+                    Text("DateRangePickerPopView")
+                }
             }
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())
