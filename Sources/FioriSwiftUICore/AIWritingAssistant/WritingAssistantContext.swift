@@ -37,8 +37,7 @@ struct WAErrorModel: Equatable {
 
 class WritingAssistantContext: NSObject, ObservableObject {
     var selectionKVO: NSKeyValueObservation?
-    var textView: UITextView?
-    var textField: UITextField?
+    var waTextInput: (any WATextInput)?
     
     @Published var originalValue: String
     @Published var displayedValue: String
@@ -59,7 +58,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     var logKeyboardChanged = true
     
     func updateInWAFlow(_ showKeyboard: Bool) {
-        self.isInWAFlow = showKeyboard && self.textView?.isFirstResponder ?? false
+        self.isInWAFlow = showKeyboard && self.waTextInput?.isFirstResponder ?? false
     }
     
     @Published var selection: WAMenu? = nil
@@ -125,7 +124,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.inProgress = true
         self.logKeyboardChanged = false
         self.task = Task {
-            let result = await menuHandler(menu, self.displayedValue)
+            let result = await menuHandler(menu, self.displayedValue.substring(self.usedSelectedRange))
             await MainActor.run {
                 self.updateMenuResult(menu, result)
             }
@@ -190,10 +189,8 @@ class WritingAssistantContext: NSObject, ObservableObject {
     }
 
     func updateOriginalSelectedRange() {
-        if let textView = self.textView {
-            self.originalSelectedRange = textView.selectedRange
-        } else if let textField = self.textField {
-            self.originalSelectedRange = textField.selectedRange
+        if let textInput = self.waTextInput {
+            self.originalSelectedRange = textInput.selectedRange
         }
     }
     
@@ -318,5 +315,12 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.showFeedbackSuccessToast = false
         self.feedbackVoteState = .notDetermined
         self.logKeyboardChanged = true
+    }
+}
+
+private extension String {
+    func substring(_ nsRange: NSRange) -> String {
+        guard let range = Range(nsRange, in: self) else { return "" }
+        return String(self[range])
     }
 }
