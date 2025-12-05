@@ -78,14 +78,25 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
         attrsForPad[.kern] = NSNumber(value: 2.0)
         var normalAttrs = attrs
         normalAttrs[.kern] = NSNumber(value: 0)
-        let middlePart = String(formattedString.suffix(formattedString.count - prefix.count).prefix(formattedString.count - suffix.count))
+        let prefixLen = min(prefix.count, formattedString.count)
+        let suffixLen = min(suffix.count, formattedString.count - prefixLen)
+        let middleLen = max(formattedString.count - prefixLen - suffixLen, 0)
+        let middlePart = String(formattedString.dropFirst(prefixLen).prefix(middleLen))
+        
         if !prefix.isEmpty {
-            attrString.append(NSAttributedString(string: String(prefix.prefix(prefix.count - 1)), attributes: normalAttrs))
-            attrString.append(NSAttributedString(string: String(prefix.suffix(1)), attributes: attrsForPad))
+            if prefix.count > 1 {
+                attrString.append(NSAttributedString(string: String(prefix.prefix(prefix.count - 1)), attributes: normalAttrs))
+                attrString.append(NSAttributedString(string: String(prefix.suffix(1)), attributes: attrsForPad))
+            } else {
+                attrString.append(NSAttributedString(string: prefix, attributes: attrsForPad))
+            }
         }
         if !suffix.isEmpty {
-            attrString.append(NSAttributedString(string: String(middlePart.prefix(middlePart.count - 1)), attributes: normalAttrs))
-            attrString.append(NSAttributedString(string: String(middlePart.suffix(1)), attributes: attrsForPad))
+            let middlePrefixLen = max(middlePart.count - 1, 0)
+            if !middlePart.isEmpty {
+                attrString.append(NSAttributedString(string: String(middlePart.prefix(middlePrefixLen)), attributes: normalAttrs))
+                attrString.append(NSAttributedString(string: String(middlePart.suffix(1)), attributes: attrsForPad))
+            }
             attrString.append(NSAttributedString(string: suffix, attributes: normalAttrs))
         } else {
             attrString.append(NSAttributedString(string: middlePart, attributes: normalAttrs))
@@ -157,6 +168,8 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
             if let formattedString = self.string(from: number) {
                 resultString = self.formattedString(formattedString, with: decimalSuffix)
             }
+        } else if decimalText == self.minusSign || (!self.minusSign.isEmpty && decimalText == self.defaultFormatter.minusSign) {
+            resultString = self.minusSign
         }
         
         return resultString
@@ -186,7 +199,14 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
         guard let decimalPoint = self.defaultFormatter.decimalSeparator.unicodeScalars.first else { return "" }
         var foundDecimal = false
         var finalScalarView = String.UnicodeScalarView()
-        for c in string.unicodeScalars {
+
+        var decimalText = string
+        if !self.negativePrefix.isEmpty, let nPrefix = self.negativePrefix, decimalText.hasPrefix(nPrefix) {
+            decimalText = "-" + String(decimalText.dropFirst(nPrefix.count))
+        } else if !self.positivePrefix.isEmpty, let pPrefix = self.positivePrefix, decimalText.hasPrefix(pPrefix) {
+            decimalText = String(decimalText.dropFirst(pPrefix.count))
+        }
+        for c in decimalText.unicodeScalars {
             if CharacterSet.decimalDigits.contains(c) {
                 finalScalarView.append(c)
             } else if c == decimalPoint {
@@ -194,8 +214,10 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
                     foundDecimal = true
                     finalScalarView.append(c)
                 }
-            } else if c == "-", finalScalarView.isEmpty {
-                finalScalarView.append(c)
+            } else if let minusSign = self.minusSign, finalScalarView.isEmpty {
+                if c == minusSign.unicodeScalars.first || c == self.defaultFormatter.minusSign.unicodeScalars.first {
+                    finalScalarView.append("-")
+                }
             }
         }
         
@@ -233,8 +255,13 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
             return true
         }
         
+        var minusCount = 0
+        let minusSign = self.minusSign ?? String(self.defaultFormatter.minusSign)
+        if partialString.hasPrefix(minusSign) {
+            minusCount = minusSign.count
+        }
         let decimalCount = partialString.count(for: sep)
-        if partialString.digitCount + decimalCount != partialString.count {
+        if partialString.digitCount + decimalCount + minusCount != partialString.count {
             // There are other characters
             return false
         }
@@ -288,9 +315,23 @@ open class CustomNumberFormatter: NumberFormatter, FormattedStringEditing, @unch
                 isPositive = false
             }
         }
-        
-        let prefix = (isPositive ? self.positivePrefix : self.negativePrefix) ?? ""
-        let suffix = (isPositive ? self.positiveSuffix : self.negativeSuffix) ?? ""
+        if let negativePrefix = self.negativePrefix, formattedString.hasPrefix(negativePrefix) {
+            isPositive = false
+        }
+
+        let isOnlySign = (formattedString.hasPrefix(self.defaultFormatter.minusSign) || formattedString.hasPrefix(self.minusSign)) &&
+            formattedString.count == 1
+
+        let prefix: String
+        let suffix: String
+
+        if isOnlySign {
+            prefix = ""
+            suffix = ""
+        } else {
+            prefix = (isPositive ? self.positivePrefix : self.negativePrefix) ?? ""
+            suffix = (isPositive ? self.positiveSuffix : self.negativeSuffix) ?? ""
+        }
         
         return (prefix, suffix)
     }
