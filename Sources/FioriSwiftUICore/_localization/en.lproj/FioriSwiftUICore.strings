@@ -430,6 +430,12 @@
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Double tap to add attachment";
 
+/* XACT: The accessibility hint for attachment section */
+"read only" = "read only";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "actions available";
+
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Thumbnail";
 
