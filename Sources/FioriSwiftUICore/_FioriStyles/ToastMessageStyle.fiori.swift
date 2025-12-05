@@ -55,7 +55,7 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
             self.size = size
         }
         .toastMessageShadow(configuration.shadow)
-        .allowsHitTesting(false) // TODO: verify if taps should go through the toast message
+        .allowsHitTesting(false)
     }
 }
 
