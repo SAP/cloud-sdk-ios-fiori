@@ -50,6 +50,7 @@ struct CoreContentView: View {
             MenuItem(title: "ProGlove Scanner", section: "Scanners", destination: ProGloveScannerExample(scannerManager: self.scannerManager)),
             MenuItem(title: "IPCMobile Scanner", section: "Scanners", destination: IPCMobileScannerExample(scannerManager: self.scannerManager)),
             MenuItem(title: "VisionKit Scanner", section: "Scanners", destination: VisionKitScannerExample(scannerManager: self.scannerManager)),
+            MenuItem(title: "VisionKit Multiple Barcodes Scanner", section: "Scanners", destination: VisionKitMultipleBarcodesScannerExample()),
             
             // Timeline
             MenuItem(title: "Timeline", section: "Timeline", destination: TimelineExample()),
