@@ -103,25 +103,9 @@ struct WATextInputModifier: ViewModifier {
     #if !os(visionOS)
         @ViewBuilder
         private var keyboardAccessoryView: some View {
-            if LiquidGlassHelper.usesLiquidGlassUI {
-                if #available(iOS 26.0, *) {
-                    GlassEffectContainer {
-                        waEntryPointView
-                            .padding()
-                            .glassEffect(.regular.interactive())
-                            .padding(.horizontal)
-                    }
-                } else {
-                    VStack(spacing: 0) {
-                        Color.preferredColor(.separator).frame(height: 0.5)
-                        self.waEntryPointView.padding()
-                    }
-                }
-            } else {
-                VStack(spacing: 0) {
-                    Color.preferredColor(.separator).frame(height: 0.5)
-                    self.waEntryPointView.padding()
-                }
+            VStack(spacing: 0) {
+                Color.preferredColor(.separator).frame(height: 0.5)
+                self.waEntryPointView.padding()
             }
         }
     
