@@ -109,7 +109,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | Section Header | :white_check_mark: |
 | ChartFloorplan | :x: |
 | CollectionItem | :x: |
-| BarcodeScanner | :x: |
+| BarcodeScanner | :white_check_mark: |
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
 | TouchIDErrorView | :x: |
