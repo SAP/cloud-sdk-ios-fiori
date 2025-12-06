@@ -92,7 +92,11 @@ struct TextInputExample: View {
         let formatter = CustomNumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 3
-        formatter.positiveSuffix = "lbs"
+        formatter.positiveSuffix = "lbs+"
+        formatter.negativeSuffix = "lbs-"
+        formatter.minusSign = "~"
+        formatter.negativePrefix = "negP"
+        formatter.positivePrefix = "posP"
         return formatter
     }
     
