@@ -117,6 +117,7 @@ extension ProgressIndicatorFioriStyle {
             ProgressIndicator(configuration)
                 .fioriButtonStyle(IndicatorIconStyle())
                 .frame(width: 26, height: 26)
+                .contentShape(.accessibility, .rect.scale(1.6))
         }
     }
 

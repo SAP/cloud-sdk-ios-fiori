@@ -313,13 +313,13 @@ struct TextInputFormViewConfiguration {
         }
     }
 
-    func getCounterString() -> AttributedString? {
+    func getCounterInfo() -> (string: AttributedString?, leftCount: Int?) {
         guard self.isCharCountEnabled == true else {
-            return nil
+            return (nil, nil)
         }
 
         guard let limit = maxTextLength, limit > 0 else {
-            return nil
+            return (nil, nil)
         }
 
         var hasError = false
@@ -338,7 +338,7 @@ struct TextInputFormViewConfiguration {
         limitString.foregroundColor = .preferredColor(.tertiaryLabel)
         var counterString = charCountString + limitString
         counterString.font = .fiori(forTextStyle: .footnote)
-        return counterString
+        return (counterString, limit - charCount)
     }
 
     func checkMaxLength() -> LengthCondition {

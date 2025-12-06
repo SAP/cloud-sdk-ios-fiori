@@ -284,6 +284,15 @@ public struct SkeletonLoadingContainer<Content: View>: View {
             .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : nil)
             .redacted(reason: self.isLoading ? .placeholder : [])
             .skeletonLoading(isLoading: self.isLoading, isTintColor: self.isAILoading)
+            .overlay {
+                if self.isLoading {
+                    let msg = NSLocalizedString("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Loading...")
+                    Text(msg)
+                        .foregroundStyle(Color.clear)
+                        .accessibilityHidden(false)
+                        .accessibilitySortPriority(1000)
+                }
+            }
     }
 }
 
