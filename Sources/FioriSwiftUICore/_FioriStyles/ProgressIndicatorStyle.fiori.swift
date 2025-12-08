@@ -7,13 +7,14 @@ import SwiftUI
 
 // MARK: - Fiori Circular ProgressViewStyle
 
-// Apple Native: Based on ProgressViewStyle protocol
-// Fiori Extension: Applies Fiori theme colors and custom styling parameters
-
-/// Fiori-styled circular progress view style
+/// A Fiori-styled circular progress view style that renders progress as a circular arc.
 ///
-/// **Apple Native**: Based on `ProgressViewStyle` protocol
-/// **Fiori Extension**: Applies Fiori theme colors and custom styling parameters
+/// - Parameters:
+/// - tintColor: Color of the progress arc. Defaults to .preferredColor(.tintColor).
+/// - trackColor: Color of the background track (determinate mode only). Defaults to .preferredColor(.secondaryFill).
+/// - lineWidth: Stroke width in points. Defaults to 2.0.
+///
+/// - SeeAlso: ProgressIndicator, ProgressIndicatorStyle
 public struct CircularProgressViewStyle: ProgressViewStyle {
     var tintColor: Color = .preferredColor(.tintColor)
     var trackColor: Color = .preferredColor(.secondaryFill)
@@ -89,7 +90,6 @@ private struct IndeterminateProgressArc: View {
 // MARK: - Base Layout style
 
 // Apple Native: Uses ProgressView for determinate and indeterminate progress
-// Fiori Extension: Custom styling via FioriCircularProgressViewStyle
 public struct ProgressIndicatorBaseStyle: ProgressIndicatorStyle {
     var isProcessing: Bool = false
     
