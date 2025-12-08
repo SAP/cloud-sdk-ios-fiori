@@ -10,6 +10,7 @@ struct AIUserFeedbackExample: View {
     @State var isNavigationPresented = false
     @State var isToastPresented = false
     @State var isInspectorPresented = false
+    @State var disableMultipleVote = false
 
     @State var filterFormViewSelectionValue: [Int] = [0]
     @State var valueText: String = ""
@@ -58,6 +59,8 @@ struct AIUserFeedbackExample: View {
                 }
             }
             
+            self.showFeedback(mode: .inline)
+            
             Toggle("Is Background Interaction Enabled", isOn: self.$isBackgroundInteractionEnabled)
             Toggle("Customized Vote Button", isOn: self.$customizedVoteButton)
             Toggle("Display Filter Form View", isOn: self.$displayFilterForm)
@@ -65,6 +68,7 @@ struct AIUserFeedbackExample: View {
             Toggle("Display Content Error", isOn: self.$displayContentError)
             Toggle("Customized Error View", isOn: self.$customizedErrorView)
             Toggle("Mock Submit Result(On: Success, Off: Fail)", isOn: self.$isSubmitResultSuccess)
+            Toggle("Disable Multiple Vote", isOn: self.$disableMultipleVote)
 
             Picker("Vote State(Not work for push)", selection: self.$voteStateIndex) {
                 ForEach(0 ..< self.voteStates.count, id: \.self) { index in
@@ -76,6 +80,7 @@ struct AIUserFeedbackExample: View {
                 self.voteState = self.voteStates[self.voteStateIndex]
             }
         }
+        .disableMultipleVoteForAIUserFeedback(self.disableMultipleVote)
         .toastMessage(isPresented: self.$isToastPresented, title: "Thank you for your feedback", duration: 3)
     }
     
@@ -124,6 +129,7 @@ struct AIUserFeedbackExample: View {
                                   self.submitButtonState = .inProgress
                                   if self.isSubmitResultSuccess {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                          submitResult(true)
                                           self.submitButtonState = .normal
                                           switch mode {
                                           case .push:
@@ -132,6 +138,8 @@ struct AIUserFeedbackExample: View {
                                               self.isFeedbackPresented.toggle()
                                           case .inspector:
                                               self.isInspectorPresented.toggle()
+                                          case .inline:
+                                              break
                                           }
                                           self.isToastPresented.toggle()
                                       }
