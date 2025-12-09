@@ -32,7 +32,7 @@ struct DateRangePickerPopView: View {
                 applyActionCallback: ((ClosedRange<Date>?) -> Void)? = nil,
                 cancelActionCallback: (() -> Void)? = nil)
     {
-        self.model = CalendarModel(calendarStyle: .rangeSelection, startDate: startDate, endDate: endDate, selectedRange: selectedRange, showsMonthHeader: true)
+        self.model = CalendarModel(calendarStyle: .rangeSelection, startDate: startDate, endDate: endDate, displayDateAtStartup: selectedRange?.lowerBound, selectedRange: selectedRange, showsMonthHeader: true)
         self.dateFormatter = dateFormatter
         self.customLanguageID = customLanguageID
         self.applyActionCallback = applyActionCallback
