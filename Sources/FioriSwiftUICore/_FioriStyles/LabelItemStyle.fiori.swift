@@ -27,6 +27,7 @@ public struct LabelItemBaseStyle: LabelItemStyle {
                 configuration.title
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
