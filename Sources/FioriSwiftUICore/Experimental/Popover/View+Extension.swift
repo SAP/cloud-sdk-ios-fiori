@@ -44,6 +44,15 @@ extension View {
             size(newValue)
         })
     }
+    
+    @available(iOS 18.0, *)
+    func fioriScrollOffsetReader(_ offset: @escaping (CGPoint) -> Void) -> some View {
+        onScrollGeometryChange(for: CGPoint.self) { geometry in
+            geometry.contentOffset
+        } action: { _, newValue in
+            offset(newValue)
+        }
+    }
 }
 
 struct ContentFrameReaderPreferenceKey: PreferenceKey {
@@ -52,11 +61,6 @@ struct ContentFrameReaderPreferenceKey: PreferenceKey {
 }
 
 struct ContentSizeReaderPreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize { .zero }
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
-}
-
-struct CalendarSizeReaderPreferenceKey: PreferenceKey {
     static var defaultValue: CGSize { .zero }
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
 }

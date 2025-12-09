@@ -182,6 +182,24 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     }
                 }
             }
+            .ifApply(true, content: {
+                if #available(iOS 18.0, *) {
+                    $0.fioriScrollOffsetReader { point in
+                        if point.y == 0,
+                           configuration.model.calendarStyle == .month || configuration.model.showFullScreen,
+                           self.scrollPosition != 0,
+                           self.scrollPosition != nil
+                        {
+                            DispatchQueue.main.async {
+                                self.scrollPosition = 0
+                            }
+                        }
+                    }
+                    .typeErased
+                } else {
+                    $0.typeErased
+                }
+            })
         })
     }
     
