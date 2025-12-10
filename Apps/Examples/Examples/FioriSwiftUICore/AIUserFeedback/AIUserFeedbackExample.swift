@@ -59,7 +59,16 @@ struct AIUserFeedbackExample: View {
                 }
             }
             
-            self.showFeedback(mode: .inline)
+            NavigationLink("Inline AIUserFeedback") {
+                List {
+                    self.showFeedback(mode: .inline)
+                        .onAppear {
+                            self.voteState = .notDetermined
+                        }
+                }
+                .toastMessage(isPresented: self.$isToastPresented, title: "Thank you for your feedback", duration: 3)
+                .navigationTitle("Inline AIUserFeedback")
+            }
             
             Toggle("Is Background Interaction Enabled", isOn: self.$isBackgroundInteractionEnabled)
             Toggle("Customized Vote Button", isOn: self.$customizedVoteButton)
@@ -106,7 +115,7 @@ struct AIUserFeedbackExample: View {
         let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
         
         return AIUserFeedback(detailImage: { Image(systemName: "gearshape") },
-                              title: { Title(title: "How was your AI experience?") },
+                              title: { Title(title: mode == .inline ? "How was your AI experience? (Inline Mode)" : "How was your AI experience?") },
                               description: { Text("Please rate your experience to help us improve.") },
                               action: { self.customizedVoteButton ? self.customAction : nil },
                               secondaryAction: { self.customizedVoteButton ? self.customSecondaryAction : nil },
@@ -133,11 +142,11 @@ struct AIUserFeedbackExample: View {
                                           self.submitButtonState = .normal
                                           switch mode {
                                           case .push:
-                                              self.isFeedbackPushed.toggle()
+                                              self.isFeedbackPushed = false
                                           case .sheet:
-                                              self.isFeedbackPresented.toggle()
+                                              self.isFeedbackPresented = false
                                           case .inspector:
-                                              self.isInspectorPresented.toggle()
+                                              self.isInspectorPresented = false
                                           case .inline:
                                               break
                                           }
@@ -145,6 +154,7 @@ struct AIUserFeedbackExample: View {
                                       }
                                   } else {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                          self.submitButtonState = .normal
                                           submitResult(false)
                                       }
                                   }

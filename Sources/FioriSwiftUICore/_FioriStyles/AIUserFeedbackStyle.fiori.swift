@@ -56,8 +56,15 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @State private var scrollViewHeight: CGFloat = 0
     @State private var detentSelection: PresentationDetent = .medium
     @State private var shouldApplyDetentHeight = true
+    @State private var cachedLastVoteState: AIUserFeedbackVoteState = .notDetermined
     
-    let navigationBarHeight = UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+    var navigationBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 67 : 74
+        } else {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+        }
+    }
     
     public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
         Group {
@@ -79,12 +86,20 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             self.actionView(configuration)
                 .fioriButtonStyle(FioriTertiaryButtonStyle())
         }
+        .onAppear {
+            self.cachedLastVoteState = configuration.voteState
+        }
         .popover(isPresented: self.$inlineFeedbackIsPresented) {
             self.normalAIUserFeedbackView(configuration)
-                .onDisappear {
+                .presentationCompactAdaptation(.sheet)
+                .onAppear {
+                    configuration.submitButtonState = .normal
                     self.isSubmitRequestFailed?.wrappedValue = false
                     self.submitRequestFailed = false
+                }
+                .onDisappear {
                     configuration.submitButtonState = .normal
+                    configuration.voteState = self.cachedLastVoteState
                 }
         }
     }
@@ -92,8 +107,14 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func normalAIUserFeedbackView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         self.mainView(configuration)
             .onAppear {
-                self.shouldShowFeedbackDetail = configuration.voteState == .downVote
-                self.isShowSubmitButton = configuration.voteState == .downVote
+                if configuration.displayMode == .inline {
+                    self.shouldShowFeedbackDetail = true
+                    self.isShowSubmitButton = true
+                    self.shouldApplyDetentHeight = true
+                } else {
+                    self.shouldShowFeedbackDetail = configuration.voteState == .downVote
+                    self.isShowSubmitButton = configuration.voteState == .downVote
+                }
             }
             .onChange(of: configuration.voteState) {
                 if configuration.voteState == .downVote {
@@ -273,6 +294,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         if configuration.displayMode == .inline {
             self.inlineFeedbackIsPresented.toggle()
         }
+        self.cachedLastVoteState = configuration.voteState
         configuration.voteState = .downVote
         self.shouldShowFeedbackDetail = true
         self.isShowSubmitButton = true
@@ -300,6 +322,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     
     func upvoteAction(_ configuration: AIUserFeedbackConfiguration) {
         guard !self.disableMultipleVoteForAIUserFeedback else { return }
+        self.cachedLastVoteState = configuration.voteState
         configuration.voteState = .upVote
         configuration.onUpVote?()
     }
@@ -418,6 +441,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     private func onSubmitAction(_ configuration: AIUserFeedbackConfiguration) {
         configuration.onSubmit?(configuration.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitResult in
             if submitResult {
+                self.cachedLastVoteState = configuration.voteState
                 self.isSubmitRequestFailed?.wrappedValue = false
                 self.submitRequestFailed = false
                 if configuration.displayMode == .inline {
@@ -428,6 +452,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.dismiss()
                 }
             } else {
+                configuration.voteState = self.cachedLastVoteState
                 self.isSubmitRequestFailed?.wrappedValue = true
                 self.submitRequestFailed = true
             }
