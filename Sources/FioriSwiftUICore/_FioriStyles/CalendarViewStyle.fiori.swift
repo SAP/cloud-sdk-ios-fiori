@@ -212,7 +212,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
             }
         } else {
             if configuration.model.calendarStyle == .rangeSelection {
-                if let _ = configuration.model.selectedRange {
+                if configuration.model.selectedRange != nil {
                     configuration.model.selectedRange = nil
                     configuration.model.selectedDate = date
                 } else if let boundDate = configuration.model.selectedDate {
