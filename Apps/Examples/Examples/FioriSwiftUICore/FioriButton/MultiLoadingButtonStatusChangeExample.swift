@@ -82,19 +82,19 @@ struct MultiLoadingButtonStatusChangeExample: View {
     func fioriButtonStyle(at index: Int) -> any FioriButtonStyle {
         switch index {
         case 0:
-            return FioriPrimaryButtonStyle(142, loadingState: self._loadingState)
+            return FioriPrimaryButtonStyle(loadingState: self._loadingState)
         case 1:
-            return FioriSecondaryButtonStyle(colorStyle: .normal, maxWidth: 142, loadingState: self._loadingState)
+            return FioriSecondaryButtonStyle(colorStyle: .normal, loadingState: self._loadingState)
         case 2:
-            return FioriSecondaryButtonStyle(colorStyle: .tint, maxWidth: 142, loadingState: self._loadingState)
+            return FioriSecondaryButtonStyle(colorStyle: .tint, loadingState: self._loadingState)
         case 3:
-            return FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 142, loadingState: self._loadingState)
+            return FioriSecondaryButtonStyle(colorStyle: .negative, loadingState: self._loadingState)
         case 4:
-            return FioriTertiaryButtonStyle(colorStyle: .normal, maxWidth: 142, loadingState: self._loadingState)
+            return FioriTertiaryButtonStyle(colorStyle: .normal, loadingState: self._loadingState)
         case 5:
-            return FioriTertiaryButtonStyle(colorStyle: .tint, maxWidth: 142, loadingState: self._loadingState)
+            return FioriTertiaryButtonStyle(colorStyle: .tint, loadingState: self._loadingState)
         default:
-            return FioriTertiaryButtonStyle(colorStyle: .negative, maxWidth: 142, loadingState: self._loadingState)
+            return FioriTertiaryButtonStyle(colorStyle: .negative, loadingState: self._loadingState)
         }
     }
 }
