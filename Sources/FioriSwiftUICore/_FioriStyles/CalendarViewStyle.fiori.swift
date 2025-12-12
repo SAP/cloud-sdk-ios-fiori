@@ -182,6 +182,17 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     }
                 }
             }
+            .fioriScrollOffsetReader { point in
+                if point.y == 0,
+                   configuration.model.calendarStyle == .month || configuration.model.showFullScreen,
+                   self.scrollPosition != 0,
+                   self.scrollPosition != nil
+                {
+                    DispatchQueue.main.async {
+                        self.scrollPosition = 0
+                    }
+                }
+            }
         })
     }
     
