@@ -226,10 +226,11 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
     var lineSize: CGSize?
-
+    var isLastStep: Bool
+    
     @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
-
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
     @State var nodeAndLineSize: CGSize = .zero
     
     var stepsSpacing: CGFloat {
@@ -248,7 +249,13 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                 Spacer().frame(height: self.top)
                 HStack(spacing: self.stepsSpacing) {
                     self.node
-                    self.line.frame(width: self.lineWidth, height: self.lineHeight)
+                    if !self.isLastStep {
+                        if self.flexibleSPI {
+                            self.line.frame(height: self.lineHeight)
+                        } else {
+                            self.line.frame(width: self.lineWidth, height: self.lineHeight)
+                        }
+                    }
                 }.sizeReader { size in
                     if self.nodeAndLineSize.different(with: size) {
                         self.nodeAndLineSize = size
@@ -264,6 +271,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                     Spacer().frame(height: abs(self.bottom))
                 }
             }
+            .fixedSize(horizontal: false, vertical: self.flexibleSPI)
         case .vertical:
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
                 Spacer().frame(width: self.leading)

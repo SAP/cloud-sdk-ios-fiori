@@ -36,6 +36,12 @@ struct StepProgressIndicatorExample: View {
                 } label: {
                     Text("Steps By Icon")
                 }
+                
+                NavigationLink {
+                    FlexibleSPIExample()
+                } label: {
+                    Text("Flexible Step Progress Indicator")
+                }
             }
             
             Section("Deprecated") {
@@ -666,6 +672,96 @@ struct SPICustomStyleExample: View {
                 }
             }
             
+            Spacer().padding(20)
+            Button {
+                self.completeStep()
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
+        .padding()
+        .onChange(of: self.selection) {
+            self.updateCurrentStepName()
+        }
+        .onAppear {
+            self.updateCurrentStepName()
+        }
+    }
+    
+    func getStep() -> StepItem? {
+        func findStep(in data: [StepItem]) -> StepItem? {
+            for step in data {
+                if step.id == self.selection {
+                    return step
+                }
+                
+                if !step.substeps.isEmpty {
+                    if let foundItem = findStep(in: step.substeps) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
+                }
+            }
+            
+            return nil
+        }
+        return findStep(in: self.steps)
+    }
+    
+    func updateCurrentStepName() {
+        let selectedTitle = "\(getStep()?.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
+        }
+    }
+    
+    func completeStep() {
+        for index in self.steps.indices {
+            if self.steps[index].id == self.selection {
+                self.steps[index].state = .completed
+            } else {
+                let substeps = self.steps[index].substeps
+                guard !substeps.isEmpty else { continue }
+                for subindex in substeps.indices {
+                    if substeps[subindex].id == self.selection {
+                        self.steps[index].substeps[subindex].state = .completed
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct FlexibleSPIExample: View {
+    @State var title: String = ""
+    @State var steps = [StepItemData(state: .completed),
+                        StepItemData(substeps: [
+                            StepItemData(),
+                            StepItemData(state: .disabled)
+                        ]),
+                        StepItemData(state: .error),
+                        StepItemData()]
+    
+    @State var selection: String = ""
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                EmptyView()
+            } action: {
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(self.steps.count)")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
+                    }
+                }
+            }
+            .flexibleStepProgressIndicator()
             Spacer().padding(20)
             Button {
                 self.completeStep()
