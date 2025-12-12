@@ -15,10 +15,19 @@ struct StepStyleKey: EnvironmentKey {
     static var defaultValue: ((_ id: String) -> AnyStepStyle?) = { _ in AnyStepStyle(DefaultStepStyle()) }
 }
 
+struct FlexibleStepProgressIndicatorKey: EnvironmentKey {
+    static var defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
     var stepStyle: (_ id: String) -> AnyStepStyle? {
         get { self[StepStyleKey.self] }
         set { self[StepStyleKey.self] = newValue }
+    }
+    
+    var flexibleStepProgressIndicator: Bool {
+        get { self[FlexibleStepProgressIndicatorKey.self] }
+        set { self[FlexibleStepProgressIndicatorKey.self] = newValue }
     }
 }
 
@@ -35,6 +44,13 @@ public extension View {
             }
         }
         return self.environment(\.stepStyle, anyStyle)
+    }
+    
+    /// Flexible `StepProgressIndicator` support.
+    /// - Parameter flexible: A boolean value indicating whether layout of `StepProgressIndicator` is flexible. Default value is true.
+    /// - Returns: A new `StepProgressIndicator` with flexible layout or not.
+    func flexibleStepProgressIndicator(_ flexible: Bool = true) -> some View {
+        self.environment(\.flexibleStepProgressIndicator, flexible)
     }
 }
 

@@ -89,6 +89,7 @@ public extension StepProgressIndicator {
 public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
     @Environment(\.headerSeparator) private var separatorConfiguration
     @Environment(\.isSPIVerticalContentPresented) private var isSPIVerticalContentPresented
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
     @State var isPresented: Bool = false
     @State var stepFrames: [String: CGRect] = [:]
     @State var scrollBounds: CGRect = .zero
@@ -161,7 +162,7 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
         switch axis {
         case .horizontal:
             ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(self.flexibleSPI ? .vertical : .horizontal, showsIndicators: false) {
                     self.stepsGenerator(configuration, axis: .horizontal)
                         .environment(\.stepFrames, self.$stepFrames)
                         .setOnChange(of: configuration.$selection.wrappedValue, action1: { newValue in
@@ -182,11 +183,13 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
                             }
                         }
                 }
+                .scrollDisabled(self.flexibleSPI)
             }
             .coordinateSpace(name: "SPICoordinateSpace")
             .frameReader(in: .local) { rect in
                 self.scrollBounds = rect
             }
+            .fixedSize(horizontal: false, vertical: self.flexibleSPI)
         case .vertical:
             ScrollViewReader { _ in
                 ScrollView(.vertical, showsIndicators: false) {

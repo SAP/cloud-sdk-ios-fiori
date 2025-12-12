@@ -71,7 +71,8 @@ struct StepButtonStyle: ButtonStyle {
                         trailing: self.trailing,
                         horizontalSpacing: self.horizontalSpacing,
                         verticalSpacing: self.verticalSpacing,
-                        lineSize: self.lineSize)
+                        lineSize: self.lineSize,
+                        isLastStep: self.isLastStep)
             .accessibilityElement(children: .combine)
     }
     
