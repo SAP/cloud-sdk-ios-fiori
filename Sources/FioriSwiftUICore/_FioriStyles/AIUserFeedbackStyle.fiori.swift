@@ -11,6 +11,8 @@ public enum AIUserFeedbackDisplayMode {
     /// AIUserFeedback is displayed as an inspector.
     /// An inspector can present as a trailing column in a horizontally regular size class, but adapt to a sheet in a horizontally compact size class.
     case inspector
+    /// Inline mode for AIUserFeedback
+    case inline
 }
 
 /// AIUserFeedback submit button state
@@ -41,6 +43,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @State var shouldShowFeedbackDetail = false
     @State var submitRequestFailed = false
     @Environment(\.isSubmitRequestFailed) var isSubmitRequestFailed
+    @Environment(\.disableMultipleVoteForAIUserFeedback) var disableMultipleVoteForAIUserFeedback
+    @State var inlineFeedbackIsPresented: Bool = false
     
     /// Indicates if the submit button has been shown.
     /// If the init voteState is `.notDetermined`, the submit button is hidden. When the down vote button is triggered, the submit button is shown.
@@ -52,15 +56,65 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @State private var scrollViewHeight: CGFloat = 0
     @State private var detentSelection: PresentationDetent = .medium
     @State private var shouldApplyDetentHeight = true
+    @State private var cachedLastVoteState: AIUserFeedbackVoteState = .notDetermined
     
-    let navigationBarHeight = UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+    var navigationBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 67 : 74
+        } else {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+        }
+    }
     
     public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
-        // Add default layout here
+        Group {
+            if configuration.displayMode == .inline {
+                self.inlineAIUserFeedbackView(configuration)
+            } else {
+                self.normalAIUserFeedbackView(configuration)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func inlineAIUserFeedbackView(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        HStack {
+            configuration.title
+            Spacer()
+            self.secondaryActionView(configuration)
+                .fioriButtonStyle(FioriTertiaryButtonStyle())
+            self.actionView(configuration)
+                .fioriButtonStyle(FioriTertiaryButtonStyle())
+        }
+        .onAppear {
+            self.cachedLastVoteState = configuration.voteState
+        }
+        .popover(isPresented: self.$inlineFeedbackIsPresented) {
+            self.normalAIUserFeedbackView(configuration)
+                .presentationCompactAdaptation(.sheet)
+                .onAppear {
+                    configuration.submitButtonState = .normal
+                    self.isSubmitRequestFailed?.wrappedValue = false
+                    self.submitRequestFailed = false
+                }
+                .onDisappear {
+                    configuration.submitButtonState = .normal
+                    configuration.voteState = self.cachedLastVoteState
+                }
+        }
+    }
+    
+    func normalAIUserFeedbackView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         self.mainView(configuration)
             .onAppear {
-                self.shouldShowFeedbackDetail = configuration.voteState == .downVote
-                self.isShowSubmitButton = configuration.voteState == .downVote
+                if configuration.displayMode == .inline {
+                    self.shouldShowFeedbackDetail = true
+                    self.isShowSubmitButton = true
+                    self.shouldApplyDetentHeight = true
+                } else {
+                    self.shouldShowFeedbackDetail = configuration.voteState == .downVote
+                    self.isShowSubmitButton = configuration.voteState == .downVote
+                }
             }
             .onChange(of: configuration.voteState) {
                 if configuration.voteState == .downVote {
@@ -224,21 +278,27 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             DownVoteAction()
                 .downVoteActionStyle(DownVoteButtonSelectedStyle(isSelected: configuration.voteState == .downVote))
                 .onSimultaneousTapGesture {
-                    configuration.voteState = .downVote
-                    self.shouldShowFeedbackDetail = true
-                    self.isShowSubmitButton = true
-                    configuration.onDownVote?()
+                    self.downvoteAction(configuration)
                 }
                 .accessibilityLabel(self.accessibilityLabel(label: "Negative feedback".localizedFioriString(), selected: configuration.voteState == .downVote))
         } else {
             configuration.action
                 .onSimultaneousTapGesture {
-                    configuration.voteState = .downVote
-                    self.shouldShowFeedbackDetail = true
-                    self.isShowSubmitButton = true
-                    configuration.onDownVote?()
+                    self.downvoteAction(configuration)
                 }
         }
+    }
+    
+    func downvoteAction(_ configuration: AIUserFeedbackConfiguration) {
+        guard !self.disableMultipleVoteForAIUserFeedback else { return }
+        if configuration.displayMode == .inline {
+            self.inlineFeedbackIsPresented.toggle()
+        }
+        self.cachedLastVoteState = configuration.voteState
+        configuration.voteState = .downVote
+        self.shouldShowFeedbackDetail = true
+        self.isShowSubmitButton = true
+        configuration.onDownVote?()
     }
     
     @ViewBuilder
@@ -247,18 +307,24 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             UpVoteAction()
                 .upVoteActionStyle(UpVoteButtonSelectedStyle(isSelected: configuration.voteState == .upVote))
                 .onSimultaneousTapGesture {
-                    configuration.voteState = .upVote
-                    configuration.onUpVote?()
+                    guard !self.disableMultipleVoteForAIUserFeedback else { return }
+                    self.upvoteAction(configuration)
                     self.onSubmitAction(configuration)
                 }
                 .accessibilityLabel(self.accessibilityLabel(label: "Positive feedback".localizedFioriString(), selected: configuration.voteState == .upVote))
         } else {
             configuration.secondaryAction
                 .onSimultaneousTapGesture {
-                    configuration.voteState = .upVote
-                    configuration.onUpVote?()
+                    self.upvoteAction(configuration)
                 }
         }
+    }
+    
+    func upvoteAction(_ configuration: AIUserFeedbackConfiguration) {
+        guard !self.disableMultipleVoteForAIUserFeedback else { return }
+        self.cachedLastVoteState = configuration.voteState
+        configuration.voteState = .upVote
+        configuration.onUpVote?()
     }
     
     @ViewBuilder
@@ -301,8 +367,13 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .fixedSize()
                     .onSimultaneousTapGesture {
                         configuration.onCancel?()
-                        if configuration.displayMode != .inspector {
+                        switch configuration.displayMode {
+                        case .push, .sheet:
                             self.dismiss()
+                        case .inline:
+                            self.inlineFeedbackIsPresented.toggle()
+                        case .inspector:
+                            break
                         }
                     }
             }
@@ -370,10 +441,18 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     private func onSubmitAction(_ configuration: AIUserFeedbackConfiguration) {
         configuration.onSubmit?(configuration.voteState, self.getSelectedOptions(configuration), configuration.keyValueFormView?.text ?? "", { submitResult in
             if submitResult {
+                self.cachedLastVoteState = configuration.voteState
                 self.isSubmitRequestFailed?.wrappedValue = false
                 self.submitRequestFailed = false
-                self.dismiss()
+                if configuration.displayMode == .inline {
+                    if self.inlineFeedbackIsPresented {
+                        self.inlineFeedbackIsPresented.toggle()
+                    }
+                } else {
+                    self.dismiss()
+                }
             } else {
+                configuration.voteState = self.cachedLastVoteState
                 self.isSubmitRequestFailed?.wrappedValue = true
                 self.submitRequestFailed = true
             }
@@ -474,9 +553,27 @@ struct AIUserFeedbackIsSubmitRequestFailedKey: EnvironmentKey {
     static let defaultValue: Binding<Bool>? = nil
 }
 
+struct DisableMultipleVoteForAIUserFeedbackKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
     var isSubmitRequestFailed: Binding<Bool>? {
         get { self[AIUserFeedbackIsSubmitRequestFailedKey.self] }
         set { self[AIUserFeedbackIsSubmitRequestFailedKey.self] = newValue }
+    }
+    
+    var disableMultipleVoteForAIUserFeedback: Bool {
+        get { self[DisableMultipleVoteForAIUserFeedbackKey.self] }
+        set { self[DisableMultipleVoteForAIUserFeedbackKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Disable multiple vote for `AIUserFeedback`
+    /// - Parameter disabled: A boolean value indicating if multiple vote is disabled.
+    /// - Returns: A new view with multiple vote is disabled or not in `AIUserFeedback`.
+    func disableMultipleVoteForAIUserFeedback(_ disabled: Bool) -> some View {
+        self.environment(\.disableMultipleVoteForAIUserFeedback, disabled)
     }
 }

@@ -10,6 +10,7 @@ struct AIUserFeedbackExample: View {
     @State var isNavigationPresented = false
     @State var isToastPresented = false
     @State var isInspectorPresented = false
+    @State var disableMultipleVote = false
 
     @State var filterFormViewSelectionValue: [Int] = [0]
     @State var valueText: String = ""
@@ -58,6 +59,17 @@ struct AIUserFeedbackExample: View {
                 }
             }
             
+            NavigationLink("Inline AIUserFeedback") {
+                List {
+                    self.showFeedback(mode: .inline)
+                        .onAppear {
+                            self.voteState = .notDetermined
+                        }
+                }
+                .toastMessage(isPresented: self.$isToastPresented, title: "Thank you for your feedback", duration: 3)
+                .navigationTitle("Inline AIUserFeedback")
+            }
+            
             Toggle("Is Background Interaction Enabled", isOn: self.$isBackgroundInteractionEnabled)
             Toggle("Customized Vote Button", isOn: self.$customizedVoteButton)
             Toggle("Display Filter Form View", isOn: self.$displayFilterForm)
@@ -65,6 +77,7 @@ struct AIUserFeedbackExample: View {
             Toggle("Display Content Error", isOn: self.$displayContentError)
             Toggle("Customized Error View", isOn: self.$customizedErrorView)
             Toggle("Mock Submit Result(On: Success, Off: Fail)", isOn: self.$isSubmitResultSuccess)
+            Toggle("Disable Multiple Vote", isOn: self.$disableMultipleVote)
 
             Picker("Vote State(Not work for push)", selection: self.$voteStateIndex) {
                 ForEach(0 ..< self.voteStates.count, id: \.self) { index in
@@ -76,6 +89,7 @@ struct AIUserFeedbackExample: View {
                 self.voteState = self.voteStates[self.voteStateIndex]
             }
         }
+        .disableMultipleVoteForAIUserFeedback(self.disableMultipleVote)
         .toastMessage(isPresented: self.$isToastPresented, title: "Thank you for your feedback", duration: 3)
     }
     
@@ -101,7 +115,7 @@ struct AIUserFeedbackExample: View {
         let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
         
         return AIUserFeedback(detailImage: { Image(systemName: "gearshape") },
-                              title: { Title(title: "How was your AI experience?") },
+                              title: { Title(title: mode == .inline ? "How was your AI experience? (Inline Mode)" : "How was your AI experience?") },
                               description: { Text("Please rate your experience to help us improve.") },
                               action: { self.customizedVoteButton ? self.customAction : nil },
                               secondaryAction: { self.customizedVoteButton ? self.customSecondaryAction : nil },
@@ -124,19 +138,23 @@ struct AIUserFeedbackExample: View {
                                   self.submitButtonState = .inProgress
                                   if self.isSubmitResultSuccess {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                          submitResult(true)
                                           self.submitButtonState = .normal
                                           switch mode {
                                           case .push:
-                                              self.isFeedbackPushed.toggle()
+                                              self.isFeedbackPushed = false
                                           case .sheet:
-                                              self.isFeedbackPresented.toggle()
+                                              self.isFeedbackPresented = false
                                           case .inspector:
-                                              self.isInspectorPresented.toggle()
+                                              self.isInspectorPresented = false
+                                          case .inline:
+                                              break
                                           }
                                           self.isToastPresented.toggle()
                                       }
                                   } else {
                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                          self.submitButtonState = .normal
                                           submitResult(false)
                                       }
                                   }
