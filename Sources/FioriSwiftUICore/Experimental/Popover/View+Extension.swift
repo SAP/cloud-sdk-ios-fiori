@@ -45,12 +45,16 @@ extension View {
         })
     }
     
-    @available(iOS 18.0, *)
     func fioriScrollOffsetReader(_ offset: @escaping (CGPoint) -> Void) -> some View {
-        onScrollGeometryChange(for: CGPoint.self) { geometry in
-            geometry.contentOffset
-        } action: { _, newValue in
-            offset(newValue)
+        if #available(iOS 18.0, *) {
+            onScrollGeometryChange(for: CGPoint.self) { geometry in
+                geometry.contentOffset
+            } action: { _, newValue in
+                offset(newValue)
+            }
+            .typeErased
+        } else {
+            typeErased
         }
     }
 }
