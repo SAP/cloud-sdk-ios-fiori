@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 struct DateRangePickerPopView: View {
@@ -132,6 +133,7 @@ struct DateRangePickerPopView: View {
             .navigationTitle("Select Range".localizedFioriString())
             .navigationBarTitleDisplayMode(.inline)
         }
+        .background(Color.preferredColor(.primaryBackground))
     }
     
     var clearButtonDisabled: Bool {

@@ -32,7 +32,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
         }
-        .popover(isPresented: self.$isPresented) {
+        .sheet(isPresented: self.$isPresented) {
             DateRangePickerPopView(startDate: configuration.range?.lowerBound, endDate: configuration.range?.upperBound, selectedRange: configuration.selectedRange, applyActionCallback: { selectedRange in
                 configuration.selectedRange = selectedRange
                 self.isPresented = false
