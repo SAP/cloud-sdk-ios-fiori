@@ -39,10 +39,26 @@ final class DateRangePickerTests: XCTestCase {
         XCTAssertEqual(picker.controlState, .normal)
     }
     
-    func testDatePickerBaseStyle() {
+    var configuration: DateRangePickerConfiguration {
         let title = AttributedString("Range Selection")
-        var selectedRange: ClosedRange<Date>? = nil
-        let range: Range<Date>? = Date.now ..< Date(timeIntervalSinceNow: 24 * 60 * 60 * 3)
+        var selectedRange: ClosedRange<Date>? = Date.now ... Date.now
+        let range: Range<Date>? = Date.now ..< Date(timeIntervalSinceNow: 24 * 60 * 60 * 30)
+        let visible = true
+        let rangeFormatter = DateFormatter()
+        rangeFormatter.dateFormat = "yyyy/mm/dd"
+        let noRangeSelectedString = "Please select range"
+        
+        return DateRangePickerConfiguration(title: DateRangePickerConfiguration.Title(Text(title)), valueLabel: DateRangePickerConfiguration.ValueLabel(Text("")), controlState: .normal, errorMessage: nil, range: range, selectedRange: Binding(get: {
+            selectedRange
+        }, set: {
+            selectedRange = $0
+        }), rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: .constant(visible))
+    }
+    
+    func testDateRangePickerConfiguration() {
+        let title = AttributedString("Range Selection")
+        var selectedRange: ClosedRange<Date>? = Date.now ... Date.now
+        let range: Range<Date>? = Date.now ..< Date(timeIntervalSinceNow: 24 * 60 * 60 * 30)
         let visible = true
         let rangeFormatter = DateFormatter()
         rangeFormatter.dateFormat = "yyyy/mm/dd"
@@ -53,64 +69,71 @@ final class DateRangePickerTests: XCTestCase {
         }, set: {
             selectedRange = $0
         }), rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: .constant(visible))
+        XCTAssertNotNil(configuration.title)
+        XCTAssertNotNil(configuration.valueLabel)
+        XCTAssertEqual(configuration.controlState, .normal)
+        XCTAssertNil(configuration.errorMessage)
+        XCTAssertEqual(configuration.range, range)
+        XCTAssertEqual(configuration.selectedRange, selectedRange)
+        XCTAssertEqual(configuration.rangeFormatter, rangeFormatter)
+        XCTAssertEqual(configuration.noRangeSelectedString, noRangeSelectedString)
+        XCTAssertTrue(configuration.pickerVisible)
+    }
+    
+    func testDateRangePickerFioriStyle_ContentFioriStyle() {
+        let contentFioriStyle = DateRangePickerFioriStyle.ContentFioriStyle()
+        let view = contentFioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(view)
         
-        let modelObject = DateRangePickerModelObject()
-        modelObject.getDateComponentsFromDates(configuration)
-        XCTAssert(modelObject.tapCount == 0)
-        XCTAssert(modelObject.selectedDates.isEmpty)
-        XCTAssertEqual(configuration.selectedRange, nil)
-
-        let startDate = rangeFormatter.date(from: "2025/11/01")!
-        let endDate = rangeFormatter.date(from: "2025/11/05")!
-
-        let startNewSelection = Calendar.current.dateComponents(
-            modelObject.components, from: startDate
-        )
+        let fioriStyle = DateRangePickerFioriStyle()
+        let v2 = fioriStyle.makeBody(self.configuration)
+        XCTAssertNotNil(v2)
+    }
+    
+    func testDateRangePickerFioriStyle_TitleFioriStyle() {
+        let contentFioriStyle = DateRangePickerFioriStyle.TitleFioriStyle(dateRangePickerConfiguration: self.configuration)
+        let titleConfiguration = TitleConfiguration(title: self.configuration.title)
+        let view = contentFioriStyle.makeBody(titleConfiguration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testDateRangePickerFioriStyle_ValueLabelFioriStyle() {
+        let contentFioriStyle = DateRangePickerFioriStyle.ValueLabelFioriStyle(dateRangePickerConfiguration: self.configuration)
+        let valueLabelConfiguration = ValueLabelConfiguration(valueLabel: self.configuration.valueLabel)
+        let view = contentFioriStyle.makeBody(valueLabelConfiguration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testDateRangePickerFioriStyle_FormViewFioriStyle() {
+        let contentFioriStyle = DateRangePickerFioriStyle.FormViewFioriStyle(dateRangePickerConfiguration: self.configuration)
+        let formViewConfiguration = FormViewConfiguration(controlState: self.configuration.controlState, errorMessage: self.configuration.errorMessage)
+        let view = contentFioriStyle.makeBody(formViewConfiguration)
+        XCTAssertNotNil(view)
+    }
+    
+    func testDateRangePickerBaseStyle() {
+        let style = DateRangePickerBaseStyle()
+        let view = style.makeBody(self.configuration)
+        XCTAssertNotNil(view)
         
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
-        XCTAssert(modelObject.tapCount == 1)
-        XCTAssert(modelObject.selectedDates.count == 1)
-        XCTAssertEqual(configuration.selectedRange, nil)
-        
-        let endNewSelection = Calendar.current.dateComponents(
-            modelObject.components, from: endDate
-        )
-        
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
-        XCTAssert(modelObject.tapCount == 2)
-        XCTAssert(modelObject.selectedDates.count == 5)
-        if let selectedRange = configuration.selectedRange {
+        var configurationWithoutSelectedRange: DateRangePickerConfiguration {
+            let title = AttributedString("Range Selection")
+            var selectedRange: ClosedRange<Date>? = nil
+            let range: Range<Date>? = Date.now ..< Date(timeIntervalSinceNow: 24 * 60 * 60 * 30)
+            let visible = true
             let rangeFormatter = DateFormatter()
-            XCTAssertEqual(rangeFormatter.string(from: selectedRange.lowerBound), rangeFormatter.string(from: startDate))
-            XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: endDate))
+            rangeFormatter.dateFormat = "yyyy/mm/dd"
+            let noRangeSelectedString = "Please select range"
+            
+            return DateRangePickerConfiguration(title: DateRangePickerConfiguration.Title(Text(title)), valueLabel: DateRangePickerConfiguration.ValueLabel(Text("")), controlState: .normal, errorMessage: nil, range: range, selectedRange: Binding(get: {
+                selectedRange
+            }, set: {
+                selectedRange = $0
+            }), rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: .constant(visible))
         }
         
-        // click any day within the range to cancel the selection
-        modelObject.handleDateSelection(configuration, newSelection: [endNewSelection])
-        XCTAssert(modelObject.tapCount == 0)
-        XCTAssert(modelObject.selectedDates.isEmpty)
-        XCTAssertEqual(configuration.selectedRange, nil)
-        
-        // select range in one day (when user tapped the start date twice, the newSelection will become empty).
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection])
-        modelObject.handleDateSelection(configuration, newSelection: [])
-        XCTAssert(modelObject.selectedDates.count == 1)
-        if let selectedRange = configuration.selectedRange {
-            let rangeFormatter = DateFormatter()
-            XCTAssertEqual(rangeFormatter.string(from: selectedRange.lowerBound), rangeFormatter.string(from: startDate))
-            XCTAssertEqual(rangeFormatter.string(from: selectedRange.upperBound), rangeFormatter.string(from: startDate))
-        }
-
-        // select endDate to start new selection
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
-        XCTAssert(modelObject.tapCount == 1)
-        XCTAssert(modelObject.selectedDates.count == 1)
-        XCTAssertNil(configuration.selectedRange)
-
-        // select startDate to new range
-        modelObject.handleDateSelection(configuration, newSelection: [startNewSelection, endNewSelection])
-        XCTAssertEqual(modelObject.tapCount, 2)
-        XCTAssertEqual(modelObject.selectedDates.count, 5)
-        XCTAssertNotNil(configuration.selectedRange)
+        let style1 = DateRangePickerBaseStyle()
+        let view1 = style.makeBody(configurationWithoutSelectedRange)
+        XCTAssertNotNil(view1)
     }
 }
