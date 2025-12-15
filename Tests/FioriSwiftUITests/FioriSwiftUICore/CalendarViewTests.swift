@@ -135,9 +135,10 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertTrue(Calendar.current.compare(model.selectedRange?.lowerBound ?? .now, to: self.fm.date(from: "2025 10 12")!, toGranularity: .day) == .orderedSame)
         XCTAssertTrue(Calendar.current.compare(model.selectedRange?.upperBound ?? .now, to: self.fm.date(from: "2025 10 15")!, toGranularity: .day) == .orderedSame)
         style.handleDayViewTapGesture(self.fm.date(from: "2025 10 14")!, state: .multiSelectedEnd, configuration: configuration)
-        XCTAssertTrue(Calendar.current.compare(model.selectedRange?.upperBound ?? .now, to: self.fm.date(from: "2025 10 14")!, toGranularity: .day) == .orderedSame)
-        style.handleDayViewTapGesture(self.fm.date(from: "2025 10 15")!, state: .normal, configuration: configuration)
         XCTAssertNil(model.selectedRange)
+        style.handleDayViewTapGesture(self.fm.date(from: "2025 10 15")!, state: .normal, configuration: configuration)
+        XCTAssertTrue(Calendar.current.compare(model.selectedRange?.upperBound ?? .now, to: self.fm.date(from: "2025 10 15")!, toGranularity: .day) == .orderedSame)
+        XCTAssertTrue(Calendar.current.compare(model.selectedRange?.lowerBound ?? .now, to: self.fm.date(from: "2025 10 14")!, toGranularity: .day) == .orderedSame)
     }
     
     var configuration: CalendarViewConfiguration {

@@ -52,7 +52,7 @@ final class TextInputFieldTests: XCTestCase {
         let priceString1 = priceNumberformatter.string(for: "123456", cursorPosition: 0)?.formattedString
         XCTAssertEqual(priceString1, "$123,456")
         
-        var numberFormatter: CustomNumberFormatter {
+        var numberFormatter1: CustomNumberFormatter {
             let formatter = CustomNumberFormatter()
             formatter.numberStyle = .decimal
             formatter.maximumFractionDigits = 3
@@ -60,8 +60,59 @@ final class TextInputFieldTests: XCTestCase {
             return formatter
         }
         
-        let numberString = numberFormatter.string(for: "123", cursorPosition: 0)?.formattedString
-        XCTAssertEqual(numberString, "123lbs")
+        let numberString1 = numberFormatter1.string(for: "123", cursorPosition: 0)?.formattedString
+        XCTAssertEqual(numberString1, "123lbs")
+		
+        var numberFormatter2: CustomNumberFormatter {
+            let formatter = CustomNumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 3
+            formatter.positiveSuffix = "lbs"
+            return formatter
+        }
+		
+        let numberString2 = numberFormatter2.string(for: "-123", cursorPosition: 0)?.formattedString
+        XCTAssertEqual(numberString2, "-123")
+		
+        var numberFormatter3: CustomNumberFormatter {
+            let formatter = CustomNumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 3
+            formatter.positiveSuffix = "lbs"
+            formatter.minusSign = "~"
+            return formatter
+        }
+		
+        let numberString3 = numberFormatter3.string(for: "-123", cursorPosition: 0)?.formattedString
+        XCTAssertEqual(numberString3, "~123")
+		
+        var numberFormatter4: CustomNumberFormatter {
+            let formatter = CustomNumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 3
+            formatter.positiveSuffix = "lbs+"
+            formatter.positivePrefix = "posP"
+            formatter.negativePrefix = "negP"
+            formatter.negativeSuffix = "lbs-"
+            return formatter
+        }
+		
+        let numberString4 = numberFormatter4.string(for: "123", cursorPosition: 0)?.formattedString
+        XCTAssertEqual(numberString4, "posP123lbs+")
+		
+        var numberFormatter5: CustomNumberFormatter {
+            let formatter = CustomNumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 3
+            formatter.positiveSuffix = "lbs+"
+            formatter.positivePrefix = "posP"
+            formatter.negativePrefix = "negP"
+            formatter.negativeSuffix = "lbs-"
+            return formatter
+        }
+		
+        let numberString5 = numberFormatter5.string(for: "-123", cursorPosition: 0)?.formattedString
+        XCTAssertEqual(numberString5, "negP123lbs-")
         
         var formatter: GenericTextFormatter {
             let formatter = GenericTextFormatter()

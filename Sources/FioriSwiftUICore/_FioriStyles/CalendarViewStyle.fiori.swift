@@ -211,21 +211,10 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                 configuration.model.selectedDates = [date]
             }
         } else {
-            let calendar = Calendar.autoupdatingCurrent
             if configuration.model.calendarStyle == .rangeSelection {
-                if let checkRange = configuration.model.selectedRange {
-                    if calendar.compare(date, to: checkRange.upperBound, toGranularity: .day) != .orderedDescending,
-                       calendar.compare(date, to: checkRange.lowerBound, toGranularity: .day) != .orderedAscending
-                    {
-                        let bounds = [checkRange.lowerBound, date].sorted()
-                        if let first = bounds.first, let last = bounds.last {
-                            configuration.model.selectedRange = first ... last
-                        }
-                        configuration.model.selectedDate = nil
-                    } else {
-                        configuration.model.selectedRange = nil
-                        configuration.model.selectedDate = date
-                    }
+                if configuration.model.selectedRange != nil {
+                    configuration.model.selectedRange = nil
+                    configuration.model.selectedDate = date
                 } else if let boundDate = configuration.model.selectedDate {
                     let bounds = [boundDate, date].sorted()
                     if let first = bounds.first, let last = bounds.last {

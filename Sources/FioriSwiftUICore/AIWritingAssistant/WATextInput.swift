@@ -99,19 +99,78 @@ struct WATextInputModifier: ViewModifier {
     func isSameTextInput(_ l: (any WATextInput)?, _ r: (any WATextInput)?) -> Bool {
         ObjectIdentifier(l as AnyObject) == ObjectIdentifier(r as AnyObject)
     }
+
+    #if !os(visionOS)
+        @ViewBuilder
+        private var keyboardAccessoryView: some View {
+            if LiquidGlassHelper.usesLiquidGlassUI {
+                if #available(iOS 26.0, *) {
+                    GlassEffectContainer {
+                        waEntryPointView
+                            .padding()
+                            .glassEffect(.regular.interactive())
+                            .padding(.horizontal)
+                    }
+                } else {
+                    VStack(spacing: 0) {
+                        Color.preferredColor(.separator).frame(height: 0.5)
+                        self.waEntryPointView.padding()
+                    }
+                }
+            } else {
+                VStack(spacing: 0) {
+                    Color.preferredColor(.separator).frame(height: 0.5)
+                    self.waEntryPointView.padding()
+                }
+            }
+        }
     
+        private var waEntryPointView: some View {
+            HStack {
+                Spacer()
+                self.waAction
+                    .fixedSize()
+                    .onSimultaneousTapGesture {
+                        self.context.originalValue = self.text
+                        self.context.updateOriginalSelectedRange()
+                        self.context.updateInWAFlow(true)
+                        self.context.isPresented = true
+                    }
+            }
+        }
+    
+        private var textInputAccessoryView: UIView {
+            let hostVC = UIHostingController(rootView: keyboardAccessoryView)
+            hostVC.view.frame.size = hostVC.view.intrinsicContentSize
+            return hostVC.view
+        }
+    
+        private func updateTextInputAccessoryView() {
+            if self.context.isPresented {
+                self.context.waTextInput?.inputAccessoryView = nil
+            } else {
+                self.context.waTextInput?.inputAccessoryView = self.textInputAccessoryView
+            }
+        }
+    #else
+        private func updateTextInputAccessoryView() {
+            // VisionOS does not support this now.
+        }
+    #endif
     // swiftlint:disable function_body_length cyclomatic_complexity
     func body(content: Content) -> some View {
         content
             .modifier(
                 FioriIntrospectModifier<UITextView> { textView in
                     self.context.waTextInput = textView
+                    self.updateTextInputAccessoryView()
                     self.context.observeSelectionChange(for: textView)
                 }
             )
             .modifier(
                 FioriIntrospectModifier<UITextField> { textField in
                     self.context.waTextInput = textField
+                    self.updateTextInputAccessoryView()
                     self.context.observeSelectionChange(for: textField)
                 }
             )
@@ -125,24 +184,6 @@ struct WATextInputModifier: ViewModifier {
                         self.context.updateInWAFlow(false)
                     }
                 }
-            }
-            .toolbar {
-                #if !os(visionOS)
-                    ToolbarItem(placement: .keyboard) {
-                        if self.isTextInputFocused, !self.context.isPresented, self.context.isInWAFlow {
-                            HStack {
-                                Spacer()
-                                self.waAction
-                                    .fixedSize()
-                                    .onSimultaneousTapGesture {
-                                        self.context.originalValue = self.text
-                                        self.context.updateOriginalSelectedRange()
-                                        self.context.isPresented = true
-                                    }
-                            }
-                        }
-                    }
-                #endif
             }
             .onChange(of: self.context.isInWAFlow) { _, newValue in
                 if !newValue {
@@ -379,6 +420,9 @@ extension WritingAssistantContext {
 protocol WATextInput: Equatable {
     var isFirstResponder: Bool { get }
     var selectedRange: NSRange { get set }
+    #if !os(visionOS)
+        var inputAccessoryView: UIView? { get set }
+    #endif
 }
 
 extension UITextField: WATextInput {}
