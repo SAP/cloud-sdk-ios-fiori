@@ -225,6 +225,7 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
             HeaderAction(configuration)
+                .accessibilityHint(NSLocalizedString("Header action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for HeaderAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
