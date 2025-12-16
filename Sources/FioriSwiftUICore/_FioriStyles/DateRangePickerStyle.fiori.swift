@@ -2,126 +2,12 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-class DateRangePickerModelObject: ObservableObject {
-    @Published var selectedDates: Set<DateComponents> = []
-    
-    @Published var tapCount = 0
-    
-    let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .nanosecond, .calendar, .timeZone]
-    
-    func getDateComponentsFromDates(_ configuration: DateRangePickerConfiguration) {
-        let calendar = Calendar.current
-        
-        if let startDate = configuration.selectedRange?.lowerBound,
-           let endDate = configuration.selectedRange?.upperBound
-        {
-            let startDateComponents = calendar.dateComponents(self.components, from: startDate)
-            self.selectedDates.insert(startDateComponents)
-            
-            let endDateComponents = calendar.dateComponents(self.components, from: endDate)
-            self.handleDateSelection(configuration, newSelection: [startDateComponents, endDateComponents], isTapped: false)
-        }
-    }
-    
-    func handleDateSelection(_ configuration: DateRangePickerConfiguration, newSelection: Set<DateComponents>, isTapped: Bool = true) {
-        if self.selectedDates.isEmpty {
-            self.selectedDates = newSelection
-            self.tapCount = 1
-        } else if self.selectedDates.count == 1, self.tapCount < 2 {
-            if !newSelection.isEmpty {
-                self.selectedDates = self.updateDateRange(self.selectedDates, newSelection)
-            }
-            // If newSelection isEmpty means user tapped the same date.
-            // Since we support range with 1 date, do not set selectedDates to empty.
-            self.tapCount = 2
-        } else if isTapped {
-            var isNewStart = false
-            if newSelection.count - self.selectedDates.count == 1 {
-                // User tapped another date outside of the selected dates. Use that date as the start date.
-                let sub = newSelection.subtracting(self.selectedDates)
-                if let first = sub.first {
-                    self.selectedDates = [first]
-                    self.tapCount = 1
-                    isNewStart = true
-                }
-            }
-
-            if !isNewStart {
-                // Could not get the date user tapped. In this case, just clear all dates
-                self.selectedDates = []
-                self.tapCount = 0
-            }
-        }
-        
-        let result = self.selectedDates.sorted {
-            if let date1 = $0.date, let date2 = $1.date {
-                date1 < date2
-            } else {
-                true
-            }
-        }
-        
-        if self.tapCount > 1,
-           let startDate = result.first?.date,
-           let endDate = result.last?.date
-        {
-            configuration.selectedRange = startDate ... endDate
-        } else {
-            configuration.selectedRange = nil
-        }
-    }
-    
-    private func updateDateRange(_ selectedDates: Set<DateComponents>,
-                                 _ newSelection: Set<DateComponents>) -> Set<DateComponents>
-    {
-        let newDate = newSelection.subtracting(selectedDates)
-        
-        guard let firstDate = selectedDates.first?.date,
-              let secondDate = newDate.first?.date, newSelection.count > 1
-        else {
-            // Reset if we can't form a valid range
-            return selectedDates
-        }
-        
-        let startDate = min(firstDate, secondDate)
-        let endDate = max(firstDate, secondDate)
-        
-        // Generate a range of dates between start and end dates
-        let allDates = self.generateDateRange(from: startDate, to: endDate)
-        
-        // Map the dates to DateComponents and return them as a new set
-        return Set(allDates.map {
-            Calendar.current.dateComponents(
-                self.components, from: $0
-            )
-        })
-    }
-    
-    private func generateDateRange(from startDate: Date, to endDate: Date) -> [Date] {
-        guard startDate <= endDate else { return [] }
-        
-        var dates: [Date] = []
-        var currentDate = startDate
-        while currentDate <= endDate {
-            dates.append(currentDate)
-            if let date = Calendar.current.date(
-                byAdding: .day, value: 1, to: currentDate
-            ) {
-                currentDate = date
-            } else {
-                break
-            }
-        }
-        return dates
-    }
-}
-
 // Base Layout style
 public struct DateRangePickerBaseStyle: DateRangePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @StateObject var modelObject = DateRangePickerModelObject()
+    @State var isPresented = false
     
     public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
         VStack {
@@ -136,30 +22,24 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
                         }
                     }
                 }
-                .animation(nil, value: configuration.pickerVisible)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .padding(.top, 8)
-                
-                if configuration.pickerVisible, configuration.controlState != .disabled {
-                    LazyVStack {
-                        Divider()
-                            .frame(height: 0.33)
-                            .foregroundStyle(Color.preferredColor(.separatorOpaque))
-                        self.showPicker(configuration)
-                    }
-                    .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
-                }
             }
-            .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
-        }
-        .onAppear {
-            self.modelObject.getDateComponentsFromDates(configuration)
         }
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.locale, FioriLocale.shared.locale!)
         }
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
+        }
+        .sheet(isPresented: self.$isPresented) {
+            DateRangePickerPopView(startDate: configuration.range?.lowerBound, endDate: configuration.range?.upperBound, selectedRange: configuration.selectedRange, applyActionCallback: { selectedRange in
+                configuration.selectedRange = selectedRange
+                self.isPresented = false
+            }) {
+                self.isPresented = false
+            }
+            .presentationDetents([.large])
         }
     }
     
@@ -180,7 +60,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
-                configuration.pickerVisible.toggle()
+                self.isPresented = true
             })
         }
     }
@@ -196,17 +76,8 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
     }
     
     func getValueLabel(_ configuration: DateRangePickerConfiguration) -> String {
-        let result = self.modelObject.selectedDates.sorted {
-            if let date1 = $0.date, let date2 = $1.date {
-                date1 < date2
-            } else {
-                true
-            }
-        }
-        
-        if self.modelObject.tapCount > 1,
-           let startDate = result.first?.date,
-           let endDate = result.last?.date
+        if let startDate = configuration.selectedRange?.lowerBound,
+           let endDate = configuration.selectedRange?.upperBound
         {
             var valueDescDateFormatter = DateFormatter()
             if let customizedFormatter = configuration.rangeFormatter {
@@ -223,21 +94,6 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             return "\(startDateStr) – \(endDateStr)"
         } else {
             return configuration.noRangeSelectedString ?? NSLocalizedString("No range selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-        }
-    }
-    
-    func showPicker(_ configuration: DateRangePickerConfiguration) -> some View {
-        let selection: Binding<Set<DateComponents>> = Binding(
-            get: { self.modelObject.selectedDates },
-            set: { self.modelObject.handleDateSelection(configuration, newSelection: $0) }
-        )
-        
-        if let range = configuration.range {
-            return MultiDatePicker("", selection: selection, in: range)
-                .typeErased
-        } else {
-            return MultiDatePicker("", selection: selection)
-                .typeErased
         }
     }
 }

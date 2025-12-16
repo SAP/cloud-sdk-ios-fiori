@@ -662,3 +662,12 @@
 
 /* XACT: The accessibility value for Stepper increment*/
 "Increase the value by %f" = "Increase the value by %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Select Range";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Start Date";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "End Date";
