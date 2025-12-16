@@ -605,7 +605,7 @@
 "Card subtitle" = "Card subtitle";
 
 /*XTIT: HeaderAction for card*/
-"Header action" = "Header action";
+"Card header action" = "Card header action";
 
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Tap to turn on";
