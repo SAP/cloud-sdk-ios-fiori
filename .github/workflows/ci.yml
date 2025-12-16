@@ -7,6 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  x_kill_processes:
+    name: Kill residual Xcode and Simulator Processes
+    run: |
+      echo "Terminating all Simulator and Xcode-related processes..."
+      killall "Simulator" 2>/dev/null || true
+      killall "SimulatorTrampoline" 2>/dev/null || true
+      killall "CoreSimulatorService" 2>/dev/null || true
+      killall "xcodebuild" 2>/dev/null || true
+      killall "swift-frontend" 2>/dev/null || true
+      killall "ibtool" 2>/dev/null || true
+      killall "Xcode" 2>/dev/null || true
+      echo "Process cleanup complete."
+    
   build:
     strategy:
       fail-fast: false
@@ -16,13 +29,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-
     steps:
     - uses: actions/checkout@v3
+
+    - *x_kill_processes
+
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.0.1' clean build test | xcpretty
+      
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
+      
     - name: Store coverage for sonar job
       uses: actions/upload-artifact@v4
       with:
@@ -37,10 +54,12 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        
     - name: Get coverage from build job
       uses: actions/download-artifact@v4
       with:
         name: coverage
+        
     - name: Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
@@ -56,9 +75,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-    
     steps:
     - uses: actions/checkout@v3
+
+    - *x_kill_processes
+
     - name: Run tests on Apple Watch simulator
       run: set -o pipefail && make test_watch
 
@@ -71,8 +92,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-    
     steps:
     - uses: actions/checkout@v3
+
+    - *x_kill_processes
+      
     - name: Run tests on Vision OS simulator
       run: set -o pipefail && make test_vision
