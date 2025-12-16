@@ -7,19 +7,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  x_kill_processes:
-    name: Kill residual Xcode and Simulator Processes
-    run: |
-      echo "Terminating all Simulator and Xcode-related processes..."
-      killall "Simulator" 2>/dev/null || true
-      killall "SimulatorTrampoline" 2>/dev/null || true
-      killall "CoreSimulatorService" 2>/dev/null || true
-      killall "xcodebuild" 2>/dev/null || true
-      killall "swift-frontend" 2>/dev/null || true
-      killall "ibtool" 2>/dev/null || true
-      killall "Xcode" 2>/dev/null || true
-      echo "Process cleanup complete."
-    
   build:
     strategy:
       fail-fast: false
@@ -32,7 +19,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - *x_kill_processes
+    # === YAML ANCHOR DEFINITION (&kill_processes) ===
+    - &kill_processes
+      name: Kill residual Xcode and Simulator Processes
+      run: |
+        echo "Terminating all Simulator and Xcode-related processes..."
+        killall "Simulator" 2>/dev/null || true
+        killall "SimulatorTrampoline" 2>/dev/null || true
+        killall "CoreSimulatorService" 2>/dev/null || true
+        killall "xcodebuild" 2>/dev/null || true
+        killall "swift-frontend" 2>/dev/null || true
+        killall "ibtool" 2>/dev/null || true
+        killall "Xcode" 2>/dev/null || true
+        echo "Process cleanup complete."
+    # ===============================================
 
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.0.1' clean build test | xcpretty
@@ -78,7 +78,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - *x_kill_processes
+    - *kill_processes
 
     - name: Run tests on Apple Watch simulator
       run: set -o pipefail && make test_watch
@@ -95,7 +95,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - *x_kill_processes
+    - *kill_processes
       
     - name: Run tests on Vision OS simulator
       run: set -o pipefail && make test_vision
