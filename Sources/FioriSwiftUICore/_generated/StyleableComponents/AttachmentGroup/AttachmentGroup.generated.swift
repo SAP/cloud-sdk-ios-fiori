@@ -58,7 +58,7 @@ import SwiftUI
 ///
 /// Apps-Specific Attachment Cache:
 /// The `BasicAttachmentDelegate` includes a "cache" folder concept that may suit your requirements.
-/// Apps can use similar code in the "Batch" button action in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift) for synchroizing attachments between App local storage and backend server.
+/// Apps can use similar code in the "Batch" button action in [`AttachmentGroupExample.swift`](https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift) for synchronizing attachments between App local storage and backend server.
 public struct AttachmentGroup {
     let title: any View
     let context: AttachmentContext
