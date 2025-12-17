@@ -150,19 +150,36 @@ public struct FioriButton: View {
 
     /// The content of the button.
     public var body: some View {
-        SkeletonLoadingContainer {
-            // For menu use case, fioriButton should be based on Button
-            self.createStandardButtonWithProps()
-                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
-                .overlay(GeometryReader { proxy in
-                    Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
-                })
-                .setOnChange(of: self.isSelectionPersistent) {
-                    self._state = .normal
+        // For menu use case, fioriButton should be based on Button
+        if #available(iOS 26.0, *) {
+            VStack {
+                SkeletonLoadingContainer {
+                    self.createStandardButtonWithProps()
+                        .buttonStyle(_ButtonStyleImplementForLiquid(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state, isSelectionPersistent: self.isSelectionPersistent))
+                        .setOnChange(of: self.isSelectionPersistent) {
+                            self._state = .normal
+                        }
+                        .ifApply(self.isLoading) { view in
+                            view.opacity(0.25)
+                        }
                 }
-                .ifApply(self.isLoading) { view in
-                    view.opacity(0.25)
-                }
+            }
+            .typeErased
+        } else {
+            SkeletonLoadingContainer {
+                self.createStandardButtonWithProps()
+                    .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
+                    .overlay(GeometryReader { proxy in
+                        Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
+                    })
+                    .setOnChange(of: self.isSelectionPersistent) {
+                        self._state = .normal
+                    }
+                    .ifApply(self.isLoading) { view in
+                        view.opacity(0.25)
+                    }
+            }
+            .typeErased
         }
     }
     
@@ -258,6 +275,42 @@ private struct _ButtonStyleImpl: ButtonStyle {
     }
 }
 
+private struct _ButtonStyleImplementForLiquid: ButtonStyle {
+    let fioriButtonStyle: AnyFioriButtonStyle
+    let label: (UIControl.State) -> any View
+    let image: (UIControl.State) -> any View
+    let imagePosition: FioriButtonImagePosition
+    let imageTitleSpacing: CGFloat
+    let isEnabled: Bool
+    let state: UIControl.State
+    let isSelectionPersistent: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        var _state = self.state
+        if !self.isSelectionPersistent {
+            if !self.isEnabled {
+                _state = .disabled
+            } else {
+                _state = configuration.isPressed ? .selected : .normal
+            }
+        }
+        
+        let config = FioriButtonStyleConfiguration(state: _state, _label: { state in
+            let v = self.label(state)
+            return FioriButtonStyleConfiguration.Label(v)
+        }, _image: { state in
+            let v = self.image(state)
+            return FioriButtonStyleConfiguration.Image(v)
+        }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
+
+        return ZStack {
+            self.fioriButtonStyle.makeBody(configuration: config)
+            
+            configuration.label.hidden()
+        }
+    }
+}
+
 /// Place the image along the top, leading, bottom, or trailing edge of the button.
 public enum FioriButtonImagePosition {
     /// place the image along the top edge of the button.
@@ -279,7 +332,18 @@ private extension FioriButton {
     /// - Returns: A configured `Button<EmptyView>`.
     private func createStandardButtonWithProps() -> some View {
         // Inject Fiori action
-        let fioriAction: () -> Void = { self.action?(.normal) }
+        let fioriAction: () -> Void = {
+            if #available(iOS 26.0, *) {
+                if self.isSelectionPersistent {
+                    self._state = self.state == .normal ? .selected : .normal
+                } else {
+                    self._state = .normal
+                }
+                self.action?(self.state)
+            } else {
+                self.action?(.normal)
+            }
+        }
         
         // Use the environment creator
         let configuredButton = self.standardButtonCreator(fioriAction)
