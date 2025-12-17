@@ -16,11 +16,7 @@ class HexColorTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let color = HexColor()
         
-        let traits = UITraitCollection(mutations: {
-            $0.userInterfaceStyle = .light
-            $0.userInterfaceLevel = .base
-            $0.accessibilityContrast = .normal
-        })
+        let traits = UITraitCollection()
 
         // Light foreground color should be initialized using .dark color scheme
         let lightVariant = color.getVariant(traits: traits, background: .darkConstant, interface: .baseConstant, display: .normalConstant)
@@ -50,7 +46,7 @@ class HexColorTests: XCTestCase {
         //  - For .dark color scheme, should return the light variant of a HexColor
         let color = HexColor(lightColor: "12345678", darkColor: "abCDef")
         
-        let traits = UIView().traitCollection
+        let traits = UITraitCollection()
         
         let lightVariant = color.getVariant(traits: traits, background: .darkConstant, interface: .baseConstant, display: .normalConstant)
         let lightColorString = color.hex(lightVariant)
