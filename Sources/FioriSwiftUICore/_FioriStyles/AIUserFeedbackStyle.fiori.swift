@@ -197,11 +197,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             })
             .actionStyle(content: { _ in
                 self.actionView(configuration)
-                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+                    .fioriButtonStyle(AIVoteActionButtonStyle())
             })
             .secondaryActionStyle(content: { _ in
                 self.secondaryActionView(configuration)
-                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+                    .fioriButtonStyle(AIVoteActionButtonStyle())
             })
             .fixedSize(horizontal: false, vertical: true)
             .padding(.bottom, 11)
