@@ -98,7 +98,7 @@ private struct CardFooterLayout: Layout {
     }
 
     /**
-     case 1: totol is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
+     case 1: total is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
      case 2: total is 3 buttons, 2 buttons (only two of tertiary, secondary and primary exist), overflow menu with 1 button
      case 3: total is 1 button, 1 button, only one of tertiary, secondary or primary exist
      
@@ -297,7 +297,7 @@ public struct CardFooterBaseStyle: CardFooterStyle {
     }
     
     /**
-        case 1: totol is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
+        case 1: total is 5 buttons, 3 buttons (tertiary, secondary, primary), overflow menu with 2 buttons, overflow menu with 1 button
         case 2: total is 3 buttons, 2 buttons (only two of tertiary, secondary and primary exist), overflow menu with 1 button
         case 3: total is 1 button, 1 button, only one of tertiary, secondary or primary exist
      */
