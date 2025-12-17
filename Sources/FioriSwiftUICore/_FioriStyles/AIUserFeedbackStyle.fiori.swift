@@ -82,9 +82,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             configuration.title
             Spacer()
             self.secondaryActionView(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(AIVoteActionButtonStyle())
             self.actionView(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(AIVoteActionButtonStyle())
         }
         .onAppear {
             self.cachedLastVoteState = configuration.voteState
@@ -251,11 +251,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             })
             .actionStyle(content: { _ in
                 self.actionView(configuration)
-                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+                    .fioriButtonStyle(AIVoteActionButtonStyle())
             })
             .secondaryActionStyle(content: { _ in
                 self.secondaryActionView(configuration)
-                    .fioriButtonStyle(FioriTertiaryButtonStyle())
+                    .fioriButtonStyle(AIVoteActionButtonStyle())
             })
             .fixedSize(horizontal: false, vertical: true)
             .padding(.bottom, 11)
