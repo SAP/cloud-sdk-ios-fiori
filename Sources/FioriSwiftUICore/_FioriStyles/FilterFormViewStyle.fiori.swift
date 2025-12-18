@@ -142,6 +142,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                 .accessibilityLabel(
                     Text("\(option), \((isSelected ? "selected" : "not selected").localizedFioriString())")
                 )
+                .accessibilityAddTraits(.isButton)
             }
         }
         .sizeReader { size in

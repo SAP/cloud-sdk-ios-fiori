@@ -89,19 +89,19 @@ struct BasicComponentSkeletonLoading: View {
             Text("Button")
                 .italic()
             FioriButton(isSelectionPersistent: false, label: { _ in
-                Text("Button Label")
+                Text("Primary Loading Button")
             })
             .fioriButtonStyle(FioriPrimaryButtonStyle(isLoading: self.isLoading))
             .environment(\.isLoading, self.isLoading)
             
             FioriButton(isSelectionPersistent: false, label: { _ in
-                Text("Button Label")
+                Text("Secondary Loading Button")
             })
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isLoading, self.isLoading)
             
             FioriButton(isSelectionPersistent: false, label: { _ in
-                Text("Button Label")
+                Text("Tertiary Loading Button")
             })
             .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isLoading, self.isLoading)
