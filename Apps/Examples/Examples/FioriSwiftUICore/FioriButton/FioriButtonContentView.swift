@@ -39,7 +39,7 @@ struct ButtonView: View {
             }
         } label: { _ in
             Text(self.title)
-        }.highPriorityGesture(TapGesture().onEnded {
+        }.simultaneousGesture(TapGesture().onEnded {
             print("ButtonView \"\(self.title)\" tapped and triggered highPriorityGesture(TapGesture()), isInMenu: \(self.isInMenu)")
             if !self.isInMenu {
                 self.action()

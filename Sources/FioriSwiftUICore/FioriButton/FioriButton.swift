@@ -149,24 +149,52 @@ public struct FioriButton: View {
 
     /// The content of the button.
     public var body: some View {
-        SkeletonLoadingContainer {
-            // For menu use case, fioriButton should be based on Button
-            Button {
-                // This will be called when tapped for use case in Menu component
-                self.action?(.normal)
-            } label: {
-                EmptyView()
+        if #available(iOS 26.0, *) {
+            VStack {
+                SkeletonLoadingContainer {
+                    // For menu use case, fioriButton should be based on Button
+                    Button {
+                        // This will be called when tapped for use case in Menu component
+                        if self.isSelectionPersistent {
+                            self._state = self.state == .normal ? .selected : .normal
+                        } else {
+                            self._state = .normal
+                        }
+                        self.action?(self.state)
+                    } label: {
+                        EmptyView()
+                    }
+                    .buttonStyle(_ButtonStyleImplementForLiquid(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state, isSelectionPersistent: self.isSelectionPersistent))
+                    .setOnChange(of: self.isSelectionPersistent) {
+                        self._state = .normal
+                    }
+                    .ifApply(self.isLoading) { view in
+                        view.opacity(0.25)
+                    }
+                }
             }
-            .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
-            .overlay(GeometryReader { proxy in
-                Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
-            })
-            .setOnChange(of: self.isSelectionPersistent) {
-                self._state = .normal
+            .typeErased
+        } else {
+            SkeletonLoadingContainer {
+                // For menu use case, fioriButton should be based on Button
+                Button {
+                    // This will be called when tapped for use case in Menu component
+                    self.action?(.normal)
+                } label: {
+                    EmptyView()
+                }
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, image: self.image, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing, isEnabled: self.isEnabled, state: self.state))
+                .overlay(GeometryReader { proxy in
+                    Color.clear.contentShape(Rectangle()).simultaneousGesture(self.createGesture(proxy.size))
+                })
+                .setOnChange(of: self.isSelectionPersistent) {
+                    self._state = .normal
+                }
+                .ifApply(self.isLoading) { view in
+                    view.opacity(0.25)
+                }
             }
-            .ifApply(self.isLoading) { view in
-                view.opacity(0.25)
-            }
+            .typeErased
         }
     }
     
@@ -247,6 +275,42 @@ private struct _ButtonStyleImpl: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         let config = FioriButtonStyleConfiguration(state: self.state, _label: { state in
+            let v = self.label(state)
+            return FioriButtonStyleConfiguration.Label(v)
+        }, _image: { state in
+            let v = self.image(state)
+            return FioriButtonStyleConfiguration.Image(v)
+        }, imagePosition: self.imagePosition, imageTitleSpacing: self.imageTitleSpacing)
+
+        return ZStack {
+            self.fioriButtonStyle.makeBody(configuration: config)
+            
+            configuration.label.hidden()
+        }
+    }
+}
+
+private struct _ButtonStyleImplementForLiquid: ButtonStyle {
+    let fioriButtonStyle: AnyFioriButtonStyle
+    let label: (UIControl.State) -> any View
+    let image: (UIControl.State) -> any View
+    let imagePosition: FioriButtonImagePosition
+    let imageTitleSpacing: CGFloat
+    let isEnabled: Bool
+    let state: UIControl.State
+    let isSelectionPersistent: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        var _state = self.state
+        if !self.isSelectionPersistent {
+            if !self.isEnabled {
+                _state = .disabled
+            } else {
+                _state = configuration.isPressed ? .selected : .normal
+            }
+        }
+        
+        let config = FioriButtonStyleConfiguration(state: _state, _label: { state in
             let v = self.label(state)
             return FioriButtonStyleConfiguration.Label(v)
         }, _image: { state in
