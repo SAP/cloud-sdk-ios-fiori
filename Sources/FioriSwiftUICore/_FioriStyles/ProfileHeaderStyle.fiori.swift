@@ -225,6 +225,7 @@ extension ProfileHeaderFioriStyle {
             Subtitle(configuration)
                 .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .secondaryLabel))
                 .font(.fiori(forTextStyle: .headline))
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
     

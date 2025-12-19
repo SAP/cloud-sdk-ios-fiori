@@ -20,7 +20,7 @@ public struct KPIItemExample: View {
         KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)
     ]
     private var item1: [KPISubItemModelImplementation] = [
-        KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "triangleshape.fill")), kPISubItemType: KPISubitemType.icon),
+        KPISubItemModelImplementation(kPISubItemValue: .icon(Image(fioriName: "fiori.project.definition.triangle.2")), kPISubItemType: KPISubitemType.icon),
         KPISubItemModelImplementation(kPISubItemValue: .icon(Image(systemName: "dollarsign")), kPISubItemType: KPISubitemType.icon),
         KPISubItemModelImplementation(kPISubItemValue: .text("797"), kPISubItemType: KPISubitemType.metric),
         KPISubItemModelImplementation(kPISubItemValue: .text("USD"), kPISubItemType: KPISubitemType.unit)

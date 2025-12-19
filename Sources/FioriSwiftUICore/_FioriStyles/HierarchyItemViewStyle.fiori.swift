@@ -190,7 +190,7 @@ extension HierarchyItemViewFioriStyle {
 
         func makeBody(_ configuration: AccessoryViewConfiguration) -> some View {
             AccessoryView(configuration)
-                .font(.fiori(forTextStyle: configuration.accessoryType == .detail ? .title2 : .subheadline)) // Use font instead of the fix size for frame to let the icon can be scaled accroding to different accessibility size category
+                .font(.fiori(forTextStyle: configuration.accessoryType == .detail ? .title2 : .subheadline)) // Use font instead of the fix size for frame to let the icon can be scaled according to different accessibility size category
                 .scaledToFill()
         }
     }

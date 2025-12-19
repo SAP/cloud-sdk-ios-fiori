@@ -85,7 +85,7 @@ public extension View {
     /// Displays the AI notice beneath the view, including an icon, text, and an actionable text element. It is used within the form cell to present the AI notice message. Clicking the `actionLabel` triggers the `viewMoreAction`.
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that controls the presentation of the AI notice message.
-    ///   - icon: A view representing the icon. The defalt icon is SF symbol `fiori.ai`.
+    ///   - icon: A view representing the icon. The default icon is SF symbol `fiori.ai`.
     ///   - description: An `AttributedString` representing the AI notice message.
     ///   - actionLabel: A label that triggers an action to view more details.
     ///   - viewMoreAction: A callback triggered when the actionLabel is clicked to display more message details.

@@ -604,6 +604,9 @@
 /*XTIT: Subtitle for card*/
 "Card subtitle" = "Card subtitle";
 
+/*XTIT: HeaderAction for card*/
+"Card header action" = "Card header action";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Tap to turn on";
 
@@ -659,3 +662,12 @@
 
 /* XACT: The accessibility value for Stepper increment*/
 "Increase the value by %f" = "Increase the value by %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Select Range";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Start Date";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "End Date";
