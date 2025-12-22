@@ -113,7 +113,7 @@ struct IllustratedMessageExample: View {
                         }, title: {
                             Text("Illustrated Message Title with long text for two lines")
                         }, description: {
-                            hasDescription ? Text("This is description text for the Illustrated Message component") : nil
+                            hasDescription ? Text("This is description text for the Illustrated Message component").lineLimit(nil) : nil
                         }, action: {
                             hasAction ? FioriButton(title: "Action", action: { _ in print("Tapped Action") }) : nil
                         }, secondaryAction: {
