@@ -29,6 +29,12 @@ struct NavigationBarExample: View {
             }
             
             NavigationLink {
+                NavigationBarDropdown()
+            } label: {
+                Text("NavigationBar with Menu")
+            }
+            
+            NavigationLink {
                 NavigationBarCustomItem()
             } label: {
                 Text("Custom Nav Bar with custom buttons (expanded touch area and highlighted state)")
