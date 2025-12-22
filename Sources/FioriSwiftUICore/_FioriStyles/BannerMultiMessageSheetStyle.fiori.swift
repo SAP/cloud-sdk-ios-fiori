@@ -266,6 +266,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                         .onSimultaneousTapGesture {
                             self.dismiss(configuration)
                         }
+                        .contentShape(.accessibility, .rect.scale(1.2))
                 }
             }
             .padding(.leading, self.isPhone ? 16 : 0)
@@ -301,6 +302,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                         .buttonStyle(PlainButtonStyle())
                                         .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                                         .foregroundStyle(Color.preferredColor(.tintColor))
+                                        .contentShape(.accessibility, .rect.scale(1.2))
                                     }
                                 }
                             }
@@ -316,6 +318,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                     (message.icon ?? self.defaultIcon(message.messageType))
                                         .typeErased
                                         .accessibilityLabel(Text(message.typeDesc))
+                                        .contentShape(.accessibility, .rect.scale(1.2))
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
                                         .environment(\.openURL, OpenURLAction(handler: { url in

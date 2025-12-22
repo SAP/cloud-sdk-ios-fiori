@@ -134,6 +134,7 @@ struct BannerMultiMessageCustomInitExample: View {
                                     (message.icon ?? EmptyView())
                                         .typeErased
                                         .accessibilityLabel(Text(message.typeDesc))
+                                        .contentShape(.accessibility, .rect.scale(1.2))
                                     
                                 }, title: {
                                     Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc))
@@ -145,6 +146,7 @@ struct BannerMultiMessageCustomInitExample: View {
                                     } label: { _ in
                                         Image(fioriName: "fiori.decline")
                                     }
+                                    .contentShape(.accessibility, .rect.scale(1.2))
                                 }, topDivider: {
                                     EmptyView()
                                 }, bannerTapAction: {
