@@ -52,6 +52,7 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
                 .buttonStyle(PlainButtonStyle())
                 .accessibilityLabel(configuration.titles[index])
                 .accessibilityAddTraits(.isButton)
+                .contentShape(.accessibility, .rect.scale(1.1))
                 .accessibilityAddTraits(configuration.selectedIndex == index ? .isSelected : [])
                 .background(GeometryReader { geometry in
                     Color.clear.preference(
