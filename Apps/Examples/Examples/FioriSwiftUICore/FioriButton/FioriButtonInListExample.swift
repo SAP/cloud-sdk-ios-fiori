@@ -7,6 +7,8 @@ struct FioriButtonInListExample: View {
             Section {
                 ForEach(0 ..< 6, id: \.self) { index in
                     FioriButton { _ in
+                        print("FioriButtonInListExample FioriButton clicked")
+                    } label: { _ in
                         HStack(spacing: 8.0, content: {
                             if index % 2 == 1 { // align content right
                                 Spacer()
