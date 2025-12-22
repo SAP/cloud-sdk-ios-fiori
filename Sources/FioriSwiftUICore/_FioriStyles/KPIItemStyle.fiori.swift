@@ -29,11 +29,11 @@ public struct KPIItemBaseStyle: KPIItemStyle {
     }
     
     private func buildKPIItems(configuration: KPIItemConfiguration, isEnabled: Bool, isPressed: Bool) -> some View {
-        HStack(alignment: .bottom, spacing: 1) {
+        HStack(alignment: .firstTextBaseline, spacing: 1) {
             ForEach(configuration.items, id: \.id) { item in
                 KPISubItem(kPISubItemValue: item.kPISubItemValue, kPISubItemType: item.kPISubItemType)
-                    .alignmentGuide(.bottom) { context in
-                        item.kPISubItemType == .icon ? context[.bottom] + 0.3 * context.height : context[.bottom]
+                    .alignmentGuide(.firstTextBaseline) { context in
+                        item.kPISubItemType == .icon ? context[.firstTextBaseline] + 0.09 * context.height : context[.firstTextBaseline]
                     }
                     .foregroundStyle(self.getForegroundColor(for: self.getConfigState(isEnabled: isEnabled, isPressed: isPressed)))
                     .font(self.getFont(forType: item.kPISubItemType, typeSize: configuration.proposedViewSize))

@@ -5,63 +5,106 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-// Base Layout style
-public struct ProgressIndicatorBaseStyle: ProgressIndicatorStyle {
-    @State var isProcessing: Bool = false
-    @State var drawProgress: Bool = false
-    @State var previousProgress: Double = 0.0
-    @State var rotationDegrees: Double = -90
-    public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
-        ZStack {
-            Circle()
-                .stroke(
-                    self.isProcessing ? Color.clear : Color.preferredColor(.secondaryFill),
-                    lineWidth: 2
-                )
-            Circle()
-                .trim(from: 0, to: self.isProcessing ? 0.9 : self.drawProgress ? self.previousProgress : configuration.progress)
-                .stroke(
-                    Color.preferredColor(.tintColor),
-                    style: StrokeStyle(
-                        lineWidth: 2
-                    )
-                )
-                .rotationEffect(.degrees(self.rotationDegrees))
-                .onAppear {
-                    self.performAnimation(configuration)
-                }
-                .onProgressChange(configuration, progressIndicatorBaseStyle: self)
-        }
-    }
+// MARK: - Fiori Circular ProgressViewStyle
 
-    func performAnimation(_ configuration: ProgressIndicatorConfiguration) {
-        DispatchQueue.main.async {
-            if self.isProcessing {
-                self.rotationDegrees = -90
-                withAnimation(Animation.linear(duration: 1.3).repeatForever(autoreverses: false)) {
-                    self.rotationDegrees = 270.0
-                }
+/// A Fiori-styled circular progress view style that renders progress as a circular arc.
+///
+/// - Parameters:
+/// - tintColor: Color of the progress arc. Defaults to .preferredColor(.tintColor).
+/// - trackColor: Color of the background track (determinate mode only). Defaults to .preferredColor(.secondaryFill).
+/// - lineWidth: Stroke width in points. Defaults to 2.0.
+///
+/// - SeeAlso: ProgressIndicator, ProgressIndicatorStyle
+public struct CircularProgressViewStyle: ProgressViewStyle {
+    var tintColor: Color = .preferredColor(.tintColor)
+    var trackColor: Color = .preferredColor(.secondaryFill)
+    var lineWidth: CGFloat = 2.0
+    
+    public init(
+        tintColor: Color = .preferredColor(.tintColor),
+        trackColor: Color = .preferredColor(.secondaryFill),
+        lineWidth: CGFloat = 2.0
+    ) {
+        self.tintColor = tintColor
+        self.trackColor = trackColor
+        self.lineWidth = lineWidth
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        ZStack {
+            // Background track (only shown for determinate progress)
+            if configuration.fractionCompleted != nil {
+                Circle()
+                    .stroke(self.trackColor, lineWidth: self.lineWidth)
+            }
+            
+            // Progress arc
+            if let fractionCompleted = configuration.fractionCompleted {
+                // Determinate progress
+                Circle()
+                    .trim(from: 0, to: CGFloat(fractionCompleted))
+                    .stroke(
+                        self.tintColor,
+                        style: StrokeStyle(lineWidth: self.lineWidth, lineCap: .round)
+                    )
+                    .rotationEffect(.degrees(-90))
+                    .animation(.easeInOut(duration: 0.3), value: fractionCompleted)
             } else {
-                self.drawProgress = true
-                withAnimation(Animation.easeInOut(duration: 1.3)) {
-                    self.drawProgress.toggle()
-                }
+                // Indeterminate progress: rotating arc animation
+                IndeterminateProgressArc(tintColor: self.tintColor, lineWidth: self.lineWidth)
             }
         }
     }
 }
 
-extension View {
-    nonisolated func onProgressChange(_ configuration: ProgressIndicatorConfiguration, progressIndicatorBaseStyle: ProgressIndicatorBaseStyle) -> some View {
-        if #available(iOS 17.0, *) {
-            return self.onChange(of: configuration.progress) { oldValue, _ in
-                progressIndicatorBaseStyle.previousProgress = oldValue
-                progressIndicatorBaseStyle.performAnimation(configuration)
+// Helper view for indeterminate progress animation
+private struct IndeterminateProgressArc: View {
+    let tintColor: Color
+    let lineWidth: CGFloat
+    @State private var rotationDegrees: Double = -90
+    
+    var body: some View {
+        Circle()
+            .trim(from: 0, to: 0.9)
+            .stroke(
+                self.tintColor,
+                style: StrokeStyle(lineWidth: self.lineWidth, lineCap: .round)
+            )
+            .rotationEffect(.degrees(self.rotationDegrees))
+            .onAppear {
+                self.performAnimation()
             }
-        } else {
-            return self.onChange(of: configuration.progress) { [oldValue = configuration.progress] _ in
-                progressIndicatorBaseStyle.previousProgress = oldValue
-                progressIndicatorBaseStyle.performAnimation(configuration)
+    }
+    
+    private func performAnimation() {
+        // Ensure animation starts correctly on main thread (matching original implementation)
+        DispatchQueue.main.async {
+            self.rotationDegrees = -90
+            withAnimation(Animation.linear(duration: 1.3).repeatForever(autoreverses: false)) {
+                self.rotationDegrees = 270.0
+            }
+        }
+    }
+}
+
+// MARK: - Base Layout style
+
+// Apple Native: Uses ProgressView for determinate and indeterminate progress
+public struct ProgressIndicatorBaseStyle: ProgressIndicatorStyle {
+    var isProcessing: Bool = false
+    
+    public init(isProcessing: Bool = false) {
+        self.isProcessing = isProcessing
+    }
+    
+    public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
+        Group {
+            if self.isProcessing {
+                // Indeterminate progress: Use native ProgressView (no parameters)
+                ProgressView()
+            } else {
+                // Determinate progress: Use native ProgressView (with progress value)
+                ProgressView(value: configuration.progress, total: 1.0)
             }
         }
     }
@@ -74,6 +117,7 @@ extension ProgressIndicatorFioriStyle {
             ProgressIndicator(configuration)
                 .fioriButtonStyle(IndicatorIconStyle())
                 .frame(width: 26, height: 26)
+                .contentShape(.accessibility, .rect.scale(1.6))
         }
     }
 
@@ -93,12 +137,14 @@ extension ProgressIndicatorFioriStyle {
     }
 }
 
-/// Processing style
+// MARK: - Processing style
+
 public struct ProgressIndicatorProcessingStyle: ProgressIndicatorStyle {
     public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
         ZStack {
             ProgressIndicator(configuration)
                 .progressIndicatorStyle(ProgressIndicatorBaseStyle(isProcessing: true))
+                .progressViewStyle(CircularProgressViewStyle())
                 .contentShape(Rectangle())
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(NSLocalizedString("Processing", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -113,7 +159,8 @@ public extension ProgressIndicatorStyle where Self == ProgressIndicatorProcessin
     }
 }
 
-/// Loading pausable style displaying the current progress and an icon depending on the paused state
+// MARK: - Pausable style
+
 public struct ProgressIndicatorPausableStyle: ProgressIndicatorStyle {
     @Binding var isPaused: Bool
     public init(isPaused: Binding<Bool>) {
@@ -126,6 +173,7 @@ public struct ProgressIndicatorPausableStyle: ProgressIndicatorStyle {
         return ZStack {
             ProgressIndicator(configuration)
                 .progressIndicatorStyle(ProgressIndicatorBaseStyle(isProcessing: false))
+                .progressViewStyle(CircularProgressViewStyle())
             FioriButton(label: { _ in
                 if self.isPaused {
                     Image(systemName: "arrow.down")
@@ -140,12 +188,14 @@ public struct ProgressIndicatorPausableStyle: ProgressIndicatorStyle {
     }
 }
 
-/// Loading stoppable style
+// MARK: - Stoppable style
+
 public struct ProgressIndicatorStoppableStyle: ProgressIndicatorStyle {
     public func makeBody(_ configuration: ProgressIndicatorConfiguration) -> some View {
         ZStack {
             ProgressIndicator(configuration)
                 .progressIndicatorStyle(ProgressIndicatorBaseStyle(isProcessing: false))
+                .progressViewStyle(CircularProgressViewStyle())
             FioriButton(label: { _ in
                 Image(systemName: "stop.fill")
             })

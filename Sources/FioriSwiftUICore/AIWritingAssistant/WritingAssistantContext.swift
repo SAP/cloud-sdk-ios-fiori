@@ -124,7 +124,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.inProgress = true
         self.logKeyboardChanged = false
         self.task = Task {
-            let result = await menuHandler(menu, self.displayedValue)
+            let result = await menuHandler(menu, self.displayedValue.substring(self.usedSelectedRange))
             await MainActor.run {
                 self.updateMenuResult(menu, result)
             }
@@ -315,5 +315,12 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.showFeedbackSuccessToast = false
         self.feedbackVoteState = .notDetermined
         self.logKeyboardChanged = true
+    }
+}
+
+private extension String {
+    func substring(_ nsRange: NSRange) -> String {
+        guard let range = Range(nsRange, in: self) else { return "" }
+        return String(self[range])
     }
 }
