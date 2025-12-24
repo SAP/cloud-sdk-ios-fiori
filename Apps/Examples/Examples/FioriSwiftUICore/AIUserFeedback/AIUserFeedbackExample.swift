@@ -143,7 +143,7 @@ struct AIUserFeedbackExample: View {
                                           self.submitButtonState = .normal
                                           switch mode {
                                           case .push:
-                                              self.isFeedbackPushed = false
+                                              self.isNavigationPresented.toggle()
                                           case .sheet:
                                               self.isFeedbackPresented = false
                                           case .inspector:
@@ -172,7 +172,11 @@ struct AIUserFeedbackExample: View {
                 Spacer()
                 
                 HStack(spacing: 20, content: {
-                    Button {} label: {
+                    Button {
+                        self.voteState = .upVote
+                        self.isToastPresented.toggle()
+                        self.isNavigationPresented.toggle()
+                    } label: {
                         FioriIcon.actions.thumbUp
                     }
                     
