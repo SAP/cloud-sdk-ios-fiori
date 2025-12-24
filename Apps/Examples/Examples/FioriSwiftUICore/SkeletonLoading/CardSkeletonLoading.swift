@@ -56,9 +56,9 @@ struct CardSkeletonLoading: View {
                             .titleStyle { config in
                                 config.title.foregroundStyle(Color.preferredColor(.positiveLabel))
                             }
-                        Image(systemName: "star")
+                        Image(systemName: "star").accessibilityLabel("Favourite icon, not selected")
                         LabelItem(title: "Long long long label")
-                        Image(systemName: "star.fill")
+                        Image(systemName: "star.fill").accessibilityLabel("Favourite icon, selected")
                         LabelItem(title: "Multiple lines row1")
                     }
                 }, row2: {
