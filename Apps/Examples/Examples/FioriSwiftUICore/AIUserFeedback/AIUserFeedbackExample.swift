@@ -107,12 +107,13 @@ struct AIUserFeedbackExample: View {
     }
     
     func showFeedback(mode: AIUserFeedbackDisplayMode) -> some View {
-        self.submitButtonState = .normal
         let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
-        let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: false, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
+        let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.$filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
             print("FilterFormView value change: \(value)")
         })
-        let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
+        let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError && self.valueText.isEmpty ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
+		
+        self.submitButtonState = (self.$filterFormViewSelectionValue.isEmpty || self.valueText.isEmpty) ? .disabled : .normal
         
         return AIUserFeedback(detailImage: { Image(systemName: "gearshape") },
                               title: { Title(title: mode == .inline ? "How was your AI experience? (Inline Mode)" : "How was your AI experience?") },
