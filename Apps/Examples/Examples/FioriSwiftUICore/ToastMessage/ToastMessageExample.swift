@@ -350,13 +350,11 @@ struct ToastMessageOverlayExample: View {
             }
             Button {
                 self.show.toggle()
-                self.toast = self.show ? ToastMessage(icon: {
-                                                          Image(systemName: "info.circle")
-                                                      },
-                                                      title: {
-                                                          Text("Toast Message Title")
-                                                      },
-                                                      duration: 5) : nil
+                self.toast = self.show ? ToastMessage(icon: self.customizeToastMessageStyle ?
+                    { Image(systemName: "info.circle").foregroundStyle(.orange) } : { Image(systemName: "info.circle") },
+                    title: self.customizeToastMessageStyle ?
+                        { Text("Toast Message").foregroundStyle(.green) } : { Text("Toast Message") },
+                    duration: 5) : nil
             } label: {
                 Text("Show / Hide")
             }

@@ -539,12 +539,7 @@ struct ToastMessageOverlayModifier: ViewModifier {
             .overlay(
                 ZStack {
                     if let toast {
-                        ToastMessage(icon: {
-                            toast.icon
-                        }, title: {
-                            toast.title
-                        }, position: toast.position,
-                        spacing: toast.spacing)
+                        toast
                             .toastMessageStyle(ToastMessageRoundedBorderStyle(cornerRadius: toast.cornerRadius, backgroundColor: toast.backgroundColor, borderWidth: toast.borderWidth, borderColor: toast.borderColor, borderWidthIC: toast.borderWidthIC, borderColorIC: toast.borderColorIC, shadow: toast.shadow))
                             .animation(.easeInOut, value: self.toast != nil)
                     }
@@ -596,12 +591,7 @@ struct ToastMessageOverlayCustomStyleModifier<S: ToastMessageStyle>: ViewModifie
             .overlay(
                 ZStack {
                     if let toast {
-                        ToastMessage(icon: {
-                            toast.icon
-                        }, title: {
-                            toast.title
-                        }, position: toast.position,
-                        spacing: toast.spacing)
+                        toast
                             .toastMessageStyle(self.style)
                             .animation(.easeInOut, value: self.toast != nil)
                     }
