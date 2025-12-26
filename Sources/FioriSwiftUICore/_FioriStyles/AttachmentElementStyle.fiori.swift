@@ -4,6 +4,7 @@ import SwiftUI
 
 // Base Layout style
 public struct AttachmentElementBaseStyle: AttachmentElementStyle {
+    @AccessibilityFocusState private var focusOnAddedAttachment: Bool
     public func makeBody(_ configuration: AttachmentElementConfiguration) -> some View {
         Group {
             switch configuration.attachmentInfo {
@@ -32,6 +33,13 @@ public struct AttachmentElementBaseStyle: AttachmentElementStyle {
                         onPreview: configuration.onPreview,
                         onDelete: configuration.onDelete
                     )
+                    .onAppear {
+                        if UIAccessibility.isVoiceOverRunning {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                                UIAccessibility.post(notification: .announcement, argument: NSLocalizedString("File failed to attach", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "File failed to attach"))
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -62,6 +70,17 @@ extension AttachmentElementBaseStyle {
                 onPreview: configuration.onPreview,
                 onDelete: configuration.onDelete
             )
+            .accessibilityFocused(self.$focusOnAddedAttachment)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.focusOnAddedAttachment = true
+                    if UIAccessibility.isVoiceOverRunning {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            UIAccessibility.post(notification: .announcement, argument: NSLocalizedString("New attachment added successfully", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "New attachment added successfully"))
+                        }
+                    }
+                }
+            }
         } else {
             EmptyView()
         }
