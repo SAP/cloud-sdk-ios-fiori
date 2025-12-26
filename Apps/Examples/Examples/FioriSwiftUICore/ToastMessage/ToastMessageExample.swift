@@ -15,8 +15,11 @@ struct ToastMessageExample: View {
             Button("Sheet View UI Hang") {
                 self.showSheetView.toggle()
             }
-            NavigationLink("Persistent Toast Message",
+            NavigationLink("Persistence & Custom Vertical Position",
                            destination: PersistentToastMessageExample())
+            NavigationLink("Overlay",
+                           destination: ToastMessageOverlayExample())
+
                 .sheet(isPresented: self.$showSheetView) {
                     ToastMessageSheetViewExample()
                         .presentationDetents([.medium, .large])
@@ -119,7 +122,7 @@ struct ToastMessageCustomStyleExample: View {
                                   title: {
                                       Text("Toast Message Title Toast Message Title Toast Message Title")
                                   },
-                                  style: ToastMessageCustomStyle(borderWidthIC: 4, borderColorIC: .pink))
+                                  style: ToastMessageRoundedBorderStyle(borderWidthIC: 4, borderColorIC: .pink))
                     .padding(50)
                 HStack {}
                     .frame(maxWidth: 300, maxHeight: 300)
@@ -154,12 +157,12 @@ struct ToastMessageCustomStyleExample: View {
                                   },
                                   duration: .infinity,
                                   position: .center,
-                                  style: ToastMessageCustomStyle(backgroundColor: .cyan,
-                                                                 borderWidth: 2,
-                                                                 borderColor: .blue,
-                                                                 borderWidthIC: 4,
-                                                                 borderColorIC: .pink,
-                                                                 shadow: FioriShadowStyle.smallElement))
+                                  style: ToastMessageRoundedBorderStyle(backgroundColor: .cyan,
+                                                                        borderWidth: 2,
+                                                                        borderColor: .blue,
+                                                                        borderWidthIC: 4,
+                                                                        borderColorIC: .pink,
+                                                                        shadow: FioriShadowStyle.smallElement))
                     .padding(30)
                 HStack {}
                     .frame(maxWidth: 300, maxHeight: 300)
@@ -192,10 +195,10 @@ struct ToastMessageCustomStyleExample: View {
                                   },
                                   duration: .infinity,
                                   position: .center,
-                                  style: ToastMessageCustomStyle(cornerRadius: 50,
-                                                                 borderWidth: 5,
-                                                                 borderColor: .blue,
-                                                                 shadow: FioriShadowStyle.smallElement))
+                                  style: ToastMessageRoundedBorderStyle(cornerRadius: 50,
+                                                                        borderWidth: 5,
+                                                                        borderColor: .blue,
+                                                                        shadow: FioriShadowStyle.smallElement))
                     .padding(30)
                 HStack {}
                     .frame(maxWidth: 300, maxHeight: 300)
@@ -227,9 +230,9 @@ struct ToastMessageCustomStyleExample: View {
                                   },
                                   duration: .infinity,
                                   position: .center,
-                                  style: ToastMessageCustomStyle(cornerRadius: 50,
-                                                                 backgroundColor: .cyan,
-                                                                 shadow: FioriShadowStyle.smallElement))
+                                  style: ToastMessageRoundedBorderStyle(cornerRadius: 50,
+                                                                        backgroundColor: .cyan,
+                                                                        shadow: FioriShadowStyle.smallElement))
                     .padding(30)
                 HStack {}
                     .frame(maxWidth: 300, maxHeight: 300)
@@ -262,10 +265,10 @@ struct ToastMessageCustomStyleExample: View {
                                   },
                                   duration: .infinity,
                                   position: .center,
-                                  style: ToastMessageCustomStyle(cornerRadius: 50,
-                                                                 backgroundColor: .cyan,
-                                                                 borderWidth: 2,
-                                                                 borderColor: .blue))
+                                  style: ToastMessageRoundedBorderStyle(cornerRadius: 50,
+                                                                        backgroundColor: .cyan,
+                                                                        borderWidth: 2,
+                                                                        borderColor: .blue))
                     .padding(30)
                 HStack {}
                     .frame(maxWidth: 300, maxHeight: 300)
@@ -295,7 +298,7 @@ struct ToastMessageCustomStyleExample: View {
                                   },
                                   duration: .infinity,
                                   position: .center,
-                                  style: ToastMessageCustomStyle(shadow: nil))
+                                  style: ToastMessageRoundedBorderStyle(shadow: nil))
                     .padding(30)
             }
         }
@@ -316,6 +319,7 @@ struct ToastMessageSheetViewExample: View {
 
 struct PersistentToastMessageExample: View {
     @Environment(\.showGlobalToastMessage) var showGlobalToastMessage
+    @Environment(\.customizeGlobalToastMessage) var customizeGlobalToastMessage
 
     var body: some View {
         List {
@@ -327,6 +331,42 @@ struct PersistentToastMessageExample: View {
             } label: {
                 Text("Show / Hide")
             }
+            Toggle("Apply custom style", isOn: self.customizeGlobalToastMessage)
+        }
+        .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessageOverlayExample: View {
+    @State var toast: ToastMessage? = nil
+    @State var show: Bool = false
+    @State var customizeToastMessageStyle: Bool = false
+    let toastMessageCustomStyle = ToastMessageRoundedBorderStyle(cornerRadius: 0, backgroundColor: .mint, borderWidth: 2, borderColor: .purple)
+
+    var body: some View {
+        List {
+            ForEach(0 ..< 6) { index in
+                Text("cell at index: \(index)")
+            }
+            Button {
+                self.show.toggle()
+                self.toast = self.show ? ToastMessage(icon: {
+                                                          Image(systemName: "info.circle")
+                                                      },
+                                                      title: {
+                                                          Text("Toast Message Title")
+                                                      },
+                                                      duration: 5) : nil
+            } label: {
+                Text("Show / Hide")
+            }
+            Toggle("Apply custom style", isOn: self.$customizeToastMessageStyle)
+        }
+        .ifApply(!self.customizeToastMessageStyle) {
+            $0.toastMessage(toast: self.$toast)
+        }
+        .ifApply(self.customizeToastMessageStyle) {
+            $0.toastMessage(toast: self.$toast, style: self.toastMessageCustomStyle)
         }
         .navigationTitle("Toast Message")
     }
@@ -334,4 +374,5 @@ struct PersistentToastMessageExample: View {
 
 extension EnvironmentValues {
     @Entry var showGlobalToastMessage: Binding<Bool> = .constant(false)
+    @Entry var customizeGlobalToastMessage: Binding<Bool> = .constant(false)
 }

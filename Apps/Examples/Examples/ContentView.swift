@@ -4,12 +4,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showSettings = false
-    @State var showGlobalToastMessage: Bool = false
     @State var envLocale: Locale = .none
     @State var fioriLocale: Locale = .none
+    @State private var showGlobalToastMessage: Bool = false
+    @State private var customizeGlobalToastMessage: Bool = false
+    
+    let globalToastMessageCustomStyle = ToastMessageRoundedBorderStyle(cornerRadius: 0, backgroundColor: .mint, borderWidth: 2, borderColor: .purple)
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 NavigationLink(
                     // putting `ChartsContentView` in a `LazyView` allows to demonstrate that overridden colors will be applied by `FioriCharts` views
@@ -40,8 +43,14 @@ struct ContentView: View {
                 }
             }
         }
-        .toastMessage(isPresented: self.$showGlobalToastMessage, title: { Text("Toast Message") }, duration: 15, verticalPosition: 0.8)
+        .toastMessage(isPresented: self.$showGlobalToastMessage,
+                      icon: self.customizeGlobalToastMessage ? { Image(systemName: "info.circle").foregroundStyle(.orange) } : { Image(systemName: "info.circle") },
+                      title: self.customizeGlobalToastMessage ? { Text("Toast Message").foregroundStyle(.green) } : { Text("Toast Message") },
+                      duration: 500,
+                      verticalPosition: 0.8,
+                      style: self.customizeGlobalToastMessage ? self.globalToastMessageCustomStyle : ToastMessageRoundedBorderStyle())
         .environment(\.showGlobalToastMessage, self.$showGlobalToastMessage)
+        .environment(\.customizeGlobalToastMessage, self.$customizeGlobalToastMessage)
         .sheet(isPresented: self.$showSettings) {
             SettingsView(envLocale: self.$envLocale, fioriLocale: self.$fioriLocale)
         }

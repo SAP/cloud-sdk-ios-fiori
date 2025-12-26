@@ -21,38 +21,11 @@ public enum ToastMessagePosition: String, CaseIterable, Identifiable {
 
 // Base Layout style
 public struct ToastMessageBaseStyle: ToastMessageStyle {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-
-    @State private var size: CGSize = .zero
-
     public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
-        GeometryReader { reader in
-            self.makeMessageBody(configuration: configuration, size: reader.size)
-                .position(getPositionOffset(position: configuration.position, spacing: configuration.spacing, viewSize: self.size, parentViewSize: reader.size))
-        }
-    }
-    
-    func makeMessageBody(configuration: ToastMessageConfiguration, size: CGSize) -> some View {
         HStack(alignment: .center, spacing: 8) {
             configuration.icon
             configuration.title
         }
-        .padding(20)
-        .frame(width: size.width * (self.horizontalSizeClass == .compact ? 0.8 : 0.6))
-        .background(.regularMaterial)
-        .background(configuration.backgroundColor)
-        .cornerRadius(configuration.cornerRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                .stroke(self.colorSchemeContrast == .increased ? configuration.borderColorIC : configuration.borderColor,
-                        lineWidth: self.colorSchemeContrast == .increased ? configuration.borderWidthIC : configuration.borderWidth)
-        )
-        .sizeReader { size in
-            self.size = size
-        }
-        .toastMessageShadow(configuration.shadow)
-        .allowsHitTesting(false)
     }
 }
 
@@ -89,8 +62,6 @@ extension ToastMessageFioriStyle {
     struct ContentFioriStyle: ToastMessageStyle {
         func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
             ToastMessage(configuration)
-            // Add default style for its content
-            // .background()
         }
     }
 
@@ -124,7 +95,7 @@ extension ToastMessageFioriStyle {
 ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
 ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
 ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
-public struct ToastMessageCustomStyle: ToastMessageStyle {
+public struct ToastMessageRoundedBorderStyle: ToastMessageStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorSchemeContrast) private var colorSchemeContrast
 
@@ -150,33 +121,24 @@ public struct ToastMessageCustomStyle: ToastMessageStyle {
     
     public func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
         GeometryReader { reader in
-            self.makeMessageBody(configuration: configuration, size: reader.size)
+            ToastMessage(configuration)
+                .padding(20)
+                .frame(width: reader.size.width * (self.horizontalSizeClass == .compact ? 0.8 : 0.6))
+                .background(.regularMaterial)
+                .background(self.backgroundColor)
+                .cornerRadius(self.cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .stroke(self.colorSchemeContrast == .increased ? self.borderColorIC : self.borderColor,
+                                lineWidth: self.colorSchemeContrast == .increased ? self.borderWidthIC : self.borderWidth)
+                )
+                .sizeReader { size in
+                    self.size = size
+                }
+                .toastMessageShadow(self.shadow)
+                .allowsHitTesting(false)
                 .position(getPositionOffset(position: configuration.position, spacing: configuration.spacing, viewSize: self.size, parentViewSize: reader.size))
         }
-    }
-    
-    func makeMessageBody(configuration: ToastMessageConfiguration, size: CGSize) -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            configuration.icon
-                .iconStyle(ToastMessageFioriStyle.IconFioriStyle(toastMessageConfiguration: configuration))
-            configuration.title
-                .titleStyle(ToastMessageFioriStyle.TitleFioriStyle(toastMessageConfiguration: configuration))
-        }
-        .padding(20)
-        .frame(width: size.width * (self.horizontalSizeClass == .compact ? 0.8 : 0.6))
-        .background(.regularMaterial)
-        .background(self.backgroundColor)
-        .cornerRadius(self.cornerRadius)
-        .overlay(
-            RoundedRectangle(cornerRadius: self.cornerRadius)
-                .stroke(self.colorSchemeContrast == .increased ? self.borderColorIC : self.borderColor,
-                        lineWidth: self.colorSchemeContrast == .increased ? self.borderWidthIC : self.borderWidth)
-        )
-        .sizeReader { size in
-            self.size = size
-        }
-        .toastMessageShadow(self.shadow)
-        .allowsHitTesting(false)
     }
 }
 
@@ -242,7 +204,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageCustomStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: Text(title),
@@ -314,7 +276,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageCustomStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: Text(title),
@@ -386,7 +348,7 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageCustomStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: title(),
@@ -404,6 +366,17 @@ public extension View {
         self.modifier(ToastMessageOverlayModifier(toast: toast))
     }
     
+    /// Show a toast message as an overlay above the view
+    /// - Parameters:
+    /// - toast: A binding to an optional ToastMessage value that controls the visibility of the toast
+    /// - style: A `ToastMessageStyle` object to apply to the toast message. This is equivalent to adding a `.toastMessageStyle(style)` modifier to a standalone ToastMessage component.
+    /// - Returns: A new view with the toast message overlay
+    func toastMessage(toast: Binding<ToastMessage?>,
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
+    {
+        self.modifier(ToastMessageOverlayCustomStyleModifier(toast: toast, style: style))
+    }
+    
     /// Show a toast message as an overlay above the view. Instantiating the toast message in this way allows it to be placed in locations other than those defined by ToastMessagePosition.
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether to present the banner message.
@@ -418,7 +391,7 @@ public extension View {
                       @ViewBuilder title: () -> any View,
                       duration: Double = 1,
                       verticalPosition: CGFloat,
-                      style: some ToastMessageStyle = ToastMessageCustomStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
     {
         self.modifier(ToastMessageCustomVerticalPositionModifier(icon: icon(),
                                                                  title: title(),
@@ -426,68 +399,6 @@ public extension View {
                                                                  verticalPosition: verticalPosition,
                                                                  style: style,
                                                                  isPresented: isPresented))
-    }
-}
-
-struct ToastMessageOverlayModifier: ViewModifier {
-    @Binding var toast: ToastMessage?
-    @State private var workItem: DispatchWorkItem?
-    
-    public func body(content: Content) -> some View {
-        content
-            .overlay(
-                ZStack {
-                    if let toast {
-                        ToastMessage(icon: {
-                            toast.icon
-                        }, title: {
-                            toast.title
-                        }, position: toast.position,
-                        spacing: toast.spacing,
-                        cornerRadius: toast.cornerRadius,
-                        backgroundColor: toast.backgroundColor,
-                        borderWidth: toast.borderWidth,
-                        borderColor: toast.borderColor,
-                        borderWidthIC: toast.borderWidthIC,
-                        borderColorIC: toast.borderColorIC,
-                        shadow: toast.shadow)
-                            .animation(.easeInOut, value: self.toast != nil)
-                    }
-                }
-            )
-            .setOnChange(of: self.toast == nil) {
-                self.showToast()
-            }
-    }
-    
-    private func showToast() {
-        guard let toast else { return }
-        
-        if toast.duration > 0 {
-            self.workItem?.cancel()
-            
-            let task = DispatchWorkItem {
-                self.dismissToast()
-            }
-         
-            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: toast.title)
-                }
-            }
-            
-            self.workItem = task
-            DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
-        }
-    }
-    
-    private func dismissToast() {
-        withAnimation(.easeInOut) {
-            self.toast = nil
-        }
-        
-        self.workItem?.cancel()
-        self.workItem = nil
     }
 }
 
@@ -517,14 +428,14 @@ struct ToastMessageModifier: ViewModifier {
                     }, title: {
                         self.title
                     }, position: self.position,
-                    spacing: self.spacing,
-                    cornerRadius: self.cornerRadius,
-                    backgroundColor: self.backgroundColor,
-                    borderWidth: self.borderWidth,
-                    borderColor: self.borderColor,
-                    borderWidthIC: self.borderWidthIC,
-                    borderColorIC: self.borderColorIC,
-                    shadow: self.shadow)
+                    spacing: self.spacing)
+                        .toastMessageStyle(ToastMessageRoundedBorderStyle(cornerRadius: self.cornerRadius,
+                                                                          backgroundColor: self.backgroundColor,
+                                                                          borderWidth: self.borderWidth,
+                                                                          borderColor: self.borderColor,
+                                                                          borderWidthIC: self.borderWidthIC,
+                                                                          borderColorIC: self.borderColorIC,
+                                                                          shadow: self.shadow))
                 }
             })
             .setOnChange(of: self.isPresented) {
@@ -612,6 +523,119 @@ struct ToastMessageCustomStyleModifier<S: ToastMessageStyle>: ViewModifier {
     private func dismissToast() {
         withAnimation(.easeInOut) {
             self.isPresented = false
+        }
+        
+        self.workItem?.cancel()
+        self.workItem = nil
+    }
+}
+
+struct ToastMessageOverlayModifier: ViewModifier {
+    @Binding var toast: ToastMessage?
+    @State private var workItem: DispatchWorkItem?
+    
+    public func body(content: Content) -> some View {
+        content
+            .overlay(
+                ZStack {
+                    if let toast {
+                        ToastMessage(icon: {
+                            toast.icon
+                        }, title: {
+                            toast.title
+                        }, position: toast.position,
+                        spacing: toast.spacing)
+                            .toastMessageStyle(ToastMessageRoundedBorderStyle(cornerRadius: toast.cornerRadius, backgroundColor: toast.backgroundColor, borderWidth: toast.borderWidth, borderColor: toast.borderColor, borderWidthIC: toast.borderWidthIC, borderColorIC: toast.borderColorIC, shadow: toast.shadow))
+                            .animation(.easeInOut, value: self.toast != nil)
+                    }
+                }
+            )
+            .setOnChange(of: self.toast == nil) {
+                self.showToast()
+            }
+    }
+    
+    private func showToast() {
+        guard let toast else { return }
+        
+        if toast.duration > 0 {
+            self.workItem?.cancel()
+            
+            let task = DispatchWorkItem {
+                self.dismissToast()
+            }
+         
+            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: toast.title)
+                }
+            }
+            
+            self.workItem = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
+        }
+    }
+    
+    private func dismissToast() {
+        withAnimation(.easeInOut) {
+            self.toast = nil
+        }
+        
+        self.workItem?.cancel()
+        self.workItem = nil
+    }
+}
+
+struct ToastMessageOverlayCustomStyleModifier<S: ToastMessageStyle>: ViewModifier {
+    @Binding var toast: ToastMessage?
+    @State private var workItem: DispatchWorkItem?
+    var style: S
+
+    public func body(content: Content) -> some View {
+        content
+            .overlay(
+                ZStack {
+                    if let toast {
+                        ToastMessage(icon: {
+                            toast.icon
+                        }, title: {
+                            toast.title
+                        }, position: toast.position,
+                        spacing: toast.spacing)
+                            .toastMessageStyle(self.style)
+                            .animation(.easeInOut, value: self.toast != nil)
+                    }
+                }
+            )
+            .setOnChange(of: self.toast == nil) {
+                self.showToast()
+            }
+    }
+    
+    private func showToast() {
+        guard let toast else { return }
+        
+        if toast.duration > 0 {
+            self.workItem?.cancel()
+            
+            let task = DispatchWorkItem {
+                self.dismissToast()
+            }
+         
+            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    UIAccessibility.post(notification: .announcement, argument: toast.title)
+                }
+            }
+            
+            self.workItem = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
+        }
+    }
+    
+    private func dismissToast() {
+        withAnimation(.easeInOut) {
+            self.toast = nil
         }
         
         self.workItem?.cancel()
