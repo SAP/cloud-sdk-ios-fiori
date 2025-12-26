@@ -436,6 +436,12 @@
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Double tap to add attachment";
 
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "New attachment added successfully";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "File failed to attach";
+
 /* XACT: The accessibility hint for attachment section */
 "read only" = "read only";
 
