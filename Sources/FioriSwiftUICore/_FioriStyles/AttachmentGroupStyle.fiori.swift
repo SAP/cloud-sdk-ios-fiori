@@ -8,8 +8,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
     @State private var showingConfirmation = false
     @State var previewURL: URL? = nil
     @State var deleteURL: URL? = nil
-    @AccessibilityFocusState private var focusOnAddButton: Bool
-
+    
     public func makeBody(_ configuration: AttachmentGroupConfiguration) -> some View {
         VStack(alignment: .leading, spacing: AttachmentConstants.cellVerticalSpacing) {
             configuration.title
@@ -25,21 +24,13 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                             configuration.operations
                                 .id("Attachment:\(configuration.title):AddButton")
                                 .accessibilityIdentifier("Attachment:\(configuration.title):AddButton")
-                                .accessibilityFocused(self.$focusOnAddButton)
                                 .disabled(configuration.context.isUploading)
-                                .onChange(of: configuration.attachments.isUploading) {
-                                    self.focusOnAddButton = true
-                                }
                         }
                     } else {
                         configuration.operations
                             .id("Attachment:\(configuration.title):AddButton")
                             .accessibilityIdentifier("Attachment:\(configuration.title):AddButton")
-                            .accessibilityFocused(self.$focusOnAddButton)
                             .disabled(configuration.context.isUploading)
-                            .onChange(of: configuration.attachments.isUploading) {
-                                self.focusOnAddButton = true
-                            }
                     }
                 }
                 
