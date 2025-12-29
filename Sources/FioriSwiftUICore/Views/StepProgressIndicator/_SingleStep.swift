@@ -272,13 +272,13 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                         .alignmentGuide(.stepsTopAlignment) { $0.height / 2.0 }
                     self.line.frame(maxWidth: self.lineWidth, minHeight: self.lineHeight)
                 }
+                .alignmentGuide(.stepsLeadingAlignment) { $0[HorizontalAlignment.center] }
                 Spacer().frame(width: self.horizontalSpacing)
                 self.title.lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .alignmentGuide(.stepsTopAlignment) {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2
                     }
-                    .alignmentGuide(.stepsLeadingAlignment) { $0[.leading] }
                 Spacer().frame(width: abs(self.trailing))
                 Spacer()
             }
