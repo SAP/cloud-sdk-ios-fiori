@@ -1077,6 +1077,7 @@ struct FioriIconSet {
             "notEditable": FioriIcon.status.notEditable,
             "notificationFill": FioriIcon.status.notificationFill,
             "notification": FioriIcon.status.notification,
+            "notification3": FioriIcon.status.notification3,
             "permission": FioriIcon.status.permission,
             "private": FioriIcon.status.private,
             "qualityIssue": FioriIcon.status.qualityIssue,
