@@ -12,6 +12,12 @@ struct HierarchyViewExample: View {
             }
             
             NavigationLink {
+                HierarchyViewDemo(isAsync: true)
+            } label: {
+                Text("Hierarchy View(Async)")
+            }
+            
+            NavigationLink {
                 HierarchyItemViewDemo()
             } label: {
                 Text("Hierarchy Item View")
@@ -32,8 +38,9 @@ struct HierarchyViewDemo: View {
     
     @State var activeChildItem: String?
     @State var selectedItems: [String]? = []
+    @State var isAsync: Bool = false
     
-    let dataSource = HierarchyDataSource()
+    var dataSource = HierarchyDataSource()
     
     var body: some View {
         HierarchyView(
@@ -57,8 +64,9 @@ struct HierarchyViewDemo: View {
                             ) {
                                 id
                             }
+                            .id(id)
                         }
-                    )
+                    ).copyDetailsOnLongPress(title: object.uuid, subtitle: object.type, footnote: object.location)
                     )
                 } else {
                     EmptyView()
@@ -74,8 +82,12 @@ struct HierarchyViewDemo: View {
                 print("selected items: \(newValue.joined(separator: ", "))")
             }
         }
+        .onDisappear(perform: {
+            self.dataSource.refresh()
+        })
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         .environment(\.hierarchyItemSelectionMode, self.selectionMode)
+        .environment(\.hierarchyViewIsAsync, self.isAsync)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
@@ -100,16 +112,18 @@ struct HierarchyViewDemo: View {
     }
 }
 
-struct HierarchyDataSource: HierarchyViewDataSource {
-    var model = HierarchyViewModel()
+// MARK: - DataSource
+
+@MainActor
+final class HierarchyDataSource: @MainActor HierarchyViewDataSource, ObservableObject {
+    @Published var model = HierarchyViewModel()
     
     func rootID() -> String {
         if let root = model.rootObject {
             return root.uuid
         }
         
-        let root = self.model.fetchRoot()
-        return root.uuid
+        return self.model.fetchRoot().uuid
     }
     
     func numberOfChildren(for id: String) -> Int {
@@ -159,22 +173,76 @@ struct HierarchyDataSource: HierarchyViewDataSource {
     func itemTitle(for id: String) -> String? {
         self.model.getObject(for: id)?.name
     }
+    
+    func refresh() {
+        self.model = HierarchyViewModel()
+    }
+    
+    func rootIDAsync() async throws -> String {
+        let maybeRoot = await MainActor.run { () -> BusinessObject? in
+            self.model.rootObject
+        }
+        if let root = maybeRoot { return root.uuid }
+
+        let fetchedRoot = try await model.asyncFetchRoot()
+        await MainActor.run {
+            self.model.rootObject = fetchedRoot
+            self.model.updateCache(objects: [fetchedRoot])
+        }
+        return fetchedRoot.uuid
+    }
+
+    func numberOfChildrenAsync(for id: String) async throws -> Int {
+        guard let _ = model.getObject(for: id) else {
+            preconditionFailure("Object with String: \(id) does not exist in model")
+        }
+
+        if let objectChildren = model.getObject(for: id)?.children {
+            return objectChildren.count
+        }
+
+        let children = try await model.asyncFetchChildren(for: id)
+        return children.count
+    }
+    
+    func parentIDAsync(for id: String) async throws -> String? {
+        guard let _ = model.getObject(for: id) else {
+            preconditionFailure("Object with String: \(id) does not exist in model")
+        }
+
+        if let parent = model.getObject(for: id)?.parent {
+            self.model.updateCache(objects: [parent])
+            return parent.uuid
+        }
+
+        let maybeParent = try await model.asyncFetchParent(for: id)
+        if let p = maybeParent {
+            return p.uuid
+        } else {
+            return nil
+        }
+    }
+    
+    func itemTitleAsync(for id: String) async throws -> String? {
+        self.model.getObject(for: id)?.name
+    }
 }
 
+@MainActor
 class HierarchyViewModel {
     // Cache all business objects
-    var businessObjects: [String: BussinessObject] = [:]
+    var businessObjects: [String: BusinessObject] = [:]
     
     // Entry point of hierarchy
-    var rootObject: BussinessObject?
+    var rootObject: BusinessObject?
     
     // Return the root object, create one if it has not been created yet.
-    func fetchRoot() -> BussinessObject {
+    func fetchRoot() -> BusinessObject {
         if let root = rootObject {
             return root
         }
         
-        let object = BussinessObject()
+        let object = BusinessObject()
         object.name = object.uuid
         object.type = "Purification Station"
         object.location = "1000 - Hamburg Mechanic"
@@ -184,130 +252,137 @@ class HierarchyViewModel {
         return object
     }
     
-    func asyncFetchRoot(completion: @escaping (BussinessObject) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            let root = self.fetchRoot()
-            completion(root)
-        }
+    func asyncFetchRoot() async throws -> BusinessObject {
+        print("asyncFetchRoot: sleep start")
+        try await Task.sleep(nanoseconds: 2000000000) // 5 seconds for testing
+        print("asyncFetchRoot: sleep end")
+        // fetchRoot is MainActor-isolated; call it on the main actor
+        return await MainActor.run { self.fetchRoot() }
     }
     
-    func getObject(for uuid: String) -> BussinessObject? {
+    func asyncFetchChildren(for id: String) async throws -> [BusinessObject] {
+        print("asyncFetchChildren: sleep start")
+        try await Task.sleep(nanoseconds: 1000000000) // 5 seconds for testing
+        print("asyncFetchChildren: sleep end")
+        guard let parent = getObject(for: id) else {
+            preconditionFailure("Object with String: \(id) does not exist in model")
+        }
+
+        if let children = parent.children {
+            return children
+        }
+
+        // Read lightweight info while on MainActor
+        let count = parent.numberOfChildren
+
+        // Create child objects off the main actor to avoid blocking UI.
+        let createdChildren = await Task.detached { () -> [BusinessObject] in
+            var arr: [BusinessObject] = []
+            for _ in 0 ..< count {
+                let child = BusinessObject.newObject()
+                arr.append(child)
+            }
+            return arr
+        }.value
+
+        // Attach children and update cache on the MainActor
+        await MainActor.run {
+            for c in createdChildren {
+                c.parent = parent
+            }
+            parent.children = createdChildren
+            self.updateCache(objects: createdChildren + [parent])
+        }
+
+        return createdChildren
+    }
+    
+    func asyncFetchParent(for id: String) async throws -> BusinessObject? {
+        print("asyncFetchParent: sleep start")
+        try await Task.sleep(nanoseconds: 1000000000) // 5 seconds for testing
+        print("asyncFetchParent: sleep end")
+        guard let object = getObject(for: id) else {
+            preconditionFailure("Object with String: \(id) does not exist in model")
+        }
+
+        if let parent = object.parent {
+            // ensure cache contains the parent
+            self.updateCache(objects: [parent])
+            return parent
+        }
+
+        // Create parent off the MainActor
+        let createdParent = await Task.detached { () -> BusinessObject in
+            BusinessObject.newObject()
+        }.value
+
+        // Attach parent and update cache on MainActor
+        await MainActor.run {
+            createdParent.children = [object]
+            object.parent = createdParent
+            self.updateCache(objects: [createdParent, object])
+        }
+
+        return createdParent
+    }
+    
+    func getObject(for uuid: String) -> BusinessObject? {
         self.businessObjects[uuid]
     }
     
-    func updateCache(objects: [BussinessObject]) {
+    func updateCache(objects: [BusinessObject]) {
         for object in objects {
             self.businessObjects.updateValue(object, forKey: object.uuid)
         }
     }
 }
 
-class BussinessObject {
+// MARK: - Data Model
+
+class BusinessObject {
     var name: String?
     var type: String?
     var location: String?
     var uuid = UUID().uuidString
-    var parent: BussinessObject?
-    var children: [BussinessObject]?
+    var parent: BusinessObject?
+    var children: [BusinessObject]?
     
     var numberOfChildren: Int = .random(in: 0 ... 100)
     
     // Return children objects.
-    func fetchChildren() -> [BussinessObject] {
+    func fetchChildren() -> [BusinessObject] {
         if let children = self.children {
             return children
         }
         
-        var children: [BussinessObject] = []
+        var children: [BusinessObject] = []
         for _ in 0 ..< self.numberOfChildren {
-            let object = BussinessObject()
+            let object = BusinessObject.newObject()
             object.parent = self
-            object.name = object.uuid
-            object.type = "Purification Station"
-            object.location = "1000 - Hamburg Mechanic"
             children.append(object)
         }
         self.children = children
         return children
     }
     
-    func asyncFetchChildren(completion: @escaping ([BussinessObject]) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            if let _ = self.children {
-                return
-            }
-            
-            let children = self.fetchChildren()
-            completion(children)
-        }
-    }
-    
     // Return parent object. Each object can have only one parent.
-    func fetchParent() -> BussinessObject? {
+    func fetchParent() -> BusinessObject? {
         if let parent = self.parent {
             return parent
         }
         
-        let parent = BussinessObject()
-        parent.name = parent.uuid
-        parent.type = "Purification Station"
-        parent.location = "1000 - Hamburg Mechanic"
+        let parent = BusinessObject.newObject()
         parent.children = [self]
         self.parent = parent
         return parent
     }
     
-    func asyncFetchParent(completion: @escaping (BussinessObject?) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            if let _ = self.parent {
-                return
-            }
-            
-            let parent = self.fetchParent()
-            completion(parent)
-        }
-    }
-    
-    // Get rest of children objects which have not been loaded yet.
-    func fetchSiblingsOfChild() -> [BussinessObject] {
-        guard let children = self.children, case let numberOfSiblings = numberOfChildren - children.count, numberOfSiblings > 0 else {
-            return []
-        }
-        
-        var siblings: [BussinessObject] = []
-        for _ in 0 ..< numberOfSiblings {
-            let object = BussinessObject()
-            object.parent = self
-            object.name = object.uuid
-            object.type = "Purification Station"
-            object.location = "1000 - Hamburg Mechanic"
-            siblings.append(object)
-        }
-        
-        self.children?.append(contentsOf: siblings)
-        return siblings
-    }
-    
-    func asyncFetchSiblingsOfChild(completion: @escaping ([BussinessObject]) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            let siblings = self.fetchSiblingsOfChild()
-            completion(siblings)
-        }
-    }
-    
-    func insertChildren() -> [BussinessObject]? {
-        var children: [BussinessObject] = []
-        for _ in 0 ..< 2 {
-            let object = BussinessObject()
-            object.parent = self
-            object.name = object.uuid
-            object.type = "Purification Station"
-            object.location = "1000 - Hamburg Mechanic"
-            children.append(object)
-        }
-        self.children?.append(contentsOf: children)
-        self.numberOfChildren += children.count
-        return children.isEmpty ? nil : children
+    static func newObject() -> BusinessObject {
+        let object = BusinessObject()
+        object.name = object.uuid
+        object.type = "Purification Station"
+        object.location = "1000 - Hamburg Mechanic"
+        return object
     }
 }
 
@@ -316,6 +391,8 @@ enum HierarchyItemStatusMode {
     case icon
     case text
 }
+
+// MARK: - Setting View
 
 struct HierarchyViewSettingsView: View {
     @Binding var isEditing: Bool

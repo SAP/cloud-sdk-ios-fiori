@@ -457,14 +457,45 @@ final class HierarchyViewTests: XCTestCase {
         
         let modelObject = HierarchyViewModelObject()
         modelObject.dataSource = dataSource
-        XCTAssertNil(modelObject.currentID)
-        modelObject.setCurrentID(dataSource.rootID())
-        XCTAssertEqual(modelObject.currentID, "100")
+        XCTAssertNil(modelObject.currentActiveItemID)
+        modelObject.setCurrentActiveItem(dataSource.rootID())
+        XCTAssertEqual(modelObject.currentActiveItemID, "100")
         
-        let leading = LeadingAccessory(LeadingAccessoryConfiguration(leadingAccessory: ConfigurationViewWrapper(EmptyView())), modelObject: modelObject, isRTL: false)
+        modelObject.setCurrentActiveItem("200")
+        
+        XCTAssertEqual(modelObject.currentActiveItemID, "200")
+        XCTAssertEqual(modelObject.activeParentID, "100")
+        
+        modelObject.setActiveItem("300")
+        XCTAssertEqual(modelObject.currentActiveItemID, "300")
+        XCTAssertEqual(modelObject.activeParentID, "200")
+        
+        modelObject.moveCurrentActiveItem(false)
+        XCTAssertEqual(modelObject.currentActiveItemID, "200")
+        XCTAssertEqual(modelObject.activeParentID, "100")
+        XCTAssertEqual(modelObject.activeChildID, "300")
+        
+        var isMovable = modelObject.isMovableToChild(1)
+        XCTAssertEqual(isMovable, true)
+        
+        var parent = modelObject.parentOfSelectorOnlyItems(2)
+        XCTAssertEqual(parent, "300")
+        
+        modelObject.moveCurrentActiveItem(true)
+        XCTAssertEqual(modelObject.currentActiveItemID, "300")
+        XCTAssertEqual(modelObject.activeParentID, "200")
+        XCTAssertNil(modelObject.activeChildID)
+        
+        isMovable = modelObject.isMovableToChild(2)
+        XCTAssertEqual(isMovable, false)
+        
+        parent = modelObject.parentOfSelectorOnlyItems(2)
+        XCTAssertNil(parent)
+        
+        let leading = LeadingAccessory(LeadingAccessoryConfiguration(leadingAccessory: ConfigurationViewWrapper(EmptyView())), modelObject: modelObject, isRTL: false, isEnabled: true, isAsync: false)
         XCTAssertNotNil(leading.body)
         
-        let trailing = TrailingAccessory(TrailingAccessoryConfiguration(trailingAccessory: ConfigurationViewWrapper(EmptyView())), modelObject: modelObject, isRTL: false)
+        let trailing = TrailingAccessory(TrailingAccessoryConfiguration(trailingAccessory: ConfigurationViewWrapper(EmptyView())), modelObject: modelObject, isRTL: false, isEnabled: true, isAsync: false)
         XCTAssertNotNil(trailing.body)
         
         let children = configuration.numberOfChildren(dataSource, parentID: dataSource.rootID())
@@ -479,26 +510,98 @@ final class HierarchyViewTests: XCTestCase {
         isSelected = configuration.isSelected("100")
         XCTAssertFalse(isSelected)
         
-        modelObject.goChild()
-        XCTAssertEqual(modelObject.currentID, "100")
-        XCTAssertNil(modelObject.childID)
-        XCTAssertNil(modelObject.parentID)
+        let ids = configuration.siblingItems(dataSource, itemID: "200")
+        XCTAssertEqual(ids?.count, 3)
         
-        modelObject.setCurrentID("201")
-        modelObject.goChild()
-        XCTAssertEqual(modelObject.currentID, "201")
-        XCTAssertNil(modelObject.childID)
-        XCTAssertEqual(modelObject.parentID, "101")
+        configuration.onSelected("100", selectionMode: .single)
+        XCTAssertEqual(configuration.selectedItems?.count, 1)
+        XCTAssertEqual(configuration.selectedItems?[0], "200")
         
-        modelObject.setCurrentID("301")
-        modelObject.goParent()
-        XCTAssertEqual(modelObject.currentID, "201")
-        XCTAssertEqual(modelObject.childID, "301")
-        XCTAssertEqual(modelObject.parentID, "101")
+        configuration.onSelected("100", selectionMode: .multiple)
+        XCTAssertEqual(configuration.selectedItems?.count, 1)
+        XCTAssertEqual(configuration.selectedItems?[0], "200")
+        
+        var width = HierarchyIndicatorConfiguration.indicatorWidth(sizeCategory: .large, isMultiline: false)
+        XCTAssertEqual(width, 68)
+        XCTAssertEqual(width, HierarchyIndicatorLayout.singleLineContentWidth)
+        
+        width = HierarchyIndicatorConfiguration.indicatorWidth(sizeCategory: .large, isMultiline: true)
+        XCTAssertEqual(width, 48)
+        XCTAssertEqual(width, HierarchyIndicatorLayout.multiLineContentWidth)
+        
+        width = HierarchyIndicatorConfiguration.indicatorWidth(sizeCategory: .accessibilityExtraLarge, isMultiline: true)
+        XCTAssertEqual(width, 84)
+        XCTAssertEqual(width, HierarchyIndicatorLayout.multiLineWideContentWidth)
+        
+        width = HierarchyIndicatorConfiguration.indicatorWidth(sizeCategory: .accessibilityExtraLarge, isMultiline: false)
+        XCTAssertEqual(width, 84)
+        XCTAssertEqual(width, HierarchyIndicatorLayout.multiLineWideContentWidth)
+    }
+    
+    @MainActor
+    func testDataType2() async throws {
+        let dataSource = HierarchySimpleDataSource()
+        let configuration = HierarchyViewConfiguration(
+            dataSource: dataSource,
+            header: ConfigurationViewWrapper(EmptyView()),
+            hierarchyItem: { id in
+                HierarchyItemView(title: AttributedString(id))
+                    .copyDetailsOnLongPress(title: id, subtitle: "subtitle", footnote: "footnote")
+            },
+            activeChildItem: Binding<String?>(get: { nil }, set: { _ in }),
+            selectedItems: Binding<[String]?>(get: { ["200"] }, set: { _ in })
+        )
+        let view = HierarchyView(configuration, dataSource: dataSource)
+        XCTAssertNotNil(view.body)
+        
+        let modelObject = HierarchyViewModelObject()
+        modelObject.dataSource = dataSource
+        XCTAssertNil(modelObject.currentActiveItemID)
+        try await modelObject.setCurrentActiveItemAsync(dataSource.rootID())
+
+        XCTAssertEqual(modelObject.currentActiveItemID, "100")
+        
+        try await modelObject.setCurrentActiveItemAsync("200")
+        
+        XCTAssertEqual(modelObject.currentActiveItemID, "200")
+        XCTAssertEqual(modelObject.activeParentID, "100")
+        
+        modelObject.setActiveItem("300")
+        XCTAssertEqual(modelObject.currentActiveItemID, "300")
+        XCTAssertEqual(modelObject.activeParentID, "200")
+        
+        try await modelObject.moveCurrentActiveItemAsync(false)
+        XCTAssertEqual(modelObject.currentActiveItemID, "200")
+        XCTAssertEqual(modelObject.activeParentID, "100")
+        XCTAssertEqual(modelObject.activeChildID, "300")
+        
+        try await modelObject.moveCurrentActiveItemAsync(true)
+        XCTAssertEqual(modelObject.currentActiveItemID, "300")
+        XCTAssertEqual(modelObject.activeParentID, "200")
+        XCTAssertNil(modelObject.activeChildID)
+        
+        let ids = try await configuration.siblingItemsAsync(dataSource, itemID: "200")
+        XCTAssertEqual(ids?.count, 3)
     }
 }
 
 struct HierarchySimpleDataSource: HierarchyViewDataSource {
+    func rootIDAsync() async throws -> String {
+        self.rootID()
+    }
+    
+    func numberOfChildrenAsync(for id: String) async throws -> Int {
+        self.numberOfChildren(for: id)
+    }
+    
+    func parentIDAsync(for id: String) async throws -> String? {
+        self.parentID(for: id)
+    }
+    
+    func itemTitleAsync(for id: String) async throws -> String? {
+        self.itemTitle(for: id)
+    }
+    
     func rootID() -> String {
         "100"
     }
