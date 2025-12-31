@@ -2143,6 +2143,8 @@ public enum FioriIcon {
         ///
         public static let notification = Image(fioriName: "fiori.notification")
         ///
+        public static let notification3 = Image(fioriName: "fiori.notification.3")
+        ///
         public static let permission = Image(fioriName: "fiori.permission")
         ///
         public static let `private` = Image(fioriName: "fiori.private")
