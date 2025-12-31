@@ -111,6 +111,8 @@ struct BannerMessageCustomInitExample: View {
     var objectHeader: some View {
         ObjectHeader(title: {
             Text("Inspect Electric Pump Motor Long Job Title Example Wrapping Two Lines")
+                .lineLimit(11)
+                .minimumScaleFactor(0.1)
         }, subtitle: {
             Text("Job 819701")
         }, tags: {
@@ -137,6 +139,8 @@ struct BannerMessageCustomInitExample: View {
             Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
         }, substatus: {
             Text("High Priority")
+                .lineLimit(2)
+                .minimumScaleFactor(0.1)
         }, detailImage: {
             Image("productThumbnail").resizable()
         }, detailContent: {
