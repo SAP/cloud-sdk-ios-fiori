@@ -25,7 +25,7 @@ struct HierarchyItemViewDemo: View {
                         FioriIcon.actions.attachment.foregroundStyle(Color.preferredColor(.tintColor))
                     },
                     detailImage: self.showsDetailImage ? { FioriIcon.message.messageInformation.resizable().foregroundStyle(Color.preferredColor(.tintColor)) } : { EmptyView() },
-                    status: self.status == .icon ? { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)) } : (self.status == .text ? { Text("Installed") } : { EmptyView() }),
+                    status: self.status == .icon ? { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)).accessibilityLabel("Warning") } : (self.status == .text ? { Text("Installed") } : { EmptyView() }),
                     accessoryType: self.accessoryType,
                     hierarchyIndicator: self.isEditing ? { EmptyView() } : {
                         HierarchyIndicator(
