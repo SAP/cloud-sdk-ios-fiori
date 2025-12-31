@@ -77,9 +77,6 @@ struct CardTwoButtonsChangeToOneExample: View {
     var body: some View {
         List {
             Section {
-                Divider()
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                    
                 HStack {
                     Text("My Schedule")
                         .font(.fiori(forTextStyle: .subheadline))
@@ -133,6 +130,7 @@ struct CardTwoButtonsChangeToOneExample: View {
                                 }
                                 .frame(width: 300, height: 192)
                                 .background(Color.white)
+                                .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .shadow(color: .preferredColor(.cardShadow), radius: 16) //
