@@ -68,7 +68,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
@@ -263,7 +263,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, bodyText: {
                 Text("1000-Hamburg, MECHANIK Functional Location")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("High")
             }, detailContent: {
@@ -352,7 +352,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("Very High Priority")
             }, detailImage: {
@@ -514,7 +514,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, footnote: {
                 Text("Due on 12/31/16")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -529,7 +529,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("High Priority")
             })
@@ -578,7 +578,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             }, subtitle: {
                 Text("Job 819701")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning").accessibilityLabel("Warning")
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
@@ -591,7 +591,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             let oh = ObjectHeader(title: {
                 Text("Inspect Electric Pump Motor")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("High Priority")
             })
