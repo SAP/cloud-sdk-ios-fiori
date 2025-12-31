@@ -255,7 +255,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -267,7 +267,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -422,7 +422,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -438,7 +438,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -467,7 +467,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -483,7 +483,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -592,7 +592,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -604,7 +604,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
@@ -761,7 +761,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -777,7 +777,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -864,7 +864,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -881,7 +881,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -911,7 +911,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -928,7 +928,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -958,7 +958,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -974,7 +974,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -1440,7 +1440,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Text("2")
@@ -1451,7 +1451,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Text("2")
@@ -1520,7 +1520,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
@@ -1530,7 +1530,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                    Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
                 }, icons: {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
