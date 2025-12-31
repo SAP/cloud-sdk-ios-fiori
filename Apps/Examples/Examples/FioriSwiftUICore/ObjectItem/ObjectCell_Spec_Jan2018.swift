@@ -228,7 +228,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("1000 - Hamburg, MECHANIK")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill")
+                    Image(systemName: "exclamationmark.square.fill").accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
@@ -242,7 +242,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 }, footnote: {
                     Text("1000 - Hamburg, MECHANIK")
                 }, status: {
-                    Image(systemName: "exclamationmark.square.fill")
+                    Image(systemName: "exclamationmark.square.fill").accessibilityLabel("Warning")
                 }, substatus: {
                     Text("Scheduled")
                 }, detailImage: {
