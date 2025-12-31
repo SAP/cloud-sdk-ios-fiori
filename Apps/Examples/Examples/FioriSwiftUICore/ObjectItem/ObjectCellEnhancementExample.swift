@@ -102,7 +102,7 @@ struct ObjectCellEnhancementExample: View {
             }, description: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, detailImage: {
                 Image("productThumbnail").resizable().frame(width: 45, height: 45)
             }, objectItemButton: {
@@ -132,7 +132,7 @@ struct ObjectCellEnhancementExample: View {
             }, description: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel)).accessibilityLabel("Warning")
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
