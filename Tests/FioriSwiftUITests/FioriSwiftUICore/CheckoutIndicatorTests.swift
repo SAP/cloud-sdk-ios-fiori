@@ -3,15 +3,6 @@ import SwiftUI
 import XCTest
 
 final class CheckoutIndicatorTests: XCTestCase {
-    // Helper to create a mutable Binding for tests
-    private func binding<State>(_ initial: State) -> (Binding<State>, () -> State, (State) -> Void) {
-        var value = initial
-        let get = { value }
-        let set: (State) -> Void = { value = $0 }
-        let binding = Binding<State>(get: get, set: set)
-        return (binding, get, set)
-    }
-    
     // MARK: - Basic Initialization Tests
     
     func testInitWithInProgressState() {
