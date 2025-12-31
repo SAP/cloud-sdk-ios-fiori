@@ -22,10 +22,10 @@ jobs:
 
     # Workaround for unit test hang with cache update command
     - name: Force Xcode Simulator dyld shared cache update
-        run: xcrun simctl runtime dyld_shared_cache update --all
+      run: xcrun simctl runtime dyld_shared_cache update --all
 
     - name: Build and Test
-      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.0.1' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" clean build test | xcpretty
+      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" clean build test | xcpretty
       
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
