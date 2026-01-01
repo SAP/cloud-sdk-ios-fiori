@@ -52,7 +52,7 @@ struct HierarchyViewDemo: View {
                         subtitle: (object.type != nil) ? { Text(object.type ?? "") } : { EmptyView() },
                         footnote: (object.location != nil) ? { Text(object.location ?? "") } : { EmptyView() },
                         detailImage: self.showsDetailImage ? { FioriIcon.message.messageInformation.resizable().foregroundStyle(Color.preferredColor(.tintColor)) } : { EmptyView() },
-                        status: self.status == .icon ? { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)) } : (self.status == .text ? { Text("High") } : { EmptyView() }),
+                        status: self.status == .icon ? { Image(systemName: "exclamationmark.square.fill").foregroundStyle(Color.preferredColor(.negativeLabel)).accessibilityLabel("Warning") } : (self.status == .text ? { Text("High") } : { EmptyView() }),
                         accessoryType: self.accessoryType,
                         hierarchyIndicator: {
                             let childrenCount = self.dataSource.numberOfChildren(for: id)

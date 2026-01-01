@@ -120,9 +120,11 @@ struct CardFullWidthSingleButtonExample: View {
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
-                            ForEach(self._dataSource) { item in
+                            ForEach(0 ..< self._dataSource.count, id: \.self) { index in
+                                let item = self._dataSource[index]
                                 self.cardView(for: item)
-                                    .frame(width: 300)
+                                    .frame(maxWidth: 300)
+                                    .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 16))
