@@ -18,7 +18,8 @@ final class CalendarViewTests: XCTestCase {
     }
     
     func testCalendarModel() {
-        let year = 2025
+        let year = Calendar.current.component(.year, from: Date())
+         
         let selectedDate: Date = self.fm.date(from: "\(year) 09 29")!
         let scrollToDate: Date = self.fm.date(from: "\(year) 09 29")!
         let model = CalendarModel(selectedDate: selectedDate, scrollToDate: scrollToDate)
