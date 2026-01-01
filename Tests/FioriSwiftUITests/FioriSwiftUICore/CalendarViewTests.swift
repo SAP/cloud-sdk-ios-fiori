@@ -40,7 +40,7 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertNil(model.selectedRange)
         XCTAssertEqual(model.monthViewHeight, 300)
         XCTAssertEqual(model.currentMonthOriginHeight, 0)
-        XCTAssertEqual(model.title, "Sep \(2025)")
+        XCTAssertEqual(model.title, "Sep \(year)")
         XCTAssertFalse(model.isDragging)
         XCTAssertTrue(model.isExpanded)
         XCTAssertTrue(model.showsOutOfMonthDates)
