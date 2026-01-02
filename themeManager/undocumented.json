@@ -527,49 +527,49 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2209,
+      "line": 2211,
       "symbol": "FioriIcon.tables",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2274,
+      "line": 2276,
       "symbol": "FioriIcon.text",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2333,
+      "line": 2335,
       "symbol": "FioriIcon.things",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2460,
+      "line": 2462,
       "symbol": "FioriIcon.time",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2497,
+      "line": 2499,
       "symbol": "FioriIcon.transport",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2536,
+      "line": 2538,
       "symbol": "FioriIcon.travel",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
-      "line": 2579,
+      "line": 2581,
       "symbol": "FioriIcon.illustrations",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"

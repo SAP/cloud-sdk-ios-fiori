@@ -70,6 +70,8 @@
                         <div class="abstract">
                           <p>Gets the uuid for root item in hierarchy view. This method is only called when hierarchy view loads first time.</p>
 
+<p>This synchronous API is used when the environment value <code>hierarchyViewIsAsync</code> is false.</p>
+
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
@@ -100,6 +102,8 @@
                         <div class="pointer"></div>
                         <div class="abstract">
                           <p>Gets the number of children for a given item ID</p>
+
+<p>This synchronous API is used when the environment value <code>hierarchyViewIsAsync</code> is false.</p>
 
                         </div>
                         <div class="declaration">
@@ -150,6 +154,8 @@
                         <div class="pointer"></div>
                         <div class="abstract">
                           <p>Gets the uuid of a child of the specified parent item at given index.</p>
+
+<p>This synchronous API is always used by HierarchyView regardless of the <code>hierarchyViewIsAsync</code> environment value.</p>
 
                         </div>
                         <div class="declaration">
@@ -213,6 +219,8 @@
                         <div class="abstract">
                           <p>Gets the uuid of the parent item of the specified child item.</p>
 
+<p>This synchronous API is used when the environment value <code>hierarchyViewIsAsync</code> is false.</p>
+
 <ul>
 <li><p>parameter</p>
 
@@ -252,6 +260,8 @@
                         <div class="abstract">
                           <p>Gets the title for the item with specified uuid.</p>
 
+<p>This synchronous API is used when the environment value <code>hierarchyViewIsAsync</code> is false.</p>
+
 <ul>
 <li><p>parameter</p>
 
@@ -266,6 +276,185 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">itemTitle</span><span class="p">(</span><span class="k">for</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>The title of the item or <code>nil</code> if it doesn&rsquo;t have a title.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23HierarchyViewDataSourceP11rootIDAsyncSSyYaKF"></a>
+                      <a name="//apple_ref/swift/Method/rootIDAsync()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23HierarchyViewDataSourceP11rootIDAsyncSSyYaKF">rootIDAsync()</a>
+                      </code>
+                        <span class="declaration-note">
+                          Asynchronous
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Asynchronously returns the UUID of the root item for the hierarchy view.</p>
+
+<p>This async API is used when the environment value <code>hierarchyViewIsAsync</code> is true.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rootIDAsync</span><span class="p">()</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>the uuid for root item in hierarchy view.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23HierarchyViewDataSourceP21numberOfChildrenAsync3forSiSS_tYaKF"></a>
+                      <a name="//apple_ref/swift/Method/numberOfChildrenAsync(for:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23HierarchyViewDataSourceP21numberOfChildrenAsync3forSiSS_tYaKF">numberOfChildrenAsync(for:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Asynchronous
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Asynchronously gets the number of children for a given item ID</p>
+
+<p>This async API is used when the environment value <code>hierarchyViewIsAsync</code> is true.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">numberOfChildrenAsync</span><span class="p">(</span><span class="k">for</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>id</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The uuid of the item from which hierarchy view requests number of childre</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>Number of children the item has.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23HierarchyViewDataSourceP13parentIDAsync3forSSSgSS_tYaKF"></a>
+                      <a name="//apple_ref/swift/Method/parentIDAsync(for:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23HierarchyViewDataSourceP13parentIDAsync3forSSSgSS_tYaKF">parentIDAsync(for:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Asynchronous
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Asynchronously gets the uuid of the parent item of the specified child item.</p>
+
+<p>This async API is used when the environment value <code>hierarchyViewIsAsync</code> is true.</p>
+
+<ul>
+<li><p>parameter</p>
+
+<ul>
+<li>id: The uuid of the child item whose parent is requested.</li>
+</ul></li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">parentIDAsync</span><span class="p">(</span><span class="k">for</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>The uuid of the parent item or <code>nil</code> if parent does not exist.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23HierarchyViewDataSourceP14itemTitleAsync3forSSSgSS_tYaKF"></a>
+                      <a name="//apple_ref/swift/Method/itemTitleAsync(for:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23HierarchyViewDataSourceP14itemTitleAsync3forSSSgSS_tYaKF">itemTitleAsync(for:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Asynchronous
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Asynchronously gets the title for the item with specified uuid.</p>
+
+<p>This async API is used when the environment value <code>hierarchyViewIsAsync</code> is true.</p>
+
+<ul>
+<li><p>parameter</p>
+
+<ul>
+<li>uuid: The uuid of the item whose title is requested.</li>
+</ul></li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">itemTitleAsync</span><span class="p">(</span><span class="k">for</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                           </div>
                         </div>
@@ -6256,6 +6445,9 @@
                   <a href="../Structs/ToastMessageIconStyle.html">ToastMessageIconStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ToastMessageStyleModifier.html">ToastMessageStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
@@ -6915,7 +7107,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2025-12-25)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-01-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
