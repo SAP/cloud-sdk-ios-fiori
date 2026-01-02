@@ -610,7 +610,6 @@ extension SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom != .phone ? 0 : 16)
             
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },
@@ -646,8 +645,6 @@ extension SortFilterCFGItemContainer: View {
                 v.incrementActionStyle(.deactivate)
             }
             .frame(minHeight: self.stepperViewHeight)
-            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? self.popoverWidth : Screen.bounds.size.width)
-            .padding(0)
             .sizeReader { s in
                 self.stepperViewHeight = max(self.stepperViewHeight, s.height)
             }
