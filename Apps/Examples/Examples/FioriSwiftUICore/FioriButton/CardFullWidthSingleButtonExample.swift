@@ -88,7 +88,7 @@ struct CardFullWidthSingleButtonExample: View {
     }
     
     var body: some View {
-        ScrollView {
+        List {
             Section {
                 Divider()
                 HStack {
@@ -119,7 +119,7 @@ struct CardFullWidthSingleButtonExample: View {
                     .padding(.horizontal, 16)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 0) {
+                        HStack(spacing: 8) {
                             ForEach(0 ..< self._dataSource.count, id: \.self) { index in
                                 let item = self._dataSource[index]
                                 self.cardView(for: item)
@@ -139,9 +139,12 @@ struct CardFullWidthSingleButtonExample: View {
                     .padding()
                     .background(Color.preferredColor(.secondaryGroupedBackground))
             }
-            .navigationTitle("Object Card - Full Width  Single Button")
-            .navigationBarTitleDisplayMode(.inline)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.grouped)
+        .navigationTitle("Object Card - Full Width  Single Button")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     @ViewBuilder
@@ -165,11 +168,13 @@ struct CardFullWidthSingleButtonExample: View {
                 self.updateDataSource(id: item.id)
             }, label: { _ in
                 Text(self.titleStr(item.loadingState))
+                    .multilineTextAlignment(.center)
             })
             .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, loadingState: item.loadingState))
             .disabled(item.loadingState != .unspecified)
         }
-        .frame(width: 300, height: 192)
+        .frame(width: 300)
+        .fixedSize(horizontal: false, vertical: true)
         .background(Color.white)
     }
 
