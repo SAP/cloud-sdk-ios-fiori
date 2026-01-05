@@ -62,10 +62,11 @@ extension HierarchyViewHeaderFioriStyle {
         let hierarchyViewHeaderConfiguration: HierarchyViewHeaderConfiguration
         @EnvironmentObject private var modelObject: HierarchyViewModelObject
         @Environment(\.layoutDirection) var layoutDirection
+        @Environment(\.hierarchyViewIsAsync) var isAsync
     
         func makeBody(_ configuration: LeadingAccessoryConfiguration) -> some View {
-            let isEnabled = self.layoutDirection == .rightToLeft ? (self.modelObject.childID != nil) : (self.modelObject.parentID != nil)
-            return LeadingAccessory(configuration, modelObject: self.modelObject, isRTL: self.layoutDirection == .rightToLeft)
+            let isEnabled = self.layoutDirection == .rightToLeft ? self.modelObject.activeChildID != nil : self.modelObject.activeParentID != nil
+            return LeadingAccessory(configuration, modelObject: self.modelObject, isRTL: self.layoutDirection == .rightToLeft, isEnabled: isEnabled, isAsync: self.isAsync)
                 .font(.fiori(forTextStyle: .body, weight: .regular))
                 .imageScale(.large)
                 .foregroundStyle(isEnabled ? Color.preferredColor(.tintColor) : Color.preferredColor(.tertiaryLabel).opacity(0.3))
@@ -77,10 +78,11 @@ extension HierarchyViewHeaderFioriStyle {
         let hierarchyViewHeaderConfiguration: HierarchyViewHeaderConfiguration
         @EnvironmentObject private var modelObject: HierarchyViewModelObject
         @Environment(\.layoutDirection) var layoutDirection
+        @Environment(\.hierarchyViewIsAsync) var isAsync
     
         func makeBody(_ configuration: TrailingAccessoryConfiguration) -> some View {
-            let isEnabled = self.layoutDirection == .rightToLeft ? (self.modelObject.parentID != nil) : (self.modelObject.childID != nil)
-            return TrailingAccessory(configuration, modelObject: self.modelObject, isRTL: self.layoutDirection == .rightToLeft)
+            let isEnabled = self.layoutDirection == .rightToLeft ? self.modelObject.activeParentID != nil : self.modelObject.activeChildID != nil
+            return TrailingAccessory(configuration, modelObject: self.modelObject, isRTL: self.layoutDirection == .rightToLeft, isEnabled: isEnabled, isAsync: self.isAsync)
                 .font(.fiori(forTextStyle: .body, weight: .regular))
                 .imageScale(.large)
                 .foregroundStyle(isEnabled ? Color.preferredColor(.tintColor) : Color.preferredColor(.tertiaryLabel).opacity(0.3))

@@ -34,35 +34,19 @@ public struct StepperViewBaseStyle: StepperViewStyle {
 // Default fiori styles
 extension StepperViewFioriStyle {
     struct ContentFioriStyle: StepperViewStyle {
-        @Environment(\.isEnabled) var isEnabled: Bool
-        @FocusState var isFocused: Bool
-
         func makeBody(_ configuration: StepperViewConfiguration) -> some View {
             StepperView(configuration)
-                .titleStyle(content: { titleConfiguration in
-                    Title(titleConfiguration)
-                        .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                })
-                .stepperFieldStyle { config in
-                    StepperField(config)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: self.isFocused ? 2 : 0.5)
-                                .foregroundColor(.preferredColor(self.isFocused ? .tintColor : .separator))
-                        )
-                        .focused(self.$isFocused)
-                        .fixedSize(horizontal: true, vertical: false)
-                }
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
         let stepperViewConfiguration: StepperViewConfiguration
+        @Environment(\.isEnabled) var isEnabled: Bool
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundColor(.preferredColor(.primaryLabel))
+                .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .padding(EdgeInsets(top: 11, leading: 0, bottom: 11, trailing: 0))
                 .layoutPriority(1)
         }
@@ -112,10 +96,18 @@ extension StepperViewFioriStyle {
     
     struct StepperFieldFioriStyle: StepperFieldStyle {
         let stepperViewConfiguration: StepperViewConfiguration
+        @FocusState var isFocused: Bool
     
         func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
             StepperField(configuration)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: self.isFocused ? 2 : 0.5)
+                        .foregroundColor(.preferredColor(self.isFocused ? .tintColor : .separator))
+                )
+                .focused(self.$isFocused)
                 .frame(minWidth: 136, minHeight: 44)
+                .fixedSize(horizontal: true, vertical: false)
         }
     }
     
