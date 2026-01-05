@@ -99,8 +99,12 @@ struct CardTwoButtonsChangeToOneExample: View {
                             HStack {
                                 Card {
                                     Text("Schedule\(item.title)")
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 } subtitle: {
                                     Text("Subtitle")
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 } detailImage: {
                                     Image("ProfilePic")
                                         .resizable()
@@ -110,25 +114,27 @@ struct CardTwoButtonsChangeToOneExample: View {
                                     FioriIcon.shopping.cart
                                 } row1: {
                                     Text("Body text could be really long description that requires wrapping, with suggested 2 lines from Fiori Design Guideline perspective to make the UI concise. SDK default setting of numberOfLines for body is 6. Application Developer can override it with : cell.body.numOfLines = preferredNumberOfLines.")
-                                        .lineLimit(2)
                                 } action: {
-                                    let maxWidth: CGFloat = item.loadingState == .unspecified ? 118 : .infinity
-                                    
-                                    FioriButton(isSelectionPersistent: false, title: self.titleStr(item.loadingState)) { _ in
+                                    FioriButton(isSelectionPersistent: false, action: { _ in
                                         self.updateDataSource(id: item.id)
-                                    }
-                                    .fioriButtonStyle(FioriPrimaryButtonStyle(maxWidth, loadingState: item.loadingState))
-                                    .disabled(item.loadingState != .unspecified)
+                                    }, label: { _ in
+                                        self.primaryActionLabel(item.loadingState)
+                                    }, image: { _ in
+                                        EmptyView()
+                                    }, imagePosition: .leading, imageTitleSpacing: 8.0)
+                                        .fioriButtonStyle(FioriPrimaryButtonStyle(loadingState: item.loadingState))
+                                        .disabled(item.loadingState != .unspecified)
                                     
                                 } secondaryAction: {
                                     if item.loadingState == .unspecified {
                                         FioriButton(title: "Decline", action: { _ in
                                             print("tap Decline")
                                         })
-                                        .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 118))
+                                        .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
                                     }
                                 }
-                                .frame(width: 300, height: 192)
+                                .frame(width: 300)
+                                .frame(minHeight: 192)
                                 .background(Color.white)
                                 .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
@@ -142,7 +148,6 @@ struct CardTwoButtonsChangeToOneExample: View {
                 Spacer()
             } header: {
                 self.profileHeader
-                    .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.preferredColor(.secondaryGroupedBackground))
             }
@@ -181,6 +186,13 @@ struct CardTwoButtonsChangeToOneExample: View {
                 break
             }
         }
+    }
+    
+    @ViewBuilder
+    func primaryActionLabel(_ loadingState: FioriButtonLoadingState) -> some View {
+        Text(self.titleStr(loadingState))
+            .lineLimit(1)
+            .minimumScaleFactor(0.1)
     }
     
     func titleStr(_ loadingState: FioriButtonLoadingState) -> AttributedString {

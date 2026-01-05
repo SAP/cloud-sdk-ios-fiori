@@ -17,8 +17,12 @@ struct CardViewWithTwoButtonsExample: View {
                     Text("Title")
                 } title: {
                     Text("Title that goes to three lines before truncating just like that")
+                        .lineLimit(11)
+                        .minimumScaleFactor(0.1)
                 } subtitle: {
                     Text("Subtitle that goes to two lines before truncating just like that")
+                        .lineLimit(11)
+                        .minimumScaleFactor(0.1)
                 } detailImage: {
                     Image(systemName: "person.crop.circle")
                         .frame(width: 90, height: 90)
@@ -72,7 +76,7 @@ struct CardViewWithTwoButtonsExample: View {
                     FioriButton(title: "Decline", action: { _ in
                         print("tap Decline")
                     })
-                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 118))
+                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 218))
                 }
                 .background(Color.white)
             }
