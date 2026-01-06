@@ -18,7 +18,8 @@ final class CalendarViewTests: XCTestCase {
     }
     
     func testCalendarModel() {
-        let year = 2025
+        let year = Calendar.current.component(.year, from: Date())
+         
         let selectedDate: Date = self.fm.date(from: "\(year) 09 29")!
         let scrollToDate: Date = self.fm.date(from: "\(year) 09 29")!
         let model = CalendarModel(selectedDate: selectedDate, scrollToDate: scrollToDate)
@@ -39,7 +40,7 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertNil(model.selectedRange)
         XCTAssertEqual(model.monthViewHeight, 300)
         XCTAssertEqual(model.currentMonthOriginHeight, 0)
-        XCTAssertEqual(model.title, "Sep 2025")
+        XCTAssertEqual(model.title, "Sep \(year)")
         XCTAssertFalse(model.isDragging)
         XCTAssertTrue(model.isExpanded)
         XCTAssertTrue(model.showsOutOfMonthDates)
@@ -56,7 +57,7 @@ final class CalendarViewTests: XCTestCase {
         
         model.customLanguageId = "zh-hans"
         XCTAssertEqual(model.customLanguageId, model.customLanguageId)
-        XCTAssertEqual(model.title, "2025年9月")
+        XCTAssertEqual(model.title, "\(year)年9月")
         
         model.monthViewHeight = 350
         XCTAssertEqual(model.currentMonthOriginHeight, 350)
@@ -75,7 +76,7 @@ final class CalendarViewTests: XCTestCase {
         
         model.calendarStyle = .rangeSelection
         model.selectedRange = self.fm.date(from: "\(year) 10 25")! ... self.fm.date(from: "\(year) 10 27")!
-        XCTAssertEqual(model.title, "2025年10月25日 - 2025年10月27日")
+        XCTAssertEqual(model.title, "\(year)年10月25日 - \(year)年10月27日")
         
         let modelWithStartDate = CalendarModel(startDate: fm.date(from: "2021 01 01"))
         XCTAssertTrue(Calendar.current.compare(modelWithStartDate.endDate, to: self.fm.date(from: "2022 12 31")!, toGranularity: .day) == .orderedSame)
