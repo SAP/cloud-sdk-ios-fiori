@@ -100,8 +100,12 @@ struct CardFixedWidthButtonsExample: View {
                             HStack {
                                 Card {
                                     Text("Schedule\(item.title)")
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 } subtitle: {
                                     Text("Subtitle")
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 } detailImage: {
                                     Image("ProfilePic")
                                         .resizable()
@@ -111,7 +115,6 @@ struct CardFixedWidthButtonsExample: View {
                                     FioriIcon.shopping.cart
                                 } row1: {
                                     Text("Body text could be really long description that requires wrapping, with suggested 2 lines from Fiori Design Guideline perspective to make the UI concise. SDK default setting of numberOfLines for body is 6. Application Developer can override it with : cell.body.numOfLines = preferredNumberOfLines.")
-                                        .lineLimit(2)
                                 } action: {
                                     FioriButton(isSelectionPersistent: false, action: { _ in
                                         self.updateDataSource(id: item.id)
@@ -120,15 +123,16 @@ struct CardFixedWidthButtonsExample: View {
                                     }, image: { _ in
                                         EmptyView()
                                     }, imagePosition: .leading, imageTitleSpacing: 8.0)
-                                        .fioriButtonStyle(FioriPrimaryButtonStyle(118, loadingState: item.loadingState))
+                                        .fioriButtonStyle(FioriPrimaryButtonStyle(loadingState: item.loadingState))
                                         .disabled(item.loadingState != .unspecified)
                                 } secondaryAction: {
                                     FioriButton(isSelectionPersistent: false, title: "Decline", action: { _ in
                                         print("tap Decline")
                                     })
-                                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 118))
+                                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
                                 }
-                                .frame(width: 300, height: 192)
+                                .frame(width: 300)
+                                .frame(minHeight: 192)
                                 .background(Color.white)
                                 .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
@@ -156,7 +160,11 @@ struct CardFixedWidthButtonsExample: View {
     
     @ViewBuilder
     func primaryActionLabel(_ loadingState: FioriButtonLoadingState) -> any View {
-        loadingState != .unspecified ? AnyView(EmptyView()) : AnyView(Text("Check in"))
+        loadingState != .unspecified ? AnyView(EmptyView()) : AnyView(
+            Text("Check in")
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
+        )
     }
     
     func updateDataSource(id: UUID) {
