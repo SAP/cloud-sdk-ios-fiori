@@ -93,10 +93,8 @@ struct WritingAssistantExample: View {
                 .waHelperAction(self.$helperAction)
                 .frame(height: 100)
                 .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
-            
-            TextFieldFormView(title: {
-                Text("TextFieldFormView Title")
-            }, text: self.$text2)
+
+            TextFieldFormView(title: "TextFieldFormView Title", text: self.$text2, placeholder: "Enter something")
                 .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
