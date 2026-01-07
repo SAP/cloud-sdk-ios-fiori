@@ -90,8 +90,12 @@ private struct CardFooterLayout: Layout {
         
         cache.clear()
         
-        let subViewSizes = subviews.reversed().map {
-            $0.sizeThatFits(proposal)
+        // Use width-constrained proposal when calculating subview sizes to enable text wrapping
+        let subViewSizes = subviews.reversed().map { subview in
+            subview.sizeThatFits(ProposedViewSize(
+                width: min(self.maxButtonWidth, proposal.width ?? CGFloat.greatestFiniteMagnitude),
+                height: nil
+            ))
         }
         
         self.calculateLayout(proposalWidth: proposal.width, subViewSizes: subViewSizes, layoutMode: layoutMode, cache: &cache)
@@ -149,6 +153,7 @@ private struct CardFooterLayout: Layout {
             // check if overflow should be shown
             if numToShow < numButtons {
                 requiredFinalWidth += min(self.maxButtonWidth, overflowSize.width) + theSpacing
+                maxHeight = max(maxHeight, overflowSize.height)
             }
             finalWidth = requiredFinalWidth
         } else { // there is a proposalWidth
@@ -204,8 +209,10 @@ private struct CardFooterLayout: Layout {
         for i in 0 ..< subViewSizes.count {
             if i < numToShow {
                 let btWidth = buttonWidth ?? min(finalWidth - (numToHide > 0 ? theSpacing + overflowSize.width : 0), self.maxButtonWidth, subViewNoOflSizes[i].width)
+                // Use actual subview height instead of uniform maxHeight
+                let btHeight = subViewNoOflSizes[i].height
                 x += btWidth + (i > 0 ? theSpacing : 0)
-                frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: maxHeight)))
+                frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: btHeight)))
             } else if i < numButtons { // rest button to hide
                 frames.append(hideRect)
             } else { // overflow

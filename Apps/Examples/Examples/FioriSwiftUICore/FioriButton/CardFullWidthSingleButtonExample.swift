@@ -212,7 +212,7 @@ struct CardFullWidthSingleButtonExample: View {
         case .unspecified:
             "Check in"
         case .processing:
-            "Checking in"
+            "Checkinnnnnnnnnnnnnnnnnnnnnnnng in"
         case .success:
             "Checked in"
         }
