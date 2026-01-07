@@ -889,7 +889,19 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     }
         
     @ViewBuilder func generateSection(by serialData: [Data.Element]) -> some View {
-        ForEach(serialData, id: self.id) { element in
+        // Only reorder for single selection mode to show selected item first
+        // For multiple selection mode, the order of items should not be changed based on current design
+        let reorderedData: [Data.Element] = {
+            if self.isSingleSelection, let selectedIndex = serialData.firstIndex(where: { self.isItemSelected($0[keyPath: self.id]) }) {
+                var reordered = serialData
+                let selectedItem = reordered.remove(at: selectedIndex)
+                reordered.insert(selectedItem, at: 0)
+                return reordered
+            }
+            return serialData
+        }()
+        
+        ForEach(reorderedData, id: self.id) { element in
             Group {
                 let id_value = element[keyPath: id]
                 if let children, let childrenData = element[keyPath: children] {
