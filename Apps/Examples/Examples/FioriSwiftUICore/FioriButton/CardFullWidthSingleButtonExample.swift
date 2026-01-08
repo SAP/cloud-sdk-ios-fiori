@@ -30,12 +30,14 @@ struct CardFullWidthSingleButtonExample: View {
     var profileHeader: some View {
         ProfileHeader(detailImage: {
             Image("rw").resizable()
+                .accessibilityLabel("Photo")
         }, title: {
             Text("Harry Ford")
         }, subtitle: {
             Text("The boy wizard, the boy wizard")
         }, description: {
             Text("This is a description.")
+                .accessibilityAddTraits(.isSummaryElement)
         }) {
             HStack {
                 Spacer()
@@ -46,6 +48,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Message")
                 Spacer()
                 
                 Button {
@@ -55,6 +58,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Email")
                 Spacer()
                 
                 Button {
@@ -64,6 +68,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Phone Call")
                 Spacer()
                 
                 Button {
@@ -73,6 +78,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Video")
                 Spacer()
                 
                 Button {
@@ -82,6 +88,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Hint")
                 Spacer()
             }
         }
@@ -95,6 +102,7 @@ struct CardFullWidthSingleButtonExample: View {
                     Text("My Schedule")
                         .font(.fiori(forTextStyle: .subheadline))
                         .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                     Button {
                         withAnimation {
