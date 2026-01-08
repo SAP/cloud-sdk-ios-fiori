@@ -14,56 +14,41 @@ import SwiftUI
 // Base Layout style
 public struct SortFilterViewBaseStyle: SortFilterViewStyle {
     @StateObject var context: SortFilterContext = .init()
-    @State var size: CGSize = .zero
     @Environment(\.dismiss) var dismiss
     @Environment(\.sortFilterBarItemFrame) var sortFilterBarItemFrame
 
     public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
         // Add default layout here
-        CancellableResettableDialogNavigationForm {
+        CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
             configuration.title
-        } cancelAction: {
+        }, cancelAction: {
             configuration.cancelAction
                 .onSimultaneousTapGesture {
                     self.context.handleCancel?()
                     configuration.onCancel?()
                     self.dismiss()
                 }
-        } resetAction: {
+        }, resetAction: {
             configuration.resetAction
                 .onSimultaneousTapGesture {
                     self.context.handleReset?()
                     configuration.onReset?()
                 }
                 .environment(\.isEnabled, self.context.isResetButtonEnabled)
-        } applyAction: {
+        }, applyAction: {
             configuration.applyAction
                 .onSimultaneousTapGesture {
                     self.context.handleApply?()
                     configuration.onUpdate?()
                     self.dismiss()
                 }
-        } components: {
+        }, components: {
             SortFilterCFGItemContainer(items: configuration.$items, btnFrame: self.sortFilterBarItemFrame)
-                .sizeReader(size: { s in
-                    if self.size != s {
-                        self.size = s
-                    }
-                })
                 .environmentObject(self.context)
-        }
-        #if !os(visionOS)
-        .frame(minWidth: UIDevice.current.userInterfaceIdiom != .phone ? 393.0 : nil)
-        #else
-        .frame(minWidth: 480.0)
+        })
+        #if os(visionOS)
         .background(Color.clear)
         #endif
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? self.size.height + self.additionHeight() : nil)
-        .presentationDetents([.large])
-    }
-    
-    func additionHeight() -> CGFloat {
-        self.context.isPickerListShown ? (self.context.isSearchBarHidden ? 68 : (self.context.isKeyboardShown ? 100 : 120)) : 120
     }
 }
 

@@ -31,7 +31,7 @@ struct ProcessingIndicatorExample: View {
             Button("Show/hide in container", action: {
                 self.showInContainer.toggle()
             })
-            TextFieldFormView(title: "Set label", text: self.$labelText).padding()
+            TextFieldFormView(title: "Set label", text: self.$labelText, placeholder: "Enter something").padding()
             ProcessingIndicator(optionalTitle: AttributedString(self.labelText))
             Spacer()
             if self.showInContainer {

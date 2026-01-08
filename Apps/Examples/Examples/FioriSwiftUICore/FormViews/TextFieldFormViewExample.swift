@@ -99,7 +99,7 @@ struct TextFieldFormViewExample: View {
                             config.icon.foregroundStyle(Color.purple)
                         })
                     
-                    TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                    TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Enter Something", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
                 }
                 .padding(.horizontal, 16)
             }
