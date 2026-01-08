@@ -26,9 +26,18 @@ struct SortFilterBarItemFrameKey: EnvironmentKey {
     static let defaultValue: CGRect = .zero
 }
 
+struct SortFilterContentHeightKey: EnvironmentKey {
+    static let defaultValue: Binding<CGFloat> = .constant(0)
+}
+
 extension EnvironmentValues {
     var sortFilterBarItemFrame: CGRect {
         get { self[SortFilterBarItemFrameKey.self] }
         set { self[SortFilterBarItemFrameKey.self] = newValue }
+    }
+    
+    var sortFilterContentHeight: Binding<CGFloat> {
+        get { self[SortFilterContentHeightKey.self] }
+        set { self[SortFilterContentHeightKey.self] = newValue }
     }
 }
