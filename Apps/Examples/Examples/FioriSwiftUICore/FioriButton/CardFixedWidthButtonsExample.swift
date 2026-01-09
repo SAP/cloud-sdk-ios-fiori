@@ -123,16 +123,21 @@ struct CardFixedWidthButtonsExample: View {
                                     }, image: { _ in
                                         EmptyView()
                                     }, imagePosition: .leading, imageTitleSpacing: 8.0)
-                                        .fioriButtonStyle(FioriPrimaryButtonStyle(loadingState: item.loadingState))
+                                        .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, loadingState: item.loadingState))
                                         .disabled(item.loadingState != .unspecified)
                                 } secondaryAction: {
                                     FioriButton(isSelectionPersistent: false, title: "Decline", action: { _ in
                                         print("tap Decline")
                                     })
-                                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
+                                    .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative, maxWidth: 118))
+                                } tertiaryAction: {
+                                    FioriButton(isSelectionPersistent: false, title: "tertiary", action: { _ in
+                                        print("tap tertiary")
+                                    })
+                                    .fioriButtonStyle(FioriTertiaryButtonStyle(colorStyle: .negative, maxWidth: 118))
                                 }
                                 .frame(width: 300)
-                                .frame(minHeight: 192)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .background(Color.white)
                                 .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }

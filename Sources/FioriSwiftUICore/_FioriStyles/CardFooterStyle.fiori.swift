@@ -107,9 +107,11 @@ private struct CardFooterLayout: Layout {
      */
     func calculateLayout(proposalWidth: CGFloat?, subViewSizes: [CGSize], layoutMode: LayoutMode, cache: inout CacheData) {
         let subViewNoOflSizes: [CGSize]
+        var hideSecondMenu = false
         switch subViewSizes.count {
         case 5:
             subViewNoOflSizes = Array(subViewSizes.dropLast(2))
+            hideSecondMenu = true
         case 3:
             subViewNoOflSizes = Array(subViewSizes.dropLast(1))
         default:
@@ -162,9 +164,10 @@ private struct CardFooterLayout: Layout {
                 }
                 maxHeight = max(maxHeight, subViewNoOflSizes[i].height)
                 numToShow = i + 1
-                
                 /// Failed to fit numToShow buttons
-                if requiredFinalWidth + (numToShow < numButtons ? min(self.maxButtonWidth, overflowSize.width) + theSpacing : 0) > finalWidth {
+                if hideSecondMenu ||
+                    requiredFinalWidth + (numToShow < numButtons ? min(self.maxButtonWidth, overflowSize.width) + theSpacing : 0) > finalWidth
+                {
                     if numToShow > 1 {
                         numToShow -= 1
                     }
@@ -197,7 +200,7 @@ private struct CardFooterLayout: Layout {
         
         let y = maxHeight / 2
         // Move the hidden buttons out of visible area
-        let hideRect = CGRect(x: finalWidth + 0.3, y: y, width: 0.3, height: 0.3)
+        var hideRect = CGRect(x: finalWidth + 0.3, y: y, width: 0.3, height: 0.3)
         var frames = [CGRect]()
         
         var x: CGFloat = 0
@@ -207,11 +210,13 @@ private struct CardFooterLayout: Layout {
                 x += btWidth + (i > 0 ? theSpacing : 0)
                 frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: maxHeight)))
             } else if i < numButtons { // rest button to hide
+                hideRect.origin.x = frames.map(\.maxX).max() ?? finalWidth
                 frames.append(hideRect)
             } else { // overflow
                 if numToHide > 0, i == numButtons + numToHide - 1 { // last one to show overflow
                     frames.append(CGRect(x: overflowSize.width / 2, y: y, width: min(self.maxButtonWidth, overflowSize.width), height: overflowSize.height))
                 } else { // hide the other overflow
+                    hideRect.origin.x = frames.map(\.maxX).max() ?? finalWidth
                     frames.append(hideRect)
                 }
             }

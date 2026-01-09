@@ -134,7 +134,7 @@ struct CardTwoButtonsChangeToOneExample: View {
                                     }
                                 }
                                 .frame(width: 300)
-                                .frame(minHeight: 192)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .background(Color.white)
                                 .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
