@@ -116,6 +116,7 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
                         }
                 }
             })
+            .frame(maxWidth: .infinity)
         }
     }
     
@@ -155,6 +156,7 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
             self.detailImage(configuration)
             VStack(alignment: .leading, spacing: 8 * oppositeValue) {
                 configuration.title
+                    .fixedSize(horizontal: false, vertical: true)
                     .sizeReader(size: { size in
                         if size.different(with: self.titleSize) {
                             self.titleSize = size
@@ -162,22 +164,29 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
                     })
                 ZStack {
                     self.subtitle(configuration)
+                        .fixedSize(horizontal: false, vertical: true)
                         .opacity(oppositeValue)
                         .padding(.top, self.subtitlePadding(configuration))
                 }
                 .clipped()
                 .padding(.top, -8 * validTransitionValue)
             }
+            .frame(maxWidth: .infinity)
+
             Spacer()
             if !configuration.description.isEmpty, validTransitionValue < 1 {
                 configuration.description
+                    .fixedSize(horizontal: false, vertical: true)
                     .opacity(oppositeValue)
+                    .frame(maxWidth: .infinity)
                 Spacer()
             }
             if !configuration.detailContent.isEmpty {
                 configuration.detailContent
+                    .frame(maxWidth: .infinity)
             }
         }
+        .padding(.horizontal)
     }
 
     private func titlePadding(_ configuration: ProfileHeaderConfiguration) -> CGFloat {

@@ -17,6 +17,7 @@ class CardFullWidthSingleButtonItem: Identifiable, ObservableObject {
 struct CardFullWidthSingleButtonExample: View {
     @State private var buttonTitle = "Check in"
     @Environment(\.dismiss) private var dismiss
+    @State private var isGridView = false
     
     @State private var _dataSource: [CardFullWidthSingleButtonItem] = [
         CardFullWidthSingleButtonItem(title: "1", loadingState: .unspecified, id: UUID()),
@@ -29,12 +30,14 @@ struct CardFullWidthSingleButtonExample: View {
     var profileHeader: some View {
         ProfileHeader(detailImage: {
             Image("rw").resizable()
+                .accessibilityLabel("Photo")
         }, title: {
             Text("Harry Ford")
         }, subtitle: {
             Text("The boy wizard, the boy wizard")
         }, description: {
             Text("This is a description.")
+                .accessibilityAddTraits(.isSummaryElement)
         }) {
             HStack {
                 Spacer()
@@ -45,6 +48,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Message")
                 Spacer()
                 
                 Button {
@@ -54,6 +58,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Email")
                 Spacer()
                 
                 Button {
@@ -63,6 +68,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Phone Call")
                 Spacer()
                 
                 Button {
@@ -72,6 +78,7 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Video")
                 Spacer()
                 
                 Button {
@@ -81,78 +88,104 @@ struct CardFullWidthSingleButtonExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Hint")
                 Spacer()
             }
         }
     }
     
     var body: some View {
-        Section {
-            Divider()
-            HStack {
-                Text("My Schedule")
-                    .font(.fiori(forTextStyle: .subheadline))
-                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                Spacer()
-                Button {
-                    print("see all")
-                } label: {
-                    Text("See all (\(self._dataSource.count))")
-                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                        .foregroundStyle(Color.preferredColor(.tintColor))
+        List {
+            Section {
+                Divider()
+                HStack {
+                    Text("My Schedule")
+                        .font(.fiori(forTextStyle: .subheadline))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .accessibilityAddTraits(.isHeader)
+                    Spacer()
+                    Button {
+                        withAnimation {
+                            self.isGridView.toggle()
+                        }
+                    } label: {
+                        Text(self.isGridView ? "Show Horizontal" : "See all (\(self._dataSource.count))")
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                    }
                 }
-            }
-            .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
-            
-            ScrollView(.horizontal) {
-                HStack(spacing: 8, content: {
-                    ForEach(0 ..< self._dataSource.count, id: \.self) { index in
-                        let item = self._dataSource[index]
-                        HStack {
-                            Card {
-                                Text("Schedule\(item.title)")
-                            } subtitle: {
-                                Text("Subtitle")
-                            } detailImage: {
-                                Image("ProfilePic")
-                                    .resizable()
-                                    .frame(width: 45, height: 45)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            } headerAction: {
-                                FioriIcon.shopping.cart
-                            } row1: {
-                                Text("Body text could be really long description that requires wrapping, with suggested 2 lines from Fiori Design Guideline perspective to make the UI concise. SDK default setting of numberOfLines for body is 6. Application Developer can override it with : cell.body.numOfLines = preferredNumberOfLines.")
-                                    .lineLimit(2)
-                            } action: {
-                                FioriButton(action: { _ in
-                                    self.updateDataSource(id: item.id)
-                                }, label: { _ in
-                                    Text(self.titleStr(item.loadingState))
-                                })
-                                .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, loadingState: item.loadingState))
-                                .disabled(item.loadingState != .unspecified)
+                .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                
+                if self.isGridView {
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(self._dataSource) { item in
+                            self.cardView(for: item)
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(0 ..< self._dataSource.count, id: \.self) { index in
+                                let item = self._dataSource[index]
+                                self.cardView(for: item)
+                                    .frame(maxWidth: 300)
+                                    .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
-                            .frame(width: 300, height: 192)
-                            .background(Color.white)
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(color: .preferredColor(.cardShadow), radius: 16) //
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                     }
-                })
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                }
+                Spacer()
+            } header: {
+                self.profileHeader
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.preferredColor(.secondaryGroupedBackground))
             }
-            Spacer()
-        } header: {
-            self.profileHeader
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.preferredColor(.secondaryGroupedBackground))
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.grouped)
         .navigationTitle("Object Card - Full Width  Single Button")
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    @ViewBuilder
+    func cardView(for item: CardFullWidthSingleButtonItem) -> some View {
+        Card {
+            Text("Schedule \(item.title)")
+        } subtitle: {
+            Text("Subtitle")
+        } detailImage: {
+            Image("ProfilePic")
+                .resizable()
+                .frame(width: 45, height: 45)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        } headerAction: {
+            FioriIcon.shopping.cart
+        } row1: {
+            Text("Body text could be really long description that requires wrapping, with suggested 2 lines from Fiori Design Guideline perspective to make the UI concise. SDK default setting of numberOfLines for body is 6. Application Developer can override it with : cell.body.numOfLines = preferredNumberOfLines.")
+                .lineLimit(2)
+        } action: {
+            FioriButton(action: { _ in
+                self.updateDataSource(id: item.id)
+            }, label: { _ in
+                Text(self.titleStr(item.loadingState))
+                    .multilineTextAlignment(.center)
+            })
+            .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, loadingState: item.loadingState))
+            .disabled(item.loadingState != .unspecified)
+        }
+        .frame(width: 300)
+        .fixedSize(horizontal: false, vertical: true)
+        .background(Color.white)
+    }
+
     func updateDataSource(id: UUID) {
         for i in 0 ..< self._dataSource.count {
             let item = self._dataSource[i]
