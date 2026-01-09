@@ -196,8 +196,6 @@ private struct CardFooterLayout: Layout {
         /// set up frames for each subview
         
         let y = maxHeight / 2
-        // Move the hidden buttons out of visible area
-        let hideRect = CGRect(x: finalWidth + 0.3, y: y, width: 0.3, height: 0.3)
         var frames = [CGRect]()
         
         var x: CGFloat = 0
@@ -207,11 +205,15 @@ private struct CardFooterLayout: Layout {
                 x += btWidth + (i > 0 ? theSpacing : 0)
                 frames.append(CGRect(origin: CGPoint(x: finalWidth - x + btWidth / 2, y: y), size: CGSize(width: btWidth, height: maxHeight)))
             } else if i < numButtons { // rest button to hide
+                // Move the hidden buttons out of visible area
+                let hideRect = CGRect(x: finalWidth + subViewNoOflSizes[i].width / 2 + 1, y: y, width: 1, height: 1)
                 frames.append(hideRect)
             } else { // overflow
                 if numToHide > 0, i == numButtons + numToHide - 1 { // last one to show overflow
                     frames.append(CGRect(x: overflowSize.width / 2, y: y, width: min(self.maxButtonWidth, overflowSize.width), height: overflowSize.height))
                 } else { // hide the other overflow
+                    // Move the hidden buttons out of visible area
+                    let hideRect = CGRect(x: finalWidth + overflowSize.width / 2 + 1, y: y, width: 1, height: 1)
                     frames.append(hideRect)
                 }
             }
