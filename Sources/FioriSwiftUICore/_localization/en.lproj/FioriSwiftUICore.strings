@@ -680,3 +680,9 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "End Date";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Double tap to open";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Double tap to collapse";
