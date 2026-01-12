@@ -80,15 +80,18 @@ public struct InformationViewErrorStyle: InformationViewStyle {
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.circle")
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
+                        .accessibilityLabel("error".localizedFioriString())
                 } else {
                     IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
+                        .accessibilityLabel("error".localizedFioriString())
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(self.isEnabled ? .negativeLabel : .quaternaryLabel))
             })
+            .accessibilityElement(children: .combine)
     }
 }
 
@@ -100,15 +103,18 @@ public struct InformationViewWarningStyle: InformationViewStyle {
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
+                        .accessibilityLabel("warning".localizedFioriString())
                 } else {
                     IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
+                        .accessibilityLabel("warning".localizedFioriString())
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(self.isEnabled ? .criticalLabel : .quaternaryLabel))
             })
+            .accessibilityElement(children: .combine)
     }
 }
 
@@ -120,15 +126,18 @@ public struct InformationViewInformationalStyle: InformationViewStyle {
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                        .accessibilityLabel("information".localizedFioriString())
                 } else {
                     IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                        .accessibilityLabel("information".localizedFioriString())
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
             })
+            .accessibilityElement(children: .combine)
     }
 }
 
@@ -140,15 +149,18 @@ public struct InformationViewSuccessStyle: InformationViewStyle {
                 if IconConfiguration.icon.isEmpty {
                     Image(systemName: "checkmark.circle")
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
+                        .accessibilityLabel("success".localizedFioriString())
                 } else {
                     IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
+                        .accessibilityLabel("success".localizedFioriString())
                 }
             })
             .descriptionStyle(content: { descriptionConfiguration in
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(self.isEnabled ? .positiveLabel : .quaternaryLabel))
             })
+            .accessibilityElement(children: .combine)
     }
 }
 
