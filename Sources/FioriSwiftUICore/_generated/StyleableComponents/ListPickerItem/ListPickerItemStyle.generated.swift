@@ -25,6 +25,7 @@ public struct ListPickerItemConfiguration {
     public var componentIdentifier: String = "fiori_listpickeritem_component"
     public let title: Title
     public let value: Value
+    public let description: Description
     public let controlState: ControlState
     public let errorMessage: AttributedString?
     public let axis: Axis
@@ -32,6 +33,7 @@ public struct ListPickerItemConfiguration {
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Value = ConfigurationViewWrapper
+    public typealias Description = ConfigurationViewWrapper
     public typealias Destination = ConfigurationViewWrapper
 }
 
@@ -46,6 +48,7 @@ public struct ListPickerItemFioriStyle: ListPickerItemStyle {
         ListPickerItem(configuration)
             .titleStyle(TitleFioriStyle(listPickerItemConfiguration: configuration))
             .valueStyle(ValueFioriStyle(listPickerItemConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(listPickerItemConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(listPickerItemConfiguration: configuration))
     }
 }

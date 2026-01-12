@@ -1063,6 +1063,8 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
+///     }, description: {
+///         Text("Read-only field")
 ///     }, axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
@@ -1084,6 +1086,8 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
+///     }, description: {
+///         Text("Read-only field")
 ///     }, axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
@@ -1096,7 +1100,7 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _DescriptionComponent, _MandatoryField, _FormViewComponent {
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
     

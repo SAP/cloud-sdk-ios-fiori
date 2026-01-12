@@ -12,6 +12,8 @@ import SwiftUI
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
+///     }, description: {
+///         Text("Read-only field")
 ///     }, axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
@@ -33,6 +35,8 @@ import SwiftUI
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
+///     }, description: {
+///         Text("Read-only field")
 ///     }, axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
@@ -47,6 +51,7 @@ import SwiftUI
 public struct ListPickerItem {
     let title: any View
     let value: any View
+    let description: any View
     /// The `ControlState` of the form view. The default is `normal`
     let controlState: ControlState
     /// The error message of the form view.
@@ -62,6 +67,7 @@ public struct ListPickerItem {
 
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder value: () -> any View = { EmptyView() },
+                @ViewBuilder description: () -> any View = { EmptyView() },
                 controlState: ControlState = .normal,
                 errorMessage: AttributedString? = nil,
                 axis: Axis = .horizontal,
@@ -70,6 +76,7 @@ public struct ListPickerItem {
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
         self.value = Value(value: value, componentIdentifier: componentIdentifier)
+        self.description = Description(description: description, componentIdentifier: componentIdentifier)
         self.controlState = controlState
         self.errorMessage = errorMessage
         self.axis = axis
@@ -85,6 +92,7 @@ public extension ListPickerItem {
 public extension ListPickerItem {
     init(title: AttributedString,
          value: AttributedString? = nil,
+         description: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
          controlState: ControlState = .normal,
@@ -94,7 +102,7 @@ public extension ListPickerItem {
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, value: { OptionalText(value) }, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
+        }, value: { OptionalText(value) }, description: { OptionalText(description) }, controlState: controlState, errorMessage: errorMessage, axis: axis, destination: destination)
     }
 }
 
@@ -106,6 +114,7 @@ public extension ListPickerItem {
     internal init(_ configuration: ListPickerItemConfiguration, shouldApplyDefaultStyle: Bool) {
         self.title = configuration.title
         self.value = configuration.value
+        self.description = configuration.description
         self.controlState = configuration.controlState
         self.errorMessage = configuration.errorMessage
         self.axis = configuration.axis
@@ -120,7 +129,7 @@ extension ListPickerItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), description: .init(self.description), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination))).typeErased
                 .transformEnvironment(\.listPickerItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -138,7 +147,7 @@ private extension ListPickerItem {
     }
 
     func defaultStyle() -> some View {
-        ListPickerItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
+        ListPickerItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), description: .init(self.description), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
             .shouldApplyDefaultStyle(false)
             .listPickerItemStyle(ListPickerItemFioriStyle.ContentFioriStyle())
             .typeErased

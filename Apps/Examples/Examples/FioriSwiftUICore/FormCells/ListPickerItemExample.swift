@@ -47,13 +47,16 @@ struct ListPickerItemExample: View {
     @State var showsErrorMessage = false
     @State var showsPrompt = false
     @State var showAINotice: Bool = false
-    
+    var value: AttributedString? {
+        self.state == .readOnly ? "Value" : nil
+    }
+
     var body: some View {
         List {
             Group {
                 if self.dataType == .frameworks || self.dataType == .text {
                     // Use default Value
-                    ListPickerItem(title: "Title", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
+                    ListPickerItem(title: "Title", value: self.value, description: "Read-only field", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
                                    destination: {
                                        self.destinationViewGroup()
                                    })
@@ -67,7 +70,7 @@ struct ListPickerItemExample: View {
                             }
                             Spacer()
                         }
-                    }, value: { self.valueView }, controlState: self.state, axis: self.axis, destination: {
+                    }, value: { self.valueView }, description: { Text("Read-only field") }, controlState: self.state, axis: self.axis, destination: {
                         self.destinationViewGroup()
                     })
                 }
