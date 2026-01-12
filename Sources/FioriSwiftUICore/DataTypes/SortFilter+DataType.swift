@@ -1136,8 +1136,14 @@ public extension SortFilterItem {
         let originalValue: Date?
         public var icon: String?
         public let formatter: String?
+        public let components: DatePickerComponents
         
-        public init(id: String = UUID().uuidString, name: String, value: Date?, formatter: String? = nil, icon: String? = nil) {
+        public init(id: String = UUID().uuidString,
+                    name: String, value: Date?,
+                    formatter: String? = nil,
+                    icon: String? = nil,
+                    components: DatePickerComponents = [.hourAndMinute, .date])
+        {
             self.id = id
             self.name = name
             self.value = value
@@ -1145,6 +1151,18 @@ public extension SortFilterItem {
             self.originalValue = value
             self.formatter = formatter
             self.icon = icon
+            self.components = components
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(self.id)
+            hasher.combine(self.name)
+            hasher.combine(self.value)
+            hasher.combine(self.workingValue)
+            hasher.combine(self.originalValue)
+            hasher.combine(self.icon)
+            hasher.combine(self.formatter)
+            hasher.combine(self.components.rawValue)
         }
         
         mutating func reset() {
