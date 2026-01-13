@@ -13,6 +13,9 @@ enum LinearProgressViewType {
 public struct LinearProgressIndicatorBaseStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         ProgressView(value: configuration.indicatorProgress, total: 1.0)
+            .accessibilityLabel(Text("Processing"))
+            .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
+//            .accessibilityElement(children: .ignore)
     }
 }
 
@@ -28,6 +31,8 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .determinate))
+            .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
+//            .accessibilityElement(children: .ignore)
     }
 }
 
@@ -35,17 +40,8 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
     @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
-        ProgressView(value: self.progress, total: 1.0)
+        ProgressView()
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminate))
-            .onAppear {
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                    self.progress += 0.01
-                    if self.progress >= 1.0 {
-                        self.progress = 0.0
-                    }
-                }
-                RunLoop.current.add(timer, forMode: .common)
-            }
     }
 }
 
@@ -54,6 +50,7 @@ public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.negativeLabel), type: .error))
+            .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
     }
 }
 
@@ -62,13 +59,15 @@ public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle 
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .success))
+            .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
     }
 }
 
 struct CustomLinearProgressViewStyle: ProgressViewStyle {
     @State var color: Color = .preferredColor(.tintColor)
-    @State var height: CGFloat = 4.0
+    @ScaledMetric(relativeTo: .body) var height: CGFloat = 4.0
     @State var type: LinearProgressViewType = .determinate
+    @State var phase: CGFloat = 0.0
     
     func makeBody(configuration: Configuration) -> some View {
         VStack {
@@ -79,19 +78,24 @@ struct CustomLinearProgressViewStyle: ProgressViewStyle {
                         .frame(width: geometry.size.width, height: self.height)
                         .opacity(0.85)
                         .foregroundColor(.preferredColor(.separator))
-                    Capsule()
-                        .frame(width: (self.type == .error || self.type == .success) ? geometry.size.width : (geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0)), height: self.height)
-                        .foregroundColor(self.type == .error ? .preferredColor(.negativeLabel) : self.color)
-                    
-                    Capsule()
-                        .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
-                        .foregroundColor(.preferredColor(.secondaryBackground))
-                        .opacity(self.type == .indeterminate ? 1 : 0)
-                    
-                    Capsule()
-                        .frame(width: geometry.size.width * self.getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: self.type), height: self.height)
-                        .opacity(self.type == .indeterminate ? 0.85 : 0)
-                        .foregroundColor(.preferredColor(.separator))
+                    if self.type == .indeterminate {
+                        let movingWidth = geometry.size.width * 0.25
+                        Capsule()
+                            .frame(width: movingWidth, height: self.height)
+                            .foregroundColor(self.color)
+                            .opacity(0.85)
+                            .offset(x: (geometry.size.width - movingWidth) * self.phase)
+                    } else {
+                        Capsule()
+                            .frame(width: (self.type == .error || self.type == .success) ? geometry.size.width : (geometry.size.width * CGFloat(configuration.fractionCompleted ?? 0)), height: self.height)
+                            .foregroundColor(self.type == .error ? .preferredColor(.negativeLabel) : self.color)
+                    }
+                }
+            }
+            .onAppear {
+                self.phase = -0.26
+                withAnimation(.linear(duration: 1.4).repeatForever(autoreverses: true)) {
+                    self.phase = 1.26
                 }
             }
         }
