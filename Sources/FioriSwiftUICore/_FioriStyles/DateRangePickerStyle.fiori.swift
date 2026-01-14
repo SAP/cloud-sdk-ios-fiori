@@ -57,12 +57,20 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
                 .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
         }
         .accessibilityElement(children: .combine)
-        .accessibilityHint("DoubleTapToOpenKey".localizedFioriString())
+        .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
                 self.isPresented = true
             })
+        }
+    }
+    
+    func mainStackAccessibilityHint(_ configuration: DateRangePickerConfiguration) -> String {
+        if configuration.controlState != .disabled, configuration.controlState != .readOnly {
+            "DoubleTapToOpenKey".localizedFioriString()
+        } else {
+            ""
         }
     }
     

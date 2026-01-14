@@ -49,12 +49,20 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
                 .accessibilityLabel(self.getValueLabel(configuration))
         }
         .accessibilityElement(children: .combine)
-        .accessibilityHint(configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString())
+        .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
                 configuration.pickerVisible.toggle()
             })
+        }
+    }
+    
+    func mainStackAccessibilityHint(_ configuration: DurationPickerConfiguration) -> String {
+        if configuration.controlState != .disabled, configuration.controlState != .readOnly {
+            configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString()
+        } else {
+            ""
         }
     }
 

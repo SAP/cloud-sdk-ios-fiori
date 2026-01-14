@@ -39,7 +39,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
             ValueLabel(valueLabel: self.getValueString(configuration)).foregroundStyle(self.getValueLabelFontColor(configuration))
         }
         .accessibilityElement(children: .combine)
-        .accessibilityHint(configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString())
+        .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
@@ -51,6 +51,14 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
                     }
                 }
             })
+        }
+    }
+    
+    func mainStackAccessibilityHint(_ configuration: ValuePickerConfiguration) -> String {
+        if configuration.controlState != .disabled, configuration.controlState != .readOnly {
+            configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString()
+        } else {
+            ""
         }
     }
 
