@@ -1138,8 +1138,40 @@ public extension SortFilterItem {
         public let formatter: String?
         public let components: DatePickerComponents
         
+        /// Convenience init to create DateTimeItem with custom date picker components.
+        /// - Parameters:
+        ///   - id: Unique identifier for the DateTimeItem.
+        ///   - name: Name of the DateTimeItem.
+        ///   - value: Date value of the DateTimeItem.
+        ///   - formatter: Formatter string for the date value.
+        ///   - icon: Icon name for the DateTimeItem. Default value is `nil`.
         public init(id: String = UUID().uuidString,
-                    name: String, value: Date?,
+                    name: String,
+                    value: Date?,
+                    formatter: String? = nil,
+                    icon: String? = nil)
+        {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.formatter = formatter
+            self.icon = icon
+            self.components = [.hourAndMinute, .date]
+        }
+        
+        /// Convenience init to create DateTimeItem with custom date picker components.
+        /// - Parameters:
+        ///   - id: Unique identifier for the DateTimeItem.
+        ///   - name: Name of the DateTimeItem.
+        ///   - value: Date value of the DateTimeItem.
+        ///   - formatter: Formatter string for the date value.
+        ///   - icon: Icon name for the DateTimeItem. Default value is `nil`.
+        ///   - components: Date picker components to display in view hierarchy. Default value is `[.hourAndMinute, .date]`.
+        public init(id: String = UUID().uuidString,
+                    name: String,
+                    value: Date?,
                     formatter: String? = nil,
                     icon: String? = nil,
                     components: DatePickerComponents = [.hourAndMinute, .date])
