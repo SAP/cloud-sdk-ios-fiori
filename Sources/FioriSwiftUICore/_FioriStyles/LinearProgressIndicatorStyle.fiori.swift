@@ -13,9 +13,8 @@ enum LinearProgressViewType {
 public struct LinearProgressIndicatorBaseStyle: LinearProgressIndicatorStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         ProgressView(value: configuration.indicatorProgress, total: 1.0)
-            .accessibilityLabel(Text("Processing"))
+            .accessibilityLabel(Text("Processing".localizedFioriString()))
             .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
-//            .accessibilityElement(children: .ignore)
     }
 }
 
@@ -32,7 +31,6 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
         LinearProgressIndicator(configuration)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .determinate))
             .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
-//            .accessibilityElement(children: .ignore)
     }
 }
 
