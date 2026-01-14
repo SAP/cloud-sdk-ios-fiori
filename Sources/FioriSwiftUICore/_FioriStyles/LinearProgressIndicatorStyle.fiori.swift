@@ -38,7 +38,7 @@ public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorSt
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
     @State var progress = 0.0
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
-        ProgressView()
+        ProgressView(value: self.progress, total: 1.0)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminate))
     }
 }
