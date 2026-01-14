@@ -39,6 +39,7 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
             ValueLabel(valueLabel: self.getValueString(configuration)).foregroundStyle(self.getValueLabelFontColor(configuration))
         }
         .accessibilityElement(children: .combine)
+        .accessibilityHint(configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "Double tap to open".localizedFioriString())
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {

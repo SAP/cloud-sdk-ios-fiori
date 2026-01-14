@@ -49,6 +49,7 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
                 .accessibilityLabel(self.getValueLabel(configuration))
         }
         .accessibilityElement(children: .combine)
+        .accessibilityHint(configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "Double tap to open".localizedFioriString())
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
