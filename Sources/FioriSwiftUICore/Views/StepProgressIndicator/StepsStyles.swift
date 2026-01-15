@@ -36,7 +36,8 @@ struct StepButtonStyle: ButtonStyle {
     let line: AnyView
     @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
-
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
+    @Environment(\.spiIsMeasuring) private var spiIsMeasuring
     var state: StepProgressIndicatorState?
     var isSelected: Bool
     var isLastStep: Bool
@@ -49,6 +50,10 @@ struct StepButtonStyle: ButtonStyle {
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
     var lineSize: CGSize?
+    
+    private var useFlexibleSPI: Bool {
+        self.flexibleSPI && !self.spiIsMeasuring
+    }
     
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
@@ -71,7 +76,9 @@ struct StepButtonStyle: ButtonStyle {
                         trailing: self.trailing,
                         horizontalSpacing: self.horizontalSpacing,
                         verticalSpacing: self.verticalSpacing,
-                        lineSize: self.lineSize)
+                        lineSize: self.lineSize,
+                        isLastStep: self.isLastStep)
+            .padding(.trailing, (self.isLastStep && self.state == .error && (self.useFlexibleSPI || self.isTitleEmptyView)) ? 8 : 0)
             .accessibilityElement(children: .combine)
     }
     
