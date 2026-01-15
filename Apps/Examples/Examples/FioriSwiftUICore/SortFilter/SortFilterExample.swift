@@ -33,7 +33,8 @@ struct SortFilterExample: View {
                 }
                 return (.fiori, "")
             })), showsOnFilterFeedbackBar: true),
-            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true)
+            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true),
+            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd", icon: "calendar", components: .date), showsOnFilterFeedbackBar: true)
         ],
         [
             .datetime(item: .init(name: "Completion Date", value: nil), showsOnFilterFeedbackBar: true)

@@ -53,7 +53,10 @@ struct DefaultSingleStep: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.stepAxis) var stepAxis
     @Environment(\.stepFrames) var stepFrames
-
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.spiIsMeasuring) private var spiIsMeasuring
+    
     var stepItem: StepItem
     @Binding var selection: String
     var isSubstep: Bool = false
@@ -89,41 +92,45 @@ struct DefaultSingleStep: View {
     @ViewBuilder
     func singleStep() -> some View {
         if self.stepItem.state.isSupported {
-            let isSelected = self.stepItem.id == self.selection
-            _SingleStep(id: self.stepItem.id) {
-                if let title = stepItem.title {
-                    Text(title)
-                } else {
-                    EmptyView()
-                }
-            } node: {
-                ZStack {
-                    self.node(by: self.stepItem.state, isSelected: isSelected)
-                    if self.stepItem.node == nil {
-                        Text("\(self.index + 1)")
-                            .font(Font.fiori(forTextStyle: .footnote))
-                    }
-                    TextOrIconView(self.stepItem.node)
-                }
-                .frame(width: self.sideLength, height: self.sideLength)
-                .overlay {
-                    if self.stepItem.state == .error {
-                        Image(systemName: "exclamationmark.circle.fill")
-                            .position(x: self.sideLength, y: 2)
-                    }
-                }
+            if let title = stepItem.title {
+                self.singleStep(title: Text(title))
+            } else {
+                self.singleStep(title: EmptyView())
             }
-            .update(self.stepItem.state, !self.showLine)
-            .lineSize(self.lineSize)
-            .stepPadding(top: self.defaultPadding,
-                         bottom: self.defaultPadding,
-                         leading: self.defaultPadding,
-                         trailing: self.defaultPadding,
-                         vertical: 8,
-                         horizontal: 8)
         } else {
             EmptyView()
         }
+    }
+    
+    @ViewBuilder func singleStep(title: some View) -> some View {
+        let isSelected = self.stepItem.id == self.selection
+        _SingleStep(id: self.stepItem.id) {
+            title
+        } node: {
+            ZStack {
+                self.node(by: self.stepItem.state, isSelected: isSelected)
+                if self.stepItem.node == nil {
+                    Text("\(self.index + 1)")
+                        .font(Font.fiori(forTextStyle: .footnote))
+                }
+                TextOrIconView(self.stepItem.node)
+            }
+            .frame(width: self.sideLength, height: self.sideLength)
+            .overlay {
+                if self.stepItem.state == .error {
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .position(x: self.sideLength, y: 2)
+                }
+            }
+        }
+        .update(self.stepItem.state, !self.showLine)
+        .lineSize(self.lineSize)
+        .stepPadding(top: self.defaultPadding,
+                     bottom: self.defaultPadding,
+                     leading: self.defaultPadding,
+                     trailing: self.defaultPadding,
+                     vertical: 8,
+                     horizontal: 8)
     }
     
     @ViewBuilder
@@ -243,20 +250,68 @@ struct DefaultSingleStep: View {
         }
     }
     
+    private var useFlexibleSPI: Bool {
+        self.flexibleSPI && !self.spiIsMeasuring
+    }
+    
     var lineSize: CGSize {
         switch (self.stepAxis, self.dynamicTypeSize) {
+        case (.horizontal, .xxxLarge):
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 98, height: 3)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 84, height: 3)
+            } else {
+                return CGSize(width: 72, height: 3)
+            }
         case (.horizontal, .accessibility1):
-            return CGSize(width: 114, height: 4)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 177, height: 4)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 154, height: 4)
+            } else {
+                return CGSize(width: 114, height: 4)
+            }
         case (.horizontal, .accessibility2):
-            return CGSize(width: 142, height: 4)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 194, height: 4)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 168, height: 4)
+            } else {
+                return CGSize(width: 143, height: 4)
+            }
         case (.horizontal, .accessibility3):
-            return CGSize(width: 170, height: 4)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 211, height: 4)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 182, height: 4)
+            } else {
+                return CGSize(width: 172, height: 4)
+            }
         case (.horizontal, .accessibility4):
-            return CGSize(width: 200, height: 4)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 228, height: 4)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 196, height: 4)
+            } else {
+                return CGSize(width: 201, height: 4)
+            }
         case (.horizontal, .accessibility5):
-            return CGSize(width: 227, height: 4)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 248, height: 4)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 212, height: 4)
+            } else {
+                return CGSize(width: 231, height: 4)
+            }
         case (.horizontal, _):
-            return CGSize(width: 54, height: 2)
+            if self.horizontalSizeClass == .regular, self.useFlexibleSPI {
+                return CGSize(width: 108, height: 2)
+            } else if self.horizontalSizeClass == .regular {
+                return CGSize(width: 94, height: 2)
+            } else {
+                return CGSize(width: 54, height: 2)
+            }
         case (.vertical, .accessibility1):
             return CGSize(width: 4, height: 48)
         case (.vertical, .accessibility2):

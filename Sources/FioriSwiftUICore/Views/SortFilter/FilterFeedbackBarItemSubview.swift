@@ -566,32 +566,35 @@ struct DateTimeMenuItem: View {
     
     private func datePickerView() -> some View {
         VStack {
-            HStack {
-                Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
-                    .foregroundColor(Color.preferredColor(.primaryLabel))
-                Spacer()
-                DatePicker(
-                    "",
-                    selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                    displayedComponents: [.hourAndMinute]
-                )
-                .labelsHidden()
-                .fixedSize(horizontal: false, vertical: true)
+            if self.item.components.contains(.hourAndMinute) {
+                HStack {
+                    Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                        .foregroundColor(Color.preferredColor(.primaryLabel))
+                    Spacer()
+                    DatePicker(
+                        "",
+                        selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
+                        displayedComponents: [.hourAndMinute]
+                    )
+                    .labelsHidden()
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding([.leading, .trailing], 16)
+                .frame(minHeight: 40)
             }
-            .padding([.leading, .trailing], 16)
-            .frame(minHeight: 40)
-
-            DatePicker(
-                self.item.label,
-                selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                displayedComponents: [.date]
-            )
-            .datePickerStyle(.graphical)
-            .labelsHidden()
-            .frame(minHeight: 320)
-            .fixedSize(horizontal: false, vertical: true)
-            .clipped()
+            if self.item.components.contains(.date) {
+                DatePicker(
+                    self.item.label,
+                    selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(.graphical)
+                .labelsHidden()
+                .frame(minHeight: 320)
+                .fixedSize(horizontal: false, vertical: true)
+                .clipped()
+            }
         }
     }
     

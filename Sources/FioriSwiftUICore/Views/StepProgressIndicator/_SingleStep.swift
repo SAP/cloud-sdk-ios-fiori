@@ -226,10 +226,14 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
     var lineSize: CGSize?
-
+    var isLastStep: Bool
+    
     @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
-
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.spiIsMeasuring) private var spiIsMeasuring
+    
     @State var nodeAndLineSize: CGSize = .zero
     
     var stepsSpacing: CGFloat {
@@ -239,7 +243,11 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var body: some View {
         self.oneStep
     }
-        
+    
+    private var useFlexibleSPI: Bool {
+        self.flexibleSPI && !self.spiIsMeasuring
+    }
+    
     @ViewBuilder
     var oneStep: some View {
         switch self.stepAxis {
@@ -248,10 +256,26 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                 Spacer().frame(height: self.top)
                 HStack(spacing: self.stepsSpacing) {
                     self.node
-                    self.line.frame(width: self.lineWidth, height: self.lineHeight)
+                    if !self.isLastStep {
+                        if self.useFlexibleSPI {
+                            self.line.frame(minWidth: self.lineWidth, maxHeight: self.lineHeight)
+                        } else {
+                            self.line.frame(width: self.lineWidth, height: self.lineHeight)
+                        }
+                    } else {
+                        if !self.isTitleEmptyView {
+                            if self.useFlexibleSPI {
+                                self.line.frame(minWidth: self.lineWidth, maxHeight: self.lineHeight)
+                            } else {
+                                self.line.frame(width: self.lineWidth, height: self.lineHeight)
+                            }
+                        }
+                    }
                 }.sizeReader { size in
-                    if self.nodeAndLineSize.different(with: size) {
-                        self.nodeAndLineSize = size
+                    if !self.useFlexibleSPI {
+                        if self.nodeAndLineSize.different(with: size) {
+                            self.nodeAndLineSize = size
+                        }
                     }
                 }
                 if self.isTitleEmptyView {
@@ -259,11 +283,12 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                 } else {
                     Spacer().frame(height: self.verticalSpacing)
                     self.title
-                        .frame(width: self.nodeAndLineSize.width, alignment: .leading)
+                        .frame(width: self.useFlexibleSPI ? nil : self.nodeAndLineSize.width, alignment: .leading)
                         .lineLimit(2)
                     Spacer().frame(height: abs(self.bottom))
                 }
             }
+            .fixedSize(horizontal: false, vertical: self.useFlexibleSPI)
         case .vertical:
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
                 Spacer().frame(width: self.leading)
@@ -291,7 +316,15 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
         } else {
             switch self.stepAxis {
             case .horizontal:
-                return 54
+                if self.horizontalSizeClass == .compact {
+                    return 86
+                } else {
+                    if self.useFlexibleSPI {
+                        return 140
+                    } else {
+                        return 126
+                    }
+                }
             case .vertical:
                 return 2
             }
