@@ -15,6 +15,7 @@ struct InternalWAForm: View {
     @Environment(\.hideFeedbackFooterInWritingAssistant) private var hideFeedbackFooterInWritingAssistant
     
     @AccessibilityFocusState private var focusOnTitle: Bool
+    @State private var tappedMenuId: UUID?
     var configuration: WritingAssistantFormConfiguration
     let menus: [[WAMenu]]
     let isTopLevel: Bool
@@ -105,14 +106,11 @@ struct InternalWAForm: View {
     
     @ViewBuilder var listContent: some View {
         let sections = self.menus.map { WritingToolSection(menus: $0) }
-        List(selection: self.$context.selection) {
+        List {
             ForEach(sections) { section in
                 Section {
                     ForEach(section.menus) { menu in
                         self.row(menu)
-                            .listRowBackground(
-                                menu == self.context.lastSelection ? .preferredColor(.secondaryFill) : Color.preferredColor(.secondaryGroupedBackground)
-                            )
                     }
                 } header: {
                     if self.context.rewriteTextSet.count > 1, section.id == sections.first?.id {
@@ -194,6 +192,18 @@ struct InternalWAForm: View {
             .accessibilityElement(children: .combine)
             .accessibilityHint(NSLocalizedString("Double tap to activate", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap to activate"))
             .accessibilityAddTraits(.isButton)
+            .animation(.easeOut, value: self.tappedMenuId)
+            .listRowBackground(
+                self.tappedMenuId == item.id ? .preferredColor(.secondaryFill) : Color.preferredColor(.secondaryGroupedBackground)
+            )
+            .contentShape(Rectangle())
+            .onTapGesture {
+                self.tappedMenuId = item.id
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self.tappedMenuId = nil
+                }
+                self.context.selection = item
+            }
         } else {
             NavigationLink {
                 InternalWAForm(configuration: self.configuration, menus: [item.children], isTopLevel: false, navigationBarTitleString: item.title)
