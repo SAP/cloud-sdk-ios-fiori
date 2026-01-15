@@ -396,7 +396,7 @@ extension SortFilterCFGItemContainer: View {
         .padding([.leading, .trailing], 0)
     }
     
-    func datetimePicker(row r: Int, column c: Int) -> some View {
+    @ViewBuilder func datetimePicker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].datetime.name)
@@ -405,30 +405,32 @@ extension SortFilterCFGItemContainer: View {
                 Spacer()
             }
             .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
-
-            HStack {
-                Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
-                    .foregroundColor(Color.preferredColor(.primaryLabel))
-                Spacer()
+            if self._items[r][c].datetime.components.contains(.hourAndMinute) {
+                HStack {
+                    Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                        .foregroundColor(Color.preferredColor(.primaryLabel))
+                    Spacer()
+                    DatePicker(
+                        "",
+                        selection: Binding<Date>(get: { self._items[r][c].datetime.workingValue ?? Date() }, set: { self._items[r][c].datetime.workingValue = $0 }),
+                        displayedComponents: [.hourAndMinute]
+                    )
+                    .labelsHidden()
+                }
+                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
+            }
+            if self._items[r][c].datetime.components.contains(.date) {
                 DatePicker(
                     "",
                     selection: Binding<Date>(get: { self._items[r][c].datetime.workingValue ?? Date() }, set: { self._items[r][c].datetime.workingValue = $0 }),
-                    displayedComponents: [.hourAndMinute]
+                    displayedComponents: [.date]
                 )
+                .datePickerStyle(.graphical)
                 .labelsHidden()
+                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
+                .clipped()
             }
-            .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
-            
-            DatePicker(
-                "",
-                selection: Binding<Date>(get: { self._items[r][c].datetime.workingValue ?? Date() }, set: { self._items[r][c].datetime.workingValue = $0 }),
-                displayedComponents: [.date]
-            )
-            .datePickerStyle(.graphical)
-            .labelsHidden()
-            .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
-            .clipped()
         }
     }
     
