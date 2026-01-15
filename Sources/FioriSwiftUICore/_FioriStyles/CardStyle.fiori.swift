@@ -1328,7 +1328,7 @@ public enum CardSkeletonLoadingPattern {
     public static let multipleLineCard = Card {
         Text("Title text for loading")
     } subtitle: {
-        Text("Subtitle text that goes to multiple lines")
+        Text("Subtitle text that goes to multiple lines").lineLimit(nil)
     } detailImage: {
         Image("ProfilePic")
     } headerAction: {
@@ -1346,6 +1346,9 @@ public enum CardSkeletonLoadingPattern {
                                          headerAction: FioriButton(title: "..."),
                                          tertiaryAction: FioriButton(title: "Tertiary"),
                                          overflowAction: FioriButton(title: "Overflow"))
+        .subtitleStyle { conf in
+            conf.subtitle.lineLimit(nil)
+        }.typeErased
 }
 
 #Preview {
