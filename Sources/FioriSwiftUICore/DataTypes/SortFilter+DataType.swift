@@ -1168,7 +1168,7 @@ public extension SortFilterItem {
         ///   - value: Date value of the DateTimeItem.
         ///   - formatter: Formatter string for the date value.
         ///   - icon: Icon name for the DateTimeItem. Default value is `nil`.
-        ///   - components: Date picker components to display in view hierarchy. Default value is `[.hourAndMinute, .date]`.
+        ///   - components: Date picker components to display in view hierarchy. If set to `.date`, the "Hour and Minute" field will not show up in the picker. Default value is `[.hourAndMinute, .date]`.
         public init(id: String = UUID().uuidString,
                     name: String,
                     value: Date?,
