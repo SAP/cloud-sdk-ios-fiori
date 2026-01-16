@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "הצג הכול (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "הצג הכול";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d פריטים";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "מציג את כל פריטי ציר הזמן ברשימה";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "נוכחי";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "עתיד";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "עבר";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "פריט %d מתוך %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "התחל";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "סיים";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "הושלם";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "פתח";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "משימה";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "פריט %d מתוך %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "היום, %d";
+"Today, %@" = "היום, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d של %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "הודעת AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "לא מקוון";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "אפס";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "שדה טקסט, הקש פעמיים כדי לערוך";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "נותר תו %d.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "נותרו %d תווים.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "שדה טקסט, נערך";
+"Text field, is editing" = "שדה טקסט, במצב עריכה";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "שדה טקסט, נערך. הקש פעמיים כדי לנקום טקסט";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "הקש הקשה כפולה כדי להוסיף קובץ מצורף";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "קובץ מצורף חדש נוסף בהצלחה";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "צירוף קובץ נכשל";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "לקריאה בלבד";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "פעולות זמינות";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "תמונה ממוזערת";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "כותרת משנה של הכרטיס";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "פעולת כותרת כרטיס";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "הקש להפעלה";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "סגור";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "השלם";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "פעיל";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "שגיאה פעילה";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "קריאה בלבד";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "הפחת %f מהערך";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "הגדל את הערך ב-%f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "בחר טווח";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "תאריך התחלה";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "תאריך סיום";
 

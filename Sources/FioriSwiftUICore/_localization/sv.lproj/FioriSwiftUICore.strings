@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Visa alla (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Visa alla";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d objekt";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Visa alla tidsplansobjekt i en lista";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Aktuellt";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Framtida";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Tidigare";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Objekt %d av %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Start";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Slut";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Slutfört";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Öppet";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Uppgift";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Objekt %d av %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Idag, %d";
+"Today, %@" = "Idag, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d av %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI-meddelande";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "offline";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Återställ";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Textfält, dubbelknacka för att redigera";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d tecken kvar.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d tecken kvar.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Textfält, redigeras";
+"Text field, is editing" = "Textfält, i redigeringsläge";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Textfält, redigeras. Dubbelknacka för att rensa text";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Dubbelknacka för att lägga till bilaga";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Ny bilaga har lagts till";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Fil kunde inte bifogas";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "skrivskyddad";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "tillgängliga åtgärder";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Miniatyr";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Kortdelrubrik";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Huvudåtgärd för kort";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Knacka för att aktivera";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Stäng";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "slutförd";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "aktiv";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "fel aktiv";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "skrivskyddad";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Minska värdet med %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Öka värdet med %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Välj intervall";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Startdatum";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Slutdatum";
 

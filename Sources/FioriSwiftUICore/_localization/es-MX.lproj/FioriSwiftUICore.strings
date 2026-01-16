@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Ver todo (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Ver todo";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d elementos";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Muestra todos los elementos de la línea temporal en una lista";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Actual";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Futuro";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Pasado";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Elemento %d de %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Inicio";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Fin";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Completado";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Pendiente";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Tarea";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Elemento %d de %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Hoy, %d";
+"Today, %@" = "Hoy, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d de %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "aviso de IA";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "sin conexión";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Reiniciar";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Campo de texto, tocar dos veces para editar";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Queda %d carácter.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Quedan %d caracteres.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Campo de texto, está editando";
+"Text field, is editing" = "Campo de texto, en modo de edición";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Text field, está editando. Tocar dos veces para borrar el texto.";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Toque dos veces para agregar archivo adjunto";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Nuevo archivo adjunto agregado correctamente";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "No se pudo adjuntar el archivo";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "solo lectura";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "acciones disponibles";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Miniatura";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Subtítulo de tarjeta";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Acción de encabezado de tarjeta";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Pulse para activar";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Cerrar";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "completo";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "activo";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "error activo";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "solo lectura";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Disminuir el valor por %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Aumentar el valor por %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Seleccionar rango";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Fecha de inicio";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Fecha de fin";
 

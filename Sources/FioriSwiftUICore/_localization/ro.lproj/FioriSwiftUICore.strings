@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Afișare tot (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Afișare tot";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d elemente";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Afișează toate elementele de cronologie într-o listă";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Prezent";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Viitor";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Trecut";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Elementul %d din %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Început";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Sfârșit";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Terminat";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Deschis";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Sarcină";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Elementul %d din %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Astăzi, %d";
+"Today, %@" = "Astăzi, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d din %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Notă despre AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "offline";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Resetare";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Câmp de text, atingeți de două ori pentru editare";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d caracter rămas.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d caractere rămase.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Câmp de text, se editează";
+"Text field, is editing" = "Câmp de text, în modul de editare";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Câmp de text, se editează. Atingeți de două ori pentru a reseta textul";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Atingeți de două ori pentru a adăuga anexă";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Anexă nouă adăugată cu succes";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Fișierul nu a putut fi anexat";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "doar în citire";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "acțiuni disponibile";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Miniatură";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Subtitlu card";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Acțiune antet card";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Atingeți pentru activare";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Închidere";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "terminat";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "activ";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "activ cu erori";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "doar în citire";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Scădere valoare cu %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Creștere valoare cu %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Selectare interval";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Dată de început";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Dată de sfârșit";
 
