@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "查看全部 (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "查看全部";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d 個項目";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "在清單中顯示所有時間表項目";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "目前";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "未來";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "過去";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "項目 %d/%d、%@、%@、%@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "開始";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "結束";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "已完成";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "未結";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "工作細項";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "項目 %d，共 %d 個項目";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "今天 %d";
+"Today, %@" = "今天 %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d/%d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI 通知";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "離線";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "重設";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "內文欄位，點兩下以編輯";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "剩餘 %d 個字元。";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "剩餘 %d 個字元。";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "內文欄位，編輯中";
+"Text field, is editing" = "內文欄位 (編輯模式)";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "內文欄位，編輯中。點兩下以清除內文";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "點兩下以新增附件";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "已成功新增附件";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "無法附加檔案";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "唯讀";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "可用動作";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "縮圖";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "卡片子標題";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "卡片表頭動作";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "點擊以開啟";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "關閉";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "完成";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "啟用中";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "錯誤啟用中";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "唯讀";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "按 %f 減少值";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "按 %f 增加值";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "選擇範圍";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "開始日期";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "結束日期";
 

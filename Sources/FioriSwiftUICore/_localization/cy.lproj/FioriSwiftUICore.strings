@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Gweld pob un (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Gweld y Cyfan";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d eitem";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Mae'n dangos yr holl eitemau amser llinell mewn rhestr";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Cyfredol";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Dyfodol";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Gorffennol";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Eitem %d 0 %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Dechrau";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Gorffen";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Wedi Cwblhau";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Agor";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Tasg";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Eitem %d o %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Heddiw, %d";
+"Today, %@" = "Heddiw, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d o %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Hysbysiad AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "all-lein";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Ailosod";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Maes testun, Cliciwch ddwywaith i olygu";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d nod yn weddill.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d o nodau yn weddill.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Maes testun, wrthi'n golygu";
+"Text field, is editing" = "Maes testun, yn y modd golygu";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Maes testun, wrthi'n golygu. Cliciwch ddwywaith i gael gwared ar y testun";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Tapiwch ddwywaith i ychwanegu atodiad";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Wedi llwyddo i ychwanegu atodiad";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Wedi methu atodi'r ffeil";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "darllen-yn-unig";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "camau gweithredu sydd ar gael";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Mân-lun";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Is-deitl y cerdyn";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Gweithred pennyn cerdyn";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Tapiwch i'w droi ymlaen";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Cau";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "cwblhau";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "gweithredol";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "gwall yn weithredol";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "darllen-yn-unig";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Tynnu %f o'r gwerth";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Ychwanegu %f at y gwerth";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Dewis Ystod";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Dyddiad Cychwyn";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Dyddiad Gorffen";
 

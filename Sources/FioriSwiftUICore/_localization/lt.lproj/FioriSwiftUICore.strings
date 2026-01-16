@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Rodyti viską (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Žiūrėti viską";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d pozicijos (-ų)";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Rodo visų laiko skalės pozicijų sąrašą";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Dabartinis";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Būsimas";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Praėjęs";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "%d pozicija iš %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Pradėti";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Baigti";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Baigta";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Atidaryti";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Užduotis";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "%d pozicija iš %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Šiandien, %d";
+"Today, %@" = "Šiandien, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d iš %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "DI pastaba";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "neprisijungus";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Nustatyti iš naujo";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Teksto laukas, dukart bakstelėkite, norėdami redaguoti";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Liko %d simbolis.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Liko simbolių: %d.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Teksto laukas, redaguojamas";
+"Text field, is editing" = "Teksto laukas redagavimo režimu";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Teksto laukas, redaguojamas. Dukart bakstelėkite, norėdami išvalyti tekstą";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Dukart spustelėkite, kad pridėtumėte priedą";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Naujas priedas pridėtas sėkmingai";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Failo pridėti nepavyko";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "tik skaitoma";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "prieinami veiksmai";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Miniatiūra";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Kortelės paantraštė";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Kortelės antraštės veiksmas";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Bakstelėkite norėdami įjungti";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Uždaryti";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "baigta";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "aktyvu";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "aktyvi klaida";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "tik skaityti";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Sumažinti reikšmę %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Padidinti reikšmę %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Pasirinkti intervalą";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Pradžios data";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Pabaigos data";
 

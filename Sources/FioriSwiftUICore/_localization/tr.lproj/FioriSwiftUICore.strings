@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Tümünü gör (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Tümünü görüntüle";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d öğe";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Tüm zaman çizelgesi öğelerini bir liste olarak gösterir";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Geçerli";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Gelecek";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Geçmiş";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Öğe %d/%d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Başlangıç";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Bitiş";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Tamamlandı";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Aç";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Görev";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Kalem %d/%d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Bugün, %d";
+"Today, %@" = "Bugün, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d/%d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Yapay zeka bildirimi";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "çevrimdışı";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Sıfırla";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Metin alanı, Düzenlemek için çift dokunun";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d karakter kaldı.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d karakter kaldı.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Metin alanı düzenleniyor";
+"Text field, is editing" = "Metin alanı, düzenleme modunda";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Metin alanı düzenleniyor. Metni temizlemek için çift dokunun";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Ek eklemek için çift dokunun";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Yeni ek başarıyla eklendi";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Dosya ekleme başarısız oldu";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "salt okunur";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "işlemler kullanılabilir";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Küçük resim";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Kart alt başlığı";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Kart başlığı işlemi";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Açmak için dokunun";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Kapat";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "tamamlandı";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "etkin";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "hata etkin";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "salt okunur";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Değeri %f azalt";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Değeri %f artır";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Aralık seç";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Başlangıç tarihi";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Bitiş tarihi";
 

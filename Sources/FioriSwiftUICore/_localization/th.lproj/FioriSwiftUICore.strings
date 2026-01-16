@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "ดูทั้งหมด (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "ดูทั้งหมด";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d รายการ";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "แสดงรายการไทม์ไลน์ทั้งหมดในลิสต์";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "ปัจจุบัน";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "อนาคต";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "อดีต";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "รายการ %d จาก %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "เริ่มต้น";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "สิ้นสุด";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "เสร็จสมบูรณ์";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "เปิด";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "งาน";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "รายการ %d จาก %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "วันนี้ %d";
+"Today, %@" = "วันนี้ %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d จาก %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "ประกาศเกี่ยวกับ AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "ออฟไลน์";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "รีเซ็ต";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "ฟิลด์ข้อความ, แตะสองครั้งเพื่อแก้ไข";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "เหลือ %d อักขระ";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "เหลือ %d อักขระ";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "ฟิลด์ข้อความ, กำลังแก้ไข";
+"Text field, is editing" = "ฟิลด์ข้อความ ในโหมดการแก้ไข";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "ฟิลด์ข้อความ, กำลังแก้ไข แตะสองครั้งเพื่อล้างข้อความ";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "แตะสองครั้งเพื่อเพิ่มสิ่งที่แนบ";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "เพิ่มสิ่งที่แนบใหม่ได้สำเร็จ";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "ไม่สามารถแนบไฟล์ได้";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "อ่านอย่างเดียว";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "การดำเนินการที่มีอยู่";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "รูปขนาดย่อ";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "ชื่อรองของบัตร";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "การดำเนินการในส่วนหัวของบัตร";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "แตะเพื่อเปิด";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "ปิด";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "เสร็จสมบูรณ์";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "ใช้งาน";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "ใช้งานโดยมีข้อผิดพลาด";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "อ่านอย่างเดียว";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "ลดค่าทีละ %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "เพิ่มค่าทีละ %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "เลือกช่วง";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "วันที่เริ่มต้น";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "วันที่สิ้นสุด";
 

@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "सभी (%d) देखें";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "सभी देखें";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d आइटम";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "सूची में मौजूद सभी समय रेखा आइटम दिखाता है";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "वर्तमान";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "भविष्य";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "भूतकाल";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "%d, %@, %@, %@ से आइटम %d";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "प्रारंभ करें";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "समाप्ति";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "पूर्ण";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "खोलें";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "कार्य";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "%d का  %d आइटम";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "आज, %d";
+"Today, %@" = "आज, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d का %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI सूचना";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "ऑफ़लाइन";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "रीसेट करें";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "टेक्स्ट फ़ील्ड, संपादित करने के लिए डबल टैप करें";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d वर्ण बचा है.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d वर्ण बचे हैं.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "टेक्स्ट फ़ील्ड, संपादन है";
+"Text field, is editing" = "संपादन मोड में, टेक्स्ट फ़ील्ड";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "टेक्स्ट फ़ील्ड संपादित हो रही है. टेक्स्ट क्लियर करने के लिए डबल टैप करें";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "अनुलग्नक जोड़ने के लिए दो बार टैप करें";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "नया अनुलग्नक सफलतापूर्वक जोड़ा गया";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "फ़ाइल अनुलग्न करने में विफल रहा";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "केवल-पाठ्य";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "क्रियाएं उपलब्ध हैं";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "थंबनेल";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "कार्ड का उपशीर्षक";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "कार्ड शीर्षलेख क्रिया";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "चालू करने के लिए टैप करें";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "बंद करें";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "पूर्ण";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "सक्रिय";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "त्रुटि सक्रिय";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "केवल-पाठ्य";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "%f द्वारा मान में कमी";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "%f द्वारा वृद्धि मान";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "सीमा का चयन करें";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "प्रारंभ दिनांक";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "समाप्ति दिनांक";
 

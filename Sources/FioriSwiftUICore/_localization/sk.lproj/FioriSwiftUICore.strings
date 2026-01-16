@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Zobraziť všetko (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Zobraziť všetko";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d položiek";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Zobrazí položky časovej osi v zozname";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Aktuálne";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Budúce";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Minulé";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Položka %d z %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Spustiť";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Ukončiť";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Dokončené";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Otvoriť";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Úloha";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Položka %d z %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Dnes, %d";
+"Today, %@" = "Dnes, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d z %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Upozornenie umelej inteligencie";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "Offline";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Resetovať";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Textové pole, upravte dvojitým klepnutím";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Počet zostávajúcich znakov: %d.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Počet zostávajúcich znakov: %d.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Textové pole, spracováva sa";
+"Text field, is editing" = "Textové pole, v režime úprav";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Textové pole, spracováva sa. Vymažte text dvojitým klepnutím";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Dvojitým klepnutím pridáte prílohu";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Nová príloha úspešne pridaná";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Súbor sa nepodarilo priložiť";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "len na čítanie";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "akcie dostupné";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Miniatúra";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Podnadpis karty";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Akcia hlavičky karty";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Klepnutím zapnite";
 
@@ -596,11 +656,38 @@
 "double tap to open AI Writing Assistant and edit text" = "Dvojitým klepnutím otvoríte asistenta písania s umelou inteligenciou a upravíte text";
 
 /* XBUT: Writing assistant undo accessibility label */
-"Undo change" = "Zmenu vrátiť späť ";
+"Undo change" = "Zmenu vrátiť späť";
 
 /* XBUT: Writing assistant redo accessibility label */
 "Rodo change" = "Zopakovať zmenu";
 
 /* XBUT: Close button title */
 "Close" = "Zavrieť";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "dokončiť";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "aktívne";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "chyba aktívna";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "iba na čítanie";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Znížiť hodnotu o %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Zvýšiť hodnotu o %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Vybrať rozsah";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Dátum začiatku";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Dátum skončenia";
 

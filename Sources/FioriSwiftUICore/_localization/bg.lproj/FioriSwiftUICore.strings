@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Вижте всички (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Показване на всички";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d позиции";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Показване на всички позиции от времевата линия в списък";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Текущи";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Бъдещи";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Минали";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Позиция %d от %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Начало";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Край";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Завършено";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Отворено";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Задача";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Позиция %d от %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Днес %d";
+"Today, %@" = "Днес %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d от %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI известие";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "офлайн";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Изчистване";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Текстово поле, двоен клик за редакция";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Остава %d символ.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Остават %d символа.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Текстово поле, редактира се";
+"Text field, is editing" = "Текстово поле, в режим на редактиране";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Текстово поле, редактира се. Двоен клик за изчистване на текста";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Натиснете два пъти, за да добавите приложение";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Новото приложение е добавено успешно";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Файлът не е приложен успешно";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "само за четене";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "налични действия";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Миниатюра";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Подзаглавие на карта";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Действие в заглавка на карта";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Докоснете, за да включите";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Затваряне";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "завършено";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "активно";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "активно с грешка";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "само за четене";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Намалява стойността с %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Увеличава стойността с %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Избор на диапазон";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Начална дата";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Крайна дата";
 
