@@ -8,7 +8,7 @@ struct LinearProgressIndicatorExample: View {
     @State var progress4: Double = 1.0
     
     var body: some View {
-        VStack {
+        ScrollView {
             Text("Determinate without Label")
             LinearProgressIndicator(indicatorProgress: self.$progress1)
                 .linearProgressIndicatorStyle(.determinate)
