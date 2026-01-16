@@ -89,10 +89,21 @@ public extension StepProgressIndicator {
 public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
     @Environment(\.headerSeparator) private var separatorConfiguration
     @Environment(\.isSPIVerticalContentPresented) private var isSPIVerticalContentPresented
+    @Environment(\.flexibleStepProgressIndicator) private var flexibleSPI
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var isPresented: Bool = false
     @State var stepFrames: [String: CGRect] = [:]
+    @State var stepsSize: CGSize = .zero
     @State var scrollBounds: CGRect = .zero
     let stepsSpacing: CGFloat = 2
+    
+    private func useFlexibleSPI(_ totalStepsCount: Int) -> Bool {
+        if self.flexibleSPI {
+            return true
+        } else {
+            return totalStepsCount <= (self.horizontalSizeClass == .compact ? 4 : 5)
+        }
+    }
     
     @ViewBuilder
     public func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
@@ -158,30 +169,53 @@ public struct StepProgressIndicatorBaseStyle: StepProgressIndicatorStyle {
     }
     
     @ViewBuilder func stepsContainer(_ configuration: StepProgressIndicatorConfiguration, axis: Axis) -> some View {
+        let totalStepsCount = configuration.steps.totalCount
+        let fill = self.useFlexibleSPI(totalStepsCount)
+        let useFlexibleSPI = fill && (self.stepsSize.width <= self.scrollBounds.width)
+        let stepsWidth: CGFloat? = (useFlexibleSPI && self.stepsSize != .zero) ? max(self.scrollBounds.width, self.stepsSize.width) : nil
         switch axis {
         case .horizontal:
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
-                    self.stepsGenerator(configuration, axis: .horizontal)
-                        .environment(\.stepFrames, self.$stepFrames)
-                        .setOnChange(of: configuration.$selection.wrappedValue, action1: { newValue in
-                            if let currentFrame = stepFrames[newValue],
-                               !scrollBounds.contains(currentFrame)
-                            {
-                                withAnimation {
-                                    proxy.scrollTo(newValue, anchor: .leading)
+                    ZStack {
+                        self.stepsGenerator(configuration, axis: .horizontal)
+                            .environment(\.spiIsMeasuring, true)
+                            .environment(\.stepFrames, self.$stepFrames)
+                            .environment(\.flexibleStepProgressIndicator, false)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .opacity(0)
+                            .allowsHitTesting(false)
+                            .accessibilityHidden(true)
+                            .sizeReader { size in
+                                if size.different(with: self.stepsSize) {
+                                    self.stepsSize = size
                                 }
                             }
-                        }) { _, newValue in
-                            if let currentFrame = stepFrames[newValue],
-                               !scrollBounds.contains(currentFrame)
-                            {
-                                withAnimation {
-                                    proxy.scrollTo(newValue, anchor: .leading)
-                                }
+                        self.stepsGenerator(configuration, axis: .horizontal)
+                            .environment(\.spiIsMeasuring, false)
+                            .environment(\.stepFrames, self.$stepFrames)
+                            .frame(width: stepsWidth, alignment: .leading)
+                            .environment(\.flexibleStepProgressIndicator, useFlexibleSPI)
+                    }
+                    .setOnChange(of: configuration.$selection.wrappedValue, action1: { newValue in
+                        if let currentFrame = stepFrames[newValue],
+                           !scrollBounds.contains(currentFrame)
+                        {
+                            withAnimation {
+                                proxy.scrollTo(newValue, anchor: .leading)
                             }
                         }
+                    }) { _, newValue in
+                        if let currentFrame = stepFrames[newValue],
+                           !scrollBounds.contains(currentFrame)
+                        {
+                            withAnimation {
+                                proxy.scrollTo(newValue, anchor: .leading)
+                            }
+                        }
+                    }
                 }
+                .scrollDisabled(useFlexibleSPI)
             }
             .coordinateSpace(name: "SPICoordinateSpace")
             .frameReader(in: .local) { rect in
@@ -250,5 +284,13 @@ extension StepProgressIndicatorFioriStyle {
             CancelAction(configuration)
                 .fioriButtonStyle(FioriNavigationButtonStyle())
         }
+    }
+}
+
+struct SPIIsMeasuringKey: EnvironmentKey { static let defaultValue = false }
+extension EnvironmentValues {
+    var spiIsMeasuring: Bool {
+        get { self[SPIIsMeasuringKey.self] }
+        set { self[SPIIsMeasuringKey.self] = newValue }
     }
 }

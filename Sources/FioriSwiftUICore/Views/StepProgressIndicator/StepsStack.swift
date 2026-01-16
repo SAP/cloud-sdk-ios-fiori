@@ -23,17 +23,14 @@ extension StepsStack: IndexedViewContainer {
     }
     
     /// :nodoc:
+    public var totalCount: Int {
+        self.steps.reduce(0) { $0 + $1.totalCount() }
+    }
+    
+    /// :nodoc:
     @ViewBuilder public func view(at index: Int) -> some View {
         if index < self.count {
             _DefaultSteps(stepItems: self.steps, selection: self.selection ?? .constant("")).view(at: index)
-        } else {
-            EmptyView()
-        }
-    }
-    
-    @ViewBuilder func titleView(for title: String?) -> some View {
-        if let title {
-            Text(title)
         } else {
             EmptyView()
         }

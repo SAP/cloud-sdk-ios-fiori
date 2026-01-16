@@ -16,7 +16,7 @@ struct ObjectHeaderSkeletonLoading: View {
         }, bodyText: {
             Text("1000-Hamburg, MECHANIK")
         }, footnote: {
-            Text("Due on 12/31/16")
+            Text("Due on 12/31/16").lineLimit(nil)
         }, status: {
             Text("Status")
         }, substatus: {

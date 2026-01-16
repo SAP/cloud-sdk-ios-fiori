@@ -36,6 +36,12 @@ struct StepProgressIndicatorExample: View {
                 } label: {
                     Text("Steps By Icon")
                 }
+                
+                NavigationLink {
+                    FlexibleSPIExample()
+                } label: {
+                    Text("Flexible Step Progress Indicator")
+                }
             }
             
             Section("Deprecated") {
@@ -681,6 +687,132 @@ struct SPICustomStyleExample: View {
         .onAppear {
             self.updateCurrentStepName()
         }
+    }
+    
+    func getStep() -> StepItem? {
+        func findStep(in data: [StepItem]) -> StepItem? {
+            for step in data {
+                if step.id == self.selection {
+                    return step
+                }
+                
+                if !step.substeps.isEmpty {
+                    if let foundItem = findStep(in: step.substeps) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
+                }
+            }
+            
+            return nil
+        }
+        return findStep(in: self.steps)
+    }
+    
+    func updateCurrentStepName() {
+        let selectedTitle = "\(getStep()?.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
+        }
+    }
+    
+    func completeStep() {
+        for index in self.steps.indices {
+            if self.steps[index].id == self.selection {
+                self.steps[index].state = .completed
+            } else {
+                let substeps = self.steps[index].substeps
+                guard !substeps.isEmpty else { continue }
+                for subindex in substeps.indices {
+                    if substeps[subindex].id == self.selection {
+                        self.steps[index].substeps[subindex].state = .completed
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct FlexibleSPIExample: View {
+    @State var title: String = ""
+    @State var steps: [StepItemData] = []
+    
+    var stepsData = [StepItemData(state: .completed),
+                     StepItemData(),
+                     StepItemData(state: .disabled),
+                     StepItemData(state: .error),
+                     StepItemData(),
+                     StepItemData(),
+                     StepItemData(state: .error)]
+    
+    @State var selection: String = ""
+    @State var stepsCount: Int = 4
+    @State var forceFullWidth: Bool = false
+    @State var stepsWithTitle: Bool = false
+
+    var body: some View {
+        Form {
+            Picker("Steps Count", selection: self.$stepsCount) {
+                ForEach(3 ... 7, id: \.self) {
+                    Text("\($0)").tag($0)
+                }
+            }
+            
+            Toggle("Force full width", isOn: self.$forceFullWidth)
+            Toggle("Steps with title", isOn: self.$stepsWithTitle)
+
+            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                Text(self.title).lineLimit(1)
+            } action: {
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(self.steps.count)")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        FioriIcon.actions.slimArrowRight
+                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                            .foregroundStyle(Color.preferredColor(.separator))
+                    }
+                }
+            }
+            .flexibleStepProgressIndicator(self.forceFullWidth)
+        }
+        .safeAreaInset(edge: .bottom) {
+            Button {
+                self.completeStep()
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
+        .navigationTitle("Flexible Step Progress Indicator")
+        .padding()
+        .onChange(of: self.stepsCount) { _, _ in
+            self.applyStepsCount()
+        }
+        .onChange(of: self.stepsWithTitle) { _, _ in
+            self.applyStepsCount()
+            self.updateCurrentStepName()
+        }
+        .onChange(of: self.selection) {
+            self.updateCurrentStepName()
+        }
+        .onAppear {
+            self.applyStepsCount()
+            self.updateCurrentStepName()
+        }
+    }
+    
+    private func applyStepsCount() {
+        let dataSource = self.stepsData.map {
+            let title = self.stepsWithTitle ? "Step Name" : nil
+            return StepItemData(id: $0.id, title: title, node: $0.node, state: $0.state)
+        }
+        self.steps = Array(dataSource.prefix(self.stepsCount))
+        if !self.steps.contains(where: { $0.id == self.selection }) {
+            self.selection = self.steps.first?.id ?? ""
+        }
+        self.updateCurrentStepName()
     }
     
     func getStep() -> StepItem? {
