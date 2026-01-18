@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Kuva kõik (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Kuva kõik";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d üksust";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Kuvab kõik loendis olevad ajaskaalaüksused";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Praegune";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Tulevane";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Varasem";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Üksus %d, kokku on %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Algus";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Lõpp";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Lõpule viidud";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Avatud";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Ülesanne";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Üksus %d/%d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Täna, %d";
+"Today, %@" = "Täna, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d/%d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Tehisintellekti teade";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "võrguühenduseta";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Lähtesta";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Tekstiväli, redigeerimiseks topeltpuudutage";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Jäänud on %d märk.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Jäänud on %d märki.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Tekstiväli, redigeerimine on pooleli";
+"Text field, is editing" = "Tekstiväli, redigeerimisrežiimis";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Tekstiväli, redigeerimine on pooleli. Teksti kustutamiseks topeltpuudutage";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Manuse lisamiseks topeltpuudutage";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Uus manus on lisatud";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Faili ei saanud manustada";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "kirjutuskaitstud";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "toimingud on saadaval";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Pisipilt";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Kaardi alapealkiri";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Kaardi päisetoiming";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Puudutage sisselülitamiseks";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Sule";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "lõpule viidud";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "aktiivne";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "tõrge on aktiivne";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "kirjutuskaitstud";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Vähenda väärtust %f võrra";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Suurenda väärtust %f võrra";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Valige vahemik";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Alguskuupäev";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Lõppkuupäev";
 

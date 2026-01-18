@@ -68,6 +68,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 .accessibilityLabel(self.getValueLabel(configuration))
         }
         .accessibilityElement(children: .combine)
+        .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
         .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
             $0.onTapGesture(perform: {
@@ -76,6 +77,14 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 }
                 configuration.pickerVisible.toggle()
             })
+        }
+    }
+    
+    func mainStackAccessibilityHint(_ configuration: DateTimePickerConfiguration) -> String {
+        if configuration.controlState != .disabled, configuration.controlState != .readOnly {
+            configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString()
+        } else {
+            ""
         }
     }
 

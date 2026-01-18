@@ -1136,8 +1136,21 @@ public extension SortFilterItem {
         let originalValue: Date?
         public var icon: String?
         public let formatter: String?
+        public let components: DatePickerComponents
         
-        public init(id: String = UUID().uuidString, name: String, value: Date?, formatter: String? = nil, icon: String? = nil) {
+        /// Convenience init to create DateTimeItem with custom date picker components.
+        /// - Parameters:
+        ///   - id: Unique identifier for the DateTimeItem.
+        ///   - name: Name of the DateTimeItem.
+        ///   - value: Date value of the DateTimeItem.
+        ///   - formatter: Formatter string for the date value.
+        ///   - icon: Icon name for the DateTimeItem. Default value is `nil`.
+        public init(id: String = UUID().uuidString,
+                    name: String,
+                    value: Date?,
+                    formatter: String? = nil,
+                    icon: String? = nil)
+        {
             self.id = id
             self.name = name
             self.value = value
@@ -1145,6 +1158,43 @@ public extension SortFilterItem {
             self.originalValue = value
             self.formatter = formatter
             self.icon = icon
+            self.components = [.hourAndMinute, .date]
+        }
+        
+        /// Convenience init to create DateTimeItem with custom date picker components.
+        /// - Parameters:
+        ///   - id: Unique identifier for the DateTimeItem.
+        ///   - name: Name of the DateTimeItem.
+        ///   - value: Date value of the DateTimeItem.
+        ///   - formatter: Formatter string for the date value.
+        ///   - icon: Icon name for the DateTimeItem. Default value is `nil`.
+        ///   - components: Date picker components to display in view hierarchy. If set to `.date`, the "Hour and Minute" field will not show up in the picker. Default value is `[.hourAndMinute, .date]`.
+        public init(id: String = UUID().uuidString,
+                    name: String,
+                    value: Date?,
+                    formatter: String? = nil,
+                    icon: String? = nil,
+                    components: DatePickerComponents = [.hourAndMinute, .date])
+        {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.formatter = formatter
+            self.icon = icon
+            self.components = components
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(self.id)
+            hasher.combine(self.name)
+            hasher.combine(self.value)
+            hasher.combine(self.workingValue)
+            hasher.combine(self.originalValue)
+            hasher.combine(self.icon)
+            hasher.combine(self.formatter)
+            hasher.combine(self.components.rawValue)
         }
         
         mutating func reset() {

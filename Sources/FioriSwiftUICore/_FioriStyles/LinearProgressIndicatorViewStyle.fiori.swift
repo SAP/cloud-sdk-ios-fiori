@@ -14,6 +14,7 @@ public struct LinearProgressIndicatorViewBaseStyle: LinearProgressIndicatorViewS
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
+            .accessibilityElement(children: .combine)
         }
     }
 }

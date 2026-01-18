@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Барлығын көру (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Барлығын көру";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d тармақ";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Тізімдегі уақыт шкаласының барлық тармақтарын көрсетеді";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Ағымдағы";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Болашақ";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Өткен";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "%d, %@, %@, %@ %d тармағы";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Басы";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Соңы";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Аяқталды";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Ашық";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Тапсырма";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Тармақ: %d / %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Бүгін, %d";
+"Today, %@" = "Бүгін, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d/%d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "ЖИ хабарламасы";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "офлайн";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Бастапқы қалпына келтіру";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Мәтін өрісі, өңдеу үшін екі рет түртіңіз";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d таңба қалды.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d таңба қалды.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Мәтін өрісі, өңдеуде";
+"Text field, is editing" = "Мәтін өрісі, өңдеу режимінде";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Мәтін өрісі, өңдеуде. Мәтінді тазарту үшін екі рет түртіңіз";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Тіркеме қосу үшін екі рет түртіңіз";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Жаңа тіркеме сәтті қосылды";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Файлды тіркеу сәтсіз аяқталды";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "тек оқуға арналған";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "қолжетімді операциялар";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Нобай";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Карта тақырыпшасы";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Карта тақырыбының операциясы";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Қосу үшін түртіңіз";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Жабу";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "аяқталған";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "белсенді";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "қате белсенді";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "тек оқуға арналған";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Мәнді келесі мәнге азайту: %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Мәнді  келесі мәнге азайту: %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Ауқым таңдау";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Басталу күні";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Аяқталу күні";
 

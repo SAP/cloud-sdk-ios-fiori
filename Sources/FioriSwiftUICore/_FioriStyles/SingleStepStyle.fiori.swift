@@ -29,7 +29,7 @@ public extension SingleStep {
 public struct SingleStepBaseStyle: SingleStepStyle {
     @Environment(\.stepAxis) var stepAxis
     @Environment(\.currentStepId) var currentStepId
-    
+    @Environment(\.stepFrames) var stepFrames
     let stepsSpacing: CGFloat = 2
     
     var horizontalSpacing: CGFloat = 8
@@ -93,6 +93,9 @@ public struct SingleStepBaseStyle: SingleStepStyle {
                                      horizontalSpacing: self.horizontalSpacing,
                                      verticalSpacing: self.verticalSpacing,
                                      lineSize: nil))
+        .frameReader(in: .named("SPICoordinateSpace")) { rect in
+            self.stepFrames.wrappedValue[_id] = rect
+        }
     }
 }
 

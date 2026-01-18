@@ -11,7 +11,7 @@
 "Clear" = "Kosongkan";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Cancel" = "Batalkan";
+"Cancel" = "Batal";
 
 /* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Signature" = "Tandatangan";
@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Lihat Semua (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Lihat Semua";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d item";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Tunjukkan semua item garis masa dalam senarai";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Semasa";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Masa Depan";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Dahulu";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Item %d daripada %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Mula";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Tamat";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Selesai";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Terbuka";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Tugas";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Item %d daripada %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Hari ini, %d";
+"Today, %@" = "Hari ini, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d daripada %d";
@@ -256,8 +292,11 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Notis AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "luar talian";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
-"Reset" = "Tetapkan Semula";
+"Reset" = "Tetapkan semula";
 
 /* XBUT: Apply action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Apply" = "Guna";
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Ketik dua kali medan teks untuk edit";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d baki aksara.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d baki aksara.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Medan teks sedang diedit";
+"Text field, is editing" = "Medan teks, dalam mod edit";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Medan teks sedang diedit. Ketik dua kali untuk kosongkan teks";
@@ -403,6 +448,18 @@
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Ketik dua kali untuk menambah lampiran";
 
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Lampiran baharu berjaya ditambah";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Fail gagal untuk dilampirkan";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "baca sahaja";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "tindakan tersedia";
+
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Imej Kecil";
 
@@ -464,7 +521,7 @@
 "Allow Access to Camera" = "Benarkan Capaian ke Kamera";
 
 /* XMSG: Onboarding scan view hint for request access to camera */
-"To scan using the camera, please give access to your camera in your device's privacy settings." = "Untuk imbas menggunakan kamera, sila benarkan capaian ke kamera anda dalam tetapan privasi peranti anda.";
+"To scan using the camera, please give access to your camera in your device's privacy settings." = "Untuk mengimbas menggunakan kamera, sila benarkan capaian ke kamera anda dalam tetapan privasi peranti anda.";
 
 /* XBUT: Onboarding scan view action title for the alert when the permission to access camera or photo library was not granted */
 "Settings" = "Tetapan";
@@ -551,19 +608,22 @@
 "Date selected" = "Tarikh dipilih";
 
 /* XMSG: Date is today, used in voiceOver in calendar view */
-"Today" = "Hari Ini";
+"Today" = "Hari ini";
 
 /* XMSG: Date is today, used in voiceOver in calendar view */
 "Disabled date" = "Tarikh dinyahdayakan";
 
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
-"Handle to switch from month view to week view" = "Kendalikan untuk tukar daripada paparan bulan kepada paparan minggu";
+"Handle to switch from month view to week view" = "Pemegang untuk bertukar daripada paparan bulanan kepada paparan mingguan";
 
 /* XTIT: Title for card */
 "Card title" = "Tajuk kad";
 
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Subtajuk kad";
+
+/* XTIT: HeaderAction for card */
+"Card header action" = "Tindakan pengepala kad";
 
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Ketik untuk hidupkan";
@@ -581,16 +641,16 @@
 "Open to see %@ options" = "Buka untuk melihat %@ pilihan";
 
 /* XMSG: Writing assistant undo announcement */
-"Undo to Version %d of %d" = "Buat asal ke Versi %d bagi %d";
+"Undo to Version %d of %d" = "Buat Asal kepada Versi %d daripada %d";
 
 /* XMSG: Writing assistant redo announcement */
-"Redo to Version %d of %d" = "Buat semula ke Versi %d bagi %d";
+"Redo to Version %d of %d" = "Buat Semula kepada Versi %d daripada %d";
 
 /* XMSG: Writing assistant version update announcement */
-"Text updated to Version %d of %d" = "Teks dikemas kini ke Versi %d bagi %d";
+"Text updated to Version %d of %d" = "Teks dikemas kini kepada Versi %d daripada %d";
 
 /* XTIT: Writing assistant title accessibility label */
-"AI Writing Assistant" = "Pembantu Penulis AI";
+"AI Writing Assistant" = "Pembantu Penulisan AI";
 
 /* XMSG: Writing assistant accessibility instruction for text editing */
 "double tap to open AI Writing Assistant and edit text" = "ketik dua kali untuk membuka Pembantu Penulisan AI dan mengedit teks";
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Tutup";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "selesai";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "aktif";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "aktif ralat";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "baca sahaja";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Kurangkan nilai dengan %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Tambah nilai dengan %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Pilih Julat";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Tarikh Mula";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Tarikh Akhir";
 

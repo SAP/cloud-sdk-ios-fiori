@@ -9,6 +9,16 @@ public protocol IndexedViewContainer {
     
     /// the View at Index in the container
     func view(at index: Int) -> V
+    
+    /// :nodoc:
+    var totalCount: Int { get }
+}
+
+public extension IndexedViewContainer {
+    /// :nodoc:
+    var totalCount: Int {
+        count
+    }
 }
 
 extension IndexedViewContainer {
@@ -139,5 +149,11 @@ public enum IndexedViewBuilder {
     /// producing conditional content for the "else" branch.
     public static func buildEither<TrueContent, FalseContent>(second: FalseContent) -> ConditionalSingleView<TrueContent, FalseContent> where TrueContent: View, FalseContent: View {
         ConditionalSingleView(first: nil, second: second)
+    }
+}
+
+extension IndexedViewBuilder {
+    static func buildBlock(_ content: StepsStack) -> some IndexedViewContainer {
+        content
     }
 }
