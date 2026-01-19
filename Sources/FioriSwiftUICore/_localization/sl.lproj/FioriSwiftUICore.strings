@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Prikaži vse (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Prikaz vseh";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "Postavke: %d";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Prikaže vse postavke časovnice v obliki seznama";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Trenutno";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "V prihodnosti";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "V preteklosti";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Postavka %d od %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Začetek";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Konec";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Dokončano";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Odpri";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Naloga";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Element %d od %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Danes, %d";
+"Today, %@" = "Danes, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d od %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Obvestilo UI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "Brez povezave";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Ponastavitev";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Besedilno polje, dvotapnite za urejanje";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Št. preostalih znakov: %d.";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Št. preostalih znakov: %d.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Besedilno polje, urejanje v teku";
+"Text field, is editing" = "Besedilno polje, v načinu urejanja";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Besedilno polje, urejanje v teku. Dvotapnite, da počistite besedilo";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Dvotapnite za dodajanje priloge";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Nova priloga uspešno dodana";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Prilaganje datoteke ni uspelo";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "Samo za branje";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "razpoložljiva dejanja";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Sličica";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Podnaslov kartice";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Dejanje glave kartice";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Tapnite, da vklopite";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Zapri";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "dokončano";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "Aktivno";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "Aktivna napaka";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "samo za branje";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Zmanjšanje vrednosti za %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Povečanje vrednosti za %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Izberite obseg";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Začetni datum";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Končni datum";
 

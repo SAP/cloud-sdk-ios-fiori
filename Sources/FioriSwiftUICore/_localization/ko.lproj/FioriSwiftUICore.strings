@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "모두 보기(%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "모두 보기";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d개의 항목";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "타임라인의 모든 항목을 리스트에 표시";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "현재";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "미래";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "과거";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "%d, %@, %@, %@의 항목 %d";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "시작";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "종료";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "완료됨";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "열기";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "태스크";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "항목 %d/%d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "오늘, %d";
+"Today, %@" = "오늘, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d/%d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "AI 알림";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "오프라인";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "재설정";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "텍스트 필드, 더블 탭으로 편집";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "%d자 남음";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "%d자 남음";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "텍스트 필드, 편집 중";
+"Text field, is editing" = "텍스트 필드, 편집 모드 상태";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "텍스트 필드, 편집 중. 더블 탭으로 텍스트 지우기";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "더블 탭하여 첨부파일 추가";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "신규 첨부파일이 추가됨";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "파일 첨부 실패";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "읽기 전용";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "사용 가능한 작업";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "썸네일";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "카드 부제목";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "카드 헤더 액션";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "탭하여 켜기";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "닫기";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "완료";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "활성";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "오류 활성";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "읽기 전용";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "%f만큼 값 감소";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "%f만큼 값 증가";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "범위 선택";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "시작일";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "종료일";
 

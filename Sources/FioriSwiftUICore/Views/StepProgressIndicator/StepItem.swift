@@ -14,3 +14,9 @@ public protocol StepItem {
     /// Step node.
     var node: TextOrIcon? { get }
 }
+
+extension StepItem {
+    func totalCount() -> Int {
+        1 + substeps.reduce(0) { $0 + $1.totalCount() }
+    }
+}

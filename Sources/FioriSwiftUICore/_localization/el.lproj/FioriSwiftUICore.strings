@@ -196,11 +196,47 @@
 /* XBUT: timeline preview component see all label */
 "See All (%d)" = "Εμφάνιση Όλων (%d)";
 
+/* XACT: Timeline preview items accessibility label */
+"See All" = "Προβολή Όλων";
+
+/* XACT: Timeline preview items accessibility value */
+"%d items" = "%d στοιχεία";
+
+/* XACT: Timeline preview items accessibility hint */
+"Shows all timeline items in a list" = "Εμφανίζει όλα τα στοιχεία προθεσμίας σε μια λίστα";
+
+/* XACT: Timeline preview item status: current accessibility value */
+"Current" = "Τρέχον";
+
+/* XACT: Timeline preview item status: future accessibility value */
+"Future" = "Μελλοντικό";
+
+/* XACT: Timeline preview item status: past accessibility value */
+"Past" = "Προηγούμενο";
+
+/* XACT: Timeline preview item accessibility value */
+"Item %d of %d, %@, %@, %@" = "Στοιχείο %d από %d, %@, %@, %@";
+
+/* XACT: Timeline preview item node type: Start accessibility value */
+"Start" = "Έναρξη";
+
+/* XACT: Timeline preview item node type: End accessibility value */
+"End" = "Λήξη";
+
+/* XACT: Timeline preview item node type: Completed accessibility value */
+"Completed" = "Ολοκληρώθηκε";
+
+/* XACT: Timeline preview item node type: Open accessibility value */
+"Open" = "Άνοιγμα";
+
+/* XACT: Timeline preview item node type: Task accessibility value */
+"Task" = "Εργασία";
+
 /* XACT: Timeline preview item accessibility label */
 "Item %d of %d" = "Στοιχείο %d από %d";
 
 /* XBUT: timeline preview component timestamp label */
-"Today, %d" = "Σήμερα, %d";
+"Today, %@" = "Σήμερα, %@";
 
 /* XFLD: RatingControl value label format */
 "%d of %d" = "%d από %d";
@@ -256,6 +292,9 @@
 /* XBUT: banner message type desc, error */
 "AI notice" = "Ειδοποίηση AI";
 
+/* XMSG: banner message type desc, offline */
+"offline" = "Εκτός Σύνδεσης";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Επαναφορά";
 
@@ -283,8 +322,14 @@
 /* XACT: The accessibility hint for Text Input Views, editable */
 "Text field, Double tap to edit" = "Πεδίο κειμένου, Πατήστε δύο φορές για επεξεργασία";
 
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d character left" = "Έχει απομείνει %d χαρακτήρας";
+
+/* XACT: The accessibility hint for Text Input Views, editable */
+"%d characters left" = "Έχουν απομείνει %d χαρακτήρες.";
+
 /* XACT: The accessibility hint for Text Input Views, editing */
-"Text field, is editing" = "Πεδίο κειμένου, επεξεργάζεται";
+"Text field, is editing" = "Πεδίο κειμένου, σε λειτουργία επεξεργασίας";
 
 /* XACT: The accessibility hint for Text Input Views, editing, with clear button */
 "Text field, is editing. Double tap to clear text" = "Πεδίο κειμένου, επεξεργάζεται. Πατήστε δύο φορές για να διαγράψετε το κείμενο";
@@ -402,6 +447,18 @@
 
 /* XACT: The accessibility hint for add button */
 "Double tap to add attachment" = "Κάντε διπλό κλικ για να προσθέσετε συνημμένο";
+
+/* XMSG: attachment section add new file successfully announcement */
+"New attachment added successfully" = "Νέο συνημμένο προστέθηκε επιτυχώς";
+
+/* XMSG: attachment section add new file failed announcement */
+"File failed to attach" = "Το αρχείο δεν επισυνάφθηκε";
+
+/* XACT: The accessibility hint for attachment section */
+"read only" = "ανάγνωση μόνο";
+
+/* XACT: The accessibility hint for attachment section */
+"actions available" = "διαθέσιμες ενέργειες";
 
 /* XMSG: Attachment thumbnail */
 "Thumbnail" = "Μικρογραφία";
@@ -565,6 +622,9 @@
 /* XTIT: Subtitle for card */
 "Card subtitle" = "Υπότιτλος κάρτας";
 
+/* XTIT: HeaderAction for card */
+"Card header action" = "Ενέργεια κεφαλίδας κάρτας";
+
 /* XACT: The accessibility label for the switchItem turn on button in FilterFeedbackBar */
 "Switch Item On" = "Αγγίξτε για ενεργοποίηση";
 
@@ -603,4 +663,31 @@
 
 /* XBUT: Close button title */
 "Close" = "Κλείσιμο";
+
+/* XMSG: Accessibility label for completed state in step progress indicator */
+"complete" = "ολοκληρωμένο";
+
+/* XMSG: Accessibility label for active state in step progress indicator */
+"active" = "ενεργό";
+
+/* XMSG: Accessibility label for error active state in step progress indicator */
+"error active" = "σφάλμα ενεργό";
+
+/* XMSG: Accessibility label for read-only state in step progress indicator */
+"read-only" = "μόνο για ανάγνωση";
+
+/* XACT: The accessibility value for Stepper decrement */
+"Decrease the value by %f" = "Μείωση της τιμής κατά %f";
+
+/* XACT: The accessibility value for Stepper increment */
+"Increase the value by %f" = "Αύξηση της τιμής κατά %f";
+
+/* XMSG: title used in DateRangePickerPopView */
+"Select Range" = "Επιλογή Εύρους";
+
+/* XMSG: start date, used in DateRangePickerPopView */
+"Start Date" = "Ημερομηνία Έναρξης";
+
+/* XMSG: end date, used in DateRangePickerPopView */
+"End Date" = "Ημερομηνία Λήξης";
 
