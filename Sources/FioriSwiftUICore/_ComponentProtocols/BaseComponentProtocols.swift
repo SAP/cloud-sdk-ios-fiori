@@ -834,3 +834,9 @@ protocol _AccessoryViewComponent {
     // sourcery: defaultValue = .none
     var accessoryType: AccessoryType { get }
 }
+
+// sourcery: BaseComponent
+protocol _StateLabelComponent {
+    // sourcery: @ViewBuilder
+    var stateLabel: AttributedString? { get }
+}

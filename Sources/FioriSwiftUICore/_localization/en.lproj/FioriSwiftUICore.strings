@@ -686,3 +686,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Double tap to collapse";
+
+/*XTIT: On state for switch*/
+"Switch On" = "On";
+
+/*XTIT: Off state for switch*/
+"Switch Off" = "Off";

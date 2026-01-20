@@ -934,9 +934,21 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 /// @State var isOn: Bool = true
 ///
 /// SwitchView(title: "Switch", isOn: self.$isOn)
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn, stateLabel: self.isOn ? "Open" : "Close", description: "Locked by your organization", controlState: .readOnly)
+///     .informationViewStyle(.warning)
 /// ```
 // sourcery: CompositeComponent
-protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
+protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent, _StateLabelComponent, _InformationViewComponent {
+    // sourcery: defaultValue = .normal
+    /// The control state that determines how the switchView element responds to user interaction.
+    ///
+    /// Possible values:
+    /// - `.normal`: Fully interactive (default)
+    /// - `.disabled`: Not interactive but visually unchanged
+    /// - `.readOnly`: Not interactive and visually indicates read-only state
+    var controlState: ControlState { get }
+}
 
 /// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
 ///

@@ -2787,6 +2787,22 @@ extension StartSignatureActionStyle {
     }
 }
 
+// MARK: StateLabelStyle
+
+struct ResolvedStateLabelStyle<Style: StateLabelStyle>: View {
+    let style: Style
+    let configuration: StateLabelConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension StateLabelStyle {
+    func resolve(configuration: StateLabelConfiguration) -> some View {
+        ResolvedStateLabelStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: StatusStyle
 
 struct ResolvedStatusStyle<Style: StatusStyle>: View {

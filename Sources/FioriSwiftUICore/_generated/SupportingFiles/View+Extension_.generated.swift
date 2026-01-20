@@ -2961,6 +2961,23 @@ public extension View {
     }
 }
 
+// MARK: StateLabelStyle
+
+public extension View {
+    func stateLabelStyle(_ style: some StateLabelStyle) -> some View {
+        self.transformEnvironment(\.stateLabelStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func stateLabelStyle(@ViewBuilder content: @escaping (StateLabelConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.stateLabelStyleStack) { stack in
+            let style = AnyStateLabelStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 public extension View {
