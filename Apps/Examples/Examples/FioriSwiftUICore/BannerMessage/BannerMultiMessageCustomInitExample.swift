@@ -173,6 +173,13 @@ struct BannerMultiMessageCustomInitExample: View {
                             }
                         }, bannerMultiMessages: self.$bannerMultiMessages)
                             .presentationDetents([.medium, .large])
+                            .presentationBackground(.clear)
+                            .overlay(
+                                ContainerRelativeShape()
+                                    .inset(by: 2)
+                                    .stroke(Color.red, lineWidth: 4)
+                                    .ignoresSafeArea(.container, edges: .all)
+                            )
                     }
                 }
                 .listRowSeparator(.hidden)
