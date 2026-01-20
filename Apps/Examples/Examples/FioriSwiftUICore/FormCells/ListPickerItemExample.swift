@@ -48,7 +48,7 @@ struct ListPickerItemExample: View {
     @State var showsPrompt = false
     @State var showAINotice: Bool = false
     var value: AttributedString? {
-        self.state == .readOnly ? "Value" : nil
+        self.state == .readOnly ? self.defaultValue() : nil
     }
 
     var body: some View {
@@ -224,7 +224,19 @@ struct ListPickerItemExample: View {
             }
         }
     }
-    
+
+    func defaultValue() -> AttributedString {
+        if self.multiSelections {
+            return AttributedString(Array(self.selections).joined(separator: ", "))
+        } else {
+            if self.allowEmpty {
+                return AttributedString(self.selection ?? "No Selection")
+            } else {
+                return AttributedString(self.noneEmptySelection)
+            }
+        }
+    }
+
     @ViewBuilder var destinationView: some View {
         switch self.dataType {
         case .text:
