@@ -61,11 +61,14 @@ public struct ActivityItemDataType: Identifiable {
     public private(set) var icon: Image
     
     public private(set) var didSelectActivityItem: (() -> Void)?
+	
+    public private(set) var accessibilityValueText: String?
 
-    public init(type: ActivityItemType, data: String? = nil, didSelectActivityItem: (() -> Void)? = nil) {
+    public init(type: ActivityItemType, data: String? = nil, didSelectActivityItem: (() -> Void)? = nil, accessibilityValueText: String? = nil) {
         self.icon = type.icon
         self.type = type
         self.data = data
         self.didSelectActivityItem = didSelectActivityItem
+        self.accessibilityValueText = accessibilityValueText
     }
 }
