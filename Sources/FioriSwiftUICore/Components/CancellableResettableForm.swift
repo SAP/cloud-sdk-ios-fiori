@@ -105,12 +105,12 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                     self.cancelAction
                         .fixedSize()
                         .accessibilityIdentifier("Cancel")
-                }
+                }.hideSharedBackground()
                 ToolbarItem(placement: .topBarTrailing) {
                     self.resetAction
                         .fixedSize()
                         .accessibilityIdentifier("Reset")
-                }
+                }.hideSharedBackground()
             }
         }
         .frame(idealWidth: self.popoverIdealWidth, idealHeight: self.idealHeight())
@@ -241,6 +241,7 @@ struct CancelButtonStyle: PrimitiveButtonStyle {
             .onTapGesture {
                 configuration.trigger()
             }
+            .contentShape(.accessibility, .capsule.scale(1.2))
     }
 }
 
@@ -259,6 +260,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
                 .onTapGesture {
                     configuration.trigger()
                 }
+                .contentShape(.accessibility, .capsule.scale(1.2))
         } else {
             configuration.label
                 .font(.fiori(forTextStyle: .body, weight: .semibold))
@@ -267,6 +269,7 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
             #else
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
+                .contentShape(.accessibility, .capsule.scale(1.2))
         }
     }
 }
@@ -311,6 +314,20 @@ private struct WindowTraitReader: UIViewControllerRepresentable {
             default:
                 return .compact
             }
+        }
+    }
+}
+
+extension ToolbarContent {
+    func hideSharedBackground(_ visibility: Visibility = .hidden) -> some ToolbarContent {
+        if #available(iOS 26.0, macOS 26.0, *) {
+            #if !os(visionOS)
+                return self.sharedBackgroundVisibility(visibility)
+            #else
+                return self
+            #endif
+        } else {
+            return self
         }
     }
 }
