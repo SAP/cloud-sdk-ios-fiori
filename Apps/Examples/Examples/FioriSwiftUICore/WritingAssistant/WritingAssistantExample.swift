@@ -95,7 +95,7 @@ struct WritingAssistantExample: View {
                 .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
 
             TextFieldFormView(title: "TextFieldFormView Title", text: self.$text2, placeholder: "Enter something")
-                .waTextInput(self.$text2, menus: WAMenu.availableMenus, menuHandler: { menu, value in
+                .waTextInput(self.$text2, menus: WAMenu.disabledMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
                     await self.submitFeedback(state: state, values: values)
@@ -127,10 +127,20 @@ extension WAMenu {
     static let translate = WAMenu(title: "Translate",
                                   children: languages)
     
+    static let disabledAnalyzeText = WAMenu(title: "Analyze Text", icon: FioriIcon.charts.businessObjectsExperience, isEnabled: false)
+    static let disabledChangeTone = WAMenu(title: "Change Tone",
+                                           isEnabled: false,
+                                           children: tones)
+    
     /// Default menus for the writing assistant feature.
     static let availableMenus = [
         [enhance, makeShorter, makeLonger, makeBulletList, analyzeText],
         [changeTone, translate]
+    ]
+    
+    static let disabledMenus = [
+        [enhance, makeShorter, makeLonger, makeBulletList, disabledAnalyzeText],
+        [disabledChangeTone, translate]
     ]
 }
 
