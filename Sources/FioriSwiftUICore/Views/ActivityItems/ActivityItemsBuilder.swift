@@ -18,9 +18,11 @@ struct ActivityItemsListStack: ActivityItemsList {
             } label: {
                 element.icon
                     .imageScale(.large)
-                    .frame(width: 44, height: 44, alignment: .center)
+                    .frame(idealWidth: 44, idealHeight: 44, alignment: .center)
             }
             .buttonStyle(BorderlessButtonStyle())
+            .accessibilityElement(children: .combine)
+            .accessibilityValue(element.accessibilityValueText ?? element.data ?? "")
             .typeErased
             
             temp.append(item.typeErased)
