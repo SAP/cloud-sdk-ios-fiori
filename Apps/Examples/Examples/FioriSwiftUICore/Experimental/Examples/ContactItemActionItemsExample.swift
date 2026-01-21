@@ -9,38 +9,31 @@ struct ContactItemActionItemsExample: View {
             ScrollView {
                 ExpHeaderView("Action Items", subtitle: "Option: ViewBuilder init - arbitrary use", desc: "pass an arbitrary view to represent actionItems")
 
-                _ContactItem {
+                ContactItem {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
-                } descriptionText: {
+                } description: {
                     Text("Description")
                 } detailImage: {
                     EmptyView()
-                } actionItems: {
+                } activityItems: {
                     LibraryPreviewData.Person.laurelosborn.actionItemsView
                 }
                 .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: ViewBuilder init - SDK reuse", desc: "pass an SDK standard composite view (control / container) to represent actionItems", back: .green, textColor: .white)
                 
-                _ContactItem {
+                ContactItem {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
-                } descriptionText: {
+                } description: {
                     Text("Description")
-                } actionItems: {
-                    if self.useCompositeControl {
-                        // equivalent to `ActivityItems(model: viewModel)`
-                        _ActivityItems(actionItems: self.viewModel.actionItems?.actionItems) { selectedActivity in
-                            self.viewModel.selectedActivity = selectedActivity
-                        }
-                    } else {
-                        ActivityControlLayoutContainer(self.viewModel.actionItems?.actionItems ?? []) { activity in
-                            ActivityButtonView(activity) {
-                                self.viewModel.selectedActivity = activity
-                            }
+                } activityItems: {
+                    ActivityControlLayoutContainer(self.viewModel.actionItems?.actionItems ?? []) { activity in
+                        ActivityButtonView(activity) {
+                            self.viewModel.selectedActivity = activity
                         }
                     }
                 }
@@ -48,14 +41,23 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
-                _ContactItem(title: self.viewModel.title, subtitle: self.viewModel.subtitle, descriptionText: self.viewModel.descriptionText,
-                             detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? _ActivityItems(model: self.viewModel.actionItems!) : nil)
-                    .exampleHighlighting()
+                ContactItem(
+                    title: AttributedString(self.viewModel.title),
+                    subtitle: AttributedString(self.viewModel.subtitle ?? ""),
+                    description: AttributedString(self.viewModel.descriptionText ?? ""),
+                    detailImage: self.viewModel.detailImage,
+                    activityItems: self.viewModel.actionItems?.actionItems ?? []
+                ).exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
-                _ContactItem(model: self.viewModel)
-                    .exampleHighlighting()
+                ContactItem(
+                    title: AttributedString(self.viewModel.title),
+                    subtitle: AttributedString(self.viewModel.subtitle ?? ""),
+                    description: AttributedString(self.viewModel.descriptionText ?? ""),
+                    detailImage: self.viewModel.detailImage,
+                    activityItems: self.viewModel.actionItems?.actionItems ?? []
+                ).exampleHighlighting()
                     .alert(isPresented: self.$viewModel.showingAlert, content: {
                         Alert(title: Text("Important message"), message: Text("Sending email to \(self.viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
                     })
@@ -71,7 +73,7 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     
     lazy var actionItems: _ActivityItemsModel? = {
         let items: [ActivityItemDataType] = [
-            .init(type: .email, data: "Laurel@example.com"),
+            .init(type: .email, data: "Laurel@example.com", accessibilityValueText: "Work mail"),
             .init(type: .email, data: "Laurel@contoso.com")
         ]
         
