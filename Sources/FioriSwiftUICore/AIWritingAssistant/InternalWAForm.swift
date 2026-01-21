@@ -111,6 +111,7 @@ struct InternalWAForm: View {
                 Section {
                     ForEach(section.menus) { menu in
                         self.row(menu)
+                            .selectionDisabled(!menu.isEnabled)
                     }
                 } header: {
                     if self.context.rewriteTextSet.count > 1, section.id == sections.first?.id {
@@ -186,7 +187,7 @@ struct InternalWAForm: View {
                 Spacer()
                 item.icon
             }
-            .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
             .font(Font.fiori(forTextStyle: .body))
             .tag(item)
             .accessibilityElement(children: .combine)
@@ -198,6 +199,7 @@ struct InternalWAForm: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
+                guard item.isEnabled else { return }
                 self.tappedMenuId = item.id
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                     self.tappedMenuId = nil
@@ -209,11 +211,12 @@ struct InternalWAForm: View {
                 InternalWAForm(configuration: self.configuration, menus: [item.children], isTopLevel: false, navigationBarTitleString: item.title)
             } label: {
                 Text(item.title)
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
                     .font(Font.fiori(forTextStyle: .body))
                     .accessibilityHint("\(String(format: NSLocalizedString("Open to see %@ options", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), item.title))")
                     .accessibilityAddTraits(.isButton)
             }
+            .disabled(!item.isEnabled)
         }
     }
     
