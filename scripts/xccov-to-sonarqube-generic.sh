@@ -5,39 +5,64 @@
 
 set -euo pipefail
 
-function convert_file {
-  local xccovarchive_file="$1"
-  local file_name="$2"
-  local xccov_options="$3"
-
-  # Modification: escape special characters if present in file name, e.g Array<CGPoint>+Extensions.swift to Array&lt;CGPoint&gt;+Extensions.swift
-  local file_name_escaped="$2"
-  file_name_escaped=${file_name_escaped//</&lt;}
-  file_name_escaped=${file_name_escaped//>/&gt;}
-
-  # Modification: remove prefix caused by GitHub action
-  file_name_escaped=${file_name_escaped#*cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/}
-
-  echo "  <file path=\"$file_name_escaped\">"
-  xcrun xccov view $xccov_options --file "$file_name" "$xccovarchive_file" | \
-    sed -n '
-    s/^ *\([0-9][0-9]*\): 0.*$/    <lineToCover lineNumber="\1" covered="false"\/>/p;
-    s/^ *\([0-9][0-9]*\): [1-9].*$/    <lineToCover lineNumber="\1" covered="true"\/>/p
-    '
-  echo '  </file>'
-}
-
 function xccov_to_generic {
   echo '<coverage version="1">'
+
   for xccovarchive_file in "$@"; do
     local xccov_options=""
     if [[ $xccovarchive_file == *".xcresult"* ]]; then
       xccov_options="--archive"
     fi
-    xcrun xccov view $xccov_options --file-list "$xccovarchive_file" | while read -r file_name; do
-      convert_file "$xccovarchive_file" "$file_name" "$xccov_options"
-    done
+
+    # 1. Get the full line-by-line report once
+    # 2. Use awk to parse the text and format the XML
+    xcrun xccov view $xccov_options "$xccovarchive_file" | awk '
+    BEGIN { 
+        # Path to remove - adjust as needed
+        prefix = "cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/" 
+    }
+    
+    # Identify a new file block
+    /^\// { 
+        if (in_file) print "  </file>";
+        
+        file_path = $0
+        # Remove trailing colon if present
+        sub(/:$/, "", file_path)
+        
+        # Apply your path modification
+        if (index(file_path, prefix) > 0) {
+            split(file_path, parts, prefix)
+            file_path = parts[2]
+        }
+        
+        # Escape special characters
+        gsub("<", "<lt;", file_path)
+        gsub(">", ">gt;", file_path)
+        
+        print "  <file path=\"" file_path "\">"
+        in_file = 1
+        next
+    }
+    
+    # Identify coverage lines (e.g., "  10: 1", "  11: 0")
+    /^[ ]*[0-9]+: [0-9]+/ {
+        # Extract line number (strip leading spaces and colon)
+        match($0, /[0-9]+/)
+        lineNum = substr($0, RSTART, RLENGTH)
+        
+        # Extract execution count
+        split($0, arr, ": ")
+        count = arr[2]
+        
+        covered = (count > 0) ? "true" : "false"
+        print "    <lineToCover lineNumber=\"" lineNum "\" covered=\"" covered "\"/>"
+    }
+    
+    END { if (in_file) print "  </file>"; }
+    '
   done
+
   echo '</coverage>'
 }
 
