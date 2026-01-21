@@ -843,6 +843,7 @@ extension ListPickerItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
             value.isEmpty &&
+            description.isEmpty &&
             destination.isEmpty
     }
 }

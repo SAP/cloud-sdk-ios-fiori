@@ -1067,15 +1067,41 @@ protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _Mand
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 
 /// `ListPickerItem` is a view that provides a `NavigationLink` with a title and selected value(s). And `ListPickerDestination` is recommended to be used as its destination, for which selection, search filter and customized rows are supported.
+///
+/// Use it to present choices in a form where the selection UI lives in a separate destination view. The component supports:
+/// - Single or multiple selection
+/// - Flat, hierarchical, grouped, or object-based data
+/// - Optional search and live change tracking in the destination
+/// - Read-only, disabled, and normal states
+/// - Custom title, value, and description content
+///
+/// Inputs
+/// - title: ViewBuilder that renders the leading title.
+/// - value: ViewBuilder that renders the current selection value (typically a summary). In read-only state, you can pass an AttributedString via the value parameter to render the selected value(s).
+/// - description: ViewBuilder for an auxiliary description below the title/value.
+/// - isRequired: Marks the field as mandatory and renders the indicator.
+/// - controlState: .normal, .disabled, .readOnly.
+/// - axis: Layout direction for the header (title/value/description). Defaults to .horizontal.
+/// - destination: A builder that returns a ListPickerDestination configured with your data and bindings.
+///
+/// Behavior
+/// - Tapping the row navigates to the destination list.
+/// - When controlState is .readOnly, the component does not navigate and should show the current selection via the value slot.
+/// - When controlState is .disabled, interactions are disabled.
+///
 /// ## Usage
 /// ```swift
+/// @State var state: ControlState = .normal
 /// let data = ["first", "second", "third"]
 /// var body: some View {
 ///     ListPickerItem(title: {
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
-///     }, axis: .vertical) {
+///     }, description: {
+///         Text("Read-only field")
+///     }, controlState: self.state
+///     , axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
 ///                               selection: $selection,
@@ -1088,6 +1114,7 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///
 /// // If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.
 ///
+/// @State var state: ControlState = .normal
 /// struct ListPickerSection: ListPickerSectionModel {}
 /// let data = [ListPickerSection(title: "Section 1", items: ["first", "second", "third"]),
 ///             ListPickerSection(title: "Section 2", items: ["apple", "banana", "orange"])]
@@ -1096,7 +1123,10 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
-///     }, axis: .vertical) {
+///     }, description: {
+///         Text("Read-only field")
+///     }, controlState: self.state
+///     , axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
 ///                               selection: $selection,
@@ -1107,8 +1137,16 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///     }
 /// }
 /// ```
+/// /// Example: Read-only value using AttributedString
+/// ```swift
+///  @State private var selection: String? = "Second"
+///  let readOnlyValue: AttributedString? = .init(selection ?? "No Selection")
+///  ListPickerItem(title: "Title", value: readOnlyValue, description: "Read-only", controlState: .readOnly) {
+///      EmptyView() // destination is ignored in read-only
+///  }
+/// ```
 // sourcery: CompositeComponent
-protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _DescriptionComponent, _MandatoryField, _FormViewComponent {
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
     

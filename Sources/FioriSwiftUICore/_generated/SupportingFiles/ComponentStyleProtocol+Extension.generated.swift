@@ -5757,6 +5757,27 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
+public struct ListPickerItemDescriptionStyle: ListPickerItemStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ListPickerItemDescriptionStyle {
+        ListPickerItemDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ListPickerItemDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return ListPickerItemDescriptionStyle(style: style)
+    }
+}
+
 public struct ListPickerItemFormViewStyle: ListPickerItemStyle {
     let style: any FormViewStyle
 

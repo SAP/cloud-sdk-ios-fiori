@@ -47,13 +47,16 @@ struct ListPickerItemExample: View {
     @State var showsErrorMessage = false
     @State var showsPrompt = false
     @State var showAINotice: Bool = false
-    
+    var value: AttributedString? {
+        self.state == .readOnly ? self.defaultValue() : nil
+    }
+
     var body: some View {
         List {
             Group {
                 if self.dataType == .frameworks || self.dataType == .text {
                     // Use default Value
-                    ListPickerItem(title: "Title", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
+                    ListPickerItem(title: "Title", value: self.value, description: "Read-only field", isRequired: self.isRequired, controlState: self.state, axis: self.axis,
                                    destination: {
                                        self.destinationViewGroup()
                                    })
@@ -67,7 +70,7 @@ struct ListPickerItemExample: View {
                             }
                             Spacer()
                         }
-                    }, value: { self.valueView }, controlState: self.state, axis: self.axis, destination: {
+                    }, value: { self.valueView }, description: { Text("Read-only field") }, controlState: self.state, axis: self.axis, destination: {
                         self.destinationViewGroup()
                     })
                 }
@@ -221,7 +224,19 @@ struct ListPickerItemExample: View {
             }
         }
     }
-    
+
+    func defaultValue() -> AttributedString {
+        if self.multiSelections {
+            return AttributedString(Array(self.selections).joined(separator: ", "))
+        } else {
+            if self.allowEmpty {
+                return AttributedString(self.selection ?? "No Selection")
+            } else {
+                return AttributedString(self.noneEmptySelection)
+            }
+        }
+    }
+
     @ViewBuilder var destinationView: some View {
         switch self.dataType {
         case .text:
