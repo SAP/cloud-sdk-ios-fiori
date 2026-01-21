@@ -74,7 +74,7 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     lazy var actionItems: _ActivityItemsModel? = {
         let items: [ActivityItemDataType] = [
             .init(type: .email, data: "Laurel@example.com", accessibilityValueText: "Work mail"),
-            .init(type: .email, data: "Laurel@contoso.com")
+            .init(type: .custom(Image(systemName: "mail")), data: "Laurel@contoso.com")
         ]
         
         return ActivityItemsDataModel(actionItems: items) { activityItem in
