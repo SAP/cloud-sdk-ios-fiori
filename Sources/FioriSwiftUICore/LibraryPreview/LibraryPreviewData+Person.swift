@@ -107,7 +107,7 @@ public extension LibraryPreviewData.Person {
         } label: {
             Image(systemName: "phone")
         }.foregroundColor(.orange)
-            .accessibilityValue("Persion: \(UserName)")
+            .accessibilityValue("Person: \(UserName)")
         ForEach(0 ..< Emails.count, id: \.self) { index in
             Button {
                 print("Mailing person: \(UserName) at email address: \(Emails[index])")
