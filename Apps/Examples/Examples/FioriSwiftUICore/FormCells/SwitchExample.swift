@@ -38,9 +38,9 @@ struct SwitchExample: View {
                     .titleStyle(CustomTitleStyle())
                     .switchStyle(CustomSwitchStyle())
                 SwitchView(title: "Very long title, layout depend on title width. long long long long long long long long long long long long long long long long long long long long long long long", isOn: self.$v7)
-                SwitchView(title: "Label", isOn: self.$v2, controlState: .readOnly)
+                SwitchView(title: "ReadOnly", isOn: self.$v2, controlState: .readOnly)
                 SwitchView(title: "Notification", isOn: self.$v3, description: "Read-only field", controlState: .readOnly)
-                SwitchView(title: "Custom Style", isOn: self.$v4, stateLabel: self.v4 ? "Open" : "Close", description: "Locked by your organization", controlState: .readOnly)
+                SwitchView(title: "Custom Style(ReadOnly)", isOn: self.$v4, stateLabel: self.v4 ? "Open" : "Close", description: "Locked by your organization", controlState: .readOnly)
                     .stateLabelStyle(content: { config in
                         config.stateLabel
                             .foregroundStyle(.red)
