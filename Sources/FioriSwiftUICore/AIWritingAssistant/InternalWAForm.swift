@@ -106,11 +106,14 @@ struct InternalWAForm: View {
     
     @ViewBuilder var listContent: some View {
         let sections = self.menus.map { WritingToolSection(menus: $0) }
-        List {
+        List(selection: self.$context.selection) {
             ForEach(sections) { section in
                 Section {
                     ForEach(section.menus) { menu in
                         self.row(menu)
+                            .listRowBackground(
+                                Color.preferredColor(.secondaryGroupedBackground)
+                            )
                     }
                 } header: {
                     if self.context.rewriteTextSet.count > 1, section.id == sections.first?.id {
