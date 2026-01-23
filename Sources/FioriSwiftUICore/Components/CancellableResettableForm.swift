@@ -53,7 +53,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                         .listRowBackground(Color.clear)
                     #endif
                         .ifApply(self.calculateScrollView) {
-                            if #available(iOS 18, *) {
+                            if #available(iOS 18, visionOS 2, *) {
                                 return $0.onScrollGeometryChange(for: [Double].self) { geo in
                                     [geo.contentSize.height,
                                      geo.contentInsets.top]
