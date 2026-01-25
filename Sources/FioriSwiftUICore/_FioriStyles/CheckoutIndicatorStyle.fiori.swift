@@ -44,6 +44,10 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
                             self.isAnimating.toggle()
                         }
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Checkout Indicator".localizedFioriString())
+                    .accessibilityHint(self.statusDescription(for: configuration.displayState))
+                    .accessibility(addTraits: .updatesFrequently)
             } else {
                 ZStack {
                     Circle()
@@ -79,6 +83,10 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
                             )
                     }
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Checkout Indicator".localizedFioriString())
+                .accessibilityHint(self.statusDescription(for: configuration.displayState))
+                .accessibility(addTraits: configuration.displayState == .inProgress ? .updatesFrequently : .isStaticText)
             }
         }
     }
@@ -145,6 +153,19 @@ public struct CheckoutIndicatorBaseStyle: CheckoutIndicatorStyle {
         path.addLine(to: CGPoint(x: centerX, y: bottomY))
         
         return path
+    }
+    
+    private func statusDescription(for state: DisplayState) -> String {
+        switch state {
+        case .inProgress:
+            return "processing".localizedFioriString()
+        case .completed:
+            return "completed".localizedFioriString()
+        case .failed:
+            return "failed".localizedFioriString()
+        case .aiProgress:
+            return "AI processing".localizedFioriString()
+        }
     }
 }
 

@@ -692,3 +692,11 @@
 
 /*XTIT: Off state for switch*/
 "Switch Off" = "Off";
+/* Checkout Indicator accessibility label: failed */
+"failed" = "failed";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "AI processing";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Checkout Indicator";
