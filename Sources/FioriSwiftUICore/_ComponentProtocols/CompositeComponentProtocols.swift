@@ -932,7 +932,7 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 ////// Inputs
 /// - title: A `ViewBuilder` closure that renders the title content (required).
 /// - isOn: A binding to a Boolean value that controls the toggle state (required).
-/// - stateLabel: An optional `ViewBuilder` closure for custom state text (replaces default "On"/"Off" in readOnly state).
+/// - stateLabel: An optional `ViewBuilder` closure for custom state text. It is only effective when the controlState is `.readOnly`.  It will replace the toggle which usually shows as On or Off .
 /// - icon: An optional `ViewBuilder` closure for an icon in the informationView.
 /// - description: An optional `ViewBuilder` closure for descriptive text in the informationView.
 /// - controlState: The interaction state of the switch (default: .normal). Options: .normal, .disabled, .readOnly.
