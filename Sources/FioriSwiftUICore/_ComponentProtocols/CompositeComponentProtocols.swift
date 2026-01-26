@@ -1407,7 +1407,11 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {
+    /// This property determines whether the DdetailImage is displayed using the default style. The default is true.
+    // sourcery: defaultValue = true
+    var usesDetailImageDefaultStyle: Bool { get }
+}
 
 /// `WelcomeScreen` is used to display a welcome/launch screen to the application for onboarding.  The screen mainly displays the application name, instructions on how to start the activation process and an option to trigger the demo mode of the application.
 /// ## Usage

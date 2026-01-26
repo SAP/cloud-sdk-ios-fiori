@@ -34,6 +34,8 @@ public struct ContactItem {
     let description: any View
     let detailImage: any View
     let activityItems: any View
+    /// This property determines whether the DdetailImage is displayed using the default style. The default is true.
+    var usesDetailImageDefaultStyle: Bool
 
     @Environment(\.contactItemStyle) var style
 
@@ -46,6 +48,7 @@ public struct ContactItem {
                 @ViewBuilder description: () -> any View = { EmptyView() },
                 @ViewBuilder detailImage: () -> any View = { EmptyView() },
                 @ActivityItemsBuilder activityItems: () -> any View = { EmptyView() },
+                usesDetailImageDefaultStyle: Bool = true,
                 componentIdentifier: String? = ContactItem.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -53,6 +56,7 @@ public struct ContactItem {
         self.description = Description(description: description, componentIdentifier: componentIdentifier)
         self.detailImage = DetailImage(detailImage: detailImage, componentIdentifier: componentIdentifier)
         self.activityItems = ActivityItems(activityItems: activityItems, componentIdentifier: componentIdentifier)
+        self.usesDetailImageDefaultStyle = usesDetailImageDefaultStyle
         self.componentIdentifier = componentIdentifier ?? ContactItem.identifier
     }
 }
@@ -66,9 +70,10 @@ public extension ContactItem {
          subtitle: AttributedString? = nil,
          description: AttributedString? = nil,
          detailImage: Image? = nil,
-         activityItems: [ActivityItemDataType] = [])
+         activityItems: [ActivityItemDataType] = [],
+         usesDetailImageDefaultStyle: Bool = true)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, detailImage: { detailImage }, activityItems: { ActivityItemsListStack(activityItems) })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, description: { OptionalText(description) }, detailImage: { detailImage }, activityItems: { ActivityItemsListStack(activityItems) }, usesDetailImageDefaultStyle: usesDetailImageDefaultStyle)
     }
 }
 
@@ -83,6 +88,7 @@ public extension ContactItem {
         self.description = configuration.description
         self.detailImage = configuration.detailImage
         self.activityItems = configuration.activityItems
+        self.usesDetailImageDefaultStyle = configuration.usesDetailImageDefaultStyle
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -93,7 +99,7 @@ extension ContactItem: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems), usesDetailImageDefaultStyle: self.usesDetailImageDefaultStyle)).typeErased
                 .transformEnvironment(\.contactItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -111,7 +117,7 @@ private extension ContactItem {
     }
 
     func defaultStyle() -> some View {
-        ContactItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems)))
+        ContactItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems), usesDetailImageDefaultStyle: self.usesDetailImageDefaultStyle))
             .shouldApplyDefaultStyle(false)
             .contactItemStyle(ContactItemFioriStyle.ContentFioriStyle())
             .typeErased
