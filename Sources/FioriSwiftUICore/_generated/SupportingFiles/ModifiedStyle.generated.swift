@@ -4880,6 +4880,34 @@ public extension StartSignatureActionStyle {
     }
 }
 
+// MARK: StateLabelStyle
+
+extension ModifiedStyle: StateLabelStyle where Style: StateLabelStyle {
+    public func makeBody(_ configuration: StateLabelConfiguration) -> some View {
+        StateLabel(configuration)
+            .stateLabelStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct StateLabelStyleModifier<Style: StateLabelStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.stateLabelStyle(self.style)
+    }
+}
+
+public extension StateLabelStyle {
+    func modifier(_ modifier: some ViewModifier) -> some StateLabelStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some StateLabelStyle) -> some StateLabelStyle {
+        style.modifier(StateLabelStyleModifier(style: self))
+    }
+}
+
 // MARK: StatusStyle
 
 extension ModifiedStyle: StatusStyle where Style: StatusStyle {

@@ -25,8 +25,15 @@ public struct SwitchViewConfiguration {
     public var componentIdentifier: String = "fiori_switchview_component"
     public let title: Title
     @Binding public var isOn: Bool
+    public let stateLabel: StateLabel
+    public let icon: Icon
+    public let description: Description
+    public let controlState: ControlState
 
     public typealias Title = ConfigurationViewWrapper
+    public typealias StateLabel = ConfigurationViewWrapper
+    public typealias Icon = ConfigurationViewWrapper
+    public typealias Description = ConfigurationViewWrapper
 }
 
 extension SwitchViewConfiguration {
@@ -40,5 +47,9 @@ public struct SwitchViewFioriStyle: SwitchViewStyle {
         SwitchView(configuration)
             .titleStyle(TitleFioriStyle(switchViewConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(switchViewConfiguration: configuration))
+            .stateLabelStyle(StateLabelFioriStyle(switchViewConfiguration: configuration))
+            .iconStyle(IconFioriStyle(switchViewConfiguration: configuration))
+            .descriptionStyle(DescriptionFioriStyle(switchViewConfiguration: configuration))
+            .informationViewStyle(InformationViewFioriStyle(switchViewConfiguration: configuration))
     }
 }
