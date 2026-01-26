@@ -15,7 +15,7 @@ struct ListPickerItemExample: View {
     }
     
     private let model = ListPickerItemDataModel.data
-    private let stringsModel = ["First", "Second", "Third", "Fourth", "Fifth"]
+    private let stringsModel = ["One", "Two", "Three, this is a very very very very very very very very very very very very very very long text", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen"]
     
     private let groupedModel = [
         ListPickerGroupedItem(title: "Fruit", items: ["Apple", "Banana", "Orange", "PineApple"]),

@@ -576,6 +576,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @State var selectionsPool: Set<ID>
     @State var searchText = ""
     @State var confirmationSelections: Bool = false
+    @State var isListContentOutOfView: Bool = false
     
     init(_ sections: SectionData,
          id: KeyPath<Data.Element, ID>,
@@ -724,9 +725,30 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         return (self.destinationConfiguration?.allEntriesSectionTitle.isEmpty ?? true) && isActionEmpty
     }
     
+    private var showSelectedSection: Bool {
+        if self.isSingleSelection {
+            return self.isListContentOutOfView && !self.disableEntriesSection
+        } else {
+            return self.isTopLevel && !self.disableEntriesSection && self.destinationConfiguration != nil
+        }
+    }
+    
     @ViewBuilder func listContent() -> some View {
+        if #available(iOS 18, *) {
+            listContentView()
+                .onScrollGeometryChange(for: Bool.self) { geo in
+                    geo.contentSize.height > geo.bounds.height
+                } action: { _, newValue in
+                    self.isListContentOutOfView = newValue
+                }
+        } else {
+            self.listContentView()
+        }
+    }
+    
+    @ViewBuilder func listContentView() -> some View {
         List {
-            if self.isTopLevel, !self.disableEntriesSection, !self.isSingleSelection, self.destinationConfiguration != nil {
+            if self.showSelectedSection {
                 Section {
                     self.selectedSection()
                 } header: {
@@ -796,7 +818,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     
     @ViewBuilder func listContentForFilterFeedbackBarListPicker() -> some View {
         List {
-            if self.isTopLevel, !self.disableEntriesSection, !self.isSingleSelection, self.destinationConfiguration != nil {
+            if self.showSelectedSection {
                 Section {
                     if !self.selectedEntriesSectionHeaderIsEmpty(), self.selectionsCount() > 0 {
                         HStack {
