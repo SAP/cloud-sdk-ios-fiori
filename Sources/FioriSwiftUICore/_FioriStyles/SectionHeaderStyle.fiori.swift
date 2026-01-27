@@ -10,6 +10,7 @@ public struct SectionHeaderBaseStyle: SectionHeaderStyle {
             HStack {
                 configuration.title
                     .lineLimit(1)
+                    .accessibilityAddTraits(.isHeader)
                 Spacer()
                 HStack {
                     configuration.attribute
@@ -77,6 +78,7 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
                 configuration.title
                     .lineLimit(1)
                     .sectionHeaderStyle(.titleStyle(.fiori))
+                    .accessibilityAddTraits(.isHeader)
                 Spacer()
                 HStack {
                     configuration.attribute
@@ -93,7 +95,7 @@ public struct SectionHeaderAccessoryStyle: SectionHeaderStyle {
                     }
                 }
                 .accessibilityElement(children: .combine)
-                .accessibilityAddTraits((configuration.didSelectHandler != nil) ? [.isHeader, .isButton] : [.isHeader, .isStaticText])
+                .accessibilityAddTraits((configuration.didSelectHandler != nil) ? .isButton : .isStaticText)
             }
             .padding([.top, .bottom], configuration.sectionHeaderStyle == .title ? 10 : 12)
             .contentShape(Rectangle())
