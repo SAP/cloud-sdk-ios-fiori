@@ -169,8 +169,10 @@ extension ContactItemFioriStyle {
 
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-                .frame(width: 45, height: 45, alignment: .center)
-                .clipShape(Circle())
+                .ifApply(self.contactItemConfiguration.usesDetailImageDefaultStyle) {
+                    $0.frame(width: 45, height: 45, alignment: .center)
+                        .clipShape(Circle())
+                }
         }
     }
 

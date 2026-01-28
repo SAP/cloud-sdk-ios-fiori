@@ -9,23 +9,29 @@ struct ContactItemInitViewBuilderExample: View {
             ExpHeaderView("Contact Item", subtitle: "ViewBuilder based initializer", desc: "can be injected with any view, e.g. Title can be an image and is not restricted to being a text",
                           back: .green, textColor: .white)
 
-            _ContactItem {
-                if self.useDifferentView {
-                    Image(systemName: "person.crop.circle.badge.exclamationmark")
-                } else {
-                    Text("Title")
-                }
-            } subtitle: {
-                Text("SubTitle")
-            } descriptionText: {
-                Text("Description")
-            } detailImage: {
-                if self.useDifferentView {
-                    Text("Not an image")
-                } else {
-                    Image(systemName: "person.crop.circle")
-                }
-            }
+            ContactItem(
+                title: {
+                    if self.useDifferentView {
+                        Image(systemName: "person.crop.circle.badge.exclamationmark")
+                    } else {
+                        Text("Title")
+                    }
+                },
+                subtitle: {
+                    Text("SubTitle")
+                },
+                description: {
+                    Text("Description")
+                },
+                detailImage: {
+                    if self.useDifferentView {
+                        Text("Not\nan\u{00A0}image").multilineTextAlignment(.center).lineLimit(2).foregroundColor(.red)
+                    } else {
+                        Image(systemName: "person.crop.circle")
+                    }
+                },
+                usesDetailImageDefaultStyle: !self.useDifferentView
+            )
             .exampleHighlighting()
 
             Toggle(isOn: self.$useDifferentView) {
