@@ -1,6 +1,117 @@
-included: # paths to include during linting. `--path` is ignored if present.
-- Sources/FioriSwiftUICore/_localization/en.lproj/FioriSwiftUICore.strings
-- Sources/FioriCharts/Resources/en.lproj/Localizable.strings
+included:
+  # 1. Swift source code for usage/missing checks
+  - "Sources/FioriSwiftUICore"
+  - "Sources/FioriCharts"
+  # 2. Only the English localization bundles
+  - "Sources/FioriSwiftUICore/_localization/en.lproj"
+  - "Sources/FioriCharts/Resources/en.lproj"
+
+excluded:
+  # Exclude all other localizations to stop "Partial Violation" comparisons
+  - "Sources/FioriCharts/TestCases"
+  - "Sources/FioriSwiftUICore/_localization"
+  - "Sources/FioriCharts/Resources"
+  - "**/ar.lproj"
+  - "**/bg.lproj"
+  - "**/ca.lproj"
+  - "**/cnr.lproj"
+  - "**/cs.lproj"
+  - "**/cy.lproj"
+  - "**/da.lproj"
+  - "**/de-CH.lproj"
+  - "**/de.lproj"
+  - "**/el.lproj"
+  - "**/en-GB.lproj"
+  - "**/es-MX.lproj"
+  - "**/es.lproj"
+  - "**/et.lproj"
+  - "**/fi.lproj"
+  - "**/fr-CA.lproj"
+  - "**/fr.lproj"
+  - "**/he.lproj"
+  - "**/hi.lproj"
+  - "**/hr.lproj"
+  - "**/hu.lproj"
+  - "**/id.lproj"
+  - "**/it-CH.lproj"
+  - "**/it.lproj"
+  - "**/ja.lproj"
+  - "**/kk.lproj"
+  - "**/ko.lproj"
+  - "**/lt.lproj"
+  - "**/lv.lproj"
+  - "**/mk.lproj"
+  - "**/ms.lproj"
+  - "**/nb.lproj"
+  - "**/nl.lproj"
+  - "**/pl.lproj"
+  - "**/pt-PT.lproj"
+  - "**/pt.lproj"
+  - "**/ro.lproj"
+  - "**/ru.lproj"
+  - "**/sk.lproj"
+  - "**/sl.lproj"
+  - "**/sr-Latn-ME.lproj"
+  - "**/sr-Latn-RS.lproj"
+  - "**/sr.lproj"
+  - "**/sv.lproj"
+  - "**/th.lproj"
+  - "**/tr.lproj"
+  - "**/uk.lproj"
+  - "**/vi.lproj"
+  - "**/zh-Hans.lproj"
+  - "**/zh-Hant.lproj"
+
+parsers:
+  swift:
+    extends:
+      - "localizedFioriString"
+    exclude_comments: true
+
+# Specific to certain stringslint versions to ignore other language codes
+ignored_locales:
+  - ar
+  - bg
+  - ca
+  - cnr
+  - cs
+  - cy
+  - da
+  - de
+  - el
+  - es
+  - et
+  - fi
+  - fr
+  - he
+  - hi
+  - hr
+  - hu
+  - id
+  - it
+  - ja
+  - kk
+  - ko
+  - lt
+  - lv
+  - mk
+  - ms
+  - nb
+  - nl
+  - pl
+  - pt
+  - ro
+  - ru
+  - sk
+  - sl
+  - sr
+  - sv
+  - th
+  - tr
+  - uk
+  - vi
+  - zh-Hans
+  - zh-Hant
 
 missingComment:
   severity: error
