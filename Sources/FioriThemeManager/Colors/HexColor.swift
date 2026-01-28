@@ -50,10 +50,12 @@ public struct HexColor: Hashable {
         
         if let color = contrastLightColor {
             self.colors.updateValue(color, forKey: .contrastLight)
+            self.colors.updateValue(color, forKey: .elevatedContrastLight)
         }
         
         if let color = contrastDarkColor {
             self.colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
         }
         
         if let color = elevatedContrastLightColor {
