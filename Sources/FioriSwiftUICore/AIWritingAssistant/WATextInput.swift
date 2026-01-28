@@ -72,6 +72,7 @@ struct WATextInputModifier: ViewModifier {
     
     @StateObject var context: WritingAssistantContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.colorScheme) var colorScheme
     @FocusState private var isTextInputFocused: Bool
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
@@ -263,31 +264,36 @@ struct WATextInputModifier: ViewModifier {
                 self.context.isPresented = false
             }
             .popover(isPresented: self.$context.isPresented, attachmentAnchor: .point(.center)) {
-                self.formView
-                    .frame(idealWidth: 400, idealHeight: 400)
-                    .environmentObject(self.context)
-                    .presentationCompactAdaptation(.sheet)
-                    .presentationDetents([.fraction(0.5)])
-                    .interactiveDismissDisabled()
-                    .presentationDragIndicator(.hidden)
-                    .disabled(self.context.inProgress)
-                    .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback", duration: 3)
-                    .ifApply(UIDevice.isIPhone) {
-                        $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
-                    }
-                    .background(
-                        GeometryReader { proxy in
-                            Color.clear
-                                .task {
-                                    if self.horizontalSizeClass == .compact {
-                                        self.waSheetHeightUpdated?(proxy.size.height)
-                                    }
-                                }
+                self.popoverView
+            }
+    }
+    
+    var popoverView: some View {
+        self.formView
+            .frame(idealWidth: 400, idealHeight: 400)
+            .environmentObject(self.context)
+            .preferredColorScheme(self.colorScheme)
+            .presentationCompactAdaptation(.sheet)
+            .presentationDetents([.fraction(0.5)])
+            .interactiveDismissDisabled()
+            .presentationDragIndicator(.hidden)
+            .disabled(self.context.inProgress)
+            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback", duration: 3)
+            .ifApply(UIDevice.isIPhone) {
+                $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
+            }
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .task {
+                            if self.horizontalSizeClass == .compact {
+                                self.waSheetHeightUpdated?(proxy.size.height)
+                            }
                         }
-                    )
-                    .onDisappear {
-                        self.waSheetHeightUpdated?(0)
-                    }
+                }
+            )
+            .onDisappear {
+                self.waSheetHeightUpdated?(0)
             }
     }
     

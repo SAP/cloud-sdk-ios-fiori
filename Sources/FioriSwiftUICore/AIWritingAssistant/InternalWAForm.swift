@@ -13,12 +13,20 @@ struct InternalWAForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.hideFeedbackFooterInWritingAssistant) private var hideFeedbackFooterInWritingAssistant
-    
+    @Environment(\.colorScheme) var colorScheme
     @AccessibilityFocusState private var focusOnTitle: Bool
     var configuration: WritingAssistantFormConfiguration
     let menus: [[WAMenu]]
     let isTopLevel: Bool
     let navigationBarTitleString: String
+    
+    var backgroundColorScheme: BackgroundColorScheme {
+        if UIAccessibility.isInvertColorsEnabled {
+            return .deviceInverse
+        } else {
+            return self.colorScheme == .dark ? .darkConstant : .lightConstant
+        }
+    }
     
     var body: some View {
         Group {
@@ -57,12 +65,12 @@ struct InternalWAForm: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .toolbarBackground(Color.preferredColor(.header), for: .navigationBar)
+        .toolbarBackground(Color.preferredColor(.header, background: self.backgroundColorScheme), for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text(self.navigationBarTitleString)
-                        .foregroundColor(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                        .foregroundColor(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel, background: self.backgroundColorScheme))
                         .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
                     if self.context.rewriteTextSet.count > 1 {
                         self.versionView()
@@ -265,7 +273,7 @@ struct InternalWAForm: View {
     @ViewBuilder func versionView() -> some View {
         let versionString = String(format: "Version %d/%d".localizedFioriString(), self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
         Text("\(versionString)")
-            .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
+            .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel, background: self.backgroundColorScheme))
             .font(.fiori(forTextStyle: .caption1))
     }
 }

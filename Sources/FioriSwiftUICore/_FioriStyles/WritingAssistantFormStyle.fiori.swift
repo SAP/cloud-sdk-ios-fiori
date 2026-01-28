@@ -129,6 +129,7 @@ struct AIWACloseButtonStyle: FioriButtonStyle {
             .background {
                 Circle().fill(Color.preferredColor(.tertiaryFill))
             }
+            .frame(minWidth: 44, minHeight: 44)
     }
 }
 
