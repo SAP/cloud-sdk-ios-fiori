@@ -9,7 +9,7 @@ public struct WritingAssistantFormBaseStyle: WritingAssistantFormStyle {
             InternalWAForm(configuration: configuration,
                            menus: configuration.menus,
                            isTopLevel: true,
-                           navigationBarTitleString: "Writing Assistant")
+                           navigationBarTitleString: "Writing Assistant".localizedFioriString())
         }
     }
 }
@@ -129,6 +129,7 @@ struct AIWACloseButtonStyle: FioriButtonStyle {
             .background {
                 Circle().fill(Color.preferredColor(.tertiaryFill))
             }
+            .frame(minWidth: 44, minHeight: 44)
     }
 }
 
