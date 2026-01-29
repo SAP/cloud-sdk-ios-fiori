@@ -90,12 +90,12 @@ struct InternalWAForm: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Discard all changes?", isPresented: self.$context.showCancelAlert, actions: {
+        .alert("Discard all changes?".localizedFioriString(), isPresented: self.$context.showCancelAlert, actions: {
             Button(role: .cancel) {
                 self.context.showCancelAlert = false
                 self.context.updateInWAFlow(true)
             } label: {
-                Text("Keep Working")
+                Text("Keep Working".localizedFioriString())
                     .font(.fiori(forTextStyle: .caption1))
             }
             
@@ -107,7 +107,7 @@ struct InternalWAForm: View {
                 Text("Discard")
             }
         }, message: {
-            Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?")
+            Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?".localizedFioriString())
         })
     }
     

@@ -278,7 +278,7 @@ struct WATextInputModifier: ViewModifier {
             .interactiveDismissDisabled()
             .presentationDragIndicator(.hidden)
             .disabled(self.context.inProgress)
-            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback", duration: 3)
+            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback".localizedFioriString(), duration: 3)
             .ifApply(UIDevice.isIPhone) {
                 $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
             }
