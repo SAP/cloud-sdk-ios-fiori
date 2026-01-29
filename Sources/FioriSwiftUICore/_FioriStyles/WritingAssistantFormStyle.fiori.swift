@@ -9,7 +9,7 @@ public struct WritingAssistantFormBaseStyle: WritingAssistantFormStyle {
             InternalWAForm(configuration: configuration,
                            menus: configuration.menus,
                            isTopLevel: true,
-                           navigationBarTitleString: "Writing Assistant")
+                           navigationBarTitleString: "Writing Assistant".localizedFioriString())
         }
     }
 }
