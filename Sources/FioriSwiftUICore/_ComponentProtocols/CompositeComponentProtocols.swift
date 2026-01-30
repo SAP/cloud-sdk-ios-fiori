@@ -929,14 +929,34 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 
 /// `SwitchView`provides a Fiori style title and`Toggle`.
 ///
+////// Inputs
+/// - title: A `ViewBuilder` closure that renders the title content (required).
+/// - isOn: A binding to a Boolean value that controls the toggle state (required).
+/// - stateLabel: An optional `ViewBuilder` closure for custom state text. It is only effective when the controlState is `.readOnly`.  It will replace the toggle which usually shows as On or Off .
+/// - icon: An optional `ViewBuilder` closure for an icon in the informationView.
+/// - description: An optional `ViewBuilder` closure for descriptive text in the informationView.
+/// - controlState: The interaction state of the switch (default: .normal). Options: .normal, .disabled, .readOnly.
+///
 /// ## Usage
 /// ```swift
 /// @State var isOn: Bool = true
 ///
 /// SwitchView(title: "Switch", isOn: self.$isOn)
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn, stateLabel: self.isOn ? "Open" : "Close", description: "Locked by your organization", controlState: .readOnly)
+///     .informationViewStyle(.warning)
 /// ```
 // sourcery: CompositeComponent
-protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
+protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent, _StateLabelComponent, _InformationViewComponent {
+    // sourcery: defaultValue = .normal
+    /// The control state that determines how the switchView element responds to user interaction.
+    ///
+    /// Possible values:
+    /// - `.normal`: Fully interactive (default)
+    /// - `.disabled`: Not interactive but visually unchanged
+    /// - `.readOnly`: Not interactive and visually indicates read-only state
+    var controlState: ControlState { get }
+}
 
 /// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
 ///

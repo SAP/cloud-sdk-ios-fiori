@@ -1254,6 +1254,12 @@ extension StartSignatureAction: _ViewEmptyChecking {
     }
 }
 
+extension StateLabel: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        stateLabel.isEmpty
+    }
+}
+
 extension Status: _ViewEmptyChecking {
     public var isEmpty: Bool {
         status.isEmpty
@@ -1318,7 +1324,10 @@ extension Switch: _ViewEmptyChecking {
 
 extension SwitchView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        title.isEmpty
+        title.isEmpty &&
+            stateLabel.isEmpty &&
+            icon.isEmpty &&
+            description.isEmpty
     }
 }
 

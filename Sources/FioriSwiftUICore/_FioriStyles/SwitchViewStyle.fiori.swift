@@ -7,21 +7,38 @@ import SwiftUI
 // Base Layout style
 public struct SwitchViewBaseStyle: SwitchViewStyle {
     public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
-        ViewThatFits {
-            HStack {
-                configuration.title
-                Spacer()
-                configuration._switch
-            }
+        HStack(alignment: .firstTextBaseline, spacing: 16) {
             VStack(alignment: .leading, spacing: 0) {
                 configuration.title
-                HStack {
-                    Spacer()
-                    configuration._switch
+                if !configuration._informationView.isEmpty {
+                    configuration._informationView
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            switchStack(configuration: configuration)
+                .frame(minWidth: 44, alignment: .trailing)
         }
         .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(configuration.controlState != .readOnly ? [.isToggle] : [])
+    }
+}
+
+struct switchStack: View {
+    let configuration: SwitchViewConfiguration
+    
+    var body: some View {
+        if self.configuration.controlState == .readOnly {
+            if self.configuration.stateLabel.isEmpty {
+                Text(self.configuration.isOn ? NSLocalizedString("Switch On", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Switch Off", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .font(.fiori(forTextStyle: .body))
+                    .foregroundStyle(Color.preferredColor(.primaryLabel))
+            } else {
+                self.configuration.stateLabel
+            }
+        } else {
+            self.configuration._switch
+                .alignmentGuide(VerticalAlignment.firstTextBaseline) { d in d.height * 0.75 }
+        }
     }
 }
 
@@ -39,7 +56,7 @@ extension SwitchViewFioriStyle {
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                .foregroundStyle(Color.preferredColor((!self.isEnabled || self.switchViewConfiguration.controlState == .disabled) ? .quaternaryLabel : .primaryLabel))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
@@ -61,6 +78,7 @@ extension SwitchViewFioriStyle {
                 .ifApply(self.shadowEffectConfiguration.showShadow) { content in
                     content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
                 }
+                .disabled(self.switchViewConfiguration.controlState == .disabled || !self.isEnabled)
         }
         
         var borderShape: some Shape {
@@ -69,6 +87,40 @@ extension SwitchViewFioriStyle {
             } else {
                 return RoundedRectangle(cornerRadius: 16)
             }
+        }
+    }
+    
+    struct StateLabelFioriStyle: StateLabelStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+
+        func makeBody(_ configuration: StateLabelConfiguration) -> some View {
+            StateLabel(configuration)
+                .font(.fiori(forTextStyle: .body))
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+        }
+    }
+    
+    struct IconFioriStyle: IconStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+    
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+        }
+    }
+    
+    struct DescriptionFioriStyle: DescriptionStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+    
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+        }
+    }
+    
+    struct InformationViewFioriStyle: InformationViewStyle {
+        let switchViewConfiguration: SwitchViewConfiguration
+    
+        func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+            InformationView(configuration)
         }
     }
 }

@@ -107,12 +107,13 @@ public extension LibraryPreviewData.Person {
         } label: {
             Image(systemName: "phone")
         }.foregroundColor(.orange)
-        ForEach(Emails, id: \.self) { email in
+            .accessibilityValue("Person: \(UserName)")
+        ForEach(0 ..< Emails.count, id: \.self) { index in
             Button {
-                print("Mailing person: \(UserName) at email address: \(email)")
+                print("Mailing person: \(UserName) at email address: \(Emails[index])")
             } label: {
-                Image(systemName: "mail")
-            }
+                Image(systemName: index % 2 == 0 ? "mail" : "envelope")
+            }.accessibilityValue(Emails[index])
         }.foregroundColor(.red)
     }
 }
