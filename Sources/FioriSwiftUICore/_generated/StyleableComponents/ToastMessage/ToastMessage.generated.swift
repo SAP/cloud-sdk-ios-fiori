@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -28,6 +28,8 @@ public struct ToastMessage {
     let borderColorIC: Color
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     let shadow: FioriShadowStyle?
+    /// A message communicating the toast message's content to be read by voiceover when the component appears.
+    let accessibilityMessage: String?
 
     @Environment(\.toastMessageStyle) var style
 
@@ -47,6 +49,7 @@ public struct ToastMessage {
                 borderWidthIC: CGFloat = 1,
                 borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
                 shadow: FioriShadowStyle? = FioriShadowStyle.level3,
+                accessibilityMessage: String? = nil,
                 componentIdentifier: String? = ToastMessage.identifier)
     {
         self.icon = Icon(icon: icon, componentIdentifier: componentIdentifier)
@@ -61,6 +64,7 @@ public struct ToastMessage {
         self.borderWidthIC = borderWidthIC
         self.borderColorIC = borderColorIC
         self.shadow = shadow
+        self.accessibilityMessage = accessibilityMessage
         self.componentIdentifier = componentIdentifier ?? ToastMessage.identifier
     }
 }
@@ -81,9 +85,10 @@ public extension ToastMessage {
          borderColor: Color = Color.clear,
          borderWidthIC: CGFloat = 1,
          borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
-         shadow: FioriShadowStyle? = FioriShadowStyle.level3)
+         shadow: FioriShadowStyle? = FioriShadowStyle.level3,
+         accessibilityMessage: String? = nil)
     {
-        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position, spacing: spacing, cornerRadius: cornerRadius, backgroundColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, borderWidthIC: borderWidthIC, borderColorIC: borderColorIC, shadow: shadow)
+        self.init(icon: { icon }, title: { Text(title) }, duration: duration, position: position, spacing: spacing, cornerRadius: cornerRadius, backgroundColor: backgroundColor, borderWidth: borderWidth, borderColor: borderColor, borderWidthIC: borderWidthIC, borderColorIC: borderColorIC, shadow: shadow, accessibilityMessage: accessibilityMessage)
     }
 }
 
@@ -105,6 +110,7 @@ public extension ToastMessage {
         self.borderWidthIC = configuration.borderWidthIC
         self.borderColorIC = configuration.borderColorIC
         self.shadow = configuration.shadow
+        self.accessibilityMessage = configuration.accessibilityMessage
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -115,7 +121,7 @@ extension ToastMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow, accessibilityMessage: self.accessibilityMessage)).typeErased
                 .transformEnvironment(\.toastMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -133,7 +139,7 @@ private extension ToastMessage {
     }
 
     func defaultStyle() -> some View {
-        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow))
+        ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow, accessibilityMessage: self.accessibilityMessage))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())
             .typeErased
