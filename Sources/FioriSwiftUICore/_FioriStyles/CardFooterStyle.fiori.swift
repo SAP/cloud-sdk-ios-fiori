@@ -91,7 +91,7 @@ private struct CardFooterLayout: Layout {
         cache.clear()
         
         let subViewSizes = subviews.reversed().map {
-            $0.sizeThatFits(proposal)
+            $0.sizeThatFits(.unspecified)
         }
         
         self.calculateLayout(proposalWidth: proposal.width, subViewSizes: subViewSizes, layoutMode: layoutMode, cache: &cache)
