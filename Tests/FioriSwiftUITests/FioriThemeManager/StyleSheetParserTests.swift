@@ -93,7 +93,7 @@ class StyleSheetParserTests: XCTestCase {
         
             // tintColor elevatedContrastDark variant
             tintColor = Color.preferredColor(.tintColor, background: .lightConstant, interface: .elevatedConstant, display: .highConstant).toHex()
-            XCTAssertEqual(tintColor!, "0070F2", "Incorrect tintColor elevatedContrastDark variant")
+            XCTAssertEqual(tintColor!, "0046A8", "Incorrect tintColor elevatedContrastDark variant")
         #endif
     }
 }

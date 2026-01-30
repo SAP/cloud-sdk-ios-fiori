@@ -75,221 +75,233 @@ struct BannerMultiMessageModifierExample: View {
         return msgText
     }
     
+    @State private var viewDetailId: UUID? = nil
+    
     var body: some View {
-        ScrollViewReader { _ in
-            List {
-                Section {
-                    if self.showAINotice, self.showAINoticeOnBanner {
-                        BannerMessage(icon: {
-                            Image(fioriName: "fiori.ai")
-                                .accessibilityLabel(Text("ai notice"))
-                        }, title: {
-                            self.noticeTitleView
-                        }, bannerTapAction: {
-                            self.toggleShowSheet()
-                        }, messageType: self.showAINotice ? .aiNotice : .negative)
-                            .topDividerStyle { c in
-                                c.topDivider.background(.purple)
-                            }
-                            .iconStyle { c in
-                                c.icon.foregroundStyle(.purple)
-                            }
-                            .titleStyle { c in
-                                c.title.foregroundStyle(.purple)
-                            }
-                            .closeActionStyle { c in
-                                c.closeAction.foregroundStyle(.purple)
-                            }
-                            .padding(.horizontal, -16)
-                    }
-                }
-                .listRowSeparator(.hidden)
-                Section {
-                    HStack {
-                        Spacer()
-                        ZStack {
-                            Text("Check Result")
-                            
-                            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
-                            Text("\(self.refreshFlag ? "true" : "false")")
-                                .frame(height: 0.01)
-                                .opacity(0)
+        VStack(spacing: 0) {
+            Section {
+                if self.showAINotice, self.showAINoticeOnBanner {
+                    BannerMessage(icon: {
+                        Image(fioriName: "fiori.ai")
+                            .accessibilityLabel(Text("ai notice"))
+                    }, title: {
+                        self.noticeTitleView
+                    }, bannerTapAction: {
+                        self.toggleShowSheet()
+                    }, messageType: self.showAINotice ? .aiNotice : .negative)
+                        .topDividerStyle { c in
+                            c.topDivider.background(.purple)
                         }
-                        Spacer()
-                    }
-                    .bannerMultiMessageSheet(isPresented: self.$showingMessageDetail, title: {
-                        Text("CustomMessagesCount")
-                    }, bannerMultiMessages: self.$bannerMultiMessages)
+                        .iconStyle { c in
+                            c.icon.foregroundStyle(.purple)
+                        }
+                        .titleStyle { c in
+                            c.title.foregroundStyle(.purple)
+                        }
+                        .closeActionStyle { c in
+                            c.closeAction.foregroundStyle(.purple)
+                        }
+                        .padding(.horizontal, -16)
                 }
-                .listRowSeparator(.hidden)
-                .environment(\.defaultMinListRowHeight, 0)
-                .environment(\.defaultMinListHeaderHeight, 0)
-                
-                Section {
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 15)
-                        .listRowInsets(EdgeInsets())
-                    
-                    KeyValueItem {
-                        Text("Effective Date")
-                    } value: {
-                        Text("\(self.currentDateStr)")
+            }
+            .listRowSeparator(.hidden)
+            Section {
+                HStack {
+                    Spacer()
+                    ZStack {
+                        Text("Check Result")
+                        
+                        // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+                        Text("\(self.refreshFlag ? "true" : "false")")
+                            .frame(height: 0.01)
+                            .opacity(0)
                     }
-                    
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 15)
-                        .listRowInsets(EdgeInsets())
+                    Spacer()
                 }
-                .listRowSeparator(.hidden)
-                .environment(\.defaultMinListRowHeight, 0)
-                .environment(\.defaultMinListHeaderHeight, 0)
-                
-                Section {
-                    TextFieldFormView(title: "First Name", text: self.$firstName, placeholder: "Placeholder", errorMessage: self.firstNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
-                        .id(self.firstNameId)
-                        .aiNoticeView(isPresented: self.$showAINotice)
+                .bannerMultiMessageSheet(isPresented: self.$showingMessageDetail, title: {
+                    Text("CustomMessagesCount")
+                }, viewDetailAction: { id in
+                    self.viewDetailId = id
+                }, bannerMultiMessages: self.$bannerMultiMessages)
+            }
+            .listRowSeparator(.hidden)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            
+            ScrollViewReader { proxy in
+                List {
+                    Section {
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 15)
+                            .listRowInsets(EdgeInsets())
+                        
+                        KeyValueItem {
+                            Text("Effective Date")
+                        } value: {
+                            Text("\(self.currentDateStr)")
+                        }
+                        
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 15)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                     
-                    TextFieldFormView(title: "Middle Name", text: self.$middleName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.middleNameId)
+                    Section {
+                        TextFieldFormView(title: "First Name", text: self.$firstName, placeholder: "Placeholder", errorMessage: self.firstNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
+                            .aiNoticeView(isPresented: self.$showAINotice)
+                            .id(self.firstNameId)
+                        
+                        TextFieldFormView(title: "Middle Name", text: self.$middleName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
+                            .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
+                            .id(self.middleNameId)
+                        
+                        TextFieldFormView(title: "Last Name", text: self.$lastName, placeholder: "Placeholder", errorMessage: self.lastNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
+                            .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with link. ", actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
+                            .id(self.lastNameId)
+                            .iconStyle(content: { config in
+                                config.icon.foregroundStyle(Color.purple)
+                            })
+                        
+                        TextFieldFormView(title: "Preferred Name", text: self.$preferredName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: AttributedString("Starting 2025, preferred name is a required field."), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
+                            .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                            .id(self.preferredNameId)
+                        
+                        TextFieldFormView(title: "Partner Name Prefix", text: self.$partnerNamePrefix, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
+                            .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                            .id(self.partnerNamePrefixId)
+                            .sheet(isPresented: self.$showBottomSheet) {
+                                Text("detail information")
+                                    .presentationDetents([.height(250), .medium])
+                                    .presentationDragIndicator(.visible)
+                            }
+                        
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 30)
+                            .listRowInsets(EdgeInsets())
+                    } header: {
+                        Text("Name Information")
+                            .font(.fiori(forTextStyle: .subheadline))
+                            .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    }
+                    .listRowSeparator(.hidden, edges: .bottom)
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
+                    
+                    Section {
+                        Picker(selection: self.$gender) {
+                            Text("Female").tag("Female")
+                            Text("Male").tag("Male")
+                        } label: {
+                            Text("Gender*")
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        }
+                        .pickerStyle(.navigationLink)
+                        .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                        .id(self.genderId)
+                        
+                        TextFieldFormView(title: "Email Address", text: self.$emailAddress, placeholder: "Placeholder", errorMessage: self.emailAddressErrorMessage, maxTextLength: 100, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
+                            .listRowSeparator(.hidden, edges: .bottom)
+                            .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                            .id(self.emailAddressId)
+                            .sheet(isPresented: self.$showBottomSheet) {
+                                Text("detail information")
+                                    .font(.fiori(forTextStyle: .footnote, weight: .semibold))
+                                    .foregroundStyle(Color.preferredColor(.tintColor))
+                                    .presentationDetents([.height(250), .medium])
+                                    .presentationDragIndicator(.visible)
+                            }
+                        
+                        Picker(selection: self.$maritalStatus) {
+                            Text("Married").tag("Married")
+                            Text("Single").tag("Single")
+                        } label: {
+                            Text("Marital Status*")
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        }
+                        .pickerStyle(.navigationLink)
                         .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
-                    
-                    TextFieldFormView(title: "Last Name", text: self.$lastName, placeholder: "Placeholder", errorMessage: self.lastNameErrorMessage, maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
-                        .id(self.lastNameId)
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with link. ", actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
-                        .iconStyle(content: { config in
-                            config.icon.foregroundStyle(Color.purple)
-                        })
-                    
-                    TextFieldFormView(title: "Preferred Name", text: self.$preferredName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: AttributedString("Starting 2025, preferred name is a required field."), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.preferredNameId)
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-                    
-                    TextFieldFormView(title: "Partner Name Prefix", text: self.$partnerNamePrefix, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.partnerNamePrefixId)
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
-                        .sheet(isPresented: self.$showBottomSheet) {
-                            Text("detail information")
-                                .presentationDetents([.height(250), .medium])
-                                .presentationDragIndicator(.visible)
+                        .id(self.maritalStatusId)
+                        
+                        KeyValueItem {
+                            Text("Marital Status Since*")
+                        } value: {
+                            Text(self.maritalStatusSince)
                         }
-                    
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 30)
-                        .listRowInsets(EdgeInsets())
-                } header: {
-                    Text("Name Information")
-                        .font(.fiori(forTextStyle: .subheadline))
-                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
+                        .id(self.maritalStatusSinceId)
+                        
+                        Picker(selection: self.$nativePreferredLanguage) {
+                            Text("English").tag("English")
+                        } label: {
+                            Text("Native Preferred Language")
+                                .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                        }
+                        .pickerStyle(.navigationLink)
+                        .id(self.nativePreferredLanguageId)
+                        
+                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            .frame(height: 30)
+                            .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden)
+                    } header: {
+                        Text("Additional Information")
+                            .font(.fiori(forTextStyle: .subheadline))
+                            .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                    }
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 }
-                .listRowSeparator(.hidden, edges: .bottom)
-                .environment(\.defaultMinListRowHeight, 0)
-                .environment(\.defaultMinListHeaderHeight, 0)
-                
-                Section {
-                    Picker(selection: self.$gender) {
-                        Text("Female").tag("Female")
-                        Text("Male").tag("Male")
-                    } label: {
-                        Text("Gender*")
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.primaryLabel))
-                    }
-                    .pickerStyle(.navigationLink)
-                    .id(self.genderId)
-                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                    
-                    TextFieldFormView(title: "Email Address", text: self.$emailAddress, placeholder: "Placeholder", errorMessage: self.emailAddressErrorMessage, maxTextLength: 100, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
-                        .listRowSeparator(.hidden, edges: .bottom)
-                        .id(self.emailAddressId)
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
-                        .sheet(isPresented: self.$showBottomSheet) {
-                            Text("detail information")
-                                .font(.fiori(forTextStyle: .footnote, weight: .semibold))
-                                .foregroundStyle(Color.preferredColor(.tintColor))
-                                .presentationDetents([.height(250), .medium])
-                                .presentationDragIndicator(.visible)
-                        }
-                    
-                    Picker(selection: self.$maritalStatus) {
-                        Text("Married").tag("Married")
-                        Text("Single").tag("Single")
-                    } label: {
-                        Text("Marital Status*")
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.primaryLabel))
-                    }
-                    .pickerStyle(.navigationLink)
-                    .id(self.maritalStatusId)
-                    .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
-                    
-                    KeyValueItem {
-                        Text("Marital Status Since*")
-                    } value: {
-                        Text(self.maritalStatusSince)
-                    }
-                    .id(self.maritalStatusSinceId)
-                    .aiNoticeView(isPresented: self.$showAINotice, description: self.customizeNoticeMsg)
-                    
-                    Picker(selection: self.$nativePreferredLanguage) {
-                        Text("English").tag("English")
-                    } label: {
-                        Text("Native Preferred Language")
-                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                            .foregroundStyle(Color.preferredColor(.primaryLabel))
-                    }
-                    .pickerStyle(.navigationLink)
-                    .id(self.nativePreferredLanguageId)
-                    
-                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                        .frame(height: 30)
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                } header: {
-                    Text("Additional Information")
-                        .font(.fiori(forTextStyle: .subheadline))
-                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                }
-                .environment(\.defaultMinListRowHeight, 0)
-                .environment(\.defaultMinListHeaderHeight, 0)
-            }
-            .listStyle(.inset)
-            .listSectionSeparator(.hidden)
-            .navigationTitle("Edit")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Button(NSLocalizedString("Save", comment: "")) {
-                            self.validateUploadData()
-                        }
-                        .padding(.trailing, 16)
-                        Button(NSLocalizedString("Options", comment: "")) {
-                            self.isOptionPresented = true
+                .listStyle(.inset)
+                .listSectionSeparator(.hidden)
+                .navigationTitle("Edit")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        HStack {
+                            Button(NSLocalizedString("Save", comment: "")) {
+                                self.validateUploadData()
+                            }
+                            .padding(.trailing, 16)
+                            Button(NSLocalizedString("Options", comment: "")) {
+                                self.isOptionPresented = true
+                            }
                         }
                     }
                 }
-            }
-            .onChange(of: self.firstName) {
-                self.validateUploadData()
-            }
-            .onChange(of: self.lastName) {
-                self.validateUploadData()
-            }
-            .onChange(of: self.emailAddress) {
-                self.validateUploadData()
-            }
-            .sheet(isPresented: self.$isOptionPresented, content: {
-                VStack {
-                    Toggle("Show AI Notice", isOn: self.$showAINotice)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
-                    Toggle("Show AI Notice on Banner", isOn: self.$showAINoticeOnBanner)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
+                .onChange(of: self.viewDetailId) {
+                    if self.viewDetailId != nil {
+                        proxy.scrollTo(self.viewDetailId)
+                    }
+                    self.viewDetailId = nil
                 }
-                .padding()
-                .presentationDetents([.medium])
-            })
+                .onChange(of: self.firstName) {
+                    self.validateUploadData()
+                }
+                .onChange(of: self.lastName) {
+                    self.validateUploadData()
+                }
+                .onChange(of: self.emailAddress) {
+                    self.validateUploadData()
+                }
+                .sheet(isPresented: self.$isOptionPresented, content: {
+                    VStack {
+                        Toggle("Show AI Notice", isOn: self.$showAINotice)
+                            .padding(.leading, 16)
+                            .padding(.trailing, 16)
+                        Toggle("Show AI Notice on Banner", isOn: self.$showAINoticeOnBanner)
+                            .padding(.leading, 16)
+                            .padding(.trailing, 16)
+                    }
+                    .padding()
+                    .presentationDetents([.medium])
+                })
+            }
         }
     }
     
@@ -335,14 +347,6 @@ struct BannerMultiMessageModifierExample: View {
         }
         return nil
     }
-
-    private func attributedMessageTitle(title: String, typeDesc: String) -> AttributedString {
-        let attributedString = NSMutableAttributedString(string: title)
-        
-        let viewDetail = NSAttributedString(string: " View \(typeDesc)", attributes: [.foregroundColor: UIColor(Color.preferredColor(.tintColor))])
-        attributedString.append(viewDetail)
-        return AttributedString(attributedString)
-    }
     
     var currentDateStr: String {
         let formatter = DateFormatter()
@@ -383,7 +387,7 @@ struct BannerMultiMessageModifierExample: View {
             self.firstNameErrorMessage = AttributedString()
             informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: EmptyView(), title: tips, messageType: .positive))
             
-            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips, messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips, messageType: .positive, showDetailLink: false))
         }
         
         if self.lastName.isEmpty {

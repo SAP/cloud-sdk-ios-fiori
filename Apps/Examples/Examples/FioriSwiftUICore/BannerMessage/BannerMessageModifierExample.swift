@@ -10,7 +10,7 @@ struct BannerMessageModifierExample: View {
     @State var showBottomSheet: Bool = false
     @State var messageType: BannerMultiMessageType = .negative
     @State var hidesCloseAction: Bool = false
-    @State var alignment: Int = 1
+    @State var alignment: Int = 0
     
     @ViewBuilder
     var titleView: some View {
