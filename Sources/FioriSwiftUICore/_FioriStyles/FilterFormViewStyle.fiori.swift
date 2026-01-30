@@ -135,9 +135,11 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                 }
                 .frame(minHeight: self.filterFormOptionMinTouchHeight)
                 .contentShape(Rectangle())
-                .onTapGesture {
-                    self.handleItemClick(configuration, index: index)
-                }
+                .ifApply(configuration.isEnabled, content: {
+                    $0.onTapGesture {
+                        self.handleItemClick(configuration, index: index)
+                    }
+                })
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(
                     Text("\(option), \((isSelected ? "selected" : "not selected").localizedFioriString())")
