@@ -15,7 +15,6 @@ struct BannerMultiMessageExample: View {
     private var withLink: Bool = false
     private var withAttachedAction: Bool = false
     private var withLongText: Bool = false
-    private var alignmentRawValue = 1
     private var turnOnSectionHeader = true
     
     @State var showsErrorMessage = true
@@ -98,20 +97,20 @@ struct BannerMultiMessageExample: View {
                 
                 Section {
                     TextFieldFormView(title: "First Name", text: self.$firstName, placeholder: "Placeholder", errorMessage: self.firstNameErrorMessage, maxTextLength: 20, hintText: AttributedString("hintText"), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
-                        .id(self.firstNameId)
                         .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                        .id(self.firstNameId)
                     
                     TextFieldFormView(title: "Middle Name", text: self.$middleName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.middleNameId)
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with link. ", actionLabel: "View more", viewMoreAction: self.openURL)
+                        .id(self.middleNameId)
                     
                     TextFieldFormView(title: "Last Name", text: self.$lastName, placeholder: "Placeholder", errorMessage: self.lastNameErrorMessage, maxTextLength: 20, hintText: AttributedString("hintText"), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
-                        .id(self.lastNameId)
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
+                        .id(self.lastNameId)
                     
                     TextFieldFormView(title: "Preferred Name", text: self.$preferredName, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: AttributedString("Starting 2025, preferred name is a required field."), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.preferredNameId)
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
+                        .id(self.preferredNameId)
                         .sheet(isPresented: self.$showBottomSheet) {
                             Text("detail information")
                                 .presentationDetents([.height(250), .medium])
@@ -119,8 +118,8 @@ struct BannerMultiMessageExample: View {
                         }
                     
                     TextFieldFormView(title: "Partner Name Prefix", text: self.$partnerNamePrefix, placeholder: "Placeholder", errorMessage: AttributedString(""), maxTextLength: 20, hintText: AttributedString("hintText"), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: false, actionIcon: nil, action: nil)
-                        .id(self.partnerNamePrefixId)
                         .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                        .id(self.partnerNamePrefixId)
                     
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
@@ -144,13 +143,13 @@ struct BannerMultiMessageExample: View {
                             .foregroundStyle(Color.preferredColor(.primaryLabel))
                     }
                     .pickerStyle(.navigationLink)
-                    .id(self.genderId)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                    .id(self.genderId)
                     
                     TextFieldFormView(title: "Email Address", text: self.$emailAddress, placeholder: "Placeholder", errorMessage: self.emailAddressErrorMessage, maxTextLength: 100, hintText: nil, isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: true, actionIcon: nil, action: nil)
                         .listRowSeparator(.hidden, edges: .bottom)
-                        .id(self.emailAddressId)
                         .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                        .id(self.emailAddressId)
                     
                     Picker(selection: self.$maritalStatus) {
                         Text("Married").tag("Married")
@@ -161,16 +160,16 @@ struct BannerMultiMessageExample: View {
                             .foregroundStyle(Color.preferredColor(.primaryLabel))
                     }
                     .pickerStyle(.navigationLink)
-                    .id(self.maritalStatusId)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                    .id(self.maritalStatusId)
                     
                     KeyValueItem {
                         Text("Marital Status Since*")
                     } value: {
                         Text(self.maritalStatusSince)
                     }
-                    .id(self.maritalStatusSinceId)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                    .id(self.maritalStatusSinceId)
                     
                     Picker(selection: self.$nativePreferredLanguage) {
                         Text("English").tag("English")
@@ -180,8 +179,8 @@ struct BannerMultiMessageExample: View {
                             .foregroundStyle(Color.preferredColor(.primaryLabel))
                     }
                     .pickerStyle(.navigationLink)
-                    .id(self.nativePreferredLanguageId)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                    .id(self.nativePreferredLanguageId)
                     
                     Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
                         .frame(height: 30)
@@ -207,8 +206,10 @@ struct BannerMultiMessageExample: View {
             }, bannerTapped: {
                 print("banner is tapped")
             }, viewDetailAction: { id in
-                proxy.scrollTo(id)
-            }, alignment: self.alignment, showDetailLink: true, bannerMultiMessages: self.$bannerMultiMessages)
+                withAnimation {
+                    proxy.scrollTo(id)
+                }
+            }, alignment: self.alignment == 0 ? .leading : .center, showDetailLink: true, bannerMultiMessages: self.$bannerMultiMessages)
             .navigationTitle("Edit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -234,15 +235,15 @@ struct BannerMultiMessageExample: View {
                 self.validateUploadData()
             }
             .sheet(isPresented: self.$isOptionPresented, content: {
-                VStack {
+                List {
                     Toggle("Show AI Notice", isOn: self.$showAINotice)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
                     Toggle("Show AI Notice on Banner", isOn: self.$showAINoticeOnBanner)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
+                    
+                    Picker("Top banner alignment", selection: self.$alignment) {
+                        Text("Leading").tag(0)
+                        Text("Center").tag(1)
+                    }
                 }
-                .padding()
                 .presentationDetents([.medium])
             })
         }
@@ -266,16 +267,7 @@ struct BannerMultiMessageExample: View {
     
     @State var bannerMultiMessages: [BannerMessageListModel] = []
     
-    private var alignment: HorizontalAlignment {
-        switch self.alignmentRawValue {
-        case 0:
-            return .leading
-        case 1:
-            return .center
-        default:
-            return .trailing
-        }
-    }
+    @State var alignment: Int = 0
     
     func validateUploadData() {
         var errorMessages: [BannerMessageItemModel] = []
@@ -295,12 +287,12 @@ struct BannerMultiMessageExample: View {
         } else {
             let tips = "First name correct."
             self.firstNameErrorMessage = AttributedString()
-            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: EmptyView(), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
             informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false, showCloseAction: false))
             informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive, showDetailLink: false))
-            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive))
-            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips + " Empty icon.", messageType: .positive))
-            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: nil, title: tips + " SDK default icon.", messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: self.firstNameId, icon: Image(fioriName: "fiori.home"), title: tips + " Developer custom icon.", messageType: .positive))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: EmptyView(), title: tips + " Empty icon.", messageType: .positive, showDetailLink: false))
+            informationMessages.append(BannerMessageItemModel(id: UUID(), icon: nil, title: tips + " SDK default icon.", messageType: .positive, showDetailLink: false))
         }
         
         if self.lastName.isEmpty {
