@@ -5,19 +5,60 @@ import SwiftUI
 // Base Layout style
 public struct EULAViewBaseStyle: EULAViewStyle {
     public func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        Group {
+            if #available(iOS 26, *) {
+                containerView(configuration)
+            } else {
+                self.legacyContainerView(configuration)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                self.navBarLeadingView(configuration)
+                    .fixedSize()
+            }
+        }
+    }
+    
+    func containerView(_ configuration: EULAViewConfiguration) -> some View {
+        ScrollView(.vertical, showsIndicators: true) {
+            VStack {
+                configuration.title
+                    .padding(.vertical, 30)
+                configuration.bodyText
+            }
+            .padding(.horizontal, 32)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                configuration.disagreeAction
+                    .fixedSize()
+                    .onSimultaneousTapGesture {
+                        configuration.didDisagree?()
+                    }
+                Spacer()
+                configuration.agreeAction
+                    .fixedSize()
+                    .onSimultaneousTapGesture {
+                        configuration.didAgree?()
+                    }
+            }
+        }
+    }
+    
+    func legacyContainerView(_ configuration: EULAViewConfiguration) -> some View {
         VStack {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack {
                     configuration.title
-                        .padding(.top, 30)
-                        .padding(.bottom, 30)
-                    
+                        .padding(.vertical, 30)
                     configuration.bodyText
                 }
             }
             .padding(.top, 2)
-            .padding(.leading, 32)
-            .padding(.trailing, 32)
+            .padding(.horizontal, 32)
                         
             HStack {
                 configuration.disagreeAction
@@ -33,14 +74,6 @@ public struct EULAViewBaseStyle: EULAViewStyle {
                     }
             }
             .padding()
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                self.navBarLeadingView(configuration)
-                    .fixedSize()
-            }
         }
     }
     
