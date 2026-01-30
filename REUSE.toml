@@ -11,7 +11,7 @@ SPDX-FileCopyrightText = "2020 SAP SE or an SAP affiliate company and cloud-sdk-
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
-path = ["**.md", ".czrc", ".github/**", ".gitignore", "jazzy/**", ".mailmap", "Package.resolved", "sonar-project.properties", "sourcery/**", "scripts/**", "translation_v2.json", "**.yaml", "**.yml", "Brewfile", "Mintfile", ".swift-version", ".swiftformat", "Makefile"]
+path = ["**.md", ".czrc", ".github/**", ".gitignore", "jazzy/**", ".mailmap", "Package.resolved", "sonar-project.properties", "sourcery/**", "scripts/**", "translation_v2.json", "**.yaml", "**.yml", "Brewfile", "Mintfile", ".swift-version", ".swiftformat", "Makefile", ".hyperspace/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2020 SAP SE or an SAP affiliate company and cloud-sdk-ios-fiori contributors"
 SPDX-License-Identifier = "Apache-2.0"
