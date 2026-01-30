@@ -28,7 +28,6 @@ public struct ContactItemConfiguration {
     public let description: Description
     public let detailImage: DetailImage
     public let activityItems: ActivityItems
-    public let usesDetailImageDefaultStyle: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
