@@ -165,11 +165,12 @@ extension ContactItemFioriStyle {
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
+		@Environment(\.removeDetailImageDefaultStyle) private var removeDetailImageDefaultStyle
         let contactItemConfiguration: ContactItemConfiguration
 
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-                .ifApply(self.contactItemConfiguration.usesDetailImageDefaultStyle) {
+                .ifApply(!removeDetailImageDefaultStyle) {
                     $0.frame(width: 45, height: 45, alignment: .center)
                         .clipShape(Circle())
                 }
@@ -186,4 +187,25 @@ extension ContactItemFioriStyle {
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
+}
+
+struct RemoveDetailImageDefaultStyleKey: EnvironmentKey {
+	static var defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+	var removeDetailImageDefaultStyle: Bool {
+		get { self[RemoveDetailImageDefaultStyleKey.self] }
+		set { self[RemoveDetailImageDefaultStyleKey.self] = newValue }
+	}
+}
+
+public extension View {
+	
+	/// Suppot for flexible style of`DetailImage`.
+	/// - Parameter value: A boolean value indicating if the default style is removed. Default value is `false`.
+	/// - Returns: The default style of `DetailImage`is removed or not.
+	func removeDetailImageDefaultStyle(_ value: Bool = true) -> some View {
+		self.environment(\.removeDetailImageDefaultStyle, value)
+	}
 }

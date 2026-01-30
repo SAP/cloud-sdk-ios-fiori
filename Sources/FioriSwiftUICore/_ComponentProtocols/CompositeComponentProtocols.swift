@@ -1390,7 +1390,7 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///     print("tap videoCall")
 /// }), .init(type: .message, didSelectActivityItem: {
 ///     print("tap message")
-/// })])
+/// })]).removeDetailImageDefaultStyle(false)
 ///
 /// ContactItem {
 ///      Text("Headline only example")
@@ -1404,14 +1404,10 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
 ///          print("tap phone")
 ///      })])
-/// }
+/// }.removeDetailImageDefaultStyle(false)
 /// ```
 // sourcery: CompositeComponent
-protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {
-    /// This property determines whether the DdetailImage is displayed using the default style. The default is true.
-    // sourcery: defaultValue = true
-    var usesDetailImageDefaultStyle: Bool { get }
-}
+protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
 
 /// `WelcomeScreen` is used to display a welcome/launch screen to the application for onboarding.  The screen mainly displays the application name, instructions on how to start the activation process and an option to trigger the demo mode of the application.
 /// ## Usage

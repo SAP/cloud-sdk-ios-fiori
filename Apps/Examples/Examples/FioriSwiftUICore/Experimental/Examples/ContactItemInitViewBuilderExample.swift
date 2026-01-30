@@ -29,9 +29,9 @@ struct ContactItemInitViewBuilderExample: View {
                     } else {
                         Image(systemName: "person.crop.circle")
                     }
-                },
-                usesDetailImageDefaultStyle: !self.useDifferentView
+                }
             )
+			.removeDetailImageDefaultStyle(self.useDifferentView ? true : false)
             .exampleHighlighting()
 
             Toggle(isOn: self.$useDifferentView) {
