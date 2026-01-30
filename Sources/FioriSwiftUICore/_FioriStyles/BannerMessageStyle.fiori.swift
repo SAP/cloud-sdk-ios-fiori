@@ -593,8 +593,6 @@ struct BannerMessageModifier: ViewModifier {
     @ViewBuilder var bannerMultiMessageSheet: some View {
         BannerMultiMessageSheet(title: {
             EmptyView()
-        }, closeAction: {
-            EmptyView()
         }, dismissAction: {
             self.showingMessageDetail = false
         }, removeAction: { _, _ in
