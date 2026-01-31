@@ -1393,7 +1393,7 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///     print("tap videoCall")
 /// }), .init(type: .message, didSelectActivityItem: {
 ///     print("tap message")
-/// })])
+/// })]).removeDetailImageDefaultStyle(false)
 ///
 /// ContactItem {
 ///      Text("Headline only example")
@@ -1407,7 +1407,7 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
 ///          print("tap phone")
 ///      })])
-/// }
+/// }.removeDetailImageDefaultStyle(false)
 /// ```
 // sourcery: CompositeComponent
 protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}
