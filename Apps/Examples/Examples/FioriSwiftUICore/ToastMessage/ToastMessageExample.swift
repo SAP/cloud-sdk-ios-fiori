@@ -6,42 +6,43 @@ struct ToastMessageExample: View {
 
     var body: some View {
         List {
-            NavigationLink("Basic Example",
-                           destination: ToastMessageBasicExample())
-            NavigationLink("Position",
-                           destination: ToastMessagePositionExample())
-            NavigationLink("Custom Style",
-                           destination: ToastMessageCustomStyleExample())
-            Button("Sheet View UI Hang") {
+            NavigationLink("Basic Instantiation",
+                           destination: ToastMessageBasicInstantiationExample())
+            NavigationLink("Instantiation with Data Model",
+                           destination: ToastMessageDataModelExample())
+            NavigationLink("Position and Spacing Parameters",
+                           destination: ToastMessagePositionSpacingExample())
+            NavigationLink("Custom Styling",
+                           destination: ToastMessageCustomStylingExample())
+            NavigationLink("Persistence with Custom Vertical Position",
+                           destination: ToastMessagePersistenceExample())
+            Button("Sheet View UI Hang Fix") {
                 self.showSheetView.toggle()
             }
-            NavigationLink("Persistence & Custom Vertical Position",
-                           destination: PersistentToastMessageExample())
-            NavigationLink("Overlay",
-                           destination: ToastMessageOverlayExample())
-
-                .sheet(isPresented: self.$showSheetView) {
-                    ToastMessageSheetViewExample()
-                        .presentationDetents([.medium, .large])
-                }
+            .sheet(isPresented: self.$showSheetView) {
+                ToastMessageSheetViewUIHangFixExample()
+                    .presentationDetents([.medium, .large])
+            }
         }
         .navigationTitle("Toast Message")
     }
 }
 
-struct ToastMessageBasicExample: View {
+struct ToastMessageBasicInstantiationExample: View {
     @State var show: Bool = false
+    @State var duration: Double = 2
+    @State var selectedAccessibilityMessage: String?
+    @Environment(\.globalToastMessageSettings) var globalToastMessageSettings
     
     var body: some View {
         List {
-            ForEach(0 ..< 6) { index in
-                Text("cell at index: \(index)")
-            }
             Button {
                 self.show.toggle()
             } label: {
                 Text("Show / Hide")
             }
+            ToastMessageAccessibilityMessagePicker(selectedAccessibilityMessage: self.$selectedAccessibilityMessage)
+            ToastMessageDurationSlider(duration: self.$duration)
         }
         .toastMessage(isPresented: self.$show,
                       icon: {
@@ -50,12 +51,50 @@ struct ToastMessageBasicExample: View {
                       title: {
                           Text("Toast Message Title")
                       },
-                      duration: 5)
+                      duration: self.duration,
+                      accessibilityMessage: self.selectedAccessibilityMessage)
         .navigationTitle("Toast Message")
     }
 }
 
-struct ToastMessagePositionExample: View {
+struct ToastMessageDataModelExample: View {
+    @State var toast: ToastMessage? = nil
+    @State var show: Bool = false
+    @State var customizeToastMessageStyle: Bool = false
+    @State var duration: Double = 5
+    @State var selectedAccessibilityMessage: String?
+    let toastMessageCustomStyle = ToastMessageRoundedBorderStyle(cornerRadius: 0, backgroundColor: .mint, borderWidth: 2, borderColor: .purple)
+    let title = Text("Unable to submit request. Please try again later.")
+    let image = Image(systemName: "info.circle")
+    
+    var body: some View {
+        List {
+            Button {
+                self.show.toggle()
+                self.toast = self.show ? ToastMessage(icon: self.customizeToastMessageStyle ?
+                    { self.image.foregroundStyle(.orange) } : { self.image },
+                    title: self.customizeToastMessageStyle ?
+                        { self.title.foregroundStyle(.green) } : { self.title },
+                    duration: self.duration,
+                    accessibilityMessage: self.selectedAccessibilityMessage) : nil
+            } label: {
+                Text("Show / Hide")
+            }
+            Toggle("Apply custom style", isOn: self.$customizeToastMessageStyle)
+            ToastMessageDurationSlider(duration: self.$duration)
+            ToastMessageAccessibilityMessagePicker(selectedAccessibilityMessage: self.$selectedAccessibilityMessage)
+        }
+        .ifApply(!self.customizeToastMessageStyle) {
+            $0.toastMessage(toast: self.$toast)
+        }
+        .ifApply(self.customizeToastMessageStyle) {
+            $0.toastMessage(toast: self.$toast, style: self.toastMessageCustomStyle)
+        }
+        .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessagePositionSpacingExample: View {
     @State var selectedPosition: ToastMessagePosition = .above
     @State var spacing: CGFloat = 0
     @State var parentViewHeight: CGFloat = 100
@@ -95,7 +134,7 @@ struct ToastMessagePositionExample: View {
     }
 }
 
-struct ToastMessageCustomStyleExample: View {
+struct ToastMessageCustomStylingExample: View {
     var body: some View {
         ScrollView {
             VStack {
@@ -306,7 +345,34 @@ struct ToastMessageCustomStyleExample: View {
     }
 }
 
-struct ToastMessageSheetViewExample: View {
+struct ToastMessagePersistenceExample: View {
+    @Environment(\.globalToastMessageSettings) var globalToastSettings
+
+    var body: some View {
+        List {
+            Button {
+                self.globalToastSettings.wrappedValue.isPresented.toggle()
+            } label: {
+                Text("Show / Hide")
+            }
+            Toggle("Apply custom style", isOn: Binding(
+                get: { self.globalToastSettings.wrappedValue.isCustomized },
+                set: { self.globalToastSettings.wrappedValue.isCustomized = $0 }
+            ))
+            ToastMessageDurationSlider(duration: Binding(
+                get: { self.globalToastSettings.wrappedValue.duration },
+                set: { self.globalToastSettings.wrappedValue.duration = $0 }
+            ))
+            ToastMessageAccessibilityMessagePicker(selectedAccessibilityMessage: Binding(
+                get: { self.globalToastSettings.wrappedValue.accessibilityMessage },
+                set: { self.globalToastSettings.wrappedValue.accessibilityMessage = $0 }
+            ))
+        }
+        .navigationTitle("Toast Message")
+    }
+}
+
+struct ToastMessageSheetViewUIHangFixExample: View {
     var body: some View {
         VStack(spacing: 0) {
             Text("Sample text")
@@ -317,60 +383,42 @@ struct ToastMessageSheetViewExample: View {
     }
 }
 
-struct PersistentToastMessageExample: View {
-    @Environment(\.showGlobalToastMessage) var showGlobalToastMessage
-    @Environment(\.customizeGlobalToastMessage) var customizeGlobalToastMessage
+struct ToastMessageAccessibilityMessagePicker: View {
+    @Binding var selectedAccessibilityMessage: String?
+    let accessibilityMessagePresets: [String?] = [nil, "", "Product saved.", "Unable to submit request. Please try again later."]
 
     var body: some View {
-        List {
-            ForEach(0 ..< 6) { index in
-                Text("cell at index: \(index)")
+        VStack(alignment: .leading) {
+            Text("Accessibility Message")
+            Picker("Accessibility Message", selection: self.$selectedAccessibilityMessage) {
+                Text("Unset").tag(self.accessibilityMessagePresets[0])
+                Text("Empty").tag(self.accessibilityMessagePresets[1])
+                Text("Short").tag(self.accessibilityMessagePresets[2])
+                Text("Long").tag(self.accessibilityMessagePresets[3])
             }
-            Button {
-                self.showGlobalToastMessage.wrappedValue.toggle()
-            } label: {
-                Text("Show / Hide")
-            }
-            Toggle("Apply custom style", isOn: self.customizeGlobalToastMessage)
+            .pickerStyle(.segmented)
         }
-        .navigationTitle("Toast Message")
     }
 }
 
-struct ToastMessageOverlayExample: View {
-    @State var toast: ToastMessage? = nil
-    @State var show: Bool = false
-    @State var customizeToastMessageStyle: Bool = false
-    let toastMessageCustomStyle = ToastMessageRoundedBorderStyle(cornerRadius: 0, backgroundColor: .mint, borderWidth: 2, borderColor: .purple)
-
+struct ToastMessageDurationSlider: View {
+    @Binding var duration: Double
     var body: some View {
-        List {
-            ForEach(0 ..< 6) { index in
-                Text("cell at index: \(index)")
-            }
-            Button {
-                self.show.toggle()
-                self.toast = self.show ? ToastMessage(icon: self.customizeToastMessageStyle ?
-                    { Image(systemName: "info.circle").foregroundStyle(.orange) } : { Image(systemName: "info.circle") },
-                    title: self.customizeToastMessageStyle ?
-                        { Text("Toast Message").foregroundStyle(.green) } : { Text("Toast Message") },
-                    duration: 5) : nil
-            } label: {
-                Text("Show / Hide")
-            }
-            Toggle("Apply custom style", isOn: self.$customizeToastMessageStyle)
+        VStack(alignment: .leading) {
+            Text("Duration: \(String(format: "%.0f", self.duration)) second\(self.duration == 1 ? "" : "s")")
+            Slider(value: self.$duration, in: 1 ... 10, step: 1)
         }
-        .ifApply(!self.customizeToastMessageStyle) {
-            $0.toastMessage(toast: self.$toast)
-        }
-        .ifApply(self.customizeToastMessageStyle) {
-            $0.toastMessage(toast: self.$toast, style: self.toastMessageCustomStyle)
-        }
-        .navigationTitle("Toast Message")
     }
 }
 
 extension EnvironmentValues {
-    @Entry var showGlobalToastMessage: Binding<Bool> = .constant(false)
-    @Entry var customizeGlobalToastMessage: Binding<Bool> = .constant(false)
+    @Entry var globalToastMessageSettings: Binding<GlobalToastMessageSettings> = .constant(GlobalToastMessageSettings())
+}
+
+@Observable
+class GlobalToastMessageSettings: ObservableObject {
+    var isPresented = false
+    var isCustomized = false
+    var duration: Double = 5
+    var accessibilityMessage: String? = nil
 }
