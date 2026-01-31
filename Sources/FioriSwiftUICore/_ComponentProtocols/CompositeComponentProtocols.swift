@@ -1200,6 +1200,9 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = FioriShadowStyle.level3
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     var shadow: FioriShadowStyle? { get }
+    // sourcery: defaultValue = nil
+    /// A message communicating the toast message's content to be read by voiceover when the component appears.
+    var accessibilityMessage: String? { get }
 }
 
 // sourcery: CompositeComponent
