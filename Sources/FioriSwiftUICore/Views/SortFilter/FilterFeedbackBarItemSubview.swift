@@ -32,6 +32,7 @@ struct SliderMenuItem: View {
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
     @AccessibilityFocusState private var isBarItemFocused: Bool
+    @Environment(\.colorScheme) private var colorScheme
     
     var onUpdate: () -> Void
 
@@ -87,6 +88,7 @@ struct SliderMenuItem: View {
                     self.sliderView()
                         .padding([.leading, .trailing], 8)
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -236,6 +238,7 @@ private extension Binding {
 }
 
 struct PickerMenuItem: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
     @State var isSheetVisible = false
@@ -350,6 +353,7 @@ struct PickerMenuItem: View {
                         .padding(.bottom, 10)
                     }
                 })
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -448,6 +452,7 @@ struct PickerMenuItem: View {
                 }, components: {
                     self.configListPickerDestination()
                 })
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone) {
                 $0.background(GeometryReader { geometry in
@@ -568,6 +573,7 @@ struct DateTimeMenuItem: View {
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     var onUpdate: () -> Void
     
@@ -663,6 +669,7 @@ struct DateTimeMenuItem: View {
                 } components: {
                     self.datePickerView()
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -724,6 +731,7 @@ struct DateTimeMenuItem: View {
                 } components: {
                     self.datePickerView()
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -778,6 +786,7 @@ struct StepperMenuItem: View {
     var onUpdate: () -> Void
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -862,6 +871,7 @@ struct StepperMenuItem: View {
                         v.incrementActionStyle(.deactivate)
                     }
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -886,6 +896,7 @@ struct TitleMenuItem: View {
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(item: Binding<SortFilterItem.TitleItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -951,6 +962,7 @@ struct TitleMenuItem: View {
                         .padding([.leading, .trailing], 16)
                         .padding(.bottom, 8)
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -976,6 +988,7 @@ struct NoteMenuItem: View {
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(item: Binding<SortFilterItem.NoteItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -1009,6 +1022,7 @@ struct NoteMenuItem: View {
                                 self.barItemFrame = newValue
                             }
                     })
+                    .preferredColorScheme(self.colorScheme)
             }
     }
     
@@ -1070,6 +1084,7 @@ struct DurationPickerMenuItem: View {
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(item: Binding<SortFilterItem.DurationPickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -1129,6 +1144,7 @@ struct DurationPickerMenuItem: View {
                             self.item.workingValue = self.item.value
                         }
                 }
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -1153,6 +1169,7 @@ struct OrderPickerMenuItem: View {
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(item: Binding<SortFilterItem.OrderPickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -1217,6 +1234,7 @@ struct OrderPickerMenuItem: View {
                         self.item.workingValue = self.item.value
                     }
                 })
+                .preferredColorScheme(self.colorScheme)
             }
             .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
                 v.background(GeometryReader { geometry in
@@ -1240,6 +1258,7 @@ struct FullCFGMenuItem: View {
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
+    @Environment(\.colorScheme) private var colorScheme
     var onUpdate: () -> Void
     
     var resetButtonType = FilterFeedbackBarResetButtonType.reset
@@ -1278,6 +1297,7 @@ struct FullCFGMenuItem: View {
                                 }
                         })
                     }
+                    .preferredColorScheme(self.colorScheme)
             }
     }
     
