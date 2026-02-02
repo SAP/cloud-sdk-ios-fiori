@@ -139,7 +139,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     func isCompactStyle(_ configuration: AIUserFeedbackConfiguration) -> Bool {
-        UIDevice.current.userInterfaceIdiom == .phone || configuration.displayMode == .inspector
+        UIDevice.current.userInterfaceIdiom == .phone
+            || configuration.displayMode == .inspector
+            || ((configuration.displayMode == .sheet || configuration.displayMode == .inline) && UIDevice.current.userInterfaceIdiom == .pad)
     }
     
     @ViewBuilder
@@ -223,7 +225,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.scrollViewHeight = geometry.size.height
                 }
         })
-        .frame(maxWidth: (configuration.displayMode != .push && UIDevice.current.userInterfaceIdiom != .phone) ? 393.0 : .infinity, maxHeight: .infinity)
+        .frame(maxWidth: (configuration.displayMode != .push && UIDevice.current.userInterfaceIdiom != .phone && UIDevice.current.userInterfaceIdiom != .pad) ? 393.0 : .infinity, maxHeight: .infinity)
         .toolbarBackground(self.isCompactStyle(configuration) ? .visible : .automatic, for: .navigationBar)
         .toolbarBackground(Color.preferredColor(.chromeSecondary), for: .navigationBar)
         .ifApply(self.isCompactStyle(configuration), content: { v in
