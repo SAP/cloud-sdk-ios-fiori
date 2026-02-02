@@ -1205,79 +1205,6 @@ Consumers can create their own instances of <code>FioriSliderTextFieldStyle</cod
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore17HierarchyItemViewV"></a>
-                      <a name="//apple_ref/swift/Struct/HierarchyItemView" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore17HierarchyItemViewV">HierarchyItemView</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>A <code>HierarchyItemView</code> representing a component for displaying a collection item&rsquo;s business object content and hierarchy information in a user interface.</p>
-<h3 id='overview' class='heading'>Overview</h3>
-
-<p>It serves as the default item view for presenting hierarchy items within a <code>HierarchyItemView</code>. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
-The <code>HierarchyItemView</code> can be utilized within a <code><a href="Structs/HierarchyView.html">HierarchyView</a></code> to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.</p>
-<h3 id='key-features' class='heading'>Key Features</h3>
-
-<ul>
-<li>Composable content slots: title, subtitle, footnote, icons, detail image, status, accessory view.</li>
-<li>Optional hierarchyIndicator slot for navigation or contextual counts.</li>
-<li>Integrates with HierarchyView for navigation and selection.</li>
-<li>Supports standard accessory styles (e.g. disclosure).</li>
-</ul>
-<h2 id='usage-independent' class='heading'>Usage Independent:</h2>
-
-<p>To use <code>HierarchyItemView</code> independently and without <code><a href="Structs/HierarchyView.html">HierarchyView</a></code>.</p>
-<pre class="highlight swift"><code><span class="kt">List</span> <span class="p">{</span>
-    <span class="kt">ForEach</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="k">in</span>
-        <span class="kt">HierarchyItemView</span><span class="p">(</span>
-            <span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Title </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
-            <span class="nv">subtitle</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Subtitle </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
-            <span class="nv">footnote</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Footnote </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
-            <span class="nv">icons</span><span class="p">:</span> <span class="p">{</span>
-                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">badge</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
-                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">bookmark</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
-                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">attachment</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
-            <span class="p">},</span>
-            <span class="nv">detailImage</span><span class="p">:</span> <span class="p">{</span> <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">messageInformation</span><span class="o">.</span><span class="nf">resizable</span><span class="p">()</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span> <span class="p">},</span>
-            <span class="nv">status</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"exclamationmark.square.fill"</span><span class="p">)</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">negativeLabel</span><span class="p">))</span> <span class="p">},</span>
-            <span class="nv">accessoryType</span><span class="p">:</span> <span class="o">.</span><span class="n">disclosure</span><span class="p">,</span>
-            <span class="nv">hierarchyIndicator</span><span class="p">:</span> <span class="p">{</span>
-                <span class="kt">HierarchyIndicator</span><span class="p">(</span>
-                    <span class="nv">title</span><span class="p">:</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">?</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()}</span> <span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="nf">formatNumber</span><span class="p">(</span><span class="n">indicatorNumber</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span> <span class="p">},</span>
-                    <span class="nv">isMultiline</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nv">isSelected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nv">isClickable</span><span class="p">:</span> <span class="kc">false</span>
-                <span class="p">)</span>
-            <span class="p">})</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
-<h3 id='see-also' class='heading'>See Also</h3>
-
-<p>HierarchyView, HierarchyIndicator.</p>
-
-                          <a href="Structs/HierarchyItemView.html" class="slightly-smaller">See more</a>
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HierarchyItemView</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">HierarchyItemView</span><span class="p">:</span> <span class="kt">View</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">HierarchyItemView</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
                       <a name="/s:16FioriSwiftUICore13RatingControlV"></a>
                       <a name="//apple_ref/swift/Struct/RatingControl" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore13RatingControlV">RatingControl</a>
@@ -8235,7 +8162,8 @@ Provides a standard layout for username and password Text fields</p>
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DateRangePickerBaseStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DateRangePickerStyle.html">DateRangePickerStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -13344,71 +13272,6 @@ Example usage:</p>
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Fiori%20Circular%20ProgressViewStyle"></a>
-                  <a name="//apple_ref/swift/Section/Fiori Circular ProgressViewStyle" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Fiori%20Circular%20ProgressViewStyle"></a>
-                    <h3 class="section-name"><span>Fiori Circular ProgressViewStyle</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore25CircularProgressViewStyleV"></a>
-                      <a name="//apple_ref/swift/Struct/CircularProgressViewStyle" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore25CircularProgressViewStyleV">CircularProgressViewStyle</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>A Fiori-styled circular progress view style that renders progress as a circular arc.</p>
-
-<ul>
-<li>tintColor: Color of the progress arc. Defaults to .preferredColor(.tintColor).</li>
-<li>trackColor: Color of the background track (determinate mode only). Defaults to .preferredColor(.secondaryFill).</li>
-<li><p>lineWidth: Stroke width in points. Defaults to 2.0.</p></li>
-</ul><div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <p>ProgressIndicator, ProgressIndicatorStyle</p>
-
-</div>
-
-                          <a href="Structs/CircularProgressViewStyle.html" class="slightly-smaller">See more</a>
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CircularProgressViewStyle</span> <span class="p">:</span> <span class="kt">ProgressViewStyle</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Base%20Layout%20style"></a>
-                  <a name="//apple_ref/swift/Section/Base Layout style" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Base%20Layout%20style"></a>
-                    <h3 class="section-name"><span>Base Layout style</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -13437,19 +13300,6 @@ Example usage:</p>
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Processing%20style"></a>
-                  <a name="//apple_ref/swift/Section/Processing style" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Processing%20style"></a>
-                    <h3 class="section-name"><span>Processing style</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -13463,7 +13313,7 @@ Example usage:</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Processing style</p>
 
                           <a href="Structs/ProgressIndicatorProcessingStyle.html" class="slightly-smaller">See more</a>
                         </div>
@@ -13478,19 +13328,6 @@ Example usage:</p>
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Pausable%20style"></a>
-                  <a name="//apple_ref/swift/Section/Pausable style" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Pausable%20style"></a>
-                    <h3 class="section-name"><span>Pausable style</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -13504,7 +13341,7 @@ Example usage:</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Loading pausable style displaying the current progress and an icon depending on the paused state</p>
 
                           <a href="Structs/ProgressIndicatorPausableStyle.html" class="slightly-smaller">See more</a>
                         </div>
@@ -13519,19 +13356,6 @@ Example usage:</p>
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Stoppable%20style"></a>
-                  <a name="//apple_ref/swift/Section/Stoppable style" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/Stoppable%20style"></a>
-                    <h3 class="section-name"><span>Stoppable style</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -13545,7 +13369,7 @@ Example usage:</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Loading stoppable style</p>
 
                           <a href="Structs/ProgressIndicatorStoppableStyle.html" class="slightly-smaller">See more</a>
                         </div>
@@ -19523,7 +19347,7 @@ Apps can override the default preview behavior by providing an onPreview closure
 
 <p>Apps-Specific Attachment Cache:
 The <code><a href="Classes/BasicAttachmentDelegate.html">BasicAttachmentDelegate</a></code> includes a &ldquo;cache&rdquo; folder concept that may suit your requirements.
-Apps can use similar code in the &ldquo;Batch&rdquo; button action in <a href="https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift"><code>AttachmentGroupExample.swift</code></a> for synchronizing attachments between App local storage and backend server.</p>
+Apps can use similar code in the &ldquo;Batch&rdquo; button action in <a href="https://github.com/SAP/cloud-sdk-ios-fiori/blob/main/Apps/Examples/Examples/FioriSwiftUICore/Attachment/AttachmentGroupExample.swift"><code>AttachmentGroupExample.swift</code></a> for synchroizing attachments between App local storage and backend server.</p>
 
                           <a href="Structs/AttachmentGroup.html" class="slightly-smaller">See more</a>
                         </div>
@@ -24901,6 +24725,79 @@ ensuring that it accurately represents the appropriate data and state depending 
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HierarchyIndicatorFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/HierarchyIndicatorStyle.html">HierarchyIndicatorStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore17HierarchyItemViewV"></a>
+                      <a name="//apple_ref/swift/Struct/HierarchyItemView" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore17HierarchyItemViewV">HierarchyItemView</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A <code>HierarchyItemView</code> representing a component for displaying a collection item&rsquo;s business object content and hierarchy information in a user interface.</p>
+<h3 id='overview' class='heading'>Overview</h3>
+
+<p>It serves as the default item view for presenting hierarchy items within a <code>HierarchyItemView</code>. It includes various components such as titles, subtitles, footnotes, icons, detail images, statuses, and accessory views that together provide a comprehensive representation of the data associated with the hierarchy item.
+The <code>HierarchyItemView</code> can be utilized within a <code><a href="Structs/HierarchyView.html">HierarchyView</a></code> to display hierarchical information. Alternatively, it can also be used independently to present an item without the context of a hierarchical structure.</p>
+<h3 id='key-features' class='heading'>Key Features</h3>
+
+<ul>
+<li>Composable content slots: title, subtitle, footnote, icons, detail image, status, accessory view.</li>
+<li>Optional hierarchyIndicator slot for navigation or contextual counts.</li>
+<li>Integrates with HierarchyView for navigation and selection.</li>
+<li>Supports standard accessory styles (e.g. disclosure).</li>
+</ul>
+<h2 id='usage-independent' class='heading'>Usage Independent:</h2>
+
+<p>To use <code>HierarchyItemView</code> independently and without <code><a href="Structs/HierarchyView.html">HierarchyView</a></code>.</p>
+<pre class="highlight swift"><code><span class="kt">List</span> <span class="p">{</span>
+    <span class="kt">ForEach</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="k">in</span>
+        <span class="kt">HierarchyItemView</span><span class="p">(</span>
+            <span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Title </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
+            <span class="nv">subtitle</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Subtitle </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
+            <span class="nv">footnote</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Footnote </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">},</span>
+            <span class="nv">icons</span><span class="p">:</span> <span class="p">{</span>
+                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">badge</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
+                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">bookmark</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
+                <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">attachment</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span>
+            <span class="p">},</span>
+            <span class="nv">detailImage</span><span class="p">:</span> <span class="p">{</span> <span class="kt">FioriIcon</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">messageInformation</span><span class="o">.</span><span class="nf">resizable</span><span class="p">()</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tintColor</span><span class="p">))</span> <span class="p">},</span>
+            <span class="nv">status</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"exclamationmark.square.fill"</span><span class="p">)</span><span class="o">.</span><span class="nf">foregroundStyle</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">negativeLabel</span><span class="p">))</span> <span class="p">},</span>
+            <span class="nv">accessoryType</span><span class="p">:</span> <span class="o">.</span><span class="n">disclosure</span><span class="p">,</span>
+            <span class="nv">hierarchyIndicator</span><span class="p">:</span> <span class="p">{</span>
+                <span class="kt">HierarchyIndicator</span><span class="p">(</span>
+                    <span class="nv">title</span><span class="p">:</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">?</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()}</span> <span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="nf">formatNumber</span><span class="p">(</span><span class="n">indicatorNumber</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span> <span class="p">},</span>
+                    <span class="nv">isMultiline</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nv">isSelected</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nv">isClickable</span><span class="p">:</span> <span class="kc">false</span>
+                <span class="p">)</span>
+            <span class="p">})</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='see-also' class='heading'>See Also</h3>
+
+<p>HierarchyView, HierarchyIndicator.</p>
+
+                          <a href="Structs/HierarchyItemView.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HierarchyItemView</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">HierarchyItemView</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">HierarchyItemView</span><span class="p">:</span> <span class="n"><a href="Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                           </div>
                         </div>
@@ -36076,6 +35973,75 @@ Example usage:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BannerMultiMessageSheetTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BannerMultiMessageSheetStyle.html">BannerMultiMessageSheetStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/CalendarDayViewStyle"></a>
+                  <a name="//apple_ref/swift/Section/CalendarDayViewStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/CalendarDayViewStyle"></a>
+                    <h3 class="section-name"><span>CalendarDayViewStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore25CalendarDayViewTitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/CalendarDayViewTitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore25CalendarDayViewTitleStyleV">CalendarDayViewTitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/CalendarDayViewTitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CalendarDayViewTitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CalendarDayViewStyle.html">CalendarDayViewStyle</a></span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore28CalendarDayViewSubtitleStyleV"></a>
+                      <a name="//apple_ref/swift/Struct/CalendarDayViewSubtitleStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore28CalendarDayViewSubtitleStyleV">CalendarDayViewSubtitleStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                          <a href="Structs/CalendarDayViewSubtitleStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CalendarDayViewSubtitleStyle</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CalendarDayViewStyle.html">CalendarDayViewStyle</a></span></code></pre>
 
                           </div>
                         </div>
@@ -47966,10 +47932,10 @@ Example usage:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/CalendarDayViewStyle"></a>
+                  <a name="/CalendarDayViewStyle2"></a>
                   <a name="//apple_ref/swift/Section/CalendarDayViewStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
-                    <a class="section-name-link" href="#/CalendarDayViewStyle"></a>
+                    <a class="section-name-link" href="#/CalendarDayViewStyle2"></a>
                     <h3 class="section-name"><span>CalendarDayViewStyle</span>
 </h3>
                   </div>
@@ -57989,6 +57955,12 @@ Example usage:</p>
                   <a href="Structs/CalendarDayViewStyleModifier.html">CalendarDayViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="Structs/CalendarDayViewSubtitleStyle.html">CalendarDayViewSubtitleStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/CalendarDayViewTitleStyle.html">CalendarDayViewTitleStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="Structs/CalendarDisabledDates.html">CalendarDisabledDates</a>
                 </li>
                 <li class="nav-group-task">
@@ -58377,9 +58349,6 @@ Example usage:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/CheckoutIndicatorStyleModifier.html">CheckoutIndicatorStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="Structs/CircularProgressViewStyle.html">CircularProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/ClearAction.html">ClearAction</a>
@@ -62500,7 +62469,7 @@ Example usage:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-01-30)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-02-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
