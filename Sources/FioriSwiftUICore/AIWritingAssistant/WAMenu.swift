@@ -10,6 +10,8 @@ public struct WAMenu: Hashable, Identifiable, Sendable {
     public let title: String
     /// An optional icon for the menu.
     public let icon: Image?
+    /// A boolean value indicating whether the menu is enabled.
+    public let isEnabled: Bool
     /// An array of child menus for hierarchical menus.
     public let children: [WAMenu]
 
@@ -17,10 +19,12 @@ public struct WAMenu: Hashable, Identifiable, Sendable {
     /// - Parameters:
     ///   - title: The title of the menu.
     ///   - icon: An optional icon for the menu.
+    ///   - isEnabled: A boolean value indicating whether the menu is enabled.
     ///   - children: An array of child menus for hierarchical menus.
-    public init(title: String, icon: Image? = nil, children: [WAMenu] = []) {
+    public init(title: String, icon: Image? = nil, isEnabled: Bool = true, children: [WAMenu] = []) {
         self.title = title
         self.icon = icon
+        self.isEnabled = isEnabled
         self.children = children
     }
 
@@ -35,7 +39,8 @@ public struct WAMenu: Hashable, Identifiable, Sendable {
         lhs.id == rhs.id &&
             lhs.title == rhs.title &&
             lhs.icon == rhs.icon &&
-            lhs.children == rhs.children
+            lhs.children == rhs.children &&
+            lhs.isEnabled == rhs.isEnabled
     }
 }
 

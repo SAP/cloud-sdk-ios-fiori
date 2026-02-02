@@ -28,6 +28,7 @@ struct SliderMenuItem: View {
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var onErrorMessage = ""
     @State private var sliderDescType: SliderValueChangeHandler.SliderInformationType = .fiori
     @AccessibilityFocusState private var isBarItemFocused: Bool
@@ -58,25 +59,30 @@ struct SliderMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
-                    .environment(\.isEnabled, self.onErrorMessage == "")
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(self.onErrorMessage == "", self.horizontalSizeClass))
                 } components: {
                     self.sliderView()
                         .padding([.leading, .trailing], 8)
@@ -235,7 +241,8 @@ struct PickerMenuItem: View {
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
-        
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
@@ -294,32 +301,38 @@ struct PickerMenuItem: View {
                 CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
                     SortFilterItemTitle(title: self.item.name)
                 }, cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }, resetAction: {
                     if self.item.resetButtonConfiguration.isHidden {
                         EmptyView()
                     } else {
-                        _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
+                        FioriButton(action: { _ in
                             if self.item.resetButtonConfiguration.type == .reset {
                                 self.item.reset()
                             } else {
                                 self.item.clearAll()
                             }
+                        }, label: { _ in
+                            Text(self.item.resetButtonConfiguration.title)
                         })
-                        .buttonStyle(ResetButtonStyle())
+                        .fioriButtonStyle(FioriNavigationButtonStyle())
                         .disabled(self.resetButtonDisable())
                     }
                 }, applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }, components: {
                     ScrollView(.vertical) {
                         FilterFormView(title: {
@@ -401,32 +414,38 @@ struct PickerMenuItem: View {
                 CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
                     SortFilterItemTitle(title: self.item.name)
                 }, cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }, resetAction: {
                     if self.item.resetButtonConfiguration.isHidden {
                         EmptyView()
                     } else {
-                        _Action(actionText: self.item.resetButtonConfiguration.title, didSelectAction: {
+                        FioriButton(action: { _ in
                             if self.item.resetButtonConfiguration.type == .reset {
                                 self.item.reset()
                             } else {
                                 self.item.clearAll()
                             }
+                        }, label: { _ in
+                            Text(self.item.resetButtonConfiguration.title)
                         })
-                        .buttonStyle(ResetButtonStyle())
+                        .fioriButtonStyle(FioriNavigationButtonStyle())
                         .disabled(self.resetButtonDisable())
                     }
                 }, applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 }, components: {
                     self.configListPickerDestination()
                 })
@@ -549,6 +568,7 @@ struct DateTimeMenuItem: View {
     @State private var isSheetVisible: Bool = false
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var onUpdate: () -> Void
     
@@ -617,24 +637,30 @@ struct DateTimeMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 } components: {
                     self.datePickerView()
                 }
@@ -672,24 +698,30 @@ struct DateTimeMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 } components: {
                     self.datePickerView()
                 }
@@ -746,6 +778,7 @@ struct StepperMenuItem: View {
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(item: Binding<SortFilterItem.StepperItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -770,25 +803,30 @@ struct StepperMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
-
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 } components: {
                     StepperView(
                         title: { Text(self.item.stepperTitle) },
@@ -848,6 +886,7 @@ struct TitleMenuItem: View {
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(item: Binding<SortFilterItem.TitleItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -872,25 +911,31 @@ struct TitleMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                    FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 } components: {
                     TitleFormView(text: self.$item.workingText,
                                   isSecureEnabled: self.item.isSecureEnabled,
@@ -931,6 +976,7 @@ struct NoteMenuItem: View {
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(item: Binding<SortFilterItem.NoteItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -972,25 +1018,31 @@ struct NoteMenuItem: View {
         CancellableResettableDialogNavigationForm {
             SortFilterItemTitle(title: self.item.name)
         } cancelAction: {
-            _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+            FioriButton(action: { _ in
                 self.item.cancel()
                 self.isSheetVisible.toggle()
+            }, label: { _ in
+                Text("Cancel".localizedFioriString())
             })
-            .buttonStyle(CancelButtonStyle())
+            .fioriButtonStyle(FioriNavigationButtonStyle())
         } resetAction: {
-            _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+            FioriButton(action: { _ in
                 self.item.reset()
+            }, label: { _ in
+                Text("Reset".localizedFioriString())
             })
-            .buttonStyle(ResetButtonStyle())
+            .fioriButtonStyle(FioriNavigationButtonStyle())
             .disabled(self.item.isOriginal)
         } applyAction: {
-            _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+            FioriButton(action: { _ in
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 self.item.apply()
                 self.onUpdate()
                 self.isSheetVisible.toggle()
+            }, label: { _ in
+                Text("Apply".localizedFioriString())
             })
-            .buttonStyle(ApplyButtonStyle())
+            .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
         } components: {
             ScrollView(.vertical) {
                 NoteFormView(text: self.$item.workingText,
@@ -1018,6 +1070,7 @@ struct DurationPickerMenuItem: View {
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(item: Binding<SortFilterItem.DurationPickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -1042,25 +1095,31 @@ struct DurationPickerMenuItem: View {
                 CancellableResettableDialogNavigationForm {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 } resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 } applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                    FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 } components: {
                     DurationPickerViewWrapper(selection: self.$item.workingValue, maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
                         .frame(height: 204)
@@ -1094,6 +1153,7 @@ struct OrderPickerMenuItem: View {
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
     var onUpdate: () -> Void
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     public init(item: Binding<SortFilterItem.OrderPickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
@@ -1118,25 +1178,31 @@ struct OrderPickerMenuItem: View {
                 CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
                     SortFilterItemTitle(title: self.item.name)
                 }, cancelAction: {
-                    _Action(actionText: NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Cancel".localizedFioriString())
                     })
-                    .buttonStyle(CancelButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }, resetAction: {
-                    _Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
+                    FioriButton(action: { _ in
                         self.item.reset()
+                    }, label: { _ in
+                        Text("Reset".localizedFioriString())
                     })
-                    .buttonStyle(ResetButtonStyle())
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                     .disabled(self.item.isOriginal)
                 }, applyAction: {
-                    _Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: { [self] in
+                    FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
+                    }, label: { _ in
+                        Text("Apply".localizedFioriString())
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
                 }, components: {
                     OrderPicker(
                         optionalTitle: self.item.title,

@@ -5757,6 +5757,27 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
     }
 }
 
+public struct ListPickerItemDescriptionStyle: ListPickerItemStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
+        ListPickerItem(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension ListPickerItemStyle where Self == ListPickerItemDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ListPickerItemDescriptionStyle {
+        ListPickerItemDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ListPickerItemDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return ListPickerItemDescriptionStyle(style: style)
+    }
+}
+
 public struct ListPickerItemFormViewStyle: ListPickerItemStyle {
     let style: any FormViewStyle
 
@@ -8445,6 +8466,20 @@ public extension StartSignatureActionStyle where Self == StartSignatureActionFio
     }
 }
 
+// MARK: StateLabelStyle
+
+public extension StateLabelStyle where Self == StateLabelBaseStyle {
+    static var base: StateLabelBaseStyle {
+        StateLabelBaseStyle()
+    }
+}
+
+public extension StateLabelStyle where Self == StateLabelFioriStyle {
+    static var fiori: StateLabelFioriStyle {
+        StateLabelFioriStyle()
+    }
+}
+
 // MARK: StatusStyle
 
 public extension StatusStyle where Self == StatusBaseStyle {
@@ -8897,6 +8932,90 @@ public extension SwitchViewStyle where Self == SwitchViewSwitchStyle {
     static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SwitchViewSwitchStyle {
         let style = AnySwitchStyle(content)
         return SwitchViewSwitchStyle(style: style)
+    }
+}
+
+public struct SwitchViewStateLabelStyle: SwitchViewStyle {
+    let style: any StateLabelStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .stateLabelStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewStateLabelStyle {
+    static func stateLabelStyle(_ style: some StateLabelStyle) -> SwitchViewStateLabelStyle {
+        SwitchViewStateLabelStyle(style: style)
+    }
+
+    static func stateLabelStyle(@ViewBuilder content: @escaping (StateLabelConfiguration) -> some View) -> SwitchViewStateLabelStyle {
+        let style = AnyStateLabelStyle(content)
+        return SwitchViewStateLabelStyle(style: style)
+    }
+}
+
+public struct SwitchViewIconStyle: SwitchViewStyle {
+    let style: any IconStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> SwitchViewIconStyle {
+        SwitchViewIconStyle(style: style)
+    }
+
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SwitchViewIconStyle {
+        let style = AnyIconStyle(content)
+        return SwitchViewIconStyle(style: style)
+    }
+}
+
+public struct SwitchViewDescriptionStyle: SwitchViewStyle {
+    let style: any DescriptionStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> SwitchViewDescriptionStyle {
+        SwitchViewDescriptionStyle(style: style)
+    }
+
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> SwitchViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return SwitchViewDescriptionStyle(style: style)
+    }
+}
+
+public struct SwitchViewInformationViewStyle: SwitchViewStyle {
+    let style: any InformationViewStyle
+
+    public func makeBody(_ configuration: SwitchViewConfiguration) -> some View {
+        SwitchView(configuration)
+            .informationViewStyle(self.style)
+            .typeErased
+    }
+}
+
+public extension SwitchViewStyle where Self == SwitchViewInformationViewStyle {
+    static func informationViewStyle(_ style: some InformationViewStyle) -> SwitchViewInformationViewStyle {
+        SwitchViewInformationViewStyle(style: style)
+    }
+
+    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> SwitchViewInformationViewStyle {
+        let style = AnyInformationViewStyle(content)
+        return SwitchViewInformationViewStyle(style: style)
     }
 }
 

@@ -220,6 +220,10 @@ extension StepperViewConfiguration {
 // MARK: SwitchViewConfiguration
 
 extension SwitchViewConfiguration {
+    var _informationView: InformationView {
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description)), shouldApplyDefaultStyle: true)
+    }
+
     var _switch: Switch {
         Switch(.init(isOn: self.$isOn), shouldApplyDefaultStyle: true)
     }

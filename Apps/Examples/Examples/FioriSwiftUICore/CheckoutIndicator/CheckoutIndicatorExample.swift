@@ -7,8 +7,13 @@ struct CheckoutIndicatorExample: View {
     
     var body: some View {
         VStack {
-            CheckoutIndicator(displayState: self.$displayState)
-                .frame(width: self.size.width, height: self.size.height)
+            VStack(spacing: 8) {
+                CheckoutIndicator(displayState: self.$displayState)
+                    .frame(width: self.size.width, height: self.size.height)
+                Text(self.title(state: self.displayState))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                    .font(.title)
+            }
             Picker("Display State", selection: self.$displayState) {
                 Text(String("inProgress"))
                     .tag(DisplayState.inProgress)
@@ -21,6 +26,19 @@ struct CheckoutIndicatorExample: View {
             }
             .pickerStyle(.segmented)
             .padding(.top, 20)
+        }
+    }
+    
+    func title(state: DisplayState) -> String {
+        switch state {
+        case .inProgress:
+            return "processing"
+        case .completed:
+            return "completed"
+        case .failed:
+            return "failed"
+        case .aiProgress:
+            return "AI processing"
         }
     }
 }

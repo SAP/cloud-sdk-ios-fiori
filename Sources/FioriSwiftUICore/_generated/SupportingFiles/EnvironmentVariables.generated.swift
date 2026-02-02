@@ -3657,6 +3657,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: StateLabelStyle
+
+struct StateLabelStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any StateLabelStyle] = []
+}
+
+extension EnvironmentValues {
+    var stateLabelStyle: any StateLabelStyle {
+        self.stateLabelStyleStack.last ?? .base
+    }
+
+    var stateLabelStyleStack: [any StateLabelStyle] {
+        get {
+            self[StateLabelStyleStackKey.self]
+        }
+        set {
+            self[StateLabelStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: StatusStyle
 
 struct StatusStyleStackKey: EnvironmentKey {

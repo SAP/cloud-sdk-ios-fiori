@@ -929,14 +929,34 @@ protocol _TimelinePreviewComponent: _OptionalTitleComponent, _ActionComponent {
 
 /// `SwitchView`provides a Fiori style title and`Toggle`.
 ///
+////// Inputs
+/// - title: A `ViewBuilder` closure that renders the title content (required).
+/// - isOn: A binding to a Boolean value that controls the toggle state (required).
+/// - stateLabel: An optional `ViewBuilder` closure for custom state text. It is only effective when the controlState is `.readOnly`.  It will replace the toggle which usually shows as On or Off .
+/// - icon: An optional `ViewBuilder` closure for an icon in the informationView.
+/// - description: An optional `ViewBuilder` closure for descriptive text in the informationView.
+/// - controlState: The interaction state of the switch (default: .normal). Options: .normal, .disabled, .readOnly.
+///
 /// ## Usage
 /// ```swift
 /// @State var isOn: Bool = true
 ///
 /// SwitchView(title: "Switch", isOn: self.$isOn)
+///
+/// SwitchView(title: "Switch", isOn: self.$isOn, stateLabel: self.isOn ? "Open" : "Close", description: "Locked by your organization", controlState: .readOnly)
+///     .informationViewStyle(.warning)
 /// ```
 // sourcery: CompositeComponent
-protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent {}
+protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent, _StateLabelComponent, _InformationViewComponent {
+    // sourcery: defaultValue = .normal
+    /// The control state that determines how the switchView element responds to user interaction.
+    ///
+    /// Possible values:
+    /// - `.normal`: Fully interactive (default)
+    /// - `.disabled`: Not interactive but visually unchanged
+    /// - `.readOnly`: Not interactive and visually indicates read-only state
+    var controlState: ControlState { get }
+}
 
 /// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
 ///
@@ -1055,15 +1075,41 @@ protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _Mand
 protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 
 /// `ListPickerItem` is a view that provides a `NavigationLink` with a title and selected value(s). And `ListPickerDestination` is recommended to be used as its destination, for which selection, search filter and customized rows are supported.
+///
+/// Use it to present choices in a form where the selection UI lives in a separate destination view. The component supports:
+/// - Single or multiple selection
+/// - Flat, hierarchical, grouped, or object-based data
+/// - Optional search and live change tracking in the destination
+/// - Read-only, disabled, and normal states
+/// - Custom title, value, and description content
+///
+/// Inputs
+/// - title: ViewBuilder that renders the leading title.
+/// - value: ViewBuilder that renders the current selection value (typically a summary). In read-only state, you can pass an AttributedString via the value parameter to render the selected value(s).
+/// - description: ViewBuilder for an auxiliary description below the title/value.
+/// - isRequired: Marks the field as mandatory and renders the indicator.
+/// - controlState: .normal, .disabled, .readOnly.
+/// - axis: Layout direction for the header (title/value/description). Defaults to .horizontal.
+/// - destination: A builder that returns a ListPickerDestination configured with your data and bindings.
+///
+/// Behavior
+/// - Tapping the row navigates to the destination list.
+/// - When controlState is .readOnly, the component does not navigate and should show the current selection via the value slot.
+/// - When controlState is .disabled, interactions are disabled.
+///
 /// ## Usage
 /// ```swift
+/// @State var state: ControlState = .normal
 /// let data = ["first", "second", "third"]
 /// var body: some View {
 ///     ListPickerItem(title: {
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
-///     }, axis: .vertical) {
+///     }, description: {
+///         Text("Read-only field")
+///     }, controlState: self.state
+///     , axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
 ///                               selection: $selection,
@@ -1076,6 +1122,7 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///
 /// // If you want grouped different sections, the protocol `ListPickerSectionModel` is need be implemented for your element of data.
 ///
+/// @State var state: ControlState = .normal
 /// struct ListPickerSection: ListPickerSectionModel {}
 /// let data = [ListPickerSection(title: "Section 1", items: ["first", "second", "third"]),
 ///             ListPickerSection(title: "Section 2", items: ["apple", "banana", "orange"])]
@@ -1084,7 +1131,10 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///         Text("title")
 ///     }, value: {
 ///         Text("value")
-///     }, axis: .vertical) {
+///     }, description: {
+///         Text("Read-only field")
+///     }, controlState: self.state
+///     , axis: .vertical) {
 ///         ListPickerDestination(data,
 ///                               id: \.self,
 ///                               selection: $selection,
@@ -1095,8 +1145,16 @@ protocol _AvatarStackComponent: _AvatarsComponent, _AvatarsTitleComponent {}
 ///     }
 /// }
 /// ```
+/// /// Example: Read-only value using AttributedString
+/// ```swift
+///  @State private var selection: String? = "Second"
+///  let readOnlyValue: AttributedString? = .init(selection ?? "No Selection")
+///  ListPickerItem(title: "Title", value: readOnlyValue, description: "Read-only", controlState: .readOnly) {
+///      EmptyView() // destination is ignored in read-only
+///  }
+/// ```
 // sourcery: CompositeComponent
-protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _MandatoryField, _FormViewComponent {
+protocol _ListPickerItemComponent: _TitleComponent, _ValueComponent, _DescriptionComponent, _MandatoryField, _FormViewComponent {
     // sourcery: defaultValue = .horizontal
     var axis: Axis { get }
     
@@ -1142,6 +1200,9 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
     // sourcery: defaultValue = FioriShadowStyle.level3
     /// A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
     var shadow: FioriShadowStyle? { get }
+    // sourcery: defaultValue = nil
+    /// A message communicating the toast message's content to be read by voiceover when the component appears.
+    var accessibilityMessage: String? { get }
 }
 
 // sourcery: CompositeComponent
@@ -1332,7 +1393,7 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///     print("tap videoCall")
 /// }), .init(type: .message, didSelectActivityItem: {
 ///     print("tap message")
-/// })])
+/// })]).removeDetailImageDefaultStyle(false)
 ///
 /// ContactItem {
 ///      Text("Headline only example")
@@ -1346,7 +1407,7 @@ protocol _ActivityItemComponent: _IconComponent, _SubtitleComponent {
 ///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
 ///          print("tap phone")
 ///      })])
-/// }
+/// }.removeDetailImageDefaultStyle(false)
 /// ```
 // sourcery: CompositeComponent
 protocol _ContactItemComponent: _TitleComponent, _SubtitleComponent, _DescriptionComponent, _DetailImageComponent, _ActivityItemsComponent {}

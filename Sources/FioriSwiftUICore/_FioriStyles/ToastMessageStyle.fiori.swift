@@ -26,6 +26,13 @@ public struct ToastMessageBaseStyle: ToastMessageStyle {
             configuration.icon
             configuration.title
         }
+        .onAppear(perform: {
+            if UIAccessibility.isVoiceOverRunning, configuration.accessibilityMessage != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    UIAccessibility.post(notification: .announcement, argument: configuration.accessibilityMessage)
+                }
+            }
+        })
     }
 }
 
@@ -158,6 +165,7 @@ public extension View {
     ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
     ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -171,7 +179,8 @@ public extension View {
                       borderColor: Color = Color.clear,
                       borderWidthIC: CGFloat = 1,
                       borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
-                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3,
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
@@ -185,6 +194,7 @@ public extension View {
                                            borderWidthIC: borderWidthIC,
                                            borderColorIC: borderColorIC,
                                            shadow: shadow,
+                                           accessibilityMessage: accessibilityMessage,
                                            isPresented: isPresented))
     }
 
@@ -197,6 +207,7 @@ public extension View {
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     ///   - style: A `ToastMessageStyle` object to apply to the toast message. This is equivalent to adding a `.toastMessageStyle(style)` modifier to a standalone ToastMessage component.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -204,7 +215,8 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle(),
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: Text(title),
@@ -212,6 +224,7 @@ public extension View {
                                                       position: position,
                                                       spacing: spacing,
                                                       style: style,
+                                                      accessibilityMessage: accessibilityMessage,
                                                       isPresented: isPresented))
     }
     
@@ -230,6 +243,7 @@ public extension View {
     ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
     ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -243,7 +257,8 @@ public extension View {
                       borderColor: Color = Color.clear,
                       borderWidthIC: CGFloat = 1,
                       borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
-                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3,
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: Text(title),
@@ -257,6 +272,7 @@ public extension View {
                                            borderWidthIC: borderWidthIC,
                                            borderColorIC: borderColorIC,
                                            shadow: shadow,
+                                           accessibilityMessage: accessibilityMessage,
                                            isPresented: isPresented))
     }
     
@@ -269,6 +285,7 @@ public extension View {
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     ///   - style: A `ToastMessageStyle` object to apply to the toast message. This is equivalent to adding a `.toastMessageStyle(style)` modifier to a standalone ToastMessage component.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -276,7 +293,8 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle(),
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: Text(title),
@@ -284,6 +302,7 @@ public extension View {
                                                       position: position,
                                                       spacing: spacing,
                                                       style: style,
+                                                      accessibilityMessage: accessibilityMessage,
                                                       isPresented: isPresented))
     }
     
@@ -302,6 +321,7 @@ public extension View {
     ///   - borderWidthIC: The width of the border surrounding the toast message when Increase Contrast is enabled. The default value is `1`.
     ///   - borderColorIC: The color of the border surrounding the toast message when Increase Contrast is enabled. The default value is `Color.preferredColor(.tertiaryLabel)`.
     ///   - shadow: A shadow to render underneath the view. The default value is `FioriShadowStyle.level3`.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -315,7 +335,8 @@ public extension View {
                       borderColor: Color = Color.clear,
                       borderWidthIC: CGFloat = 1,
                       borderColorIC: Color = Color.preferredColor(.tertiaryLabel),
-                      shadow: FioriShadowStyle? = FioriShadowStyle.level3) -> some View
+                      shadow: FioriShadowStyle? = FioriShadowStyle.level3,
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageModifier(icon: icon(),
                                            title: title(),
@@ -329,6 +350,7 @@ public extension View {
                                            borderWidthIC: borderWidthIC,
                                            borderColorIC: borderColorIC,
                                            shadow: shadow,
+                                           accessibilityMessage: accessibilityMessage,
                                            isPresented: isPresented))
     }
     
@@ -341,6 +363,7 @@ public extension View {
     ///   - position: The position of the toast message relative to its parent view. `.center` puts the toast message in the center of its parent view, `.above` aligns it above the view, and `.below` aligns it below the view. The default value is `.center`.
     ///   - spacing: The amount of spacing to put in between the toast message and the frame of its parent view. This only applies to the `.above` and `.below` positions, and negative values are converted to `0`. The default value is `0`.
     ///   - style: A `ToastMessageStyle` object to apply to the toast message. This is equivalent to adding a `.toastMessageStyle(style)` modifier to a standalone ToastMessage component.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
@@ -348,7 +371,8 @@ public extension View {
                       duration: Double = 1,
                       position: ToastMessagePosition = .center,
                       spacing: CGFloat = 0,
-                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle(),
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageCustomStyleModifier(icon: icon(),
                                                       title: title(),
@@ -356,6 +380,7 @@ public extension View {
                                                       position: position,
                                                       spacing: spacing,
                                                       style: style,
+                                                      accessibilityMessage: accessibilityMessage,
                                                       isPresented: isPresented))
     }
     
@@ -385,19 +410,22 @@ public extension View {
     ///   - duration: The duration in seconds for which the toast message is shown. The default value is `1`.
     ///   - verticalPosition: The vertical position of the toast message's origin, defined as an offset from the top edge of the view that the modifier was applied to. A value of `0` places the toast message at the top of the parent view, a value of `1` places it at the bottom, and a value of `0.5` places it in the center. A negative value shifts it above the parent view.
     ///   - style: A `ToastMessageStyle` object to apply to the toast message. This is equivalent to adding a `.toastMessageStyle(style)` modifier to a standalone ToastMessage component.
+    ///   - accessibilityMessage: A message communicating the toast message's content to be read by voiceover when the component appears.
     /// - Returns: A new `View` with the toast message.
     func toastMessage(isPresented: Binding<Bool>,
                       @ViewBuilder icon: () -> any View = { EmptyView() },
                       @ViewBuilder title: () -> any View,
                       duration: Double = 1,
                       verticalPosition: CGFloat,
-                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle()) -> some View
+                      style: some ToastMessageStyle = ToastMessageRoundedBorderStyle(),
+                      accessibilityMessage: String? = nil) -> some View
     {
         self.modifier(ToastMessageCustomVerticalPositionModifier(icon: icon(),
                                                                  title: title(),
                                                                  duration: duration,
                                                                  verticalPosition: verticalPosition,
                                                                  style: style,
+                                                                 accessibilityMessage: accessibilityMessage,
                                                                  isPresented: isPresented))
     }
 }
@@ -415,6 +443,7 @@ struct ToastMessageModifier: ViewModifier {
     var borderWidthIC: CGFloat
     var borderColorIC: Color
     var shadow: FioriShadowStyle?
+    var accessibilityMessage: String?
 
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
@@ -428,7 +457,8 @@ struct ToastMessageModifier: ViewModifier {
                     }, title: {
                         self.title
                     }, position: self.position,
-                    spacing: self.spacing)
+                    spacing: self.spacing,
+                    accessibilityMessage: self.accessibilityMessage)
                         .toastMessageStyle(ToastMessageRoundedBorderStyle(cornerRadius: self.cornerRadius,
                                                                           backgroundColor: self.backgroundColor,
                                                                           borderWidth: self.borderWidth,
@@ -439,7 +469,9 @@ struct ToastMessageModifier: ViewModifier {
                 }
             })
             .setOnChange(of: self.isPresented) {
-                self.showToast()
+                if self.isPresented {
+                    self.showToast()
+                }
             }
     }
     
@@ -449,12 +481,6 @@ struct ToastMessageModifier: ViewModifier {
             
             let task = DispatchWorkItem {
                 self.dismissToast()
-            }
-         
-            if UIAccessibility.isVoiceOverRunning, !self.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: self.title)
-                }
             }
             
             self.workItem = task
@@ -479,6 +505,7 @@ struct ToastMessageCustomStyleModifier<S: ToastMessageStyle>: ViewModifier {
     var position: ToastMessagePosition
     var spacing: CGFloat
     var style: S
+    var accessibilityMessage: String?
 
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
@@ -492,12 +519,15 @@ struct ToastMessageCustomStyleModifier<S: ToastMessageStyle>: ViewModifier {
                     }, title: {
                         self.title
                     }, position: self.position,
-                    spacing: self.spacing)
+                    spacing: self.spacing,
+                    accessibilityMessage: self.accessibilityMessage)
                         .toastMessageStyle(self.style)
                 }
             })
             .setOnChange(of: self.isPresented) {
-                self.showToast()
+                if self.isPresented {
+                    self.showToast()
+                }
             }
     }
     
@@ -509,12 +539,6 @@ struct ToastMessageCustomStyleModifier<S: ToastMessageStyle>: ViewModifier {
                 self.dismissToast()
             }
          
-            if UIAccessibility.isVoiceOverRunning, !self.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: self.title)
-                }
-            }
-            
             self.workItem = task
             DispatchQueue.main.asyncAfter(deadline: .now() + self.duration, execute: task)
         }
@@ -546,7 +570,9 @@ struct ToastMessageOverlayModifier: ViewModifier {
                 }
             )
             .setOnChange(of: self.toast == nil) {
-                self.showToast()
+                if self.toast != nil {
+                    self.showToast()
+                }
             }
     }
     
@@ -558,12 +584,6 @@ struct ToastMessageOverlayModifier: ViewModifier {
             
             let task = DispatchWorkItem {
                 self.dismissToast()
-            }
-         
-            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: toast.title)
-                }
             }
             
             self.workItem = task
@@ -598,7 +618,9 @@ struct ToastMessageOverlayCustomStyleModifier<S: ToastMessageStyle>: ViewModifie
                 }
             )
             .setOnChange(of: self.toast == nil) {
-                self.showToast()
+                if self.toast != nil {
+                    self.showToast()
+                }
             }
     }
     
@@ -612,12 +634,6 @@ struct ToastMessageOverlayCustomStyleModifier<S: ToastMessageStyle>: ViewModifie
                 self.dismissToast()
             }
          
-            if UIAccessibility.isVoiceOverRunning, !toast.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: toast.title)
-                }
-            }
-            
             self.workItem = task
             DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
         }
@@ -639,6 +655,7 @@ struct ToastMessageCustomVerticalPositionModifier<S: ToastMessageStyle>: ViewMod
     var duration: Double
     var verticalPosition: CGFloat
     var style: S
+    var accessibilityMessage: String?
     
     @Binding var isPresented: Bool
     @State private var workItem: DispatchWorkItem?
@@ -653,14 +670,17 @@ struct ToastMessageCustomVerticalPositionModifier<S: ToastMessageStyle>: ViewMod
                         }, title: {
                             self.title
                         }, position: .unset,
-                        spacing: 0)
+                        spacing: 0,
+                        accessibilityMessage: self.accessibilityMessage)
                             .toastMessageStyle(self.style)
                             .offset(CGSize(width: geo.size.width / 2, height: geo.size.height * self.verticalPosition))
                     }
                 })
         }
         .setOnChange(of: self.isPresented) {
-            self.showToast()
+            if self.isPresented {
+                self.showToast()
+            }
         }
     }
     
@@ -671,13 +691,7 @@ struct ToastMessageCustomVerticalPositionModifier<S: ToastMessageStyle>: ViewMod
             let task = DispatchWorkItem {
                 self.dismissToast()
             }
-         
-            if UIAccessibility.isVoiceOverRunning, !self.title.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIAccessibility.post(notification: .announcement, argument: self.title)
-                }
-            }
-            
+
             self.workItem = task
             DispatchQueue.main.asyncAfter(deadline: .now() + self.duration, execute: task)
         }
