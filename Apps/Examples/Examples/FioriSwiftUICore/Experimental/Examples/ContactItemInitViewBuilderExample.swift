@@ -31,9 +31,9 @@ struct ContactItemInitViewBuilderExample: View {
                     }
                 }
             )
-			.removeDetailImageDefaultStyle(self.useDifferentView ? true : false)
+            .removeDetailImageDefaultStyle(self.useDifferentView ? true : false)
             .exampleHighlighting()
-
+			
             Toggle(isOn: self.$useDifferentView) {
                 Text("Use different views")
             }.padding()
