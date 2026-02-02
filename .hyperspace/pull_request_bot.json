@@ -2,7 +2,7 @@
   "$schema": "https://devops-insights-pr-bot.cfapps.eu10-004.hana.ondemand.com/schema/pull_request_bot.json",
   "extends": ["githubOrg>pr-bot-configs/.hyperspace/pull_request_bot.json"],
   "features": {
-    "control_panel": true,
+    "control_panel": false,
     "summarize": {
       "auto_generate_summary": true,
       "auto_insert_summary": true,
