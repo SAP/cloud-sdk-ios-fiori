@@ -23,8 +23,11 @@ public struct FilterFeedbackBarBaseStyle: FilterFeedbackBarStyle {
 // Default fiori styles
 extension FilterFeedbackBarFioriStyle {
     struct ContentFioriStyle: FilterFeedbackBarStyle {
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+        
         func makeBody(_ configuration: FilterFeedbackBarConfiguration) -> some View {
             FilterFeedbackBar(configuration)
+                .padding([.leading, .trailing], self.horizontalSizeClass == .compact ? 16 : 20)
         }
     }
 }

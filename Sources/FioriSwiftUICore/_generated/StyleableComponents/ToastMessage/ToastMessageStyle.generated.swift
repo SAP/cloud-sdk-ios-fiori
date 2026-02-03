@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -35,6 +35,7 @@ public struct ToastMessageConfiguration {
     public let borderWidthIC: CGFloat
     public let borderColorIC: Color
     public let shadow: FioriShadowStyle?
+    public let accessibilityMessage: String?
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Title = ConfigurationViewWrapper

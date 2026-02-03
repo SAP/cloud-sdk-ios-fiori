@@ -390,6 +390,7 @@ struct PickerMenuItem: View {
             } label: {
                 FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), isSelected: self.item.isChecked)
             }
+            .id(self.item.label)
         }
     }
     
