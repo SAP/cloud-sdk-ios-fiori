@@ -91,6 +91,10 @@ struct WASheetHeightUpdatedKey: EnvironmentKey {
     static let defaultValue: ((CGFloat) -> Void)? = nil
 }
 
+struct WAAuthorizationKey: EnvironmentKey {
+    static let defaultValue: (() async -> Bool)? = nil
+}
+
 extension EnvironmentValues {
     var waHelperAction: Binding<WAHelperAction> {
         get { self[WAHelperActionKey.self] }
@@ -100,6 +104,11 @@ extension EnvironmentValues {
     var waSheetHeightUpdated: ((CGFloat) -> Void)? {
         get { self[WASheetHeightUpdatedKey.self] }
         set { self[WASheetHeightUpdatedKey.self] = newValue }
+    }
+    
+    var waAuthorizationCheck: (() async -> Bool)? {
+        get { self[WAAuthorizationKey.self] }
+        set { self[WAAuthorizationKey.self] = newValue }
     }
 }
 
@@ -112,9 +121,16 @@ public extension View {
     }
     
     /// Call back for writing assistant sheet height updated.
-    /// - Parameter height: A block that will be called when the sheet height is updated.
+    /// - Parameter block: A block that will be called when the sheet height is updated.
     /// - Returns: A view with the writing assistant sheet height updated environment value set.
     func waSheetHeightUpdated(_ block: ((CGFloat) -> Void)?) -> some View {
         self.environment(\.waSheetHeightUpdated, block)
+    }
+    
+    /// Call back for writing assistant authorization check.
+    /// - Parameter block: An async block that will be called to check authorization status.
+    /// - Returns: A view with the writing assistant authorization check environment value set.
+    func waAuthorizationCheck(_ block: (() async -> Bool)?) -> some View {
+        self.environment(\.waAuthorizationCheck, block)
     }
 }
