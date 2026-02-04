@@ -72,13 +72,14 @@ struct WATextInputModifier: ViewModifier {
     
     @StateObject var context: WritingAssistantContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.colorScheme) var colorScheme
     @FocusState private var isTextInputFocused: Bool
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
+    @Environment(\.waAuthorizationCheck) private var waAllowed
     @Environment(\.isLoading) var isLoading
     
     var formView: WritingAssistantForm
-    let waAction = WritingAssistantAction()
     
     init(text: Binding<String>,
          menus: [[WAMenu]],
@@ -99,82 +100,28 @@ struct WATextInputModifier: ViewModifier {
     func isSameTextInput(_ l: (any WATextInput)?, _ r: (any WATextInput)?) -> Bool {
         ObjectIdentifier(l as AnyObject) == ObjectIdentifier(r as AnyObject)
     }
-
-    #if !os(visionOS)
-        @ViewBuilder
-        private var keyboardAccessoryView: some View {
-            if LiquidGlassHelper.usesLiquidGlassUI {
-                if #available(iOS 26.0, *) {
-                    GlassEffectContainer {
-                        waEntryPointView
-                            .padding()
-                            .glassEffect(.regular.interactive())
-                            .padding(.horizontal)
-                    }
-                } else {
-                    VStack(spacing: 0) {
-                        Color.preferredColor(.separator).frame(height: 0.5)
-                        self.waEntryPointView.padding()
-                    }
-                }
-            } else {
-                VStack(spacing: 0) {
-                    Color.preferredColor(.separator).frame(height: 0.5)
-                    self.waEntryPointView.padding()
-                }
-            }
-        }
     
-        private var waEntryPointView: some View {
-            HStack {
-                Spacer()
-                self.waAction
-                    .fixedSize()
-                    .onSimultaneousTapGesture {
-                        self.context.originalValue = self.text
-                        self.context.updateOriginalSelectedRange()
-                        self.context.updateInWAFlow(true)
-                        self.context.isPresented = true
-                    }
-            }
-        }
-    
-        private var textInputAccessoryView: UIView {
-            let hostVC = UIHostingController(rootView: keyboardAccessoryView)
-            hostVC.view.frame.size = hostVC.view.intrinsicContentSize
-            return hostVC.view
-        }
-    
-        private func updateTextInputAccessoryView() {
-            if self.context.isPresented {
-                self.context.waTextInput?.inputAccessoryView = nil
-            } else {
-                self.context.waTextInput?.inputAccessoryView = self.textInputAccessoryView
-            }
-        }
-    #else
-        private func updateTextInputAccessoryView() {
-            // VisionOS does not support this now.
-        }
-    #endif
     // swiftlint:disable function_body_length cyclomatic_complexity
     func body(content: Content) -> some View {
         content
             .modifier(
                 FioriIntrospectModifier<UITextView> { textView in
                     self.context.waTextInput = textView
-                    self.updateTextInputAccessoryView()
                     self.context.observeSelectionChange(for: textView)
                 }
             )
             .modifier(
                 FioriIntrospectModifier<UITextField> { textField in
                     self.context.waTextInput = textField
-                    self.updateTextInputAccessoryView()
                     self.context.observeSelectionChange(for: textField)
                 }
             )
             .focused(self.$isTextInputFocused)
+            .onChange(of: self.isTextInputFocused) { oldValue, newValue in
+                if !oldValue, newValue, self.context.logKeyboardChanged, !self.context.isInWAFlow {
+                    self.context.updateInWAFlow(self.isTextInputFocused)
+                }
+            }
             .onReceive(self.keyboardPublisher) { value in
                 if self.context.logKeyboardChanged {
                     let isSameTextInput = self.isSameTextInput(value.1, self.context.waTextInput)
@@ -186,51 +133,13 @@ struct WATextInputModifier: ViewModifier {
                 }
             }
             .onChange(of: self.context.isInWAFlow) { _, newValue in
-                if !newValue {
-                    if self.context.showCancelAlert {
-                        // show alert will lost the focus, we need restore the selected range manually.
-                        self.restoreSelectedRange()
-                    } else if self.context.isPresented {
-                        if self.context.rewriteTextSet.count > 1 {
-                            self.context.showCancelAlert = true
-                        } else {
-                            self.context.cancelAction()
-                        }
-                    }
-                }
+                self.waFlowDidChanged(newValue)
             }
             .onChange(of: self.context.selection) { _, menu in
-                if let menu {
-                    self.context.startMenuTask(menu: menu)
-                    
-                    if UIAccessibility.isVoiceOverRunning {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            let formatString = "Text updated to Version %d of %d".localizedFioriString()
-                            let versionString = String(format: formatString, self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
-
-                            UIAccessibility.post(notification: .announcement, argument: versionString)
-                        }
-                    }
-                }
+                self.selectionDidChanged(menu)
             }
             .onChange(of: self.waHelperAction.wrappedValue) { _, newValue in
-                switch newValue {
-                case .none:
-                    break
-                case .retry:
-                    if self.context.errorModel.isFeedbackError {
-                        self.context.showFeedbackSuccessToast = false
-                        self.context.retryFeedbackTask()
-                        self.waHelperAction.wrappedValue = .none
-                    } else {
-                        self.context.selection = self.context.lastSelection
-                        self.waHelperAction.wrappedValue = .none
-                    }
-                case .update(let value):
-                    self.context.addNewValue(value, for: nil)
-                case .navigateTo(let destination):
-                    self.context.customDestination = CustomDestination(destination: destination)
-                }
+                self.handleHelperAction(newValue)
             }
             .onChange(of: self.context.originalValue) { _, _ in
                 self.context.displayedValue = self.context.originalValue
@@ -258,42 +167,140 @@ struct WATextInputModifier: ViewModifier {
                     self.restoreSelectedRange()
                 }
             }
+            .toolbar {
+                #if !os(visionOS)
+                    ToolbarItem(placement: .keyboard) {
+                        if self.isTextInputFocused, !self.context.isPresented, self.context.isInWAFlow {
+                            self.toolbarEntryView
+                        }
+                    }
+                #endif
+            }
             .onDisappear {
                 self.context.showCancelAlert = false
                 self.context.isPresented = false
             }
             .popover(isPresented: self.$context.isPresented, attachmentAnchor: .point(.center)) {
-                self.formView
-                    .frame(idealWidth: 400, idealHeight: 400)
-                    .environmentObject(self.context)
-                    .presentationCompactAdaptation(.sheet)
-                    .presentationDetents([.fraction(0.5)])
-                    .interactiveDismissDisabled()
-                    .presentationDragIndicator(.hidden)
-                    .disabled(self.context.inProgress)
-                    .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback", duration: 3)
-                    .ifApply(UIDevice.isIPhone) {
-                        $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
-                    }
-                    .background(
-                        GeometryReader { proxy in
-                            Color.clear
-                                .task {
-                                    if self.horizontalSizeClass == .compact {
-                                        self.waSheetHeightUpdated?(proxy.size.height)
-                                    }
-                                }
+                self.popoverView
+            }
+    }
+    
+    var toolbarEntryView: some View {
+        HStack {
+            Spacer()
+            WritingAssistantAction {
+                FioriButton { _ in
+                    if let waAllowed {
+                        Task {
+                            if await waAllowed() {
+                                self.showsWAPanel()
+                            }
                         }
-                    )
-                    .onDisappear {
-                        self.waSheetHeightUpdated?(0)
+                    } else {
+                        self.showsWAPanel()
                     }
+                } label: { _ in
+                    HStack {
+                        FioriIcon.actions.ai
+                        Text("Writing Assistant".localizedFioriString())
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                }
+            }
+            .fixedSize()
+        }
+    }
+    
+    func showsWAPanel() {
+        self.context.originalValue = self.text
+        self.context.updateOriginalSelectedRange()
+        self.context.updateInWAFlow(true)
+        self.context.isPresented = true
+    }
+    
+    func waFlowDidChanged(_ inWAFlow: Bool) {
+        if !inWAFlow {
+            if self.context.showCancelAlert {
+                // show alert will lost the focus, we need restore the selected range manually.
+                self.restoreSelectedRange()
+            } else if self.context.isPresented {
+                if self.context.rewriteTextSet.count > 1 {
+                    self.context.showCancelAlert = true
+                } else {
+                    self.context.cancelAction()
+                }
+            }
+        }
+    }
+    
+    func selectionDidChanged(_ menu: WAMenu?) {
+        if let menu {
+            self.context.startMenuTask(menu: menu)
+            
+            if UIAccessibility.isVoiceOverRunning {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    let formatString = "Text updated to Version %d of %d".localizedFioriString()
+                    let versionString = String(format: formatString, self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
+
+                    UIAccessibility.post(notification: .announcement, argument: versionString)
+                }
+            }
+        }
+    }
+    
+    func handleHelperAction(_ helpAction: WAHelperAction) {
+        switch helpAction {
+        case .none:
+            break
+        case .retry:
+            if self.context.errorModel.isFeedbackError {
+                self.context.showFeedbackSuccessToast = false
+                self.context.retryFeedbackTask()
+                self.waHelperAction.wrappedValue = .none
+            } else {
+                self.context.selection = self.context.lastSelection
+                self.waHelperAction.wrappedValue = .none
+            }
+        case .update(let value):
+            self.context.addNewValue(value, for: nil)
+        case .navigateTo(let destination):
+            self.context.customDestination = CustomDestination(destination: destination)
+        }
+    }
+    
+    var popoverView: some View {
+        self.formView
+            .frame(idealWidth: 400, idealHeight: 400)
+            .environmentObject(self.context)
+            .preferredColorScheme(self.colorScheme)
+            .presentationCompactAdaptation(.sheet)
+            .presentationDetents([.fraction(0.5)])
+            .interactiveDismissDisabled()
+            .presentationDragIndicator(.hidden)
+            .disabled(self.context.inProgress)
+            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback".localizedFioriString(), duration: 3)
+            .ifApply(UIDevice.isIPhone) {
+                $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
+            }
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .task {
+                            if self.horizontalSizeClass == .compact {
+                                self.waSheetHeightUpdated?(proxy.size.height)
+                            }
+                        }
+                }
+            )
+            .onDisappear {
+                self.waSheetHeightUpdated?(0)
             }
     }
     
     @MainActor func restoreSelectedRange(by range: NSRange? = nil) {
         if let textView = self.context.waTextInput as? UITextView {
-            let selectedRange = range ?? self.context.usedSelectedRange
+            let selectedRange = range ?? NSRange(location: textView.selectedRange.location, length: 0)
             DispatchQueue.main.async {
                 self.context.canResetSelectedRange = false
                 textView.select(textView)

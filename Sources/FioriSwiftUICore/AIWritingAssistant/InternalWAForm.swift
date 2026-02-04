@@ -13,13 +13,21 @@ struct InternalWAForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.hideFeedbackFooterInWritingAssistant) private var hideFeedbackFooterInWritingAssistant
-    
+    @Environment(\.colorScheme) var colorScheme
     @AccessibilityFocusState private var focusOnTitle: Bool
     @State private var tappedMenuId: UUID?
     var configuration: WritingAssistantFormConfiguration
     let menus: [[WAMenu]]
     let isTopLevel: Bool
     let navigationBarTitleString: String
+    
+    var backgroundColorScheme: BackgroundColorScheme {
+        if UIAccessibility.isInvertColorsEnabled {
+            return .deviceInverse
+        } else {
+            return self.colorScheme == .dark ? .darkConstant : .lightConstant
+        }
+    }
     
     var body: some View {
         Group {
@@ -58,12 +66,12 @@ struct InternalWAForm: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .toolbarBackground(Color.preferredColor(.header), for: .navigationBar)
+        .toolbarBackground(Color.preferredColor(.header, background: self.backgroundColorScheme), for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
                     Text(self.navigationBarTitleString)
-                        .foregroundColor(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                        .foregroundColor(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel, background: self.backgroundColorScheme))
                         .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
                     if self.context.rewriteTextSet.count > 1 {
                         self.versionView()
@@ -83,12 +91,12 @@ struct InternalWAForm: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Discard all changes?", isPresented: self.$context.showCancelAlert, actions: {
+        .alert("Discard all changes?".localizedFioriString(), isPresented: self.$context.showCancelAlert, actions: {
             Button(role: .cancel) {
                 self.context.showCancelAlert = false
                 self.context.updateInWAFlow(true)
             } label: {
-                Text("Keep Working")
+                Text("Keep Working".localizedFioriString())
                     .font(.fiori(forTextStyle: .caption1))
             }
             
@@ -100,7 +108,7 @@ struct InternalWAForm: View {
                 Text("Discard")
             }
         }, message: {
-            Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?")
+            Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?".localizedFioriString())
         })
     }
     
@@ -111,6 +119,7 @@ struct InternalWAForm: View {
                 Section {
                     ForEach(section.menus) { menu in
                         self.row(menu)
+                            .selectionDisabled(!menu.isEnabled)
                             .listRowBackground(
                                 Color.preferredColor(.secondaryGroupedBackground)
                             )
@@ -189,7 +198,7 @@ struct InternalWAForm: View {
                 Spacer()
                 item.icon
             }
-            .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+            .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
             .font(Font.fiori(forTextStyle: .body))
             .tag(item)
             .accessibilityElement(children: .combine)
@@ -201,6 +210,7 @@ struct InternalWAForm: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
+                guard item.isEnabled else { return }
                 self.tappedMenuId = item.id
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                     self.tappedMenuId = nil
@@ -212,11 +222,12 @@ struct InternalWAForm: View {
                 InternalWAForm(configuration: self.configuration, menus: [item.children], isTopLevel: false, navigationBarTitleString: item.title)
             } label: {
                 Text(item.title)
-                    .foregroundStyle(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel))
+                    .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
                     .font(Font.fiori(forTextStyle: .body))
                     .accessibilityHint("\(String(format: NSLocalizedString("Open to see %@ options", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), item.title))")
                     .accessibilityAddTraits(.isButton)
             }
+            .disabled(!item.isEnabled)
         }
     }
     
@@ -276,7 +287,7 @@ struct InternalWAForm: View {
     @ViewBuilder func versionView() -> some View {
         let versionString = String(format: "Version %d/%d".localizedFioriString(), self.context.indexOfCurrentValue + 1, self.context.rewriteTextSet.count)
         Text("\(versionString)")
-            .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
+            .foregroundColor(Color.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel, background: self.backgroundColorScheme))
             .font(.fiori(forTextStyle: .caption1))
     }
 }

@@ -191,6 +191,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     func updateOriginalSelectedRange() {
         if let textInput = self.waTextInput {
             self.originalSelectedRange = textInput.selectedRange
+            self.selectedRange = textInput.selectedRange
         }
     }
     
