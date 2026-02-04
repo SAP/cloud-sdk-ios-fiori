@@ -93,6 +93,7 @@ struct DateTimePickerExample: View {
                             .clipShape(.rect(cornerRadius: 6))
                     }
                 DateTimePicker(title: "Time only", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s3, pickerComponents: [.hourAndMinute], pickerVisible: self.$pickerVisible2)
+                    .accessibilitySortPriority(3) // This is a workaround, because the picker in DateTimePicker style as a popup will not restore original focus when dismissed.
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 DateTimePicker(title: "Numeric Date Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$pickerVisible3)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
