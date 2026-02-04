@@ -114,7 +114,7 @@ struct WritingAssistantExample: View {
                 .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
                 .frame(height: 100)
             
-            TextFieldFormView(title: "TextFieldFormView Title", text: self.$text2, placeholder: "Enter something")
+            TextFieldFormView(title: "TextFieldFormView Title: No waAuthorizationCheck required. WA disabled if input field is empty", text: self.$text2, placeholder: "Enter something")
                 .waTextInput(self.$text2, menus: WAMenu.disabledMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
