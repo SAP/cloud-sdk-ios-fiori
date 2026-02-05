@@ -66,12 +66,13 @@ public struct DefaultOperationsModifier: ViewModifier {
                 self.selectedPhotos.removeAll()
             }
         #if os(iOS)
-            .sheet(isPresented: self.showCamera) {
+            .fullScreenCover(isPresented: self.showCamera) {
                 CameraView { uiImage in
                     self.context.upload(images: [uiImage])
                 } onSaveVideo: { movieUrl in
                     self.context.upload(movieUrl: movieUrl)
                 }
+                .edgesIgnoringSafeArea(.bottom)
             }
             .sheet(isPresented: self.showPdfScanner) {
                 self.pdfScanner

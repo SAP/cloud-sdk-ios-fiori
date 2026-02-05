@@ -31,6 +31,10 @@ struct WritingAssistantExample: View {
     @State var errorOccurred = false
     @State var waSheetHeight: CGFloat = 0
     @State var isLoading = false
+    @State var showWAAuthAlert = false
+    @State var waAllowed = false
+    @State private var alertCompletion: ((Bool) -> Void)? = nil
+
     @FocusState var isFocused: Bool
     
     @State var hideFeedbackSection: Bool = true
@@ -91,20 +95,49 @@ struct WritingAssistantExample: View {
                     await self.submitFeedback(state: state, values: values)
                 })
                 .waHelperAction(self.$helperAction)
-                .frame(height: 100)
+                .waAuthorizationCheck {
+                    await withCheckedContinuation { continuation in
+                        if self.waAllowed {
+                            continuation.resume(returning: true)
+                        } else {
+                            self.showWAAuthAlert.toggle()
+                            self.alertCompletion = { allowed in
+                                continuation.resume(returning: allowed)
+                                self.waAllowed = allowed
+                            }
+                        }
+                    }
+                }
+                .writingAssistantActionStyle { c in
+                    c.writingAssistantAction.disabled(self.text.isEmpty)
+                }
                 .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
-
-            TextFieldFormView(title: "TextFieldFormView Title", text: self.$text2, placeholder: "Enter something")
+                .frame(height: 100)
+            
+            TextFieldFormView(title: "TextFieldFormView Title: No waAuthorizationCheck required. WA disabled if input field is empty", text: self.$text2, placeholder: "Enter something")
                 .waTextInput(self.$text2, menus: WAMenu.disabledMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
                     await self.submitFeedback(state: state, values: values)
                 })
                 .waHelperAction(self.$helperAction)
+                .writingAssistantActionStyle { c in
+                    c.writingAssistantAction.disabled(self.text2.isEmpty)
+                }
             
             Spacer()
         }
         .padding()
+        .alert("W.A. Authorization", isPresented: self.$showWAAuthAlert) {
+            Button("No", role: .destructive) {
+                self.alertCompletion?(false)
+            }
+            Button("Yes", role: .cancel) {
+                self.alertCompletion?(true)
+            }
+        } message: {
+            Text("Allow Using Writing Assistant?")
+        }
     }
 }
 
