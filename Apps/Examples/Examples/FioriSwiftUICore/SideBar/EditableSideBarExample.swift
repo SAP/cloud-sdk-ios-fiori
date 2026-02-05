@@ -42,9 +42,6 @@ struct EditableSideBarExample: View {
     var isPartialCustom: Bool = false
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
 
-    var deviceModelObject = DeviceExampleModelObject()
-    let destinationView = DeviceDetail()
-    
     @Environment(\.presentationMode) var presentationMode
     @State private var isEditing = false
     @State private var listItems: [SideBarItemModel] = loadItemModelData()
@@ -100,14 +97,7 @@ struct EditableSideBarExample: View {
                     .foregroundStyle(Color.preferredColor(.tintColor))
                 }) : nil },
 //                editButton: { EditButton() }, // Also can use system EditButton here if you don't want to check the updated data or customize the button's label
-                destination: { model in
-                    if let device = getDevice(item: model) {
-                        DispatchQueue.main.async {
-                            self.deviceModelObject.device = device
-                        }
-                    }
-                    return self.destinationView.environmentObject(self.deviceModelObject)
-                },
+                destination: { _ in EmptyView() },
                 item: { item in
                     self.makeItem(item)
                 }
@@ -119,7 +109,11 @@ struct EditableSideBarExample: View {
                 .foregroundStyle(Color.preferredColor(.tintColor))
             }))
         } detail: {
-            DevDetailView(title: "Home Page - Starting From Here")
+            if let selected = self.selection {
+                DeviceDetailView(itemModel: selected)
+            } else {
+                DevDetailView(title: "Home Page - Starting From Here")
+            }
         }
         .navigationBarHidden(true)
         .tint(Color.preferredColor(.tintColor))
@@ -255,15 +249,11 @@ let devices: [Device] = [
     Device("iPhone 15 Pro Max", "Dynamic Island", .iPhone15)
 ]
 
-class DeviceExampleModelObject: ObservableObject {
-    @Published var device: Device?
-}
-
-struct DeviceDetail: View {
-    @EnvironmentObject private var modelObject: DeviceExampleModelObject
+struct DeviceDetailView: View {
+    let itemModel: SideBarItemModel
     
     var body: some View {
-        if let device = modelObject.device {
+        if let device = getDevice(item: itemModel) {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
