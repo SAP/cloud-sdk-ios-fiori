@@ -117,7 +117,8 @@ struct ShimmerViewModifier: ViewModifier {
     @State private var phase: CGFloat = -1
     @Environment(\.isLoading) var isLoading
     @Environment(\.isAILoading) var isTintColor
-
+    let loadingAccLabel = NSLocalizedString("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Loading...")
+    
     var redactedForegroundColor: Color? {
         if self.isLoading {
             return Color.preferredColor(self.isTintColor ? .tintColor : .separator)
@@ -153,8 +154,20 @@ struct ShimmerViewModifier: ViewModifier {
         if #available(watchOS 10.0, *) {
             shimmerContent(content: content)
                 .focusEffectDisabled(self.isLoading)
+                .accessibilityElement(children: isLoading ? .ignore : .contain)
+                .allowsHitTesting(!self.isLoading)
+                .accessibilityLabel(isLoading ? loadingAccLabel : "")
+                .accessibilityValue(isLoading ? "" : "")
+                .accessibilityHint(isLoading ? "" : "")
+                .accessibilityAddTraits(isLoading ? .isStaticText : [])
         } else {
             self.shimmerContent(content: content)
+                .accessibilityElement(children: self.isLoading ? .ignore : .contain)
+                .allowsHitTesting(!self.isLoading)
+                .accessibilityLabel(self.isLoading ? self.loadingAccLabel : "")
+                .accessibilityValue(self.isLoading ? "" : "")
+                .accessibilityHint(self.isLoading ? "" : "")
+                .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
         }
     }
     
@@ -179,7 +192,6 @@ struct ShimmerViewModifier: ViewModifier {
                     self.stopShimmer()
                 }
             }
-            .allowsHitTesting(self.isLoading ? false : true)
     }
     
     private func startShimmer() {
@@ -284,15 +296,6 @@ public struct SkeletonLoadingContainer<Content: View>: View {
             .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : nil)
             .redacted(reason: self.isLoading ? .placeholder : [])
             .skeletonLoading(isLoading: self.isLoading, isTintColor: self.isAILoading)
-            .overlay {
-                if self.isLoading {
-                    let msg = NSLocalizedString("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Loading...")
-                    Text(msg)
-                        .foregroundStyle(Color.clear)
-                        .accessibilityHidden(false)
-                        .accessibilitySortPriority(1000)
-                }
-            }
     }
 }
 
