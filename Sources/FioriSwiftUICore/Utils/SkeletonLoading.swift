@@ -154,12 +154,12 @@ struct ShimmerViewModifier: ViewModifier {
         if #available(watchOS 10.0, *) {
             shimmerContent(content: content)
                 .focusEffectDisabled(self.isLoading)
-                .accessibilityElement(children: isLoading ? .ignore : .contain)
+                .accessibilityElement(children: self.isLoading ? .ignore : .contain)
                 .allowsHitTesting(!self.isLoading)
-                .accessibilityLabel(isLoading ? loadingAccLabel : "")
-                .accessibilityValue(isLoading ? "" : "")
-                .accessibilityHint(isLoading ? "" : "")
-                .accessibilityAddTraits(isLoading ? .isStaticText : [])
+                .accessibilityLabel(self.isLoading ? self.loadingAccLabel : "")
+                .accessibilityValue(self.isLoading ? "" : "")
+                .accessibilityHint(self.isLoading ? "" : "")
+                .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
         } else {
             self.shimmerContent(content: content)
                 .accessibilityElement(children: self.isLoading ? .ignore : .contain)
