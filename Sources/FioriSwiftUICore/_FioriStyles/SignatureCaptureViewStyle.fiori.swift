@@ -267,6 +267,7 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                     .accessibilityElement()
                     .accessibilityLabel(NSLocalizedString("Signature Area", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Area"))
                     .accessibilityHint(NSLocalizedString("Double tap and drag to sign", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap and drag to sign"))
+                    .accessibilitySortPriority(1)
                 HStack(alignment: .bottom) {
                     configuration.xmark
                     Rectangle()
@@ -278,6 +279,7 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                 .accessibilityLabel(NSLocalizedString("Signature Line", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Line"))
                 .padding([.leading, .trailing]).padding(.bottom, 48)
             }
+            .accessibilityElement(children: .contain)
         } else {
             ZStack(alignment: .bottom) {
                 ZStack {
@@ -301,8 +303,7 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                         .frame(height: 1)
                         .setHidden(configuration.hidesSignatureLine)
                 }
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(NSLocalizedString("Signature Line", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Line"))
+                .accessibilityHidden(true)
                 .padding([.leading, .trailing]).padding(.bottom, 48)
             }
         }
