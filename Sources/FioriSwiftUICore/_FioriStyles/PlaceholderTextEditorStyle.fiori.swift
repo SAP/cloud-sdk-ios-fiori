@@ -21,7 +21,7 @@ public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
                         self.isKeyboardShown = true
                     }
                 }
-            if configuration.text.isEmpty, !self.isFocused, !configuration.placeholder.isEmpty {
+            if configuration.text.isEmpty, !configuration.placeholder.isEmpty {
                 configuration.placeholder.body
                     .zIndex(1)
                     .onTapGesture {
@@ -59,7 +59,7 @@ extension PlaceholderTextEditorFioriStyle {
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
                 .padding(.top, 8)
-                .padding(.leading, 8)
+                .padding(.horizontal, 13)
         }
     }
 }
