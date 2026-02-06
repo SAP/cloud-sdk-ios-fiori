@@ -38,6 +38,16 @@ public struct HexColor: Hashable {
             self.colors.updateValue(color, forKey: .elevatedContrastDark)
         }
         
+        if let color = contrastLightColor {
+            self.colors.updateValue(color, forKey: .contrastLight)
+            self.colors.updateValue(color, forKey: .elevatedContrastLight)
+        }
+        
+        if let color = contrastDarkColor {
+            self.colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
+        }
+        
         if let color = elevatedLightColor {
             self.colors.updateValue(color, forKey: .elevatedLight)
             self.colors.updateValue(color, forKey: .elevatedContrastLight)
@@ -46,14 +56,6 @@ public struct HexColor: Hashable {
         if let color = elevatedDarkColor {
             self.colors.updateValue(color, forKey: .elevatedDark)
             self.colors.updateValue(color, forKey: .elevatedContrastDark)
-        }
-        
-        if let color = contrastLightColor {
-            self.colors.updateValue(color, forKey: .contrastLight)
-        }
-        
-        if let color = contrastDarkColor {
-            self.colors.updateValue(color, forKey: .contrastDark)
         }
         
         if let color = elevatedContrastLightColor {

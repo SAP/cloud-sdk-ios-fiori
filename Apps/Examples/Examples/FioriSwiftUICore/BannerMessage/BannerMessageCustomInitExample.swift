@@ -11,6 +11,7 @@ struct BannerMessageCustomInitExample: View {
     @State var isCustomStyle: Bool = false
     @State var headerSelection: BannerHeader = .object
     @State var showAINotice: Bool = false
+    @State var alignment: Int = 0
        
     let customColor = Color.preferredColor(.blue7)
     
@@ -37,7 +38,7 @@ struct BannerMessageCustomInitExample: View {
             }, label: {
                 Image(systemName: "xmark")
             })
-        }, messageType: self.showAINotice ? .aiNotice : .negative)
+        }, alignment: self.alignment == 1 ? .center : .leading, messageType: self.showAINotice ? .aiNotice : .negative)
             .ifApply(self.isCustomStyle, content: { v in
                 v.topDividerStyle { c in
                     c.topDivider.background(self.customColor)
@@ -93,6 +94,10 @@ struct BannerMessageCustomInitExample: View {
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
                         0
                     })
+                Picker("Alignment", selection: self.$alignment) {
+                    Text("Leading").tag(0)
+                    Text("Center").tag(1)
+                }
             } header: {}
         }.listStyle(.plain)
             .navigationTitle("Custom Creation")

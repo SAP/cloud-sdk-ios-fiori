@@ -54,16 +54,6 @@ public struct SideBarBaseStyle: SideBarStyle {
                     }
                 }
     
-                let destinationCallback: (SideBarItemModel, SideBarConfiguration) -> any View = { item, configuration in
-                    if configuration.isUsedInSplitView {
-                        // With NavigationLink and navigationDestination modifier under NavigationStack/NavigationSplitView, need to set selected item here
-                        DispatchQueue.main.async {
-                            configuration.selection = item
-                        }
-                    }
-                    return configuration.destination(item)
-                }
-    
                 // with iOS 26 Liquid Glass style, the Sidebar can't display totally on iPad with Portrait mode. It seems like the width of primary is changed in NavigationSplitView.
                 GeometryReader { geometry in
                     VStack(spacing: 0, content: {
@@ -71,9 +61,6 @@ public struct SideBarBaseStyle: SideBarStyle {
                             LazyVStack(spacing: 0) {
                                 self.buildSideBarList(configuration)
                             }
-                            .navigationDestination(for: SideBarItemModel.self, destination: { item in
-                                destinationCallback(item, configuration).typeErased
-                            })
                             .padding(EdgeInsets(top: 0, leading: self.leadingPadding, bottom: 0, trailing: self.trailingPadding))
                         }).background(Color.preferredColor(.secondaryBackground))
         
@@ -145,13 +132,17 @@ public struct SideBarBaseStyle: SideBarStyle {
                 
                 if !item.isInvisible, !configuration.isEditing { // For view mode
                     if configuration.isUsedInSplitView {
-                        // In NavigationSplieView, the 'select' standard accessibility action can trigger the navigationDestination modifier for the NavigationLink when enter key pressed or double-tapping with VoiceOver.
-                        // However, the custom accessibility action can't execute in the standard accessibility action here. Also, the 'select' standard accessibility action can not let NavigationLink work if add a nother customer accessibility action here. So, we just use 'select' standard accessibility action to trigger navigationDestination modifier and set the selected item in navigationDestination callback.
-                        NavigationLink(value: item) {
+                        Button {
+                            withAnimation {
+                                configuration.selection = item
+                            }
+                        } label: {
                             configuration.item(bindableItem).typeErased
-                        }.accessibilityAction(named: "Select") {}
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityAddTraits(.isButton)
                     } else {
-                        // in case the navigationDestination modifier of the NavigationLink can't work, to set the selection item when the NavigationLink was clicked or enter key pressed or double-tapping with VoiceOver
+                        // For UIkit Sidebar with false for property 'isUsedInSplitView', to set the selection item when the Sidebar item was clicked or enter key pressed or double-tapping with VoiceOver
                         configuration.item(bindableItem).typeErased
                             .simultaneousGesture(TapGesture().onEnded {
                                 configuration.selection = item
