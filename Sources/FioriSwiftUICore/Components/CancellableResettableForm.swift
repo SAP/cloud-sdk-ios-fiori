@@ -16,7 +16,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     @State private var scrollViewHeight: CGFloat? = nil
     @State private var subScrollViewHeight: CGFloat = 0
     @State var horizontalSizeClass: UserInterfaceSizeClass = .compact
-    @State private var maxAvailableHeight: CGFloat = .zero
     
     #if !os(visionOS)
         private let popoverIdealWidth = 393.0
@@ -119,7 +118,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             GeometryReader { proxy in
                 self.navigationBar()
                     .task {
-                        self.maxAvailableHeight = proxy.size.height
                         self.navigationBarHeight = proxy.size.height
                     }
                     .hidden()
@@ -141,7 +139,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             if self.subScrollViewHeight > 0 {
                 return [.height(self.subScrollViewHeight), .large]
             } else {
-                if scrollViewHeight + self.bottomHeight >= self.maxAvailableHeight {
+                if scrollViewHeight + self.bottomHeight >= self.navigationBarHeight {
                     if #available(iOS 26.0, *) {
                         return [.medium, .large]
                     } else {
