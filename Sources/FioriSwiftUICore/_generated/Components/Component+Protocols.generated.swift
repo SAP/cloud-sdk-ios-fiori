@@ -146,12 +146,6 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle: String? { get }
 }
 
-public protocol AvatarsComponent {
-	// sourcery: backingComponent=AvatarStack
-	// sourcery: customFunctionBuilder=AvatarsBuilder
-    var avatars: [TextOrIcon]? { get }
-}
-
 public protocol FootnoteIconsComponent {
 	// sourcery: backingComponent=FootnoteIconStack
 	// sourcery: customFunctionBuilder=FootnoteIconsBuilder

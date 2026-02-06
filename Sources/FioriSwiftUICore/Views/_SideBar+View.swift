@@ -72,35 +72,6 @@ public extension _SideBar where Subtitle == _ConditionalContent<Text, EmptyView>
     }
 }
 
-@available(iOS 14, *)
-public extension _SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
-    Footer == _ConditionalContent<AnyView, EmptyView>,
-    Detail == _ConditionalContent<AnyView, EmptyView>
-{
-    /// Returns a side bar view with given configuration.
-    /// - Parameters:
-    ///   - subtitle: The subtitle string of a side bar.
-    ///   - footerModel: Object item model for the footer view.
-    ///   - list: The configuration for constructing an expandable list of side bar items.
-    init<Data>(subtitle: String? = nil,
-               footerModel: _ObjectItemModel? = nil,
-               list: ExpandableList<Data, some View, some View>? = nil)
-        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable
-    {
-        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footer = footerModel != nil ?
-            ViewBuilder.buildEither(first: AnyView(_ObjectItem(model: footerModel!)
-                    .detailImageModifier { $0.foregroundColor(.preferredColor(.primaryLabel))
-                        .padding(.leading, 16)
-                    }
-                    .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                    .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
-                    .background(Color.preferredColor(.quaternaryFill))))
-            : ViewBuilder.buildEither(second: EmptyView())
-        self._detail = list != nil ? ViewBuilder.buildEither(first: AnyView(list)) : ViewBuilder.buildEither(second: EmptyView())
-    }
-}
-
 /// Defines an expandable list which supports multi-level hierarchy with the ability to select a single item.
 @available(iOS 14, *)
 public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Row: View, Destination: View {

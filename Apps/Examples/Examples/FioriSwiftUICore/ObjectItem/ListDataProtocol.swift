@@ -11,26 +11,23 @@ protocol ListDataProtocol {
 }
 
 protocol ObjectItemListDataProtocol: ListDataProtocol {
-    var isNewObjectItem: Bool { get set }
-    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool)
+    init(cellTapped: Binding<Bool>)
 }
 
 extension ObjectItemListDataProtocol {
-    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool) {
+    init(cellTapped: Binding<Bool>) {
         self.init(cellTapped: cellTapped)
-        self.isNewObjectItem = isNewObjectItem
     }
 }
 
 protocol ObjectItemListDataEnhancementProtocol: ObjectItemListDataProtocol {
     var isShowAccessoryMenu: Binding<Bool> { get set }
-    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool, isShowAccessoryMenu: Binding<Bool>)
+    init(cellTapped: Binding<Bool>, isShowAccessoryMenu: Binding<Bool>)
 }
 
 extension ObjectItemListDataEnhancementProtocol {
-    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool, isShowAccessoryMenu: Binding<Bool> = .constant(false)) {
+    init(cellTapped: Binding<Bool>, isShowAccessoryMenu: Binding<Bool> = .constant(false)) {
         self.init(cellTapped: cellTapped)
-        self.isNewObjectItem = isNewObjectItem
         self.isShowAccessoryMenu = isShowAccessoryMenu
     }
 }

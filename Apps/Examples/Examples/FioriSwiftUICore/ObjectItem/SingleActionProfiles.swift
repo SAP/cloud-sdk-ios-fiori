@@ -23,7 +23,6 @@ struct ObjectItemActionButtonStyle: FioriButtonStyle {
 
 struct SingleActionProfiles: ObjectItemListDataProtocol {
     @Binding var cellTapped: Bool
-    var isNewObjectItem: Bool = false
     
     init(cellTapped: Binding<Bool>) {
         self._cellTapped = cellTapped
@@ -77,250 +76,111 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
         let oi: any View
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, action: {
-                    actionBtn
-                })
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, detailImage: {
+                Image("ProfilePic")
+                    .resizable()
+                    .frame(width: 45, height: 45)
+                    .clipShape(Circle())
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
         case (0, 1):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, description: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, status: {
-                    Text("Available")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-                    .splitPercent(0.25)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, descriptionText: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, status: {
-                    Text("Available")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                }, action: {
-                    actionBtn
-                })
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, description: {
+                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+            }, status: {
+                Text("Available")
+            }, detailImage: {
+                Image("ProfilePic")
+                    .resizable()
+                    .frame(width: 45, height: 45)
+                    .clipShape(Circle())
+            }, icons: {
+                Text("1")
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                 .splitPercent(0.25)
-            }
-            
         case (0, 2):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, description: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                    Image(systemName: "paperclip").font(.system(size: 14))
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-                    .splitPercent(0.25)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, descriptionText: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                    Image(systemName: "paperclip").font(.system(size: 14))
-                }, action: {
-                    actionBtn
-                })
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, description: {
+                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+            }, icons: {
+                Text("1")
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                Image(systemName: "paperclip").font(.system(size: 14))
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                 .splitPercent(0.25)
-            }
-             
         case (0, 3):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, description: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-                    .splitPercent(0.25)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, descriptionText: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, action: {
-                    actionBtn
-                })
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, description: {
+                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                 .splitPercent(0.25)
-            }
-            
         case (0, 4):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, detailImage: {
-                    Image("ProfilePic")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                }, action: {
-                    actionBtn
-                })
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, detailImage: {
+                Image("ProfilePic")
+                    .resizable()
+                    .frame(width: 45, height: 45)
+                    .clipShape(Circle())
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
         case (0, 5):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Steel Roter")
-                }, subtitle: {
-                    Text("Product 1349-0987C65-X8900")
-                }, footnote: {
-                    Text("In Stock")
-                }, detailImage: {
-                    Image("wheel")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Steel Roter")
-                }, subtitle: {
-                    Text("Product 1349-0987C65-X8900")
-                }, footnote: {
-                    Text("In Stock")
-                }, detailImage: {
-                    Image("wheel")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                }, action: {
-                    actionBtn
-                })
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Steel Roter")
+            }, subtitle: {
+                Text("Product 1349-0987C65-X8900")
+            }, footnote: {
+                Text("In Stock")
+            }, detailImage: {
+                Image("wheel")
+                    .resizable()
+                    .frame(width: 45, height: 45)
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
         case (1, 0):
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, description: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                    Image(systemName: "paperclip").font(.system(size: 14))
-                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
-                    .splitPercent(0.25)
-                    .onTapGesture {
-                        print("tapped the cell")
-                        self.cellTapped = true
-                    }
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("Los Angeles")
-                }, descriptionText: {
-                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, icons: {
-                    Text("1")
-                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                    Image(systemName: "paperclip").font(.system(size: 14))
-                }, action: {
-                    actionBtn
-                })
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("Los Angeles")
+            }, description: {
+                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+            }, icons: {
+                Text("1")
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                Image(systemName: "paperclip").font(.system(size: 14))
+            }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                 .splitPercent(0.25)
                 .onTapGesture {
                     print("tapped the cell")
                     self.cellTapped = true
                 }
-            }
-            
         default:
-            oi = _ObjectItem(title: "test")
+            oi = ObjectItem(title: "test")
         }
         
         return oi.typeErased

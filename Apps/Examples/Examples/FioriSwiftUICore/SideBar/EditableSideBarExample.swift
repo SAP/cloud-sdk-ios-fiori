@@ -112,7 +112,7 @@ struct EditableSideBarExample: View {
             if let selected = self.selection {
                 DeviceDetailView(itemModel: selected)
             } else {
-                DevDetailView(title: "Home Page - Starting From Here")
+                Text("Home Page - Starting From Here")
             }
         }
         .navigationBarHidden(true)

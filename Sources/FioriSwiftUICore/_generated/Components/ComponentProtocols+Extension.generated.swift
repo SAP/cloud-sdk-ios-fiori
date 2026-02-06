@@ -40,12 +40,6 @@ public extension AttributeComponent {
     }
 }
 
-public extension AvatarsComponent {
-    var avatars: [TextOrIcon]? {
-        return nil
-    }
-}
-
 public extension BodyAttributedTextComponent {
     var bodyAttributedText: NSAttributedString? {
         return nil

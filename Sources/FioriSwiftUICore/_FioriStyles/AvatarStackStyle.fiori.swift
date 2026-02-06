@@ -2,9 +2,6 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-@available(*, deprecated, message: "Use AvatarStack to create an avatar stack. We will remove this model in the future.")
-public protocol AvatarStackModel: AvatarsComponent {}
-
 /// :nodoc:
 public extension AvatarStack {
     /// Layout for avatars in the stack.

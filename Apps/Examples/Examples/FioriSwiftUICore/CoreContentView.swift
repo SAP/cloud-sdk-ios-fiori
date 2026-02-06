@@ -29,14 +29,13 @@ struct CoreContentView: View {
             MenuItem(title: "AvatarStack", section: "Views", destination: AvatarStackExample()),
             MenuItem(title: "FioriButton", section: "Views", destination: FioriButtonContentView()),
             MenuItem(title: "Cards and Layouts", section: "Views", destination: MobileCardExample()),
-            MenuItem(title: "ContactItem", section: "Views", destination: ContactItemExample(isNewObjectItem: true)),
+            MenuItem(title: "ContactItem", section: "Views", destination: ContactItemExample()),
             MenuItem(title: "_ContactItem: deprecated", section: "Views", destination: ContactItemExample()),
             MenuItem(title: "_EmptyStateViewExample", section: "Views", destination: _EmptyStateViewExample()),
             MenuItem(title: "FormView", section: "Views", destination: FormViewExamples()),
             MenuItem(title: "IllustratedMessage", section: "Views", destination: IllustratedMessageExample()),
             MenuItem(title: "InformationViewExample", section: "Views", destination: InformationViewExample()),
-            MenuItem(title: "ObjectItem", section: "Views", destination: ObjectItemExample(_isNewObjectItem: true)),
-            MenuItem(title: "_ObjectItem: deprecated", section: "Views", destination: ObjectItemExample()),
+            MenuItem(title: "ObjectItem", section: "Views", destination: ObjectItemExample()),
             MenuItem(title: "Other View Examples", section: "Views", destination: OtherViewExamples()),
             MenuItem(title: "Signature Inline View", section: "Views", destination: SignatureCaptureViewExample()),
             MenuItem(title: "(Deprecated)Customized Signature Inline View", section: "Views", destination: SignatureCaptureViewExample2()),
@@ -90,7 +89,7 @@ struct CoreContentView: View {
             MenuItem(title: "DateRangePicker", section: "Pickers", destination: DateRangePickerExample()),
             
             // Onboarding
-            MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples(_isNewObjectItem: true)),
+            MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples()),
             MenuItem(title: "_Onboarding: deprecated", section: "Onboarding", destination: OnboardingExamples()),
             
             // Banner Message

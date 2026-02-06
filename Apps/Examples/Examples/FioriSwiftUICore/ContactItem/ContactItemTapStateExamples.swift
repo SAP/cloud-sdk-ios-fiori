@@ -29,59 +29,53 @@ struct ContactItemViewModel: _ContactItemModel, Identifiable {
 }
 
 struct ContactItemTapStateExamples: View {
-    var isNewObjectItem = false
-    
     let models: [ContactItemViewModel] = [ContactItemViewModel(title: "Seann Longname", detailImage: Image("person_square4").resizable(), actionItemsData: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]),
                                           ContactItemViewModel(title: "Seann Longname", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItemsData: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)])]
     @State var singleSelection: UUID?
     
     var body: some View {
         List(self.models, selection: self.$singleSelection) { model in
-            if self.isNewObjectItem {
-                ContactItem {
-                    Text(model.title)
-                } subtitle: {
-                    Text(model.subtitle ?? "")
-                } description: {
-                    Text(model.descriptionText ?? "")
-                } detailImage: {
-                    Group {
-                        if let detailImage = model.detailImage {
-                            detailImage
-                        } else {
-                            EmptyView()
-                        }
+            ContactItem {
+                Text(model.title)
+            } subtitle: {
+                Text(model.subtitle ?? "")
+            } description: {
+                Text(model.descriptionText ?? "")
+            } detailImage: {
+                Group {
+                    if let detailImage = model.detailImage {
+                        detailImage
+                    } else {
+                        EmptyView()
                     }
-                } activityItems: {
-                    ActivityItems(activityItems: model.actionItemsData ?? [])
-                        .activityItemsStyle { conf in
-                            conf.activityItems
-                                .foregroundColor(.red)
-                                .font(.fiori(forTextStyle: .headline).weight(.bold))
-                        }
                 }
-                .titleStyle { conf in
-                    conf.title
-                        .foregroundStyle(Color.green)
-                        .font(.fiori(forTextStyle: .headline).weight(.bold))
-                }
-                .subtitleStyle(content: { conf in
-                    conf.subtitle
-                        .foregroundStyle(Color.blue)
-                        .font(.fiori(forTextStyle: .headline).weight(.bold))
-                })
-                .descriptionStyle { conf in
-                    conf.description
-                        .foregroundStyle(Color.yellow)
-                        .font(.fiori(forTextStyle: .headline).weight(.bold))
-                }
-                .detailImageStyle { conf in
-                    conf.detailImage
-                        .backgroundStyle(Color.red)
-                        .font(.fiori(forTextStyle: .headline).weight(.bold))
-                }
-            } else {
-                _ContactItem(model: model)
+            } activityItems: {
+                ActivityItems(activityItems: model.actionItemsData ?? [])
+                    .activityItemsStyle { conf in
+                        conf.activityItems
+                            .foregroundColor(.red)
+                            .font(.fiori(forTextStyle: .headline).weight(.bold))
+                    }
+            }
+            .titleStyle { conf in
+                conf.title
+                    .foregroundStyle(Color.green)
+                    .font(.fiori(forTextStyle: .headline).weight(.bold))
+            }
+            .subtitleStyle(content: { conf in
+                conf.subtitle
+                    .foregroundStyle(Color.blue)
+                    .font(.fiori(forTextStyle: .headline).weight(.bold))
+            })
+            .descriptionStyle { conf in
+                conf.description
+                    .foregroundStyle(Color.yellow)
+                    .font(.fiori(forTextStyle: .headline).weight(.bold))
+            }
+            .detailImageStyle { conf in
+                conf.detailImage
+                    .backgroundStyle(Color.red)
+                    .font(.fiori(forTextStyle: .headline).weight(.bold))
             }
         }
         .navigationBarItems(trailing: EditButton())

@@ -2,8 +2,6 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
-    var isNewObjectItem: Bool = false
-    
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -42,341 +40,111 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
     }
     
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
-        //    let dot = FUIAttributedImage(image: #imageLiteral(resourceName: "dot1").withRenderingMode(.alwaysTemplate))
-        //    dot.tintColor = UIColor.preferredFioriColor(forStyle: .tintColorDark)
-        //    dot.isCircular = true
-        //    dot.size = CGSize(width: 12, height: 12)
-        
         let oi: any View
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            //        cell.headlineText = Utils.localizedString("Lorem ipseum dolor")
-            //        cell.descriptionText = Utils.localizedString("Some description")
-            //        cell.statusText = Utils.localizedString("Some status")
-            //        cell.substatusText = Utils.localizedString("some substatus")
-            //        cell.accessoryType = .disclosureIndicator
-            //        let longNormalText = "Just some really long text that is here dont worry about it too much"
-            //        let newLineText = "Words\nSeparated\nNewLineChars and this is " + longNormalText
-            //        cell.footnoteText = newLineText
-            //        cell.footnoteLabel.numberOfLines = 4
-            
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: "Lorem ipseum dolor",
-                                footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                description: "Some description",
-                                status: .both("Some status", Image(systemName: "paperplane")),
-                                substatus: TextOrIcon.text("some substatus"))
-                    .footnoteStyle {
-                        Footnote($0)
-                            .lineLimit(4)
-                    }
-                    .statusStyle(.positiveLabel)
-            } else {
-                oi = _ObjectItem(title: "Lorem ipseum dolor",
-                                 footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                 descriptionText: "Some description",
-                                 status: TextOrIcon.text("Some status"),
-                                 substatus: TextOrIcon.text("some substatus"))
-                    .footnoteModifier {
-                        $0.lineLimit(4)
-                    }
-            }
-            
+            oi = ObjectItem(title: "Lorem ipseum dolor",
+                            footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
+                            description: "Some description",
+                            status: .both("Some status", Image(systemName: "paperplane")),
+                            substatus: TextOrIcon.text("some substatus"))
+                .footnoteStyle {
+                    Footnote($0)
+                        .lineLimit(4)
+                }
+                .statusStyle(.positiveLabel)
         case (0, 1):
-//            cell.headlineText = Utils.localizedString("Lorem ipseum dolor")
-//            cell.descriptionText = Utils.localizedString("Some description")
-//            cell.statusText = Utils.localizedString("Some status")
-//            cell.substatusText = Utils.localizedString("some substatus")
-//            cell.accessoryType = .disclosureIndicator
-//            let longNormalText = "Just some really long text that is here dont worry about it too much"
-//            let newLineText = "NewLineChars and this is " + longNormalText + "\nWords\nSeparated"
-//            cell.footnoteText = newLineText
-//            cell.footnoteLabel.numberOfLines = 4
-        
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Lorem ipseum dolor")
-                }, footnote: {
-                    Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
-                        .lineLimit(4)
-                }, description: {
-                    Text("Some description")
-                }, status: {
-                    Text("Some status")
-                }, substatus: {
-                    Text("some substatus").font(.system(size: 32))
-                })
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Lorem ipseum dolor")
-                }, footnote: {
-                    Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
-                        .lineLimit(4)
-                }, descriptionText: {
-                    Text("Some description")
-                }, status: {
-                    Text("Some status")
-                }, substatus: {
-                    Text("some substatus").font(.system(size: 32))
-                })
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Lorem ipseum dolor")
+            }, footnote: {
+                Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
+                    .lineLimit(4)
+            }, description: {
+                Text("Some description")
+            }, status: {
+                Text("Some status")
+            }, substatus: {
+                Text("some substatus").font(.system(size: 32))
+            })
         case (0, 2):
-            //                cell.detailImage = #imageLiteral(resourceName: "ProfilePic")
-            //                cell.detailImageView.isCircular = true
-            //                cell.headlineText = Utils.localizedString("John Jacob Jingleheimer Schmidt")
-            //                cell.headlineLabel.numberOfLines = 2
-            //                cell.descriptionText = Utils.localizedString("Description is one line of text without wrapping")
-            //                cell.statusText = Utils.localizedString("Available")
-            //                cell.statusLabel.textColor = UIColor.preferredFioriColor(forStyle: .negative)
-            //                cell.accessoryType = .disclosureIndicator
-            //                cell.splitPercent = 0.5
-            //                if isBorderExample {
-            //                    cell.detailImageView.borderColor = UIColor.blue
-            //                    cell.detailImageView.borderWidth = 0
-            //                    cell.detailImageView.isCircular = true
-            //                }
-            
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("John Jacob Jingleheimer Schmidt")
-                }, description: {
-                    Text("Description is one line of text without wrapping")
-                }, status: {
-                    Text("Available").foregroundColor(.preferredColor(.negativeLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("John Jacob Jingleheimer Schmidt")
-                }, descriptionText: {
-                    Text("Description is one line of text without wrapping")
-                }, status: {
-                    Text("Available").foregroundColor(.preferredColor(.negativeLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            }
-            
+            oi = ObjectItem(title: {
+                Text("John Jacob Jingleheimer Schmidt")
+            }, description: {
+                Text("Description is one line of text without wrapping")
+            }, status: {
+                Text("Available").foregroundColor(.preferredColor(.negativeLabel))
+            }, detailImage: {
+                Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
+            })
+            .splitPercent(0.5)
         case (1, 0):
-//         cell.detailImageView.image = #imageLiteral(resourceName: "ProfilePic")
-//         cell.detailImageView.isCircular = true
-//         cell.headlineLabel.text = Utils.localizedString("Rouja Pakiman")
-//         cell.subheadlineLabel.text = Utils.localizedString("Java Developer")
-//         cell.descriptionLabel.text = Utils.localizedString("Customer discussed he needs a table to accommodate a family of 7.")
-//         cell.statusLabel.text = Utils.localizedString("Available")
-//         cell.statusLabel.textColor = UIColor.preferredFioriColor(forStyle: .positive)
-//         cell.accessoryType = .disclosureIndicator
-//         //            cell.iconImages = ["1", dot]
-//         cell.splitPercent = 0.5
-//         if isBorderExample {
-//         cell.detailImageView.borderColor = UIColor.blue
-//         cell.detailImageView.borderWidth = 10
-//         cell.detailImageView.isCircular = true
-//         }
-            
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, description: {
-                    Text("Customer discussed he needs a table to accommodate a family of 7.")
-                }, status: {
-                    Text("Available").foregroundColor(.preferredColor(.positiveLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, descriptionText: {
-                    Text("Customer discussed he needs a table to accommodate a family of 7.")
-                }, status: {
-                    Text("Available").foregroundColor(.preferredColor(.positiveLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, description: {
+                Text("Customer discussed he needs a table to accommodate a family of 7.")
+            }, status: {
+                Text("Available").foregroundColor(.preferredColor(.positiveLabel))
+            }, detailImage: {
+                Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
+            })
+            .splitPercent(0.5)
         case (1, 1):
-//         cell.detailImageView.image = #imageLiteral(resourceName: "oski")
-//         cell.headlineLabel.text = Utils.localizedString("No Description Set")
-//         cell.subheadlineLabel.text = Utils.localizedString("Three Phase Pad Mounted Transformer (533423)")
-//         cell.footnoteLabel.text = Utils.localizedString("1000 - Hamburg, MECHANIK")
-//         cell.statusImageView.image = FUIIconLibrary.indicator.veryHighPriority
-//         cell.substatusLabel.text = Utils.localizedString("Scheduled")
-//         cell.accessoryType = .disclosureIndicator
-//         //            cell.isAdaptiveLayout = false
-//         if isBorderExample {
-//         cell.detailImageView.borderColor = UIColor.blue
-//         cell.detailImageView.borderWidth = 3
-//         }
-        
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("No Description Set")
-                }, subtitle: {
-                    Text("Three Phase Pad Mounted Transformer (533423)")
-                }, footnote: {
-                    Text("1000 - Hamburg, MECHANIK")
-                }, status: {
-                    Image(systemName: "exclamationmark.square.fill").accessibilityLabel("Warning")
-                }, substatus: {
-                    Text("Scheduled")
-                }, detailImage: {
-                    Image("oski").resizable().frame(width: 45, height: 45)
-                })
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("No Description Set")
-                }, subtitle: {
-                    Text("Three Phase Pad Mounted Transformer (533423)")
-                }, footnote: {
-                    Text("1000 - Hamburg, MECHANIK")
-                }, status: {
-                    Image(systemName: "exclamationmark.square.fill").accessibilityLabel("Warning")
-                }, substatus: {
-                    Text("Scheduled")
-                }, detailImage: {
-                    Image("oski").resizable().frame(width: 45, height: 45)
-                })
-            }
-         
+            oi = ObjectItem(title: {
+                Text("No Description Set")
+            }, subtitle: {
+                Text("Three Phase Pad Mounted Transformer (533423)")
+            }, footnote: {
+                Text("1000 - Hamburg, MECHANIK")
+            }, status: {
+                Image(systemName: "exclamationmark.square.fill").accessibilityLabel("Warning")
+            }, substatus: {
+                Text("Scheduled")
+            }, detailImage: {
+                Image("oski").resizable().frame(width: 45, height: 45)
+            })
         case (1, 2):
-            //            cell.iconImages = ["1", dot, FUIIconLibrary.indicator.attachment]
-//         cell.detailImageView.image = #imageLiteral(resourceName: "ProfilePic")
-//         cell.detailImageView.isCircular = true
-//         cell.headlineLabel.text = Utils.localizedString("Rouja Pakiman")
-//         cell.subheadlineLabel.text = Utils.localizedString("Java Developer")
-//         cell.footnoteLabel.text = Utils.localizedString("San Carlos, CA. USA")
-//         cell.descriptionLabel.text = Utils.localizedString("CustomerShortDescription")
-//         cell.statusLabel.text = Utils.localizedString("This is a long status")
-//         cell.substatusImageView.image = FUIIconLibrary.system.selected.withRenderingMode(.alwaysTemplate)
-//         cell.substatusImageView.tintColor = UIColor.preferredFioriColor(forStyle: .primary3)
-//         cell.accessoryType = .disclosureIndicator
-//         cell.splitPercent = 0.5
-//         if isBorderExample {
-//         cell.detailImageView.borderColor = UIColor.blue
-//         cell.detailImageView.borderWidth = 3
-//         cell.detailImageView.isCircular = true
-//         }
-            
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("San Carlos, CA. USA")
-                }, description: {
-                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
-                }, status: {
-                    Text("This is a long status")
-                }, substatus: {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("San Carlos, CA. USA")
-                }, descriptionText: {
-                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
-                }, status: {
-                    Text("This is a long status")
-                }, substatus: {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            }
-            
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("San Carlos, CA. USA")
+            }, description: {
+                Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
+            }, status: {
+                Text("This is a long status")
+            }, substatus: {
+                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
+            }, detailImage: {
+                Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
+            })
+            .splitPercent(0.5)
         case (2, 0):
-            //            cell.iconImages = ["1", dot, FUIIconLibrary.indicator.attachment]
-//         cell.detailImageView.image = #imageLiteral(resourceName: "ProfilePic")
-//         cell.detailImageView.isCircular = true
-//         cell.headlineLabel.text = Utils.localizedString("Rouja Pakiman")
-//         cell.subheadlineLabel.text = Utils.localizedString("Java Developer")
-//         cell.footnoteLabel.text = Utils.localizedString("San Carlos, CA. USA")
-//         cell.descriptionLabel.text = Utils.localizedString("CustomerShortDescription")
-//         cell.statusLabel.text = Utils.localizedString("This is a long status")
-//         cell.statusLabel.textColor = UIColor.preferredFioriColor(forStyle: .positive)
-//         cell.substatusImageView.image = FUIIconLibrary.system.selected.withRenderingMode(.alwaysTemplate)
-//         cell.substatusImageView.tintColor = UIColor.preferredFioriColor(forStyle: .primary3)
-//         cell.accessoryType = .disclosureIndicator
-//         cell.splitPercent = 0.5
-//         if isBorderExample {
-//         cell.detailImageView.borderColor = UIColor.blue
-//         cell.detailImageView.borderWidth = 20
-//         cell.detailImageView.isCircular = true
-//         }
-            
-            if self.isNewObjectItem {
-                oi = ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("San Carlos, CA. USA")
-                }, description: {
-                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
-                }, status: {
-                    Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
-                }, substatus: {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            } else {
-                oi = _ObjectItem(title: {
-                    Text("Rouja Pakiman")
-                }, subtitle: {
-                    Text("Java Developer")
-                }, footnote: {
-                    Text("San Carlos, CA. USA")
-                }, descriptionText: {
-                    Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
-                }, status: {
-                    Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
-                }, substatus: {
-                    Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
-                }, detailImage: {
-                    Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
-                })
-                .splitPercent(0.5)
-            }
-        
+            oi = ObjectItem(title: {
+                Text("Rouja Pakiman")
+            }, subtitle: {
+                Text("Java Developer")
+            }, footnote: {
+                Text("San Carlos, CA. USA")
+            }, description: {
+                Text("Customer discussed he needs a and chair to table to accommodate a big family.  This is really important so they can all eat dinner at the same time.")
+            }, status: {
+                Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
+            }, substatus: {
+                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
+            }, detailImage: {
+                Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
+            })
+            .splitPercent(0.5)
         case (3, 0):
-//         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-//         cell.textLabel?.text = "Multi-profile image needs to be developed"
-//         return cell
-            oi = _ObjectItem(title: "Multi-profile image needs to be developed")
+            oi = ObjectItem(title: "Multi-profile image needs to be developed")
             
         case (4, 0):
-//         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
-//         cell.textLabel?.text = "Headline"
-//         cell.detailTextLabel?.text = "Subheadline"
-//         cell.accessoryType = .disclosureIndicator
-//         return cell
-            oi = _ObjectItem(title: "Headline")
-            
+            oi = ObjectItem(title: "Headline")
         default:
-            oi = _ObjectItem(title: "Lorem ipseum dolor")
+            oi = ObjectItem(title: "Lorem ipseum dolor")
         }
         
         return oi.typeErased
