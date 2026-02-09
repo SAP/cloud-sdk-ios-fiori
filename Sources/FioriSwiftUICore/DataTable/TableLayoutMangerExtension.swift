@@ -253,13 +253,13 @@ extension TableLayoutManager {
         
         return Group {
             if textBindings.count == 2, textBindings.keys.contains(.title), textBindings.keys.contains(.subtitle) {
-                _ObjectItem {
+                ObjectItem {
                     textBindings[.title]
                 } subtitle: {
                     textBindings[.subtitle]
                 }
             } else {
-                _ObjectItem {
+                ObjectItem {
                     textBindings[.title]
                 } subtitle: {
                     textBindings[.subtitle]

@@ -996,3 +996,38 @@ public enum ObjectItemSkeletonLoadingPattern {
         Text("Status Text")
     })
 }
+
+struct GeometrySizeView: View {
+    @Binding var size: CGSize
+
+    var body: some View {
+        GeometryReader { proxy -> Color in
+            DispatchQueue.main.async {
+                self.size = proxy.size
+            }
+            
+            return Color.clear
+        }
+    }
+}
+
+enum ObjectItemElement {
+    case detailImage
+    case status
+    case singleActionButton
+}
+
+struct MyViewPreferenceData {
+    let element: ObjectItemElement
+    let bounds: Anchor<CGRect>
+}
+
+struct MyViewPreferenceKey: PreferenceKey {
+    typealias Value = [MyViewPreferenceData]
+    
+    static var defaultValue: [MyViewPreferenceData] = []
+    
+    static func reduce(value: inout [MyViewPreferenceData], nextValue: () -> [MyViewPreferenceData]) {
+        value.append(contentsOf: nextValue())
+    }
+}
