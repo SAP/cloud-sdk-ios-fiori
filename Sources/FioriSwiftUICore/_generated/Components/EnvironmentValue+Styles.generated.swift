@@ -264,11 +264,6 @@ extension EnvironmentValues {
         set { self[SaveActionModifierKey.self] = newValue }
     }
 
-    public var nodeModifier: AnyViewModifier {
-        get { return self[NodeModifierKey.self] }
-        set { self[NodeModifierKey.self] = newValue }
-    }
-
     public var resetActionModifier: AnyViewModifier {
         get { return self[ResetActionModifierKey.self] }
         set { self[ResetActionModifierKey.self] = newValue }
@@ -561,11 +556,6 @@ public extension View {
     @ViewBuilder
     func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.saveActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
