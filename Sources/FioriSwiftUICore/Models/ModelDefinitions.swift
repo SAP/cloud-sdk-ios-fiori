@@ -551,72 +551,7 @@ public protocol _StepProgressIndicatorModel: AnyObject {
 @available(*, unavailable, renamed: "_StepProgressIndicatorModel", message: "Will be removed in the future release. Please use StepProgressIndicator instead.")
 public protocol StepProgressIndicatorModel {}
 
-// sourcery: generated_component_composite
-public protocol _FilterFeedbackBarModel: AnyObject {
-    // sourcery: bindingProperty
-    // sourcery: backingComponent=_SortFilterMenuItemContainer
-    var items: [[_SortFilterItem]] { get set }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var onUpdate: (() -> Void)? { get set }
-}
-
-@available(*, unavailable, renamed: "_FilterFeedbackBarModel", message: "Will be removed in the future release. Please use FilterFeedbackBar instead.")
-public protocol FilterFeedbackBarModel {}
-
-// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
-// sourcery: add_env_props = "dismiss"
-// sourcery: generated_component_composite
-// sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
-// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
-public protocol _SortFilterViewModel: AnyObject, TitleComponent {
-    // sourcery: bindingProperty
-    // sourcery: backingComponent=_SortFilterCFGItemContainer
-    var items: [[_SortFilterItem]] { get set }
-    
-    // sourcery: genericParameter.name = CancelActionView
-    // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = ResetActionView
-    // sourcery: default.value = _ResetActionDefault()
-    var resetAction: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = ApplyActionView
-    // sourcery: default.value = _ApplyActionDefault()
-    var applyAction: _ActionModel? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var onUpdate: (() -> Void)? { get }
-}
-
-@available(*, unavailable, renamed: "_SortFilterViewModel", message: "Will be removed in the future release. Please use SortFilterView instead.")
-public protocol SortFilterViewModel {}
-
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
-// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
-// sourcery: generated_component_composite
-public protocol _FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
-    // sourcery: no_view
-    var isSelected: Bool { get }
-}
-
-@available(*, unavailable, renamed: "_FilterFeedbackBarItemModel", message: "Will be removed in the future release. Please use FilterFeedbackBarItem instead.")
-public protocol FilterFeedbackBarItemModel {}
-
-// sourcery: add_env_props = "optionListPickerStyle"
-// sourcery: generated_component_composite
-public protocol _FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
-    // sourcery: no_view
-    var isSelected: Bool { get }
-}
-
-@available(*, unavailable, renamed: "_FilterFeedbackBarButtonModel", message: "Will be removed in the future release. Please use FilterFeedbackBarButton instead.")
-public protocol FilterFeedbackBarButtonModel {}
-
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
 // sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
@@ -643,7 +578,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
 // sourcery: virtualPropSearchText = "@State var _searchText: String = """
@@ -665,7 +600,7 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
 public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
@@ -673,7 +608,7 @@ public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
 @available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
 public protocol SwitchPickerItemModel {}
 
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 public protocol _SliderPickerItemModel: SliderPickerComponent {}
 
