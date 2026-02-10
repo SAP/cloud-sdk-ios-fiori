@@ -177,6 +177,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     VStack {
                         VStack {
                             self.illustratedMessage(configuration)
+                                .frame(maxWidth: .infinity)
                             
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
@@ -227,7 +228,6 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.scrollViewHeight = geometry.size.height
                 }
         })
-        .frame(maxWidth: (configuration.displayMode != .push) ? 393.0 : .infinity, maxHeight: .infinity)
         .toolbarBackground(self.isCompactStyle(configuration) ? .visible : .automatic, for: .navigationBar)
         .toolbarBackground(Color.preferredColor(.chromeSecondary), for: .navigationBar)
         .ifApply(self.isCompactStyle(configuration), content: { v in
