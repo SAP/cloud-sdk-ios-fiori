@@ -45,3 +45,14 @@ public extension EnvironmentValues {
         set { self[IsInMenuKey.self] = newValue }
     }
 }
+
+struct ObjectItemNumberOfLines: EnvironmentKey {
+    static let defaultValue: Int = 3
+}
+
+extension EnvironmentValues {
+    var numberOfLines: Int {
+        get { self[ObjectItemNumberOfLines.self] }
+        set { self[ObjectItemNumberOfLines.self] = newValue }
+    }
+}

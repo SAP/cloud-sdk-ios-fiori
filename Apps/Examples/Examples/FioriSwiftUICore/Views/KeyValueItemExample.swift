@@ -26,20 +26,22 @@ struct KeyValueItemExample: View {
     
     var body: some View {
         List {
-            Section {
+            Section(header: Text("Key Value Item Settings")) {
                 Picker("Axis", selection: self.$axis) {
                     Text("Horizontal").tag(Axis.horizontal)
                     Text("Vertical").tag(Axis.vertical)
                 }
                 Toggle("Skeleton Loading", isOn: self.$isLoading)
             }
-            Section {
+            Section(header: Text("Key Value Item Gallery")) {
                 Text("Key Value Item (Default Style)")
                 KeyValueItem(
                     key: { Text("Key 1") },
                     value: { Text("Value 1") },
                     axis: self.axis
                 )
+                
+                Divider()
                 
                 Text("Key Value Item (Long String)")
                 KeyValueItem(
@@ -48,6 +50,8 @@ struct KeyValueItemExample: View {
                     axis: self.axis
                 )
 
+                Divider()
+                
                 Text("Key Value Item 2 lines (Custom Style)")
                 KeyValueItem(
                     key: { Text("Long long long long long long long long long long long long long long long long long long long long long Key") },
