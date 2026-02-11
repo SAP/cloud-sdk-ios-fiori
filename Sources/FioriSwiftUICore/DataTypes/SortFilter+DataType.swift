@@ -663,6 +663,14 @@ public struct SliderValueChangeHandler: Equatable {
     }
 }
 
+/// Available OptionListPickerItem layout  types. Use this enum to define item layout type to present.
+public enum OptionListPickerItemLayoutType {
+    /// Fixed width
+    case fixed
+    /// Column width will be flexible
+    case flexible
+}
+
 public extension SortFilterItem {
     ///  Data structure for filter feedback, option list picker,
     struct PickerItem: Identifiable, Equatable {
