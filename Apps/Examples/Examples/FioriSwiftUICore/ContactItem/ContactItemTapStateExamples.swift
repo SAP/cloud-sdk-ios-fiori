@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ContactItemViewModel: _ContactItemModel, Identifiable {
+struct ContactItemViewModel: Identifiable {
     var title: String
     var subtitle: String?
     var descriptionText: String?

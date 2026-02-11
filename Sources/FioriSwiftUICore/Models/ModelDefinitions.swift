@@ -163,19 +163,6 @@ public protocol _SideBarModel: SubtitleComponent {}
 @available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
 public protocol SideBarModel {}
 
-// sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: add_env_props = "sizeCategory"
-// sourcery: add_env_props = "splitPercent"
-// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
-// sourcery: generated_component_composite
-public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
-    var actionItems: _ActivityItemsModel? { get }
-}
-
-/// Deprecated ContactItemModel
-@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
-public protocol ContactItemModel {}
-
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
 public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
