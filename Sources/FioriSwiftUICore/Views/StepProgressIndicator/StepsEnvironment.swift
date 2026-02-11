@@ -133,3 +133,55 @@ struct AnyStepStyle: StepStyle {
         self.line(configuration)
     }
 }
+
+struct SingleStepProperty {
+    let top: CGFloat
+    let leading: CGFloat
+    let trailing: CGFloat
+    let bottom: CGFloat
+    let horizontalSpacing: CGFloat
+    let verticalSpacing: CGFloat
+    let lineSize: CGSize?
+    let isLastStep: Bool
+    
+    init(top: CGFloat,
+         leading: CGFloat,
+         trailing: CGFloat,
+         bottom: CGFloat,
+         horizontalSpacing: CGFloat,
+         verticalSpacing: CGFloat,
+         lineSize: CGSize?,
+         isLastStep: Bool)
+    {
+        self.top = top
+        self.leading = leading
+        self.trailing = trailing
+        self.bottom = bottom
+        self.horizontalSpacing = horizontalSpacing
+        self.verticalSpacing = verticalSpacing
+        self.lineSize = lineSize
+        self.isLastStep = isLastStep
+    }
+    
+    init() {
+        self.top = 8
+        self.leading = 8
+        self.trailing = 8
+        self.bottom = 8
+        self.horizontalSpacing = 8
+        self.verticalSpacing = 8
+        self.lineSize = nil
+        self.isLastStep = false
+    }
+}
+
+struct SingleStepPropertyKey: EnvironmentKey {
+    static let defaultValue = SingleStepProperty()
+}
+
+extension EnvironmentValues {
+    var singleStepProperty: SingleStepProperty {
+        get { self[SingleStepPropertyKey.self] }
+        set { self[SingleStepPropertyKey.self] = newValue }
+    }
+}
