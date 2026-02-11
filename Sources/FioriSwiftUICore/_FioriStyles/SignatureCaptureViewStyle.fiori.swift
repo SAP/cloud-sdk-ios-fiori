@@ -111,16 +111,17 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                     Spacer()
                 }
                 .padding(.vertical, 11)
-                configuration.cancelAction
-                    .simultaneousGesture(
-                        TapGesture()
-                            .onEnded { _ in
-                                self.clear()
-                                self.isEditing = false
-                            }
-                    )
-                    .frame(minWidth: 44, minHeight: 44)
-                    .setHidden(!self.isEditing)
+                if self.isEditing {
+                    configuration.cancelAction
+                        .simultaneousGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    self.clear()
+                                    self.isEditing = false
+                                }
+                        )
+                        .frame(minWidth: 44, minHeight: 44)
+                }
             }
             .frame(minHeight: 44)
             
@@ -270,10 +271,11 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                     .accessibilitySortPriority(1)
                 HStack(alignment: .bottom) {
                     configuration.xmark
-                    Rectangle()
-                        .foregroundColor(configuration.signatureLineColor)
-                        .frame(height: 1)
-                        .setHidden(configuration.hidesSignatureLine)
+                    if !configuration.hidesSignatureLine {
+                        Rectangle()
+                            .foregroundColor(configuration.signatureLineColor)
+                            .frame(height: 1)
+                    }
                 }
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(NSLocalizedString("Signature Line", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Line"))
@@ -298,10 +300,11 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                 .frame(maxWidth: .infinity, minHeight: 256, maxHeight: configuration.drawingViewMaxHeight)
                 HStack(alignment: .bottom) {
                     configuration.xmark
-                    Rectangle()
-                        .foregroundColor(configuration.signatureLineColor.opacity(0.4))
-                        .frame(height: 1)
-                        .setHidden(configuration.hidesSignatureLine)
+                    if !configuration.hidesSignatureLine {
+                        Rectangle()
+                            .foregroundColor(configuration.signatureLineColor.opacity(0.4))
+                            .frame(height: 1)
+                    }
                 }
                 .accessibilityHidden(true)
                 .padding([.leading, .trailing]).padding(.bottom, 48)

@@ -11,9 +11,10 @@ public struct SortCriterionBaseStyle: SortCriterionStyle {
     public func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
         HStack(spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                Checkmark(checkmark: configuration.data.selectedIcon ?? Image(systemName: "checkmark"))
-                    .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: self.getWidth(compactWidth: 8)))
-                    .setHidden(!configuration.data.isSelected)
+                if configuration.data.isSelected {
+                    Checkmark(checkmark: configuration.data.selectedIcon ?? Image(systemName: "checkmark"))
+                        .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: self.getWidth(compactWidth: 8)))
+                }
 
                 if self.sizeCategory.isAccessibilityCategory {
                     self.configureMainStack(configuration, isVertical: true)

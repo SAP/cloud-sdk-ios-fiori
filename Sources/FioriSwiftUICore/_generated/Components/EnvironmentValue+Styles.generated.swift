@@ -244,31 +244,6 @@ extension EnvironmentValues {
         set { self[ItemsModifierKey.self] = newValue }
     }
 
-    public var startActionModifier: AnyViewModifier {
-        get { return self[StartActionModifierKey.self] }
-        set { self[StartActionModifierKey.self] = newValue }
-    }
-
-    public var restartActionModifier: AnyViewModifier {
-        get { return self[RestartActionModifierKey.self] }
-        set { self[RestartActionModifierKey.self] = newValue }
-    }
-
-    public var clearActionModifier: AnyViewModifier {
-        get { return self[ClearActionModifierKey.self] }
-        set { self[ClearActionModifierKey.self] = newValue }
-    }
-
-    public var saveActionModifier: AnyViewModifier {
-        get { return self[SaveActionModifierKey.self] }
-        set { self[SaveActionModifierKey.self] = newValue }
-    }
-
-    public var nodeModifier: AnyViewModifier {
-        get { return self[NodeModifierKey.self] }
-        set { self[NodeModifierKey.self] = newValue }
-    }
-
     public var resetActionModifier: AnyViewModifier {
         get { return self[ResetActionModifierKey.self] }
         set { self[ResetActionModifierKey.self] = newValue }
@@ -541,31 +516,6 @@ public extension View {
     @ViewBuilder
     func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.itemsModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func startActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.startActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func restartActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.restartActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func clearActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.clearActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.saveActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
