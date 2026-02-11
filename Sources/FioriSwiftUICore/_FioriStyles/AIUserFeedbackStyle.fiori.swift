@@ -122,7 +122,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 }
                 self.shouldApplyDetentHeight = true
             }
-            .ifApply(configuration.displayMode != .push && UIDevice.current.userInterfaceIdiom != .pad, content: { v in
+            .ifApply(configuration.displayMode != .push && self.horizontalSizeClass == .compact, content: { v in
                 v.presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(configuration.isBackgroundInteractionEnabled ? self.backgroundInteractionPresentationDetent() : .automatic)
                     .presentationDetents([.height(self.detentHeight + self.navigationBarHeight), .height(213.0), .medium, .large], selection: self.$detentSelection)
@@ -139,7 +139,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     func isCompactStyle(_ configuration: AIUserFeedbackConfiguration) -> Bool {
-        UIDevice.current.userInterfaceIdiom == .phone || configuration.displayMode == .inspector
+        self.horizontalSizeClass == .compact
+            || configuration.displayMode == .inspector
+            || ((configuration.displayMode == .sheet || configuration.displayMode == .inline) && self.horizontalSizeClass == .regular)
     }
     
     @ViewBuilder
@@ -175,6 +177,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     VStack {
                         VStack {
                             self.illustratedMessage(configuration)
+                                .frame(maxWidth: .infinity)
                             
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
@@ -204,8 +207,10 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         })
                         .padding([.top, .bottom], 16)
                     }
-                    .frame(minHeight: (UIDevice.current.userInterfaceIdiom == .phone || configuration.displayMode != .inspector) ? self.scrollViewHeight - (self.isCompactStyle(configuration) ? 10 : 0) : nil)
-                    .padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 0)
+                    .frame(minHeight: (self.horizontalSizeClass == .compact || configuration.displayMode != .inspector) ? self.scrollViewHeight - (self.isCompactStyle(configuration) ? 10 : 0) : nil)
+                    .ifApply(self.shouldShowFeedbackDetail, content: { v in
+                        v.padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 0)
+                    })
                     .background(Color.preferredColor(.secondaryGroupedBackground))
                     .clipShape(RoundedRectangle(cornerRadius: self.isCompactStyle(configuration) ? 13 : 0))
                     .padding(.top, self.isCompactStyle(configuration) ? 10 : 0)
@@ -223,7 +228,6 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.scrollViewHeight = geometry.size.height
                 }
         })
-        .frame(maxWidth: (configuration.displayMode != .push && UIDevice.current.userInterfaceIdiom != .phone) ? 393.0 : .infinity, maxHeight: .infinity)
         .toolbarBackground(self.isCompactStyle(configuration) ? .visible : .automatic, for: .navigationBar)
         .toolbarBackground(Color.preferredColor(.chromeSecondary), for: .navigationBar)
         .ifApply(self.isCompactStyle(configuration), content: { v in
