@@ -30,14 +30,8 @@ public struct SingleStepBaseStyle: SingleStepStyle {
     @Environment(\.stepAxis) var stepAxis
     @Environment(\.currentStepId) var currentStepId
     @Environment(\.stepFrames) var stepFrames
+    @Environment(\.singleStepProperty) var singleStepProperty
     let stepsSpacing: CGFloat = 2
-    
-    var horizontalSpacing: CGFloat = 8
-    var leading: CGFloat = 8
-    var top: CGFloat = 8
-    var verticalSpacing: CGFloat = 8
-    var trailing: CGFloat = 8
-    var bottom: CGFloat = 8
     
     /// :nodoc:
     public func makeBody(_ configuration: SingleStepConfiguration) -> some View {
@@ -68,7 +62,7 @@ public struct SingleStepBaseStyle: SingleStepStyle {
     @ViewBuilder func stepContainer(_ configuration: SingleStepConfiguration) -> some View {
         let _id = configuration.id
         let state = configuration.state
-        let isLastStep = false
+        let isLastStep = self.singleStepProperty.isLastStep
         
         Button {
             if self.currentStepId.wrappedValue != _id, state != .disabled {
@@ -86,13 +80,13 @@ public struct SingleStepBaseStyle: SingleStepStyle {
                                      isSelected: self.currentStepId.wrappedValue == _id,
                                      isLastStep: isLastStep,
                                      isTitleEmptyView: configuration.title.isEmpty,
-                                     top: self.top,
-                                     bottom: self.bottom,
-                                     leading: self.leading,
-                                     trailing: self.trailing,
-                                     horizontalSpacing: self.horizontalSpacing,
-                                     verticalSpacing: self.verticalSpacing,
-                                     lineSize: nil))
+                                     top: self.singleStepProperty.top,
+                                     bottom: self.singleStepProperty.bottom,
+                                     leading: self.singleStepProperty.leading,
+                                     trailing: self.singleStepProperty.trailing,
+                                     horizontalSpacing: self.singleStepProperty.horizontalSpacing,
+                                     verticalSpacing: self.singleStepProperty.verticalSpacing,
+                                     lineSize: self.singleStepProperty.lineSize))
         .frameReader(in: .named("SPICoordinateSpace")) { rect in
             self.stepFrames.wrappedValue[_id] = rect
         }

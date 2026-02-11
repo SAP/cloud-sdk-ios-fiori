@@ -104,9 +104,17 @@ struct DefaultSingleStep: View {
     
     @ViewBuilder func singleStep(title: some View) -> some View {
         let isSelected = self.stepItem.id == self.selection
-        _SingleStep(id: self.stepItem.id) {
+        let stepProperty = SingleStepProperty(top: self.defaultPadding,
+                                              leading: self.defaultPadding,
+                                              trailing: self.defaultPadding,
+                                              bottom: self.defaultPadding,
+                                              horizontalSpacing: 8,
+                                              verticalSpacing: 8,
+                                              lineSize: self.lineSize,
+                                              isLastStep: !self.showLine)
+        SingleStep(title: {
             title
-        } node: {
+        }, node: {
             ZStack {
                 self.node(by: self.stepItem.state, isSelected: isSelected)
                 if self.stepItem.node == nil {
@@ -122,39 +130,34 @@ struct DefaultSingleStep: View {
                         .position(x: self.sideLength, y: 2)
                 }
             }
-        }
-        .update(self.stepItem.state, !self.showLine)
-        .lineSize(self.lineSize)
-        .stepPadding(top: self.defaultPadding,
-                     bottom: self.defaultPadding,
-                     leading: self.defaultPadding,
-                     trailing: self.defaultPadding,
-                     vertical: 8,
-                     horizontal: 8)
+        }, id: self.stepItem.id, state: self.stepItem.state)
+            .environment(\.singleStepProperty, stepProperty)
     }
     
     @ViewBuilder
     func singleSubstep() -> some View {
         if self.stepItem.state.isSupported {
             let isSelected = self.stepItem.id == self.selection
-            _SingleStep(id: self.stepItem.id) {
+            let stepProperty = SingleStepProperty(top: self.defaultPadding + (self.offset / 2),
+                                                  leading: self.defaultPadding + (self.offset / 2),
+                                                  trailing: (self.offset / 2) - self.defaultPadding,
+                                                  bottom: (self.offset / 2) - self.defaultPadding,
+                                                  horizontalSpacing: 8 + (self.offset / 2),
+                                                  verticalSpacing: 8 + (self.offset / 2),
+                                                  lineSize: self.lineSize,
+                                                  isLastStep: !self.showLine)
+            
+            SingleStep(title: {
                 if let title = stepItem.title {
                     Text(title)
                 } else {
                     EmptyView()
                 }
-            } node: {
+            }, node: {
                 self.subnode(by: self.stepItem.state, isSelected: isSelected)
                     .frame(width: self.subnodeSideLength, height: self.subnodeSideLength)
-            }
-            .lineSize(self.lineSize)
-            .update(self.stepItem.state, !self.showLine)
-            .stepPadding(top: self.defaultPadding + (self.offset / 2),
-                         bottom: (self.offset / 2) - self.defaultPadding,
-                         leading: self.defaultPadding + (self.offset / 2),
-                         trailing: (self.offset / 2) - self.defaultPadding,
-                         vertical: 8 + (self.offset / 2),
-                         horizontal: 8 + (self.offset / 2))
+            }, id: self.stepItem.id, state: self.stepItem.state)
+                .environment(\.singleStepProperty, stepProperty)
         } else {
             EmptyView()
         }

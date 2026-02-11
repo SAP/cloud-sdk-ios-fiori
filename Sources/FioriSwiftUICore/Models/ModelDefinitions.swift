@@ -359,83 +359,6 @@ public protocol UserConsentFormModel {}
 @available(*, unavailable, renamed: "_UserConsentPageModel", message: "Will be removed in the future release. Please create UserConsentPage with other initializers instead.")
 public protocol UserConsentPageModel {}
 
-// sourcery: importFrameworks = ["Combine"]
-// sourcery: virtualPropHeightDidChangePublisher = "public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)"
-// sourcery: virtualPropIsEditing = "@State var isEditing = false"
-// sourcery: virtualPropFullSignatureImage = "@State var fullSignatureImage: UIImage?"
-// sourcery: virtualPropCurrentDrawing = "@State var currentDrawing = Drawing()"
-// sourcery: virtualPropDrawings = "@State var drawings = [Drawing]()"
-// sourcery: virtualPropIsSaved = "@State var isSaved = false"
-// sourcery: virtualPropIsReenterTapped = "@State var isReenterTapped = false"
-// sourcery: virtualPropTitleFont = "var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
-// sourcery: virtualPropTitleColor = "var titleColor = Color.preferredColor(.primaryLabel)"
-// sourcery: virtualPropIndicatorFont = "var indicatorFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
-// sourcery: virtualPropIndicatorColor = "var indicatorColor = Color.preferredColor(.primaryLabel)"
-// sourcery: virtualPropStrokeWidth = "var strokeWidth: CGFloat = 3.0"
-// sourcery: virtualPropStrokeColor = "var strokeColor = Color.preferredColor(.primaryLabel)"
-// sourcery: virtualPropDrawingViewBackgroundColor = "var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)"
-// sourcery: virtualPropXmarkColor = "var xmarkColor = Color.preferredColor(.quaternaryLabel)"
-// sourcery: virtualPropSignatureLineColor = "var signatureLineColor = Color.preferredColor(.quaternaryLabel)"
-// sourcery: virtualPropCropsImage = "var cropsImage = false"
-// sourcery: virtualPropDrawingViewMinHeight = "let _drawingViewMinHeight: CGFloat = 256"
-// sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"
-// sourcery: virtualPropHidesXmark = "var hidesXmark = false"
-// sourcery: virtualPropHidesSignatureLine = "var hidesSignatureLine = false"
-// sourcery: virtualPropAddsTimestampInImage = "var addsTimestampInImage: Bool = false"
-// sourcery: virtualPropTimestampFormatter = "var timestampFormatter: DateFormatter?"
-// sourcery: virtualPropWatermarkText = "var watermarkText: String?"
-// sourcery: virtualPropWatermarkTextAlignment = "var watermarkTextAlignment: NSTextAlignment = .natural"
-// sourcery: virtualPropWatermarkTextFont = "var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)"
-// sourcery: virtualPropWatermarkTextColor = "var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)"
-// sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
-// sourcery: generated_component_composite
-// sourcery: virtualPropIsRequired = "var isRequired = false"
-public protocol _SignatureCaptureViewModel: AnyObject {
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var title: String? { get }
-    
-    // sourcery: default.value = ""*""
-    // sourcery: no_view
-    var mandatoryIndicator: String? { get }
-
-    // sourcery: genericParameter.name = StartActionView
-    // sourcery: default.value = _TapToSignActionDefault()
-    var startAction: _ActionModel? { get }
-
-    // sourcery: genericParameter.name = RestartActionView
-    // sourcery: default.value = _ReEnterSignatureActionDefault()
-    var restartAction: _ActionModel? { get }
-
-    // sourcery: genericParameter.name = CancelActionView
-    // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: _ActionModel? { get }
-
-    // sourcery: genericParameter.name = ClearActionView
-    // sourcery: default.value = _ClearActionDefault()
-    var clearAction: _ActionModel? { get }
-
-    // sourcery: genericParameter.name = SaveActionView
-    // sourcery: default.value = _SaveActionDefault()
-    var saveAction: _ActionModel? { get }
-
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var signatureImage: UIImage? { get }
-
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var onSave: ((UIImage) -> Void)? { get }
-
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var onDelete: (() -> Void)? { get }
-}
-
-/// Deprecated SignatureCaptureViewModel
-@available(*, unavailable, renamed: "_SignatureCaptureViewModel", message: "Will be removed in the future release. Please create SignatureCaptureView with other initializers instead.")
-public protocol SignatureCaptureViewModel {}
-
 // sourcery: generated_component_composite
 public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
     // sourcery: genericParameter.name = ActionView
@@ -473,72 +396,72 @@ public protocol SearchableListViewModel {
 /// :nodoc:
 public protocol _KPIHeaderItemModel {}
 
-// sourcery: add_env_props = "stepLineModifier"
-// sourcery: add_env_props = "stepAxis"
-// sourcery: add_env_props = "currentStepId"
-// sourcery: add_env_props = "stepStyle"
-// sourcery: virtualPropTop = "var top: CGFloat = 8"
-// sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
-// sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
-// sourcery: virtualPropLeading = "var leading: CGFloat = 8"
-// sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
-// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 8"
-// sourcery: virtualPropLineSize = "var lineSize: CGSize? = nil"
-// sourcery: virtualPropStepState = "var state: StepProgressIndicatorState?"
-// sourcery: virtualPropIsLastStep = "var isLastStep: Bool = false"
 // sourcery: generated_component_composite
-public protocol _SingleStepModel {
-    // sourcery: default.value = UUID().uuidString
+public protocol _FilterFeedbackBarModel: AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: backingComponent=_SortFilterMenuItemContainer
+    var items: [[_SortFilterItem]] { get set }
+    
+    // sourcery: default.value = nil
     // sourcery: no_view
-    var id: String { get set }
-    
-    var title: String? { get set }
-    // sourcery: backingComponent=TextOrIconView
-    var node: TextOrIcon { get set }
-    
-    // sourcery: no_style
-    // sourcery: backingComponent=_StepsContainer
-    // sourcery: customFunctionBuilder=IndexedViewBuilder
-    // sourcery: genericParameter.type=IndexedViewContainer
-    var substeps: [_SingleStepModel] { get set }
+    var onUpdate: (() -> Void)? { get set }
 }
 
-@available(*, unavailable, renamed: "_SingleStepModel", message: "Will be removed in the future release. Please use SingleStep instead.")
-public protocol SingleStepModel {}
+@available(*, unavailable, renamed: "_FilterFeedbackBarModel", message: "Will be removed in the future release. Please use FilterFeedbackBar instead.")
+public protocol FilterFeedbackBarModel {}
 
-// sourcery: add_env_props = "presentationMode"
-// sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
-// sourcery: virtualPropStepsData = "var stepItems: [StepItem] = []"
-// sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
-// sourcery: virtualPropStepFrames = "@State var stepFrames: [String: CGRect] = [:]"
-// sourcery: virtualPropScrollBounds = "@State var scrollBounds: CGRect = .zero"
+// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
+// sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
-public protocol _StepProgressIndicatorModel: AnyObject {
+// sourcery: virtualPropViewSize = "@State var size: CGSize = .zero"
+// sourcery: virtualPropPopoverWidth = "let popoverWidth = 393.0"
+public protocol _SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
-    // sourcery: no_view
-    var selection: String { get set }
-    
-    var title: String? { get }
-    
-    // sourcery: genericParameter.name = ActionView
-    // sourcery: default.value = _AllStepsActionDefault()
-    var action: _ActionModel? { get }
-    
-    // sourcery: no_style
-    // sourcery: backingComponent=_StepsContainer
-    // sourcery: customFunctionBuilder=IndexedViewBuilder
-    // sourcery: genericParameter.type=IndexedViewContainer
-    var steps: [_SingleStepModel] { get }
+    // sourcery: backingComponent=_SortFilterCFGItemContainer
+    var items: [[_SortFilterItem]] { get set }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
     var cancelAction: _ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ResetActionView
+    // sourcery: default.value = _ResetActionDefault()
+    var resetAction: _ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ApplyActionView
+    // sourcery: default.value = _ApplyActionDefault()
+    var applyAction: _ActionModel? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onUpdate: (() -> Void)? { get }
 }
 
-@available(*, unavailable, renamed: "_StepProgressIndicatorModel", message: "Will be removed in the future release. Please use StepProgressIndicator instead.")
-public protocol StepProgressIndicatorModel {}
+@available(*, unavailable, renamed: "_SortFilterViewModel", message: "Will be removed in the future release. Please use SortFilterView instead.")
+public protocol SortFilterViewModel {}
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
+// sourcery: generated_component_composite
+public protocol _FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+    // sourcery: no_view
+    var isSelected: Bool { get }
+}
+
+@available(*, unavailable, renamed: "_FilterFeedbackBarItemModel", message: "Will be removed in the future release. Please use FilterFeedbackBarItem instead.")
+public protocol FilterFeedbackBarItemModel {}
+
+// sourcery: add_env_props = "optionListPickerStyle"
+// sourcery: generated_component_composite
+public protocol _FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
+    // sourcery: no_view
+    var isSelected: Bool { get }
+}
+
+@available(*, unavailable, renamed: "_FilterFeedbackBarButtonModel", message: "Will be removed in the future release. Please use FilterFeedbackBarButton instead.")
+public protocol FilterFeedbackBarButtonModel {}
+
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 0"
 // sourcery: virtualPropUpdateSearchListPickerHeight = "var updateSearchListPickerHeight: ((CGFloat) -> ())? = nil"
@@ -565,7 +488,7 @@ public protocol OptionListPickerItemModel: OptionListPickerComponent {
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
 // sourcery: virtualPropSearchText = "@State var _searchText: String = """
@@ -587,7 +510,7 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
 public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
@@ -595,7 +518,7 @@ public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
 @available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
 public protocol SwitchPickerItemModel {}
 
-// sourcery: add_env_props = "filterFeedbackBarStyle"
+// sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 public protocol _SliderPickerItemModel: SliderPickerComponent {}
 
