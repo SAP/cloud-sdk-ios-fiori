@@ -93,7 +93,6 @@ public extension Type {
                                     "_ObjectHeaderModel",
                                     "_HeaderChartModel",
                                     "_SectionHeaderModel",
-                                    "_SwitchPickerItemModel",
                                     "_FilterFeedbackBarButtonModel",
                                     "_FilterFeedbackBarItemModel",
                                     "_FilterFeedbackBarModel",
