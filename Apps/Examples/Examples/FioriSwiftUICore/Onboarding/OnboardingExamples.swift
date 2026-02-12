@@ -6,7 +6,7 @@ struct OnboardingExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeExamples(_isNewObjectItem: self._isNewObjectItem))
+                destination: WelcomeExamples())
             {
                 Text("WelcomeScreen Examples")
             }
@@ -67,38 +67,17 @@ struct OnboardingExamples: View {
 }
 
 struct WelcomeExamples: View {
-    var _isNewObjectItem: Bool = false
     var body: some View {
         List {
-            if self._isNewObjectItem {
-                Section {
-                    NavigationLink {
-                        OnBoardingWelcomeScreenExamples()
-                    } label: {
-                        Text("OnBoarding - WelcomeScreen")
-                    }
-                } header: {
-                    Text("Extra Examples")
-                        .textCase(.none)
+            Section {
+                NavigationLink {
+                    OnBoardingWelcomeScreenExamples()
+                } label: {
+                    Text("OnBoarding - WelcomeScreen")
                 }
-            } else {
-                Section {
-                    NavigationLink(
-                        destination: WelcomeScreenSample())
-                    {
-                        Text("WelcomeScreen")
-                    }
-                    NavigationLink(
-                        destination: WelcomeScreenCustomized())
-                    {
-                        Text("WelcomeScreen customized")
-                    }
-                    NavigationLink(
-                        destination: WelcomeScreenDiscoveryService())
-                    {
-                        Text("WelcomeScreen with Discovery Service")
-                    }
-                }
+            } header: {
+                Text("Extra Examples")
+                    .textCase(.none)
             }
             
         }.navigationBarTitle("Welcome Examples", displayMode: .inline)
