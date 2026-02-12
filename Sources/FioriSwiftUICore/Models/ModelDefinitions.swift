@@ -176,23 +176,6 @@ public protocol _ContactItemModel: TitleComponent, SubtitleComponent, Descriptio
 @available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
 public protocol ContactItemModel {}
 
-// sourcery: add_env_props = ["horizontalSizeClass"]
-// sourcery: generated_component_composite
-public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
-    // sourcery: genericParameter.name = TextInputView
-    var textInput: _TextInputModel? { get }
-    
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-}
-
-/// Deprecated WelcomeScreenModel
-@available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
-public protocol WelcomeScreenModel {}
-
 // sourcery: generated_component_composite
 public protocol _ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
     // sourcery: genericParameter.name = ActionView
