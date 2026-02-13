@@ -163,6 +163,22 @@ public protocol _SideBarModel: SubtitleComponent {}
 @available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
 public protocol SideBarModel {}
 
+// sourcery: add_env_props = ["horizontalSizeClass"]
+// sourcery: generated_component_composite
+public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
+    // sourcery: genericParameter.name = TextInputView
+    var textInput: _TextInputModel? { get }
+    
+    // sourcery: genericParameter.name = ActionView
+    var action: _ActionModel? { get }
+    
+    // sourcery: genericParameter.name = SecondaryActionView
+    var secondaryAction: _ActionModel? { get }
+}
+
+/// Deprecated WelcomeScreenModel
+@available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
+public protocol WelcomeScreenModel {}
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
