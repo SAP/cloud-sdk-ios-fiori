@@ -160,6 +160,7 @@ struct ShimmerViewModifier: ViewModifier {
                 .accessibilityValue(self.isLoading ? "" : "")
                 .accessibilityHint(self.isLoading ? "" : "")
                 .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
+                .disabled(self.isLoading)
         } else {
             self.shimmerContent(content: content)
                 .accessibilityElement(children: self.isLoading ? .ignore : .contain)
@@ -168,6 +169,7 @@ struct ShimmerViewModifier: ViewModifier {
                 .accessibilityValue(self.isLoading ? "" : "")
                 .accessibilityHint(self.isLoading ? "" : "")
                 .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
+                .disabled(self.isLoading)
         }
     }
     

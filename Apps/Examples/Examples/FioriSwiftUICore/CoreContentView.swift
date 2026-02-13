@@ -88,7 +88,6 @@ struct CoreContentView: View {
             
             // Onboarding
             MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples()),
-            MenuItem(title: "_Onboarding: deprecated", section: "Onboarding", destination: OnboardingExamples()),
             
             // Banner Message
             MenuItem(title: "Banner Message", section: "Banner Message", destination: BannerMessageExample()),

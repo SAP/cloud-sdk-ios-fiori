@@ -93,10 +93,12 @@ struct SortFilterExample: View {
             }
             .listStyle(PlainListStyle())
             
-            HStack {
+            HStack(spacing: 45) {
                 Toggle("Custom Style", isOn: self.$isCustomStyle)
                     .fixedSize()
-                    .toggleStyle(FioriToggleStyle())
+                    .toggleStyle(SwitchToggleStyle(tint: .preferredColor(.tintColor)))
+                    .frame(height: 30)
+                    .scaleEffect(1.3)
 
                 Button("Print") {
                     for line in self.sortFilterList {
