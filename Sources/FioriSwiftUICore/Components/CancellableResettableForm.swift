@@ -139,7 +139,15 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             if self.subScrollViewHeight > 0 {
                 return [.height(self.subScrollViewHeight), .large]
             } else {
-                return [.height(scrollViewHeight + self.bottomHeight), .large]
+                if scrollViewHeight + self.bottomHeight >= self.navigationBarHeight {
+                    if #available(iOS 26.0, *) {
+                        return [.medium, .large]
+                    } else {
+                        return [.medium, .fraction(0.999)]
+                    }
+                } else {
+                    return [.height(scrollViewHeight + self.bottomHeight), .fraction(0.999)]
+                }
             }
         } else {
             return [.height(self.sheetContentHeight + self.bottomHeight + self.navigationBarHeight)]
