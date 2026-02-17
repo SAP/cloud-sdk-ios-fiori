@@ -3671,6 +3671,57 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE29flexibleStepProgressIndicatoryQrSbF"></a>
+                      <a name="//apple_ref/swift/Method/flexibleStepProgressIndicator(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE29flexibleStepProgressIndicatoryQrSbF">flexibleStepProgressIndicator(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Flexible <code><a href="../Structs/StepProgressIndicator.html">StepProgressIndicator</a></code> support.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">flexibleStepProgressIndicator</span><span class="p">(</span><span class="n">_</span> <span class="nv">flexible</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>flexible</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A boolean value indicating whether layout of <code><a href="../Structs/StepProgressIndicator.html">StepProgressIndicator</a></code> is flexible. Default value is <code>false</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A new <code><a href="../Structs/StepProgressIndicator.html">StepProgressIndicator</a></code> with flexible layout or not. When you want to force steps fill the whole space of container, this value may be invalid when the width of steps is less then the minimum value.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE16stepLineModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
                       <a name="//apple_ref/swift/Method/stepLineModifier(_:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE16stepLineModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">stepLineModifier(_:<wbr>)</a>
@@ -4382,7 +4433,7 @@
                                 </td>
                                 <td>
                                   <div>
-                                    <p>A view representing the icon. The defalt icon is SF symbol <code>fiori.ai</code>.</p>
+                                    <p>A view representing the icon. The default icon is SF symbol <code>fiori.ai</code>.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -4545,9 +4596,60 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXE10Foundation16AttributedStringVyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF"></a>
-                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:messageType:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXE10Foundation16AttributedStringVyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>messageType:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE36disableMultipleVoteForAIUserFeedbackyQrSbF"></a>
+                      <a name="//apple_ref/swift/Method/disableMultipleVoteForAIUserFeedback(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE36disableMultipleVoteForAIUserFeedbackyQrSbF">disableMultipleVoteForAIUserFeedback(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Disable multiple vote for <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code></p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">disableMultipleVoteForAIUserFeedback</span><span class="p">(</span><span class="n">_</span> <span class="nv">disabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>disabled</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A boolean value indicating if multiple vote is disabled.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A new view with multiple vote is disabled or not in <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXE10Foundation16AttributedStringVyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF"></a>
+                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:hidesCloseAction:messageType:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXE10Foundation16AttributedStringVyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>hidesCloseAction:<wbr>messageType:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -4569,6 +4671,7 @@
                        <span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
                        <span class="nv">bannerTapped</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                        <span class="nv">alignment</span><span class="p">:</span> <span class="kt">HorizontalAlignment</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                       <span class="nv">hidesCloseAction</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                        <span class="nv">messageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">negative</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -4625,6 +4728,42 @@
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>alignment</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A alignment for the icon and title.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hidesCloseAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Hides close action or not. Default is false.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>messageType</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The type of message. Default is .negative.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -4638,9 +4777,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXESSyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF"></a>
-                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:messageType:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXESSyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>messageType:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXESSyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF"></a>
+                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:hidesCloseAction:messageType:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXESSyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>hidesCloseAction:<wbr>messageType:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -4662,6 +4801,7 @@
                        <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                        <span class="nv">bannerTapped</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                        <span class="nv">alignment</span><span class="p">:</span> <span class="kt">HorizontalAlignment</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                       <span class="nv">hidesCloseAction</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                        <span class="nv">messageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">negative</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -4718,6 +4858,42 @@
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>alignment</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A alignment for the icon and title.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hidesCloseAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Hides close action or not. Default is false.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>messageType</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The type of message. Default is .negative.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -4731,9 +4907,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXEAaB_pyXEyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF"></a>
-                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:messageType:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment11messageTypeQrAA7BindingVySbG_AoaB_pyXEAaB_pyXEyycSgAA19HorizontalAlignmentVSgAD011BannerMultigR0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>messageType:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXEAaB_pyXEyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF"></a>
+                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:title:bannerTapped:alignment:hidesCloseAction:messageType:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon5title0F6Tapped9alignment16hidesCloseAction11messageTypeQrAA7BindingVySbG_ApaB_pyXEAaB_pyXEyycSgAA19HorizontalAlignmentVSgSbAD011BannerMultigU0OSgtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>title:<wbr>bannerTapped:<wbr>alignment:<wbr>hidesCloseAction:<wbr>messageType:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -4755,6 +4931,7 @@
                        <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
                        <span class="nv">bannerTapped</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                        <span class="nv">alignment</span><span class="p">:</span> <span class="kt">HorizontalAlignment</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                       <span class="nv">hidesCloseAction</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                        <span class="nv">messageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">negative</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
@@ -4831,7 +5008,31 @@
                                 </td>
                                 <td>
                                   <div>
-                                    <p>A alignment for the icon and title</p>
+                                    <p>A alignment for the icon and title.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hidesCloseAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Hides close action or not. Default is false.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>messageType</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The type of message. Default is .negative.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -4848,9 +5049,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon0F6Tapped16viewDetailAction9alignment13hideSeparator11messageType19turnOnSectionHeader04showP4Link0F13MultiMessagesQrAA7BindingVySbG_AsaB_pyXEyycSgy10Foundation4UUIDVcSgAA19HorizontalAlignmentVSbAD011BannerMultigV0OSgS2bARySayAD06BannerG9ListModelCGGtF"></a>
-                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:bannerTapped:viewDetailAction:alignment:hideSeparator:messageType:turnOnSectionHeader:showDetailLink:bannerMultiMessages:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon0F6Tapped16viewDetailAction9alignment13hideSeparator11messageType19turnOnSectionHeader04showP4Link0F13MultiMessagesQrAA7BindingVySbG_AsaB_pyXEyycSgy10Foundation4UUIDVcSgAA19HorizontalAlignmentVSbAD011BannerMultigV0OSgS2bARySayAD06BannerG9ListModelCGGtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>bannerTapped:<wbr>viewDetailAction:<wbr>alignment:<wbr>hideSeparator:<wbr>messageType:<wbr>turnOnSectionHeader:<wbr>showDetailLink:<wbr>bannerMultiMessages:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon0F6Tapped16viewDetailAction9alignment13hideSeparator010hidesCloseQ011messageType19turnOnSectionHeader04showP4Link0F13MultiMessagesQrAA7BindingVySbG_AtaB_pyXEyycSgy10Foundation4UUIDVcSgAA19HorizontalAlignmentVS2bAD011BannerMultigX0OSgS2bASySayAD06BannerG9ListModelCGGtF"></a>
+                      <a name="//apple_ref/swift/Method/bannerMessageView(isPresented:pushContentDown:icon:bannerTapped:viewDetailAction:alignment:hideSeparator:hidesCloseAction:messageType:turnOnSectionHeader:showDetailLink:bannerMultiMessages:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013bannerMessageC011isPresented15pushContentDown4icon0F6Tapped16viewDetailAction9alignment13hideSeparator010hidesCloseQ011messageType19turnOnSectionHeader04showP4Link0F13MultiMessagesQrAA7BindingVySbG_AtaB_pyXEyycSgy10Foundation4UUIDVcSgAA19HorizontalAlignmentVS2bAD011BannerMultigX0OSgS2bASySayAD06BannerG9ListModelCGGtF">bannerMessageView(isPresented:<wbr>pushContentDown:<wbr>icon:<wbr>bannerTapped:<wbr>viewDetailAction:<wbr>alignment:<wbr>hideSeparator:<wbr>hidesCloseAction:<wbr>messageType:<wbr>turnOnSectionHeader:<wbr>showDetailLink:<wbr>bannerMultiMessages:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -4873,6 +5074,7 @@
                        <span class="nv">viewDetailAction</span><span class="p">:</span> <span class="p">((</span><span class="kt">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                        <span class="nv">alignment</span><span class="p">:</span> <span class="kt">HorizontalAlignment</span> <span class="o">=</span> <span class="o">.</span><span class="n">center</span><span class="p">,</span>
                        <span class="nv">hideSeparator</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                       <span class="nv">hidesCloseAction</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                        <span class="nv">messageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/BannerMultiMessageType.html">BannerMultiMessageType</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">negative</span><span class="p">,</span>
                        <span class="nv">turnOnSectionHeader</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
                        <span class="nv">showDetailLink</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
@@ -4965,6 +5167,18 @@
                                 <td>
                                   <div>
                                     <p>Hide bottom separator or not.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>hidesCloseAction</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Hides close action or not. Default is false.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -5177,6 +5391,57 @@
                         <div>
                           <h4>Return Value</h4>
                           <p>A new <code>View</code> with banner multi message sheet.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE29removeDetailImageDefaultStyleyQrSbF"></a>
+                      <a name="//apple_ref/swift/Method/removeDetailImageDefaultStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE29removeDetailImageDefaultStyleyQrSbF">removeDetailImageDefaultStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Support for flexible style of <code><a href="../Structs/DetailImage.html">DetailImage</a></code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">removeDetailImageDefaultStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>value</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A boolean value indicating if the default style is removed. Default value is <code>false</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>The default style of <code><a href="../Structs/DetailImage.html">DetailImage</a></code> is removed or not.</p>
                         </div>
                       </section>
                     </div>
@@ -5782,9 +6047,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreX07CGFloatVA1_AA0R0VA1_A3_A1_A3_AD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreX07CGFloatVA1_AA0R0VA1_A3_A1_A3_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreY07CGFloatVA2_AA0R0VA2_A4_A2_A4_AD0D11ShadowStyleOSgSSSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreY07CGFloatVA2_AA0R0VA2_A4_A2_A4_AD0D11ShadowStyleOSgSSSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -5812,7 +6077,8 @@ display.</p>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
                   <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
-                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">,</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -5976,6 +6242,18 @@ display.</p>
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -5989,9 +6267,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreQ07CGFloatVqd__tAD0tG5StyleRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreQ07CGFloatVqd__tAD0tG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreR07CGFloatVqd__SSSgtAD0uG5StyleRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXE10Foundation16AttributedStringVSdAD05ToastG8PositionO04CoreR07CGFloatVqd__SSSgtAD0uG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6013,7 +6291,8 @@ display.</p>
                   <span class="nv">duration</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">position</span><span class="p">:</span> <span class="kt"><a href="../Enums/ToastMessagePosition.html">ToastMessagePosition</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">center</span><span class="p">,</span>
                   <span class="nv">spacing</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">(),</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6105,6 +6384,18 @@ display.</p>
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -6118,9 +6409,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVA_AA0R0VA_A1_A_A1_AD0D11ShadowStyleOSgSSSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVA_AA0R0VA_A1_A_A1_AD0D11ShadowStyleOSgSSSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6148,7 +6439,8 @@ display.</p>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
                   <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
-                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">,</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6312,6 +6604,18 @@ display.</p>
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -6325,9 +6629,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__tAD0qG5StyleRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__tAD0qG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__SSSgtAD0rG5StyleRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXESSSdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__SSSgtAD0rG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6349,7 +6653,8 @@ display.</p>
                   <span class="nv">duration</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">position</span><span class="p">:</span> <span class="kt"><a href="../Enums/ToastMessagePosition.html">ToastMessagePosition</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">center</span><span class="p">,</span>
                   <span class="nv">spacing</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">(),</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6441,6 +6746,18 @@ display.</p>
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -6454,9 +6771,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadowQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVAzA0R0VAZA0_AZA0_AD0D11ShadowStyleOSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVA_AA0R0VA_A1_A_A1_AD0D11ShadowStyleOSgSSSgtF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:cornerRadius:backgroundColor:borderWidth:borderColor:borderWidthIC:borderColorIC:shadow:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing12cornerRadius15backgroundColor11borderWidth0sR00sT2IC0srU06shadow013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVA_AA0R0VA_A1_A_A1_AD0D11ShadowStyleOSgSSSgtF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>cornerRadius:<wbr>backgroundColor:<wbr>borderWidth:<wbr>borderColor:<wbr>borderWidthIC:<wbr>borderColorIC:<wbr>shadow:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6484,7 +6801,8 @@ display.</p>
                   <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="n">clear</span><span class="p">,</span>
                   <span class="nv">borderWidthIC</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">borderColorIC</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">tertiaryLabel</span><span class="p">),</span>
-                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">shadow</span><span class="p">:</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Enums/FioriShadowStyle.html">FioriShadowStyle</a></span><span class="o">.</span><span class="n">level3</span><span class="p">,</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6648,6 +6966,18 @@ display.</p>
                                   </div>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
+                                  </div>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -6661,9 +6991,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__tAD0qG5StyleRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5styleQrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__tAD0qG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__SSSgtAD0rG5StyleRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:position:spacing:style:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration8position7spacing5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESdAD05ToastG8PositionO14CoreFoundation7CGFloatVqd__SSSgtAD0rG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>position:<wbr>spacing:<wbr>style:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6685,7 +7015,8 @@ display.</p>
                   <span class="nv">duration</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">position</span><span class="p">:</span> <span class="kt"><a href="../Enums/ToastMessagePosition.html">ToastMessagePosition</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">center</span><span class="p">,</span>
                   <span class="nv">spacing</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">(),</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6774,6 +7105,18 @@ display.</p>
                                 <td>
                                   <div>
                                     <p>A <code><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></code> object to apply to the toast message. This is equivalent to adding a <code>.toastMessageStyle(style)</code> modifier to a standalone ToastMessage component.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -6879,9 +7222,9 @@ display.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration16verticalPosition5styleQrAA7BindingVySbG_AaB_pyXEAaB_pyXESd14CoreFoundation7CGFloatVqd__tAD05ToastG5StyleRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:verticalPosition:style:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration16verticalPosition5styleQrAA7BindingVySbG_AaB_pyXEAaB_pyXESd14CoreFoundation7CGFloatVqd__tAD05ToastG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>verticalPosition:<wbr>style:<wbr>)</a>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration16verticalPosition5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESd14CoreFoundation7CGFloatVqd__SSSgtAD05ToastG5StyleRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/toastMessage(isPresented:icon:title:duration:verticalPosition:style:accessibilityMessage:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12toastMessage11isPresented4icon5title8duration16verticalPosition5style013accessibilityG0QrAA7BindingVySbG_AaB_pyXEAaB_pyXESd14CoreFoundation7CGFloatVqd__SSSgtAD05ToastG5StyleRd__lF">toastMessage(isPresented:<wbr>icon:<wbr>title:<wbr>duration:<wbr>verticalPosition:<wbr>style:<wbr>accessibilityMessage:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -6902,7 +7245,8 @@ display.</p>
                   <span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
                   <span class="nv">duration</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                   <span class="nv">verticalPosition</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span>
-                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                  <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/ToastMessageRoundedBorderStyle.html">ToastMessageRoundedBorderStyle</a></span><span class="p">(),</span>
+                  <span class="nv">accessibilityMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -6979,6 +7323,18 @@ display.</p>
                                 <td>
                                   <div>
                                     <p>A <code><a href="../Protocols/ToastMessageStyle.html">ToastMessageStyle</a></code> object to apply to the toast message. This is equivalent to adding a <code>.toastMessageStyle(style)</code> modifier to a standalone ToastMessage component.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>accessibilityMessage</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A message communicating the toast message&rsquo;s content to be read by voiceover when the component appears.</p>
                                   </div>
                                 </td>
                               </tr>
@@ -8407,151 +8763,6 @@ display.</p>
                             <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
 <span class="kd">@MainActor</span>
 <span class="kd">func</span> <span class="n">itemsModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE19startActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/startActionModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE19startActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">startActionModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">startActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE21restartActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/restartActionModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE21restartActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">restartActionModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">restartActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE19clearActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/clearActionModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE19clearActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">clearActionModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">clearActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE18saveActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/saveActionModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE18saveActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">saveActionModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">saveActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE12nodeModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/nodeModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE12nodeModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF">nodeModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">nodeModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -20673,6 +20884,75 @@ display.</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
+                  <a name="/StateLabelStyle"></a>
+                  <a name="//apple_ref/swift/Section/StateLabelStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/StateLabelStyle"></a>
+                    <h3 class="section-name"><span>StateLabelStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15stateLabelStyleyQrqd__AD05StategH0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/stateLabelStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15stateLabelStyleyQrqd__AD05StategH0Rd__lF">stateLabelStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">stateLabelStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/StateLabelStyle.html">StateLabelStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15stateLabelStyle7contentQrqd__AD05StateG13ConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/stateLabelStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15stateLabelStyle7contentQrqd__AD05StateG13ConfigurationVc_tAaBRd__lF">stateLabelStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">stateLabelStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/StateLabelConfiguration.html">StateLabelConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
                   <a name="/StatusStyle"></a>
                   <a name="//apple_ref/swift/Section/StatusStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -24637,9 +24917,6 @@ display.</p>
                   <a href="../Protocols/AuthenticationStyle.html">AuthenticationStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/AvatarStackStyle.html">AvatarStackStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -25228,6 +25505,9 @@ display.</p>
                   <a href="../Protocols/StartSignatureActionStyle.html">StartSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/StateLabelStyle.html">StateLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/StatusComponent.html">StatusComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -25498,9 +25778,6 @@ display.</p>
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18_ObjectHeaderModelP">_ObjectHeaderModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/_ObjectItemModel.html">_ObjectItemModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore23_ProgressIndicatorModelP">_ProgressIndicatorModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -25513,22 +25790,10 @@ display.</p>
                   <a href="../Protocols.html#/s:16FioriSwiftUICore13_SideBarModelP">_SideBarModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/_SignatureCaptureViewModel.html">_SignatureCaptureViewModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/_SingleStepModel.html">_SingleStepModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore22_SliderPickerItemModelP">_SliderPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/_SortFilterViewModel.html">_SortFilterViewModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/_StepProgressIndicatorModel.html">_StepProgressIndicatorModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore22_SwitchPickerItemModelP">_SwitchPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore15_TextInputModelP">_TextInputModel</a>
@@ -26250,12 +26515,6 @@ display.</p>
                   <a href="../Structs/CalendarDayViewStyleModifier.html">CalendarDayViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/CalendarDayViewSubtitleStyle.html">CalendarDayViewSubtitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/CalendarDayViewTitleStyle.html">CalendarDayViewTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/CalendarDisabledDates.html">CalendarDisabledDates</a>
                 </li>
                 <li class="nav-group-task">
@@ -26644,6 +26903,9 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/CheckoutIndicatorStyleModifier.html">CheckoutIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CircularProgressViewStyle.html">CircularProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ClearAction.html">ClearAction</a>
@@ -27295,9 +27557,6 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriTertiaryButtonStyle.html">FioriTertiaryButtonStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriToggleStyle.html">FioriToggleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FlexItem.html">FlexItem</a>
@@ -28183,6 +28442,9 @@ display.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemConfiguration.html">ListPickerItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemDescriptionStyle.html">ListPickerItemDescriptionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemFioriStyle.html">ListPickerItemFioriStyle</a>
@@ -29469,6 +29731,21 @@ display.</p>
                   <a href="../Structs/StartSignatureActionStyleModifier.html">StartSignatureActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/StateLabel.html">StateLabel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelBaseStyle.html">StateLabelBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelConfiguration.html">StateLabelConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelFioriStyle.html">StateLabelFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelStyleModifier.html">StateLabelStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/StatefulButtonStyle.html">StatefulButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -29676,7 +29953,19 @@ display.</p>
                   <a href="../Structs/SwitchViewConfiguration.html">SwitchViewConfiguration</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewDescriptionStyle.html">SwitchViewDescriptionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SwitchViewFioriStyle.html">SwitchViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewIconStyle.html">SwitchViewIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewInformationViewStyle.html">SwitchViewInformationViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewStateLabelStyle.html">SwitchViewStateLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SwitchViewStyleModifier.html">SwitchViewStyleModifier</a>
@@ -30594,9 +30883,6 @@ display.</p>
                   <a href="../Structs/_ClearActionDefault.html">_ClearActionDefault</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_ContactItem.html">_ContactItem</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_DefaultFilterFeedbackBarStyle.html">_DefaultFilterFeedbackBarStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -30666,9 +30952,6 @@ display.</p>
                   <a href="../Structs/_ObjectHeader.html">_ObjectHeader</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_ObjectItem.html">_ObjectItem</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_ProgressIndicator.html">_ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -30693,31 +30976,10 @@ display.</p>
                   <a href="../Structs/_SideBarListItem.html">_SideBarListItem</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_SignatureCaptureView.html">_SignatureCaptureView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_SingleStep.html">_SingleStep</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_SliderPickerItem.html">_SliderPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_SortFilterView.html">_SortFilterView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore19_StepItemsContainerV">_StepItemsContainer</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore9_StepNodeV">_StepNode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_StepProgressIndicator.html">_StepProgressIndicator</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore15_StepsContainerV">_StepsContainer</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_SwitchPickerItem.html">_SwitchPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_TapToSignActionDefault.html">_TapToSignActionDefault</a>
@@ -30741,9 +31003,6 @@ display.</p>
                   <a href="../Structs/_UserConsentView.html">_UserConsentView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_WelcomeScreen.html">_WelcomeScreen</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_WhatsNewListItemsContainer.html">_WhatsNewListItemsContainer</a>
                 </li>
               </ul>
@@ -30764,7 +31023,7 @@ display.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-02-05)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-02-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

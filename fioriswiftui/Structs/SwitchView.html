@@ -52,10 +52,24 @@
                   </div>
                 </div>
               <p><code>SwitchView</code>provides a Fiori style title and<code>Toggle</code>.</p>
+
+<p>/// Inputs</p>
+
+<ul>
+<li>title: A <code>ViewBuilder</code> closure that renders the title content (required).</li>
+<li>isOn: A binding to a Boolean value that controls the toggle state (required).</li>
+<li>stateLabel: An optional <code>ViewBuilder</code> closure for custom state text. It is only effective when the controlState is <code>.readOnly</code>.  It will replace the toggle which usually shows as On or Off .</li>
+<li>icon: An optional <code>ViewBuilder</code> closure for an icon in the informationView.</li>
+<li>description: An optional <code>ViewBuilder</code> closure for descriptive text in the informationView.</li>
+<li>controlState: The interaction state of the switch (default: .normal). Options: .normal, .disabled, .readOnly.</li>
+</ul>
 <h2 id='usage' class='heading'>Usage</h2>
 <pre class="highlight swift"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">isOn</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span>
 
 <span class="kt">SwitchView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Switch"</span><span class="p">,</span> <span class="nv">isOn</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">isOn</span><span class="p">)</span>
+
+<span class="kt">SwitchView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Switch"</span><span class="p">,</span> <span class="nv">isOn</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="err">$</span><span class="n">isOn</span><span class="p">,</span> <span class="nv">stateLabel</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">isOn</span> <span class="p">?</span> <span class="s">"Open"</span> <span class="p">:</span> <span class="s">"Close"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="s">"Locked by your organization"</span><span class="p">,</span> <span class="nv">controlState</span><span class="p">:</span> <span class="o">.</span><span class="n">readOnly</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">informationViewStyle</span><span class="p">(</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span>
 </code></pre>
 
             </section>
@@ -65,9 +79,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore10SwitchViewV5title4isOn19componentIdentifierAC0B2UI0E0_pyXE_AG7BindingVySbGSSSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:isOn:componentIdentifier:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore10SwitchViewV5title4isOn19componentIdentifierAC0B2UI0E0_pyXE_AG7BindingVySbGSSSgtcfc">init(title:<wbr>isOn:<wbr>componentIdentifier:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore10SwitchViewV5title4isOn10stateLabel4icon11description12controlState19componentIdentifierAC0B2UI0E0_pyXE_AK7BindingVySbGAkL_pyXEAkL_pyXEAkL_pyXEAA07ControlN0VSSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:isOn:stateLabel:icon:description:controlState:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10SwitchViewV5title4isOn10stateLabel4icon11description12controlState19componentIdentifierAC0B2UI0E0_pyXE_AK7BindingVySbGAkL_pyXEAkL_pyXEAkL_pyXEAA07ControlN0VSSSgtcfc">init(title:<wbr>isOn:<wbr>stateLabel:<wbr>icon:<wbr>description:<wbr>controlState:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -84,6 +98,10 @@
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">title</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
             <span class="nv">isOn</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">stateLabel</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">icon</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="kd">@ViewBuilder</span> <span class="nv">description</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="nv">controlState</span><span class="p">:</span> <span class="kt"><a href="../Structs/ControlState.html">ControlState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span><span class="p">,</span>
             <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">SwitchView</span><span class="o">.</span><span class="n"><a href="../Structs/SwitchView.html#/s:16FioriSwiftUICore10SwitchViewV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
 
                           </div>
@@ -121,9 +139,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore10SwitchViewV5title4isOnAC10Foundation16AttributedStringV_0B2UI7BindingVySbGtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(title:isOn:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore10SwitchViewV5title4isOnAC10Foundation16AttributedStringV_0B2UI7BindingVySbGtcfc">init(title:<wbr>isOn:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore10SwitchViewV5title4isOn10stateLabel4icon11description12controlStateAC10Foundation16AttributedStringV_0B2UI7BindingVySbGALSgAM5ImageVSgAqA07ControlN0Vtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(title:isOn:stateLabel:icon:description:controlState:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore10SwitchViewV5title4isOn10stateLabel4icon11description12controlStateAC10Foundation16AttributedStringV_0B2UI7BindingVySbGALSgAM5ImageVSgAqA07ControlN0Vtcfc">init(title:<wbr>isOn:<wbr>stateLabel:<wbr>icon:<wbr>description:<wbr>controlState:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -139,7 +157,11 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">,</span>
-     <span class="nv">isOn</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+     <span class="nv">isOn</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="nv">stateLabel</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">icon</span><span class="p">:</span> <span class="kt">Image</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">description</span><span class="p">:</span> <span class="kt">AttributedString</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+     <span class="nv">controlState</span><span class="p">:</span> <span class="kt"><a href="../Structs/ControlState.html">ControlState</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">normal</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -745,9 +767,6 @@
                   <a href="../Protocols/AuthenticationStyle.html">AuthenticationStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore16AvatarStackModelP">AvatarStackModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/AvatarStackStyle.html">AvatarStackStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1336,6 +1355,9 @@
                   <a href="../Protocols/StartSignatureActionStyle.html">StartSignatureActionStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/StateLabelStyle.html">StateLabelStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/StatusComponent.html">StatusComponent</a>
                 </li>
                 <li class="nav-group-task">
@@ -1606,9 +1628,6 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore18_ObjectHeaderModelP">_ObjectHeaderModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/_ObjectItemModel.html">_ObjectItemModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore23_ProgressIndicatorModelP">_ProgressIndicatorModel</a>
                 </li>
                 <li class="nav-group-task">
@@ -1621,22 +1640,10 @@
                   <a href="../Protocols.html#/s:16FioriSwiftUICore13_SideBarModelP">_SideBarModel</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/_SignatureCaptureViewModel.html">_SignatureCaptureViewModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/_SingleStepModel.html">_SingleStepModel</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore22_SliderPickerItemModelP">_SliderPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/_SortFilterViewModel.html">_SortFilterViewModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/_StepProgressIndicatorModel.html">_StepProgressIndicatorModel</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols.html#/s:16FioriSwiftUICore22_SwitchPickerItemModelP">_SwitchPickerItemModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols.html#/s:16FioriSwiftUICore15_TextInputModelP">_TextInputModel</a>
@@ -2358,12 +2365,6 @@
                   <a href="../Structs/CalendarDayViewStyleModifier.html">CalendarDayViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/CalendarDayViewSubtitleStyle.html">CalendarDayViewSubtitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/CalendarDayViewTitleStyle.html">CalendarDayViewTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/CalendarDisabledDates.html">CalendarDisabledDates</a>
                 </li>
                 <li class="nav-group-task">
@@ -2752,6 +2753,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/CheckoutIndicatorStyleModifier.html">CheckoutIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CircularProgressViewStyle.html">CircularProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ClearAction.html">ClearAction</a>
@@ -3403,9 +3407,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriTertiaryButtonStyle.html">FioriTertiaryButtonStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriToggleStyle.html">FioriToggleStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FlexItem.html">FlexItem</a>
@@ -4291,6 +4292,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemConfiguration.html">ListPickerItemConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ListPickerItemDescriptionStyle.html">ListPickerItemDescriptionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ListPickerItemFioriStyle.html">ListPickerItemFioriStyle</a>
@@ -5577,6 +5581,21 @@
                   <a href="../Structs/StartSignatureActionStyleModifier.html">StartSignatureActionStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/StateLabel.html">StateLabel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelBaseStyle.html">StateLabelBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelConfiguration.html">StateLabelConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelFioriStyle.html">StateLabelFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StateLabelStyleModifier.html">StateLabelStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/StatefulButtonStyle.html">StatefulButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -5784,7 +5803,19 @@
                   <a href="../Structs/SwitchViewConfiguration.html">SwitchViewConfiguration</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewDescriptionStyle.html">SwitchViewDescriptionStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/SwitchViewFioriStyle.html">SwitchViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewIconStyle.html">SwitchViewIconStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewInformationViewStyle.html">SwitchViewInformationViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/SwitchViewStateLabelStyle.html">SwitchViewStateLabelStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/SwitchViewStyleModifier.html">SwitchViewStyleModifier</a>
@@ -6702,9 +6733,6 @@
                   <a href="../Structs/_ClearActionDefault.html">_ClearActionDefault</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_ContactItem.html">_ContactItem</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_DefaultFilterFeedbackBarStyle.html">_DefaultFilterFeedbackBarStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -6774,9 +6802,6 @@
                   <a href="../Structs/_ObjectHeader.html">_ObjectHeader</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_ObjectItem.html">_ObjectItem</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_ProgressIndicator.html">_ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -6801,31 +6826,10 @@
                   <a href="../Structs/_SideBarListItem.html">_SideBarListItem</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_SignatureCaptureView.html">_SignatureCaptureView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_SingleStep.html">_SingleStep</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_SliderPickerItem.html">_SliderPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_SortFilterView.html">_SortFilterView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore19_StepItemsContainerV">_StepItemsContainer</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore9_StepNodeV">_StepNode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_StepProgressIndicator.html">_StepProgressIndicator</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs.html#/s:16FioriSwiftUICore15_StepsContainerV">_StepsContainer</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/_SwitchPickerItem.html">_SwitchPickerItem</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/_TapToSignActionDefault.html">_TapToSignActionDefault</a>
@@ -6849,9 +6853,6 @@
                   <a href="../Structs/_UserConsentView.html">_UserConsentView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/_WelcomeScreen.html">_WelcomeScreen</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/_WhatsNewListItemsContainer.html">_WhatsNewListItemsContainer</a>
                 </li>
               </ul>
@@ -6872,7 +6873,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-02-05)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-02-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
