@@ -154,21 +154,25 @@ struct ShimmerViewModifier: ViewModifier {
         if #available(watchOS 10.0, *) {
             shimmerContent(content: content)
                 .focusEffectDisabled(self.isLoading)
-                .accessibilityElement(children: self.isLoading ? .ignore : .contain)
+                .ifApply(self.isLoading) {
+                    $0.accessibilityElement(children: .ignore)
+                        .accessibilityLabel(self.loadingAccLabel)
+                        .accessibilityValue("")
+                        .accessibilityHint("")
+                        .accessibilityAddTraits(.isStaticText)
+                }
                 .allowsHitTesting(!self.isLoading)
-                .accessibilityLabel(self.isLoading ? self.loadingAccLabel : "")
-                .accessibilityValue(self.isLoading ? "" : "")
-                .accessibilityHint(self.isLoading ? "" : "")
-                .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
                 .disabled(self.isLoading)
         } else {
             self.shimmerContent(content: content)
-                .accessibilityElement(children: self.isLoading ? .ignore : .contain)
+                .ifApply(self.isLoading) {
+                    $0.accessibilityElement(children: .ignore)
+                        .accessibilityLabel(self.loadingAccLabel)
+                        .accessibilityValue("")
+                        .accessibilityHint("")
+                        .accessibilityAddTraits(.isStaticText)
+                }
                 .allowsHitTesting(!self.isLoading)
-                .accessibilityLabel(self.isLoading ? self.loadingAccLabel : "")
-                .accessibilityValue(self.isLoading ? "" : "")
-                .accessibilityHint(self.isLoading ? "" : "")
-                .accessibilityAddTraits(self.isLoading ? .isStaticText : [])
                 .disabled(self.isLoading)
         }
     }
