@@ -193,22 +193,6 @@ public protocol _ContactItemModel: TitleComponent, SubtitleComponent, Descriptio
 public protocol ContactItemModel {}
 
 // sourcery: generated_component_composite
-public protocol _ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = TextInputView
-    var textInput: _TextInputModel? { get }
-}
-
-/// Deprecated ActivationScreenModel
-@available(*, unavailable, renamed: "_ActivationScreenModel", message: "Will be removed in the future release. Please create ActivationScreen with other initializers instead.")
-public protocol ActivationScreenModel {}
-
-// sourcery: generated_component_composite
 public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
