@@ -80,6 +80,8 @@ struct FioriButtonExample: View {
                         }
                     })
                     .disabled(!self._isEnabled)
+                    // check FioriButton should allow App to set accessibilityIdentifier for UITest
+                    .accessibilityIdentifier("button_id")
     }
 }
 

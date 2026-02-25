@@ -27,8 +27,6 @@ struct OnBoardingWelcomeScreenExamples: View {
     @State private var showHeaderImage = false
     @State private var headerImageSelectIndex = 0
     
-    @ObservedObject var model = WelcomeScreenDataModel()
-    
     @State private var showWelcomeScreen = false
     
     @State private var email: String = ""

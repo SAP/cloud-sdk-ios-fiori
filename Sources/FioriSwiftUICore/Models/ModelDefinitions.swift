@@ -163,19 +163,6 @@ public protocol _SideBarModel: SubtitleComponent {}
 @available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
 public protocol SideBarModel {}
 
-// sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: add_env_props = "sizeCategory"
-// sourcery: add_env_props = "splitPercent"
-// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
-// sourcery: generated_component_composite
-public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
-    var actionItems: _ActivityItemsModel? { get }
-}
-
-/// Deprecated ContactItemModel
-@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
-public protocol ContactItemModel {}
-
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
 public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
@@ -192,22 +179,18 @@ public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, S
 /// Deprecated WelcomeScreenModel
 @available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
 public protocol WelcomeScreenModel {}
-
+// sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: add_env_props = "sizeCategory"
+// sourcery: add_env_props = "splitPercent"
+// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol _ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = TextInputView
-    var textInput: _TextInputModel? { get }
+public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+    var actionItems: _ActivityItemsModel? { get }
 }
 
-/// Deprecated ActivationScreenModel
-@available(*, unavailable, renamed: "_ActivationScreenModel", message: "Will be removed in the future release. Please create ActivationScreen with other initializers instead.")
-public protocol ActivationScreenModel {}
+/// Deprecated ContactItemModel
+@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
+public protocol ContactItemModel {}
 
 // sourcery: generated_component_composite
 public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
@@ -417,14 +400,6 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
 }
-
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
-// sourcery: generated_component_not_configurable
-// sourcery: add_env_props = "fioriToggleStyle"
-public protocol _SwitchPickerItemModel: SwitchPickerComponent {}
-
-@available(*, unavailable, renamed: "_SwitchPickerItemModel", message: "Will be removed in the future release. Please create SwitchView with other initializers instead.")
-public protocol SwitchPickerItemModel {}
 
 // sourcery: add_env_props = "_filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable

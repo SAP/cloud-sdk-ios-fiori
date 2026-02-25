@@ -96,7 +96,7 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     }
 }
 
-extension ContactItemActionItemsExampleViewModel: _ContactItemModel, ActionItemsComponent {
+extension ContactItemActionItemsExampleViewModel: ActionItemsComponent {
     var title: String { self.model.title }
     var subtitle: String? { self.model.subtitle }
     var descriptionText: String? { self.model.descriptionText }

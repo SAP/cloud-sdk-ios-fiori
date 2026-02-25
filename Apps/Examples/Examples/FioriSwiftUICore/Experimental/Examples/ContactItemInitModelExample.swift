@@ -6,8 +6,9 @@ struct ContactItemInitModelExample: View {
         VStack {
             ExpHeaderView("Contact Item", subtitle: "Model based initializer", desc: "will set @ViewBuilder closures with default controls",
                           back: .green, textColor: .white)
-
-            _ContactItem(model: LibraryPreviewData.Person.laurelosborn)
+            
+            let model = LibraryPreviewData.Person.laurelosborn
+            ContactItem(title: AttributedString(model.title), subtitle: AttributedString(model.subtitle ?? ""), description: AttributedString(model.descriptionText ?? ""), detailImage: model.detailImage)
                 .exampleHighlighting()
         }
     }

@@ -30,7 +30,6 @@ struct CoreContentView: View {
             MenuItem(title: "FioriButton", section: "Views", destination: FioriButtonContentView()),
             MenuItem(title: "Cards and Layouts", section: "Views", destination: MobileCardExample()),
             MenuItem(title: "ContactItem", section: "Views", destination: ContactItemExample()),
-            MenuItem(title: "_ContactItem: deprecated", section: "Views", destination: ContactItemExample()),
             MenuItem(title: "_EmptyStateViewExample", section: "Views", destination: _EmptyStateViewExample()),
             MenuItem(title: "FormView", section: "Views", destination: FormViewExamples()),
             MenuItem(title: "IllustratedMessage", section: "Views", destination: IllustratedMessageExample()),
@@ -89,7 +88,6 @@ struct CoreContentView: View {
             
             // Onboarding
             MenuItem(title: "Onboarding", section: "Onboarding", destination: OnboardingExamples()),
-            MenuItem(title: "_Onboarding: deprecated", section: "Onboarding", destination: OnboardingExamples()),
             
             // Banner Message
             MenuItem(title: "Banner Message", section: "Banner Message", destination: BannerMessageExample()),

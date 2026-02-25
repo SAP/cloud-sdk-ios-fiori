@@ -66,33 +66,25 @@ extension LibraryPreviewData.Person.Address {
     }
 }
 
-extension LibraryPreviewData.Person: _ContactItemModel {
+extension LibraryPreviewData.Person: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
     public var footnote: String? {
         "Footnote: I am cool :)"
         // Features.joined(separator: ", ")
     }
-}
 
-extension LibraryPreviewData.Person: TitleComponent {
     public var title: String {
         PersonNameComponentsFormatter().string(from: nameComponents)
     }
-}
 
-extension LibraryPreviewData.Person: SubtitleComponent {
     public var subtitle: String? {
         Emails.joined(separator: ", ")
     }
-}
 
-extension LibraryPreviewData.Person: DetailImageComponent {
     public var detailImage: Image? {
         guard let name = ProfilePic else { return nil }
         return Image(name)
     }
-}
 
-extension LibraryPreviewData.Person: DescriptionTextComponent {
     public var descriptionText: String? {
         cnContact.postalAddresses.map {
             CNPostalAddressFormatter().string(from: $0.value)
