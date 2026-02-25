@@ -543,7 +543,70 @@ extension SortFilterItem {
     }
 }
 
-/// FilterFeedbackBar ResetButton Configuration
+/// Enum for FilterFeedbackBar ResetButton Type.
+public enum FilterFeedbackBarResetButtonType {
+    /// Reset to origin values.
+    case reset
+    /// Clear selected value, only effective for single selection.
+    case clearAll
+}
+
+extension CGRect {
+    /// Popover arrowEdge depends on bar item position,
+    /// only return `.top` or `.bottom` in this case
+    /// - Returns: Edge
+    func arrowDirection() -> Edge {
+        if self.minY > Screen.bounds.size.height / 2 {
+            return .bottom
+        }
+        return .top
+    }
+}
+
+// MARK: - String Extensions for Attributed Strings
+
+/// Extension on `String` to provide a convenient way to convert a non-optional string
+/// into an `AttributedString` (used for rich text in SwiftUI/UIKit).
+extension String {
+    /// Returns an `AttributedString` representation of this string, or `nil` if conversion fails.
+    var attributedString: AttributedString? {
+        AttributedString(self)
+    }
+}
+
+/// Extension on optional `String?` to safely convert to `AttributedString`.
+/// Handles the `nil` case by returning `nil` instead of crashing.
+extension String? {
+    /// Returns an `AttributedString` if the string is non-nil; otherwise returns `nil`.
+    var attributedString: AttributedString? {
+        guard let s = self else {
+            return nil
+        }
+        return AttributedString(s)
+    }
+}
+
+// MARK: - UIEdgeInsets Utilities
+
+/// Extension on `UIEdgeInsets` to provide a helper for retrieving the safe area insets
+/// of the current key window in the active scene.
+extension UIEdgeInsets {
+    /// Retrieves the safe area insets from the key window of the currently active foreground scene.
+    /// This is useful for adjusting layout to avoid notches, home indicators, etc.
+    ///
+    /// - Returns: The safe area insets of the key window, or `.zero` if no key window is found.
+    static func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive })
+            .flatMap({ $0 as? UIWindowScene })?.windows
+            .first(where: \.isKeyWindow)
+        else {
+            return .zero
+        }
+        return keyWindow.safeAreaInsets
+    }
+}
+
 public struct FilterFeedbackBarResetButtonConfiguration: Equatable {
     var type: FilterFeedbackBarResetButtonType
     var title: String
@@ -598,6 +661,14 @@ public struct SliderValueChangeHandler: Equatable {
     public static func == (lhs: SliderValueChangeHandler, rhs: SliderValueChangeHandler) -> Bool {
         true
     }
+}
+
+/// Available OptionListPickerItem layout  types. Use this enum to define item layout type to present.
+public enum OptionListPickerItemLayoutType {
+    /// Fixed width
+    case fixed
+    /// Column width will be flexible
+    case flexible
 }
 
 public extension SortFilterItem {
