@@ -299,7 +299,7 @@ public struct SignatureCaptureViewBaseStyle: SignatureCaptureViewStyle {
                 }
                 .frame(maxWidth: .infinity, minHeight: 256, maxHeight: configuration.drawingViewMaxHeight)
                 HStack(alignment: .bottom) {
-                    configuration.xmark
+                    configuration.xmark.opacity(0.4)
                     if !configuration.hidesSignatureLine {
                         Rectangle()
                             .foregroundColor(configuration.signatureLineColor.opacity(0.4))
@@ -346,7 +346,7 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: StartSignatureActionConfiguration) -> some View {
             StartSignatureAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(SignatureButtonStyle())
         }
     }
     
@@ -355,7 +355,7 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: ReenterSignatureActionConfiguration) -> some View {
             ReenterSignatureAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(SignatureButtonStyle())
         }
     }
     
@@ -364,7 +364,7 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: CancelActionConfiguration) -> some View {
             CancelAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(SignatureButtonStyle())
         }
     }
     
@@ -373,7 +373,7 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: ClearActionConfiguration) -> some View {
             ClearAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(SignatureButtonStyle())
         }
     }
     
@@ -382,7 +382,7 @@ extension SignatureCaptureViewFioriStyle {
         
         func makeBody(_ configuration: SaveActionConfiguration) -> some View {
             SaveAction(configuration)
-                .fioriButtonStyle(FioriTertiaryButtonStyle())
+                .fioriButtonStyle(SignatureButtonStyle())
         }
     }
     
@@ -404,5 +404,15 @@ extension SignatureCaptureViewFioriStyle {
                 .font(.fiori(forTextStyle: .caption1))
                 .foregroundStyle(Color.preferredColor(.tertiaryLabel))
         }
+    }
+}
+
+struct SignatureButtonStyle: FioriButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        let color = configuration.state == .highlighted ? Color.preferredColor(.tintColorTapState) : configuration.state == .disabled ? Color.preferredColor(.separator) : Color.preferredColor(.tintColor)
+        return configuration.label
+            .font(.fiori(forTextStyle: .body))
+            .fontWeight(.semibold)
+            .foregroundStyle(color)
     }
 }
