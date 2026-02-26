@@ -99,6 +99,7 @@ struct ActivityItemsExample: View {
                             .frame(width: 44, height: 44)
                     }
                     .buttonStyle(BorderlessButtonStyle())
+                    .padding(.horizontal, 12)
                     
                     Button {
                         print("click heart")
@@ -110,6 +111,7 @@ struct ActivityItemsExample: View {
                             .frame(width: 44, height: 44)
                     }
                     .buttonStyle(BorderlessButtonStyle())
+                    .padding(.horizontal, 12)
                     
                     Button {
                         print("click info.circle")
@@ -121,6 +123,7 @@ struct ActivityItemsExample: View {
                             .frame(width: 44, height: 44)
                     }
                     .buttonStyle(BorderlessButtonStyle())
+                    .padding(.horizontal, 12)
                     
                     Button {
                         print("click book")
@@ -132,6 +135,7 @@ struct ActivityItemsExample: View {
                             .frame(width: 44, height: 44)
                     }
                     .buttonStyle(BorderlessButtonStyle())
+                    .padding(.horizontal, 12)
                 }
             } header: {
                 Text("Custom items")

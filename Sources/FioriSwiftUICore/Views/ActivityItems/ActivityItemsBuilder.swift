@@ -19,6 +19,7 @@ struct ActivityItemsListStack: ActivityItemsList {
                 element.icon
                     .imageScale(.large)
                     .frame(idealWidth: 44, idealHeight: 44, alignment: .center)
+                    .padding(.horizontal, 8)
             }
             .buttonStyle(BorderlessButtonStyle())
             .accessibilityElement(children: .combine)
