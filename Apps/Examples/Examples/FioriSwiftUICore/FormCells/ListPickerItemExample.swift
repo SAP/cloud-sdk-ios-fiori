@@ -236,6 +236,7 @@ struct ListPickerItemExample: View {
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     self.rowContent(e)
+                        .accessibilityAddTraits(.isButton)
                 }
             } else {
                 if self.allowEmpty {
@@ -247,6 +248,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e)
+                            .accessibilityAddTraits(.isButton)
                     }
                 } else {
                     ListPickerDestination(self.stringsModel,
@@ -257,6 +259,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e)
+                            .accessibilityAddTraits(.isButton)
                     }
                 }
             }
@@ -280,6 +283,7 @@ struct ListPickerItemExample: View {
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     self.rowContent(e.name)
+                        .accessibilityAddTraits(.isButton)
                 }
             } else {
                 if self.allowEmpty {
@@ -292,6 +296,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e.name)
+                            .accessibilityAddTraits(.isButton)
                     }
                 } else {
                     ListPickerDestination(self.model,
@@ -303,6 +308,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e.name)
+                            .accessibilityAddTraits(.isButton)
                     }
                 }
             }
@@ -364,6 +370,7 @@ struct ListPickerItemExample: View {
                                       searchFilter: self.allowSearch ? filter : nil)
                 { e in
                     self.rowContent(e)
+                        .accessibilityAddTraits(.isButton)
                 }
             } else {
                 if self.allowEmpty {
@@ -375,6 +382,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e)
+                            .accessibilityAddTraits(.isButton)
                     }
                 } else {
                     ListPickerDestination(self.groupedModel,
@@ -385,6 +393,7 @@ struct ListPickerItemExample: View {
                                           searchFilter: self.allowSearch ? filter : nil)
                     { e in
                         self.rowContent(e)
+                            .accessibilityAddTraits(.isButton)
                     }
                 }
             }

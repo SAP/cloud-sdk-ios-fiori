@@ -1165,6 +1165,7 @@ struct ListPickerDestinationRow: View {
             if self.isSelected {
                 Image(systemName: "checkmark")
                     .foregroundColor(.preferredColor(.tintColor))
+                    .accessibilityHidden(true)
             }
         }
         .onPreferenceChange(DestinationRowBackgroundPreferenceKey.self) { c in
