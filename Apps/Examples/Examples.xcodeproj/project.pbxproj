@@ -31,7 +31,6 @@
 		3CDD6ECD2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */; };
 		554307FB2D5F6A91005AFA6D /* _KeyValueItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554307FA2D5F6A91005AFA6D /* _KeyValueItemExample.swift */; };
 		55598FAD2CDDB4F6007CFFBB /* ValuePickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */; };
-		5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */; };
 		55DA195D2DD2216100C1391B /* OrderPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DA195C2DD2216100C1391B /* OrderPickerExample.swift */; };
 		5668D8772DF7754500F8631A /* NavigationBarSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */; };
 		569DE89E2E8B29040069977E /* TagExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569DE89D2E8B29040069977E /* TagExample.swift */; };
@@ -322,7 +321,6 @@
 		3CDD6ECC2CE4277300DDAE7D /* CheckoutIndicatorModalExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutIndicatorModalExample.swift; sourceTree = "<group>"; };
 		554307FA2D5F6A91005AFA6D /* _KeyValueItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _KeyValueItemExample.swift; sourceTree = "<group>"; };
 		55598FAC2CDDB4F6007CFFBB /* ValuePickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuePickerExample.swift; sourceTree = "<group>"; };
-		5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		55DA195C2DD2216100C1391B /* OrderPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPickerExample.swift; sourceTree = "<group>"; };
 		5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSegmentedControl.swift; sourceTree = "<group>"; };
 		569DE89D2E8B29040069977E /* TagExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagExample.swift; path = Examples/FioriSwiftUICore/Tag/TagExample.swift; sourceTree = "<group>"; };
@@ -573,14 +571,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		108E43D3292DAB3E006532F3 /* EmptyStateView */ = {
-			isa = PBXGroup;
-			children = (
-				5590847C2D6D94210007EAAC /* _EmptyStateViewExample.swift */,
-			);
-			path = EmptyStateView;
-			sourceTree = "<group>";
-		};
 		1F1A1FF82C0BDA42007109D8 /* MenuSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,7 +927,6 @@
 				B1CC61C52AFA0856002078C1 /* NavigationBar */,
 				C1C764862A818BD600BCB0F7 /* SortFilter */,
 				B100639129C0623300AF0CA2 /* StepProgressIndicator */,
-				108E43D3292DAB3E006532F3 /* EmptyStateView */,
 				B1D41B1E291A2D2E004E64A5 /* Picker */,
 				B8239D8626815C11003455D2 /* ContactItem */,
 				692F338926556A34009B98DA /* SideBar */,
@@ -1603,7 +1592,6 @@
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				87F492312C73AD99002B8703 /* CustomTimelinePreviewExample.swift in Sources */,
 				1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */,
-				5590847D2D6D94210007EAAC /* _EmptyStateViewExample.swift in Sources */,
 				3CD71F292CDB627300B037EB /* CheckoutIndicatorExample.swift in Sources */,
 				6D6E86252C50D42000EDB6F4 /* FioriButtonInListExample.swift in Sources */,
 				6D5355F92EA13729006A7185 /* CalendarFloorplanDatesSelectionExample.swift in Sources */,
