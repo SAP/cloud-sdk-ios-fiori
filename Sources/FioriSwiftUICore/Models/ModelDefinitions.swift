@@ -105,13 +105,6 @@ public protocol _TextInputModel: TextInputComponent {}
 @available(*, unavailable, renamed: "_TextInputModel", message: "Will be removed in the future release. Please create TextInput with other initializers instead.")
 public protocol TextInputModel {}
 
-// sourcery: generated_component
-public protocol _ActivityItemModel: IconComponent, SubtitleComponent {}
-
-/// Deprecated ActivityItemModel
-@available(*, unavailable, renamed: "_ActivityItemModel", message: "Will be removed in the future release. Please create ActivityItem with other initializers instead.")
-public protocol ActivityItemModel {}
-
 // sourcery: generated_component_not_configurable
 public protocol _ActivityItemsModel: ActionItemsComponent {}
 
