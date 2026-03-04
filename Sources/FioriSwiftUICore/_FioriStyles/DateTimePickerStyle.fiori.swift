@@ -75,7 +75,9 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
                     configuration.selectedDate = Date()
                     self.selectedDate = Date()
-                } else if configuration.selectedDate == nil {
+                } else if configuration.selectedDate == nil,
+                          configuration.autoSelected
+                {
                     configuration.selectedDate = self.selectedDate
                 }
                 configuration.pickerVisible.toggle()
