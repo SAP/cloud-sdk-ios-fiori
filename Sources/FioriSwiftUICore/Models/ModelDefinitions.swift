@@ -163,35 +163,6 @@ public protocol _SideBarModel: SubtitleComponent {}
 @available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
 public protocol SideBarModel {}
 
-// sourcery: add_env_props = ["horizontalSizeClass"]
-// sourcery: generated_component_composite
-public protocol _WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
-    // sourcery: genericParameter.name = TextInputView
-    var textInput: _TextInputModel? { get }
-    
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-}
-
-/// Deprecated WelcomeScreenModel
-@available(*, unavailable, renamed: "_WelcomeScreenModel", message: "Will be removed in the future release. Please create WelcomeScreen with other initializers instead.")
-public protocol WelcomeScreenModel {}
-// sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: add_env_props = "sizeCategory"
-// sourcery: add_env_props = "splitPercent"
-// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
-// sourcery: generated_component_composite
-public protocol _ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
-    var actionItems: _ActivityItemsModel? { get }
-}
-
-/// Deprecated ContactItemModel
-@available(*, unavailable, renamed: "_ContactItemModel", message: "Will be removed in the future release. Please create ContactItem with other initializers instead.")
-public protocol ContactItemModel {}
-
 // sourcery: generated_component_composite
 public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
     // sourcery: default.value = nil
@@ -341,16 +312,6 @@ public protocol UserConsentFormModel {}
 
 @available(*, unavailable, renamed: "_UserConsentPageModel", message: "Will be removed in the future release. Please create UserConsentPage with other initializers instead.")
 public protocol UserConsentPageModel {}
-
-// sourcery: generated_component_composite
-public protocol _EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-}
-
-/// Deprecated EmptyStateViewModel
-@available(*, deprecated, renamed: "_EmptyStateViewModel", message: "Will be removed in the future release. Please use IllustratedMessageComponent instead.")
-public protocol EmptyStateViewModel {}
 
 // sourcery: generated_component_not_configurable
 public protocol _DurationPickerModel: DurationPickerComponent {}

@@ -30,7 +30,6 @@ struct CoreContentView: View {
             MenuItem(title: "FioriButton", section: "Views", destination: FioriButtonContentView()),
             MenuItem(title: "Cards and Layouts", section: "Views", destination: MobileCardExample()),
             MenuItem(title: "ContactItem", section: "Views", destination: ContactItemExample()),
-            MenuItem(title: "_EmptyStateViewExample", section: "Views", destination: _EmptyStateViewExample()),
             MenuItem(title: "FormView", section: "Views", destination: FormViewExamples()),
             MenuItem(title: "IllustratedMessage", section: "Views", destination: IllustratedMessageExample()),
             MenuItem(title: "InformationViewExample", section: "Views", destination: InformationViewExample()),
