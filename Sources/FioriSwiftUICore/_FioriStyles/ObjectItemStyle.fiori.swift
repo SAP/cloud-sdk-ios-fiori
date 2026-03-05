@@ -445,6 +445,10 @@ extension ObjectItemBaseStyle {
                         [MyViewPreferenceData(element: .status, bounds: $0)]
                     })
                     .hidden()
+                    
+                    if !context.configuration.description.isEmpty {
+                        Spacer().frame(width: 16)
+                    }
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
             }
@@ -488,6 +492,8 @@ extension ObjectItemBaseStyle {
 //        let globalFrame = geometry.frame(in: .global)
 //        print("global frame is \(globalFrame)")
         
+        let statusTrailingInset: CGFloat = context.configuration.description.isEmpty ? 0 : 16
+        
         return ZStack {
             context.avatarView
                 .position(x: (boundDetail.minX + boundDetail.maxX) / 2, y: boundDetail.size.height / 2)
@@ -499,7 +505,7 @@ extension ObjectItemBaseStyle {
                     context.configuration.substatus
                     context.configuration.objectItemButton
                 }
-                .position(x: (boundStatus.minX + boundStatus.maxX) / 2, y: boundStatus.size.height / 2)
+                .position(x: (boundStatus.minX + boundStatus.maxX) / 2 - statusTrailingInset, y: boundStatus.size.height / 2)
             }
         }
     }
