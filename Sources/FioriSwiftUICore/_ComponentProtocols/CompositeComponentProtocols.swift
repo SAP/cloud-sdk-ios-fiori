@@ -1017,7 +1017,8 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     var hidesSeparator: Bool { get }
     
     // sourcery: defaultValue = false
-    /// If selectedDate's initial value is nil, this property will make the selectedDate to be .now by default when the date picker opened.
+    /// If this property is true and selectedDate's initial value is nil,  selectedDate will be set to  .now by default when the date picker opens.
+    /// Default value is false.
     var autoSelected: Bool { get }
 }
 

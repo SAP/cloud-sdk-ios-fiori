@@ -51,7 +51,8 @@ public struct DateTimePicker {
     @Binding var pickerVisible: Bool
     /// This property indicates whether the separator is to be displayed. Default is false.
     let hidesSeparator: Bool
-    /// If selectedDate's initial value is nil, this property will make the selectedDate to be .now by default when the date picker opened.
+    /// If this property is true and selectedDate's initial value is nil,  selectedDate will be set to  .now by default when the date picker opens.
+    /// Default value is false.
     let autoSelected: Bool
 
     @Environment(\.dateTimePickerStyle) var style
