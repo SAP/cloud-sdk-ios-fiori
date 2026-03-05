@@ -105,13 +105,6 @@ public protocol _TextInputModel: TextInputComponent {}
 @available(*, unavailable, renamed: "_TextInputModel", message: "Will be removed in the future release. Please create TextInput with other initializers instead.")
 public protocol TextInputModel {}
 
-// sourcery: generated_component_not_configurable
-public protocol _ActivityItemsModel: ActionItemsComponent {}
-
-/// Deprecated ActivityItemsModel
-@available(*, unavailable, renamed: "_ActivityItemsModel", message: "Will be removed in the future release. Please create ActivityItemsModel with other initializers instead.")
-public protocol ActivityItemsModel {}
-
 // sourcery: generated_component
 // sourcery: add_env_props = "listBackground"
 // sourcery: add_env_props = "listpickerListStyle"
