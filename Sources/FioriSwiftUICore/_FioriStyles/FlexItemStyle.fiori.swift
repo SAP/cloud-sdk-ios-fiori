@@ -28,8 +28,6 @@ public struct FlexItemFioriStyle: FlexItemStyle {
     @ViewBuilder
     public func makeBody(_ configuration: FlexItemConfiguration) -> some View {
         FlexItem(configuration)
-        // Add default style here
-        // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-        // .font(.fiori(forTextStyle: <#fiori font#>))
+            .font(.fiori(forTextStyle: .headline))
     }
 }
