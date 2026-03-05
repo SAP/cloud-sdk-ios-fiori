@@ -95,6 +95,10 @@ struct WAAuthorizationKey: EnvironmentKey {
     static let defaultValue: (() async -> Bool)? = nil
 }
 
+struct WAShowPanelKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool> = .constant(false)
+}
+
 extension EnvironmentValues {
     var waHelperAction: Binding<WAHelperAction> {
         get { self[WAHelperActionKey.self] }
@@ -109,6 +113,11 @@ extension EnvironmentValues {
     var waAuthorizationCheck: (() async -> Bool)? {
         get { self[WAAuthorizationKey.self] }
         set { self[WAAuthorizationKey.self] = newValue }
+    }
+    
+    var waShowPanel: Binding<Bool> {
+        get { self[WAShowPanelKey.self] }
+        set { self[WAShowPanelKey.self] = newValue }
     }
 }
 
@@ -132,5 +141,12 @@ public extension View {
     /// - Returns: A view with the writing assistant authorization check environment value set.
     func waAuthorizationCheck(_ block: (() async -> Bool)?) -> some View {
         self.environment(\.waAuthorizationCheck, block)
+    }
+    
+    /// Showing writing assistant panel programmatically.
+    /// - Parameter show: A boolean value to indicate whether to show panel for writing assistant.
+    /// - Returns: A view with the writing assistant panel or not.
+    func waShowPanel(_ show: Binding<Bool>) -> some View {
+        self.environment(\.waShowPanel, show)
     }
 }

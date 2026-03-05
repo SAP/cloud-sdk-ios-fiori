@@ -117,7 +117,8 @@ struct ShimmerViewModifier: ViewModifier {
     @State private var phase: CGFloat = -1
     @Environment(\.isLoading) var isLoading
     @Environment(\.isAILoading) var isTintColor
-
+    let loadingAccLabel = NSLocalizedString("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Loading...")
+    
     var redactedForegroundColor: Color? {
         if self.isLoading {
             return Color.preferredColor(self.isTintColor ? .tintColor : .separator)
@@ -150,12 +151,21 @@ struct ShimmerViewModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        if #available(watchOS 10.0, *) {
-            shimmerContent(content: content)
-                .focusEffectDisabled(self.isLoading)
-        } else {
-            self.shimmerContent(content: content)
-        }
+        self.shimmerContent(content: content)
+            .accessibilityRepresentation {
+                if self.isLoading {
+                    content
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(self.loadingAccLabel)
+                        .accessibilityValue("")
+                        .accessibilityHint("")
+                        .accessibilityAddTraits(.isStaticText)
+                        .disabled(true)
+                        .allowsHitTesting(false)
+                } else {
+                    content
+                }
+            }
     }
     
     func shimmerContent(content: Content) -> some View {
@@ -284,15 +294,6 @@ public struct SkeletonLoadingContainer<Content: View>: View {
             .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : nil)
             .redacted(reason: self.isLoading ? .placeholder : [])
             .skeletonLoading(isLoading: self.isLoading, isTintColor: self.isAILoading)
-            .overlay {
-                if self.isLoading {
-                    let msg = NSLocalizedString("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Loading...")
-                    Text(msg)
-                        .foregroundStyle(Color.clear)
-                        .accessibilityHidden(false)
-                        .accessibilitySortPriority(1000)
-                }
-            }
     }
 }
 

@@ -77,6 +77,7 @@ struct WATextInputModifier: ViewModifier {
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
     @Environment(\.waAuthorizationCheck) private var waAllowed
+    @Environment(\.waShowPanel) private var waShowPanel
     @Environment(\.isLoading) var isLoading
     
     var formView: WritingAssistantForm
@@ -117,9 +118,11 @@ struct WATextInputModifier: ViewModifier {
                 }
             )
             .focused(self.$isTextInputFocused)
-            .onChange(of: self.isTextInputFocused) { oldValue, newValue in
-                if !oldValue, newValue, self.context.logKeyboardChanged, !self.context.isInWAFlow {
+            .onChange(of: self.isTextInputFocused) { _, newValue in
+                if newValue, self.context.logKeyboardChanged, !self.context.isInWAFlow {
                     self.context.updateInWAFlow(self.isTextInputFocused)
+                } else if !newValue, self.context.logKeyboardChanged {
+                    self.context.updateInWAFlow(false)
                 }
             }
             .onReceive(self.keyboardPublisher) { value in
@@ -147,7 +150,22 @@ struct WATextInputModifier: ViewModifier {
             .onChange(of: self.context.displayedValue) { _, newValue in
                 self.text = newValue
             }
+            .onChange(of: self.waShowPanel.wrappedValue) { _, newValue in
+                if self.logShowPanelChanged {
+                    if newValue {
+                        self.context.updateInWAFlow(true)
+                        self.switchKeyboard(useWAPanel: newValue)
+                        self.startWAPanel()
+                    } else {
+                        self.waFlowDidChanged(false)
+                        self.context.updateInWAFlow(false)
+                    }
+                }
+            }
             .onChange(of: self.context.isPresented) { _, newValue in
+                self.logShowPanelChanged = false
+                self.waShowPanel.wrappedValue = newValue
+                self.logShowPanelChanged = true
                 // when cancel alert is shown, we should not switch keyboard.
                 if !self.context.showCancelAlert {
                     self.switchKeyboard(useWAPanel: newValue)
@@ -184,21 +202,15 @@ struct WATextInputModifier: ViewModifier {
                 self.popoverView
             }
     }
+
+    @State private var logShowPanelChanged = true
     
     var toolbarEntryView: some View {
         HStack {
             Spacer()
             WritingAssistantAction {
                 FioriButton { _ in
-                    if let waAllowed {
-                        Task {
-                            if await waAllowed() {
-                                self.showsWAPanel()
-                            }
-                        }
-                    } else {
-                        self.showsWAPanel()
-                    }
+                    self.startWAPanel()
                 } label: { _ in
                     HStack {
                         FioriIcon.actions.ai
@@ -209,6 +221,18 @@ struct WATextInputModifier: ViewModifier {
                 }
             }
             .fixedSize()
+        }
+    }
+    
+    func startWAPanel() {
+        if let waAllowed {
+            Task {
+                if await waAllowed() {
+                    self.showsWAPanel()
+                }
+            }
+        } else {
+            self.showsWAPanel()
         }
     }
     
