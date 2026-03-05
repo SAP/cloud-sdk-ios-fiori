@@ -7,17 +7,19 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
     @FocusState var isFocused: Bool
     
     public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
-        VStack(alignment: .leading) {
-            configuration._placeholderTextField
-                .focused(self.$isFocused)
-                .disabled(self.getDisabled(configuration))
+        SkeletonLoadingContainer {
+            VStack(alignment: .leading) {
+                configuration._placeholderTextField
+                    .focused(self.$isFocused)
+                    .disabled(self.getDisabled(configuration))
+            }
+            .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
+            .padding(.top, -1)
+            .padding(.bottom, self.isInfoViewNeeded(configuration) ? -12 : -1)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
+            .disabled(configuration.controlState == .disabled)
         }
-        .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
-        .padding(.top, -1)
-        .padding(.bottom, self.isInfoViewNeeded(configuration) ? -12 : -1)
-        .accessibilityElement(children: .combine)
-        .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
-        .disabled(configuration.controlState == .disabled)
     }
 
     func getDisabled(_ configuration: TitleFormViewConfiguration) -> Bool {
