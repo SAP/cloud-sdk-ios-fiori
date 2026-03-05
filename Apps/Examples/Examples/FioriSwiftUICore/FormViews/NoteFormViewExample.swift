@@ -39,22 +39,34 @@ struct NoteFormViewExample: View {
 
                 Text("NoteFormView Default").italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$valueText1, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. NoteFormView"))
 
                 Text("NoteFormView with existing text").italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$valueText2, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. NoteFormView"))
 
                 Text("NoteFormView minHeight 50, maxHeight 100").italic()
                 NoteFormView(text: self.$valueText3, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 100, maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. Please enter something"))
 
                 Text("NoteFormView Disabled").italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$disabledText, placeholder: "Disabled", controlState: .disabled, maxTextEditorHeight: 100)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. Disabled"))
 
                 Text("NoteFormView Read-Only").italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$readOnlyText, placeholder: "Read-Only", controlState: .readOnly, maxTextEditorHeight: 200, hidesReadOnlyHint: self.hidesReadonlyHint)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. Read-Only"))
 
                 Text("NoteFormView Customized Border and background color")
                     .italic()
                 NoteFormView(text: self.isLoading ? self.$text : self.$valueText2, placeholder: "NoteFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. NoteFormView"))
                     .focused(self.$isFocused)
                     .environment(\.isCustomizedBorder, true)
                     .placeholderTextEditorStyle { config in
@@ -68,13 +80,18 @@ struct NoteFormViewExample: View {
 
                 Text("NoteFormView Skeleton Loading Effect with no existing text").italic()
                 NoteFormView(text: self.$valueText3, placeholder: "NoteFormView Placeholder for Skeleton loading - two lines", controlState: .normal)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. NoteFormView Placeholder for Skeleton loading - two lines"))
 
                 Text("NoteFormView AI loading Effect with 3 lines of existing text").italic()
                 NoteFormView(text: self.$valueText1, placeholder: "", controlState: .normal)
                     .environment(\.isAILoading, self.isLoading)
+                    .accessibilityLabel(Text("Note Form View"))
 
                 Text("NoteFormView AI loading Effect with no existing text").italic()
                 NoteFormView(text: self.$valueText3, placeholder: "NoteFormView Placeholder for Skeleton loading - two lines", controlState: .normal)
+                    .accessibilityLabel(Text("Note Form View"))
+                    .accessibilityHint(Text("Text field. NoteFormView Placeholder for Skeleton loading - two lines"))
                     .environment(\.isAILoading, self.isLoading)
             }
             #if !os(visionOS)
