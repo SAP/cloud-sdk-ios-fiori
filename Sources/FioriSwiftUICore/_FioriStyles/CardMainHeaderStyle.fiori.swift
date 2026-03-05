@@ -58,35 +58,35 @@ private struct CardMainHeaderView: View {
                     }
                     self.configuration.detailImage
                         .accessibilityHidden(true)
-                }
-
-                VStack(alignment: .leading, spacing: 0) {
-                    if !self.configuration.flexItem.isEmpty,
-                       case .aboveTitle = self.configuration.flexItemPosition
-                    {
-                        self.configuration.flexItem
-                    }
                     
-                    self.configuration.title
-                    
-                    if !self.configuration.flexItem.isEmpty,
-                       case .betweenTitleAndSubtitle = self.configuration.flexItemPosition
-                    {
-                        self.configuration.flexItem
-                    }
-                    
-                    self.configuration.subtitle
-                        .lineLimit(self.configuration.title.isEmpty ? 3 : 2)
-                    
-                    if !isLargeFont {
+                    VStack(alignment: .leading, spacing: 0) {
                         if !self.configuration.flexItem.isEmpty,
-                           case .belowSubtitle = self.configuration.flexItemPosition
+                           case .aboveTitle = self.configuration.flexItemPosition
                         {
                             self.configuration.flexItem
                         }
+                        
+                        self.configuration.title
+                        
+                        if !self.configuration.flexItem.isEmpty,
+                           case .betweenTitleAndSubtitle = self.configuration.flexItemPosition
+                        {
+                            self.configuration.flexItem
+                        }
+                        
+                        self.configuration.subtitle
+                            .lineLimit(self.configuration.title.isEmpty ? 3 : 2)
+                        
+                        if !isLargeFont {
+                            if !self.configuration.flexItem.isEmpty,
+                               case .belowSubtitle = self.configuration.flexItemPosition
+                            {
+                                self.configuration.flexItem
+                            }
+                        }
                     }
+                    .accessibilitySortPriority(2)
                 }
-                .accessibilitySortPriority(2)
 
                 if !self.configuration.headerAction.isEmpty || !self.configuration.counter.isEmpty {
                     Spacer(minLength: 12)
