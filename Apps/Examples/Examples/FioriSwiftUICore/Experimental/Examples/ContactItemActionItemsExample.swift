@@ -71,7 +71,7 @@ struct ContactItemActionItemsExample: View {
 class ContactItemActionItemsExampleViewModel: ObservableObject {
     var model = LibraryPreviewData.Person.laurelosborn
     
-    lazy var actionItems: _ActivityItemsModel? = {
+    lazy var actionItems: ActionItemsComponent? = {
         let items: [ActivityItemDataType] = [
             .init(type: .email, data: "Laurel@example.com", accessibilityValueText: "Work mail"),
             .init(type: .custom(Image(systemName: "mail")), data: "Laurel@contoso.com")
@@ -102,7 +102,7 @@ extension ContactItemActionItemsExampleViewModel: ActionItemsComponent {
     var descriptionText: String? { self.model.descriptionText }
     var detailImage: Image? { self.model.detailImage }
     
-    struct ActivityItemsDataModel: _ActivityItemsModel {
+    struct ActivityItemsDataModel: ActionItemsComponent {
         let actionItems: [ActivityItemDataType]?
         let didSelectActivityItem: ((ActivityItemDataType) -> Void)?
     }
