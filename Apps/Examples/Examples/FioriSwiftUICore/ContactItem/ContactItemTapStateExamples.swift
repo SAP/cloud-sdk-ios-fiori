@@ -9,11 +9,11 @@ struct ContactItemViewModel: Identifiable {
     var actionItemsData: [ActivityItemDataType]?
     func didSelectActivityItem(_ activityItem: ActivityItemDataType) {}
     
-    var actionItems: (any _ActivityItemsModel)?
+    var actionItems: (any ActionItemsComponent)?
     
     let id = UUID()
     
-    struct ContactItemDataModel: _ActivityItemsModel {
+    struct ContactItemDataModel: ActionItemsComponent {
         let actionItems: [ActivityItemDataType]?
         let didSelectActivityItem: ((ActivityItemDataType) -> Void)?
     }
