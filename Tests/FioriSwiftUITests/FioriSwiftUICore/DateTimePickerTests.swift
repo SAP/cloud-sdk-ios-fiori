@@ -45,14 +45,12 @@ final class DateTimePickerTests: XCTestCase {
             pickerComponents: [.date],
             dateStyle: .long,
             timeStyle: .complete,
-            pickerVisible: .constant(false),
-            autoSelected: true
+            pickerVisible: .constant(false)
         )
         
         XCTAssertEqual(picker.pickerComponents, [.date])
         XCTAssertEqual(picker.dateStyle, .long)
         XCTAssertEqual(picker.timeStyle, .complete)
-        XCTAssertEqual(picker.autoSelected, true)
     }
     
     func testErrorState() {
@@ -67,6 +65,5 @@ final class DateTimePickerTests: XCTestCase {
         
         XCTAssertEqual(picker.controlState, .disabled)
         XCTAssertEqual(picker.errorMessage, errorMessage)
-        XCTAssertEqual(picker.autoSelected, false)
     }
 }
