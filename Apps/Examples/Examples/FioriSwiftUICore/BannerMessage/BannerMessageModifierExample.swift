@@ -118,7 +118,7 @@ struct BannerMessageModifierExample: View {
                            messageType: self.messageType)
         .navigationTitle("Banner Message")
         .sheet(isPresented: self.$showBottomSheet) {
-            Text("detail information")
+            RatingControlBottomSheetDetailView()
                 .presentationDetents([.height(250), .medium])
                 .presentationDragIndicator(.visible)
         }
