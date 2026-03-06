@@ -5,6 +5,7 @@ import SwiftUI
 // Base Layout style
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.dateTimePickerAutoSelected) var autoSelected
     
     @State private var selectedDate: Date = .now
    
@@ -76,7 +77,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                     configuration.selectedDate = Date()
                     self.selectedDate = Date()
                 } else if configuration.selectedDate == nil,
-                          configuration.autoSelected
+                          self.autoSelected
                 {
                     configuration.selectedDate = self.selectedDate
                 }
@@ -179,5 +180,18 @@ extension DateTimePickerFioriStyle {
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+struct DateTimePickerAutoSelectedKey: EnvironmentKey {
+    public static let defaultValue: Bool = false
+}
+
+public extension EnvironmentValues {
+    /// If this property is true and selectedDate's initial value is nil,  selectedDate will be set to  .now by default when the date picker opens.
+    /// Default value is false.
+    var dateTimePickerAutoSelected: Bool {
+        get { self[DateTimePickerAutoSelectedKey.self] }
+        set { self[DateTimePickerAutoSelectedKey.self] = newValue }
     }
 }

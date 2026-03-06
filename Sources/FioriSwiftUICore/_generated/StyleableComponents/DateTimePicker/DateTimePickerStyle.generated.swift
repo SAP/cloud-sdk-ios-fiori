@@ -36,7 +36,6 @@ public struct DateTimePickerConfiguration {
     public let noDateSelectedString: String?
     @Binding public var pickerVisible: Bool
     public let hidesSeparator: Bool
-    public let autoSelected: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper

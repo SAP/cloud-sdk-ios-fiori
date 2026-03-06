@@ -1015,11 +1015,6 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: defaultValue = false
     /// This property indicates whether the separator is to be displayed. Default is false.
     var hidesSeparator: Bool { get }
-    
-    // sourcery: defaultValue = false
-    /// If this property is true and selectedDate's initial value is nil,  selectedDate will be set to  .now by default when the date picker opens.
-    /// Default value is false.
-    var autoSelected: Bool { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
