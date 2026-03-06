@@ -8,16 +8,16 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     @Environment(\.isLoading) var isLoading
     @Environment(\.isAILoading) var isAILoading
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
-        VStack(alignment: .leading) {
-            SkeletonLoadingContainer {
+        SkeletonLoadingContainer {
+            VStack(alignment: .leading) {
                 self.getPlaceholderTextEditor(configuration)
                     .focused(self.$isFocused)
                     .disabled(self.getDisabled(configuration))
             }
+            .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
         }
-        .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
-        .accessibilityElement(children: .combine)
-        .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
     }
 
     func getPlaceholderTextEditor(_ configuration: NoteFormViewConfiguration) -> some View {
