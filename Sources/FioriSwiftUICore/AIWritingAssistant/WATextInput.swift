@@ -154,7 +154,6 @@ struct WATextInputModifier: ViewModifier {
                 if self.logShowPanelChanged {
                     if newValue {
                         self.context.updateInWAFlow(true)
-                        self.switchKeyboard(useWAPanel: newValue)
                         self.startWAPanel()
                     } else {
                         self.waFlowDidChanged(false)
@@ -163,9 +162,11 @@ struct WATextInputModifier: ViewModifier {
                 }
             }
             .onChange(of: self.context.isPresented) { _, newValue in
+                defer {
+                    self.logShowPanelChanged = true
+                }
                 self.logShowPanelChanged = false
                 self.waShowPanel.wrappedValue = newValue
-                self.logShowPanelChanged = true
                 // when cancel alert is shown, we should not switch keyboard.
                 if !self.context.showCancelAlert {
                     self.switchKeyboard(useWAPanel: newValue)

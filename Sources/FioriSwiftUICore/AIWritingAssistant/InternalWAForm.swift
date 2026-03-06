@@ -13,7 +13,6 @@ struct InternalWAForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.waHelperAction) private var waHelperAction
     @Environment(\.hideFeedbackFooterInWritingAssistant) private var hideFeedbackFooterInWritingAssistant
-    @Environment(\.waShowPanel) private var waShowPanel
     @Environment(\.colorScheme) var colorScheme
     @AccessibilityFocusState private var focusOnTitle: Bool
     @State private var tappedMenuId: UUID?
