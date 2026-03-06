@@ -6,6 +6,7 @@ struct DateTimePickerExample: View {
     @State var s1: Date? = .init(timeIntervalSince1970: 0.0)
     @State var s2: Date? = Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
     @State var s3: Date? = nil
+    @State var autoSelectedDate: Date? = nil
     @State var s4: Date? = nil
     @State var s5: Date? = .now
     @State var s6: Date? = .now
@@ -19,6 +20,7 @@ struct DateTimePickerExample: View {
     @State var pickerVisible1 = false
     @State var pickerVisible2 = false
     @State var pickerVisible3 = false
+    @State var autoSelectedDatePickerVisible = false
     @State var pickerVisible4 = false
     @State var pickerVisible5 = false
     @State var customizedPickerVisible = false
@@ -96,6 +98,9 @@ struct DateTimePickerExample: View {
                     .accessibilitySortPriority(3) // This is a workaround, because the picker in DateTimePicker style as a popup will not restore original focus when dismissed.
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 DateTimePicker(title: "Numeric Date Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$pickerVisible3)
+                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                DateTimePicker(title: "Auto selected date", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$autoSelectedDate, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$autoSelectedDatePickerVisible)
+                    .environment(\.dateTimePickerAutoSelected, true)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 DateTimePicker(title: "Long long long long long long label", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s5, pickerVisible: self.$pickerVisible4)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
