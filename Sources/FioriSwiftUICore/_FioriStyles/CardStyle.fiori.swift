@@ -181,7 +181,6 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .accessibilityHint(NSLocalizedString("Card title", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for Title
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -193,7 +192,6 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-                .accessibilityHint(NSLocalizedString("Card subtitle", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for Subtitle
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -227,7 +225,6 @@ extension CardFioriStyle {
         
         func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
             HeaderAction(configuration)
-                .accessibilityHint(NSLocalizedString("Card header action", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             // Add default style for HeaderAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
