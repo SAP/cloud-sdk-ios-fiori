@@ -122,6 +122,7 @@ struct WATextInputModifier: ViewModifier {
                 if newValue, self.context.logKeyboardChanged, !self.context.isInWAFlow {
                     self.context.updateInWAFlow(self.isTextInputFocused)
                 } else if !newValue, self.context.logKeyboardChanged {
+                    guard UIDevice.current.userInterfaceIdiom == .phone else { return }
                     self.context.updateInWAFlow(false)
                 }
             }
@@ -230,6 +231,8 @@ struct WATextInputModifier: ViewModifier {
             Task {
                 if await waAllowed() {
                     self.showsWAPanel()
+                } else {
+                    self.waShowPanel.wrappedValue = false
                 }
             }
         } else {

@@ -4,14 +4,15 @@ import XCTest
 
 final class WATextInputModifierTests: XCTestCase {
     var textValue: String = "Initial"
-    
+    let menus = [[WAMenu(title: "Test")]]
+    let menuHandler: (WAMenu, String) async -> WAResult = { _, _ in .success("result") }
+    let feedbackHandler: (AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult = { _, _ in .success }
+    var text: Binding<String> {
+        Binding<String>(get: { self.textValue },
+                        set: { newValue in self.textValue = newValue })
+    }
+
     func testKeyboardPublisher() {
-        let menus = [[WAMenu(title: "Test")]]
-        let menuHandler: (WAMenu, String) async -> WAResult = { _, _ in .success("result") }
-        let feedbackHandler: (AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult = { _, _ in .success }
-        let text = Binding<String>(get: { self.textValue },
-                                   set: { newValue in self.textValue = newValue })
-        
         let modifier = WATextInputModifier(
             text: text,
             menus: menus,
@@ -28,6 +29,44 @@ final class WATextInputModifierTests: XCTestCase {
         NotificationCenter.default.post(name: UIResponder.keyboardWillShowNotification, object: nil)
         wait(for: [expectation], timeout: 1)
         cancellable.cancel()
+    }
+    
+    func testShowPanel() {
+        let textInput = TestTextInputView(showPanel: .constant(false))
+        XCTAssertFalse(textInput.modifier.context.isInWAFlow)
+        
+        let textInput2 = TestTextInputView(showPanel: .constant(true))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertTrue(textInput2.modifier.context.isInWAFlow)
+        }
+    }
+}
+
+private struct TestTextInputView: View {
+    @State var text: String = "Initial"
+    let menus = [[WAMenu(title: "Test")]]
+    let menuHandler: (WAMenu, String) async -> WAResult = { _, _ in .success("result") }
+    let feedbackHandler: (AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult = { _, _ in .success }
+    var modifier: WATextInputModifier {
+        WATextInputModifier(
+            text: self.$text,
+            menus: self.menus,
+            menuHandler: self.menuHandler,
+            feedbackOptions: [],
+            feedbackHandler: self.feedbackHandler
+        )
+    }
+    
+    var showPanel: Binding<Bool>
+    
+    init(showPanel: Binding<Bool>) {
+        self.showPanel = showPanel
+    }
+    
+    var body: some View {
+        NoteFormView(text: self.$text)
+            .modifier(self.modifier)
+            .waShowPanel(self.showPanel)
     }
 }
 

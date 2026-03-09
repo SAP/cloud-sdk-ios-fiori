@@ -87,10 +87,9 @@ struct WritingAssistantExample: View {
     var body: some View {
         List {
             Toggle("Show Error", isOn: self.$errorOccurred)
-            Text("Toggle W.A. panel for the first text input")
-                .onTapGesture {
+            Toggle("Toggle W.A. panel for the first text input", isOn: self.$showWAPanel)
+                .onChange(of: self.showWAPanel) { _, _ in
                     self.isFocused = false
-                    self.showWAPanel.toggle()
                 }
             
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
