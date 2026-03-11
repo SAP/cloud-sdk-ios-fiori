@@ -359,14 +359,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/HexColor.swift",
-      "line": 179,
+      "line": 181,
       "symbol": "HexColor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/HexColor.swift",
-      "line": 187,
+      "line": 189,
       "symbol": "HexColor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
