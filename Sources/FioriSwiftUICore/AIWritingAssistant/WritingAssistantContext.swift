@@ -58,7 +58,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
     var logKeyboardChanged = true
     
     func updateInWAFlow(_ showKeyboard: Bool) {
-        self.isInWAFlow = showKeyboard && self.waTextInput?.isFirstResponder ?? false
+        self.isInWAFlow = showKeyboard
     }
     
     @Published var selection: WAMenu? = nil
@@ -133,7 +133,6 @@ class WritingAssistantContext: NSObject, ObservableObject {
     }
     
     @MainActor func updateMenuResult(_ menu: WAMenu, _ result: WAResult) {
-        self.inProgress = false
         switch result {
         case .success(let value):
             self.addNewValue(value, for: menu)
@@ -142,6 +141,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         case .failure(let error):
             self.setError(error, isFeedbackError: false, isInMenuView: true)
         }
+        self.inProgress = false
         self.logKeyboardChanged = true
     }
     
