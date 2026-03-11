@@ -340,11 +340,3 @@ public protocol SearchListPickerItemModel: OptionListPickerComponent {
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
 }
-
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
-// sourcery: generated_component_not_configurable
-public protocol _SliderPickerItemModel: SliderPickerComponent {}
-
-/// Deprecated SliderPickerItemModel
-@available(*, deprecated, renamed: "_SliderPickerItemModel", message: "Will be removed in the future release. Please create FioriSlider with other initializers instead.")
-public protocol SliderPickerItemModel {}

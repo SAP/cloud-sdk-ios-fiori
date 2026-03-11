@@ -189,24 +189,6 @@ public protocol OptionListPickerComponent : AnyObject {
     var hint: String? { get }
 }
 
-public protocol SliderPickerComponent : AnyObject {
-	// sourcery: bindingProperty
-	// sourcery: no_view
-    var value: Int? { get set }
-	// sourcery: default.value=nil
-	// sourcery: no_view
-    var formatter: String? { get }
-	// sourcery: default.value=0
-	// sourcery: no_view
-    var minimumValue: Int { get }
-	// sourcery: default.value=100
-	// sourcery: no_view
-    var maximumValue: Int { get }
-	// sourcery: default.value=nil
-	// sourcery: no_view
-    var hint: String? { get }
-}
-
 public protocol SwitchPickerComponent : AnyObject {
 	// sourcery: bindingProperty
 	// sourcery: no_view
