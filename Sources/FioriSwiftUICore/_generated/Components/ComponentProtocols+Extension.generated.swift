@@ -202,28 +202,6 @@ public extension SecondaryValuesAxisTitleComponent {
     }
 }
 
-public extension SliderPickerComponent {
-    var formatter: String? {
-        return nil
-    }
-
-	var minimumValue: Int {
-        return 0
-    }
-
-	var maximumValue: Int {
-        return 100
-    }
-
-	var hint: String? {
-        return nil
-    }
-
-	var value: Int? {
-        return nil
-    }
-}
-
 public extension StatusComponent {
     var status: TextOrIcon? {
         return nil

@@ -47,28 +47,6 @@ protocol __DurationPicker: _ComponentMultiPropGenerating, AnyObject {
     var measurementFormatter: MeasurementFormatter { get set }
 }
 
-protocol _SliderPicker: _ComponentMultiPropGenerating, AnyObject {
-    // sourcery: bindingProperty
-    // sourcery: no_view
-    var value: Int? { get set }
-    
-    // sourcery: no_view
-    // sourcery: default.value = nil
-    var formatter: String? { get }
-
-    // sourcery: no_view
-    // sourcery: default.value = 0.0
-    var minimumValue: Int { get }
-    
-    // sourcery: no_view
-    // sourcery: default.value = 100.0
-    var maximumValue: Int { get }
-    
-    // sourcery: no_view
-    // sourcery: default.value = nil
-    var hint: String? { get }
-}
-
 protocol _SwitchPicker: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingProperty
     // sourcery: no_view
