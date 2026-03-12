@@ -143,27 +143,6 @@ public protocol _SideBarModel: SubtitleComponent {}
 public protocol SideBarModel {}
 
 // sourcery: generated_component_composite
-public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var showLoadingIndicator: Bool? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var loadingIndicatorText: String? { get }
-    
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-}
-
-/// Deprecated InfoViewModel
-@available(*, deprecated, renamed: "_InfoViewModel", message: "Will be removed in the future release. Please create InfoViewModel with other initializers instead.")
-public protocol InfoViewModel {}
-
-// sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
 public protocol _EULAViewModel: TitleComponent, BodyAttributedTextComponent {
