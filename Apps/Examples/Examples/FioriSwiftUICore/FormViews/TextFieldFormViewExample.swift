@@ -77,7 +77,7 @@ struct TextFieldFormViewExample: View {
                     TextFieldFormView(title: self.key2, text: self.$valueText2, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
                         .sheet(isPresented: self.$showBottomSheet) {
-                            Text("detail information")
+                            RatingControlBottomSheetDetailView()
                                 .presentationDetents([.height(250), .medium])
                                 .presentationDragIndicator(.visible)
                         }

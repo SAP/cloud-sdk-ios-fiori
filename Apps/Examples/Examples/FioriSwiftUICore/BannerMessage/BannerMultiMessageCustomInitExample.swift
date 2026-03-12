@@ -232,7 +232,7 @@ struct BannerMultiMessageCustomInitExample: View {
                             .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
                             .id(self.partnerNamePrefixId)
                             .sheet(isPresented: self.$showBottomSheet) {
-                                Text("detail information")
+                                RatingControlBottomSheetDetailView()
                                     .presentationDetents([.height(250), .medium])
                                     .presentationDragIndicator(.visible)
                             }
@@ -267,9 +267,7 @@ struct BannerMultiMessageCustomInitExample: View {
                             .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
                             .id(self.emailAddressId)
                             .sheet(isPresented: self.$showBottomSheet) {
-                                Text("detail information")
-                                    .font(.fiori(forTextStyle: .footnote, weight: .semibold))
-                                    .foregroundStyle(Color.preferredColor(.tintColor))
+                                RatingControlBottomSheetDetailView()
                                     .presentationDetents([.height(250), .medium])
                                     .presentationDragIndicator(.visible)
                             }

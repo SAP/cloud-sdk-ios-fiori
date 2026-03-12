@@ -19,6 +19,7 @@ public struct SwitchViewBaseStyle: SwitchViewStyle {
                 .frame(minWidth: 44, alignment: .trailing)
         }
         .accessibilityElement(children: .combine)
+        .accessibilityRemoveTraits(.isButton)
         .accessibilityAddTraits(configuration.controlState != .readOnly ? [.isToggle] : [])
     }
 }
@@ -79,6 +80,7 @@ extension SwitchViewFioriStyle {
                     content.shadow(self.shadowEffectConfiguration.style ?? .smallElement)
                 }
                 .disabled(self.switchViewConfiguration.controlState == .disabled || !self.isEnabled)
+                .accessibilityValue(configuration.isOn ? NSLocalizedString("Switch On", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Switch Off", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
         }
         
         var borderShape: some Shape {
@@ -121,6 +123,7 @@ extension SwitchViewFioriStyle {
     
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
+                .accessibilitySortPriority(-1)
         }
     }
 }
