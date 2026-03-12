@@ -119,49 +119,6 @@ public protocol _ProgressIndicatorModel: ProgressIndicatorComponent {}
 
 @available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please use LoadingIndicator instead.")
 public protocol ProgressIndicatorModel {}
-    
-/// Deprecated SideBarListItem
-// sourcery: add_env_props = "sideBarListItemConfigMode"
-// sourcery: add_env_props = "sizeCategory"
-// sourcery: virtualPropSidebarIconScaleMetric = "@ScaledMetric var scale: CGFloat = 1"
-// sourcery: generated_component
-public protocol _SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
-
-/// Deprecated SideBarListItem
-@available(*, unavailable, renamed: "_SideBarListItemModel", message: "Will be removed in the future release. Please create SideBarListItem with other initializers instead.")
-public protocol SideBarListItemModel {}
-
-/// Deprecated SideBar
-// sourcery: availableAttributeContent = "iOS 14, *"
-// sourcery: add_view_builder_params = "detail"
-// sourcery: add_view_builder_params = "footer"
-// sourcery: generated_component
-public protocol _SideBarModel: SubtitleComponent {}
-
-/// Deprecated SideBar
-@available(*, unavailable, renamed: "_SideBarModel", message: "Will be removed in the future release. Please create SideBar with other initializers instead.")
-public protocol SideBarModel {}
-
-// sourcery: generated_component_composite
-public protocol _InfoViewModel: TitleComponent, DescriptionTextComponent {
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var showLoadingIndicator: Bool? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var loadingIndicatorText: String? { get }
-    
-    // sourcery: genericParameter.name = ActionView
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: _ActionModel? { get }
-}
-
-/// Deprecated InfoViewModel
-@available(*, deprecated, renamed: "_InfoViewModel", message: "Will be removed in the future release. Please create InfoViewModel with other initializers instead.")
-public protocol InfoViewModel {}
 
 // sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
