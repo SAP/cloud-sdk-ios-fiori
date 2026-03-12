@@ -17,12 +17,13 @@ struct OnboardingExamples: View {
                 Text("ActivationScreen")
             }
             
+            NavigationLink(
+                destination: InfoViewExamples())
+            {
+                Text("InfoView Examples")
+            }
+            
             if self._isNewObjectItem {
-                NavigationLink(
-                    destination: InfoViewExamples(isNewInfoView: true))
-                {
-                    Text("InfoView Examples")
-                }
                 NavigationLink(
                     destination: EULAExamples(isNewEULAView: true))
                 {
@@ -39,11 +40,6 @@ struct OnboardingExamples: View {
                     Text("AuthenticationScreen Examples")
                 }
             } else {
-                NavigationLink(
-                    destination: InfoViewExamples())
-                {
-                    Text("_InfoView Examples")
-                }
                 NavigationLink(
                     destination: EULAExamples())
                 {
@@ -102,34 +98,21 @@ struct ActivationScreenExamples: View {
 }
 
 struct InfoViewExamples: View {
-    var isNewInfoView = false
     var body: some View {
         List {
             NavigationLink {
-                if self.isNewInfoView {
-                    InfoViewSample()
-                } else {
-                    _InfoViewSample()
-                }
+                InfoViewSample()
             } label: {
                 Text("InfoView")
             }
             NavigationLink {
-                if self.isNewInfoView {
-                    InfoViewWithLoadingLabel()
-                } else {
-                    _InfoViewWithLoadingLabel()
-                }
+                InfoViewWithLoadingLabel()
             } label: {
                 Text("InfoView With Loading Label")
             }
             
             NavigationLink {
-                if self.isNewInfoView {
-                    InfoViewCustomized()
-                } else {
-                    _InfoViewCustomized()
-                }
+                InfoViewCustomized()
             } label: {
                 Text("InfoView Customized")
             }

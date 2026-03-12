@@ -196,6 +196,12 @@ struct WATextInputModifier: ViewModifier {
                     }
                 #endif
             }
+            .onAppear {
+                if self.waShowPanel.wrappedValue {
+                    self.context.updateInWAFlow(true)
+                    self.startWAPanel()
+                }
+            }
             .onDisappear {
                 self.context.showCancelAlert = false
                 self.context.isPresented = false

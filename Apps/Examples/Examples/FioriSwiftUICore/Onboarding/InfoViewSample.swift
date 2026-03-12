@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-class InfoViewDataModel: _InfoViewModel {
+class InfoViewDataModel {
     var title: String = "SAP BTP SDK for iOS"
     var descriptionText: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
     var showLoadingIndicator: Bool? = true
@@ -103,56 +103,6 @@ struct InfoViewCustomized: View {
                      },
                      loadingIndicator: { loadingIndicator })
         }
-    }
-}
-
-struct _InfoViewSample: View {
-    private var model = InfoViewDataModel()
-    
-    public init() {}
-    
-    var body: some View {
-        VStack {
-            _InfoView(model: self.model)
-        }
-    }
-}
-
-struct _InfoViewWithLoadingLabel: View {
-    private var model = InfoViewDataModel()
-    
-    public init() {
-        self.model.loadingIndicatorText = "Loading..."
-    }
-    
-    var body: some View {
-        VStack {
-            _InfoView(model: self.model)
-        }
-    }
-}
-
-struct _InfoViewCustomized: View {
-    private var model = InfoViewDataModel()
-    
-    public init() {}
-    
-    var body: some View {
-        VStack {
-            _InfoView(model: self.model)
-                .descriptionTextModifier { $0.font(.fiori(forTextStyle: .subheadline)).foregroundColor(.blue) }
-                .actionModifier { $0.foregroundColor(.blue) }
-                .loadingIndicatorStyle(CustomLoadingStyle())
-        }
-    }
-}
-
-struct CustomLoadingStyle: LoadingIndicatorStyle {
-    func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
-        LoadingIndicator(configuration)
-            .indicatorTint(Color.pink)
-            .indicatorControlSize(.large)
-            .indicatorPosition(.bottom)
     }
 }
 
