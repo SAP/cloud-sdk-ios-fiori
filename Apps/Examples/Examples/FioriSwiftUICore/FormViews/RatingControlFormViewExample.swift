@@ -83,7 +83,7 @@ struct RatingControlFormViewExample: View {
                         .informationView(isPresented: self.$showsHintMessage, description: AttributedString("hint message"))
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
                         .sheet(isPresented: self.$showBottomSheet) {
-                            Text("detail information")
+                            RatingControlBottomSheetDetailView()
                                 .presentationDetents([.height(250), .medium])
                                 .presentationDragIndicator(.visible)
                         }
@@ -338,6 +338,24 @@ struct RatingControlFormViewExample: View {
     
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+struct RatingControlBottomSheetDetailView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Spacer()
+                Button("Close") {
+                    self.dismiss()
+                }
+            }
+            Text("detail information")
+            Spacer()
+        }
+        .padding()
     }
 }
 
