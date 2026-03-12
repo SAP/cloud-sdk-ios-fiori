@@ -156,54 +156,63 @@ struct OnBoardingWelcomeScreenExamples: View {
                         }
                     }
                 }, inputText: self.$email, legalText: {
-                    Text(self.legalText())
+                    self.legalTextView()
                         .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                 }, isLegalAgreementRequired: isLegalAgreementRequired, showsIllustratedMessage: self.showsIllustratedMessage, state: state, options: options, isDemoAvailable: isDemoAvailable, footerText: {
                     if showTermsOfService, type != .link, type != .customLogo {
-                        Text(self.footerText())
+                        self.footerTextView()
                     }
                 })
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        FioriButton { _ in
+                        Button("Cancel".localizedFioriString()) {
                             self.showWelcomeScreen = false
-                        } label: { _ in
-                            Text("Cancel".localizedFioriString())
-                        }
-                        .fioriButtonStyle(FioriNavigationButtonStyle())
-                        .fixedSize()
+                        }.fixedSize()
                     }
                 }
             }
         })
     }
     
-    func legalText() -> AttributedString {
-        var legalText = AttributedString("I agree the End User License Agreement and the Privacy Policy.")
-        legalText.font = .fiori(forTextStyle: .caption1)
-        legalText.foregroundColor = .preferredColor(.tertiaryLabel)
-        
-        if let termLinkRange = legalText.range(of: "End User License Agreement") {
-            legalText[termLinkRange].foregroundColor = .preferredColor(.tintColor)
-            legalText[termLinkRange].link = URL(string: "https://assets.cdn.sap.com/agreements/end-user-agreements/lic/end-user-license-agreement-for-sap-on-premise-indirect-sales-thailand-english-v4-2015.pdf")
+    func legalTextView() -> some View {
+        HStack(spacing: 0) {
+            Text("I agree the ")
+                .font(.fiori(forTextStyle: .caption1))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            Link(destination: URL(string: "https://assets.cdn.sap.com/agreements/end-user-agreements/lic/end-user-license-agreement-for-sap-on-premise-indirect-sales-thailand-english-v4-2015.pdf")!) {
+                Text("End User License Agreement")
+                    .font(.fiori(forTextStyle: .caption1))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+            }
+            Text(" and the ")
+                .font(.fiori(forTextStyle: .caption1))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            Link(destination: URL(string: "https://www.sap.com/about/legal/privacy.html")!) {
+                Text("Privacy Policy")
+                    .font(.fiori(forTextStyle: .caption1))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+            }
+            Text(".")
+                .font(.fiori(forTextStyle: .caption1))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
         }
-        if let privacyLinkRange = legalText.range(of: "Privacy Policy") {
-            legalText[privacyLinkRange].foregroundColor = .preferredColor(.tintColor)
-            legalText[privacyLinkRange].link = URL(string: "https://www.sap.com/about/legal/privacy.html")
-        }
-        return legalText
+        .multilineTextAlignment(.leading)
+        .fixedSize(horizontal: false, vertical: true)
     }
     
-    func footerText() -> AttributedString {
-        var footerText = AttributedString("View our Terms of Service")
-        footerText.font = .fiori(forTextStyle: .caption1)
-        footerText.foregroundColor = .preferredColor(.tertiaryLabel)
-        
-        if let termLinkRange = footerText.range(of: "Terms of Service") {
-            footerText[termLinkRange].foregroundColor = .preferredColor(.tintColor)
-            footerText[termLinkRange].link = URL(string: "https://sap.com")
+    func footerTextView() -> some View {
+        HStack(spacing: 0) {
+            Text("View our ")
+                .font(.fiori(forTextStyle: .caption1))
+                .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            Link(destination: URL(string: "https://sap.com")!) {
+                Text("Terms of Service")
+                    .font(.fiori(forTextStyle: .caption1))
+                    .foregroundStyle(Color.preferredColor(.tintColor))
+            }
         }
-        return footerText
+        .multilineTextAlignment(.leading)
+        .fixedSize(horizontal: false, vertical: true)
     }
     
     func showDifferentWelcomeScreen(_ type: OnBoardingWelcomeScreenItemType) {
