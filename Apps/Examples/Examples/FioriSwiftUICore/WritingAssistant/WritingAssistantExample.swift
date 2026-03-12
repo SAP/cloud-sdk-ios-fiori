@@ -33,6 +33,7 @@ struct WritingAssistantExample: View {
     @State var isLoading = false
     @State var showWAAuthAlert = false
     @State var waAllowed = false
+    @State var showWAPanel = false
     @State private var alertCompletion: ((Bool) -> Void)? = nil
 
     @FocusState var isFocused: Bool
@@ -86,6 +87,11 @@ struct WritingAssistantExample: View {
     var body: some View {
         List {
             Toggle("Show Error", isOn: self.$errorOccurred)
+            Toggle("Toggle W.A. panel for the first text input", isOn: self.$showWAPanel)
+                .onChange(of: self.showWAPanel) { _, _ in
+                    self.isFocused = false
+                }
+            
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
                 .environment(\.isLoading, self.isLoading)
                 .environment(\.isAILoading, self.isLoading)
@@ -108,6 +114,7 @@ struct WritingAssistantExample: View {
                         }
                     }
                 }
+                .waShowPanel(self.$showWAPanel)
                 .writingAssistantActionStyle { c in
                     c.writingAssistantAction.disabled(self.text.isEmpty)
                 }
@@ -115,6 +122,7 @@ struct WritingAssistantExample: View {
                 .frame(height: 100)
             
             TextFieldFormView(title: "TextFieldFormView Title: No waAuthorizationCheck required. WA disabled if input field is empty", text: self.$text2, placeholder: "Enter something")
+                .focused(self.$isFocused)
                 .waTextInput(self.$text2, menus: WAMenu.disabledMenus, menuHandler: { menu, value in
                     await self.fetchData(for: menu, value: value)
                 }, feedbackOptions: self.feedbackOptions, feedbackHandler: { state, values in
