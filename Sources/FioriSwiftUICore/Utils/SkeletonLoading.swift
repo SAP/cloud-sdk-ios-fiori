@@ -151,30 +151,21 @@ struct ShimmerViewModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        if #available(watchOS 10.0, *) {
-            shimmerContent(content: content)
-                .focusEffectDisabled(self.isLoading)
-                .ifApply(self.isLoading) {
-                    $0.accessibilityElement(children: .ignore)
+        self.shimmerContent(content: content)
+            .accessibilityRepresentation {
+                if self.isLoading {
+                    content
+                        .accessibilityElement(children: .ignore)
                         .accessibilityLabel(self.loadingAccLabel)
                         .accessibilityValue("")
                         .accessibilityHint("")
                         .accessibilityAddTraits(.isStaticText)
+                        .disabled(true)
+                        .allowsHitTesting(false)
+                } else {
+                    content
                 }
-                .allowsHitTesting(!self.isLoading)
-                .disabled(self.isLoading)
-        } else {
-            self.shimmerContent(content: content)
-                .ifApply(self.isLoading) {
-                    $0.accessibilityElement(children: .ignore)
-                        .accessibilityLabel(self.loadingAccLabel)
-                        .accessibilityValue("")
-                        .accessibilityHint("")
-                        .accessibilityAddTraits(.isStaticText)
-                }
-                .allowsHitTesting(!self.isLoading)
-                .disabled(self.isLoading)
-        }
+            }
     }
     
     func shimmerContent(content: Content) -> some View {
