@@ -26,7 +26,8 @@ struct TabViewExample: View {
                                       isCustomColor: self.isCustomColor,
                                       isCustomSelectionIndicatorImage: self.isCustomSelectionIndicatorImage,
                                       isCustomBackgroundImage: self.isCustomBackgroundImage,
-                                      isSystemTabView: self.isSystemTabView)
+                                      isSystemTabView: self.isSystemTabView,
+                                      isModalPresentation: true)
                 }
             } else {
                 NavigationLink {
