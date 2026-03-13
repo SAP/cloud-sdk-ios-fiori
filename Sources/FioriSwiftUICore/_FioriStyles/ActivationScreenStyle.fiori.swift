@@ -53,12 +53,14 @@ public struct ActivationScreenBaseStyle: ActivationScreenStyle {
                                 .disabled(configuration.inputText.isEmpty)
                                 .frame(minWidth: 201, minHeight: 36)
                                 .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
+                                .contentShape(.accessibility, .rect.scale(1.5))
                             
                             configuration.footnote
                             
                             configuration.secondaryAction
                                 .frame(minWidth: 201, minHeight: 36)
                                 .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity))
+                                .contentShape(.accessibility, .rect.scale(1.5))
                         }
                         .padding([.leading, .trailing], 0)
                     }
