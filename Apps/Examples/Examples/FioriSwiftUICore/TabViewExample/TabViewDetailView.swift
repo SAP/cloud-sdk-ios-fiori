@@ -15,6 +15,7 @@ struct TabViewDetailView: View {
     var isCustomSelectionIndicatorImage: Bool
     var isCustomBackgroundImage: Bool
     var isSystemTabView: Bool
+    var isModalPresentation: Bool
     @State private var selection = 0
     @State private var accentColor = Color.preferredColor(.tintColor)
     @State private var selectionAudioPlayer: AVAudioPlayer?
@@ -23,14 +24,15 @@ struct TabViewDetailView: View {
          isCustomColor: Bool,
          isCustomSelectionIndicatorImage: Bool,
          isCustomBackgroundImage: Bool,
-         isSystemTabView: Bool)
+         isSystemTabView: Bool,
+         isModalPresentation: Bool = false)
     {
         self.numberOfTabs = numberOfTabs
         self.isCustomColor = isCustomColor
         self.isCustomSelectionIndicatorImage = isCustomSelectionIndicatorImage
         self.isCustomBackgroundImage = isCustomBackgroundImage
         self.isSystemTabView = isSystemTabView
-        
+        self.isModalPresentation = isModalPresentation
         self.configTabStyles()
     }
     
@@ -54,30 +56,54 @@ struct TabViewDetailView: View {
     ) }
     
     var body: some View {
-        TabView(selection: self.handler) {
-            ForEach(0 ..< self.numberOfTabs, id: \.self) { index in
-                let model = self.tabs[index]
-                Group {
-                    if index.isMultiple(of: 2) {
-                        Color.random
-                    } else {
-                        List(0 ..< 20) { index in
-                            Text("index: \(index)")
+        if self.isModalPresentation {
+            TabView(selection: self.handler) {
+                ForEach(0 ..< self.numberOfTabs, id: \.self) { index in
+                    let model = self.tabs[index]
+                    let accLabel = "Tab bar \(self.selection == index ? "Selected " : "")\(model.name) tab \(index + 1) of \(self.numberOfTabs)"
+                    Tab(model.name, systemImage: model.imageName, value: index) {
+                        NavigationStack {
+                            if index.isMultiple(of: 2) {
+                                Color.random
+                                    .navigationTitle(model.name)
+                            } else {
+                                List(0 ..< 20) { index in
+                                    Text("index: \(index)")
+                                }
+                                .navigationTitle(model.name)
+                            }
                         }
                     }
+                    .badge(model.badge.map { Text($0) })
+                    .accessibilityLabel(accLabel)
                 }
-                .badge(model.badge)
-                .tag(index)
-                .tabItem {
-                    Label(model.name, systemImage: model.imageName)
-                        .accessibilityAddTraits(self.selection == index ? [.isSelected] : [])
-                }
-                .accessibilityElement(children: .combine)
             }
-        }
-        .navigationTitle("TabView Example")
-        .onDisappear {
-            self.resetToSystemDefault()
+            .onDisappear {
+                self.resetToSystemDefault()
+            }
+        } else {
+            TabView(selection: self.handler) {
+                ForEach(0 ..< self.numberOfTabs, id: \.self) { index in
+                    let model = self.tabs[index]
+                    let accLabel = "Tab bar \(self.selection == index ? "Selected " : "")\(model.name) tab \(index + 1) of \(self.numberOfTabs)"
+                    Tab(model.name, systemImage: model.imageName, value: index) {
+                        if index.isMultiple(of: 2) {
+                            Color.random
+                        } else {
+                            List(0 ..< 20) { index in
+                                Text("index: \(index)")
+                            }
+                        }
+                    }
+                    .badge(model.badge.map { Text($0) })
+                    .accessibilityLabel(accLabel)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(self.tabs[self.selection].name)
+            .onDisappear {
+                self.resetToSystemDefault()
+            }
         }
     }
     
@@ -119,9 +145,9 @@ struct TabViewDetailView: View {
     }
     
     func fioriTabStyle() {
-        let normalAttributes = [NSAttributedString.Key.font: UIFont.preferredFioriFont(forTextStyle: .caption2, weight: .regular),
+        let normalAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(from: Font.fiori(fixedSize: 11).weight(.regular)),
                                 NSAttributedString.Key.foregroundColor: UIColor(Color.preferredColor(.primaryLabel))]
-        let selectedAttributes = [NSAttributedString.Key.font: UIFont.preferredFioriFont(forTextStyle: .caption2, weight: .bold),
+        let selectedAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(from: Font.fiori(fixedSize: 11).weight(.bold)),
                                   NSAttributedString.Key.foregroundColor: UIColor(Color.preferredColor(.tintColor))]
         let appearance = UITabBarAppearance()
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = normalAttributes

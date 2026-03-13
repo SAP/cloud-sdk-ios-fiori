@@ -112,7 +112,7 @@ struct BannerMultiMessageExample: View {
                         .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
                         .id(self.preferredNameId)
                         .sheet(isPresented: self.$showBottomSheet) {
-                            Text("detail information")
+                            RatingControlBottomSheetDetailView()
                                 .presentationDetents([.height(250), .medium])
                                 .presentationDragIndicator(.visible)
                         }
@@ -195,7 +195,7 @@ struct BannerMultiMessageExample: View {
                 .environment(\.defaultMinListHeaderHeight, 0)
             }
             .sheet(isPresented: self.$showBottomSheet) {
-                Text("detail information")
+                RatingControlBottomSheetDetailView()
                     .presentationDetents([.height(250), .medium])
                     .presentationDragIndicator(.visible)
             }

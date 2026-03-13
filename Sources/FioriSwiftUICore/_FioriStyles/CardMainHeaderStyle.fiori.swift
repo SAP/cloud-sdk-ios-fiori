@@ -30,61 +30,95 @@ public enum FlexItemPositionType {
 // Base Layout style
 public struct CardMainHeaderBaseStyle: CardMainHeaderStyle {
     public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeaderView(configuration: configuration)
+    }
+}
+
+private struct CardMainHeaderView: View {
+    let configuration: CardMainHeaderConfiguration
+    @Environment(\.sizeCategory) var sizeCategory
+    
+    var body: some View {
+        let isLargeFont = self.sizeCategory >= .accessibilityExtraLarge
+            && !self.configuration.flexItem.isEmpty
+            && self.configuration.flexItemPosition == .belowSubtitle
+        
         VStack(alignment: .leading, spacing: 0) {
-            if !configuration.flexItem.isEmpty,
-               case .aboveMainHeader = configuration.flexItemPosition
+            if !self.configuration.flexItem.isEmpty,
+               case .aboveMainHeader = self.configuration.flexItemPosition
             {
-                configuration.flexItem
+                self.configuration.flexItem
             }
+
             HStack(alignment: .top, spacing: 0) {
                 HStack(spacing: 8) {
-                    if !configuration.icons.isEmpty {
-                        configuration.icons
+                    if !self.configuration.icons.isEmpty {
+                        self.configuration.icons
                             .accessibilityHidden(true)
                     }
-                    
-                    configuration.detailImage
+                    self.configuration.detailImage
                         .accessibilityHidden(true)
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        if !configuration.flexItem.isEmpty,
-                           case .aboveTitle = configuration.flexItemPosition
+                        if !self.configuration.flexItem.isEmpty,
+                           case .aboveTitle = self.configuration.flexItemPosition
                         {
-                            configuration.flexItem
+                            self.configuration.flexItem
                         }
                         
-                        configuration.title
+                        self.configuration.title
                         
-                        if !configuration.flexItem.isEmpty,
-                           case .betweenTitleAndSubtitle = configuration.flexItemPosition
+                        if !self.configuration.flexItem.isEmpty,
+                           case .betweenTitleAndSubtitle = self.configuration.flexItemPosition
                         {
-                            configuration.flexItem
+                            self.configuration.flexItem
                         }
                         
-                        configuration.subtitle
-                            .lineLimit(configuration.title.isEmpty ? 3 : 2)
+                        self.configuration.subtitle
+                            .lineLimit(self.configuration.title.isEmpty ? 3 : 2)
                         
-                        if !configuration.flexItem.isEmpty,
-                           case .belowSubtitle = configuration.flexItemPosition
-                        {
-                            configuration.flexItem
+                        if !isLargeFont {
+                            if !self.configuration.flexItem.isEmpty,
+                               case .belowSubtitle = self.configuration.flexItemPosition
+                            {
+                                self.configuration.flexItem
+                            }
                         }
                     }
                     .accessibilitySortPriority(2)
                 }
-                
-                if !configuration.headerAction.isEmpty || !configuration.counter.isEmpty {
+
+                if !self.configuration.headerAction.isEmpty || !self.configuration.counter.isEmpty {
                     Spacer(minLength: 12)
+                    VStack(alignment: .trailing) {
+                        self.configuration.headerAction
+                        self.configuration.counter
+                    }
+                    .accessibilitySortPriority(1)
                 }
-                
-                VStack(alignment: .trailing) {
-                    configuration.headerAction
-                    
-                    configuration.counter
+            }
+
+            if isLargeFont {
+                HStack(spacing: 8) {
+                    if !self.configuration.icons.isEmpty {
+                        self.configuration.icons.hiddenButInLayout()
+                    }
+                    self.configuration.detailImage.hiddenButInLayout()
+                    self.configuration.flexItem
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .accessibilitySortPriority(1)
+                .padding(.top, 4)
+                .accessibilitySortPriority(2)
             }
         }
+    }
+}
+
+// MARK: - Helper Extension
+
+extension View {
+    func hiddenButInLayout() -> some View {
+        self.opacity(0).disabled(true)
     }
 }
 

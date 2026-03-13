@@ -5,25 +5,6 @@
 
 import SwiftUI
 
-extension Fiori {
-    enum _TextInput {
-        typealias TextInputValue = EmptyModifier
-        static let textInputValue = TextInputValue()
-    }
-}
-
-extension _TextInput: View {
-    public var body: some View {
-        TextField("Default",
-                  text: self._textInputValue,
-                  onCommit: self._onCommit ?? {})
-            .modifier(TextFieldClearButton(textValue: self._textInputValue))
-            .textFieldStyle(BottomTextFieldStyle())
-            .font(.fiori(forTextStyle: .body))
-            .foregroundColor(.preferredColor(.primaryLabel))
-    }
-}
-
 struct TextFieldClearButton: ViewModifier {
     @Binding var textValue: String
     func body(content: Content) -> some View {
