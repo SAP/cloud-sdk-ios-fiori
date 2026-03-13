@@ -397,6 +397,8 @@ public struct CardCardStyle: CardStyle {
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
             .clipShape(RoundedRectangle(cornerRadius: 16))
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Card".localizedFioriString())
             .ifApply(self.shadowEffectConfiguration.showShadow) { content in
                 content.shadow(self.shadowEffectConfiguration.style ?? .level2)
             }
@@ -896,9 +898,9 @@ public enum CardTests {
     }, flexItem: {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "globe.asia.australia")
+                FioriIcon.status.highPriority
                 Text("Workflow Delegation Request")
-                    .font(.subheadline)
+                    .font(.fiori(forTextStyle: .subheadline))
                 Spacer()
                 Button {
                     print("tapped")
@@ -928,8 +930,9 @@ public enum CardTests {
             .cornerRadius(8)
     }, flexItem: {
         HStack {
-            Image(systemName: "calendar")
+            FioriIcon.calendars.timeOff
             Text("Time Offs")
+                .font(.fiori(forTextStyle: .subheadline))
             Spacer()
             Button {
                 print("tapped")
@@ -975,9 +978,10 @@ public enum CardTests {
         Text("3 of 999")
     }, flexItem: {
         HStack {
-            Image(systemName: "globe.asia.australia")
+            FioriIcon.status.highPriority.renderingMode(.template)
                 .foregroundStyle(.red)
             Text("Very high priority")
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(.red)
         }
     }, flexItemPosition: .aboveMainHeader)
@@ -1000,9 +1004,10 @@ public enum CardTests {
         Text("3 of 999")
     }, flexItem: {
         HStack {
-            Image(systemName: "globe.asia.australia")
+            FioriIcon.status.highPriority.renderingMode(.template)
                 .foregroundStyle(.red)
             Text("Very high priority")
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(.red)
         }
     }, flexItemPosition: .aboveMainHeader)
@@ -1025,9 +1030,10 @@ public enum CardTests {
         Text("3 of 999")
     }, flexItem: {
         HStack {
-            Image(systemName: "globe.asia.australia")
+            FioriIcon.status.highPriority.renderingMode(.template)
                 .foregroundStyle(.red)
             Text("Very high priority")
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(.red)
         }
     }, flexItemPosition: .aboveTitle)
@@ -1050,9 +1056,10 @@ public enum CardTests {
         Text("3 of 999")
     }, flexItem: {
         HStack {
-            Image(systemName: "globe.asia.australia")
+            FioriIcon.status.highPriority.renderingMode(.template)
                 .foregroundStyle(.red)
             Text("Very high priority")
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(.red)
         }
     }, flexItemPosition: .betweenTitleAndSubtitle)
@@ -1075,9 +1082,10 @@ public enum CardTests {
         Text("3 of 999")
     }, flexItem: {
         HStack {
-            Image(systemName: "globe.asia.australia")
+            FioriIcon.status.highPriority.renderingMode(.template)
                 .foregroundStyle(.red)
             Text("Very high priority")
+                .font(.fiori(forTextStyle: .subheadline))
                 .foregroundStyle(.red)
         }
     }, flexItemPosition: .belowSubtitle)
