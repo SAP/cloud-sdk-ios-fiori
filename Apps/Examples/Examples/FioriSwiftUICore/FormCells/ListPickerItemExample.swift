@@ -24,7 +24,7 @@ struct ListPickerItemExample: View {
     
     @State var selections: Set<String> = []
     @State var selection: String? = nil
-    @State var noneEmptySelection: String = "First"
+    @State var noneEmptySelection: String = "One"
     
     @State var uuidSelections: Set<UUID> = []
     @State var uuidSelection: UUID? = nil
@@ -47,8 +47,10 @@ struct ListPickerItemExample: View {
     @State var showsErrorMessage = false
     @State var showsPrompt = false
     @State var showAINotice: Bool = false
+    @State var destinationDisplayMode: DestinationDisplayMode = .push
+    
     var value: AttributedString? {
-        self.state == .readOnly ? self.defaultValue() : nil
+        self.defaultValue()
     }
 
     var body: some View {
@@ -75,13 +77,14 @@ struct ListPickerItemExample: View {
                     })
                 }
             }
+            .destinationDisplayMode(self.destinationDisplayMode)
             .onChange(of: self.dataType) {
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
                 self.selection = nil
                 switch self.dataType {
                 case .text:
-                    self.noneEmptySelection = "First"
+                    self.noneEmptySelection = "One"
                 case .frameworks:
                     self.noneEmptySelection = "UIKit"
                 case .object:
@@ -138,6 +141,11 @@ struct ListPickerItemExample: View {
                 }
                 
                 Toggle("AI Notice", isOn: self.$showAINotice)
+                
+                Picker("Destination display mode", selection: self.$destinationDisplayMode) {
+                    Text("Push").tag(DestinationDisplayMode.push)
+                    Text("Present").tag(DestinationDisplayMode.sheet)
+                }
             }
         }
         .navigationTitle("List Picker Item")
