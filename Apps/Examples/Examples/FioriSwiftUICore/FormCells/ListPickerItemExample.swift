@@ -47,6 +47,7 @@ struct ListPickerItemExample: View {
     @State var showsErrorMessage = false
     @State var showsPrompt = false
     @State var showAINotice: Bool = false
+    @State var destinationDisplayMode: DestinationDisplayMode = .push
     
     var body: some View {
         List {
@@ -72,6 +73,7 @@ struct ListPickerItemExample: View {
                     })
                 }
             }
+            .destinationDisplayMode(self.destinationDisplayMode)
             .onChange(of: self.dataType) {
                 self.selections.removeAll()
                 self.uuidSelections.removeAll()
@@ -135,6 +137,11 @@ struct ListPickerItemExample: View {
                 }
                 
                 Toggle("AI Notice", isOn: self.$showAINotice)
+                
+                Picker("Destination display mode", selection: self.$destinationDisplayMode) {
+                    Text("Push").tag(DestinationDisplayMode.push)
+                    Text("Present").tag(DestinationDisplayMode.sheet)
+                }
             }
         }
         .navigationTitle("List Picker Item")

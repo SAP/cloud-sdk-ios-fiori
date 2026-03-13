@@ -910,6 +910,8 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                                      isTopLevel: false,
                                                      rowContent: self.rowContent)
                     }
+                    .environment(\.listPickerItemIgnoreValue, true)
+                    .destinationDisplayMode(.push)
                 } else {
                     ListPickerDestinationRow(content: self.rowContent(element),
                                              isSelected: self.isItemSelected(id_value))
@@ -1218,6 +1220,14 @@ struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
     }
 }
 
+struct ListPickerItemIgnoreValueKey: EnvironmentKey {
+    static var defaultValue: Bool = false
+}
+
+struct DestinationDisplayModeKey: EnvironmentKey {
+    static var defaultValue: DestinationDisplayMode = .push
+}
+
 extension EnvironmentValues {
     var disableEntriesSection: Bool {
         get { self[DisableEntriesSectionEnvironment.self] }
@@ -1237,6 +1247,16 @@ extension EnvironmentValues {
     var disableContentSection: Bool {
         get { self[DisableContentSectionEnvironment.self] }
         set { self[DisableContentSectionEnvironment.self] = newValue }
+    }
+    
+    var destinationDisplayMode: DestinationDisplayMode {
+        get { self[DestinationDisplayModeKey.self] }
+        set { self[DestinationDisplayModeKey.self] = newValue }
+    }
+    
+    var listPickerItemIgnoreValue: Bool {
+        get { self[ListPickerItemIgnoreValueKey.self] }
+        set { self[ListPickerItemIgnoreValueKey.self] = newValue }
     }
 }
 
@@ -1275,8 +1295,21 @@ public extension View {
     func disableContentSection(_ disabled: Bool = true) -> some View {
         self.environment(\.disableContentSection, disabled)
     }
+    
+    func destinationDisplayMode(_ mode: DestinationDisplayMode) -> some View {
+        self.environment(\.destinationDisplayMode, mode)
+    }
 }
 
 extension Notification.Name {
     static let selectionsUpdatedNotification = Notification.Name("ListPickerSelectionsUpdatedNotification")
+}
+
+/// Display modes when navigating to destination of list picker item.
+public enum DestinationDisplayMode {
+    /// Push destination from current view.
+    case push
+    
+    /// Present destination as sheet from current view.
+    case sheet
 }
