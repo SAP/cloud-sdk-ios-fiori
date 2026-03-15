@@ -120,39 +120,6 @@ public protocol _ProgressIndicatorModel: ProgressIndicatorComponent {}
 @available(*, unavailable, renamed: "_ProgressIndicatorModel", message: "Will be removed in the future release. Please use LoadingIndicator instead.")
 public protocol ProgressIndicatorModel {}
 
-// sourcery: generated_component_composite
-// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
-// sourcery: add_env_props = ["presentationMode"]
-public protocol _EULAViewModel: TitleComponent, BodyAttributedTextComponent {
-    // sourcery: genericParameter.name = ActionView
-    // sourcery: default.value = _AgreeActionDefault()
-    var action: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = SecondaryActionView
-    // sourcery: default.value = _DisagreeActionDefault()
-    var secondaryAction: _ActionModel? { get }
-    
-    // sourcery: genericParameter.name = CancelActionView
-    // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: _ActionModel? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var didAgree: (() -> Void)? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var didDisagree: (() -> Void)? { get }
-    
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var didCancel: (() -> Void)? { get }
-}
-
-/// Deprecated EULAViewModel
-@available(*, deprecated, renamed: "_EULAViewModel", message: "Will be removed in the future release. Please create EULAViewModel with other initializers instead.")
-public protocol EULAViewModel {}
-
 // sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
 // sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
 // sourcery: generated_component_composite

@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct OnboardingExamples: View {
-    var _isNewObjectItem: Bool = false
-    
     var body: some View {
         List {
             NavigationLink(
@@ -23,30 +21,24 @@ struct OnboardingExamples: View {
                 Text("InfoView Examples")
             }
             
-            if self._isNewObjectItem {
-                NavigationLink(
-                    destination: EULAExamples(isNewEULAView: true))
-                {
-                    Text("EULA Examples")
-                }
-                NavigationLink(
-                    destination: UserConsentExamples())
-                {
-                    Text("User Consent Form Examples")
-                }
-                NavigationLink(
-                    destination: AuthenticationExamples())
-                {
-                    Text("AuthenticationScreen Examples")
-                }
-            } else {
-                NavigationLink(
-                    destination: EULAExamples())
-                {
-                    Text("_EULA Examples")
-                }
+            NavigationLink(
+                destination: EULAExamples())
+            {
+                Text("EULA Examples")
             }
             
+            NavigationLink(
+                destination: UserConsentExamples())
+            {
+                Text("User Consent Form Examples")
+            }
+            
+            NavigationLink(
+                destination: AuthenticationExamples())
+            {
+                Text("AuthenticationScreen Examples")
+            }
+           
             NavigationLink(
                 destination: WhatsNewExample())
             {
@@ -121,75 +113,46 @@ struct InfoViewExamples: View {
 }
 
 struct EULAExamples: View {
-    var isNewEULAView = false
     var body: some View {
         List {
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAViewSample()
-                } else {
-                    _EULAViewSample()
-                }
+                EULAViewSample()
             } label: {
                 Text("EULA Example")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULALongHtmlSample()
-                } else {
-                    _EULALongHtmlSample()
-                }
+                EULALongHtmlSample()
             } label: {
                 Text("Long HTML")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAShortHtmlSample()
-                } else {
-                    _EULAShortHtmlSample()
-                }
+                EULAShortHtmlSample()
             } label: {
                 Text("Short HTML")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAConcatSample()
-                } else {
-                    _EULAConcatSample()
-                }
+                EULAConcatSample()
             } label: {
                 Text("Concat Attributed Strings")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAWithLinkSample()
-                } else {
-                    _EULAWithLinkSample()
-                }
+                EULAWithLinkSample()
             } label: {
                 Text("Short HTML with Link")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAShortWithLinkSample()
-                } else {
-                    _EULAShortWithLinkSample()
-                }
+                EULAShortWithLinkSample()
             } label: {
                 Text("Short Attributed Strings with Link")
             }
             
             NavigationLink {
-                if self.isNewEULAView {
-                    EULAViewCustomized()
-                } else {
-                    _EULAViewCustomized()
-                }
+                EULAViewCustomized()
             } label: {
                 Text("Customized EULA Example")
             }

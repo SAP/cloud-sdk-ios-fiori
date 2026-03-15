@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct EULAViewDataModel: _EULAViewModel {
+struct EULAViewDataModel {
     var title: String = "EULA"
     var bodyAttributedText: NSAttributedString?
     
@@ -65,94 +65,6 @@ struct EULAViewDataModel: _EULAViewModel {
         attributedString.setAttributes(linkAttributes, range: NSRange(location: 5, length: 10))
         return EULAViewDataModel(bodyAttributedText: attributedString)
     }()
-}
-
-struct _EULAViewSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.HTML
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULALongHtmlSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.LongHTML
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULAShortHtmlSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.ShortHTML
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULAConcatSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.ConcatAttributedStrings
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULAWithLinkSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.ShortStringWithLink
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULAShortWithLinkSample: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.ShortAttributedStringWithLink
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-struct _EULAViewCustomized: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    let model = EULAViewDataModel.HTML
-    
-    var body: some View {
-        _EULAView(title: self.model.title, bodyAttributedText: self.model.bodyAttributedText, didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-        .titleModifier { $0.font(.headline).foregroundColor(.green) }
-        .bodyAttributedTextModifier { $0.font(.system(size: 20)).foregroundColor(.blue) }
-        .actionModifier { $0.foregroundColor(.green) }
-        .secondaryActionModifier { $0.foregroundColor(.green) }
-    }
 }
 
 struct EULAViewSample: View {
