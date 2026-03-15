@@ -5,25 +5,41 @@ import SwiftUI
 
 // Base Layout style
 public struct ListPickerItemBaseStyle: ListPickerItemStyle {
+    @Environment(\.destinationDisplayMode) var destinationDisplayMode
+    @State var isDestinationPresented: Bool = false
+    
     public func makeBody(_ configuration: ListPickerItemConfiguration) -> some View {
         Group {
             if configuration.controlState == .readOnly {
-                switch configuration.axis {
-                case .horizontal:
-                    self.horizontalLayout(configuration: configuration)
-                case .vertical:
-                    self.verticalLayout(configuration: configuration)
-                }
+                self.pickerItemView(configuration)
             } else {
-                NavigationLink(destination: configuration.destination) {
-                    switch configuration.axis {
-                    case .horizontal:
-                        self.horizontalLayout(configuration: configuration)
-                    case .vertical:
-                        self.verticalLayout(configuration: configuration)
+                switch self.destinationDisplayMode {
+                case .push:
+                    NavigationLink(destination: configuration.destination) {
+                        self.pickerItemView(configuration)
                     }
+                case .sheet:
+                    self.pickerItemView(configuration)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            self.isDestinationPresented.toggle()
+                        }
+                        .sheet(isPresented: self.$isDestinationPresented) {
+                            NavigationStack {
+                                configuration.destination
+                            }
+                        }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder func pickerItemView(_ configuration: ListPickerItemConfiguration) -> some View {
+        switch configuration.axis {
+        case .horizontal:
+            self.horizontalLayout(configuration: configuration)
+        case .vertical:
+            self.verticalLayout(configuration: configuration)
         }
     }
     
@@ -85,10 +101,11 @@ extension ListPickerItemFioriStyle {
         let listPickerItemConfiguration: ListPickerItemConfiguration
         // only used for empty value view
         @State var selections: Set<String> = Set()
+        @Environment(\.listPickerItemIgnoreValue) var listPickerItemIgnoreValue
         
         func makeBody(_ configuration: ValueConfiguration) -> some View {
             Group {
-                if configuration.value.isEmpty {
+                if configuration.value.isEmpty, !self.listPickerItemIgnoreValue {
                     Value(ValueConfiguration(value: ConfigurationViewWrapper(Text(self.selections.joined(separator: ", ")))))
                         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.selectionsUpdatedNotification)) { notification in
                             if let selections = notification.object as? Set<String> {
