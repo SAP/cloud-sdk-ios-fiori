@@ -1318,6 +1318,9 @@ public extension View {
         self.environment(\.disableContentSection, disabled)
     }
     
+    /// Destination display mode for list picker item.
+    /// - Parameter mode: Mode for showing destination.
+    /// - Returns: A new view with customized destination display mode.
     func destinationDisplayMode(_ mode: DestinationDisplayMode) -> some View {
         self.environment(\.destinationDisplayMode, mode)
     }

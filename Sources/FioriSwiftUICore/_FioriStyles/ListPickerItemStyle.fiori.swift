@@ -22,7 +22,7 @@ public struct ListPickerItemBaseStyle: ListPickerItemStyle {
                     self.pickerItemView(configuration)
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            self.isDestinationPresented.toggle()
+                            self.isDestinationPresented = true
                         }
                         .sheet(isPresented: self.$isDestinationPresented) {
                             NavigationStack {
