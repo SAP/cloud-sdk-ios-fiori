@@ -324,6 +324,7 @@
 		55DA195C2DD2216100C1391B /* OrderPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPickerExample.swift; sourceTree = "<group>"; };
 		5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSegmentedControl.swift; sourceTree = "<group>"; };
 		569DE89D2E8B29040069977E /* TagExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagExample.swift; path = Examples/FioriSwiftUICore/Tag/TagExample.swift; sourceTree = "<group>"; };
+		569DF6012F690F2C00C7FF31 /* WatchExamples-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchExamples-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		56F74DC62EF62936007A5415 /* NavigationBarDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarDropdown.swift; path = Examples/FioriSwiftUICore/NavigationBar/NavigationBarDropdown.swift; sourceTree = "<group>"; };
 		5A80A5EB2DE706A100950E40 /* AIUserFeedbackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIUserFeedbackExample.swift; sourceTree = "<group>"; };
 		5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DurationPickerExample.swift; sourceTree = "<group>"; };
@@ -627,6 +628,7 @@
 		1F60179529A8439A00DBDCDE /* WatchExamples Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				569DF6012F690F2C00C7FF31 /* WatchExamples-Watch-App-Info.plist */,
 				1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */,
 				1F60179829A8439A00DBDCDE /* ContentView.swift */,
 				1F60179A29A8439C00DBDCDE /* Assets.xcassets */,
@@ -1657,9 +1659,10 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WatchExamples-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = WatchExamples;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(SHARED_APP_BUNDLE_IDENTIFIER)";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sap.cloud-sdk-ios-fiori.Examples";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1692,9 +1695,10 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WatchExamples-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = WatchExamples;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(SHARED_APP_BUNDLE_IDENTIFIER)";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sap.cloud-sdk-ios-fiori.Examples";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
