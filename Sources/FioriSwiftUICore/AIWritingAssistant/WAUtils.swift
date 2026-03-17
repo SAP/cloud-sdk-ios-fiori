@@ -99,6 +99,10 @@ struct WAShowPanelKey: EnvironmentKey {
     static let defaultValue: Binding<Bool> = .constant(false)
 }
 
+struct WAFeedbackNavigationBarTitleKey: EnvironmentKey {
+    static var defaultValue: AttributedString = .init("Feedback".localizedFioriString())
+}
+
 extension EnvironmentValues {
     var waHelperAction: Binding<WAHelperAction> {
         get { self[WAHelperActionKey.self] }
@@ -118,6 +122,11 @@ extension EnvironmentValues {
     var waShowPanel: Binding<Bool> {
         get { self[WAShowPanelKey.self] }
         set { self[WAShowPanelKey.self] = newValue }
+    }
+    
+    var waFeedbackNavigationBarTitle: AttributedString {
+        get { self[WAFeedbackNavigationBarTitleKey.self] }
+        set { self[WAFeedbackNavigationBarTitleKey.self] = newValue }
     }
 }
 
@@ -148,5 +157,12 @@ public extension View {
     /// - Returns: A view with the writing assistant panel or not.
     func waShowPanel(_ show: Binding<Bool>) -> some View {
         self.environment(\.waShowPanel, show)
+    }
+    
+    /// Customize the title string for the navigation bar title in feedback view.
+    /// - Parameter title: String value for the navigation bar.
+    /// - Returns: New view with customized navigation bar title for feedback in writing assistant component.
+    func waFeedbackNavigationTitle(_ title: String) -> some View {
+        self.environment(\.waFeedbackNavigationBarTitle, AttributedString(title))
     }
 }

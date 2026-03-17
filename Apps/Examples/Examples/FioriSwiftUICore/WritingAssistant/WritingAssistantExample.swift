@@ -34,7 +34,9 @@ struct WritingAssistantExample: View {
     @State var showWAAuthAlert = false
     @State var waAllowed = false
     @State var showWAPanel = false
+    @State var customizeFeedbackTitles = false
     @State private var alertCompletion: ((Bool) -> Void)? = nil
+    @State private var filterFormViewButtonSize: FilterButtonSize = .fixed
 
     @FocusState var isFocused: Bool
     
@@ -91,7 +93,13 @@ struct WritingAssistantExample: View {
                 .onChange(of: self.showWAPanel) { _, _ in
                     self.isFocused = false
                 }
-            
+            Toggle("Customize feedback view titles", isOn: self.$customizeFeedbackTitles)
+            Picker("Buttons size of filter form view in feedback", selection: self.$filterFormViewButtonSize) {
+                Text("Fixed").tag(FilterButtonSize.fixed)
+                Text("Flexible").tag(FilterButtonSize.flexible)
+                Text("Flexible by max chip").tag(FilterButtonSize.flexibleByMaxChip)
+            }
+
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
                 .environment(\.isLoading, self.isLoading)
                 .environment(\.isAILoading, self.isLoading)
@@ -135,6 +143,29 @@ struct WritingAssistantExample: View {
             
             Spacer()
         }
+        .illustratedMessageTitleStyle {
+            if self.customizeFeedbackTitles {
+                Text("This is a customized title for illustrated message in feedback")
+            } else {
+                $0.title
+            }
+        }
+        .illustratedMessageDescriptionStyle {
+            if self.customizeFeedbackTitles {
+                Text("This is a customized description for illustrated message in feedback")
+            } else {
+                $0.description
+            }
+        }
+        .filterFormViewTitleStyle {
+            if self.customizeFeedbackTitles {
+                Text("This is a customized title for filter form view in feedback.")
+            } else {
+                $0.title
+            }
+        }
+        .waFeedbackNavigationTitle(self.customizeFeedbackTitles ? "Customized Title" : "Feedback")
+        .filterFormViewButtonSize(self.filterFormViewButtonSize)
         .padding()
         .alert("W.A. Authorization", isPresented: self.$showWAAuthAlert) {
             Button("No", role: .destructive) {
