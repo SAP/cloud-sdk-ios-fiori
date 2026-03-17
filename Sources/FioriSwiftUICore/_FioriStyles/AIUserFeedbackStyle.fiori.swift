@@ -2,6 +2,8 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 /// AIUserFeedback display mode
 public enum AIUserFeedbackDisplayMode {
     /// AIUserFeedback is pushed in from a navigation stack.
@@ -39,11 +41,14 @@ public enum AIUserFeedbackVoteState {
 public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.dismiss) private var dismiss
-    
     @State var shouldShowFeedbackDetail = false
     @State var submitRequestFailed = false
     @Environment(\.isSubmitRequestFailed) var isSubmitRequestFailed
     @Environment(\.disableMultipleVoteForAIUserFeedback) var disableMultipleVoteForAIUserFeedback
+    @Environment(\.filterFormViewTitleStyle) private var filterFormViewTitleStyle
+    @Environment(\.keyValueFormViewTitleStyle) private var keyValueFormViewTitleStyle
+    @Environment(\.illustratedMessageTitleStyle) private var illustratedMessageTitleStyle
+    @Environment(\.illustratedMessageDescriptionStyle) private var illustratedMessageDescriptionStyle
     @State var inlineFeedbackIsPresented: Bool = false
     
     /// Indicates if the submit button has been shown.
@@ -158,6 +163,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             ScrollView {
                 if self.isShowFailedView() {
                     self.defaultErrorView(configuration)
+                        .frame(maxWidth: .infinity)
                         .padding(.top, 20)
                         .padding(.bottom, 16)
                         .fixedSize(horizontal: false, vertical: true)
@@ -175,7 +181,10 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     VStack {
                         VStack {
                             self.illustratedMessage(configuration)
-                            
+                                .titleStyle(self.illustratedMessageTitleStyle)
+                                .descriptionStyle(self.illustratedMessageDescriptionStyle)
+                                .typeErased
+                                .frame(maxWidth: .infinity)
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
                             }
@@ -265,10 +274,14 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     func feedbackDetailView(_ configuration: AIUserFeedbackConfiguration) -> some View {
         if configuration.filterFormView != nil {
             configuration.filterFormView
+                .titleStyle(self.filterFormViewTitleStyle)
+                .typeErased
                 .padding(.bottom, 15)
         }
         if configuration.keyValueFormView != nil {
             configuration.keyValueFormView
+                .titleStyle(self.keyValueFormViewTitleStyle)
+                .typeErased
         }
     }
     
@@ -575,5 +588,121 @@ public extension View {
     /// - Returns: A new view with multiple vote is disabled or not in `AIUserFeedback`.
     func disableMultipleVoteForAIUserFeedback(_ disabled: Bool) -> some View {
         self.environment(\.disableMultipleVoteForAIUserFeedback, disabled)
+    }
+}
+
+public extension View {
+    /// :nodoc:
+    func illustratedMessageTitleStyle(_ style: some TitleStyle) -> some View {
+        self.transformEnvironment(\.illustratedMessageTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func illustratedMessageTitleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.illustratedMessageTitleStyleStack) { stack in
+            let style = AnyTitleStyle(content)
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func illustratedMessageDescriptionStyle(_ style: some DescriptionStyle) -> some View {
+        self.transformEnvironment(\.illustratedMessageDescriptionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func illustratedMessageDescriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.illustratedMessageDescriptionStyleStack) { stack in
+            let style = AnyDescriptionStyle(content)
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func filterFormViewTitleStyle(_ style: some TitleStyle) -> some View {
+        self.transformEnvironment(\.filterFormViewTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func filterFormViewTitleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.filterFormViewTitleStyleStack) { stack in
+            let style = AnyTitleStyle(content)
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func keyValueFormViewTitleStyle(_ style: some TitleStyle) -> some View {
+        self.transformEnvironment(\.keyValueFormViewTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    /// :nodoc:
+    func keyValueFormViewTitleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyValueFormViewTitleStyleStack) { stack in
+            let style = AnyTitleStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+struct IllustratedMessageTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleStyle] = []
+}
+
+struct IllustratedMessageDescriptionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DescriptionStyle] = []
+}
+
+struct FilterFormViewTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleStyle] = []
+}
+
+struct KeyValueFormViewTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleStyle] = []
+}
+
+extension EnvironmentValues {
+    var illustratedMessageTitleStyle: any TitleStyle {
+        self.illustratedMessageTitleStyleStack.last ?? .base
+    }
+
+    var illustratedMessageTitleStyleStack: [any TitleStyle] {
+        get { self[IllustratedMessageTitleStyleStackKey.self] }
+        set { self[IllustratedMessageTitleStyleStackKey.self] = newValue }
+    }
+    
+    var illustratedMessageDescriptionStyle: any DescriptionStyle {
+        self.illustratedMessageDescriptionStyleStack.last ?? .base
+    }
+
+    var illustratedMessageDescriptionStyleStack: [any DescriptionStyle] {
+        get { self[IllustratedMessageDescriptionStyleStackKey.self] }
+        set { self[IllustratedMessageDescriptionStyleStackKey.self] = newValue }
+    }
+    
+    var filterFormViewTitleStyle: any TitleStyle {
+        self.filterFormViewTitleStyleStack.last ?? .base
+    }
+
+    var filterFormViewTitleStyleStack: [any TitleStyle] {
+        get { self[FilterFormViewTitleStyleStackKey.self] }
+        set { self[FilterFormViewTitleStyleStackKey.self] = newValue }
+    }
+    
+    var keyValueFormViewTitleStyle: any TitleStyle {
+        self.keyValueFormViewTitleStyleStack.last ?? .base
+    }
+    
+    var keyValueFormViewTitleStyleStack: [any TitleStyle] {
+        get { self[KeyValueFormViewTitleStyleStackKey.self] }
+        set { self[KeyValueFormViewTitleStyleStackKey.self] = newValue }
     }
 }

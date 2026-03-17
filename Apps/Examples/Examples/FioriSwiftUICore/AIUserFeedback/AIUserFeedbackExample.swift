@@ -28,6 +28,7 @@ struct AIUserFeedbackExample: View {
     @State var displayContentError = false
     @State var customizedErrorView = false
     @State var isSubmitResultSuccess = true
+    @State var customizedFeedbackTitles = false
     
     var body: some View {
         List {
@@ -78,6 +79,7 @@ struct AIUserFeedbackExample: View {
             Toggle("Customized Error View", isOn: self.$customizedErrorView)
             Toggle("Mock Submit Result(On: Success, Off: Fail)", isOn: self.$isSubmitResultSuccess)
             Toggle("Disable Multiple Vote", isOn: self.$disableMultipleVote)
+            Toggle("Custom feedback title", isOn: self.$customizedFeedbackTitles)
 
             Picker("Vote State(Not work for push)", selection: self.$voteStateIndex) {
                 ForEach(0 ..< self.voteStates.count, id: \.self) { index in
@@ -161,6 +163,34 @@ struct AIUserFeedbackExample: View {
                                   }
                               }, voteState: self.$voteState,
                               submitButtonState: self.$submitButtonState)
+            .illustratedMessageTitleStyle {
+                if self.customizedFeedbackTitles {
+                    Text("This is a customized illustrated message title")
+                } else {
+                    $0.title
+                }
+            }
+            .illustratedMessageDescriptionStyle {
+                if self.customizedFeedbackTitles {
+                    Text("This is a customized illustrated message description")
+                } else {
+                    $0.description
+                }
+            }
+            .filterFormViewTitleStyle {
+                if self.customizedFeedbackTitles {
+                    Text("This is a customized filter form view title")
+                } else {
+                    $0.title
+                }
+            }
+            .keyValueFormViewTitleStyle {
+                if self.customizedFeedbackTitles {
+                    Text("This is a customized key value form view title")
+                } else {
+                    $0.title
+                }
+            }
     }
     
     @ViewBuilder

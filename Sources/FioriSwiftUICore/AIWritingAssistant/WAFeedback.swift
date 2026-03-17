@@ -3,6 +3,7 @@ import SwiftUI
 struct WAFeedback: View {
     @State var feedbackSelection: [Int] = []
     @EnvironmentObject var context: WritingAssistantContext
+    @Environment(\.waFeedbackNavigationBarTitle) private var navigationBarTitle
     @Environment(\.dismiss) private var dismiss
     @State var showError = false
     @State var voteState: AIUserFeedbackVoteState = .downVote
@@ -12,9 +13,9 @@ struct WAFeedback: View {
     }
 
     var body: some View {
-        AIUserFeedback(title: { Title(title: "What didn’t you like about this version?") },
-                       description: { Text("Please rate your experience to help us improve.") },
-                       navigationTitle: "Feedback",
+        AIUserFeedback(title: { Title(title: AttributedString("What didn’t you like about this version?".localizedFioriString())) },
+                       description: { Text(AttributedString("Please rate your experience to help us improve.".localizedFioriString())) },
+                       navigationTitle: self.navigationBarTitle,
                        filterFormView: self.filterFormView,
                        keyValueFormView: nil,
                        displayMode: .push,

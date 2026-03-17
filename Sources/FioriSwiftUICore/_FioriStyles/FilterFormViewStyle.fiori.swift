@@ -18,6 +18,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
     @Environment(\.filterFormOptionCornerRadius) var filterFormOptionCornerRadius
     @Environment(\.filterFormOptionPadding) var filterFormOptionPadding
     @Environment(\.filterFormOptionTitleSpacing) var filterFormOptionTitleSpacing
+    @Environment(\.filterFormViewButtonSize) var customizedButtonSize
     
     private var filterFormOptionDefaultAttributes: [FilterFormOptionState: [NSAttributedString.Key: Any]] = [
         .enabledUnselected: [
@@ -96,9 +97,17 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
             }
     }
     
+    func buttonSize(_ configuration: FilterFormViewConfiguration) -> FilterButtonSize {
+        if let customizedButtonSize {
+            customizedButtonSize
+        } else {
+            configuration.buttonSize
+        }
+    }
+    
     @ViewBuilder
     func FilterFormViewLayoutView(_ configuration: FilterFormViewConfiguration, dynamicTypeSize: DynamicTypeSize, horizontalSizeClass: UserInterfaceSizeClass?) -> some View {
-        FilterFormViewLayout(buttonSize: configuration.buttonSize, dynamicTypeSize: dynamicTypeSize, horizontalSizeClass: horizontalSizeClass, filterFormOptionsItemSpacing: self.filterFormOptionsItemSpacing, filterFormOptionsLineSpacing: self.filterFormOptionsLineSpacing) {
+        FilterFormViewLayout(buttonSize: self.buttonSize(configuration), dynamicTypeSize: dynamicTypeSize, horizontalSizeClass: horizontalSizeClass, filterFormOptionsItemSpacing: self.filterFormOptionsItemSpacing, filterFormOptionsLineSpacing: self.filterFormOptionsLineSpacing) {
             ForEach(configuration.options.indices, id: \.self) { index in
                 let isSelected = configuration.value.contains(index)
                 let option = configuration.options[index]
@@ -246,11 +255,14 @@ extension FilterFormViewFioriStyle {
 
     struct TitleFioriStyle: TitleStyle {
         let filterFormViewConfiguration: FilterFormViewConfiguration
+        @Environment(\.filterFormViewTitleStyle) private var filterFormViewTitleStyle
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .titleStyle(self.filterFormViewTitleStyle)
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .foregroundStyle(Color.preferredColor(self.filterFormViewConfiguration.isEnabled ? .primaryLabel : .quaternaryLabel))
+                .typeErased
         }
     }
 
@@ -377,5 +389,25 @@ private struct FilterFormViewLayout: Layout {
             let pt = CGPoint(x: itemRect.origin.x + bounds.origin.x, y: itemRect.origin.y + bounds.origin.y)
             subview.place(at: pt, proposal: ProposedViewSize(itemRect.size))
         }
+    }
+}
+
+struct FilterFormViewButtonSizeKey: EnvironmentKey {
+    static var defaultValue: FilterButtonSize? = nil
+}
+
+extension EnvironmentValues {
+    var filterFormViewButtonSize: FilterButtonSize? {
+        get { self[FilterFormViewButtonSizeKey.self] }
+        set { self[FilterFormViewButtonSizeKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Button size customization in `FilterFormView`
+    /// - Parameter buttonSize: Button size by `FilterButtonSize`
+    /// - Returns: New view with customized button size in `FilterFormView`
+    func filterFormViewButtonSize(_ buttonSize: FilterButtonSize) -> some View {
+        self.environment(\.filterFormViewButtonSize, buttonSize)
     }
 }
