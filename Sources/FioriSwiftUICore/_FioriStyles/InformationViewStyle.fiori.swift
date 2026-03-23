@@ -9,6 +9,7 @@ public struct InformationViewBaseStyle: InformationViewStyle {
             HStack(alignment: .center, spacing: 8) {
                 configuration.icon
                 configuration.description
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
         }
