@@ -43,6 +43,7 @@ extension InformationViewFioriStyle {
         
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .quaternaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
