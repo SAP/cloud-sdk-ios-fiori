@@ -20,10 +20,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Platform Runtimes
-      run: xcrun xcodebuild -downloadPlatform iOS \
-                            -downloadPlatform watchOS \
-                            -downloadPlatform visionOS
+    #- name: Install Platform Runtimes
+    #  run: xcrun xcodebuild -downloadPlatform iOS \
+    #                        -downloadPlatform watchOS \
+    #                        -downloadPlatform visionOS
+
+    - name: Install Targeted Runtimes
+      run: |
+          xcrun simctl runtime add "iOS 26.4"
+          xcrun simctl runtime add "watchOS 13.4"
+          xcrun simctl runtime add "visionOS 3.4"
 
     # Workaround for unit test hang with cache update command
     - name: Force Xcode Simulator dyld shared cache update
