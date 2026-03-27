@@ -8,7 +8,7 @@ struct FioriButtonGlassEffectExample: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20, content: {
-                if #available(iOS 26.0, *) {
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
                     ForEach(glassEffects, id: \.self) { glassEffect in
                         FioriButton { _ in
                             print("Tapped")
@@ -36,7 +36,7 @@ struct FioriButtonGlassEffectExample: View {
                         }
                     }
                 } else {
-                    Text("FioriButton glass effect is available in iOS 26.0")
+                    Text("FioriButton glass effect is available in iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0")
                 }
             })
             .frame(maxWidth: .infinity)
