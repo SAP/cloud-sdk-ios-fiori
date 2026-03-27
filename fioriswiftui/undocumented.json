@@ -4993,84 +4993,84 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 75,
+      "line": 76,
       "symbol": "InformationViewErrorStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 77,
+      "line": 78,
       "symbol": "InformationViewErrorStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 98,
+      "line": 99,
       "symbol": "InformationViewWarningStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 100,
+      "line": 101,
       "symbol": "InformationViewWarningStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 121,
+      "line": 122,
       "symbol": "InformationViewInformationalStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 123,
+      "line": 124,
       "symbol": "InformationViewInformationalStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 144,
+      "line": 145,
       "symbol": "InformationViewSuccessStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 146,
+      "line": 147,
       "symbol": "InformationViewSuccessStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 169,
+      "line": 170,
       "symbol": "InformationViewStyle.error",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 176,
+      "line": 177,
       "symbol": "InformationViewStyle.warning",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 183,
+      "line": 184,
       "symbol": "InformationViewStyle.informational",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/InformationViewStyle.fiori.swift",
-      "line": 190,
+      "line": 191,
       "symbol": "InformationViewStyle.success",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -26287,28 +26287,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/InformationView/InformationViewStyle.generated.swift",
-      "line": 168,
+      "line": 169,
       "symbol": "InformationViewStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/InformationView/InformationViewStyle.generated.swift",
-      "line": 175,
+      "line": 176,
       "symbol": "InformationViewStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/InformationView/InformationViewStyle.generated.swift",
-      "line": 182,
+      "line": 183,
       "symbol": "InformationViewStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/InformationView/InformationViewStyle.generated.swift",
-      "line": 189,
+      "line": 190,
       "symbol": "InformationViewStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
