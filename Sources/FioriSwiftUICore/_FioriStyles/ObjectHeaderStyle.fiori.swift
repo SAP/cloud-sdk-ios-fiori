@@ -291,7 +291,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     func tab1InGeneral(_ configuration: ObjectHeaderConfiguration) -> some View {
         HStack(alignment: .top, spacing: 0) {
             configuration.detailImage
-                .frame(width: 45, height: 45)
+                .frame(minWidth: 16, maxWidth: 60, minHeight: 16, maxHeight: 60)
                 .padding(.trailing, 16)
             
             VStack(alignment: .leading, spacing: 16) {
