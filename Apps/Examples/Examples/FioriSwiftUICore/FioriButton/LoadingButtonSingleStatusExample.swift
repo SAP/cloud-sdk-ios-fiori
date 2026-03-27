@@ -18,8 +18,9 @@ struct FioriButtonProcessingStyle: FioriButtonStyle {
             .tint(foregroundColor)
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .frame(minWidth: self.minWidth, maxWidth: self.maxWidth, minHeight: self.minHeight)
-            .background(RoundedRectangle(cornerRadius: 8).fill(backgroundColor))
-            .contentShape(Rectangle())
+            .background(Capsule().fill(backgroundColor))
+            .contentShape(Capsule())
+            .clipShape(Capsule())
     }
     
     @ViewBuilder

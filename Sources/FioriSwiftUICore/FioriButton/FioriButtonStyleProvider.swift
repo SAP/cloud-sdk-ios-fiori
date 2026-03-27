@@ -172,7 +172,7 @@ enum FioriButtonStyleProvider {
                     backgroundColor = .preferredColor(.secondaryFill)
                 default:
                     foregroundColor = .preferredColor(.separator)
-                    backgroundColor = .preferredColor(.tertiaryFill)
+                    backgroundColor = .clear
                 }
             }
         }
@@ -217,8 +217,9 @@ extension View {
             .tint(config.foregroundColor)
             .padding(config.padding)
             .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
-            .background(RoundedRectangle(cornerRadius: 8).fill(config.backgroundColor))
-            .contentShape(Rectangle())
+            .background(Capsule().fill(config.backgroundColor))
+            .contentShape(Capsule())
+            .clipShape(Capsule())
     }
 }
 
