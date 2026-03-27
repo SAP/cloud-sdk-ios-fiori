@@ -20,6 +20,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install Platform Runtimes
+      run: xcrun xcodebuild -downloadPlatform iOS \
+                            -downloadPlatform watchOS \
+                            -downloadPlatform visionOS
+
     # Workaround for unit test hang with cache update command
     - name: Force Xcode Simulator dyld shared cache update
       run: xcrun simctl runtime dyld_shared_cache update --all
