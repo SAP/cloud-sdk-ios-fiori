@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-26]
-        xcode: ['Xcode_26.3']
+        xcode: ['Xcode_26.4']
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
@@ -20,9 +20,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    # Workaround for unit test hang with cache update command
-    - name: Force Xcode Simulator dyld shared cache update
-      run: xcrun simctl runtime dyld_shared_cache update --all
+    - name: Install Platform Runtimes
+      run: xcrun xcodebuild -downloadPlatform iOS 
 
     - name: Build and Test
       run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" clean build test | xcpretty
@@ -58,13 +57,15 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-26]
-        xcode: ['Xcode_26.3']
+        xcode: ['Xcode_26.4']
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
     
     steps:
     - uses: actions/checkout@v3
+    - name: Install Platform Runtimes for watchOS
+      run: xcrun xcodebuild -downloadPlatform watchOS
     - name: Run tests on Apple Watch simulator
       run: set -o pipefail && make test_watch
 
@@ -73,7 +74,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-26]
-        xcode: ['Xcode_26.3']
+        xcode: ['Xcode_26.4']
     runs-on: ${{ matrix.os }}
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
