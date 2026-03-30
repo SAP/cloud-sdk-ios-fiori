@@ -325,7 +325,7 @@
 		5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSegmentedControl.swift; sourceTree = "<group>"; };
 		569DE89D2E8B29040069977E /* TagExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagExample.swift; path = Examples/FioriSwiftUICore/Tag/TagExample.swift; sourceTree = "<group>"; };
 		569DF6012F690F2C00C7FF31 /* WatchExamples-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WatchExamples-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
-		56F74DC62EF62936007A5415 /* NavigationBarDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarDropdown.swift; path = Examples/FioriSwiftUICore/NavigationBar/NavigationBarDropdown.swift; sourceTree = "<group>"; };
+		56F74DC62EF62936007A5415 /* NavigationBarDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarDropdown.swift; sourceTree = "<group>"; };
 		5A80A5EB2DE706A100950E40 /* AIUserFeedbackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIUserFeedbackExample.swift; sourceTree = "<group>"; };
 		5A91FABD2D923BF70024F316 /* _DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _DurationPickerExample.swift; sourceTree = "<group>"; };
 		5A91FAC32D951CA70024F316 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
@@ -816,7 +816,6 @@
 		8A55794A24C1286E0098003A = {
 			isa = PBXGroup;
 			children = (
-				56F74DC62EF62936007A5415 /* NavigationBarDropdown.swift */,
 				569DE89D2E8B29040069977E /* TagExample.swift */,
 				8A55795524C1286E0098003A /* Examples */,
 				1F60179529A8439A00DBDCDE /* WatchExamples Watch App */,
@@ -1128,6 +1127,7 @@
 		B1CC61C52AFA0856002078C1 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				56F74DC62EF62936007A5415 /* NavigationBarDropdown.swift */,
 				5668D8762DF7754500F8631A /* NavigationBarSegmentedControl.swift */,
 				B13408912B01FA0700600331 /* NavigationBarExample.swift */,
 				B1DD86502B07534D00D7EDFD /* NavigationBarFioriStyle.swift */,
