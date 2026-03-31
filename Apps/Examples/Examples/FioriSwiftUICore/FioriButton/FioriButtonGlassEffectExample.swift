@@ -43,6 +43,20 @@ struct FioriButtonGlassEffectExample: View {
         }
         .navigationTitle(Text("Glass Effect"))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            FioriButton(title: "Done") { _ in
+            }
+            .fioriButtonStyle(self.toolBarFioriButtonStyle())
+        })
+    }
+    
+    func toolBarFioriButtonStyle() -> some FioriButtonStyle {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+            FioriGlassButtonStyle(glassEffect: .systemManaged).eraseToAnyFioriButtonStyle()
+        } else {
+            FioriPrimaryButtonStyle().eraseToAnyFioriButtonStyle()
+            // Fallback on earlier versions
+        }
     }
 }
 
