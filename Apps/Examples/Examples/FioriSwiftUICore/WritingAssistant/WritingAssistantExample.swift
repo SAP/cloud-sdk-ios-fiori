@@ -35,6 +35,8 @@ struct WritingAssistantExample: View {
     @State var waAllowed = false
     @State var showWAPanel = false
     @State var customizeFeedbackTitles = false
+    @State var autoSave = false
+    
     @State private var alertCompletion: ((Bool) -> Void)? = nil
     @State private var filterFormViewButtonSize: FilterButtonSize = .fixed
 
@@ -88,18 +90,6 @@ struct WritingAssistantExample: View {
     
     var body: some View {
         List {
-            Toggle("Show Error", isOn: self.$errorOccurred)
-            Toggle("Toggle W.A. panel for the first text input", isOn: self.$showWAPanel)
-                .onChange(of: self.showWAPanel) { _, _ in
-                    self.isFocused = false
-                }
-            Toggle("Customize feedback view titles", isOn: self.$customizeFeedbackTitles)
-            Picker("Buttons size of filter form view in feedback", selection: self.$filterFormViewButtonSize) {
-                Text("Fixed").tag(FilterButtonSize.fixed)
-                Text("Flexible").tag(FilterButtonSize.flexible)
-                Text("Flexible by max chip").tag(FilterButtonSize.flexibleByMaxChip)
-            }
-
             NoteFormView(text: self.$text, placeholder: "NoteFormView1", errorMessage: "", hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false)
                 .environment(\.isLoading, self.isLoading)
                 .environment(\.isAILoading, self.isLoading)
@@ -128,6 +118,7 @@ struct WritingAssistantExample: View {
                 }
                 .hideFeedbackFooterInWritingAssistant(self.hideFeedbackSection)
                 .frame(height: 100)
+                .waAutoSave(self.autoSave)
             
             TextFieldFormView(title: "TextFieldFormView Title: No waAuthorizationCheck required. WA disabled if input field is empty", text: self.$text2, placeholder: "Enter something")
                 .focused(self.$isFocused)
@@ -140,7 +131,20 @@ struct WritingAssistantExample: View {
                 .writingAssistantActionStyle { c in
                     c.writingAssistantAction.disabled(self.text2.isEmpty)
                 }
+                .waAutoSave(self.autoSave)
             
+            Toggle("Show Error", isOn: self.$errorOccurred)
+            Toggle("Toggle W.A. panel for the first text input", isOn: self.$showWAPanel)
+                .onChange(of: self.showWAPanel) { _, _ in
+                    self.isFocused = false
+                }
+            Toggle("Customize feedback view titles", isOn: self.$customizeFeedbackTitles)
+            Toggle("Auto Save", isOn: self.$autoSave)
+            Picker("Buttons size of filter form view in feedback", selection: self.$filterFormViewButtonSize) {
+                Text("Fixed").tag(FilterButtonSize.fixed)
+                Text("Flexible").tag(FilterButtonSize.flexible)
+                Text("Flexible by max chip").tag(FilterButtonSize.flexibleByMaxChip)
+            }
             Spacer()
         }
         .illustratedMessageTitleStyle {
