@@ -16,6 +16,7 @@ struct FioriButtonContentView: View {
             NavigationLink("In-Place Loading Button", destination: LazyView(InPlaceLoadingContentView()))
             NavigationLink("Misc Tests", destination: LazyView(MiscTestsView()))
             NavigationLink("Glass Effect", destination: LazyView(FioriButtonGlassEffectExample()))
+            NavigationLink("Custom Glass Effect", destination: LazyView(FioriButtonCustomizeGlassEffectExample()))
         }
         .navigationTitle("FioriButton")
     }

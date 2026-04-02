@@ -50,6 +50,7 @@
 		691DE21925F2A30B00094D4A /* KPIItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIItemExample.swift */; };
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
 		6D10F8A02C7DB3F50071DD3E /* BannerMultiMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */; };
+		6D13D4482F7E0387003431A9 /* FioriButtonCustomizeGlassEffectExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D13D4472F7E0387003431A9 /* FioriButtonCustomizeGlassEffectExample.swift */; };
 		6D14F05E2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */; };
 		6D15DABA2EB6468C0063C296 /* CalendarProtocolTestDemo_StateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D15DAB92EB6468C0063C296 /* CalendarProtocolTestDemo_StateObject.swift */; };
 		6D15DABC2EB70DA30063C296 /* CalendarProtocolWeekViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D15DABB2EB70DA30063C296 /* CalendarProtocolWeekViewExample.swift */; };
@@ -342,6 +343,7 @@
 		691DE21825F2A30B00094D4A /* KPIItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIItemExample.swift; sourceTree = "<group>"; };
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
 		6D10F89F2C7DB3F50071DD3E /* BannerMultiMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageExample.swift; sourceTree = "<group>"; };
+		6D13D4472F7E0387003431A9 /* FioriButtonCustomizeGlassEffectExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonCustomizeGlassEffectExample.swift; sourceTree = "<group>"; };
 		6D14F05D2C9290F20053BA98 /* BannerMultiMessageCustomInitExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMultiMessageCustomInitExample.swift; sourceTree = "<group>"; };
 		6D15DAB92EB6468C0063C296 /* CalendarProtocolTestDemo_StateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocolTestDemo_StateObject.swift; sourceTree = "<group>"; };
 		6D15DABB2EB70DA30063C296 /* CalendarProtocolWeekViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocolWeekViewExample.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				8737C0BA2EB857B700CD0425 /* ExtendableFioriButtonExample.swift */,
 				1F90888B261A59820015A84D /* FioriButtonExample.swift */,
 				6DC5D7A72F6BE0CF009607C9 /* FioriButtonGlassEffectExample.swift */,
+				6D13D4472F7E0387003431A9 /* FioriButtonCustomizeGlassEffectExample.swift */,
 				1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */,
 				6DEC31F32C463ED50084DD20 /* FioriButtonTestsExample.swift */,
 				6DEC31F72C47B7850084DD20 /* FioriButtonStyleToggleExample.swift */,
@@ -1485,6 +1488,7 @@
 				554307FB2D5F6A91005AFA6D /* _KeyValueItemExample.swift in Sources */,
 				6D10F8A02C7DB3F50071DD3E /* BannerMultiMessageExample.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
+				6D13D4482F7E0387003431A9 /* FioriButtonCustomizeGlassEffectExample.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				55598FAD2CDDB4F6007CFFBB /* ValuePickerExample.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
