@@ -100,7 +100,15 @@ struct WAShowPanelKey: EnvironmentKey {
 }
 
 struct WAFeedbackNavigationBarTitleKey: EnvironmentKey {
-    static var defaultValue: AttributedString = .init("Feedback".localizedFioriString())
+    static let defaultValue: AttributedString = .init("Feedback".localizedFioriString())
+}
+
+struct HideFeedbackFooterInWritingAssistantKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+struct WAAutoSaveKey: EnvironmentKey {
+    static let defaultValue: Bool = false
 }
 
 extension EnvironmentValues {
@@ -127,6 +135,16 @@ extension EnvironmentValues {
     var waFeedbackNavigationBarTitle: AttributedString {
         get { self[WAFeedbackNavigationBarTitleKey.self] }
         set { self[WAFeedbackNavigationBarTitleKey.self] = newValue }
+    }
+    
+    var hideFeedbackFooterInWritingAssistant: Bool {
+        get { self[HideFeedbackFooterInWritingAssistantKey.self] }
+        set { self[HideFeedbackFooterInWritingAssistantKey.self] = newValue }
+    }
+    
+    var waAutoSave: Bool {
+        get { self[WAAutoSaveKey.self] }
+        set { self[WAAutoSaveKey.self] = newValue }
     }
 }
 
@@ -164,5 +182,19 @@ public extension View {
     /// - Returns: New view with customized navigation bar title for feedback in writing assistant component.
     func waFeedbackNavigationTitle(_ title: String) -> some View {
         self.environment(\.waFeedbackNavigationBarTitle, AttributedString(title))
+    }
+    
+    /// Hide feedback section footer for writing assistant.
+    /// - Parameter hide: A boolean value to indicate if hide/show the feedback footer.
+    /// - Returns: A new view with hidden or shown feedback footer for writing assistant.
+    func hideFeedbackFooterInWritingAssistant(_ hide: Bool = true) -> some View {
+        self.environment(\.hideFeedbackFooterInWritingAssistant, hide)
+    }
+    
+    /// Set whether auto save is enabled for writing assistant. When auto save is enabled, writing assistant will automatically save the content after quit W.A. flow without showing the confirmation pop-up. When auto save is disabled, writing assistant will show a confirmation pop-up to ask whether to save the content.
+    /// - Parameter isAutoSaveEnabled: A boolean value to indicate whether auto save is enabled for writing assistant.
+    /// - Returns: A view with auto save enabled or not for writing assistant.
+    func waAutoSave(_ isAutoSaveEnabled: Bool = true) -> some View {
+        self.environment(\.waAutoSave, isAutoSaveEnabled)
     }
 }
