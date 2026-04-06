@@ -1,9 +1,12 @@
+import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 struct NavigationBarSegmentedControl: View {
     @State private var selected = 0
     private let segments = ["Approval", "Others"]
- 
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -28,27 +31,33 @@ struct NavigationBarSegmentedControl: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
+                    FioriButton(action: { _ in
                         print("Tapped house")
-                    }) {
+                    }, label: { _ in
                         Image(systemName: "house")
-                    }
+                    })
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        print("Tapped ellipsis  ")
-                    }) {
-                        Image(systemName: "ellipsis")
-                    }
+                    FioriButton(action: { _ in
+                        print("Tapped ellipsis")
+                    }, label: { _ in
+                        FioriIcon.actions.overflow
+                        
+                    })
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        print("Tapped settings")
-                    }) {
-                        Image(systemName: "gearshape")
-                    }
+                    FioriButton(action: { _ in
+                        print("Tapped ellipsis")
+                    }, label: { _ in
+                        FioriIcon.actions.settings
+                        
+                    })
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }
             }
+            .searchable(text: self.$searchText, placement: .navigationBarDrawer)
         }
     }
  
