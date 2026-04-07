@@ -11,11 +11,19 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     var applyAction: ApplyAction
     let calculateScrollView: Bool
     @State private var sheetContentHeight: CGFloat = 0
+    @State private var hasInitialMeasurement: Bool = false
     @State private var bottomHeight: CGFloat = 0
-    @State private var navigationBarHeight: CGFloat = 50
+    @State private var navigationBarHeight: CGFloat = {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 67 : 74
+        } else {
+            return UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+        }
+    }()
+
     @State private var scrollViewHeight: CGFloat? = nil
     @State private var subScrollViewHeight: CGFloat = 0
-    @State var horizontalSizeClass: UserInterfaceSizeClass = .compact
+    @State var horizontalSizeClass: UserInterfaceSizeClass = UIDevice.current.userInterfaceIdiom != .phone ? .regular : .compact
     
     #if !os(visionOS)
         private let popoverIdealWidth = 393.0
@@ -72,13 +80,34 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                             }
                         }
                         .ifApply(!self.calculateScrollView) {
-                            $0.background {
-                                GeometryReader { proxy in
-                                    Color.clear
-                                        .task {
-                                            self.sheetContentHeight = proxy.size.height
+                            if #available(iOS 18, *) {
+                                return $0.onGeometryChange(for: CGFloat.self) { proxy in
+                                    proxy.size.height
+                                } action: { oldHeight, newHeight in
+                                    if !self.hasInitialMeasurement {
+                                        // On iOS 26, the first layout pass may report an inflated height
+                                        // that includes the navigation bar safe area inset. The second pass
+                                        // corrects to the true content height. We always take the smaller
+                                        // stable value when height shrinks after the first measurement.
+                                        if oldHeight == 0 || newHeight <= oldHeight {
+                                            self.sheetContentHeight = newHeight
+                                            self.hasInitialMeasurement = true
                                         }
-                                }
+                                    } else {
+                                        // After initial measurement, accept all updates directly
+                                        // (e.g., DatePicker growing taller when switching to a 6-week month)
+                                        self.sheetContentHeight = newHeight
+                                    }
+                                }.typeErased
+                            } else {
+                                return $0.background {
+                                    GeometryReader { proxy in
+                                        Color.clear
+                                            .task {
+                                                self.sheetContentHeight = proxy.size.height
+                                            }
+                                    }
+                                }.typeErased
                             }
                         }
                     VStack(spacing: 0) {
@@ -113,16 +142,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 }.hideSharedBackground()
             }
         }
-        .frame(idealWidth: self.popoverIdealWidth, idealHeight: self.idealHeight())
-        .background {
-            GeometryReader { proxy in
-                self.navigationBar()
-                    .task {
-                        self.navigationBarHeight = proxy.size.height
-                    }
-                    .hidden()
-            }
-        }
+        .frame(idealWidth: self.popoverIdealWidth, idealHeight: self.hasIdealHeight ? self.idealHeight() : nil)
         .presentationDetents(self.presentationDetent())
         #if !os(visionOS)
             .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
@@ -153,7 +173,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             return [.height(self.sheetContentHeight + self.bottomHeight + self.navigationBarHeight)]
         }
     }
-    
+
     func idealHeight() -> CGFloat {
         if self.calculateScrollView, let scrollViewHeight {
             if self.subScrollViewHeight > 0 {
@@ -165,34 +185,23 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             return self.sheetContentHeight + self.bottomHeight + self.navigationBarHeight
         }
     }
-    
+
+    /// Whether the ideal height has been measured and is ready to use.
+    /// On iPad, applying an idealHeight of ~navigationBarHeight before content
+    /// is measured causes the popover to clip its content.
+    var hasIdealHeight: Bool {
+        if self.calculateScrollView {
+            return self.scrollViewHeight != nil
+        } else {
+            return self.sheetContentHeight > 0
+        }
+    }
+
     var bottomPadding: CGFloat {
         if self.horizontalSizeClass == .regular {
             return 26
         } else {
             return 0
-        }
-    }
-    
-    func navigationBar() -> some View {
-        NavigationStack {
-            EmptyView()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        self.title
-                    }
-                    ToolbarItem(placement: .topBarLeading) {
-                        self.cancelAction
-                            .fixedSize()
-                            .accessibilityIdentifier("Cancel")
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        self.resetAction
-                            .fixedSize()
-                            .accessibilityIdentifier("Reset")
-                    }
-                }
         }
     }
 }
