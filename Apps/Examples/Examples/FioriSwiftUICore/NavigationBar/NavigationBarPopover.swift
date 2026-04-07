@@ -76,6 +76,7 @@ struct NavigationBarPopover: View {
                         })
                     } label: {
                         Text("Edit")
+                            .foregroundStyle(Color.preferredColor(.tintColor))
                     }
                 }
                 .font(.fiori(forTextStyle: .headline)).fontWeight(.bold)
