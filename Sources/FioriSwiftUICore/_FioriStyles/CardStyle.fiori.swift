@@ -641,8 +641,9 @@ public enum CardTests {
                 .foregroundColor(Color.preferredColor(.tintColor2))
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
-                .background(RoundedRectangle(cornerRadius: 5).fill(Color.preferredColor(.informationBackground)))
-                .contentShape(Rectangle())
+                .background(Capsule().fill(Color.preferredColor(.informationBackground)))
+                .contentShape(Capsule())
+                .clipShape(Capsule())
         }
     } secondaryAction: {
         Text("Decline")
@@ -650,8 +651,9 @@ public enum CardTests {
             .foregroundColor(Color.preferredColor(.negativeLabel))
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
-            .background(RoundedRectangle(cornerRadius: 5).fill(Color.preferredColor(.negativeBackground)))
-            .contentShape(Rectangle())
+            .background(Capsule().fill(Color.preferredColor(.negativeBackground)))
+            .contentShape(Capsule())
+            .clipShape(Capsule())
     }
     
     static let sampleCard5 = Card {

@@ -48,6 +48,10 @@ struct ContactItemActionItemsExample: View {
                     detailImage: self.viewModel.detailImage,
                     activityItems: self.viewModel.actionItems?.actionItems ?? []
                 ).exampleHighlighting()
+                    .subtitleStyle { config in
+                        Subtitle(config)
+                            .lineLimit(nil)
+                    }
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
@@ -61,6 +65,10 @@ struct ContactItemActionItemsExample: View {
                     .alert(isPresented: self.$viewModel.showingAlert, content: {
                         Alert(title: Text("Important message"), message: Text("Sending email to \(self.viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
                     })
+                    .subtitleStyle { config in
+                        Subtitle(config)
+                            .lineLimit(nil)
+                    }
             }
         }
     }

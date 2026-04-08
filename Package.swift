@@ -26,7 +26,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/nalexn/ViewInspector.git", .branch("0.10.3"))
+        .package(url: "https://github.com/nalexn/ViewInspector.git", exact: "0.10.3")
     ],
     targets: [
         .target(

@@ -78,6 +78,7 @@ struct WATextInputModifier: ViewModifier {
     @Environment(\.waSheetHeightUpdated) private var waSheetHeightUpdated
     @Environment(\.waAuthorizationCheck) private var waAllowed
     @Environment(\.waShowPanel) private var waShowPanel
+    @Environment(\.waAutoSave) private var waAutoSave
     @Environment(\.isLoading) var isLoading
     
     var formView: WritingAssistantForm
@@ -260,7 +261,11 @@ struct WATextInputModifier: ViewModifier {
                 self.restoreSelectedRange()
             } else if self.context.isPresented {
                 if self.context.rewriteTextSet.count > 1 {
-                    self.context.showCancelAlert = true
+                    if self.waAutoSave {
+                        self.context.aiWritingDone()
+                    } else {
+                        self.context.showCancelAlert = true
+                    }
                 } else {
                     self.context.cancelAction()
                 }

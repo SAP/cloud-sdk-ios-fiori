@@ -86,13 +86,19 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                 }
             }
             .sizeReader { size in
-                self.sizeHandler.containerSize = size
-                if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
-                    self.sizeHandler.rtlMargin = 40
-                } else {
-                    self.sizeHandler.rtlMargin = 160
+                if abs(size.width - self.sizeHandler.containerSize.width) > 0.1 {
+                    self.sizeHandler.containerSize = size
+                    self.sizeHandler.horizontalMargin = self.horizontalMargin
                 }
             }
+    }
+    
+    var horizontalMargin: CGFloat {
+        if self.horizontalSizeClass == .compact || UIDevice.current.userInterfaceIdiom == .pad {
+            40
+        } else {
+            160
+        }
     }
     
     @ViewBuilder
@@ -107,7 +113,6 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                     .onChange(of: self.dynamicTypeSize) { _, _ in
                         self.sizeHandler.calculateItemsSize(self.dynamicTypeSize)
                     }
-                    .fixedSize()
             } else {
                 if itemIndex == -1 {
                     self.helperTextView()
@@ -139,14 +144,10 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                     }
             }
             ForEach(0 ..< self.items.count, id: \.self) { index in
-                HStack(spacing: 0) {
-                    Spacer()
-                    self.items.view(at: index).fixedSize()
-                        .sizeReader { size in
-                            self.sizeHandler.itemsSize[index] = CGSize(width: ceil(size.width), height: ceil(size.height))
-                        }
-                }
-                .border(Color.black, width: 2)
+                self.items.view(at: index)
+                    .sizeReader { size in
+                        self.sizeHandler.itemsSize[index] = CGSize(width: ceil(size.width), height: ceil(size.height))
+                    }
             }.background {
                 HStack(spacing: 0) {
                     Spacer()
@@ -159,6 +160,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
     }
     
     @ViewBuilder
@@ -238,11 +240,11 @@ class FioriToolbarHandler: ObservableObject {
     }
     
     var showFirstItem = true
-    var needLayoutSubviews = false
+    @Published var needLayoutSubviews = false
     var moreActionsIndex: [Int] = []
     
     var useFixedPadding: Bool = true
-    var rtlMargin: CGFloat = 40
+    var horizontalMargin: CGFloat = 40
     var defaultFixedPadding: CGFloat {
         if LiquidGlassHelper.usesLiquidGlassUI, UIDevice.current.userInterfaceIdiom == .phone {
             // more padding for iOS 26.
@@ -286,9 +288,9 @@ class FioriToolbarHandler: ObservableObject {
         self.useFixedPadding = true
         var availableItemWidth: CGFloat
         if self.helperTextWidth > 0 {
-            availableItemWidth = self.containerSize.width - self.rtlMargin - min(self.minHelperTextWidth, self.helperTextWidth) - self.defaultFixedPadding
+            availableItemWidth = self.containerSize.width - self.horizontalMargin - min(self.minHelperTextWidth, self.helperTextWidth) - self.defaultFixedPadding
         } else {
-            availableItemWidth = self.containerSize.width - self.rtlMargin
+            availableItemWidth = self.containerSize.width - self.horizontalMargin
         }
         switch self.itemsSize.count {
         case 0:
@@ -306,7 +308,7 @@ class FioriToolbarHandler: ObservableObject {
                     if itemWidth > availableItemWidth {
                         self.itemsWidth = [(-1, min(self.minHelperTextWidth, self.helperTextWidth)), (0, availableItemWidth)]
                     } else {
-                        self.itemsWidth = [(-1, min(self.containerSize.width - self.rtlMargin - itemWidth - self.defaultFixedPadding - self.liquidGlassContainerPadding * 2.0, self.helperTextWidth)), (0, itemWidth)]
+                        self.itemsWidth = [(-1, min(self.containerSize.width - self.horizontalMargin - itemWidth - self.defaultFixedPadding - self.liquidGlassContainerPadding * 2.0, self.helperTextWidth)), (0, itemWidth)]
                     }
                 }
                 self.useFixedPadding = false
@@ -403,7 +405,7 @@ class FioriToolbarHandler: ObservableObject {
                     self.itemsWidth.append((0, firstItemWidth))
                     textWidth = self.minHelperTextWidth
                 } else {
-                    textWidth = self.containerSize.width - self.rtlMargin - currentWidth + self.defaultFixedPadding
+                    textWidth = self.containerSize.width - self.horizontalMargin - currentWidth + self.defaultFixedPadding
                 }
                 self.itemsCurrentWidth = currentWidth
             } else {
@@ -445,7 +447,7 @@ class FioriToolbarHandler: ObservableObject {
                     }
                     self.itemsCurrentWidth = currentWidth
                 }
-                textWidth = self.containerSize.width - self.rtlMargin - allWidth - (self.helperTextWidth > 0 ? self.defaultFixedPadding : 0)
+                textWidth = self.containerSize.width - self.horizontalMargin - allWidth - (self.helperTextWidth > 0 ? self.defaultFixedPadding : 0)
                 self.useFixedPadding = false
             }
             

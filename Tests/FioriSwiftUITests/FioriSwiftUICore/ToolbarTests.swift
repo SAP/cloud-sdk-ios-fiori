@@ -28,8 +28,8 @@
                 XCTAssertEqual(handler.itemsWidth.count, 3)
                 XCTAssertNotNil(handler.moreActionWidth)
                 XCTAssertEqual(handler.moreActionsIndex.count, 2)
-                let width = (375 - handler.rtlMargin - 2 * handler.defaultFixedPadding - handler.moreActionWidth - handler.liquidGlassContainerPadding) / 2 - handler.liquidGlassContainerPadding
-                // itemWidth * 2 + liquidGlassPadding * 3 + moreActionWidth + rtlMargin + defaultFixedPadding * 2 = 375
+                let width = (375 - handler.horizontalMargin - 2 * handler.defaultFixedPadding - handler.moreActionWidth - handler.liquidGlassContainerPadding) / 2 - handler.liquidGlassContainerPadding
+                // itemWidth * 2 + liquidGlassPadding * 3 + moreActionWidth + horizontalMargin + defaultFixedPadding * 2 = 375
                 XCTAssertEqual(handler.itemsWidth.last?.1, width)
                 expectation.fulfill()
             }

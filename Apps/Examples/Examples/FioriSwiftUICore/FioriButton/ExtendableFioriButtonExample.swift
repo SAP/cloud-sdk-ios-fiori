@@ -70,9 +70,9 @@ struct CustomDestructiveButtonStyle: FioriButtonStyle {
             .tint(foregroundColor)
             .padding(padding)
             .frame(minWidth: 44, maxWidth: self.maxWidth, minHeight: self.minHeight ?? 38.0)
-            .background(RoundedRectangle(cornerRadius: 8).fill(backgroundColor))
-            .contentShape(Rectangle())
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .background(Capsule().fill(backgroundColor))
+            .contentShape(Capsule())
+            .clipShape(Capsule())
     }
 
     // Negative foreground (text/icon) based on state/loading
