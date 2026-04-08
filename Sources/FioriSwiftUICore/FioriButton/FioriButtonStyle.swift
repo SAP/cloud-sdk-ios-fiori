@@ -266,11 +266,172 @@ public struct FioriNavigationButtonStyle: FioriButtonStyle {
     }
 }
 
+/// A Fiori button style that renders the button with a glass material effect.
+///
+/// `FioriGlassButtonStyle` leverages the system's liquid glass rendering introduced
+/// in iOS 26, macOS 26, tvOS 26, and watchOS 26 to produce a translucent, frosted
+/// appearance that adapts to the content behind the button.
+///
+/// ## Overview
+///
+/// Use `.fioriButtonStyle(FioriGlassButtonStyle())` to apply this style to a
+/// `FioriButton` or any view that contains Fiori buttons. You can control the
+/// visual treatment by passing a ``FioriButtonGlassEffectStyle`` value:
+///
+/// | Style | Appearance | Label color |
+/// |---|---|---|
+/// | `.plain` (default) | Untinted frosted glass | Primary label |
+/// | `.tint` | Glass tinted with the app's tint color | White |
+/// | `.systemManaged` | No glass applied; the system provides it | Primary label |
+///
+/// ## Layout
+///
+/// The button enforces a minimum tap target width of 44 pt and applies default
+/// padding of 8 pt vertically and 16 pt horizontally. You can extend the button
+/// to fill available width or set a custom minimum height through `maxWidth` and
+/// `minHeight`.
+///
+/// ## Availability
+///
+/// This style requires iOS 26, macOS 26, tvOS 26, or watchOS 26 and later.
+/// It is **not** available on visionOS, where the platform provides its own
+/// depth-aware material treatments.
+///
+/// ## Example
+///
+/// ```swift
+/// // Default plain glass button
+/// FioriButton { _ in Text("Confirm") }
+///     .fioriButtonStyle(FioriGlassButtonStyle())
+///
+/// // Full-width tinted glass button
+/// FioriButton { _ in Text("Submit") }
+///     .fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+///
+/// // Inside a toolbar — system handles the glass background
+/// ToolbarItem {
+///     FioriButton { _ in Text("Done") }
+///         .fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .systemManaged))
+/// }
+/// ```
+///
+/// - Note: When using `.systemManaged`, do not nest this button inside another view
+///   that already applies a glass effect, as doing so may produce unexpected
+///   layering artifacts.
+@available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *)
+@available(visionOS, unavailable)
+public struct FioriGlassButtonStyle: FioriButtonStyle {
+    private let glassEffect: FioriButtonGlassEffectStyle
+    private let maxWidth: CGFloat?
+    private let minHeight: CGFloat?
+    
+    /// Creates a `FioriGlassButtonStyle` instance.
+    ///
+    /// - Parameters:
+    ///   - glassEffect: The glass effect style applied to the button. Defaults to `.plain`.
+    ///     Use `.tint` to apply the app's tint color to the glass material, or `.systemManaged`
+    ///     when the button is placed inside a container where the system supplies the glass background.
+    ///   - maxWidth: The maximum width of the button's visible area. Pass `.infinity` to
+    ///     make the button expand to fill its container. Defaults to `nil` (intrinsic size).
+    ///   - minHeight: The minimum height of the button's visible area. Defaults to `nil`
+    ///     (intrinsic size).
+    public init(glassEffect: FioriButtonGlassEffectStyle = .plain, maxWidth: CGFloat? = nil, minHeight: CGFloat? = nil) {
+        self.glassEffect = glassEffect
+        self.maxWidth = maxWidth
+        self.minHeight = minHeight
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        let foregroundColor: Color = self.glassEffect == .tint ? .white : .preferredColor(.primaryLabel)
+        
+        let config = FioriButtonConfiguration(foregroundColor: foregroundColor,
+                                              backgroundColor: Color.clear,
+                                              font: .fiori(forTextStyle: .body, weight: .semibold),
+                                              padding: EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16),
+                                              maxWidth: self.maxWidth,
+                                              minHeight: self.minHeight)
+        return configuration.containerView(config.loadingState)
+            .font(config.font)
+            .foregroundColor(config.foregroundColor)
+            .tint(config.foregroundColor)
+            .padding(config.padding)
+            .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
+            .ifApply(self.glassEffect == .tint, content: {
+                // Our own ColorStyle(.preferredColor(.tintColor)) can't be used to glassEffect with interactive, like
+                // `.glassEffect(.regular.tint(.preferredColor(.tintColor)).interactive())`. If used like this, when user taps the button, it will restore to normal size automatically without releasing tap gesture. But system color is normal, like `.glassEffect(.regular.tint(.red).interactive())`.
+                // Add a background with tintColor for a workaround.
+                $0.background(Capsule().fill(Color.preferredColor(.tintColor)))
+                    .contentShape(Capsule())
+                    .clipShape(Capsule())
+            })
+            .ifApply(self.glassEffect == .tint || self.glassEffect == .plain, content: {
+                $0.glassEffect(.regular.interactive())
+            })
+    }
+}
+
 /// The color style of a Fiori button.
 public enum FioriButtonColorStyle {
     case normal
     case tint
     case negative
+}
+
+/// Defines the visual glass effect appearance applied to a `FioriGlassButtonStyle`.
+///
+/// Use this enum to control how the glass material effect is rendered on a Fiori button.
+/// Glass effects are available on iOS 26, macOS 26, tvOS 26, and watchOS 26 and later,
+/// and are not available on visionOS.
+///
+/// ## Overview
+///
+/// There are three available styles:
+///
+/// - ``systemManaged``: Delegates glass rendering to the system. Use this when placing
+///   the button inside a container such as a toolbar or navigation bar, where the system
+///   automatically applies the appropriate glass background.
+///
+/// - ``plain``: Applies a standard, untinted glass material effect. The button label
+///   uses the primary label color. This is the default style for `FioriGlassButtonStyle`.
+///
+/// - ``tint``: Applies a glass material effect tinted with the app's tint color.
+///   The button label uses white to ensure legibility against the tinted background.
+///
+/// ## Example
+///
+/// ```swift
+/// // Default plain glass effect
+/// FioriButton { _ in Text("Confirm") }
+///     .fioriButtonStyle(FioriGlassButtonStyle())
+///
+/// // Tinted glass effect using the app's tint color
+/// FioriButton { _ in Text("Confirm") }
+///     .fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint))
+///
+/// // Inside a toolbar — let the system handle the glass background
+/// FioriButton { _ in Text("Done") }
+///     .fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .systemManaged))
+/// ```
+public enum FioriButtonGlassEffectStyle {
+    /// Delegates the glass effect rendering to the system.
+    ///
+    /// Use this case when the button is placed inside a container that already provides
+    /// a glass background, such as a toolbar or navigation bar. The system automatically
+    /// supplies the appropriate glass material, so no additional glass effect is applied
+    /// by `FioriGlassButtonStyle` itself.
+    case systemManaged
+
+    /// Applies a standard, untinted glass material effect to the button.
+    ///
+    /// The button label uses the primary label color for legibility. This is the
+    /// default glass effect style for `FioriGlassButtonStyle`.
+    case plain
+
+    /// Applies a glass material effect tinted with the app's tint color.
+    ///
+    /// The button label color is set to white to maintain legibility against
+    /// the tinted glass background.
+    case tint
 }
 
 public extension View {

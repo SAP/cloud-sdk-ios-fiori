@@ -122,6 +122,7 @@ struct CurrencyInputExampleView: View {
             FioriButton(title: "Options") { _ in
                 self.showingOptions = true
             }
+            .fioriButtonStyle(self.toolBarFioriButtonStyle())
         }
         .sheet(isPresented: self.$showingOptions) {
             NavigationStack {
@@ -150,6 +151,15 @@ struct CurrencyInputExampleView: View {
             }
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
+        }
+    }
+    
+    func toolBarFioriButtonStyle() -> some FioriButtonStyle {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+            FioriGlassButtonStyle(glassEffect: .systemManaged).eraseToAnyFioriButtonStyle()
+        } else {
+            FioriPrimaryButtonStyle().eraseToAnyFioriButtonStyle()
+            // Fallback on earlier versions
         }
     }
     

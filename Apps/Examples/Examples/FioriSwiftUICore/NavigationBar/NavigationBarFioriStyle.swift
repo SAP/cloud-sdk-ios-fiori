@@ -1,3 +1,4 @@
+import FioriSwiftUICore
 import FioriThemeManager
 import SwiftUI
 
@@ -5,6 +6,8 @@ struct NavigationBarFioriStyle: View {
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.preferredFioriFont(forTextStyle: .largeTitle, weight: .black)]
     }
+
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -14,25 +17,32 @@ struct NavigationBarFioriStyle: View {
             }
             .navigationTitle("FioriStyle")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    FioriButton(action: { _ in
+                        self.dismiss()
+                    }, label: { _ in
+                        FioriIcon.actions.decline
+                    })
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                }
+                
                 ToolbarItem(placement: .principal) {
-                    VStack {
+                    VStack(alignment: .center) {
                         Text("FioriStyle")
                             .font(.fiori(forTextStyle: .subheadline)).fontWeight(.black)
                         Text("Subtitle goes here")
                             .font(.fiori(forTextStyle: .caption1))
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityHint("Navigation bar title")
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Button(action: {}, label: {
-                            Text("Redo")
-                        })
-                        Button(action: {}, label: {
-                            Image(systemName: "camera")
-                        })
-                    }
-                    .font(.fiori(forTextStyle: .headline)).fontWeight(.bold)
+                    FioriButton(action: { _ in
+                    }, label: { _ in
+                        Text("Redo")
+                    })
+                    .fioriButtonStyle(FioriNavigationButtonStyle())
                 }
             }
         }
