@@ -18,9 +18,18 @@ struct FioriButtonProcessingStyle: FioriButtonStyle {
             .tint(foregroundColor)
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .frame(minWidth: self.minWidth, maxWidth: self.maxWidth, minHeight: self.minHeight)
-            .background(Capsule().fill(backgroundColor))
-            .contentShape(Capsule())
-            .clipShape(Capsule())
+            .ifApply(true, content: {
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+                    $0.background(Capsule().fill(backgroundColor))
+                        .contentShape(Capsule())
+                        .clipShape(Capsule())
+                        .typeErased
+                } else {
+                    $0.background(RoundedRectangle(cornerRadius: 8).fill(backgroundColor))
+                        .contentShape(Rectangle())
+                        .typeErased
+                }
+            })
     }
     
     @ViewBuilder
