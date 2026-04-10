@@ -126,6 +126,8 @@ public enum FioriIcon {
         ///
         public static let detailView = Image(fioriName: "fiori.detail.view")
         ///
+        public static let detailView2 = Image(fioriName: "fiori.detail.view.2")
+        ///
         public static let developerSettings = Image(fioriName: "fiori.developer.settings")
         ///
         public static let disconnected = Image(fioriName: "fiori.disconnected")
