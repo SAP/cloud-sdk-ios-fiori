@@ -1108,28 +1108,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/FioriButton/FioriButtonStyle.swift",
-      "line": 271,
+      "line": 370,
       "symbol": "FioriButtonColorStyle.normal",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/FioriButton/FioriButtonStyle.swift",
-      "line": 272,
+      "line": 371,
       "symbol": "FioriButtonColorStyle.tint",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/FioriButton/FioriButtonStyle.swift",
-      "line": 273,
+      "line": 372,
       "symbol": "FioriButtonColorStyle.negative",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/FioriButton/FioriButtonStyle.swift",
-      "line": 306,
+      "line": 462,
       "symbol": "AnyFioriButtonStyle.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -3894,14 +3894,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/CardStyle.fiori.swift",
-      "line": 1303,
+      "line": 1323,
       "symbol": "CardTests.cardFooterSamples",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/CardStyle.fiori.swift",
-      "line": 1305,
+      "line": 1325,
       "symbol": "CardTests.flexItemCardSamples",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"

@@ -809,6 +809,64 @@ such as in tree views or nested lists.</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:16FioriSwiftUICore0A22ButtonGlassEffectStyleO"></a>
+                      <a name="//apple_ref/swift/Enum/FioriButtonGlassEffectStyle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore0A22ButtonGlassEffectStyleO">FioriButtonGlassEffectStyle</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Defines the visual glass effect appearance applied to a <code><a href="Structs/FioriGlassButtonStyle.html">FioriGlassButtonStyle</a></code>.</p>
+
+<p>Use this enum to control how the glass material effect is rendered on a Fiori button.
+Glass effects are available on iOS 26, macOS 26, tvOS 26, and watchOS 26 and later,
+and are not available on visionOS.</p>
+<h2 id='overview' class='heading'>Overview</h2>
+
+<p>There are three available styles:</p>
+
+<ul>
+<li><p><code>systemManaged</code>: Delegates glass rendering to the system. Use this when placing
+the button inside a container such as a toolbar or navigation bar, where the system
+automatically applies the appropriate glass background.</p></li>
+<li><p><code>plain</code>: Applies a standard, untinted glass material effect. The button label
+uses the primary label color. This is the default style for <code><a href="Structs/FioriGlassButtonStyle.html">FioriGlassButtonStyle</a></code>.</p></li>
+<li><p><code>tint</code>: Applies a glass material effect tinted with the app&rsquo;s tint color.
+The button label uses white to ensure legibility against the tinted background.</p></li>
+</ul>
+<h2 id='example' class='heading'>Example</h2>
+<pre class="highlight swift"><code><span class="c1">// Default plain glass effect</span>
+<span class="kt">FioriButton</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Confirm"</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="nf">fioriButtonStyle</span><span class="p">(</span><span class="kt">FioriGlassButtonStyle</span><span class="p">())</span>
+
+<span class="c1">// Tinted glass effect using the app's tint color</span>
+<span class="kt">FioriButton</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Confirm"</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="nf">fioriButtonStyle</span><span class="p">(</span><span class="kt">FioriGlassButtonStyle</span><span class="p">(</span><span class="nv">glassEffect</span><span class="p">:</span> <span class="o">.</span><span class="n">tint</span><span class="p">))</span>
+
+<span class="c1">// Inside a toolbar — let the system handle the glass background</span>
+<span class="kt">FioriButton</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="nf">fioriButtonStyle</span><span class="p">(</span><span class="kt">FioriGlassButtonStyle</span><span class="p">(</span><span class="nv">glassEffect</span><span class="p">:</span> <span class="o">.</span><span class="n">systemManaged</span><span class="p">))</span>
+</code></pre>
+
+                          <a href="Enums/FioriButtonGlassEffectStyle.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FioriButtonGlassEffectStyle</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:16FioriSwiftUICore0A18ButtonLoadingStateO"></a>
                       <a name="//apple_ref/swift/Enum/FioriButtonLoadingState" class="dashAnchor"></a>
                       <a class="token" href="#/s:16FioriSwiftUICore0A18ButtonLoadingStateO">FioriButtonLoadingState</a>
@@ -2400,6 +2458,9 @@ ensuring a consistent and visually appealing loading state across the UI.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/FioriButtonColorStyle.html">FioriButtonColorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/FioriButtonGlassEffectStyle.html">FioriButtonGlassEffectStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Enums/FioriButtonImagePosition.html">FioriButtonImagePosition</a>
@@ -5204,6 +5265,9 @@ ensuring a consistent and visually appealing loading state across the UI.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/FioriCircularProgressViewStyle.html">FioriCircularProgressViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/FioriGlassButtonStyle.html">FioriGlassButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="Structs/FioriNavigationButtonStyle.html">FioriNavigationButtonStyle</a>
@@ -8688,7 +8752,7 @@ ensuring a consistent and visually appealing loading state across the UI.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-07)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
