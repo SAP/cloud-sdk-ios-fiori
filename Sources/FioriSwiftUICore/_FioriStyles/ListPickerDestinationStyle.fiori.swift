@@ -556,6 +556,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @Environment(\.disableContentSection) var disableContentSection
     @Environment(\.autoDismissDestination) var autoDismissDestination
     @Environment(\.isFilterFeedbackBarListPickerStyle) var isFilterFeedbackBarListPickerStyle
+    @Environment(\.confirmationDialogConfiguration) var confirmationDialogConfig
     
     @Binding private var selections: Set<ID>
     private var isSingleSelection: Bool
@@ -685,17 +686,23 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                         .disabled(!self.allowEmpty && self.selectionsPool.isEmpty)
                 }
             }
-            .confirmationDialog("Are you sure you want to discard your selections?".localizedFioriString(),
-                                isPresented: self.$confirmationSelections,
-                                titleVisibility: .visible,
-                                actions: {
-                                    Button {
-                                        self.dismiss()
-                                    } label: {
-                                        Text("Discard Changes".localizedFioriString())
-                                    }
-                                    Button("Keep Editing".localizedFioriString(), role: .cancel) {}
-                                })
+            .confirmationDialog(
+                self.dialogTitle,
+                isPresented: self.$confirmationSelections,
+                titleVisibility: .visible,
+                actions: {
+                    if let customActions = self.confirmationDialogConfig?.customActions {
+                        customActions(self.dismiss)
+                    } else {
+                        Button {
+                            self.dismiss()
+                        } label: {
+                            Text("Discard Changes".localizedFioriString())
+                        }
+                        Button("Keep Editing".localizedFioriString(), role: .cancel) {}
+                    }
+                }
+            )
             .navigationBarBackButtonHidden()
         }
     }
@@ -709,12 +716,22 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     
     func cancelActionTapped() {
         if !(self.selections == self.selectionsPool) {
-            self.confirmationSelections.toggle()
+            if self.confirmationDialogConfig?.isDialogDisabled == true {
+                self.confirmationDialogConfig?.discardAction?()
+                self.dismiss()
+            } else {
+                self.confirmationSelections.toggle()
+            }
         } else {
             self.dismiss()
         }
     }
-    
+
+    private var dialogTitle: String {
+        self.confirmationDialogConfig?.title
+            ?? "Are you sure you want to discard your selections?".localizedFioriString()
+    }
+
     private func selectedEntriesSectionHeaderIsEmpty() -> Bool {
         (self.destinationConfiguration?.selectedEntriesSectionTitle.isEmpty ?? true) &&
             (self.destinationConfiguration?.deselectAllAction.isEmpty ?? true)
@@ -1234,6 +1251,10 @@ struct IsFilterFeedbackBarListPickerStyleEnvironment: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct ConfirmationDialogConfigurationEnvironment: EnvironmentKey {
+    static let defaultValue: ConfirmationDialogConfiguration? = nil
+}
+
 struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
     static var defaultValue: Color? = nil
 
@@ -1280,6 +1301,11 @@ extension EnvironmentValues {
         get { self[ListPickerItemIgnoreValueKey.self] }
         set { self[ListPickerItemIgnoreValueKey.self] = newValue }
     }
+
+    var confirmationDialogConfiguration: ConfirmationDialogConfiguration? {
+        get { self[ConfirmationDialogConfigurationEnvironment.self] }
+        set { self[ConfirmationDialogConfigurationEnvironment.self] = newValue }
+    }
 }
 
 public extension View {
@@ -1324,6 +1350,15 @@ public extension View {
     func destinationDisplayMode(_ mode: DestinationDisplayMode) -> some View {
         self.environment(\.destinationDisplayMode, mode)
     }
+
+    /// Configures the confirmation dialog shown when cancelling a
+    /// `ListPickerDestination` with unsaved selections.
+    /// - Parameter configuration: The dialog configuration.
+    ///   Pass `.disabled` to suppress the dialog entirely.
+    /// - Returns: A view with the customized confirmation dialog behavior.
+    func confirmationDialogConfiguration(_ configuration: ConfirmationDialogConfiguration) -> some View {
+        self.environment(\.confirmationDialogConfiguration, configuration)
+    }
 }
 
 extension Notification.Name {
@@ -1337,4 +1372,67 @@ public enum DestinationDisplayMode {
     
     /// Present destination as sheet from current view.
     case sheet
+}
+
+/// The configuration for customizing the confirmation dialog shown when
+/// cancelling a `ListPickerDestination` with unsaved selections.
+public struct ConfirmationDialogConfiguration {
+    /// The title text displayed in the confirmation dialog.
+    public let title: String
+
+    /// The custom actions view for the confirmation dialog.
+    /// When provided, replaces the default "Discard Changes" / "Keep Editing" buttons.
+    /// The closure receives a `dismiss` callback that the consumer must call to dismiss the picker.
+    let customActions: ((DismissAction) -> AnyView)?
+
+    /// An optional closure called when the user taps cancel and there are unsaved changes,
+    /// but the dialog is disabled. Invoked before the view is dismissed.
+    public var discardAction: (() -> Void)?
+
+    /// When `true`, the confirmation dialog is completely suppressed and
+    /// tapping cancel always dismisses immediately, discarding changes.
+    public let isDialogDisabled: Bool
+
+    /// Creates a confirmation dialog configuration with custom actions.
+    /// - Parameters:
+    ///   - title: The dialog title. Defaults to the SDK's localized
+    ///     "Are you sure you want to discard your selections?" string.
+    ///   - isDialogDisabled: When `true`, the dialog is never shown and
+    ///     cancel always dismisses immediately. Defaults to `false`.
+    ///   - discardAction: An optional closure invoked before dismiss when
+    ///     the dialog is disabled and the user taps cancel with unsaved changes.
+    ///   - actions: A `@ViewBuilder` closure that receives a `dismiss` action
+    ///     and returns the dialog's action buttons. Use `Button` with roles
+    ///     like `.destructive` or `.cancel` to control styling.
+    public init(
+        title: String = "Are you sure you want to discard your selections?".localizedFioriString(),
+        isDialogDisabled: Bool = false,
+        discardAction: (() -> Void)? = nil,
+        @ViewBuilder actions: @escaping (_ dismiss: DismissAction) -> some View
+    ) {
+        self.title = title
+        self.isDialogDisabled = isDialogDisabled
+        self.discardAction = discardAction
+        self.customActions = { dismiss in AnyView(actions(dismiss)) }
+    }
+
+    /// Creates a confirmation dialog configuration with default action labels.
+    /// - Parameters:
+    ///   - title: The dialog title.
+    ///   - isDialogDisabled: When `true`, the dialog is never shown.
+    ///   - discardAction: An optional closure invoked before dismiss when
+    ///     the dialog is disabled and the user taps cancel with unsaved changes.
+    public init(
+        title: String = "Are you sure you want to discard your selections?".localizedFioriString(),
+        isDialogDisabled: Bool = false,
+        discardAction: (() -> Void)? = nil
+    ) {
+        self.title = title
+        self.isDialogDisabled = isDialogDisabled
+        self.discardAction = discardAction
+        self.customActions = nil
+    }
+
+    /// A convenience configuration that disables the confirmation dialog entirely.
+    public static let disabled = ConfirmationDialogConfiguration(isDialogDisabled: true)
 }
