@@ -34,7 +34,7 @@ struct StepperViewExample: View {
                 StepperView(
                     title: { Text("Value") },
                     text: self.$normalStepValue,
-                    stepRange: 0 ... 100,
+                    stepRange: -10 ... 100,
                     description: { Text("Hint Text") }
                 )
                 .disabled(self.isDisabled)
@@ -43,7 +43,7 @@ struct StepperViewExample: View {
                     title: { Text("Value") },
                     text: self.$doubleStepValue,
                     step: 0.5,
-                    stepRange: 0.5 ... 80.5,
+                    stepRange: -2.5 ... 80.5,
                     isDecimalSupported: true,
                     description: { Text("Double Value") }
                 )

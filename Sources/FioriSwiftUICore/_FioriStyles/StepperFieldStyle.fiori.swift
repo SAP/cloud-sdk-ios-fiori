@@ -139,9 +139,13 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
     private func filterDecimalInput(_ value: String) -> String {
         var result = ""
         var hasDecimalPoint = false
-        
+        var hasMinusSign = false
+
         for char in value {
-            if char.isNumber {
+            if char == "-", !hasMinusSign, result.isEmpty {
+                result.append(char)
+                hasMinusSign = true
+            } else if char.isNumber {
                 result.append(char)
             } else if char == ".", !hasDecimalPoint {
                 result.append(char)

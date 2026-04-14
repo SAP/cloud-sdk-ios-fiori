@@ -65,9 +65,13 @@ public struct TextInputFieldDecimalStyle: TextInputFieldStyle {
     private func updateText(value: String, configuration: TextInputFieldConfiguration) {
         var result = ""
         var hasDecimalPoint = false
-        
+        var hasMinusSign = false
+
         for char in value {
-            if char.isNumber {
+            if char == "-", !hasMinusSign, result.isEmpty {
+                result.append(char)
+                hasMinusSign = true
+            } else if char.isNumber {
                 result.append(char)
             } else if char == ".", !hasDecimalPoint {
                 result.append(char)
@@ -85,16 +89,28 @@ public struct TextInputFieldNumberStyle: TextInputFieldStyle {
             .frame(minHeight: 44)
             .keyboardType(.numberPad)
             .setOnChange(of: configuration.text, action1: { newValue in
-                let filtered = newValue.filter(\.isNumber)
+                let filtered = Self.filterIntegerInput(newValue)
                 if filtered != newValue {
                     configuration.text = filtered
                 }
             }) { _, newValue in
-                let filtered = newValue.filter(\.isNumber)
+                let filtered = Self.filterIntegerInput(newValue)
                 if filtered != newValue {
                     configuration.text = filtered
                 }
             }
+    }
+
+    private static func filterIntegerInput(_ value: String) -> String {
+        var result = ""
+        for (index, char) in value.enumerated() {
+            if char == "-", index == 0 {
+                result.append(char)
+            } else if char.isNumber {
+                result.append(char)
+            }
+        }
+        return result
     }
 }
 
