@@ -1002,6 +1002,34 @@ items in a tree view or nested list).</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE21filterFormOptionShapeAD06FilterhiJ0OSgvp"></a>
+                      <a name="//apple_ref/swift/Property/filterFormOptionShape" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE21filterFormOptionShapeAD06FilterhiJ0OSgvp">filterFormOptionShape</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Shape for filter form option. When set, this takes priority over <code><a href="../Extensions/EnvironmentValues.html#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE28filterFormOptionCornerRadius14CoreFoundation7CGFloatVvp">filterFormOptionCornerRadius</a></code>.
+Supports <code>.roundedRectangle(cornerRadius)</code> or <code>.capsule</code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">filterFormOptionShape</span><span class="p">:</span> <span class="kt"><a href="../Enums/FilterFormOptionShape.html">FilterFormOptionShape</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE23filterFormOptionPaddingAA10EdgeInsetsVvp"></a>
                       <a name="//apple_ref/swift/Property/filterFormOptionPadding" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE23filterFormOptionPaddingAA10EdgeInsetsVvp">filterFormOptionPadding</a>
@@ -1758,6 +1786,114 @@ items in a tree view or nested list).</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE29aiUserFeedbackPerformDownVoteyycSgvp"></a>
+                      <a name="//apple_ref/swift/Property/aiUserFeedbackPerformDownVote" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE29aiUserFeedbackPerformDownVoteyycSgvp">aiUserFeedbackPerformDownVote</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A closure to perform the down vote action for custom <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code> action views.</p>
+
+<p>When providing a custom action view to <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>, the component does not automatically perform internal down vote logic.
+This environment value exposes a closure that custom views can call to trigger the component&rsquo;s down vote behavior,
+including updating the vote state, showing feedback details, and invoking the <code>onDownVote</code> callback.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This value is only available when used within a custom action view of <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>.
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">aiUserFeedbackPerformDownVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE27aiUserFeedbackPerformUpVoteyycSgvp"></a>
+                      <a name="//apple_ref/swift/Property/aiUserFeedbackPerformUpVote" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE27aiUserFeedbackPerformUpVoteyycSgvp">aiUserFeedbackPerformUpVote</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A closure to perform the up vote action for custom <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code> action views.</p>
+
+<p>When providing a custom secondary action view to <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>, the component does not automatically perform internal up vote logic.
+This environment value exposes a closure that custom views can call to trigger the component&rsquo;s up vote behavior,
+including updating the vote state and invoking the <code>onUpVote</code> callback.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This value is only available when used within a custom secondary action view of <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>.
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">aiUserFeedbackPerformUpVote</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE27aiUserFeedbackPerformSubmityycSgvp"></a>
+                      <a name="//apple_ref/swift/Property/aiUserFeedbackPerformSubmit" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE27aiUserFeedbackPerformSubmityycSgvp">aiUserFeedbackPerformSubmit</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>A closure to perform the submit action for custom <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code> action views.</p>
+
+<p>When providing custom action or submit views to <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>, the component does not automatically perform internal submission logic.
+This environment value exposes a closure that custom views can call to trigger the component&rsquo;s submit behavior,
+including gathering form data, invoking the <code>onSubmit</code> callback, and handling dismissal or error states.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This value is only available when used within custom action or submit action views of <code><a href="../Structs/AIUserFeedback.html">AIUserFeedback</a></code>.
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">aiUserFeedbackPerformSubmit</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE25cardFooterButtonWidthModeAD04CardhijK0Ovp"></a>
                       <a name="//apple_ref/swift/Property/cardFooterButtonWidthMode" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE25cardFooterButtonWidthModeAD04CardhijK0Ovp">cardFooterButtonWidthMode</a>
@@ -1912,6 +2048,46 @@ Default value is false.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">indicatorTint</span><span class="p">:</span> <span class="kt">Color</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/NoteFormView%20Corner%20Radius"></a>
+                  <a name="//apple_ref/swift/Section/NoteFormView Corner Radius" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/NoteFormView%20Corner%20Radius"></a>
+                    <h3 class="section-name"><span>NoteFormView Corner Radius</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE24noteFormViewCornerRadius14CoreFoundation7CGFloatVvp"></a>
+                      <a name="//apple_ref/swift/Property/noteFormViewCornerRadius" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI17EnvironmentValuesV05FioriA6UICoreE24noteFormViewCornerRadius14CoreFoundation7CGFloatVvp">noteFormViewCornerRadius</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Corner radius for NoteFormView. Default is 8.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">noteFormViewCornerRadius</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -3807,6 +3983,9 @@ If the value is nil, it uses as many tags as required. The default is nil.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/FilterFeedbackBarResetButtonType.html">FilterFeedbackBarResetButtonType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/FilterFormOptionShape.html">FilterFormOptionShape</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/FilterFormOptionState.html">FilterFormOptionState</a>
@@ -10110,7 +10289,7 @@ If the value is nil, it uses as many tags as required. The default is nil.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

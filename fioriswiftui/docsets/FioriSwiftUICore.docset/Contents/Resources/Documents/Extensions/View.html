@@ -2119,6 +2119,64 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE21filterFormOptionShapeyQrAD06FilterghI0OF"></a>
+                      <a name="//apple_ref/swift/Method/filterFormOptionShape(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE21filterFormOptionShapeyQrAD06FilterghI0OF">filterFormOptionShape(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Set shape for filter form option. When set, this takes priority over <code>filterFormOptionCornerRadius</code>.
+Supports <code>.roundedRectangle(cornerRadius)</code> or <code>.capsule</code>.</p>
+<pre class="highlight swift"><code><span class="kt">FilterFormView</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">filterFormOptionShape</span><span class="p">(</span><span class="o">.</span><span class="n">capsule</span><span class="p">)</span>
+
+<span class="kt">FilterFormView</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">filterFormOptionShape</span><span class="p">(</span><span class="o">.</span><span class="nf">roundedRectangle</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">filterFormOptionShape</span><span class="p">(</span><span class="n">_</span> <span class="nv">shape</span><span class="p">:</span> <span class="kt"><a href="../Enums/FilterFormOptionShape.html">FilterFormOptionShape</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>shape</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The shape for filter form option.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with specified shape.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE23filterFormOptionPaddingyQrAA10EdgeInsetsVF"></a>
                       <a name="//apple_ref/swift/Method/filterFormOptionPadding(_:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE23filterFormOptionPaddingyQrAA10EdgeInsetsVF">filterFormOptionPadding(_:<wbr>)</a>
@@ -5381,6 +5439,19 @@
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Shape%20Helper"></a>
+                  <a name="//apple_ref/swift/Section/Shape Helper" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Shape%20Helper"></a>
+                    <h3 class="section-name"><span>Shape Helper</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -5928,6 +5999,73 @@
                         <div>
                           <h4>Return Value</h4>
                           <p>A view that has the indicator tint color applied.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/NoteFormView%20Corner%20Radius"></a>
+                  <a name="//apple_ref/swift/Section/NoteFormView Corner Radius" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/NoteFormView%20Corner%20Radius"></a>
+                    <h3 class="section-name"><span>NoteFormView Corner Radius</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE08noteFormC12CornerRadiusyQr14CoreFoundation7CGFloatVF"></a>
+                      <a name="//apple_ref/swift/Method/noteFormViewCornerRadius(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE08noteFormC12CornerRadiusyQr14CoreFoundation7CGFloatVF">noteFormViewCornerRadius(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Set corner radius for NoteFormView. Default is 8.</p>
+<pre class="highlight swift"><code><span class="kt">NoteFormView</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter text"</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">noteFormViewCornerRadius</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">noteFormViewCornerRadius</span><span class="p">(</span><span class="n">_</span> <span class="nv">cornerRadius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>cornerRadius</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Corner radius for NoteFormView.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with specified corner radius.</p>
                         </div>
                       </section>
                     </div>
@@ -24562,6 +24700,9 @@ display.</p>
                   <a href="../Enums/FilterFeedbackBarResetButtonType.html">FilterFeedbackBarResetButtonType</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/FilterFormOptionShape.html">FilterFormOptionShape</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/FilterFormOptionState.html">FilterFormOptionState</a>
                 </li>
                 <li class="nav-group-task">
@@ -30863,7 +31004,7 @@ display.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
