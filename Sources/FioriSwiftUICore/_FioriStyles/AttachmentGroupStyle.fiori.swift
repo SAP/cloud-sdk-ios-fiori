@@ -84,7 +84,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 }
             }
         }
-        .informationView(isPresented: Binding(get: { configuration.errorMessage != nil }, set: { _ in }), description: configuration.errorMessage ?? AttributedString(""))
+        .informationView(isPresented: Binding(get: { [errorMessage = configuration.errorMessage] in errorMessage != nil }, set: { _ in }), description: configuration.errorMessage ?? AttributedString(""))
         .informationViewStyle(.error)
         .disabled(configuration.controlState == .disabled)
         .padding(.horizontal, AttachmentConstants.horizontalPadding)

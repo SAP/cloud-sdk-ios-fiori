@@ -85,10 +85,11 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     }
     
     func leftViewInRegular(_ configuration: ObjectHeaderConfiguration) -> some View {
-        VStack(alignment: .leading, spacing: 3) {
+        let baselineAligned = self.isBaselineAligned(configuration)
+        return VStack(alignment: .leading, spacing: 3) {
             configuration.title
                 .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned(configuration) {
+                    if baselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]
@@ -115,9 +116,10 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                 Spacer(minLength: 0)
             }
         } else if !configuration.descriptionText.isEmpty {
+            let baselineAligned = self.isBaselineAligned(configuration)
             configuration.descriptionText
                 .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned(configuration) {
+                    if baselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]
@@ -131,11 +133,12 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     }
     
     func rightViewInRegular(_ configuration: ObjectHeaderConfiguration) -> some View {
-        VStack(alignment: .trailing, spacing: 2) {
+        let baselineAligned = self.isBaselineAligned(configuration)
+        return VStack(alignment: .trailing, spacing: 2) {
             configuration.status
                 .multilineTextAlignment(.trailing)
                 .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned(configuration) {
+                    if baselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]

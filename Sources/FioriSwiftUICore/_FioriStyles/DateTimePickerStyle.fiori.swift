@@ -125,11 +125,12 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     }
     
     func showPicker(_ configuration: DateTimePickerConfiguration) -> some View {
+        let configSelectedDate = configuration.$selectedDate
         let selection: Binding<Date> = Binding {
             self.selectedDate
         } set: {
             self.selectedDate = $0
-            configuration.selectedDate = $0
+            configSelectedDate.wrappedValue = $0
         }
 
         if let range = configuration.range {
