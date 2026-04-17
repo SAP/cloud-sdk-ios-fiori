@@ -15,7 +15,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
     @Environment(\.filterFormOptionsItemSpacing) var filterFormOptionsItemSpacing
     @Environment(\.filterFormOptionsLineSpacing) var filterFormOptionsLineSpacing
     @Environment(\.filterFormOptionMinTouchHeight) var filterFormOptionMinTouchHeight
-    @Environment(\.filterFormOptionCornerRadius) var filterFormOptionCornerRadius
+    @Environment(\.resolvedFilterFormOptionShape) var resolvedFilterFormOptionShape
     @Environment(\.filterFormOptionPadding) var filterFormOptionPadding
     @Environment(\.filterFormOptionTitleSpacing) var filterFormOptionTitleSpacing
     @Environment(\.filterFormViewButtonSize) var customizedButtonSize
@@ -137,10 +137,13 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                 .frame(minHeight: self.filterFormOptionMinHeight)
                 .frame(maxWidth: .infinity) // set maxWidth with .infinity can make the view use the proposal size
                 .background(self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .backgroundColor))
-                .clipShape(RoundedRectangle(cornerRadius: self.filterFormOptionCornerRadius))
+                .optionClipShape(self.resolvedFilterFormOptionShape)
                 .overlay {
-                    RoundedRectangle(cornerRadius: self.filterFormOptionCornerRadius)
-                        .stroke(self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .strokeColor), lineWidth: self.optionsStrokeWidth(isSelected, isEnabled: configuration.isEnabled))
+                    self.optionStrokeOverlay(
+                        shape: self.resolvedFilterFormOptionShape,
+                        color: self.optionsAttributesColor(isSelected, isEnabled: configuration.isEnabled, key: .strokeColor),
+                        lineWidth: self.optionsStrokeWidth(isSelected, isEnabled: configuration.isEnabled)
+                    )
                 }
                 .frame(minHeight: self.filterFormOptionMinTouchHeight)
                 .contentShape(Rectangle())
@@ -158,6 +161,18 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
         }
         .sizeReader { size in
             self.optionsContainerWidth = size.width
+        }
+    }
+    
+    @ViewBuilder
+    func optionStrokeOverlay(shape: FilterFormOptionShape, color: Color, lineWidth: CGFloat) -> some View {
+        switch shape {
+        case .roundedRectangle(let cornerRadius):
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(color, lineWidth: lineWidth)
+        case .capsule:
+            Capsule()
+                .stroke(color, lineWidth: lineWidth)
         }
     }
     
@@ -240,6 +255,20 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
             configuration.value.append(index)
         }
         configuration.onValueChange?(configuration.value)
+    }
+}
+
+// MARK: - Shape Helper
+
+private extension View {
+    @ViewBuilder
+    func optionClipShape(_ shape: FilterFormOptionShape) -> some View {
+        switch shape {
+        case .roundedRectangle(let cornerRadius):
+            self.clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        case .capsule:
+            self.clipShape(Capsule())
+        }
     }
 }
 
