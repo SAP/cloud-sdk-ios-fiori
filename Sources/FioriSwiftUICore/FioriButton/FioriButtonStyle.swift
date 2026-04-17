@@ -357,15 +357,10 @@ public struct FioriGlassButtonStyle: FioriButtonStyle {
             .padding(config.padding)
             .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
             .ifApply(self.glassEffect == .tint, content: {
-                // Our own ColorStyle(.preferredColor(.tintColor)) can't be used to glassEffect with interactive, like
-                // `.glassEffect(.regular.tint(.preferredColor(.tintColor)).interactive())`. If used like this, when user taps the button, it will restore to normal size automatically without releasing tap gesture. But system color is normal, like `.glassEffect(.regular.tint(.red).interactive())`.
-                // Add a background with tintColor for a workaround.
-                $0.background(Capsule().fill(Color.preferredColor(.tintColor)))
-                    .contentShape(Capsule())
-                    .clipShape(Capsule())
+                $0.glassEffect(.regular.tint(.preferredColor(.tintColor)))
             })
-            .ifApply(self.glassEffect == .tint || self.glassEffect == .plain, content: {
-                $0.glassEffect(.regular.interactive())
+            .ifApply(self.glassEffect == .plain, content: {
+                $0.glassEffect(.regular)
             })
     }
 }

@@ -41,20 +41,30 @@ extension MenuSelectionItemFioriStyle {
         private struct _ItemStyle: ButtonStyle {
             @Environment(\.isEnabled) var isEnabled
             @Environment(\.isLoading) var isLoading
+			
             func makeBody(configuration: Configuration) -> some View {
+                let shape = self.clipShape()
                 configuration.label
                     .padding(.init(top: 12, leading: 16, bottom: 12, trailing: 16))
                     .frame(minWidth: 44, minHeight: 44)
                     .opacity(self.isEnabled ? 1 : 0.5)
                     .ifApply(!self.isLoading) {
                         $0.background(Color.preferredColor(configuration.isPressed ? .secondaryFill : .secondaryGroupedBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .clipShape(shape)
                             .shadow(.level0)
                             .overlay {
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
+                                shape.stroke(Color.preferredColor(.separator), lineWidth: 0.33)
                             }
                     }
+            }
+			
+            // Use Capsule shape for iOS 26+ (Liquid Glass design language); fall back to rounded rect on older OS.
+            private func clipShape() -> some Shape {
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+                    return Capsule()
+                } else {
+                    return RoundedRectangle(cornerRadius: 16)
+                }
             }
         }
     }

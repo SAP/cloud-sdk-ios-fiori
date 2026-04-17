@@ -211,15 +211,28 @@ struct FioriButtonConfiguration {
 
 extension View {
     func fioriButtonConfiguration(_ config: FioriButtonConfiguration) -> some View {
-        self
-            .font(config.font)
-            .foregroundColor(config.foregroundColor)
-            .tint(config.foregroundColor)
-            .padding(config.padding)
-            .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
-            .background(Capsule().fill(config.backgroundColor))
-            .contentShape(Capsule())
-            .clipShape(Capsule())
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+            self
+                .font(config.font)
+                .foregroundColor(config.foregroundColor)
+                .tint(config.foregroundColor)
+                .padding(config.padding)
+                .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
+                .background(Capsule().fill(config.backgroundColor))
+                .contentShape(Capsule())
+                .clipShape(Capsule())
+                .typeErased
+        } else {
+            self
+                .font(config.font)
+                .foregroundColor(config.foregroundColor)
+                .tint(config.foregroundColor)
+                .padding(config.padding)
+                .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
+                .background(RoundedRectangle(cornerRadius: 8).fill(config.backgroundColor))
+                .contentShape(Rectangle())
+                .typeErased
+        }
     }
 }
 

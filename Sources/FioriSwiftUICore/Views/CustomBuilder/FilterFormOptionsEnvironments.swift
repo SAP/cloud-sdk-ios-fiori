@@ -13,6 +13,14 @@ public enum FilterFormOptionState {
     case disabledSelected
 }
 
+/// A enum describing the shape of a filter form option
+public enum FilterFormOptionShape: Equatable {
+    /// Rounded rectangle with a specific corner radius
+    case roundedRectangle(CGFloat)
+    /// Capsule shape (fully rounded ends)
+    case capsule
+}
+
 struct FilterFormOptionAttributes: EnvironmentKey {
     public static let defaultValue: [FilterFormOptionState: [NSAttributedString.Key: Any]] = [:]
 }
@@ -27,6 +35,10 @@ struct FilterFormOptionMinTouchHeight: EnvironmentKey {
 
 struct FilterFormOptionCornerRadius: EnvironmentKey {
     public static let defaultValue: CGFloat = 16.0
+}
+
+struct FilterFormOptionShapeKey: EnvironmentKey {
+    public static let defaultValue: FilterFormOptionShape? = nil
 }
 
 struct FilterFormOptionPadding: EnvironmentKey {
@@ -70,6 +82,13 @@ public extension EnvironmentValues {
         set { self[FilterFormOptionCornerRadius.self] = newValue }
     }
     
+    /// Shape for filter form option. When set, this takes priority over `filterFormOptionCornerRadius`.
+    /// Supports `.roundedRectangle(cornerRadius)` or `.capsule`.
+    var filterFormOptionShape: FilterFormOptionShape? {
+        get { self[FilterFormOptionShapeKey.self] }
+        set { self[FilterFormOptionShapeKey.self] = newValue }
+    }
+    
     /// Padding for filter form option.
     var filterFormOptionPadding: EdgeInsets {
         get { self[FilterFormOptionPadding.self] }
@@ -92,6 +111,14 @@ public extension EnvironmentValues {
     var filterFormOptionsLineSpacing: CGFloat {
         get { self[FilterFormOptionsLineSpacing.self] }
         set { self[FilterFormOptionsLineSpacing.self] = newValue }
+    }
+    
+    /// Resolved shape for filter form option. If `filterFormOptionShape` is set, use it; otherwise fall back to `filterFormOptionCornerRadius`.
+    internal var resolvedFilterFormOptionShape: FilterFormOptionShape {
+        if let shape = self.filterFormOptionShape {
+            return shape
+        }
+        return .roundedRectangle(self.filterFormOptionCornerRadius)
     }
 }
 
@@ -146,6 +173,21 @@ public extension View {
     /// - Returns: A view with specified corner radius.
     func filterFormOptionCornerRadius(_ cornerRadius: CGFloat) -> some View {
         environment(\.filterFormOptionCornerRadius, cornerRadius)
+    }
+    
+    /// Set shape for filter form option. When set, this takes priority over `filterFormOptionCornerRadius`.
+    /// Supports `.roundedRectangle(cornerRadius)` or `.capsule`.
+    /// ```swift
+    /// FilterFormView(...)
+    ///     .filterFormOptionShape(.capsule)
+    ///
+    /// FilterFormView(...)
+    ///     .filterFormOptionShape(.roundedRectangle(16))
+    /// ```
+    /// - Parameter shape: The shape for filter form option.
+    /// - Returns: A view with specified shape.
+    func filterFormOptionShape(_ shape: FilterFormOptionShape) -> some View {
+        environment(\.filterFormOptionShape, shape)
     }
     
     /// Set padding for filter form option. Default is EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4).

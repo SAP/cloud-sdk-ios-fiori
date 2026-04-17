@@ -4,6 +4,48 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+/*
+ *  COMPONENT STRUCTURE ANNOTATION
+ *
+ *  Visual/structural map (look at the interface):
+ *
+ *  +-------------------------------------------------------------------+
+ *  | AIUserFeedback (container)                                        |
+ *  |                                                                   |
+ *  |  navigationTitle: AttributedString?                               |
+ *  |                                                                   |
+ *  |  illustrated message (header)                                     |
+ *  |    - Title  (Title wrapper)                                       |
+ *  |    - Description (Description wrapper)                            |
+ *  |    - (customizable via illustratedMessageTitle/Description        |
+ *  |       style modifiers)                                            |
+ *  |                                                                   |
+ *  |  Vote area (actions)                                              |
+ *  |    - action() -> Action?           // custom primary action       |
+ *  |    - secondaryAction() -> SecondaryAction?                        |
+ *  |    - Default behavior when nil: component provides vote           |
+ *  |      up/down UI and helpers                                       |
+ *  |    - Environment helpers available inside action views:           |
+ *  |        \.aiUserFeedbackPerformUpVote                              |
+ *  |        \.aiUserFeedbackPerformDownVote                            |
+ *  |        \.aiUserFeedbackPerformSubmit                              |
+ *  |                                                                   |
+ *  |  filterFormView: FilterFormView?                                  |
+ *  |    - options: [AttributedString]                                  |
+ *  |    - value: Binding<[Int]>  (selected indexes)                    |
+ *  |                                                                   |
+ *  |  keyValueFormView: KeyValueFormView?                              |
+ *  |    - text: Binding<String>                                        |
+ *  |    - placeholder, errorMessage, char count, etc.                  |
+ *  |                                                                   |
+ *  |  Submit button                                                    |
+ *  |    - submitButtonState: Binding<AIUserFeedbackSubmitButtonState>  |
+ *  |    - onSubmit(...) callback (report success via submitResult)     |
+ *  |                                                                   |
+ *  +-------------------------------------------------------------------+
+ *
+ */
+
 struct AIUserFeedbackExample: View {
     @State var isFeedbackPresented = false
     @State var isFeedbackPushed = false
@@ -96,30 +138,29 @@ struct AIUserFeedbackExample: View {
     }
     
     func valueForVoteState(state: AIUserFeedbackVoteState) -> String {
-        var stateString = ""
         switch state {
-        case .notDetermined:
-            stateString = "Not Determined"
-        case .upVote:
-            stateString = "Up Vote"
-        case .downVote:
-            stateString = "Down Vote"
+        case .notDetermined: return "Not Determined"
+        case .upVote: return "Up Vote"
+        case .downVote: return "Down Vote"
         }
-        return stateString
     }
     
     func showFeedback(mode: AIUserFeedbackDisplayMode) -> some View {
         let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
-        let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.$filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
+        let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
             print("FilterFormView value change: \(value)")
         })
         let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError && self.valueText.isEmpty ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
 		
-        self.submitButtonState = (self.$filterFormViewSelectionValue.isEmpty || self.valueText.isEmpty) ? .disabled : .normal
+        func shouldDisableSubmit() -> Bool {
+            let formsMissing = (self.displayFilterForm && self.filterFormViewSelectionValue.isEmpty) || (self.displayKeyValueForm && self.valueText.isEmpty)
+            return formsMissing || self.voteState == .notDetermined
+        }
         
         return AIUserFeedback(detailImage: { Image(systemName: "gearshape") },
                               title: { Title(title: mode == .inline ? "How was your AI experience? (Inline Mode)" : "How was your AI experience?") },
                               description: { Text("Please rate your experience to help us improve.") },
+                              // Build the action views inline and return a view (or nil) so `nil` can be passed to trigger default logic.
                               action: { self.customizedVoteButton ? self.customAction : nil },
                               secondaryAction: { self.customizedVoteButton ? self.customSecondaryAction : nil },
                               navigationTitle: "Feedback",
@@ -191,6 +232,19 @@ struct AIUserFeedbackExample: View {
                     $0.title
                 }
             }
+            // lifecycle updates to submitButtonState
+            .onAppear {
+                self.submitButtonState = shouldDisableSubmit() ? .disabled : .normal
+            }
+            .onChange(of: self.filterFormViewSelectionValue) {
+                self.submitButtonState = shouldDisableSubmit() ? .disabled : .normal
+            }
+            .onChange(of: self.valueText) {
+                self.submitButtonState = shouldDisableSubmit() ? .disabled : .normal
+            }
+            .onChange(of: self.voteState) {
+                self.submitButtonState = shouldDisableSubmit() ? .disabled : .normal
+            }
     }
     
     @ViewBuilder
@@ -241,26 +295,78 @@ struct AIUserFeedbackExample: View {
         .presentationDetents([.medium])
     }
     
-    var customAction: FioriButton {
-        FioriButton { _ in
-            print("custom down vote button")
-        } label: { _ in
-            Image(systemName: "arrow.down")
-        }
+    // Provide FioriButton instances as computed properties so the action closures can return them (or nil) and thus trigger default logic when nil is returned.
+    var customAction: some View {
+        DownVoteActionView(voteState: self.$voteState)
     }
     
-    var customSecondaryAction: FioriButton {
-        FioriButton { _ in
-            print("custom up vote button")
-        } label: { _ in
-            Image(systemName: "arrow.up")
-        }
+    var customSecondaryAction: some View {
+        UpVoteActionView(voteState: self.$voteState)
     }
     
     @ViewBuilder
     var customErrorView: some View {
         Image(systemName: "wifi.exclamationmark")
             .font(.largeTitle)
+    }
+}
+
+// Custom action view that reads helper closures from its own environment.
+// AIUserFeedback injects these helpers into the action view's environment,
+// allowing the view to read them directly.
+//
+// Usage choice:
+// - Implement your own custom tap behavior (e.g., toggle voteState manually)
+// - Or call the injected helper (performDownVote) to trigger the component's default behavior
+// The choice is up to the user of this view.
+private struct DownVoteActionView: View {
+    @Binding var voteState: AIUserFeedbackVoteState
+    @Environment(\.aiUserFeedbackPerformDownVote) private var performDownVote
+
+    var body: some View {
+        FioriButton { _ in
+            // Option 1: Implement your own custom tap behavior
+            // Toggle down vote state manually
+            if self.voteState == .downVote {
+                self.voteState = .notDetermined
+            } else {
+                self.voteState = .downVote
+            }
+            
+            // Option 2: Call the injected helper to trigger default behavior
+            // Uncomment the line below to use the component's built-in logic
+            // performDownVote?()
+        } label: { _ in
+            self.voteState == .downVote ? FioriIcon.actions.sysCancel2 : FioriIcon.actions.sysCancel
+        }
+        .id(self.voteState)
+    }
+}
+
+// Small action views that read the helper closures from their own environment (this is why AIUserFeedback injects helpers into the action view's environment — the view reads it directly).
+private struct UpVoteActionView: View {
+    @Binding var voteState: AIUserFeedbackVoteState
+    @Environment(\.aiUserFeedbackPerformUpVote) private var performUpVote
+    @Environment(\.aiUserFeedbackPerformSubmit) private var performSubmit
+
+    var body: some View {
+        FioriButton { _ in
+            // Option 1: Implement your own custom tap behavior
+            // Toggle up vote state manually
+            if self.voteState == .upVote {
+                self.voteState = .notDetermined
+            } else {
+                self.voteState = .upVote
+            }
+
+            // Option 2: Call the injected helper to trigger default behavior
+            // Uncomment the lines below to use the component's built-in logic
+            // performUpVote?()
+            // performSubmit?()
+        } label: { _ in
+            self.voteState == .upVote ? FioriIcon.actions.sysEnterFill : FioriIcon.actions.sysEnter
+        }
+        .id(self.voteState)
     }
 }
 
