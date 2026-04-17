@@ -215,6 +215,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         configuration.dismissAction?()
     }
     
+    private func scheduleDismissIfNeeded(_ configuration: BannerMultiMessageSheetConfiguration) {
+        if configuration.bannerMultiMessages.isEmpty {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
+                self.dismiss(configuration)
+            })
+        }
+    }
+    
     private func bannerMessageStyle(_ messageType: BannerMultiMessageType) -> any BannerMessageStyle {
         switch messageType {
         case .neutral:
@@ -395,11 +403,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         .animation(self.scrollContentHeight <= 40.0 ? nil : .spring, value: self.scrollContentHeight)
         .setOnChange(of: configuration.bannerMultiMessages) {
             // when datasource is empty, dismiss in 2 seconds
-            if configuration.bannerMultiMessages.isEmpty {
-                self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-                    self.dismiss(configuration)
-                })
-            }
+            self.scheduleDismissIfNeeded(configuration)
             self.resetDimensionSelectorTitles(configuration)
         }
         .onAppear {

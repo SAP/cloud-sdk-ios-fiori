@@ -618,9 +618,7 @@ struct DateTimeMenuItem: View {
                 )
                 .datePickerStyle(.graphical)
                 .labelsHidden()
-                .frame(minHeight: 320)
                 .fixedSize(horizontal: false, vertical: true)
-                .clipped()
             }
         }
     }
@@ -686,7 +684,7 @@ struct DateTimeMenuItem: View {
                 })
             })
     }
-    
+
     private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
             .accessibilityFocused(self.$isBarItemFocused)

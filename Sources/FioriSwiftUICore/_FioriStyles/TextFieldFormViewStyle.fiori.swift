@@ -77,26 +77,7 @@ extension TextFieldFormViewFioriStyle {
                 }
                 .placeholderTextFieldStyle { config in
                     HStack {
-                        PlaceholderTextField(text: Binding(
-                            get: {
-                                // In currency field mode, display formatted text or raw input
-                                if self.currencyFieldConfiguration.isCurrencyField {
-                                    return self.isFocused ? self.rawInput : self.displayText
-                                } else {
-                                    return configuration.text
-                                }
-                            },
-                            set: { newValue in
-                                if self.currencyFieldConfiguration.isCurrencyField {
-                                    // In the currency field mode, handle the input
-                                    if self.isFocused {
-                                        self.processRawInput(configuration, textString: newValue)
-                                    }
-                                } else {
-                                    configuration.text = newValue
-                                }
-                            }
-                        ), isSecureEnabled: config.isSecureEnabled, formatter: configuration.formatter, placeholder: { config.placeholder.body })
+                        PlaceholderTextField(text: self.makeTextBinding(configuration), isSecureEnabled: config.isSecureEnabled, formatter: configuration.formatter, placeholder: { config.placeholder.body })
                             .foregroundStyle((self.isLoading && !self.isAILoading) ? .preferredColor(.separator) : self.getTextColor(configuration))
                             .font(.fiori(forTextStyle: .body))
                             .accentColor(self.getCursorColor(configuration))
@@ -281,21 +262,47 @@ extension TextFieldFormViewFioriStyle {
             }
         }
         
+        private func makeTextBinding(_ configuration: TextFieldFormViewConfiguration) -> Binding<String> {
+            let textBinding = configuration.$text
+            let maxTextLength = configuration.maxTextLength
+            let allowsBeyondLimit = configuration.allowsBeyondLimit
+            return Binding(
+                get: {
+                    // In currency field mode, display formatted text or raw input
+                    if self.currencyFieldConfiguration.isCurrencyField {
+                        return self.isFocused ? self.rawInput : self.displayText
+                    } else {
+                        return textBinding.wrappedValue
+                    }
+                },
+                set: { newValue in
+                    if self.currencyFieldConfiguration.isCurrencyField {
+                        // In the currency field mode, handle the input
+                        if self.isFocused {
+                            self.processRawInput(textBinding: textBinding, maxTextLength: maxTextLength, allowsBeyondLimit: allowsBeyondLimit, textString: newValue)
+                        }
+                    } else {
+                        textBinding.wrappedValue = newValue
+                    }
+                }
+            )
+        }
+        
         // Process the raw input and only clean invalid characters during the input process.
-        private func processRawInput(_ configuration: TextFieldFormViewConfiguration, textString: String) {
+        private func processRawInput(textBinding: Binding<String>, maxTextLength: Int?, allowsBeyondLimit: Bool?, textString: String) {
             var processedInput = self.validateText()
-            
+
             // Apply maximum length limit
-            if let maxTextLength = configuration.maxTextLength, maxTextLength > 0 {
-                if !(configuration.allowsBeyondLimit == true), processedInput.count > maxTextLength {
+            if let maxTextLength, maxTextLength > 0 {
+                if !(allowsBeyondLimit == true), processedInput.count > maxTextLength {
                     processedInput = String(processedInput.prefix(maxTextLength))
                 }
             }
             self.rawInput = textString
-            
+
             // Update the bound raw data
-            if processedInput != configuration.text {
-                configuration.text = processedInput
+            if processedInput != textBinding.wrappedValue {
+                textBinding.wrappedValue = processedInput
             }
         }
         
