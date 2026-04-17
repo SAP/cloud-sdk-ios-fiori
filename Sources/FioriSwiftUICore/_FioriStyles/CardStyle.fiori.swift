@@ -641,9 +641,18 @@ public enum CardTests {
                 .foregroundColor(Color.preferredColor(.tintColor2))
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
-                .background(Capsule().fill(Color.preferredColor(.informationBackground)))
-                .contentShape(Capsule())
-                .clipShape(Capsule())
+                .ifApply(true, content: {
+                    if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+                        $0.background(Capsule().fill(Color.preferredColor(.informationBackground)))
+                            .contentShape(Capsule())
+                            .clipShape(Capsule())
+                            .typeErased
+                    } else {
+                        $0.background(RoundedRectangle(cornerRadius: 5).fill(Color.preferredColor(.informationBackground)))
+                            .contentShape(Rectangle())
+                            .typeErased
+                    }
+                })
         }
     } secondaryAction: {
         Text("Decline")
@@ -651,9 +660,18 @@ public enum CardTests {
             .foregroundColor(Color.preferredColor(.negativeLabel))
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             .frame(minWidth: 44, maxWidth: .infinity, minHeight: 44)
-            .background(Capsule().fill(Color.preferredColor(.negativeBackground)))
-            .contentShape(Capsule())
-            .clipShape(Capsule())
+            .ifApply(true, content: {
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+                    $0.background(Capsule().fill(Color.preferredColor(.negativeBackground)))
+                        .contentShape(Capsule())
+                        .clipShape(Capsule())
+                        .typeErased
+                } else {
+                    $0.background(RoundedRectangle(cornerRadius: 5).fill(Color.preferredColor(.negativeBackground)))
+                        .contentShape(Rectangle())
+                        .typeErased
+                }
+            })
     }
     
     static let sampleCard5 = Card {

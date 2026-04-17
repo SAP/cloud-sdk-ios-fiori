@@ -76,6 +76,7 @@ struct NoteFormViewExample: View {
                 Text("NoteFormView AI loading Effect with no existing text").italic()
                 NoteFormView(text: self.$valueText3, placeholder: "NoteFormView Placeholder for Skeleton loading - two lines", controlState: .normal)
                     .environment(\.isAILoading, self.isLoading)
+                    .noteFormViewCornerRadius(16)
             }
             #if !os(visionOS)
             .scrollDismissesKeyboard(.immediately)

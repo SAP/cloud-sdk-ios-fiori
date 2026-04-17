@@ -155,6 +155,7 @@ struct FilterFormViewExamples: View {
             }, options: self.sortValueOptions, isEnabled: self.isEnabled, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$sortFilterEmptyTitleSelectionValue, buttonSize: .flexible)
                 .filterFormOptionMinTouchHeight(50)
                 .filterFormOptionCornerRadius(16)
+                .filterFormOptionShape(.capsule)
                 .filterFormOptionTitleSpacing(4)
                 .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
                 .filterFormOptionAttributes([

@@ -78,6 +78,7 @@ extension NoteFormViewFioriStyle {
         @FocusState var isFocused: Bool
         @Environment(\.isLoading) var isLoading
         @Environment(\.isCustomizedBorder) var isCustomizedBorder
+        @Environment(\.noteFormViewCornerRadius) var noteFormViewCornerRadius
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
@@ -96,11 +97,11 @@ extension NoteFormViewFioriStyle {
                         .frame(minHeight: self.getMinHeight(configuration))
                         .frame(maxHeight: self.getMaxHeight(configuration))
                         .background(self.getBackgroundColor(configuration))
-                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: self.noteFormViewCornerRadius))
                         .overlay(
                             Group {
                                 if !self.isCustomizedBorder {
-                                    RoundedRectangle(cornerRadius: 8)
+                                    RoundedRectangle(cornerRadius: self.noteFormViewCornerRadius)
                                         .stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
                                 }
                             }
@@ -210,5 +211,32 @@ extension NoteFormViewFioriStyle {
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+// MARK: - NoteFormView Corner Radius
+
+struct NoteFormViewCornerRadiusKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 8.0
+}
+
+public extension EnvironmentValues {
+    /// Corner radius for NoteFormView. Default is 8.
+    var noteFormViewCornerRadius: CGFloat {
+        get { self[NoteFormViewCornerRadiusKey.self] }
+        set { self[NoteFormViewCornerRadiusKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Set corner radius for NoteFormView. Default is 8.
+    /// ```swift
+    /// NoteFormView(text: $text, placeholder: "Enter text")
+    ///     .noteFormViewCornerRadius(16)
+    /// ```
+    /// - Parameter cornerRadius: Corner radius for NoteFormView.
+    /// - Returns: A view with specified corner radius.
+    func noteFormViewCornerRadius(_ cornerRadius: CGFloat) -> some View {
+        environment(\.noteFormViewCornerRadius, cornerRadius)
     }
 }
