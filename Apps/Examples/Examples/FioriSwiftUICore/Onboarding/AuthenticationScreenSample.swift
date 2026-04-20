@@ -106,39 +106,39 @@ struct DynamicAuthenticationExample: View {
             VStack(spacing: 16) {
                 TextFieldFormView(title: "User Name:", text: self.$password, placeholder: "Enter your name")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                 TextFieldFormView(title: "Password:", text: self.$name, isSecureEnabled: true, placeholder: "Enter your password")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                 TextFieldFormView(title: "URL:", text: self.$url, isSecureEnabled: false, placeholder: "URL")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                 TextFieldFormView(title: "Email:", text: self.$email, isSecureEnabled: false, placeholder: "Email")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                 TextFieldFormView(title: "Test 1:", text: self.$test1, isSecureEnabled: false, placeholder: "Test 1")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                     .focused(self.$testFocused)
                 TextFieldFormView(title: "Test 2:", text: self.$test2, isSecureEnabled: false, placeholder: "Test 2")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
                 TextFieldFormView(title: "Test 3:", text: self.$test3, isSecureEnabled: false, placeholder: "Test 3")
                     .textFieldFormViewStyle(AuthTextFieldStyle())
-                    .titleStyle { c in
-                        c.title.font(.fiori(forTextStyle: .headline, weight: .medium))
+                    .titleStyle { config in
+                        config.title.font(.fiori(forTextStyle: .headline, weight: .medium))
                     }
             }
         }, signInAction: {
