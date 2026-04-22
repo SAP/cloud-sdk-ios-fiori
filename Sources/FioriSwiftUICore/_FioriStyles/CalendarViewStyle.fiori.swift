@@ -39,13 +39,13 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                                 let info = configuration.model.weeks[index]
                                 CalendarWeekView(calendarStyle: configuration.model.calendarStyle, weekInfo: info, startDate: configuration.model.startDate, endDate: configuration.model.endDate, selectedDate: configuration.model.selectedDate, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
                                     self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
-                                })
-                                .frame(width: self.availableWidth - paddingOffset * 2)
-                                .fioriSizeReader { size in
-                                    DispatchQueue.main.async {
-                                        self.weekViewHeight = size.height
+                                }, customEventView: configuration.customEventView)
+                                    .frame(width: self.availableWidth - paddingOffset * 2)
+                                    .fioriSizeReader { size in
+                                        DispatchQueue.main.async {
+                                            self.weekViewHeight = size.height
+                                        }
                                     }
-                                }
                             }
                         }
                         .scrollTargetLayout()
