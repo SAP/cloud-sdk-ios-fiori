@@ -307,7 +307,9 @@ struct WATextInputModifier: ViewModifier {
             self.context.customDestination = CustomDestination(destination: destination)
         }
     }
-    
+
+    private let toastMessage = "Thank you for your feedback".localizedFioriString()
+	
     var popoverView: some View {
         self.formView
             .frame(idealWidth: 400, idealHeight: 400)
@@ -318,7 +320,7 @@ struct WATextInputModifier: ViewModifier {
             .interactiveDismissDisabled()
             .presentationDragIndicator(.hidden)
             .disabled(self.context.inProgress)
-            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: "Thank you for your feedback".localizedFioriString(), duration: 3)
+            .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: self.toastMessage, duration: 3, accessibilityMessage: self.toastMessage)
             .ifApply(UIDevice.isIPhone) {
                 $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
             }

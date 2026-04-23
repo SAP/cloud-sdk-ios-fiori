@@ -74,8 +74,10 @@ struct InternalWAForm: View {
                     Text(self.navigationBarTitleString)
                         .foregroundColor(Color.preferredColor(self.isEnabled ? .primaryLabel : .quaternaryLabel, background: self.backgroundColorScheme))
                         .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
+                        .accessibilityAddTraits(.isHeader)
                     if self.context.rewriteTextSet.count > 1 {
                         self.versionView()
+                            .accessibilityAddTraits(.isHeader)
                     }
                 }
                 .accessibilityFocused(self.$focusOnTitle)
@@ -235,6 +237,7 @@ struct InternalWAForm: View {
     @ViewBuilder func sectionHeader() -> some View {
         HStack(spacing: 8) {
             self.configuration.undoAction
+                .accessibilityRemoveTraits(.isHeader)
                 .onSimultaneousTapGesture {
                     self.context.revertToPreviousValue()
                     if UIAccessibility.isVoiceOverRunning {
@@ -249,6 +252,7 @@ struct InternalWAForm: View {
                 .disabled(!self.context.revertIsEnabled)
             
             self.configuration.redoAction
+                .accessibilityRemoveTraits(.isHeader)
                 .onSimultaneousTapGesture {
                     self.context.forwardToNextValue()
                     if UIAccessibility.isVoiceOverRunning {
@@ -270,12 +274,14 @@ struct InternalWAForm: View {
                 self.configuration.footnote
                 Spacer()
                 self.configuration.upVoteAction
+                    .accessibilityAddTraits(self.context.feedbackVoteState == .upVote ? .isSelected : .isButton)
                     .onSimultaneousTapGesture {
                         if !self.context.feedbackUpvoted {
                             self.context.startFeedbackTask(voteState: .upVote, options: [])
                         }
                     }
                 self.configuration.downVoteAction
+                    .accessibilityAddTraits(self.context.feedbackVoteState == .downVote ? .isSelected : .isButton)
                     .onSimultaneousTapGesture {
                         if !self.context.feedbackDownvoted {
                             self.context.customDestination = CustomDestination(destination: WAFeedback())

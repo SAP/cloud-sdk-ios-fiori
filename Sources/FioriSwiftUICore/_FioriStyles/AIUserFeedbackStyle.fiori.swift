@@ -457,8 +457,8 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     private func accessibilityLabel(label: String, selected: Bool) -> String {
-        var accLabel = selected ? "selected".localizedFioriString() : "enabled".localizedFioriString()
-        accLabel += ", " + label
+        var accLabel = selected ? "selected".localizedFioriString() + ", " : ""
+        accLabel += label
         return accLabel
     }
     
