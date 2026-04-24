@@ -2668,13 +2668,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/MHStack.swift",
-      "line": 119,
-      "symbol": "MHStack.isEmpty",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/SearchableListView+View.swift",
       "line": 194,
       "symbol": "SearchableListView.init(data:id:children:selection:isTopLevel:allowsMultipleSelection:searchFilter:rowContent:rowBackground:)",
@@ -7079,21 +7072,21 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/TagStyle.fiori.swift",
-      "line": 79,
+      "line": 78,
       "symbol": "OutlinedTagStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/TagStyle.fiori.swift",
-      "line": 82,
+      "line": 81,
       "symbol": "OutlinedTagStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/TagStyle.fiori.swift",
-      "line": 353,
+      "line": 450,
       "symbol": "TagStyleConfiguration",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
@@ -41743,7 +41736,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Tag/Tag.generated.swift",
-      "line": 172,
+      "line": 171,
       "symbol": "Tag",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"

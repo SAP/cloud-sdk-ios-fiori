@@ -696,6 +696,34 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE24timelinePreviewSortOrderyQrAD08TimelineghI0OF"></a>
+                      <a name="//apple_ref/swift/Method/timelinePreviewSortOrder(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE24timelinePreviewSortOrderyQrAD08TimelineghI0OF">timelinePreviewSortOrder(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Sets the sort order for items displayed in a <code><a href="../Structs/TimelinePreview.html">TimelinePreview</a></code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">timelinePreviewSortOrder</span><span class="p">(</span><span class="n">_</span> <span class="nv">order</span><span class="p">:</span> <span class="kt"><a href="../Enums/TimelinePreviewSortOrder.html">TimelinePreviewSortOrder</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE05clearD33SliderEditableAccessoryFocusOnTapQryF"></a>
                       <a name="//apple_ref/swift/Method/clearFioriSliderEditableAccessoryFocusOnTap()" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE05clearD33SliderEditableAccessoryFocusOnTapQryF">clearFioriSliderEditableAccessoryFocusOnTap()</a>
@@ -6206,6 +6234,138 @@ display.</p>
                         <div>
                           <h4>Return Value</h4>
                           <p>A view that limits the number of tags</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE13tagsLineLimityQrSiSgF"></a>
+                      <a name="//apple_ref/swift/Method/tagsLineLimit(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE13tagsLineLimityQrSiSgF">tagsLineLimit(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Sets the maximum number of lines that a View can display tags.</p>
+
+<p>Use <code>tagsLineLimit(_:)</code> to cap the number of lines for tags.</p>
+
+<p>The line limit applies to all <code><a href="../Structs/Tag.html">Tag</a></code> instances within a hierarchy.</p>
+<pre class="highlight swift"><code><span class="kt">MHStack</span> <span class="p">{</span>
+    <span class="c1">// ... many tags</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">tagsLineLimit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">tagsLineLimit</span><span class="p">(</span><span class="n">_</span> <span class="nv">number</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>number</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>The line limit. If <code>nil</code>, no line limit applies.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view that limits the number of tag lines</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE7moreTag7builderQrqd__Sic_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/moreTag(builder:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE7moreTag7builderQrqd__Sic_tAaBRd__lF">moreTag(builder:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Customizes the appearance of the &ldquo;more tags&rdquo; indicator.</p>
+
+<p>Use <code>moreTag(_:)</code> to customize how the &ldquo;+N more&rdquo; indicator appears
+when tags are truncated due to <code>tagsLineLimit</code> constraints.</p>
+
+<p>The builder closure receives the count of hidden tags as a parameter.</p>
+<pre class="highlight swift"><code><span class="kt">MHStack</span> <span class="p">{</span>
+    <span class="kt">ForEach</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nv">id</span><span class="p">:</span> <span class="p">\</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">item</span> <span class="k">in</span>
+        <span class="kt">Text</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">tagsLineLimit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">.</span><span class="n">moreTag</span> <span class="p">{</span> <span class="n">count</span> <span class="k">in</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"+</span><span class="se">\(</span><span class="n">count</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">padding</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">background</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="nf">opacity</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+        <span class="o">.</span><span class="nf">cornerRadius</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">moreTag</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">builder</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>builder</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A closure that takes the number of hidden tags
+and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with a customized &ldquo;more tags&rdquo; indicator.</p>
                         </div>
                       </section>
                     </div>
@@ -24903,6 +25063,9 @@ display.</p>
                   <a href="../Enums/TimelineNodeType.html">TimelineNodeType</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/TimelinePreviewSortOrder.html">TimelinePreviewSortOrder</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/ToastMessagePosition.html">ToastMessagePosition</a>
                 </li>
                 <li class="nav-group-task">
@@ -31060,7 +31223,7 @@ display.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-21)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-04-24)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
