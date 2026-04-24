@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "Ngoại tuyến";
 
+/* XMSG: information view style type, success */
+"success" = "thành công";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Thiết lập lại";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Xử lý để chuyển từ màn hình tháng sang màn hình tuần";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Thẻ";
+
 /* XTIT: Title for card */
 "Card title" = "Tiêu đề thẻ";
 
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Ngày kết thúc";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Nhấp đúp để mở";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Nhấp đúp để thu gọn";
+
+/* XTIT: On state for switch */
+"Switch On" = "Bật";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Tắt";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "không thành công";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "Xử lý bằng AI";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Chỉ báo thanh toán";
 

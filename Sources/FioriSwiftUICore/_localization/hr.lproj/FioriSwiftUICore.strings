@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "izvanmrežno";
 
+/* XMSG: information view style type, success */
+"success" = "uspjeh";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Ponovo postavi";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Hvatište za prebacivanje s prikaza mjeseca na prikaz tjedna";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Kartica";
+
 /* XTIT: Title for card */
 "Card title" = "Naslov kartice";
 
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Datum završetka";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Dvaput dodirnite za otvaranje";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Dvaput dodirnite za sažimanje";
+
+/* XTIT: On state for switch */
+"Switch On" = "Uključeno";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Isključeno";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "nije uspjelo";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "Obrada umjetne inteligencije";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Pokazatelj odjave";
 

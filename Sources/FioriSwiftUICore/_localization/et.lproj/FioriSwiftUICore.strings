@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "võrguühenduseta";
 
+/* XMSG: information view style type, success */
+"success" = "edukas";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Lähtesta";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Pide kuuvaate vahetamiseks nädalavaate vastu";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Kaart";
+
 /* XTIT: Title for card */
 "Card title" = "Kaardi pealkiri";
 
@@ -638,7 +644,7 @@
 "Double tap to activate" = "Aktiveerimiseks topeltpuudutage";
 
 /* XMSG: Writing assistant options entry cell hint for accessibility */
-"Open to see %@ options" = "Avage, et kuvada sätte %@ suvandid";
+"Open to see %@ options" = "Avage, et kuvada lahtri %@ suvandid";
 
 /* XMSG: Writing assistant undo announcement */
 "Undo to Version %d of %d" = "Võta tagasi versioonile %d, kokku on %d versiooni";
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Lõppkuupäev";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Avamiseks topeltpuudutage";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Ahendamiseks topeltpuudutage";
+
+/* XTIT: On state for switch */
+"Switch On" = "Sees";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Väljas";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "nurjunud";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "Tehisarupõhine töötlemine";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Väljaregistreerimise tunnus";
 
