@@ -20,8 +20,8 @@ public struct FilterFormView {
     let buttonSize: FilterButtonSize
     /// Allow chips to layout on the same line as the title
     let isSingleLine: Bool
-    /// The maximum number of lines allowed for displaying each option's text.
-    let optionLineLimit: Int
+    /// The maximum number of lines allowed for displaying each option's text. Pass `nil` to remove the line limit.
+    let optionLineLimit: Int?
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     let onValueChange: (([Int]) -> Void)?
     ///  This image view is to be displayed on selected item.
@@ -43,7 +43,7 @@ public struct FilterFormView {
                 value: Binding<[Int]>,
                 buttonSize: FilterButtonSize = .fixed,
                 isSingleLine: Bool = true,
-                optionLineLimit: Int = 1,
+                optionLineLimit: Int? = 1,
                 onValueChange: (([Int]) -> Void)? = nil,
                 @ViewBuilder checkmarkImage: () -> any View = { Image(systemName: "checkmark") },
                 componentIdentifier: String? = FilterFormView.identifier)
@@ -82,7 +82,7 @@ public extension FilterFormView {
          value: Binding<[Int]>,
          buttonSize: FilterButtonSize = .fixed,
          isSingleLine: Bool = true,
-         optionLineLimit: Int = 1,
+         optionLineLimit: Int? = 1,
          onValueChange: (([Int]) -> Void)? = nil,
          @ViewBuilder checkmarkImage: () -> any View = { Image(systemName: "checkmark") })
     {

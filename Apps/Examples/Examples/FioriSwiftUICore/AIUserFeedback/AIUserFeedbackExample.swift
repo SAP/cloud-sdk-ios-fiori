@@ -63,7 +63,7 @@ struct AIUserFeedbackExample: View {
     @State var voteState: AIUserFeedbackVoteState = .notDetermined
     @State var voteStateIndex: Int = 0
     
-    @State var filterOptionLineLimitIndex: Int = 1
+    @State var filterOptionLineLimit: Int? = 1
     
     @State var isBackgroundInteractionEnabled = false
     @State var customizedVoteButton = false
@@ -135,11 +135,13 @@ struct AIUserFeedbackExample: View {
                 self.voteState = self.voteStates[self.voteStateIndex]
             }
 
-            Picker(selection: self.$filterOptionLineLimitIndex, label: Text("Feedback option Line Limit")) {
-                Text("1").tag(1)
-                Text("2").tag(2)
-                Text("3").tag(3)
-                Text("4").tag(4)
+            Picker(selection: self.$filterOptionLineLimit, label: Text("Feedback option Line Limit")) {
+                Text("Not Set").tag(Int?.some(0))
+                Text("No Limit").tag(Int?.none)
+                Text("1").tag(Int?.some(1))
+                Text("2").tag(Int?.some(2))
+                Text("3").tag(Int?.some(3))
+                Text("4").tag(Int?.some(4))
             }
         }
         .disableMultipleVoteForAIUserFeedback(self.disableMultipleVote)
@@ -155,10 +157,16 @@ struct AIUserFeedbackExample: View {
     }
     
     func showFeedback(mode: AIUserFeedbackDisplayMode) -> some View {
-        let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
-        let filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, optionLineLimit: self.filterOptionLineLimitIndex, onValueChange: { value in
+        let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content peng peng peng peng peng peng peng peng peng peng peng peng", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others peng peng peng peng peng peng"]
+        var filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, optionLineLimit: self.filterOptionLineLimit, onValueChange: { value in
             print("FilterFormView value change: \(value)")
         })
+        if self.filterOptionLineLimit == 0 {
+            filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: self.displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
+                print("FilterFormView value change: \(value)")
+            })
+            print("Skip setting OptionLineLimit, it will use the default value.")
+        }
         let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError && self.valueText.isEmpty ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
 		
         func shouldDisableSubmit() -> Bool {
