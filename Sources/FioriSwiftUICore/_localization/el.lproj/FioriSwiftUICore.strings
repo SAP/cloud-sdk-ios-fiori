@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "Εκτός Σύνδεσης";
 
+/* XMSG: information view style type, success */
+"success" = "επιτυχία";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Επαναφορά";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Χειρισμός αλλαγής από μηνιαία προβολή σε εβδομαδιαία προβολή";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Κάρτα";
+
 /* XTIT: Title for card */
 "Card title" = "Τίτλος κάρτας";
 
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Ημερομηνία Λήξης";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Διπλό άγγιγμα για άνοιγμα";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Διπλό άγγιγμα για σύμπτυξη";
+
+/* XTIT: On state for switch */
+"Switch On" = "Ενεργό";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Ανενεργό";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "απέτυχε";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "Επεξεργασία ΑΙ";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Δείκτης Checkout";
 

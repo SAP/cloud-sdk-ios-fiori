@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "Offline";
 
+/* XMSG: information view style type, success */
+"success" = "Erfolg";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Zurücksetzen";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Handle zum Wechseln von der Monatsansicht zur Wochenansicht";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Karte";
+
 /* XTIT: Title for card */
 "Card title" = "Kartentitel";
 
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Enddatum";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Zweimal tippen zum Öffnen";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Zweimal tippen zum Komprimieren";
+
+/* XTIT: On state for switch */
+"Switch On" = "Ein";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Aus";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "fehlgeschlagen";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "KI-Verarbeitung";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Checkout-Anzeige";
 

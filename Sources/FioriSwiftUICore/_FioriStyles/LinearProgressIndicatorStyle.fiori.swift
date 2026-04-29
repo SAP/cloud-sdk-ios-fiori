@@ -27,19 +27,33 @@ public struct LinearProgressIndicatorFioriStyle: LinearProgressIndicatorStyle {
 
 /// Determinate style
 public struct LinearProgressIndicatorDeterminateStyle: LinearProgressIndicatorStyle {
+    @Environment(\.linearProgressIndicatorTintColor) var tintColor
+
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
-            .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .determinate))
+            .progressViewStyle(
+                CustomLinearProgressViewStyle(
+                    color: self.tintColor ?? .preferredColor(.tintColor),
+                    type: .determinate
+                )
+            )
             .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
     }
 }
 
 /// Indeterminate style
 public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicatorStyle {
+    @Environment(\.linearProgressIndicatorTintColor) var tintColor
     @State var progress = 0.0
+
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         ProgressView(value: self.progress, total: 1.0)
-            .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminate))
+            .progressViewStyle(
+                CustomLinearProgressViewStyle(
+                    color: self.tintColor ?? .preferredColor(.tintColor),
+                    type: .indeterminate
+                )
+            )
     }
 }
 
@@ -54,9 +68,16 @@ public struct LinearProgressIndicatorErrorStyle: LinearProgressIndicatorStyle {
 
 /// Success style
 public struct LinearProgressIndicatorSuccessStyle: LinearProgressIndicatorStyle {
+    @Environment(\.linearProgressIndicatorTintColor) var tintColor
+
     public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
         LinearProgressIndicator(configuration)
-            .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .success))
+            .progressViewStyle(
+                CustomLinearProgressViewStyle(
+                    color: self.tintColor ?? .preferredColor(.tintColor),
+                    type: .success
+                )
+            )
             .accessibilityValue(Text("\(Int((configuration.indicatorProgress * 100.0).rounded()))%"))
     }
 }
@@ -140,5 +161,26 @@ public extension LinearProgressIndicatorStyle where Self == LinearProgressIndica
     /// Success style of the Linear Progress Indicator.
     static var success: LinearProgressIndicatorSuccessStyle {
         LinearProgressIndicatorSuccessStyle()
+    }
+}
+
+// MARK: - Tint color environment key
+
+private struct LinearProgressIndicatorTintColorKey: EnvironmentKey {
+    static let defaultValue: Color? = nil
+}
+
+extension EnvironmentValues {
+    var linearProgressIndicatorTintColor: Color? {
+        get { self[LinearProgressIndicatorTintColorKey.self] }
+        set { self[LinearProgressIndicatorTintColorKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Overrides the tint color for any ``LinearProgressIndicator`` below this
+    /// view in the hierarchy. Pass `nil` to restore the default theme color.
+    func linearProgressIndicatorTintColor(_ color: Color?) -> some View {
+        environment(\.linearProgressIndicatorTintColor, color)
     }
 }

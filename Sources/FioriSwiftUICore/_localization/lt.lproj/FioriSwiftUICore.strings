@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "neprisijungus";
 
+/* XMSG: information view style type, success */
+"success" = "pavyko";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Nustatyti iš naujo";
 
@@ -616,6 +619,9 @@
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Slankiklis, skirtas perjungti iš mėnesio rodinio į savaitės rodinį";
 
+/* XMSG: Accessibility label for card container */
+"Card" = "Kortelė";
+
 /* XTIT: Title for card */
 "Card title" = "Kortelės antraštė";
 
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Pabaigos data";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Norėdami atidaryti, bakstelėkite du kartus";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Norėdami sutraukti, bakstelėkite du kartus";
+
+/* XTIT: On state for switch */
+"Switch On" = "Įjungta";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Išjungta";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "nepavyko";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "DI apdorojimas";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Išregistravimo indikatorius";
 

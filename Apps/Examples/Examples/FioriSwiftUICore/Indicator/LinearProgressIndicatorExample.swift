@@ -12,8 +12,30 @@ struct LinearProgressIndicatorExample: View {
             Text("Determinate without Label")
             LinearProgressIndicator(indicatorProgress: self.$progress1)
                 .linearProgressIndicatorStyle(.determinate)
+                .accentColor(Color.red)
+                .padding(.bottom, 20)
+
+            Text("Determinate with custom tint color")
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
+                .linearProgressIndicatorStyle(.determinate)
+                .linearProgressIndicatorTintColor(.orange)
+                .padding(.bottom, 20)
+
+            Text("Indeterminate with custom tint color")
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
+                .linearProgressIndicatorStyle(.indeterminate)
+                .linearProgressIndicatorTintColor(.purple)
                 .padding(.bottom, 20)
             
+            // Inline anonymous custom style using the closure-based API
+            Text("Custom inline style")
+            LinearProgressIndicator(indicatorProgress: self.$progress1)
+                .linearProgressIndicatorStyle { configuration in
+                    ProgressView(value: configuration.indicatorProgress, total: 1.0)
+                        .tint(.black)
+                }
+                .padding(.bottom, 20)
+
             Text("Indeterminate without Label")
             LinearProgressIndicator(indicatorProgress: self.$progress1)
                 .linearProgressIndicatorStyle(.indeterminate)

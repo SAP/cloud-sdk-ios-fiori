@@ -295,6 +295,9 @@
 /* XMSG: banner message type desc, offline */
 "offline" = "hors ligne";
 
+/* XMSG: information view style type, success */
+"success" = "réussite";
+
 /* XBUT: Reset action of filter feedback bar, see https://experience.sap.com/fiori-design-ios/article/filter-feedback-bar/#behavior-and-interaction */
 "Reset" = "Réinitialiser";
 
@@ -611,10 +614,13 @@
 "Today" = "Aujourd'hui";
 
 /* XMSG: Date is today, used in voiceOver in calendar view */
-"Disabled date" = "Date de désactivation";
+"Disabled date" = "Date désactivée";
 
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
 "Handle to switch from month view to week view" = "Descripteur permettant de passer de l'affichage mensuel à l'affichage hebdomadaire";
+
+/* XMSG: Accessibility label for card container */
+"Card" = "Carte";
 
 /* XTIT: Title for card */
 "Card title" = "Titre de la carte";
@@ -690,4 +696,25 @@
 
 /* XMSG: end date, used in DateRangePickerPopView */
 "End Date" = "Date/Heure de fin";
+
+/* XBUT: title for picker form cell to open */
+"DoubleTapToOpenKey" = "Toucher deux fois pour ouvrir";
+
+/* XBUT: title for picker form cell to collapse */
+"DoubleTapToCollapseKey" = "Toucher deux fois pour réduire";
+
+/* XTIT: On state for switch */
+"Switch On" = "Activé";
+
+/* XTIT: Off state for switch */
+"Switch Off" = "Désactivé";
+
+/* Checkout Indicator accessibility label: failed */
+"failed" = "échec";
+
+/* Checkout Indicator accessibility label: AI processing */
+"AI processing" = "Traitement par l'IA";
+
+/* Checkout Indicator accessibility label: Checkout Indicator */
+"Checkout Indicator" = "Indicateur de sortie";
 
