@@ -119,7 +119,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                             configuration.checkmarkImage
                         }
                         Text(option)
-                            .lineLimit(configuration.optionLineLimit)
+                            .lineLimit(configuration.numberOfLines)
                     })
                     .opacity(0)
 
@@ -128,7 +128,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                             configuration.checkmarkImage
                         }
                         Text(option)
-                            .lineLimit(configuration.optionLineLimit)
+                            .lineLimit(configuration.numberOfLines)
                     })
                 }
                 .padding(self.filterFormOptionPadding)

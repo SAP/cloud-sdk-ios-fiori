@@ -38,7 +38,7 @@ final class AIUserFeedbackTests: XCTestCase {
         XCTAssertEqual(valueText, "additional feedback")
     }
 
-    func testOptionLineLimitDefaultValue() {
+    func testNumberOfLinesDefaultValue() {
         var selectionValue: [Int] = []
         let binding = Binding<[Int]>(get: { selectionValue }, set: { selectionValue = $0 })
         let view = FilterFormView(
@@ -47,10 +47,10 @@ final class AIUserFeedbackTests: XCTestCase {
             isEnabled: true,
             value: binding
         )
-        XCTAssertEqual(view.optionLineLimit, 1 as Int?)
+        XCTAssertEqual(view.numberOfLines, 1 as Int?)
     }
 
-    func testOptionLineLimitCustomValue() {
+    func testNumberOfLinesCustomValue() {
         var selectionValue: [Int] = []
         let binding = Binding<[Int]>(get: { selectionValue }, set: { selectionValue = $0 })
         let view = FilterFormView(
@@ -58,12 +58,12 @@ final class AIUserFeedbackTests: XCTestCase {
             options: ["Option 1", "Option 2"],
             isEnabled: true,
             value: binding,
-            optionLineLimit: 3
+            numberOfLines: 3
         )
-        XCTAssertEqual(view.optionLineLimit, 3 as Int?)
+        XCTAssertEqual(view.numberOfLines, 3 as Int?)
     }
 
-    func testOptionLineLimitNilValue() {
+    func testNumberOfLinesNilValue() {
         var selectionValue: [Int] = []
         let binding = Binding<[Int]>(get: { selectionValue }, set: { selectionValue = $0 })
         let view = FilterFormView(
@@ -71,15 +71,15 @@ final class AIUserFeedbackTests: XCTestCase {
             options: ["Option 1", "Option 2"],
             isEnabled: true,
             value: binding,
-            optionLineLimit: nil
+            numberOfLines: nil
         )
-        XCTAssertNil(view.optionLineLimit)
+        XCTAssertNil(view.numberOfLines)
     }
 
-    func testConfigurationOptionLineLimit() {
+    func testConfigurationNumberOfLines() {
         var capturedLineLimit: Int?
         let style = AnyFilterFormViewStyle { cfg in
-            capturedLineLimit = cfg.optionLineLimit
+            capturedLineLimit = cfg.numberOfLines
             return EmptyView()
         }
         var selectionValue: [Int] = []
@@ -96,7 +96,7 @@ final class AIUserFeedbackTests: XCTestCase {
             value: binding,
             buttonSize: .fixed,
             isSingleLine: true,
-            optionLineLimit: 5,
+            numberOfLines: 5,
             onValueChange: nil,
             checkmarkImage: .init(Image(systemName: "checkmark"))
         )
@@ -104,10 +104,10 @@ final class AIUserFeedbackTests: XCTestCase {
         XCTAssertEqual(capturedLineLimit, 5 as Int?)
     }
 
-    func testConfigurationOptionLineLimitNil() {
+    func testConfigurationNumberOfLinesNil() {
         var capturedLineLimit: Int? = 999
         let style = AnyFilterFormViewStyle { cfg in
-            capturedLineLimit = cfg.optionLineLimit
+            capturedLineLimit = cfg.numberOfLines
             return EmptyView()
         }
         var selectionValue: [Int] = []
@@ -124,7 +124,7 @@ final class AIUserFeedbackTests: XCTestCase {
             value: binding,
             buttonSize: .fixed,
             isSingleLine: true,
-            optionLineLimit: nil,
+            numberOfLines: nil,
             onValueChange: nil,
             checkmarkImage: .init(Image(systemName: "checkmark"))
         )

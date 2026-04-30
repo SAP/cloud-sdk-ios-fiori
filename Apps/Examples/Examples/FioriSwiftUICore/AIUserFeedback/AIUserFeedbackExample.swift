@@ -157,15 +157,15 @@ struct AIUserFeedbackExample: View {
     }
     
     func showFeedback(mode: AIUserFeedbackDisplayMode) -> some View {
-        let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content peng peng peng peng peng peng peng peng peng peng peng peng", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others peng peng peng peng peng peng"]
-        var filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, optionLineLimit: self.filterOptionLineLimit, onValueChange: { value in
+        let valueOptions: [AttributedString] = ["Inaccuraies", "Inappropriate Content", "Security Risks", "Slow Response", "Repetitive or Wordy", "Others"]
+        var filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, numberOfLines: self.filterOptionLineLimit, onValueChange: { value in
             print("FilterFormView value change: \(value)")
         })
         if self.filterOptionLineLimit == 0 {
             filterFormView = FilterFormView(title: "Select all that apply", isRequired: true, options: valueOptions, errorMessage: self.displayContentError && self.filterFormViewSelectionValue.isEmpty ? "Missing required field" : nil, isEnabled: true, allowsMultipleSelection: true, allowsEmptySelection: true, value: self.$filterFormViewSelectionValue, buttonSize: .fixed, onValueChange: { value in
                 print("FilterFormView value change: \(value)")
             })
-            print("Skip setting OptionLineLimit, it will use the default value.")
+            print("Skip setting numberOfLines, it will use the default value.")
         }
         let keyValueFormView = KeyValueFormView(title: "Additional feedback", text: self.$valueText, placeholder: "Write additional comments here", errorMessage: self.displayContentError && self.valueText.isEmpty ? "Missing required field" : nil, minTextEditorHeight: 88, maxTextLength: 200, hintText: AttributedString("Hint Text"), isCharCountEnabled: true, allowsBeyondLimit: false, isRequired: true)
 		
