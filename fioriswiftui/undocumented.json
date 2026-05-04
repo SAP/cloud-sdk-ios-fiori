@@ -5420,35 +5420,35 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 30,
+      "line": 32,
       "symbol": "LinearProgressIndicatorDeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 40,
+      "line": 49,
       "symbol": "LinearProgressIndicatorIndeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 48,
+      "line": 62,
       "symbol": "LinearProgressIndicatorErrorStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 57,
+      "line": 73,
       "symbol": "LinearProgressIndicatorSuccessStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 117,
+      "line": 138,
       "symbol": "LinearProgressIndicatorStyle.determinate",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -28933,28 +28933,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 116,
+      "line": 137,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 123,
+      "line": 144,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 131,
+      "line": 152,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 139,
+      "line": 160,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
