@@ -5420,35 +5420,35 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 30,
+      "line": 32,
       "symbol": "LinearProgressIndicatorDeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 40,
+      "line": 49,
       "symbol": "LinearProgressIndicatorIndeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 48,
+      "line": 62,
       "symbol": "LinearProgressIndicatorErrorStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 57,
+      "line": 73,
       "symbol": "LinearProgressIndicatorSuccessStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 117,
+      "line": 138,
       "symbol": "LinearProgressIndicatorStyle.determinate",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -22164,23 +22164,9 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 34,
-      "symbol": "FilterFormView.init(title:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:onValueChange:checkmarkImage:componentIdentifier:)",
+      "line": 36,
+      "symbol": "FilterFormView.init(title:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:numberOfLines:onValueChange:checkmarkImage:componentIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 64,
-      "symbol": "FilterFormView",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 65,
-      "symbol": "FilterFormView.identifier",
-      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
@@ -22193,27 +22179,41 @@
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
       "line": 69,
-      "symbol": "FilterFormView.init(title:mandatoryFieldIndicator:isRequired:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:onValueChange:checkmarkImage:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "symbol": "FilterFormView.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 90,
+      "line": 72,
       "symbol": "FilterFormView",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 91,
+      "line": 73,
+      "symbol": "FilterFormView.init(title:mandatoryFieldIndicator:isRequired:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:numberOfLines:onValueChange:checkmarkImage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
+      "line": 95,
+      "symbol": "FilterFormView",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
+      "line": 96,
       "symbol": "FilterFormView.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 113,
+      "line": 119,
       "symbol": "FilterFormView",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -22333,41 +22333,48 @@
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
       "line": 36,
-      "symbol": "FilterFormViewConfiguration.onValueChange",
+      "symbol": "FilterFormViewConfiguration.numberOfLines",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
       "line": 37,
+      "symbol": "FilterFormViewConfiguration.onValueChange",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
+      "line": 38,
       "symbol": "FilterFormViewConfiguration.checkmarkImage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 39,
+      "line": 40,
       "symbol": "FilterFormViewConfiguration.Title",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 40,
+      "line": 41,
       "symbol": "FilterFormViewConfiguration.CheckmarkImage",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "FilterFormViewFioriStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 50,
+      "line": 51,
       "symbol": "FilterFormViewFioriStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -28933,28 +28940,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 116,
+      "line": 137,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 123,
+      "line": 144,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 131,
+      "line": 152,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 139,
+      "line": 160,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
