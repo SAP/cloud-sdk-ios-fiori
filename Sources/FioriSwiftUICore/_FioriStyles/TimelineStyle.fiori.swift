@@ -104,6 +104,7 @@ struct TimelineMainStack: View {
                 Spacer()
                 self.configuration.subAttribute
             }
+            Spacer()
             Divider()
                 .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
                 .frame(height: 0.33)
