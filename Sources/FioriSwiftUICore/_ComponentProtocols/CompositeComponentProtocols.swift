@@ -1269,6 +1269,9 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
     // sourcery: defaultValue = true
     /// Allow chips to layout on the same line as the title
     var isSingleLine: Bool { get }
+    // sourcery: defaultValue = 1
+    /// The maximum number of lines allowed for displaying each option's text. The default value is `1`. Pass `nil` to remove the line limit.
+    var numberOfLines: Int? { get }
     /// Implementation of value change callback.  Is invoked on changes to the `value` property.
     var onValueChange: (([Int]) -> Void)? { get }
     

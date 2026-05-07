@@ -119,16 +119,16 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                             configuration.checkmarkImage
                         }
                         Text(option)
-                            .lineLimit(1)
+                            .lineLimit(configuration.numberOfLines)
                     })
                     .opacity(0)
-                    
+
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {
                         if isSelected, !configuration.checkmarkImage.isEmpty {
                             configuration.checkmarkImage
                         }
                         Text(option)
-                            .lineLimit(1)
+                            .lineLimit(configuration.numberOfLines)
                     })
                 }
                 .padding(self.filterFormOptionPadding)
@@ -377,34 +377,42 @@ private struct FilterFormViewLayout: Layout {
         
         var maxWidth = 0.0
         var hasMoreLines = false
-        
-        var lastItemRect: CGRect = .zero
+
+        var rowOriginY = 0.0
+        var rowMaxHeight = 0.0
+        var rowCurrentX = 0.0
         for index in cache.columns.indices {
             var rect = cache.columns[index]
             if self.buttonSize != .flexible {
                 rect.size.width = cache.itemMaxWidth
             }
             if index == 0 {
-                totalHeight += rect.size.height
+                rect.origin = .zero
+                rowCurrentX = rect.size.width
+                rowMaxHeight = rect.size.height
+                totalHeight = rect.size.height
             } else {
-                if rect.size.width + self.filterFormOptionsItemSpacing + lastItemRect.maxX > availableWidth {
-                    rect.origin = CGPoint(x: 0, y: lastItemRect.origin.y + lastItemRect.size.height + self.filterFormOptionsLineSpacing)
-                    // when spare space is not enough, place the item to the new line
-                    totalHeight += rect.size.height
+                if rect.size.width + self.filterFormOptionsItemSpacing + rowCurrentX > availableWidth {
+                    // Not enough room — advance to the next row using the current row's max height.
+                    rowOriginY += rowMaxHeight + self.filterFormOptionsLineSpacing
+                    rect.origin = CGPoint(x: 0, y: rowOriginY)
+                    rowCurrentX = rect.size.width
+                    rowMaxHeight = rect.size.height
+                    totalHeight = rowOriginY + rect.size.height
                     hasMoreLines = true
-                    if index > 1 {
-                        totalHeight += self.filterFormOptionsLineSpacing
-                    }
                 } else {
-                    rect.origin = CGPoint(x: lastItemRect.maxX + self.filterFormOptionsItemSpacing, y: lastItemRect.minY)
+                    rect.origin = CGPoint(x: rowCurrentX + self.filterFormOptionsItemSpacing, y: rowOriginY)
+                    rowCurrentX += self.filterFormOptionsItemSpacing + rect.size.width
+                    if rect.size.height > rowMaxHeight {
+                        rowMaxHeight = rect.size.height
+                        totalHeight = rowOriginY + rowMaxHeight
+                    }
                 }
             }
-            lastItemRect = rect
             cache.columns[index] = rect
-            
-            maxWidth = rect.maxX
+            maxWidth = max(maxWidth, rect.maxX)
         }
-        
+
         return CGSize(width: hasMoreLines ? availableWidth : maxWidth, height: totalHeight)
     }
     

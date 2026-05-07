@@ -33,6 +33,7 @@ public struct FilterFormViewConfiguration {
     @Binding public var value: [Int]
     public let buttonSize: FilterButtonSize
     public let isSingleLine: Bool
+    public let numberOfLines: Int?
     public let onValueChange: (([Int]) -> Void)?
     public let checkmarkImage: CheckmarkImage
 
