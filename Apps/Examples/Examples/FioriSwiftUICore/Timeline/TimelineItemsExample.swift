@@ -67,7 +67,7 @@ struct TimelineItemsExample: View {
                 .modifier(CustomListRowModifier())
             }
             Section(header: Text("Timeline 2")) {
-                Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .both("substatus", Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
+                Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .both("substatus", Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true, showUpperVerticalLine: false)
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampStyle(content: { config in
                         config.secondaryTimestamp.foregroundColor(.yellow)
@@ -89,7 +89,7 @@ struct TimelineItemsExample: View {
                     .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .text("Warning"), subAttribute: "subAttr")
                     .modifier(CustomListRowModifier())
-                Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .text("Warning"), subAttribute: "subAttr")
+                Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .text("Warning"), subAttribute: "subAttr", showLowerVerticalLine: false)
                     .modifier(CustomListRowModifier())
                     .disabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
             }
