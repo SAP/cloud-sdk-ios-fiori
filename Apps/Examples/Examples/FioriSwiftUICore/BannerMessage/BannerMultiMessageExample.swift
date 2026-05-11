@@ -25,6 +25,7 @@ struct BannerMultiMessageExample: View {
     
     @State var showAINotice: Bool = false
     @State var showAINoticeOnBanner: Bool = false
+    @State var isBannerViewPersistent: Bool = false
     @State var showBottomSheet: Bool = false
     @State var isOptionPresented: Bool = false
     @State var messageType: BannerMultiMessageType = .negative
@@ -210,6 +211,7 @@ struct BannerMultiMessageExample: View {
                     proxy.scrollTo(id)
                 }
             }, alignment: self.alignment == 0 ? .leading : .center, showDetailLink: true, bannerMultiMessages: self.$bannerMultiMessages)
+            .environment(\.isBannerMessagePersistent, self.isBannerViewPersistent)
             .navigationTitle("Edit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -243,6 +245,8 @@ struct BannerMultiMessageExample: View {
                         Text("Leading").tag(0)
                         Text("Center").tag(1)
                     }
+                    
+                    Toggle("Persist Banner View", isOn: self.$isBannerViewPersistent)
                 }
                 .presentationDetents([.medium])
             })
