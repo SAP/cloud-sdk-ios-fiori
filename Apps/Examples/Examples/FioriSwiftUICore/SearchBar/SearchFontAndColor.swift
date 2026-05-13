@@ -22,8 +22,8 @@ struct SearchFontAndColor: View {
             }
             .navigationTitle("Colors")
             .font(.fiori(forTextStyle: .title1))
+            .searchable(text: self.$queryString, prompt: "Color name")
         }
-        .searchable(text: self.$queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
         .foregroundColor(.preferredColor(.red5))
         .font(.fiori(forTextStyle: .title3))
