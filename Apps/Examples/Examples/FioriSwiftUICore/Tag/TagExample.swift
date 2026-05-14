@@ -12,7 +12,8 @@ struct TagExample: View {
         "Emoji 😀",
         "Empty Label",
         "Multiline Label\nSecond Line",
-        "Custom View"
+        "Custom View",
+        "M5"
     ]
     // AttributedString for tag
     var attributedTag: AttributedString {
