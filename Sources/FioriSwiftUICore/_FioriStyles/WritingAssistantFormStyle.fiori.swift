@@ -138,6 +138,7 @@ struct AIWAActionButtonStyle: FioriButtonStyle {
         let isPressed = configuration.state == .highlighted || configuration.state == .selected
         let isDisabled = configuration.state == .disabled
         return configuration.label
+            .padding(.horizontal)
             .frame(maxWidth: .infinity, minHeight: 38)
             .font(Font.fiori(forTextStyle: .body, weight: .semibold))
             .foregroundColor(.preferredColor(isPressed || isDisabled ? .quaternaryLabel : .secondaryLabel))

@@ -26,6 +26,11 @@ struct DateTimePickerExample: View {
     @State var customizedPickerVisible = false
     @State var limitedDatePickerVisible = false
     
+    @State var separatedRangeStartDate: Date? = .now
+    @State var separatedRangeStartPickerVisible = false
+    @State var separatedRangeEndDate: Date? = .now
+    @State var separatedRangeEndPickerVisible = false
+    
     // Limit the selectable dates from last seven days to next seven days
     var limitDateRange: ClosedRange<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ... Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
     
@@ -127,9 +132,32 @@ struct DateTimePickerExample: View {
                 Text("Range")
                     .textCase(.none)
             }
+            
+            Section {
+                DateTimePicker(title: "Start Date/Time", selectedDate: self.$separatedRangeStartDate, pickerVisible: self.$separatedRangeStartPickerVisible)
+                DateTimePicker(title: "End Date/Time", selectedDate: self.$separatedRangeEndDate, pickerVisible: self.$separatedRangeEndPickerVisible)
+            } header: {
+                Text("Select time ranges separately")
+            }
         }
         .onChange(of: self.s2) { _, _ in
             print("s2 new Value:\(self.s2)")
+        }
+        .onChange(of: self.separatedRangeStartDate) { _, _ in
+            if let separatedRangeStartDate,
+               let separatedRangeEndDate,
+               separatedRangeStartDate.compare(separatedRangeEndDate) == .orderedDescending
+            {
+                self.separatedRangeEndDate = self.separatedRangeStartDate
+            }
+        }
+        .onChange(of: self.separatedRangeEndDate) { _, _ in
+            if let separatedRangeStartDate,
+               let separatedRangeEndDate,
+               separatedRangeStartDate.compare(separatedRangeEndDate) == .orderedDescending
+            {
+                self.separatedRangeStartDate = self.separatedRangeEndDate
+            }
         }
     }
 }

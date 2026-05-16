@@ -11,18 +11,21 @@ struct SearchPromptFontAndColor: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
+            .searchable(
+                text: self.$queryString,
+                
+                prompt: Text("Color name")
+                    .foregroundColor(.red) // SwiftUI does not support prompt text color
+                    .font(.fiori(forTextStyle: .title3)) // SwiftUI does not support prompt font
+            )
         }
-        .searchable(
-            text: self.$queryString,
-            
-            prompt: Text("Color name")
-                .foregroundColor(.red) // SwiftUI does not support prompt text color
-                .font(.fiori(forTextStyle: .title3)) // SwiftUI does not support prompt font
-        )
         .navigationBarTitleDisplayMode(.inline)
         .font(.fiori(forTextStyle: .title3)) // prompt font can be inherited from here
         .onAppear {
             UISearchBar.appearance().tintColor = Color.preferredColor(.mango6).uiColor() // works
+        }
+        .onDisappear {
+            UISearchBar.appearance().tintColor = nil // restore system default
         }
     }
 }

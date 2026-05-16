@@ -16,11 +16,11 @@ struct SearchWithToken: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
-        }
-        .searchable(text: self.$queryString, tokens: self.$tokens) { token in
-            Text(token.name)
-//                .foregroundColor(token.fioriColor) // cannot customize text color
-//                .font(.fiori(forTextStyle: .body)) // cannot use different font
+            .searchable(text: self.$queryString, tokens: self.$tokens) { token in
+                Text(token.name)
+                //                .foregroundColor(token.fioriColor) // cannot customize text color
+                //                .font(.fiori(forTextStyle: .body)) // cannot use different font
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
 //        .foregroundColor(.preferredColor(.red5)) // it's not possible to change token text color here

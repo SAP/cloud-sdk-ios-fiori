@@ -221,53 +221,108 @@ extension SortFilterCFGItemContainer: View {
                 return true
             }
         }
-        
-        return ListPickerDestination(self._items[r][c].picker.uuidValueOptions,
-                                     id: \.id,
-                                     selections: Binding<Set<UUID>>(get: { self._items[r][c].picker.workingValueSet }, set: { self._items[r][c].picker.workingValueSet = $0 }),
-                                     allowEmpty: self._items[r][c].picker.allowsEmptySelection,
-                                     isTrackingLiveChanges: true,
-                                     searchFilter: self._items[r][c].picker.isSearchBarHidden == false ? filter : nil)
-        { e in
-            Text(e.value)
-        }
-        .disableEntriesSection(self._items[r][c].picker.disableListEntriesSection)
-        .disableContentSection(self._items[r][c].picker.disableListContentSection)
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .environment(\.defaultMinListRowHeight, 0)
-        .environment(\.defaultMinListHeaderHeight, 0)
-        .isFilterFeedbackBarListPickerStyle(true)
-        .onChange(of: self._items[r][c].picker.workingValueSet) {
-            self._items[r][c].picker.workingValue = self._items[r][c].picker.workingValueSet.flatMap { selectedId in
-                self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
+        let allowsMultipleSelection = self._items[r][c].picker.allowsMultipleSelection
+
+        if allowsMultipleSelection {
+            return ListPickerDestination(self._items[r][c].picker.uuidValueOptions,
+                                         id: \.id,
+                                         selections: Binding<Set<UUID>>(get: { self._items[r][c].picker.workingValueSet }, set: { self._items[r][c].picker.workingValueSet = $0 }),
+                                         allowEmpty: self._items[r][c].picker.allowsEmptySelection,
+                                         isTrackingLiveChanges: true,
+                                         searchFilter: self._items[r][c].picker.isSearchBarHidden == false ? filter : nil)
+            { e in
+                Text(e.value)
             }
-        }
-        .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-            DispatchQueue.main.async {
-                let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
-                self.sortFilterContentHeight.wrappedValue = calculateHeight
+            .disableEntriesSection(self._items[r][c].picker.disableListEntriesSection)
+            .disableContentSection(self._items[r][c].picker.disableListContentSection)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            .isFilterFeedbackBarListPickerStyle(true)
+            .onChange(of: self._items[r][c].picker.workingValueSet) {
+                self._items[r][c].picker.workingValue = self._items[r][c].picker.workingValueSet.flatMap { selectedId in
+                    self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
+                }
             }
-        })
-        .selectedEntriesSectionTitleStyle { _ in
-            if self._items[r][c].picker.allowsDisplaySelectionCount {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
+                    self.sortFilterContentHeight.wrappedValue = calculateHeight
+                }
+            })
+            .selectedEntriesSectionTitleStyle { _ in
+                if self._items[r][c].picker.allowsDisplaySelectionCount {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                } else {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                }
+            }
+            .allEntriesSectionTitleStyle { _ in
+                Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-            } else {
-                Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+            }
+            .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
+                self.toolbarForListPicker(v: v, row: r, column: c)
+            })
+        } else {
+            let singleSelection = Binding<UUID?>(
+                get: { self._items[r][c].picker.workingValueSet.first },
+                set: { newValue in
+                    self._items[r][c].picker.workingValueSet = newValue.map { [$0] } ?? []
+                }
+            )
+            return ListPickerDestination(self._items[r][c].picker.uuidValueOptions,
+                                         id: \.id,
+                                         selection: singleSelection,
+                                         isTrackingLiveChanges: true,
+                                         searchFilter: self._items[r][c].picker.isSearchBarHidden == false ? filter : nil)
+            { e in
+                Text(e.value)
+            }
+            .disableEntriesSection(self._items[r][c].picker.disableListEntriesSection)
+            .disableContentSection(self._items[r][c].picker.disableListContentSection)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+            .isFilterFeedbackBarListPickerStyle(true)
+            .onChange(of: self._items[r][c].picker.workingValueSet) {
+                self._items[r][c].picker.workingValue = self._items[r][c].picker.workingValueSet.flatMap { selectedId in
+                    self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
+                }
+            }
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                DispatchQueue.main.async {
+                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
+                    self.sortFilterContentHeight.wrappedValue = calculateHeight
+                }
+            })
+            .selectedEntriesSectionTitleStyle { _ in
+                if self._items[r][c].picker.allowsDisplaySelectionCount {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                } else {
+                    Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
+                }
+            }
+            .allEntriesSectionTitleStyle { _ in
+                Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .foregroundStyle(Color.preferredColor(.secondaryLabel))
                     .font(.fiori(forTextStyle: .subheadline, weight: .regular))
             }
+            .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
+                self.toolbarForListPicker(v: v, row: r, column: c)
+            })
         }
-        .allEntriesSectionTitleStyle { _ in
-            Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                .font(.fiori(forTextStyle: .subheadline, weight: .regular))
-        }
-        .ifApply(!self._items[r][c].picker.resetButtonConfiguration.isHidden, content: { v in
-            self.toolbarForListPicker(v: v, row: r, column: c)
-        })
     }
     
     private func toolbarForListPicker(v: some View, row r: Int, column c: Int) -> some View {

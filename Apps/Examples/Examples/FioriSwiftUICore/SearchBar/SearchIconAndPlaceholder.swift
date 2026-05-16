@@ -14,8 +14,8 @@ struct SearchIconAndPlaceholder: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
+            .searchable(text: self.$queryString, prompt: "Color name")
         }
-        .searchable(text: self.$queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             UISearchTextField.appearance().attributedPlaceholder = NSAttributedString(string: "Color name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(Color.preferredColor(.tertiaryLabel))])
