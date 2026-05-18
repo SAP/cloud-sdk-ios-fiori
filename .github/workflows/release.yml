@@ -16,7 +16,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # Not actively used - workflow uses PAT_ME_REPO for all operations
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3

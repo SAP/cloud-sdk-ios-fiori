@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: read
+      pull-requests: write
     steps:
     - name: Checkout the latest code
       uses: actions/checkout@v3
