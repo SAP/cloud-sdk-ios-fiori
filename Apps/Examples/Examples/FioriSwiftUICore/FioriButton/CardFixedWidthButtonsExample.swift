@@ -136,6 +136,7 @@ struct CardFixedWidthButtonsExample: View {
                                 } secondaryAction: {
                                     FioriButton(isSelectionPersistent: false, title: "Decline", action: { _ in
                                         print("tap Decline")
+                                        UIAccessibility.post(notification: .announcement, argument: "Decline Schedule \(item.title)")
                                     })
                                     .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
                                 }
