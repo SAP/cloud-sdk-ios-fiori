@@ -159,8 +159,12 @@ struct CardFullWidthSingleButtonExample: View {
     func cardView(for item: CardFullWidthSingleButtonItem) -> some View {
         Card {
             Text("Schedule \(item.title)")
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
         } subtitle: {
             Text("Subtitle")
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
         } detailImage: {
             Image("ProfilePic")
                 .resizable()
@@ -170,7 +174,6 @@ struct CardFullWidthSingleButtonExample: View {
             FioriIcon.shopping.cart
         } row1: {
             Text("Body text could be really long description that requires wrapping, with suggested 2 lines from Fiori Design Guideline perspective to make the UI concise. SDK default setting of numberOfLines for body is 6. Application Developer can override it with : cell.body.numOfLines = preferredNumberOfLines.")
-                .lineLimit(2)
         } action: {
             FioriButton(action: { _ in
                 self.updateDataSource(id: item.id)
