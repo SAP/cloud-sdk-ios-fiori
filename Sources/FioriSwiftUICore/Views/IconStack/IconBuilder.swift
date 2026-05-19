@@ -18,16 +18,38 @@ public protocol ViewList: View, _ViewEmptyChecking {
 }
 
 /// conform View protocol for IconStack
+private struct IconSizeKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 14
+}
+
+extension EnvironmentValues {
+    var iconSize: CGFloat {
+        get { self[IconSizeKey.self] }
+        set { self[IconSizeKey.self] = newValue }
+    }
+}
+
 public extension ViewList {
     var body: some View {
-        VStack(spacing: 6) {
-            ForEach(0 ..< min(numberOfIconsToShow(), count), id: \.self) { index in
-                view(at: index)
+        IconStackSizedBody(viewList: self)
+    }
+}
+
+private struct IconStackSizedBody<V: ViewList>: View {
+    let viewList: V
+    @ScaledMetric(relativeTo: .body) var scaledSize: CGFloat = 14
+
+    var body: some View {
+        VStack(alignment: .center, spacing: 6) {
+            ForEach(0 ..< min(self.viewList.numberOfIconsToShow(), self.viewList.count), id: \.self) { index in
+                self.viewList.view(at: index)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
-                    .frame(width: 14, height: 14)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(width: self.scaledSize)
             }
         }
+        .frame(width: self.scaledSize)
     }
 }
 
