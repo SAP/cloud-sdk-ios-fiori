@@ -26,6 +26,8 @@ extension IconStack: ViewList {
                 Text(txt)
             case .icon(let icon):
                 icon
+                    .resizable()
+                    .scaledToFit()
             case .both(let txt, _):
                 Text(txt)
             }
