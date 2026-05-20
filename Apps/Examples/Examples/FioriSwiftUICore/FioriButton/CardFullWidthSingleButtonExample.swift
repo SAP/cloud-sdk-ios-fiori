@@ -118,21 +118,40 @@ struct CardFullWidthSingleButtonExample: View {
                 
                 if self.isGridView {
                     let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(self._dataSource) { item in
-                            self.cardView(for: item)
-                                .frame(maxWidth: .infinity)
+                    ScrollViewReader { proxy in
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(self._dataSource) { item in
+                                self.cardView(for: item)
+                                    .frame(maxWidth: .infinity)
+                                    .id(item.id)
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .onAppear {
+                            if let firstID = self._dataSource.first?.id {
+                                proxy.scrollTo(firstID, anchor: .topLeading)
+                            }
                         }
                     }
-                    .padding(.horizontal, 16)
                 } else {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(0 ..< self._dataSource.count, id: \.self) { index in
-                                let item = self._dataSource[index]
-                                self.cardView(for: item)
-                                    .frame(maxWidth: 300)
-                                    .accessibility(sortPriority: Double(self._dataSource.count - index))
+                    ScrollViewReader { proxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(0 ..< self._dataSource.count, id: \.self) { index in
+                                    let item = self._dataSource[index]
+                                    self.cardView(for: item)
+                                        .frame(maxWidth: 300)
+                                        .accessibility(sortPriority: Double(self._dataSource.count - index))
+                                        .id(item.id)
+                                }
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .shadow(color: .preferredColor(.cardShadow), radius: 16)
+                            .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                        }
+                        .onAppear {
+                            if let firstID = self._dataSource.first?.id {
+                                proxy.scrollTo(firstID, anchor: .leading)
                             }
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 16))
