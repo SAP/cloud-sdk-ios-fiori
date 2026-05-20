@@ -131,7 +131,7 @@ struct InternalWAForm: View {
                     if self.context.rewriteTextSet.count > 1, section.id == sections.first?.id {
                         self.sectionHeader()
                             .textCase(nil)
-                            .frame(height: 60)
+                            .frame(minHeight: 60)
                             .listRowInsets(EdgeInsets())
                     }
                 } footer: {

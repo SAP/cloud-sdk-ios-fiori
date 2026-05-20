@@ -4,22 +4,29 @@ import SwiftUI
 
 // Base Layout style
 public struct TimelineBaseStyle: TimelineStyle {
-    @State var timelineMainStackWidth: CGFloat = 100
-    @Environment(\.isEnabled) var isEnabled: Bool
     public func makeBody(_ configuration: TimelineConfiguration) -> some View {
+        TimelineBaseStyleBody(configuration: configuration)
+    }
+}
+
+private struct TimelineBaseStyleBody: View {
+    let configuration: TimelineConfiguration
+    @State private var timelineMainStackWidth: CGFloat = 100
+
+    var body: some View {
         VStack {
             ZStack {
                 HStack {
                     Spacer()
                     Rectangle()
-                        .foregroundColor(configuration.isPresent ? Color.preferredColor(.blue1) : Color.preferredColor(.secondaryGroupedBackground))
+                        .foregroundStyle(self.configuration.isPresent ? Color.preferredColor(.blue1) : Color.preferredColor(.secondaryGroupedBackground))
                         .frame(alignment: .trailing)
-                        .frame(width: self.timelineMainStackWidth - 92.5)
+                        .frame(width: max(0, self.timelineMainStackWidth - 92.5))
                 }
                 HStack(alignment: .top, spacing: 0) {
-                    TimelineTimestampStack(configuration: configuration)
-                    TimelineNodeStack(configuration: configuration)
-                    TimelineMainStack(configuration: configuration)
+                    TimelineTimestampStack(configuration: self.configuration)
+                    TimelineNodeStack(configuration: self.configuration)
+                    TimelineMainStack(configuration: self.configuration)
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .overlay {
@@ -65,7 +72,8 @@ struct TimelineNodeStack: View {
         VStack(alignment: .center, spacing: 0) {
             Rectangle()
                 .frame(width: 2, height: 16)
-                .foregroundColor(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                .foregroundStyle(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                .opacity(self.configuration.showUpperVerticalLine == true ? 1 : 0)
             if self.configuration.icon.isEmpty {
                 self.configuration.timelineNode
             } else {
@@ -73,7 +81,8 @@ struct TimelineNodeStack: View {
             }
             Rectangle()
                 .frame(width: 2)
-                .foregroundColor(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                .foregroundStyle(self.configuration.isPast || self.configuration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.grey3))
+                .opacity(self.configuration.showLowerVerticalLine == true ? 1 : 0)
         }
         .frame(width: 15)
         .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 8))
@@ -105,15 +114,16 @@ struct TimelineMainStack: View {
                 self.configuration.subAttribute
             }
             Spacer()
-            Divider()
-                .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
-                .frame(height: 0.33)
-                .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: -16))
-                .offset(y: 16)
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 16))
         .alignmentGuide(.top) { _ in
             16
+        }
+        .background(alignment: .bottom) {
+            Rectangle()
+                .fill(Color.preferredColor(.separator).opacity(0.41))
+                .frame(height: 0.33)
+                .padding(.trailing, -16)
         }
     }
 }
@@ -121,7 +131,11 @@ struct TimelineMainStack: View {
 struct TMSSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
+        let next = nextValue()
+        value = CGSize(
+            width: max(value.width, next.width),
+            height: max(value.height, next.height)
+        )
     }
 }
 
@@ -141,7 +155,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: TimestampConfiguration) -> some View {
             Timestamp(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -152,7 +166,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SecondaryTimestampConfiguration) -> some View {
             SecondaryTimestamp(configuration)
                 .font(.fiori(forTextStyle: .caption1))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -161,7 +175,7 @@ extension TimelineFioriStyle {
     
         func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
             TimelineNode(configuration)
-                .foregroundColor(self.timelineConfiguration.isPast || self.timelineConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
+                .foregroundStyle(self.timelineConfiguration.isPast || self.timelineConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
                 .font(.system(size: 15, weight: .bold))
         }
     }
@@ -171,7 +185,7 @@ extension TimelineFioriStyle {
     
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
-                .foregroundColor(self.timelineConfiguration.isPast || self.timelineConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
+                .foregroundStyle(self.timelineConfiguration.isPast || self.timelineConfiguration.isPresent ? Color.preferredColor(.tintColor) : Color.preferredColor(.separatorOpaque))
                 .font(.system(size: 15, weight: .bold))
         }
     }
@@ -184,7 +198,7 @@ extension TimelineFioriStyle {
             Title(configuration)
                 .font(.fiori(forTextStyle: .headline))
                 .fontWeight(.semibold)
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -195,7 +209,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
                 .font(.fiori(forTextStyle: .subheadline))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -206,7 +220,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: AttributeConfiguration) -> some View {
             Attribute(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -217,7 +231,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: StatusConfiguration) -> some View {
             Status(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -228,7 +242,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubstatusConfiguration) -> some View {
             Substatus(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 
@@ -239,7 +253,7 @@ extension TimelineFioriStyle {
         func makeBody(_ configuration: SubAttributeConfiguration) -> some View {
             SubAttribute(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
+                .foregroundStyle(self.isEnabled ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.quaternaryLabel))
         }
     }
 }

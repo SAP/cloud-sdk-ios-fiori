@@ -404,6 +404,8 @@ struct BannerMessageModifier: ViewModifier {
     
     @State private var showingMessageDetail: Bool = false
     
+    @Environment(\.isBannerMessagePersistent) var isBannerMessagePersistent
+    
     init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, hidesCloseAction: Bool = false, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
         self.icon = icon
         self.title = title
@@ -512,7 +514,9 @@ struct BannerMessageModifier: ViewModifier {
                         if url.absoluteString == "ViewDetails" {
                             self.showingMessageDetail = true
                             
-                            if UIDevice.current.userInterfaceIdiom == .phone {
+                            if UIDevice.current.userInterfaceIdiom == .phone,
+                               !self.isBannerMessagePersistent
+                            {
                                 self.isPresented = false
                             }
                         }
