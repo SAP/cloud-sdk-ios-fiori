@@ -18,12 +18,14 @@ struct CardFixedWidthButtonsExample: View {
     private var profileHeader: some View {
         ProfileHeader(detailImage: {
             Image("rw").resizable()
+                .accessibilityLabel("Photo")
         }, title: {
             Text("Harry Ford")
         }, subtitle: {
             Text("The boy wizard, the boy wizard")
         }, description: {
             Text("This is a description.")
+                .accessibilityAddTraits(.isSummaryElement)
         }) {
             HStack {
                 Spacer()
@@ -34,6 +36,7 @@ struct CardFixedWidthButtonsExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Message")
                 Spacer()
                 
                 Button {
@@ -43,6 +46,7 @@ struct CardFixedWidthButtonsExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Email")
                 Spacer()
                 
                 Button {
@@ -52,6 +56,7 @@ struct CardFixedWidthButtonsExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Phone Call")
                 Spacer()
                 
                 Button {
@@ -61,6 +66,7 @@ struct CardFixedWidthButtonsExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Video")
                 Spacer()
                 
                 Button {
@@ -70,6 +76,7 @@ struct CardFixedWidthButtonsExample: View {
                         .imageScale(.large)
                         .fontWeight(.light)
                 }
+                .accessibilityLabel("Hint")
                 Spacer()
             }
         }
@@ -82,6 +89,7 @@ struct CardFixedWidthButtonsExample: View {
                     Text("My Schedule")
                         .font(.fiori(forTextStyle: .subheadline))
                         .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                     Button {
                         print("see all")
@@ -128,16 +136,19 @@ struct CardFixedWidthButtonsExample: View {
                                 } secondaryAction: {
                                     FioriButton(isSelectionPersistent: false, title: "Decline", action: { _ in
                                         print("tap Decline")
+                                        UIAccessibility.post(notification: .announcement, argument: "Decline Schedule \(item.title)")
                                     })
                                     .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
                                 }
                                 .frame(width: 300)
                                 .frame(minHeight: 192)
                                 .background(Color.white)
+                                .accessibilityElement(children: .contain)
+                                .accessibilityLabel("Schedule \(item.title)")
                                 .accessibility(sortPriority: Double(self._dataSource.count - index))
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: .preferredColor(.cardShadow), radius: 16) //
+                            .shadow(color: .preferredColor(.cardShadow), radius: 16)
                             .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                         }
                     })
@@ -176,14 +187,24 @@ struct CardFixedWidthButtonsExample: View {
                     item.loadingState = .processing
                     self._dataSource[i] = item
                     timeInterval = 2.0
+                    UIAccessibility.post(notification: .announcement, argument: "Checking in for Schedule \(item.title).")
                 } else if item.loadingState == .processing {
                     item.loadingState = .success
                     self._dataSource[i] = item
                     timeInterval = 1.0
+                    UIAccessibility.post(notification: .announcement, argument: "Checked in for Schedule \(item.title).")
                 } else {
+                    let removedTitle = item.title
                     self._dataSource.remove(at: i)
-                    if self._dataSource.isEmpty {
+                    let remaining = self._dataSource.count
+                    if remaining == 0 {
+                        UIAccessibility.post(notification: .announcement, argument: "All schedules checked in.")
                         self.dismiss()
+                    } else {
+                        UIAccessibility.post(
+                            notification: .announcement,
+                            argument: "Schedule \(removedTitle) removed. \(remaining) schedule\(remaining == 1 ? "" : "s") remaining."
+                        )
                     }
                     return
                 }

@@ -52,6 +52,11 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
         .ifApply(FioriLocale.shared.locale != nil) {
             $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
         }
+        .onChange(of: configuration.selectedDate) { _, _ in
+            if let configuredDate = configuration.selectedDate {
+                self.selectedDate = configuredDate
+            }
+        }
     }
     
     func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {

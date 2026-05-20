@@ -11,17 +11,17 @@ struct SearchWithSuggestion: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
+            .searchable(text: self.$queryString,
+                        prompt: "Color name",
+                        suggestions: {
+                            ForEach(ColorEntity.colors.filter { $0.name.localizedCaseInsensitiveContains(self.queryString) }) { suggestion in
+                                Text(suggestion.name)
+                                    .foregroundColor(suggestion.fioriColor)
+                                    .font(.fiori(forTextStyle: .body))
+                                    .searchCompletion(suggestion.name)
+                            }
+                        })
         }
-        .searchable(text: self.$queryString,
-                    prompt: "Color name",
-                    suggestions: {
-                        ForEach(ColorEntity.colors.filter { $0.name.localizedCaseInsensitiveContains(self.queryString) }) { suggestion in
-                            Text(suggestion.name)
-                                .foregroundColor(suggestion.fioriColor)
-                                .font(.fiori(forTextStyle: .body))
-                                .searchCompletion(suggestion.name)
-                        }
-                    })
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -30,6 +30,10 @@ public struct Timeline {
     let isPast: Bool
     /// check if event is present
     let isPresent: Bool
+    /// Show upper vertical line or not. Default is to show.
+    let showUpperVerticalLine: Bool?
+    /// Show lower vertical line or not. Default is to show.
+    let showLowerVerticalLine: Bool?
 
     @Environment(\.timelineStyle) var style
 
@@ -49,6 +53,8 @@ public struct Timeline {
                 @ViewBuilder subAttribute: () -> any View = { EmptyView() },
                 isPast: Bool = false,
                 isPresent: Bool = false,
+                showUpperVerticalLine: Bool? = true,
+                showLowerVerticalLine: Bool? = true,
                 componentIdentifier: String? = Timeline.identifier)
     {
         self.timestamp = Timestamp(timestamp: timestamp, componentIdentifier: componentIdentifier)
@@ -63,6 +69,8 @@ public struct Timeline {
         self.subAttribute = SubAttribute(subAttribute: subAttribute, componentIdentifier: componentIdentifier)
         self.isPast = isPast
         self.isPresent = isPresent
+        self.showUpperVerticalLine = showUpperVerticalLine
+        self.showLowerVerticalLine = showLowerVerticalLine
         self.componentIdentifier = componentIdentifier ?? Timeline.identifier
     }
 }
@@ -83,9 +91,11 @@ public extension Timeline {
          substatus: TextOrIcon? = nil,
          subAttribute: AttributedString? = nil,
          isPast: Bool = false,
-         isPresent: Bool = false)
+         isPresent: Bool = false,
+         showUpperVerticalLine: Bool? = true,
+         showLowerVerticalLine: Bool? = true)
     {
-        self.init(timestamp: { OptionalText(timestamp) }, secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, timelineNode: { TimelineNodeView(timelineNode) }, icon: { icon }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, attribute: { OptionalText(attribute) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, subAttribute: { OptionalText(subAttribute) }, isPast: isPast, isPresent: isPresent)
+        self.init(timestamp: { OptionalText(timestamp) }, secondaryTimestamp: { TextOrIconView(secondaryTimestamp) }, timelineNode: { TimelineNodeView(timelineNode) }, icon: { icon }, title: { Text(title) }, subtitle: { OptionalText(subtitle) }, attribute: { OptionalText(attribute) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, subAttribute: { OptionalText(subAttribute) }, isPast: isPast, isPresent: isPresent, showUpperVerticalLine: showUpperVerticalLine, showLowerVerticalLine: showLowerVerticalLine)
     }
 }
 
@@ -107,6 +117,8 @@ public extension Timeline {
         self.subAttribute = configuration.subAttribute
         self.isPast = configuration.isPast
         self.isPresent = configuration.isPresent
+        self.showUpperVerticalLine = configuration.showUpperVerticalLine
+        self.showLowerVerticalLine = configuration.showLowerVerticalLine
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -117,7 +129,7 @@ extension Timeline: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine)).typeErased
                 .transformEnvironment(\.timelineStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -135,7 +147,7 @@ private extension Timeline {
     }
 
     func defaultStyle() -> some View {
-        Timeline(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent))
+        Timeline(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
             .shouldApplyDefaultStyle(false)
             .timelineStyle(TimelineFioriStyle.ContentFioriStyle())
             .typeErased

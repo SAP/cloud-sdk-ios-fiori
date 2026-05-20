@@ -35,6 +35,8 @@ public struct TimelineConfiguration {
     public let subAttribute: SubAttribute
     public let isPast: Bool
     public let isPresent: Bool
+    public let showUpperVerticalLine: Bool?
+    public let showLowerVerticalLine: Bool?
 
     public typealias Timestamp = ConfigurationViewWrapper
     public typealias SecondaryTimestamp = ConfigurationViewWrapper

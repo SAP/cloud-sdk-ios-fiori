@@ -797,7 +797,7 @@ protocol _TimelineMarkerComponent: _TimestampComponent, _SecondaryTimestampCompo
 /// ## Usage
 /// ```swift
 /// Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
-/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", showUpperVerticalLine: false)
 /// ```
 // sourcery: CompositeComponent
 protocol _TimelineComponent: _TimestampComponent, _SecondaryTimestampComponent, _TimelineNodeComponent, _IconComponent, _TitleComponent, _SubtitleComponent, _AttributeComponent, _StatusComponent, _SubstatusComponent, _SubAttributeComponent {
@@ -808,6 +808,16 @@ protocol _TimelineComponent: _TimestampComponent, _SecondaryTimestampComponent, 
     // sourcery: defaultValue = false
     /// check if event is present
     var isPresent: Bool { get }
+    
+    // sourcery: defaultValue = true
+    /// Whether to show the upper vertical line.
+    /// Defaults to `true` (shows the line) when the value is not provided.
+    var showUpperVerticalLine: Bool? { get }
+
+    // sourcery: defaultValue = true
+    /// Whether to show the lower vertical line.
+    /// Defaults to `true` (shows the line) when the value is not provided.
+    var showLowerVerticalLine: Bool? { get }
 }
 
 /// `TimelineNowIndicator` is used to present now indicator in a Timeline view.

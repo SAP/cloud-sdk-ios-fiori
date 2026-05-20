@@ -13,8 +13,8 @@ struct SearchWithBookmark: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
+            .searchable(text: self.$queryString, prompt: "Color name")
         }
-        .searchable(text: self.$queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
 //            UISearchBar.appearance().delegate = delegate // SwiftUI doesn't support bookmark actions.

@@ -56,3 +56,20 @@ extension EnvironmentValues {
         set { self[ObjectItemNumberOfLines.self] = newValue }
     }
 }
+
+struct BannerMessageIsPersistentKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+public extension EnvironmentValues {
+    /// A Boolean value that indicates whether the banner message remains visible after the user taps the link to view the details sheet.
+    ///
+    /// When `true`, the banner stays on screen after the user taps the link.
+    /// When `false` (the default), the banner is dismissed automatically.
+    ///
+    /// - Note: This property only has an effect on iOS. On others, it is ignored.
+    var isBannerMessagePersistent: Bool {
+        get { self[BannerMessageIsPersistentKey.self] }
+        set { self[BannerMessageIsPersistentKey.self] = newValue }
+    }
+}
