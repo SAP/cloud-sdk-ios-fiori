@@ -381,13 +381,25 @@ struct PickerMenuItem: View {
                             self.item.apply()
                             self.onUpdate()
                         } label: {
-                            Label { Text(self.item.valueOptions[idx]) } icon: { Image(fioriName: "fiori.accept") }
+                            Label {
+                                if let provider = self.item.configuration?.rowContentProvider {
+                                    provider(idx)
+                                } else {
+                                    Text(self.item.valueOptions[idx])
+                                }
+                            } icon: { Image(fioriName: "fiori.accept") }
                         }
                     } else {
-                        Button(self.item.valueOptions[idx]) {
+                        Button {
                             self.item.optionOnTap(idx)
                             self.item.apply()
                             self.onUpdate()
+                        } label: {
+                            if let provider = self.item.configuration?.rowContentProvider {
+                                provider(idx)
+                            } else {
+                                Text(self.item.valueOptions[idx])
+                            }
                         }
                     }
                 }
@@ -481,6 +493,9 @@ struct PickerMenuItem: View {
     @MainActor private func configListPickerDestination() -> some View {
         let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
+                if let customFilter = self.item.configuration?.searchFilter {
+                    return customFilter(f.value, s)
+                }
                 return f.value.localizedCaseInsensitiveContains(s)
             } else {
                 return true
@@ -493,7 +508,27 @@ struct PickerMenuItem: View {
                 self.$item.workingValueSet.asOptionalSelection() :
                 self.$item.workingValueSet.asRequiredSelection(defaultValue: defaultSingleSelection).toOptionalBinding()
         }
-        
+
+        let rowContentBuilder: (SortFilterItem.PickerItem.ValueOptionModel) -> AnyView = { e in
+            if let provider = self.item.configuration?.rowContentProvider {
+                return AnyView(provider(e.index).destinationRowBackgroundColor(.clear))
+            } else {
+                return AnyView(Text(e.value).destinationRowBackgroundColor(.clear))
+            }
+        }
+
+        let paginationRowContent: (SortFilterItem.PickerItem.ValueOptionModel) -> AnyView = { e in
+            let baseView = rowContentBuilder(e)
+            if e.index == self.item.uuidValueOptions.count - 1,
+               self.item.configuration?.hasMoreData == true
+            {
+                return AnyView(baseView.onAppear {
+                    self.item.configuration?.onLoadMore?()
+                })
+            }
+            return baseView
+        }
+
         let listPickerDestination = self.item.allowsMultipleSelection ?
             ListPickerDestination(
                 self.item.uuidValueOptions,
@@ -504,8 +539,7 @@ struct PickerMenuItem: View {
                 searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
-                Text(e.value)
-                    .destinationRowBackgroundColor(.clear)
+                paginationRowContent(e)
             } :
             ListPickerDestination(
                 self.item.uuidValueOptions,
@@ -515,8 +549,7 @@ struct PickerMenuItem: View {
                 searchPrompt: self.item.searchPrompt,
                 searchFilter: self.item.isSearchBarHidden == false ? filter : nil
             ) { e in
-                Text(e.value)
-                    .destinationRowBackgroundColor(.clear)
+                paginationRowContent(e)
             }
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
