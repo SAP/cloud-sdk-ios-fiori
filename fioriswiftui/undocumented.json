@@ -450,574 +450,574 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 719,
+      "line": 678,
       "symbol": "SortFilterItem.PickerItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 720,
+      "line": 679,
       "symbol": "SortFilterItem.PickerItem.title",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 721,
+      "line": 680,
       "symbol": "SortFilterItem.PickerItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 722,
+      "line": 681,
       "symbol": "SortFilterItem.PickerItem.workingValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 726,
+      "line": 685,
       "symbol": "SortFilterItem.PickerItem.allowsMultipleSelection",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 727,
+      "line": 686,
       "symbol": "SortFilterItem.PickerItem.allowsEmptySelection",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 728,
+      "line": 687,
       "symbol": "SortFilterItem.PickerItem.barItemDisplayMode",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 729,
+      "line": 688,
       "symbol": "SortFilterItem.PickerItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 732,
+      "line": 691,
       "symbol": "SortFilterItem.PickerItem.displayMode",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 735,
+      "line": 694,
       "symbol": "SortFilterItem.PickerItem.searchPrompt",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1007,
+      "line": 945,
       "symbol": "SortFilterItem.SwitchItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1008,
+      "line": 946,
       "symbol": "SortFilterItem.SwitchItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1011,
+      "line": 949,
       "symbol": "SortFilterItem.SwitchItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1012,
+      "line": 950,
       "symbol": "SortFilterItem.SwitchItem.hint",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1014,
+      "line": 952,
       "symbol": "SortFilterItem.SwitchItem.init(id:name:value:icon:hint:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1052,
+      "line": 990,
       "symbol": "SortFilterItem.SliderItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1053,
+      "line": 991,
       "symbol": "SortFilterItem.SliderItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1057,
+      "line": 995,
       "symbol": "SortFilterItem.SliderItem.lowerValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1058,
+      "line": 996,
       "symbol": "SortFilterItem.SliderItem.upperValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1068,
+      "line": 1006,
       "symbol": "SortFilterItem.SliderItem.minimumValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1069,
+      "line": 1007,
       "symbol": "SortFilterItem.SliderItem.maximumValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1071,
+      "line": 1009,
       "symbol": "SortFilterItem.SliderItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1072,
+      "line": 1010,
       "symbol": "SortFilterItem.SliderItem.hint",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1074,
+      "line": 1012,
       "symbol": "SortFilterItem.SliderItem.onValueChange",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1265,
+      "line": 1203,
       "symbol": "SortFilterItem.DateTimeItem.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1266,
+      "line": 1204,
       "symbol": "SortFilterItem.DateTimeItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1267,
+      "line": 1205,
       "symbol": "SortFilterItem.DateTimeItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1270,
+      "line": 1208,
       "symbol": "SortFilterItem.DateTimeItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1271,
+      "line": 1209,
       "symbol": "SortFilterItem.DateTimeItem.formatter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1272,
+      "line": 1210,
       "symbol": "SortFilterItem.DateTimeItem.components",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1378,
+      "line": 1316,
       "symbol": "SortFilterItem.StepperItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1379,
+      "line": 1317,
       "symbol": "SortFilterItem.StepperItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1382,
+      "line": 1320,
       "symbol": "SortFilterItem.StepperItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1384,
+      "line": 1322,
       "symbol": "SortFilterItem.StepperItem.stepperTitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1391,
+      "line": 1329,
       "symbol": "SortFilterItem.StepperItem.incrementActionActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1392,
+      "line": 1330,
       "symbol": "SortFilterItem.StepperItem.decrementActionActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1393,
+      "line": 1331,
       "symbol": "SortFilterItem.StepperItem.stepperIcon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1394,
+      "line": 1332,
       "symbol": "SortFilterItem.StepperItem.description",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1396,
+      "line": 1334,
       "symbol": "SortFilterItem.StepperItem.init(id:name:stepperTitle:value:step:stepRange:isDecimalSupported:incrementActionActive:decrementActionActive:icon:stepperIcon:description:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1453,
+      "line": 1391,
       "symbol": "SortFilterItem.TitleItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1454,
+      "line": 1392,
       "symbol": "SortFilterItem.TitleItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1456,
+      "line": 1394,
       "symbol": "SortFilterItem.TitleItem.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1459,
+      "line": 1397,
       "symbol": "SortFilterItem.TitleItem.isSecureEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1460,
+      "line": 1398,
       "symbol": "SortFilterItem.TitleItem.placeholder",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1461,
+      "line": 1399,
       "symbol": "SortFilterItem.TitleItem.controlState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1462,
+      "line": 1400,
       "symbol": "SortFilterItem.TitleItem.errorMessage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1463,
+      "line": 1401,
       "symbol": "SortFilterItem.TitleItem.maxTextLength",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1464,
+      "line": 1402,
       "symbol": "SortFilterItem.TitleItem.hintText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1465,
+      "line": 1403,
       "symbol": "SortFilterItem.TitleItem.hidesReadOnlyHint",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1466,
+      "line": 1404,
       "symbol": "SortFilterItem.TitleItem.isCharCountEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1467,
+      "line": 1405,
       "symbol": "SortFilterItem.TitleItem.allowsBeyondLimit",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1468,
+      "line": 1406,
       "symbol": "SortFilterItem.TitleItem.charCountReachLimitMessage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1469,
+      "line": 1407,
       "symbol": "SortFilterItem.TitleItem.charCountBeyondLimitMsg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1540,
+      "line": 1478,
       "symbol": "SortFilterItem.NoteItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1541,
+      "line": 1479,
       "symbol": "SortFilterItem.NoteItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1543,
+      "line": 1481,
       "symbol": "SortFilterItem.NoteItem.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1546,
+      "line": 1484,
       "symbol": "SortFilterItem.NoteItem.placeholder",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1547,
+      "line": 1485,
       "symbol": "SortFilterItem.NoteItem.controlState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1548,
+      "line": 1486,
       "symbol": "SortFilterItem.NoteItem.errorMessage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1549,
+      "line": 1487,
       "symbol": "SortFilterItem.NoteItem.maxTextLength",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1550,
+      "line": 1488,
       "symbol": "SortFilterItem.NoteItem.hintText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1551,
+      "line": 1489,
       "symbol": "SortFilterItem.NoteItem.hidesReadOnlyHint",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1552,
+      "line": 1490,
       "symbol": "SortFilterItem.NoteItem.isCharCountEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1553,
+      "line": 1491,
       "symbol": "SortFilterItem.NoteItem.allowsBeyondLimit",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1554,
+      "line": 1492,
       "symbol": "SortFilterItem.NoteItem.charCountReachLimitMessage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1555,
+      "line": 1493,
       "symbol": "SortFilterItem.NoteItem.charCountBeyondLimitMsg",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1556,
+      "line": 1494,
       "symbol": "SortFilterItem.NoteItem.minTextEditorHeight",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1557,
+      "line": 1495,
       "symbol": "SortFilterItem.NoteItem.maxTextEditorHeight",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1630,
+      "line": 1568,
       "symbol": "SortFilterItem.DurationPickerItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1631,
+      "line": 1569,
       "symbol": "SortFilterItem.DurationPickerItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1634,
+      "line": 1572,
       "symbol": "SortFilterItem.DurationPickerItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1636,
+      "line": 1574,
       "symbol": "SortFilterItem.DurationPickerItem.maximumMinutes",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1637,
+      "line": 1575,
       "symbol": "SortFilterItem.DurationPickerItem.minimumMinutes",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1638,
+      "line": 1576,
       "symbol": "SortFilterItem.DurationPickerItem.minuteInterval",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1639,
+      "line": 1577,
       "symbol": "SortFilterItem.DurationPickerItem.measurementFormatter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1640,
+      "line": 1578,
       "symbol": "SortFilterItem.DurationPickerItem.init(id:name:value:maximumMinutes:minimumMinutes:minuteInterval:measurementFormatter:icon:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1707,
+      "line": 1645,
       "symbol": "SortFilterItem.OrderPickerItem.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1708,
+      "line": 1646,
       "symbol": "SortFilterItem.OrderPickerItem.title",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1709,
+      "line": 1647,
       "symbol": "SortFilterItem.OrderPickerItem.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1712,
+      "line": 1650,
       "symbol": "SortFilterItem.OrderPickerItem.icon",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1714,
+      "line": 1652,
       "symbol": "SortFilterItem.OrderPickerItem.isAtLeastOneSelected",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/DataTypes/SortFilter+DataType.swift",
-      "line": 1715,
+      "line": 1653,
       "symbol": "SortFilterItem.OrderPickerItem.controlState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -2550,91 +2550,91 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 33,
+      "line": 22,
       "symbol": "ViewList.body",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 57,
+      "line": 35,
       "symbol": "ViewList.isEmpty",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 97,
+      "line": 75,
       "symbol": "ConditionalSingle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 143,
+      "line": 121,
       "symbol": "Pair",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 197,
+      "line": 175,
       "symbol": "IconBuilder.buildBlock(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 201,
+      "line": 179,
       "symbol": "IconBuilder.buildBlock(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 205,
+      "line": 183,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 209,
+      "line": 187,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 213,
+      "line": 191,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 217,
+      "line": 195,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 221,
+      "line": 199,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 225,
+      "line": 203,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Views/IconStack/IconBuilder.swift",
-      "line": 229,
+      "line": 207,
       "symbol": "IconBuilder.buildBlock(_:_:_:_:_:_:_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -5420,35 +5420,35 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 32,
+      "line": 30,
       "symbol": "LinearProgressIndicatorDeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 49,
+      "line": 40,
       "symbol": "LinearProgressIndicatorIndeterminateStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 62,
+      "line": 48,
       "symbol": "LinearProgressIndicatorErrorStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 73,
+      "line": 57,
       "symbol": "LinearProgressIndicatorSuccessStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/LinearProgressIndicatorStyle.fiori.swift",
-      "line": 138,
+      "line": 117,
       "symbol": "LinearProgressIndicatorStyle.determinate",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -7317,7 +7317,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/TimelineMarkerStyle.fiori.swift",
-      "line": 7,
+      "line": 9,
       "symbol": "TimelineMarkerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -7401,7 +7401,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/TimelineStyle.fiori.swift",
-      "line": 7,
+      "line": 9,
       "symbol": "TimelineBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -22164,9 +22164,23 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 36,
-      "symbol": "FilterFormView.init(title:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:numberOfLines:onValueChange:checkmarkImage:componentIdentifier:)",
+      "line": 34,
+      "symbol": "FilterFormView.init(title:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:onValueChange:checkmarkImage:componentIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
+      "line": 64,
+      "symbol": "FilterFormView",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
+      "line": 65,
+      "symbol": "FilterFormView.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
@@ -22179,41 +22193,27 @@
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
       "line": 69,
-      "symbol": "FilterFormView.identifier",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 72,
-      "symbol": "FilterFormView",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 73,
-      "symbol": "FilterFormView.init(title:mandatoryFieldIndicator:isRequired:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:numberOfLines:onValueChange:checkmarkImage:)",
+      "symbol": "FilterFormView.init(title:mandatoryFieldIndicator:isRequired:options:controlState:errorMessage:isEnabled:allowsMultipleSelection:allowsEmptySelection:value:buttonSize:isSingleLine:onValueChange:checkmarkImage:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 95,
+      "line": 90,
       "symbol": "FilterFormView",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 96,
+      "line": 91,
       "symbol": "FilterFormView.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormView.generated.swift",
-      "line": 119,
+      "line": 113,
       "symbol": "FilterFormView",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -22333,48 +22333,41 @@
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
       "line": 36,
-      "symbol": "FilterFormViewConfiguration.numberOfLines",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 37,
       "symbol": "FilterFormViewConfiguration.onValueChange",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 38,
+      "line": 37,
       "symbol": "FilterFormViewConfiguration.checkmarkImage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 40,
+      "line": 39,
       "symbol": "FilterFormViewConfiguration.Title",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 41,
+      "line": 40,
       "symbol": "FilterFormViewConfiguration.CheckmarkImage",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 50,
+      "line": 49,
       "symbol": "FilterFormViewFioriStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/FilterFormView/FilterFormViewStyle.generated.swift",
-      "line": 51,
+      "line": 50,
       "symbol": "FilterFormViewFioriStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -28940,28 +28933,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 137,
+      "line": 116,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 144,
+      "line": 123,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 152,
+      "line": 131,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/LinearProgressIndicator/LinearProgressIndicatorStyle.generated.swift",
-      "line": 160,
+      "line": 139,
       "symbol": "LinearProgressIndicatorStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -43031,28 +43024,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/Timeline.generated.swift",
-      "line": 44,
-      "symbol": "Timeline.init(timestamp:secondaryTimestamp:timelineNode:icon:title:subtitle:attribute:status:substatus:subAttribute:isPast:isPresent:showUpperVerticalLine:showLowerVerticalLine:componentIdentifier:)",
+      "line": 40,
+      "symbol": "Timeline.init(timestamp:secondaryTimestamp:timelineNode:icon:title:subtitle:attribute:status:substatus:subAttribute:isPast:isPresent:componentIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/Timeline.generated.swift",
-      "line": 79,
+      "line": 71,
       "symbol": "Timeline.identifier",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/Timeline.generated.swift",
-      "line": 83,
-      "symbol": "Timeline.init(timestamp:secondaryTimestamp:timelineNode:icon:title:subtitle:attribute:status:substatus:subAttribute:isPast:isPresent:showUpperVerticalLine:showLowerVerticalLine:)",
+      "line": 75,
+      "symbol": "Timeline.init(timestamp:secondaryTimestamp:timelineNode:icon:title:subtitle:attribute:status:substatus:subAttribute:isPast:isPresent:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/Timeline.generated.swift",
-      "line": 103,
+      "line": 93,
       "symbol": "Timeline.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -43178,98 +43171,84 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 38,
-      "symbol": "TimelineConfiguration.showUpperVerticalLine",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
       "line": 39,
-      "symbol": "TimelineConfiguration.showLowerVerticalLine",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 41,
       "symbol": "TimelineConfiguration.Timestamp",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 42,
+      "line": 40,
       "symbol": "TimelineConfiguration.SecondaryTimestamp",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 43,
+      "line": 41,
       "symbol": "TimelineConfiguration.TimelineNode",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 44,
+      "line": 42,
       "symbol": "TimelineConfiguration.Icon",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 45,
+      "line": 43,
       "symbol": "TimelineConfiguration.Title",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 46,
+      "line": 44,
       "symbol": "TimelineConfiguration.Subtitle",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 47,
+      "line": 45,
       "symbol": "TimelineConfiguration.Attribute",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 48,
+      "line": 46,
       "symbol": "TimelineConfiguration.Status",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 49,
+      "line": 47,
       "symbol": "TimelineConfiguration.Substatus",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 50,
+      "line": 48,
       "symbol": "TimelineConfiguration.SubAttribute",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 59,
+      "line": 57,
       "symbol": "TimelineFioriStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/Timeline/TimelineStyle.generated.swift",
-      "line": 60,
+      "line": 58,
       "symbol": "TimelineFioriStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
