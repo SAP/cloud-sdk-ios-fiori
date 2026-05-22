@@ -25,6 +25,8 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     @State private var subScrollViewHeight: CGFloat = 0
     @State var horizontalSizeClass: UserInterfaceSizeClass = UIDevice.current.userInterfaceIdiom != .phone ? .regular : .compact
     
+    @State private var presentingViewHeight: CGFloat = 0
+
     #if !os(visionOS)
         private let popoverIdealWidth = 393.0
     #else
@@ -149,6 +151,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
         #else
             .listRowBackground(Color.clear)
         #endif
+            .background(
+                PresentingViewHeightReader { height in
+                    self.presentingViewHeight = height
+                }
+            )
             .background(WindowTraitReader { sizeClass in
                 self.horizontalSizeClass = sizeClass
             })
@@ -159,12 +166,11 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             if self.subScrollViewHeight > 0 {
                 return [.height(self.subScrollViewHeight), .large]
             } else {
-                if scrollViewHeight + self.bottomHeight >= self.navigationBarHeight {
-                    if #available(iOS 26.0, *) {
-                        return [.medium, .large]
-                    } else {
-                        return [.medium, .fraction(0.999)]
-                    }
+                let halfScreenHeight = self.presentingViewHeight / 2
+                if #available(iOS 26.0, *) {
+                    return [.height(scrollViewHeight + self.bottomHeight), .medium, .large]
+                } else if scrollViewHeight + self.bottomHeight > halfScreenHeight {
+                    return [.medium, .fraction(0.999)]
                 } else {
                     return [.height(scrollViewHeight + self.bottomHeight), .fraction(0.999)]
                 }
@@ -287,6 +293,50 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
                 .foregroundStyle(Color.preferredColor(.primaryLabel))
             #endif
                 .contentShape(.accessibility, .capsule.scale(1.2))
+        }
+    }
+}
+
+// Custom UIViewControllerRepresentable to get the presenting view controller's view height
+private struct PresentingViewHeightReader: UIViewControllerRepresentable {
+    let onHeightChange: (CGFloat) -> Void
+    
+    func makeUIViewController(context: Context) -> HeightReaderViewController {
+        HeightReaderViewController(onHeightChange: self.onHeightChange)
+    }
+    
+    func updateUIViewController(_ uiViewController: HeightReaderViewController, context: Context) {}
+    
+    final class HeightReaderViewController: UIViewController {
+        let onHeightChange: (CGFloat) -> Void
+        
+        init(onHeightChange: @escaping (CGFloat) -> Void) {
+            self.onHeightChange = onHeightChange
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder: NSCoder) { nil }
+        
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            self.updatePresentingViewHeight()
+        }
+        
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            self.updatePresentingViewHeight()
+        }
+        
+        private func updatePresentingViewHeight() {
+            // Try to get the presenting view controller's view height
+            if let presentingVC = self.presentingViewController {
+                let height = presentingVC.view.bounds.height
+                self.onHeightChange(height)
+            } else if let window = self.view.window {
+                // Fallback to window height if no presenting VC
+                let height = window.bounds.height
+                self.onHeightChange(height)
+            }
         }
     }
 }
