@@ -78,6 +78,8 @@ struct KeyValueItemExample: View {
                 Spacer()
                 Text("www.google.com").font(.fiori(forTextStyle: .body, weight: .semibold))
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Long long long long long long long long long Value, 650-000-0000, xyz@gmail.com, www.google.com")
         case .vertical:
             return VStack(alignment: .leading) {
                 Text("Long long long long long long long long long Value")
@@ -85,6 +87,8 @@ struct KeyValueItemExample: View {
                 Text("xyz@gmail.com")
                 Text("https://www.google.com")
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Long long long long long long long long long Value, 650-000-0000, xyz@gmail.com, https://www.google.com")
         }
     }
     
