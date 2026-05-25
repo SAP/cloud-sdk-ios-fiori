@@ -366,7 +366,7 @@ struct WATextInputModifier: ViewModifier {
             if !self.context.isInWAFlow {
                 textView.inputView = nil
                 textView.isEditable = true
-                textView.resignFirstResponder()
+                textView.becomeFirstResponder()
                 return
             }
             if useWAPanel {
@@ -386,7 +386,7 @@ struct WATextInputModifier: ViewModifier {
         } else if let textField = self.context.waTextInput as? UITextField {
             if !self.context.isInWAFlow {
                 textField.inputView = nil
-                textField.resignFirstResponder()
+                textField.becomeFirstResponder()
                 return
             }
             if useWAPanel {
