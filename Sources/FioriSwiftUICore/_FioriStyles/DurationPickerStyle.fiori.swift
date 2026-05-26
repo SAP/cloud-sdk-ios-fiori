@@ -61,6 +61,8 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
     func mainStackAccessibilityHint(_ configuration: DurationPickerConfiguration) -> String {
         if configuration.controlState != .disabled, configuration.controlState != .readOnly {
             configuration.pickerVisible ? "DoubleTapToCollapseKey".localizedFioriString() : "DoubleTapToOpenKey".localizedFioriString()
+        } else if configuration.controlState == .readOnly {
+            "read-only".localizedFioriString()
         } else {
             ""
         }
@@ -88,6 +90,8 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
         DurationPickerViewWrapper(selection: configuration.$selection, maximumMinutes: configuration.maximumMinutes, minimumMinutes: configuration.minimumMinutes, minuteInterval: configuration.minuteInterval, measurementFormatter: configuration.measurementFormatter)
             .frame(height: 204)
             .foregroundColor(Color.preferredColor(.primaryLabel))
+            .disabled(configuration.controlState == .readOnly || configuration.controlState == .disabled)
+            .accessibilityHidden(configuration.controlState == .readOnly || configuration.controlState == .disabled)
             .setOnChange(of: configuration.selection) {
                 _ = self.getValueLabel(configuration)
             }
