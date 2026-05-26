@@ -115,7 +115,10 @@ struct IllustratedMessageExample: View {
                         }, description: {
                             hasDescription ? Text("This is description text for the Illustrated Message component") : nil
                         }, action: {
-                            hasAction ? FioriButton(title: "Action", action: { _ in print("Tapped Action") }) : nil
+                            if hasAction {
+                                FioriButton(title: "Action", action: { _ in print("Tapped Action") })
+                                    .accessibilityLabel("Action, emphasized")
+                            }
                         }, secondaryAction: {
                             hasAction && self.showSecondButton ? FioriButton(title: "Secondary Action", action: { _ in print("Tapped Secondary Action") }) : nil
                         }, detailImageSize: self.selectedDetailImageSize, isActionVerticallyAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
