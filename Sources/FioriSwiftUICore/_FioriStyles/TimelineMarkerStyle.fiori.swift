@@ -57,6 +57,7 @@ public struct TimelineMarkerBaseStyle: TimelineMarkerStyle {
                         configuration.title
                         Spacer()
                     }
+                    Spacer()
                     Divider()
                         .foregroundColor(Color.preferredColor(.separator).opacity(0.41))
                         .frame(height: 0.33)

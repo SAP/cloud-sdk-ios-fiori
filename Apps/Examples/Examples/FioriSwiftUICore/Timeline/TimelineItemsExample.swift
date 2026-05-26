@@ -20,7 +20,53 @@ struct TimelineItemsExample: View {
                         config.secondaryTimestamp.foregroundColor(.yellow)
                     })
             }
-            Section(header: Text("Timeline")) {
+            Section(header: Text("Timeline 0")) {
+                Timeline(
+                    timestamp: { Text("06/06/26") },
+                    secondaryTimestamp: { EmptyView() },
+                    timelineNode: { TimelineNodeView(.add) },
+                    icon: { EmptyView() },
+                    title: {
+                        EmptyView()
+                    },
+                    subtitle: {
+                        EmptyView()
+                    },
+                    attribute: { EmptyView() },
+                    status: { EmptyView() },
+                    substatus: { EmptyView() },
+                    subAttribute: { EmptyView() },
+                    isPast: false,
+                    isPresent: true
+                )
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowSeparator(.hidden)
+                .modifier(CustomListRowModifier())
+            }
+            Section(header: Text("Timeline 1")) {
+                Timeline(
+                    timestamp: { Text("06/09/26") },
+                    secondaryTimestamp: { EmptyView() },
+                    timelineNode: { TimelineNodeView(.add) },
+                    icon: { TextOrIconView(TextOrIcon.icon(Image(fioriName: "fiori.browse.folder"))) },
+                    title: {
+                        Text("Expected proficiency level removed from job role")
+                    },
+                    subtitle: {
+                        Text("This is the subtitle of the timeline node")
+                    },
+                    attribute: { Text("Attribute title") },
+                    status: { Text("status") },
+                    substatus: { Text("sub status") },
+                    subAttribute: { Text("sub attribute") },
+                    isPast: false,
+                    isPresent: true
+                )
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowSeparator(.hidden)
+                .modifier(CustomListRowModifier())
+            }
+            Section(header: Text("Timeline 2")) {
                 Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .both("substatus", Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
                     .modifier(CustomListRowModifier())
                     .secondaryTimestampStyle(content: { config in
