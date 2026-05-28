@@ -2806,6 +2806,366 @@ public enum FioriIcon {
         ///
         public static let surveySmall = Image(fioriName: "fiori.ill.survey.small")
         ///
+        public static let tntAvatarExtraSmall = Image(fioriName: "fiori.ill.tnt.avatar.extrasmall")
+        ///
+        public static let tntAvatarLarge = Image(fioriName: "fiori.ill.tnt.avatar.large")
+        ///
+        public static let tntAvatarMedium = Image(fioriName: "fiori.ill.tnt.avatar.medium")
+        ///
+        public static let tntAvatarSmall = Image(fioriName: "fiori.ill.tnt.avatar.small")
+        ///
+        public static let tntCalculatorExtraSmall = Image(fioriName: "fiori.ill.tnt.calculator.extrasmall")
+        ///
+        public static let tntCalculatorLarge = Image(fioriName: "fiori.ill.tnt.calculator.large")
+        ///
+        public static let tntCalculatorMedium = Image(fioriName: "fiori.ill.tnt.calculator.medium")
+        ///
+        public static let tntCalculatorSmall = Image(fioriName: "fiori.ill.tnt.calculator.small")
+        ///
+        public static let tntChartAreaExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.area.extrasmall")
+        ///
+        public static let tntChartAreaLarge = Image(fioriName: "fiori.ill.tnt.chart.area.large")
+        ///
+        public static let tntChartAreaMedium = Image(fioriName: "fiori.ill.tnt.chart.area.medium")
+        ///
+        public static let tntChartAreaSmall = Image(fioriName: "fiori.ill.tnt.chart.area.small")
+        ///
+        public static let tntChartArea2ExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.area2.extrasmall")
+        ///
+        public static let tntChartArea2Large = Image(fioriName: "fiori.ill.tnt.chart.area2.large")
+        ///
+        public static let tntChartArea2Medium = Image(fioriName: "fiori.ill.tnt.chart.area2.medium")
+        ///
+        public static let tntChartArea2Small = Image(fioriName: "fiori.ill.tnt.chart.area2.small")
+        ///
+        public static let tntChartBarExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.bar.extrasmall")
+        ///
+        public static let tntChartBarLarge = Image(fioriName: "fiori.ill.tnt.chart.bar.large")
+        ///
+        public static let tntChartBarMedium = Image(fioriName: "fiori.ill.tnt.chart.bar.medium")
+        ///
+        public static let tntChartBarSmall = Image(fioriName: "fiori.ill.tnt.chart.bar.small")
+        ///
+        public static let tntChartBpmnFlowExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.extrasmall")
+        ///
+        public static let tntChartBpmnFlowLarge = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.large")
+        ///
+        public static let tntChartBpmnFlowMedium = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.medium")
+        ///
+        public static let tntChartBpmnFlowSmall = Image(fioriName: "fiori.ill.tnt.chart.bpmn.flow.small")
+        ///
+        public static let tntChartBulletExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.bullet.extrasmall")
+        ///
+        public static let tntChartBulletLarge = Image(fioriName: "fiori.ill.tnt.chart.bullet.large")
+        ///
+        public static let tntChartBulletMedium = Image(fioriName: "fiori.ill.tnt.chart.bullet.medium")
+        ///
+        public static let tntChartBulletSmall = Image(fioriName: "fiori.ill.tnt.chart.bullet.small")
+        ///
+        public static let tntChartDoughnutExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.doughnut.extrasmall")
+        ///
+        public static let tntChartDoughnutLarge = Image(fioriName: "fiori.ill.tnt.chart.doughnut.large")
+        ///
+        public static let tntChartDoughnutMedium = Image(fioriName: "fiori.ill.tnt.chart.doughnut.medium")
+        ///
+        public static let tntChartDoughnutSmall = Image(fioriName: "fiori.ill.tnt.chart.doughnut.small")
+        ///
+        public static let tntChartFlowExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.flow.extrasmall")
+        ///
+        public static let tntChartFlowLarge = Image(fioriName: "fiori.ill.tnt.chart.flow.large")
+        ///
+        public static let tntChartFlowMedium = Image(fioriName: "fiori.ill.tnt.chart.flow.medium")
+        ///
+        public static let tntChartFlowSmall = Image(fioriName: "fiori.ill.tnt.chart.flow.small")
+        ///
+        public static let tntChartGanttExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.gantt.extrasmall")
+        ///
+        public static let tntChartGanttLarge = Image(fioriName: "fiori.ill.tnt.chart.gantt.large")
+        ///
+        public static let tntChartGanttMedium = Image(fioriName: "fiori.ill.tnt.chart.gantt.medium")
+        ///
+        public static let tntChartGanttSmall = Image(fioriName: "fiori.ill.tnt.chart.gantt.small")
+        ///
+        public static let tntChartOrgExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.org.extrasmall")
+        ///
+        public static let tntChartOrgLarge = Image(fioriName: "fiori.ill.tnt.chart.org.large")
+        ///
+        public static let tntChartOrgMedium = Image(fioriName: "fiori.ill.tnt.chart.org.medium")
+        ///
+        public static let tntChartOrgSmall = Image(fioriName: "fiori.ill.tnt.chart.org.small")
+        ///
+        public static let tntChartPieExtraSmall = Image(fioriName: "fiori.ill.tnt.chart.pie.extrasmall")
+        ///
+        public static let tntChartPieLarge = Image(fioriName: "fiori.ill.tnt.chart.pie.large")
+        ///
+        public static let tntChartPieMedium = Image(fioriName: "fiori.ill.tnt.chart.pie.medium")
+        ///
+        public static let tntChartPieSmall = Image(fioriName: "fiori.ill.tnt.chart.pie.small")
+        ///
+        public static let tntCodePlaceholderExtraSmall = Image(fioriName: "fiori.ill.tnt.code.placeholder.extrasmall")
+        ///
+        public static let tntCodePlaceholderLarge = Image(fioriName: "fiori.ill.tnt.code.placeholder.large")
+        ///
+        public static let tntCodePlaceholderMedium = Image(fioriName: "fiori.ill.tnt.code.placeholder.medium")
+        ///
+        public static let tntCodePlaceholderSmall = Image(fioriName: "fiori.ill.tnt.code.placeholder.small")
+        ///
+        public static let tntCompanyExtraSmall = Image(fioriName: "fiori.ill.tnt.company.extrasmall")
+        ///
+        public static let tntCompanyLarge = Image(fioriName: "fiori.ill.tnt.company.large")
+        ///
+        public static let tntCompanyMedium = Image(fioriName: "fiori.ill.tnt.company.medium")
+        ///
+        public static let tntCompanySmall = Image(fioriName: "fiori.ill.tnt.company.small")
+        ///
+        public static let tntCompassExtraSmall = Image(fioriName: "fiori.ill.tnt.compass.extrasmall")
+        ///
+        public static let tntCompassLarge = Image(fioriName: "fiori.ill.tnt.compass.large")
+        ///
+        public static let tntCompassMedium = Image(fioriName: "fiori.ill.tnt.compass.medium")
+        ///
+        public static let tntCompassSmall = Image(fioriName: "fiori.ill.tnt.compass.small")
+        ///
+        public static let tntComponentsExtraSmall = Image(fioriName: "fiori.ill.tnt.components.extrasmall")
+        ///
+        public static let tntComponentsLarge = Image(fioriName: "fiori.ill.tnt.components.large")
+        ///
+        public static let tntComponentsMedium = Image(fioriName: "fiori.ill.tnt.components.medium")
+        ///
+        public static let tntComponentsSmall = Image(fioriName: "fiori.ill.tnt.components.small")
+        ///
+        public static let tntDialogExtraSmall = Image(fioriName: "fiori.ill.tnt.dialog.extrasmall")
+        ///
+        public static let tntDialogLarge = Image(fioriName: "fiori.ill.tnt.dialog.large")
+        ///
+        public static let tntDialogMedium = Image(fioriName: "fiori.ill.tnt.dialog.medium")
+        ///
+        public static let tntDialogSmall = Image(fioriName: "fiori.ill.tnt.dialog.small")
+        ///
+        public static let tntExternalLinkExtraSmall = Image(fioriName: "fiori.ill.tnt.external.link.extrasmall")
+        ///
+        public static let tntExternalLinkLarge = Image(fioriName: "fiori.ill.tnt.external.link.large")
+        ///
+        public static let tntExternalLinkMedium = Image(fioriName: "fiori.ill.tnt.external.link.medium")
+        ///
+        public static let tntExternalLinkSmall = Image(fioriName: "fiori.ill.tnt.external.link.small")
+        ///
+        public static let tntFaceIdExtraSmall = Image(fioriName: "fiori.ill.tnt.face.id.extrasmall")
+        ///
+        public static let tntFaceIdLarge = Image(fioriName: "fiori.ill.tnt.face.id.large")
+        ///
+        public static let tntFaceIdMedium = Image(fioriName: "fiori.ill.tnt.face.id.medium")
+        ///
+        public static let tntFaceIdSmall = Image(fioriName: "fiori.ill.tnt.face.id.small")
+        ///
+        public static let tntFingerprintExtraSmall = Image(fioriName: "fiori.ill.tnt.fingerprint.extrasmall")
+        ///
+        public static let tntFingerprintLarge = Image(fioriName: "fiori.ill.tnt.fingerprint.large")
+        ///
+        public static let tntFingerprintMedium = Image(fioriName: "fiori.ill.tnt.fingerprint.medium")
+        ///
+        public static let tntFingerprintSmall = Image(fioriName: "fiori.ill.tnt.fingerprint.small")
+        ///
+        public static let tntHandshakeExtraSmall = Image(fioriName: "fiori.ill.tnt.handshake.extrasmall")
+        ///
+        public static let tntHandshakeLarge = Image(fioriName: "fiori.ill.tnt.handshake.large")
+        ///
+        public static let tntHandshakeMedium = Image(fioriName: "fiori.ill.tnt.handshake.medium")
+        ///
+        public static let tntHandshakeSmall = Image(fioriName: "fiori.ill.tnt.handshake.small")
+        ///
+        public static let tntHelpExtraSmall = Image(fioriName: "fiori.ill.tnt.help.extrasmall")
+        ///
+        public static let tntHelpLarge = Image(fioriName: "fiori.ill.tnt.help.large")
+        ///
+        public static let tntHelpMedium = Image(fioriName: "fiori.ill.tnt.help.medium")
+        ///
+        public static let tntHelpSmall = Image(fioriName: "fiori.ill.tnt.help.small")
+        ///
+        public static let tntLockExtraSmall = Image(fioriName: "fiori.ill.tnt.lock.extrasmall")
+        ///
+        public static let tntLockLarge = Image(fioriName: "fiori.ill.tnt.lock.large")
+        ///
+        public static let tntLockMedium = Image(fioriName: "fiori.ill.tnt.lock.medium")
+        ///
+        public static let tntLockSmall = Image(fioriName: "fiori.ill.tnt.lock.small")
+        ///
+        public static let tntMissionExtraSmall = Image(fioriName: "fiori.ill.tnt.mission.extrasmall")
+        ///
+        public static let tntMissionFailedExtraSmall = Image(fioriName: "fiori.ill.tnt.mission.failed.extrasmall")
+        ///
+        public static let tntMissionFailedLarge = Image(fioriName: "fiori.ill.tnt.mission.failed.large")
+        ///
+        public static let tntMissionFailedMedium = Image(fioriName: "fiori.ill.tnt.mission.failed.medium")
+        ///
+        public static let tntMissionFailedSmall = Image(fioriName: "fiori.ill.tnt.mission.failed.small")
+        ///
+        public static let tntMissionLarge = Image(fioriName: "fiori.ill.tnt.mission.large")
+        ///
+        public static let tntMissionMedium = Image(fioriName: "fiori.ill.tnt.mission.medium")
+        ///
+        public static let tntMissionSmall = Image(fioriName: "fiori.ill.tnt.mission.small")
+        ///
+        public static let tntNoApplicationsExtraSmall = Image(fioriName: "fiori.ill.tnt.no.applications.extrasmall")
+        ///
+        public static let tntNoApplicationsLarge = Image(fioriName: "fiori.ill.tnt.no.applications.large")
+        ///
+        public static let tntNoApplicationsMedium = Image(fioriName: "fiori.ill.tnt.no.applications.medium")
+        ///
+        public static let tntNoApplicationsSmall = Image(fioriName: "fiori.ill.tnt.no.applications.small")
+        ///
+        public static let tntNoFlowsExtraSmall = Image(fioriName: "fiori.ill.tnt.no.flows.extrasmall")
+        ///
+        public static let tntNoFlowsLarge = Image(fioriName: "fiori.ill.tnt.no.flows.large")
+        ///
+        public static let tntNoFlowsMedium = Image(fioriName: "fiori.ill.tnt.no.flows.medium")
+        ///
+        public static let tntNoFlowsSmall = Image(fioriName: "fiori.ill.tnt.no.flows.small")
+        ///
+        public static let tntNoUsersExtraSmall = Image(fioriName: "fiori.ill.tnt.no.users.extrasmall")
+        ///
+        public static let tntNoUsersLarge = Image(fioriName: "fiori.ill.tnt.no.users.large")
+        ///
+        public static let tntNoUsersMedium = Image(fioriName: "fiori.ill.tnt.no.users.medium")
+        ///
+        public static let tntNoUsersSmall = Image(fioriName: "fiori.ill.tnt.no.users.small")
+        ///
+        public static let tntRadarExtraSmall = Image(fioriName: "fiori.ill.tnt.radar.extrasmall")
+        ///
+        public static let tntRadarLarge = Image(fioriName: "fiori.ill.tnt.radar.large")
+        ///
+        public static let tntRadarMedium = Image(fioriName: "fiori.ill.tnt.radar.medium")
+        ///
+        public static let tntRadarSmall = Image(fioriName: "fiori.ill.tnt.radar.small")
+        ///
+        public static let tntRoadMapExtraSmall = Image(fioriName: "fiori.ill.tnt.road.map.extrasmall")
+        ///
+        public static let tntRoadMapLarge = Image(fioriName: "fiori.ill.tnt.road.map.large")
+        ///
+        public static let tntRoadMapMedium = Image(fioriName: "fiori.ill.tnt.road.map.medium")
+        ///
+        public static let tntRoadMapSmall = Image(fioriName: "fiori.ill.tnt.road.map.small")
+        ///
+        public static let tntSecretsExtraSmall = Image(fioriName: "fiori.ill.tnt.secrets.extrasmall")
+        ///
+        public static let tntSecretsLarge = Image(fioriName: "fiori.ill.tnt.secrets.large")
+        ///
+        public static let tntSecretsMedium = Image(fioriName: "fiori.ill.tnt.secrets.medium")
+        ///
+        public static let tntSecretsSmall = Image(fioriName: "fiori.ill.tnt.secrets.small")
+        ///
+        public static let tntServicesExtraSmall = Image(fioriName: "fiori.ill.tnt.services.extrasmall")
+        ///
+        public static let tntServicesLarge = Image(fioriName: "fiori.ill.tnt.services.large")
+        ///
+        public static let tntServicesMedium = Image(fioriName: "fiori.ill.tnt.services.medium")
+        ///
+        public static let tntServicesSmall = Image(fioriName: "fiori.ill.tnt.services.small")
+        ///
+        public static let tntSessionExpiredExtraSmall = Image(fioriName: "fiori.ill.tnt.session.expired.extrasmall")
+        ///
+        public static let tntSessionExpiredLarge = Image(fioriName: "fiori.ill.tnt.session.expired.large")
+        ///
+        public static let tntSessionExpiredMedium = Image(fioriName: "fiori.ill.tnt.session.expired.medium")
+        ///
+        public static let tntSessionExpiredSmall = Image(fioriName: "fiori.ill.tnt.session.expired.small")
+        ///
+        public static let tntSessionExpiringExtraSmall = Image(fioriName: "fiori.ill.tnt.session.expiring.extrasmall")
+        ///
+        public static let tntSessionExpiringLarge = Image(fioriName: "fiori.ill.tnt.session.expiring.large")
+        ///
+        public static let tntSessionExpiringMedium = Image(fioriName: "fiori.ill.tnt.session.expiring.medium")
+        ///
+        public static let tntSessionExpiringSmall = Image(fioriName: "fiori.ill.tnt.session.expiring.small")
+        ///
+        public static let tntSettingsExtraSmall = Image(fioriName: "fiori.ill.tnt.settings.extrasmall")
+        ///
+        public static let tntSettingsLarge = Image(fioriName: "fiori.ill.tnt.settings.large")
+        ///
+        public static let tntSettingsMedium = Image(fioriName: "fiori.ill.tnt.settings.medium")
+        ///
+        public static let tntSettingsSmall = Image(fioriName: "fiori.ill.tnt.settings.small")
+        ///
+        public static let tntSuccessExtraSmall = Image(fioriName: "fiori.ill.tnt.success.extrasmall")
+        ///
+        public static let tntSuccessLarge = Image(fioriName: "fiori.ill.tnt.success.large")
+        ///
+        public static let tntSuccessMedium = Image(fioriName: "fiori.ill.tnt.success.medium")
+        ///
+        public static let tntSuccessSmall = Image(fioriName: "fiori.ill.tnt.success.small")
+        ///
+        public static let tntSuccessfulAuthExtraSmall = Image(fioriName: "fiori.ill.tnt.successful.auth.extrasmall")
+        ///
+        public static let tntSuccessfulAuthLarge = Image(fioriName: "fiori.ill.tnt.successful.auth.large")
+        ///
+        public static let tntSuccessfulAuthMedium = Image(fioriName: "fiori.ill.tnt.successful.auth.medium")
+        ///
+        public static let tntSuccessfulAuthSmall = Image(fioriName: "fiori.ill.tnt.successful.auth.small")
+        ///
+        public static let tntSystemsExtraSmall = Image(fioriName: "fiori.ill.tnt.systems.extrasmall")
+        ///
+        public static let tntSystemsLarge = Image(fioriName: "fiori.ill.tnt.systems.large")
+        ///
+        public static let tntSystemsMedium = Image(fioriName: "fiori.ill.tnt.systems.medium")
+        ///
+        public static let tntSystemsSmall = Image(fioriName: "fiori.ill.tnt.systems.small")
+        ///
+        public static let tntTeamsExtraSmall = Image(fioriName: "fiori.ill.tnt.teams.extrasmall")
+        ///
+        public static let tntTeamsLarge = Image(fioriName: "fiori.ill.tnt.teams.large")
+        ///
+        public static let tntTeamsMedium = Image(fioriName: "fiori.ill.tnt.teams.medium")
+        ///
+        public static let tntTeamsSmall = Image(fioriName: "fiori.ill.tnt.teams.small")
+        ///
+        public static let tntToolsExtraSmall = Image(fioriName: "fiori.ill.tnt.tools.extrasmall")
+        ///
+        public static let tntToolsLarge = Image(fioriName: "fiori.ill.tnt.tools.large")
+        ///
+        public static let tntToolsMedium = Image(fioriName: "fiori.ill.tnt.tools.medium")
+        ///
+        public static let tntToolsSmall = Image(fioriName: "fiori.ill.tnt.tools.small")
+        ///
+        public static let tntTutorialsExtraSmall = Image(fioriName: "fiori.ill.tnt.tutorials.extrasmall")
+        ///
+        public static let tntTutorialsLarge = Image(fioriName: "fiori.ill.tnt.tutorials.large")
+        ///
+        public static let tntTutorialsMedium = Image(fioriName: "fiori.ill.tnt.tutorials.medium")
+        ///
+        public static let tntTutorialsSmall = Image(fioriName: "fiori.ill.tnt.tutorials.small")
+        ///
+        public static let tntUnableToLoadExtraSmall = Image(fioriName: "fiori.ill.tnt.unable.to.load.extrasmall")
+        ///
+        public static let tntUnableToLoadLarge = Image(fioriName: "fiori.ill.tnt.unable.to.load.large")
+        ///
+        public static let tntUnableToLoadMedium = Image(fioriName: "fiori.ill.tnt.unable.to.load.medium")
+        ///
+        public static let tntUnableToLoadSmall = Image(fioriName: "fiori.ill.tnt.unable.to.load.small")
+        ///
+        public static let tntUnlockExtraSmall = Image(fioriName: "fiori.ill.tnt.unlock.extrasmall")
+        ///
+        public static let tntUnlockLarge = Image(fioriName: "fiori.ill.tnt.unlock.large")
+        ///
+        public static let tntUnlockMedium = Image(fioriName: "fiori.ill.tnt.unlock.medium")
+        ///
+        public static let tntUnlockSmall = Image(fioriName: "fiori.ill.tnt.unlock.small")
+        ///
+        public static let tntUnsuccessfulAuthExtraSmall = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.extrasmall")
+        ///
+        public static let tntUnsuccessfulAuthLarge = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.large")
+        ///
+        public static let tntUnsuccessfulAuthMedium = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.medium")
+        ///
+        public static let tntUnsuccessfulAuthSmall = Image(fioriName: "fiori.ill.tnt.unsuccessful.auth.small")
+        ///
+        public static let tntUser2ExtraSmall = Image(fioriName: "fiori.ill.tnt.user2.extrasmall")
+        ///
+        public static let tntUser2Large = Image(fioriName: "fiori.ill.tnt.user2.large")
+        ///
+        public static let tntUser2Medium = Image(fioriName: "fiori.ill.tnt.user2.medium")
+        ///
+        public static let tntUser2Small = Image(fioriName: "fiori.ill.tnt.user2.small")
+        ///
         public static let unableToLoadExtraSmall = Image(fioriName: "fiori.ill.unable.to.load.extrasmall")
         ///
         public static let unableToLoadImageExtraSmall = Image(fioriName: "fiori.ill.unable.to.load.image.extrasmall")
@@ -3518,546 +3878,6 @@ public enum FioriIcon {
         ///
         @available(*, unavailable, message: "Illustration was replaced", renamed: "noDataSmall")
         public static let tentSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntAvatarDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntAvatarDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntAvatarScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntAvatarSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCalculatorDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCalculatorDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCalculatorScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCalculatorSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartDoughnutDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartDoughnutDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartDoughnutScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartDoughnutSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartAreaDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartAreaDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartAreaScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartAreaSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartArea2Dialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartArea2Dot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartArea2Scene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartArea2Spot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBarDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBarDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBarScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBarSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBpmnFlowDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBpmnFlowDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBpmnFlowScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBpmnFlowSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBulletDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBulletDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBulletScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartBulletSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartFlowDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartFlowDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartFlowScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartFlowSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartGanttDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartGanttDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartGanttScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartGanttSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartOrgDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartOrgDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartOrgScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartOrgSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartPieDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartPieDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartPieScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntChartPieSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCodePlaceholderDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCodePlaceholderDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCodePlaceholderScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCodePlaceholderSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompanyDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompanyDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompanyScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompanySpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompassDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompassDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompassScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntCompassSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntComponentsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntComponentsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntComponentsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntComponentsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntDialogDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntDialogDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntDialogScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntDialogSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntExternalLinkDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntExternalLinkDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntExternalLinkScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntExternalLinkSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFaceIdDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFaceIdDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFaceIdScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFaceIdSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFingerprintDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFingerprintDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFingerprintScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntFingerprintSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHandshakeDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHandshakeDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHandshakeScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHandshakeSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHelpDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHelpDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHelpScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntHelpSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntLockDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntLockDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntLockScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntLockSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionFailedDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionFailedDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionFailedScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionFailedSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntMissionSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoApplicationsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoApplicationsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoApplicationsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoApplicationsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoFlowsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoFlowsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoFlowsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoFlowsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoUsersDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoUsersDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoUsersScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntNoUsersSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRadarDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRadarDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRadarScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRadarSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRoadMapDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRoadMapDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRoadMapScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntRoadMapSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSecretsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSecretsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSecretsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSecretsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntServicesDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntServicesDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntServicesScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntServicesSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiredDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiredDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiredScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiredSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiringDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiringDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiringScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSessionExpiringSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSettingsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSettingsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSettingsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSettingsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessfulAuthDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessfulAuthDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessfulAuthScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSuccessfulAuthSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSystemsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSystemsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSystemsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntSystemsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTeamsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTeamsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTeamsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTeamsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntToolsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntToolsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntToolsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntToolsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTutorialsDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTutorialsDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTutorialsScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntTutorialsSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
-        public static let tntUnableToLoadDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadExtraSmall")
-        public static let tntUnableToLoadDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadLarge")
-        public static let tntUnableToLoadScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadSmall")
-        public static let tntUnableToLoadSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnlockDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnlockDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnlockScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnlockSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnsuccessfulAuthDialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnsuccessfulAuthDot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnsuccessfulAuthScene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUnsuccessfulAuthSpot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUser2Dialog = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUser2Dot = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUser2Scene = EmptyView()
-        ///
-        @available(*, unavailable, message: "Illustration was removed")
-        public static let tntUser2Spot = EmptyView()
         ///
         @available(*, unavailable, message: "Illustration was replaced", renamed: "unableToLoadMedium")
         public static let unableToLoadDialog = EmptyView()
