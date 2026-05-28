@@ -94,6 +94,10 @@ extension ObjectItemBaseStyle {
 }
 
 extension ObjectItemBaseStyle {
+    func hasAccessoryInteraction(_ context: Context) -> Bool {
+        !(context.configuration.objectItemButton.isEmpty && context.configuration.action.isEmpty)
+    }
+    
     func makeOneLineSingleActionView(_ context: Context) -> some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             if !context.configuration.icons.isEmpty {
@@ -112,6 +116,7 @@ extension ObjectItemBaseStyle {
                         context.configuration.title.lineLimit(1)
                         Spacer(minLength: 16)
                     }
+                    .accessibilityElement(children: .combine)
                 } else {
                     HStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
@@ -139,12 +144,14 @@ extension ObjectItemBaseStyle {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .background(GeometrySizeView(size: self.$mainViewSize))
+                    .accessibilityElement(children: .combine)
                 }
                 
                 context.configuration.action
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
+        .accessibilityElement(children: self.hasAccessoryInteraction(context) ? .contain : .combine)
     }
     
     func makeRegularSingleActionView(_ context: Context) -> some View {
@@ -172,6 +179,7 @@ extension ObjectItemBaseStyle {
                         
                         Spacer(minLength: 16)
                     }
+                    .accessibilityElement(children: .combine)
                     
                     context.configuration.action
                 }
@@ -228,12 +236,14 @@ extension ObjectItemBaseStyle {
                             self.repositionDetailImageAndStatus(geometry, preferences: preferences, showStatus: false, context: context) // reposition the detail image and status to top(geometry, preferences)
                         }
                     }
+                    .accessibilityElement(children: .combine)
                     
                     context.configuration.action
                 }
                 .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             }
         }
+        .accessibilityElement(children: self.hasAccessoryInteraction(context) ? .contain : .combine)
     }
     
     func makeCompactOneLineView(_ context: Context) -> some View {
@@ -258,6 +268,7 @@ extension ObjectItemBaseStyle {
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
+        .accessibilityElement(children: .combine)
     }
     
     func makeCompactOneStatusView(_ context: Context) -> some View {
@@ -268,34 +279,37 @@ extension ObjectItemBaseStyle {
             }
             
             HStack(alignment: .top) {
-                if context.shouldShowAvatar {
-                    context.avatarView.typeErased
-                    Spacer().frame(width: 12)
-                }
-                
-                VStack(spacing: 3) {
-                    HStack(alignment: .top) {
-                        context.configuration.title.lineLimit(1)
-                        Spacer(minLength: 8)
-                        
-                        if context.configuration.objectItemButton.isEmpty {
-                            context.configuration.status
-                        }
+                HStack {
+                    if context.shouldShowAvatar {
+                        context.avatarView.typeErased
+                        Spacer().frame(width: 12)
                     }
                     
-                    HStack {
-                        VStack(alignment: .leading, spacing: 3) {
-                            context.configuration.subtitle
-                            context.configuration.footnote
-                            context.configuration.tags
-                            self.footnoteIconsView(context)
-                            if context.configuration.showsDescriptionInCompact {
-                                context.configuration.description
+                    VStack(spacing: 3) {
+                        HStack(alignment: .top) {
+                            context.configuration.title.lineLimit(1)
+                            Spacer(minLength: 8)
+                            
+                            if context.configuration.objectItemButton.isEmpty {
+                                context.configuration.status
                             }
                         }
-                        Spacer(minLength: 0)
+                        
+                        HStack {
+                            VStack(alignment: .leading, spacing: 3) {
+                                context.configuration.subtitle
+                                context.configuration.footnote
+                                context.configuration.tags
+                                self.footnoteIconsView(context)
+                                if context.configuration.showsDescriptionInCompact {
+                                    context.configuration.description
+                                }
+                            }
+                            Spacer(minLength: 0)
+                        }
                     }
                 }
+                .accessibilityElement(children: .combine)
                 
                 if !context.configuration.objectItemButton.isEmpty {
                     Spacer(minLength: 8)
@@ -307,6 +321,7 @@ extension ObjectItemBaseStyle {
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
+        .accessibilityElement(children: self.hasAccessoryInteraction(context) ? .contain : .combine)
     }
     
     func makeCompactGeneralView(_ context: Context) -> some View {
@@ -317,25 +332,28 @@ extension ObjectItemBaseStyle {
             }
             
             HStack(alignment: .top) {
-                if context.shouldShowAvatar {
-                    context.avatarView.typeErased
-                    Spacer().frame(width: 12)
-                }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 3) {
-                        context.configuration.title.lineLimit(2)
-                        context.configuration.subtitle
-                        context.configuration.footnote
-                        context.configuration.tags
-                        self.footnoteIconsView(context)
+                HStack {
+                    if context.shouldShowAvatar {
+                        context.avatarView.typeErased
+                        Spacer().frame(width: 12)
                     }
                     
-                    if context.configuration.showsDescriptionInCompact {
-                        context.configuration.description
+                    VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 3) {
+                            context.configuration.title.lineLimit(2)
+                            context.configuration.subtitle
+                            context.configuration.footnote
+                            context.configuration.tags
+                            self.footnoteIconsView(context)
+                        }
+                        
+                        if context.configuration.showsDescriptionInCompact {
+                            context.configuration.description
+                        }
                     }
                 }
-                
+                .accessibilityElement(children: .combine)
+
                 Spacer(minLength: 8)
                 
                 VStack(alignment: .trailing, spacing: 4) {
@@ -346,10 +364,12 @@ extension ObjectItemBaseStyle {
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
         }
+        .accessibilityElement(children: self.hasAccessoryInteraction(context) ? .contain : .combine)
     }
     
     func makeRegularCenterView(_ context: Context) -> some View {
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
+        let hasInteractive = self.hasAccessoryInteraction(context)
+        return ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             if !context.configuration.icons.isEmpty {
                 // only one icon is allowed to be displayed
                 context.configuration.icons
@@ -367,6 +387,7 @@ extension ObjectItemBaseStyle {
                     Spacer(minLength: 16)
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
+                .accessibilityElement(children: .combine)
                 
                 HStack(alignment: .center) {
                     if !context.configuration.description.isEmpty {
@@ -383,15 +404,18 @@ extension ObjectItemBaseStyle {
                     }
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
+                .accessibilityElement(children: hasInteractive ? .contain : .combine)
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             .background(GeometrySizeView(size: self.$mainViewSize))
         }
+        .accessibilityElement(children: hasInteractive ? .contain : .combine)
     }
     
     func makeRegularGeneralView(_ context: Context) -> some View {
-        ZStack(alignment: .topLeading) {
+        let hasInteractive = self.hasAccessoryInteraction(context)
+        return ZStack(alignment: .topLeading) {
             if !context.configuration.icons.isEmpty {
                 context.configuration.icons
                     .environment(\.numberOfLines, self.numberOfLinesAllowedToShow(context))
@@ -423,6 +447,7 @@ extension ObjectItemBaseStyle {
                     Spacer(minLength: 16)
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * self.splitPercent! : self.mainViewSize.width)
+                .accessibilityElement(children: .combine)
                 
                 HStack(alignment: .top) {
                     if !context.configuration.description.isEmpty {
@@ -451,6 +476,7 @@ extension ObjectItemBaseStyle {
                     }
                 }
                 .frame(width: self.doesShowDescriptionOrStatus(context) ? self.mainViewSize.width * (1 - self.splitPercent!) : 0)
+                .accessibilityHidden(true)
             }
             .modifier(ObjectItemContentLeadingPadding(isIconsEmpty: context.configuration.icons.isEmpty))
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -458,9 +484,11 @@ extension ObjectItemBaseStyle {
             .overlayPreferenceValue(MyViewPreferenceKey.self) { preferences in
                 GeometryReader { geometry in
                     self.repositionDetailImageAndStatus(geometry, preferences: preferences, context: context) // reposition the detail image and status to top
+                        .accessibilityElement(children: hasInteractive ? .contain : .combine)
                 }
             }
         }
+        .accessibilityElement(children: hasInteractive ? .contain : .combine)
     }
     
     func doesShowDescriptionOrStatus(_ context: Context) -> Bool {
