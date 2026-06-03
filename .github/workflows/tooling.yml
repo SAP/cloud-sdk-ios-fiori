@@ -14,6 +14,8 @@ jobs:
     # Don't run on private repo unless it is a PR.
     if: (github.repository == 'SAP/cloud-sdk-ios-fiori' && github.event_name == 'schedule') || github.event_name == 'pull_request'
     runs-on: macOS-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v3
       # The cache action will attempt to restore a cache based on the key.
