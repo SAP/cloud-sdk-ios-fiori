@@ -746,7 +746,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         if self.isSingleSelection {
             return self.isListContentOutOfView && !self.disableEntriesSection
         } else {
-            return self.isTopLevel && !self.disableEntriesSection && self.destinationConfiguration != nil
+            return self.isTopLevel && !self.disableEntriesSection && self.destinationConfiguration != nil && self.searchText.isEmpty
         }
     }
     

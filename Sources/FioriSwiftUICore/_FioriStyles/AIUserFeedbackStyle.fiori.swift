@@ -513,8 +513,8 @@ extension AIUserFeedbackFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             if configuration.isDirectChild(self.aIUserFeedbackConfiguration.componentIdentifier) {
                 Title(configuration)
-                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-                    .font(.fiori(forTextStyle: .headline, weight: .bold))
+                    .foregroundStyle(Color.preferredColor(self.aIUserFeedbackConfiguration.displayMode == .inline ? .tertiaryLabel : .primaryLabel))
+                    .font(.fiori(forTextStyle: self.aIUserFeedbackConfiguration.displayMode == .inline ? .footnote : .headline, weight: self.aIUserFeedbackConfiguration.displayMode == .inline ? .regular : .bold))
                     .typeErased
             } else {
                 Title(configuration).typeErased
