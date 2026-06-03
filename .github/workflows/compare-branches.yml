@@ -1,0 +1,113 @@
+name: Compare Branches
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_branch:
+        description: 'Release branch to check (e.g., rel-26.4)'
+        required: true
+        default: 'rel-26.4'
+      base_branch:
+        description: 'Base branch to compare against'
+        required: true
+        default: 'main'
+      max_commits:
+        description: 'Maximum number of missing commits to show'
+        required: false
+        default: '50'
+permissions:
+  contents: read
+jobs:
+  compare-branches:
+    runs-on: solinas
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for accurate comparison
+
+      - name: Fetch branches
+        run: |
+          git fetch origin "${{ github.event.inputs.release_branch }}" "${{ github.event.inputs.base_branch }}"
+
+      - name: Check missing commits
+        id: check
+        run: |
+          set -e
+          RELEASE_BRANCH="${{ github.event.inputs.release_branch }}"
+          BASE_BRANCH="${{ github.event.inputs.base_branch }}"
+          MAX_COMMITS="${{ github.event.inputs.max_commits }}"
+
+          # Verify branches exist
+          if ! git rev-parse --verify "origin/${RELEASE_BRANCH}" >/dev/null 2>&1; then
+            echo "❌ Error: Branch 'origin/${RELEASE_BRANCH}' does not exist."
+            exit 1
+          fi
+
+          if ! git rev-parse --verify "origin/${BASE_BRANCH}" >/dev/null 2>&1; then
+            echo "❌ Error: Branch 'origin/${BASE_BRANCH}' does not exist."
+            exit 1
+          fi
+
+          echo "Checking commits in ${BASE_BRANCH} that are missing from ${RELEASE_BRANCH}..."
+          echo ""
+
+          # Get missing commits (those with + prefix)
+          # Use grep with || true to handle case where no matches found
+          MISSING=$(git cherry -v origin/${RELEASE_BRANCH} origin/${BASE_BRANCH} | grep "^+" | head -n ${MAX_COMMITS} || true)
+
+          if [ -z "$MISSING" ]; then
+            echo "✅ No missing commits found. ${RELEASE_BRANCH} is up to date with ${BASE_BRANCH}."
+            echo "status=up-to-date" >> $GITHUB_OUTPUT
+          else
+            COUNT=$(echo "$MISSING" | wc -l | tr -d ' ')
+            echo "⚠️ Found ${COUNT} commits in ${BASE_BRANCH} that are missing from ${RELEASE_BRANCH}:"
+            echo ""
+            echo "$MISSING"
+            echo ""
+            echo "status=missing-commits" >> $GITHUB_OUTPUT
+            echo "count=${COUNT}" >> $GITHUB_OUTPUT
+
+            # Save missing commits to a file for the summary step (plain text for step output)
+            echo "$MISSING" > /tmp/missing-commits.txt
+
+            # Generate formatted commits with links and author info for summary
+            {
+              while IFS= read -r line; do
+                # Extract commit hash (remove + prefix and get the hash)
+                HASH=$(echo "$line" | awk '{print $2}')
+                # Get commit info: author and subject
+                AUTHOR=$(git log -1 --format='%an' "$HASH" 2>/dev/null || echo "Unknown")
+                SUBJECT=$(git log -1 --format='%s' "$HASH" 2>/dev/null || echo "No subject")
+                SHORT_HASH=$(echo "$HASH" | cut -c1-7)
+
+                # Format: [hash](url) Subject - Author
+                echo "- [\`${SHORT_HASH}\`](${{ github.server_url }}/${{ github.repository }}/commit/${HASH}) ${SUBJECT} - _${AUTHOR}_"
+              done < <(echo "$MISSING")
+            } > /tmp/missing-commits-formatted.txt
+          fi
+
+      - name: Generate summary
+        if: always()
+        run: |
+          if [ "${{ steps.check.outputs.status }}" == "missing-commits" ]; then
+            echo "## ⚠️ Missing Commits Detected" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Found **${{ steps.check.outputs.count }}** commits in \`${{ github.event.inputs.base_branch }}\` that are missing from \`${{ github.event.inputs.release_branch }}\`." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Missing Commits" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat /tmp/missing-commits-formatted.txt >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "---" >> $GITHUB_STEP_SUMMARY
+            echo "_Generated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')_" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.check.outputs.status }}" == "up-to-date" ]; then
+            echo "## ✅ No Missing Commits" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`${{ github.event.inputs.release_branch }}\` is up to date with \`${{ github.event.inputs.base_branch }}\`." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ❌ Check Failed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The workflow failed to complete. Check the step logs for details." >> $GITHUB_STEP_SUMMARY
+          fi
