@@ -706,3 +706,6 @@
 
 /*XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
 "+%d more" = "+%d more";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Checkbox";
