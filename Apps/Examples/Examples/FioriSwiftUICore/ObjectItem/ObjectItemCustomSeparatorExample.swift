@@ -23,10 +23,13 @@ struct ObjectItemCustomSeparatorExample: View {
             Image(systemName: "person")
                 .font(.system(size: 45, weight: .regular, design: .serif))
                 .border(Color.black, width: 1)
+                .accessibilityLabel("portrait")
         }, icons: {
             Text("1")
             Image(systemName: "circle.fill").foregroundColor(.blue)
+                .accessibilityLabel("unread")
             Image(systemName: "paperclip").frame(width: 16, height: 16)
+                .accessibilityLabel("has attachment")
         }, showsDescriptionInCompact: true),
         
         ObjectItem(title: {
@@ -39,12 +42,14 @@ struct ObjectItemCustomSeparatorExample: View {
             Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
         }, status: {
             Image(systemName: "exclamationmark.triangle").foregroundColor(.red)
+                .accessibilityLabel("exclamationmark.triangle")
         }, substatus: {
             Text("Scheduled")
         }, detailImage: {
             Image(systemName: "person")
                 .font(.system(size: 45, weight: .regular, design: .serif))
                 .border(Color.black, width: 1)
+                .accessibilityLabel("portrait")
         }),
         
         ObjectItem(title: {
@@ -61,6 +66,7 @@ struct ObjectItemCustomSeparatorExample: View {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 30, weight: .regular, design: .serif))
                 .foregroundColor(.red)
+                .accessibilityLabel("exclamationmark.triangle")
         }),
         
         ObjectItem(title: {
@@ -80,6 +86,7 @@ struct ObjectItemCustomSeparatorExample: View {
             Image(systemName: "person")
                 .font(.system(size: 45, weight: .regular, design: .serif))
                 .border(Color.black, width: 1)
+                .accessibilityLabel("portrait")
         }),
         
         ObjectItem(title: {
@@ -99,9 +106,12 @@ struct ObjectItemCustomSeparatorExample: View {
             Image(systemName: "person")
                 .font(.system(size: 45, weight: .regular, design: .serif))
                 .border(Color.black, width: 1)
+                .accessibilityLabel("portrait")
         }, icons: {
             Image(systemName: "circle.fill").foregroundColor(.blue)
+                .accessibilityLabel("unread")
             Image(systemName: "paperclip").frame(width: 16, height: 16)
+                .accessibilityLabel("has attachment")
         }, avatars: {
             Color.green
             Color.red
@@ -145,13 +155,17 @@ struct ObjectItemCustomSeparatorExample: View {
             Image(systemName: "person")
                 .font(.system(size: 45, weight: .regular, design: .serif))
                 .border(Color.black, width: 1)
+                .accessibilityLabel("portrait")
         }, icons: {
             Text("1")
             Image(systemName: "circle.fill").foregroundColor(.blue)
+                .accessibilityLabel("unread")
             Image(systemName: "paperclip").frame(width: 16, height: 16)
+                .accessibilityLabel("has attachment")
         }, avatars: {
             Image(systemName: "person")
                 .resizable()
+                .accessibilityLabel("portrait")
             Text("XY")
                 .frame(width: 30, height: 30)
                 .background(Color.red)
@@ -198,6 +212,7 @@ struct ObjectItemCustomSeparatorExample: View {
                 .resizable()
                 .frame(width: 45, height: 45)
                 .clipShape(Circle())
+                .accessibilityLabel("portrait")
         }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) }),
         
         ObjectItem(title: {
@@ -209,6 +224,7 @@ struct ObjectItemCustomSeparatorExample: View {
             //                    .foregroundColor(.green)
         }, detailImage: {
             Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
+                .accessibilityLabel("portrait")
         })
     ]
     
