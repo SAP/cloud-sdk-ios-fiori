@@ -2,7 +2,6 @@
     import SwiftUI
     import UIKit
 
-    @MainActor
     struct FioriIntrospectModifier<Target>: ViewModifier {
         let customize: (Target) -> Void
         let scope: IntrospectionScope?
@@ -62,7 +61,6 @@
 #else
     import SwiftUI
 
-    @MainActor
     struct FioriIntrospectModifier<Target>: ViewModifier {
         let customize: (Target) -> Void
         let scope: FioriIntrospectionScope?

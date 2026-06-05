@@ -6,6 +6,9 @@ on:
 jobs:
   spm-dep-check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
     - uses: actions/checkout@v3
     - name: Check Swift package dependencies
@@ -25,6 +28,8 @@ jobs:
 
   owasp-dep-check:
     runs-on: macos-latest
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@v3
     - name: Run dependency-check (experimental for Swift)

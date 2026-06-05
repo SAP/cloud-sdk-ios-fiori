@@ -13,7 +13,22 @@ struct SortFilterExample: View {
             .picker(item: .init(name: "List Many Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium", "Checked", "Unchecked", "Partially Checked", "Checked and Unchecked", "Checked and Partially Checked", "Unchecked and Partially Checked", "Partially Checked and Unchecked", "Checked and Unchecked and Partially Checked", "Unchecked and Partially Checked and Partially Checked", "Partially Checked and Unchecked and Partially Checked", "Checked Finally", "Unchecked Finally", "Partially Checked Finally", "Checked and Unchecked Finally", "Checked and Partially Checked Finally", "Unchecked and Partially Checked Finally", "Partially Checked and Unchecked Finally", "Checked Finally and Partially Checked Finally", "Unchecked Finally and Partially Checked Finally", "Partially Checked Finally and Partially Checked Finally", "Review", "Reviewed", "To be Reviewed", "Pending for Review", "Booked", "To be Booked", "Will Book", "Booking Canceled"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .value, searchPrompt: "Search by status name", icon: "clock", itemLayout: .fixed, displayMode: .list), showsOnFilterFeedbackBar: true),
             .picker(item: .init(name: "Flexible Filter", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending", "Completed Medium"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .nameAndValue, icon: "clock", itemLayout: .flexible, displayMode: .filterFormCell), showsOnFilterFeedbackBar: true),
             .picker(item: .init(name: "Fixed Few Filter", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .name, icon: "clock", itemLayout: .fixed, displayMode: .filterFormCell), showsOnFilterFeedbackBar: true),
-            .picker(item: .init(name: "Fixed Many Filter", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium", "Checked", "Unchecked", "Partially Checked", "Checked and Unchecked", "Checked and Partially Checked", "Unchecked and Partially Checked", "Partially Checked and Unchecked", "Checked and Unchecked and Partially Checked", "Unchecked and Partially Checked and Partially Checked", "Partially Checked and Unchecked and Partially Checked", "Checked Finally", "Unchecked Finally", "Partially Checked Finally", "Checked and Unchecked Finally", "Checked and Partially Checked Finally", "Unchecked and Partially Checked Finally", "Partially Checked and Unchecked Finally", "Checked Finally and Partially Checked Finally", "Unchecked Finally and Partially Checked Finally", "Partially Checked Finally and Partially Checked Finally", "Review", "Reviewed", "To be Reviewed", "Pending for Review", "Booked", "To be Booked", "Will Book", "Booking Canceled"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .value, icon: "clock", itemLayout: .fixed, displayMode: .filterFormCell), showsOnFilterFeedbackBar: true)
+            .picker(item: .init(name: "Fixed Many Filter", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review Pending Pending Pending Pending Pending", "Accepted Medium", "Pending Medium", "Completed Medium", "Checked", "Unchecked", "Partially Checked", "Checked and Unchecked", "Checked and Partially Checked", "Unchecked and Partially Checked", "Partially Checked and Unchecked", "Checked and Unchecked and Partially Checked", "Unchecked and Partially Checked and Partially Checked", "Partially Checked and Unchecked and Partially Checked", "Checked Finally", "Unchecked Finally", "Partially Checked Finally", "Checked and Unchecked Finally", "Checked and Partially Checked Finally", "Unchecked and Partially Checked Finally", "Partially Checked and Unchecked Finally", "Checked Finally and Partially Checked Finally", "Unchecked Finally and Partially Checked Finally", "Partially Checked Finally and Partially Checked Finally", "Review", "Reviewed", "To be Reviewed", "Pending for Review", "Booked", "To be Booked", "Will Book", "Booking Canceled"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .value, icon: "clock", itemLayout: .fixed, displayMode: .filterFormCell), showsOnFilterFeedbackBar: true),
+            // custom search filter
+            .picker(item: .init(name: "Product", value: [0], valueOptions: ["MacBook Pro 16\"", "iPad Air M3", "iPhone 17 Pro", "Apple Watch Ultra 3", "AirPods Pro 3"], allowsMultipleSelection: true, allowsEmptySelection: true, barItemDisplayMode: .name, displayMode: .list, configuration: SortFilterItem.PickerItemConfiguration(searchFilter: { displayText, query in displayText.localizedCaseInsensitiveContains(query) || displayText.split(separator: " ").contains { $0.localizedCaseInsensitiveContains(query) } })), showsOnFilterFeedbackBar: true),
+            // custom row content with subtitle
+            .picker(item: .init(name: "Assignee", value: [Int](), valueOptions: ["Alice Johnson", "Bob Smith", "Charlie Brown", "Diana Prince"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .value, displayMode: .list, configuration: SortFilterItem.PickerItemConfiguration(rowContentProvider: { index in
+                let names = ["Alice Johnson", "Bob Smith", "Charlie Brown", "Diana Prince"]
+                let departments = ["Engineering", "Design", "Marketing", "Management"]
+                return AnyView(VStack(alignment: .leading, spacing: 2) {
+                    Text(names[index])
+                    Text(departments[index]).font(.caption).foregroundStyle(.secondary)
+                })
+            })), showsOnFilterFeedbackBar: true)
+        ],
+        [
+            // pagination: initial 20 items, more loaded on scroll
+            .picker(item: .init(id: "pagination-employee", name: "Employee", value: [Int](), valueOptions: (1 ... 20).map { "Employee \($0)" }, allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .value, displayMode: .list, configuration: SortFilterItem.PickerItemConfiguration(hasMoreData: true)), showsOnFilterFeedbackBar: true)
         ],
         [
             .picker(item: .init(name: "Priority", value: [0], valueOptions: ["High", "Medium", "Low"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .nameAndValue, icon: "filemenu.and.cursorarrow"), showsOnFilterFeedbackBar: true),
@@ -56,6 +71,13 @@ struct SortFilterExample: View {
     @State private var isCustomStyle: Bool = false
     @State private var sortFilterList: [String] = []
     @State private var sortFilterButtonLabel: String = "Sort & Filter"
+
+    // Pagination state
+    @State private var paginatedNames: [String] = (1 ... 20).map { "Employee \($0)" }
+    @State private var paginationPage: Int = 1
+    @State private var paginationHasMore: Bool = true
+    private let paginationPageSize = 20
+    private let paginationTotal = 100
 
     var body: some View {
         VStack {
@@ -109,10 +131,76 @@ struct SortFilterExample: View {
         }
         .navigationTitle("Sort & Filter")
         .onAppear {
+            self.injectPaginationCallback()
             self.performSortAndFilter()
         }
     }
-    
+
+    // MARK: - Pagination helpers
+
+    private let paginationSectionIndex = 1
+
+    private func injectPaginationCallback() {
+        // Replace the pagination section's picker with one that has the onLoadMore callback
+        self.items[self.paginationSectionIndex] = [self.buildPaginatedPicker()]
+    }
+
+    private func loadMoreEmployees() {
+        let start = self.paginationPage * self.paginationPageSize
+        let end = min(start + self.paginationPageSize, self.paginationTotal)
+        guard start < end else {
+            self.paginationHasMore = false
+            return
+        }
+
+        for i in start ..< end {
+            self.paginatedNames.append("Employee \(i + 1)")
+        }
+        self.paginationPage += 1
+        self.paginationHasMore = end < self.paginationTotal
+
+        // Preserve current selection when rebuilding
+        let currentValue: [Int]
+        if case .picker(let item, _) = self.items[self.paginationSectionIndex][0] {
+            currentValue = item.workingValue
+        } else {
+            currentValue = []
+        }
+
+        let picker: SortFilterItem = .picker(item: .init(
+            id: "pagination-employee",
+            name: "Employee",
+            value: currentValue,
+            valueOptions: self.paginatedNames,
+            allowsMultipleSelection: false,
+            allowsEmptySelection: true,
+            barItemDisplayMode: .value,
+            displayMode: .list,
+            configuration: SortFilterItem.PickerItemConfiguration(
+                onLoadMore: { self.loadMoreEmployees() },
+                hasMoreData: self.paginationHasMore
+            )
+        ), showsOnFilterFeedbackBar: true)
+        self.items[self.paginationSectionIndex] = [picker]
+    }
+
+    private func buildPaginatedPicker() -> SortFilterItem {
+        .picker(item: .init(
+            id: "pagination-employee",
+            name: "Employee",
+            value: [Int](),
+            valueOptions: self.paginatedNames,
+            allowsMultipleSelection: false,
+            allowsEmptySelection: true,
+            barItemDisplayMode: .value,
+            displayMode: .list,
+            configuration: SortFilterItem.PickerItemConfiguration(
+                onLoadMore: { self.loadMoreEmployees() },
+                hasMoreData: self.paginationHasMore
+            )
+        ), showsOnFilterFeedbackBar: true)
+    }
+
     func numberOfItems() -> Int {
         // randomly padding result to mimic impact of filtering
         for i in 0 ... Int.random(in: 0 ... 5) {

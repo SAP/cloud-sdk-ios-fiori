@@ -15,6 +15,13 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
                     .disabled(self.getDisabled(configuration))
             }
             .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
+            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                if self.isLoading, scrollView.contentOffset != .zero {
+                    DispatchQueue.main.async {
+                        scrollView.contentOffset = .zero
+                    }
+                }
+            })
             .accessibilityRepresentation {
                 // text editor using content as its accessibility value which will read out at last, re-order, read it first.
                 VStack {
