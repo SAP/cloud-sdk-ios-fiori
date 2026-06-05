@@ -83,10 +83,14 @@ extension SortFilterCFGItemContainer: View {
                             switch self._items[r][c] {
                             case .picker:
                                 var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
-                                if pickerItem.resetButtonConfiguration.type == .reset {
+                                switch pickerItem.resetButtonConfiguration.type {
+                                case .reset:
                                     pickerItem.reset()
-                                } else {
+                                case .clearAll:
                                     pickerItem.clearAll()
+                                case .deactivate:
+                                    pickerItem.deactivate()
+                                    self._items[r][c].picker = pickerItem
                                 }
                             default:
                                 self._items[r][c].reset()
@@ -333,14 +337,24 @@ extension SortFilterCFGItemContainer: View {
                     EmptyView()
                 } else {
                     _Action(actionText: item.resetButtonConfiguration.title, didSelectAction: {
-                        if item.resetButtonConfiguration.type == .reset {
+                        switch item.resetButtonConfiguration.type {
+                        case .reset:
                             item.reset()
-                        } else {
+                        case .clearAll:
                             item.clearAll()
+                        case .deactivate:
+                            item.deactivate()
+                            self._items[r][c].picker = item
                         }
                     })
                     .buttonStyle(ResetButtonStyle())
-                    .disabled(item.resetButtonConfiguration.type == .reset ? item.isOriginal : item.workingValue.isEmpty)
+                    .disabled({
+                        switch item.resetButtonConfiguration.type {
+                        case .reset: return item.isOriginal
+                        case .clearAll: return item.workingValue.isEmpty
+                        case .deactivate: return !item.isChecked
+                        }
+                    }())
                 }
             }
         }
@@ -534,12 +548,17 @@ extension SortFilterCFGItemContainer: View {
             StepperView(
                 title: { Text(self._items[r][c].stepper.stepperTitle) },
                 text: Binding<String>(get: {
-                    if self._items[r][c].stepper.isDecimalSupported {
-                        String(describing: self._items[r][c].stepper.workingValue)
+                    let v = self._items[r][c].stepper.workingValue ?? self._items[r][c].stepper.stepRange.lowerBound
+                    return self._items[r][c].stepper.isDecimalSupported
+                        ? String(describing: v)
+                        : String(describing: Int(v))
+                }, set: { newText in
+                    if newText.isEmpty {
+                        self._items[r][c].stepper.workingValue = nil
                     } else {
-                        String(describing: Int(self._items[r][c].stepper.workingValue))
+                        self._items[r][c].stepper.workingValue = Double(newText)
                     }
-                }, set: { self._items[r][c].stepper.workingValue = Double($0) ?? 0 }),
+                }),
                 step: self._items[r][c].stepper.step,
                 stepRange: self._items[r][c].stepper.stepRange,
                 isDecimalSupported: self._items[r][c].stepper.isDecimalSupported,
@@ -629,7 +648,10 @@ extension SortFilterCFGItemContainer: View {
                 Spacer()
             }
             
-            DurationPickerViewWrapper(selection: self.$_items[r][c].durationPicker.workingValue, maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval, measurementFormatter: self._items[r][c].durationPicker.measurementFormatter)
+            DurationPickerViewWrapper(selection: Binding<Int>(
+                get: { self._items[r][c].durationPicker.workingValue ?? 0 },
+                set: { self._items[r][c].durationPicker.workingValue = $0 }
+            ), maximumMinutes: self._items[r][c].durationPicker.maximumMinutes, minimumMinutes: self._items[r][c].durationPicker.minimumMinutes, minuteInterval: self._items[r][c].durationPicker.minuteInterval, measurementFormatter: self._items[r][c].durationPicker.measurementFormatter)
                 .frame(height: 204)
                 .foregroundColor(Color.preferredColor(.primaryLabel))
         }
