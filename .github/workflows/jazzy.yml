@@ -8,6 +8,8 @@ on:
 jobs:
   Jazzy:
     runs-on: macos-26
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3

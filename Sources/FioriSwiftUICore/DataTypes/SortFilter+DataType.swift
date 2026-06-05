@@ -672,6 +672,47 @@ public enum OptionListPickerItemLayoutType {
 }
 
 public extension SortFilterItem {
+    /// Configuration for advanced PickerItem capabilities.
+    /// When provided, enables features like custom search, custom row content, and pagination.
+    struct PickerItemConfiguration: Equatable {
+        /// Custom search filter closure. Receives (displayText, searchText) and returns Bool.
+        /// When nil, the default `localizedCaseInsensitiveContains` is used.
+        public var searchFilter: ((String, String) -> Bool)?
+
+        /// Type-erased closure that produces a custom row view for a given option index.
+        /// When nil, the default `Text(valueOptions[index])` is used.
+        public var rowContentProvider: ((Int) -> AnyView)?
+
+        /// Callback invoked when the list scrolls near the end of current data.
+        /// The consumer should load more data and update `valueOptions` on the PickerItem.
+        public var onLoadMore: (() -> Void)?
+
+        /// Indicates whether more data is available for pagination.
+        public var hasMoreData: Bool
+
+        /// Create a PickerItemConfiguration.
+        /// - Parameters:
+        ///   - searchFilter: Custom search filter closure receiving (displayText, searchText).
+        ///   - rowContentProvider: Type-erased closure producing a custom row view for a given option index.
+        ///   - onLoadMore: Callback invoked when the list scrolls near the end of current data.
+        ///   - hasMoreData: Indicates whether more data is available for pagination.
+        public init(
+            searchFilter: ((String, String) -> Bool)? = nil,
+            rowContentProvider: ((Int) -> AnyView)? = nil,
+            onLoadMore: (() -> Void)? = nil,
+            hasMoreData: Bool = false
+        ) {
+            self.searchFilter = searchFilter
+            self.rowContentProvider = rowContentProvider
+            self.onLoadMore = onLoadMore
+            self.hasMoreData = hasMoreData
+        }
+
+        public static func == (lhs: PickerItemConfiguration, rhs: PickerItemConfiguration) -> Bool {
+            lhs.hasMoreData == rhs.hasMoreData
+        }
+    }
+
     ///  Data structure for filter feedback, option list picker,
     struct PickerItem: Identifiable, Equatable {
         public let id: String
@@ -696,7 +737,10 @@ public extension SortFilterItem {
         var disableListContentSection: Bool = false
         var allowsDisplaySelectionCount: Bool = true
         var resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = .init()
-        
+
+        /// Advanced configuration for custom search, row content, and pagination.
+        public var configuration: PickerItemConfiguration?
+
         var uuidValueOptions: [ValueOptionModel] = []
         var workingValueSet: Set<UUID> = []
         
@@ -765,8 +809,9 @@ public extension SortFilterItem {
         ///   - disableContentSection: A boolean value to control the display of the unselected area section.
         ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
         ///   - resetButtonConfiguration: A configuration to customize the reset button.
-        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, searchPrompt: String? = nil, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
-            self.init(id: id, name: name, title: title, value: [value], valueOptions: valueOptions, allowsMultipleSelection: false, allowsEmptySelection: allowsEmptySelection, barItemDisplayMode: barItemDisplayMode, searchPrompt: searchPrompt, isSearchBarHidden: isSearchBarHidden, icon: icon, itemLayout: itemLayout, displayMode: displayMode, listEntriesSectionMode: listEntriesSectionMode, disableContentSection: disableContentSection, allowsDisplaySelectionCount: allowsDisplaySelectionCount, resetButtonConfiguration: resetButtonConfiguration)
+        ///   - configuration: Advanced configuration for custom search, row content, pagination, and display/data value separation.
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: Int, valueOptions: [String], allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, searchPrompt: String? = nil, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration(), configuration: PickerItemConfiguration? = nil) {
+            self.init(id: id, name: name, title: title, value: [value], valueOptions: valueOptions, allowsMultipleSelection: false, allowsEmptySelection: allowsEmptySelection, barItemDisplayMode: barItemDisplayMode, searchPrompt: searchPrompt, isSearchBarHidden: isSearchBarHidden, icon: icon, itemLayout: itemLayout, displayMode: displayMode, listEntriesSectionMode: listEntriesSectionMode, disableContentSection: disableContentSection, allowsDisplaySelectionCount: allowsDisplaySelectionCount, resetButtonConfiguration: resetButtonConfiguration, configuration: configuration)
         }
         
         /// Create PickerItem for filter feedback.
@@ -789,7 +834,8 @@ public extension SortFilterItem {
         ///   - disableContentSection: A boolean value to control the display of the unselected area section.
         ///   - allowsDisplaySelectionCount: A boolean value to indicate to allow display selection count or not.
         ///   - resetButtonConfiguration: A configuration to customize the reset button.
-        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, searchPrompt: String? = nil, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration()) {
+        ///   - configuration: Advanced configuration for custom search, row content, pagination, and display/data value separation.
+        public init(id: String = UUID().uuidString, name: String, title: String? = nil, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, barItemDisplayMode: BarItemDisplayMode = .name, searchPrompt: String? = nil, isSearchBarHidden: Bool = false, icon: String? = nil, itemLayout: OptionListPickerItemLayoutType = .fixed, displayMode: DisplayMode = .automatic, listEntriesSectionMode: ListEntriesSectionMode = .default, disableContentSection: Bool = false, allowsDisplaySelectionCount: Bool = true, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration = FilterFeedbackBarResetButtonConfiguration(), configuration: PickerItemConfiguration? = nil) {
             self.id = id
             self.name = name
             self.title = title
@@ -797,6 +843,7 @@ public extension SortFilterItem {
             self.workingValue = value
             self.originalValue = value
             self.valueOptions = valueOptions
+            self.configuration = configuration
             self.uuidValueOptions = valueOptions.enumerated().map { index, option in
                 ValueOptionModel(index: index, value: option)
             }
@@ -936,6 +983,21 @@ public extension SortFilterItem {
         
         var isOriginal: Bool {
             self.workingValue == self.originalValue
+        }
+
+        /// Append new options to the picker without resetting selection state.
+        /// Use this for pagination scenarios where data is loaded incrementally.
+        /// - Parameters:
+        ///   - newOptions: Display texts to append.
+        ///   - hasMoreData: Whether more data is still available after this append.
+        public mutating func appendOptions(_ newOptions: [String], hasMoreData: Bool = false) {
+            let startIndex = self.valueOptions.count
+            self.valueOptions.append(contentsOf: newOptions)
+            let newModels = newOptions.enumerated().map { offset, option in
+                ValueOptionModel(index: startIndex + offset, value: option)
+            }
+            self.uuidValueOptions.append(contentsOf: newModels)
+            self.configuration?.hasMoreData = hasMoreData
         }
     }
     

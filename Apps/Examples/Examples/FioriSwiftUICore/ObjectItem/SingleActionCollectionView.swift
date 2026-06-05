@@ -29,7 +29,8 @@ struct SingleActionCollectionView: View {
             Image(systemName: "arrow.down.circle")
                 .resizable()
                 .frame(width: 32, height: 32)
-        }) })
+        }).accessibilityLabel("Download")
+        })
     }
     
     var body: some View {
