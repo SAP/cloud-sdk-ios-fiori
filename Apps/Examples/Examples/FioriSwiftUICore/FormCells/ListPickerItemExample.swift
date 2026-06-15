@@ -42,6 +42,7 @@ struct ListPickerItemExample: View {
     @State var allowEmpty: Bool = false
     @State var autoDismissDestination: Bool = false
     @State var customSearchEmptyView: Bool = false
+    @State var alwaysShowSearchBar: Bool = false
     
     @State var isRequired = false
     @State var state: ControlState = .normal
@@ -130,6 +131,8 @@ struct ListPickerItemExample: View {
 
                 Toggle("Custom Search Empty View", isOn: self.$customSearchEmptyView)
 
+                Toggle("Always Show Search Bar", isOn: self.$alwaysShowSearchBar)
+
                 Toggle("Custom Destination", isOn: self.$customDestination)
 
                 Toggle("Disable Entries Section", isOn: self.$disableEntriesSection)
@@ -190,6 +193,7 @@ struct ListPickerItemExample: View {
                     }
                 }
             }
+            .listPickerSearchBarDisplayMode(self.alwaysShowSearchBar ? .always : .automatic)
             .ifApply(self.confirmationDialogMode == .customLabels) {
                 $0.confirmationDialogConfiguration(
                     ConfirmationDialogConfiguration(

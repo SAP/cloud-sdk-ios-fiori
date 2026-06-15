@@ -580,6 +580,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @State var isListContentOutOfView: Bool = false
 
     @Environment(\.listPickerSearchResultsEmptyView) private var searchResultsEmptyView
+    @Environment(\.listPickerSearchBarDisplayMode) private var searchBarDisplayMode
     
     init(_ sections: SectionData,
          id: KeyPath<Data.Element, ID>,
@@ -652,10 +653,10 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             if self.searchFilter != nil {
                 if self.isFilterFeedbackBarListPickerStyle {
                     self.listContentForFilterFeedbackBarListPicker()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: self.searchPrompt.map { Text($0) })
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: self.searchBarDisplayMode == .always ? .always : .automatic), prompt: self.searchPrompt.map { Text($0) })
                 } else {
                     self.listContent()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer, prompt: self.searchPrompt.map { Text($0) })
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: self.searchBarDisplayMode == .always ? .always : .automatic), prompt: self.searchPrompt.map { Text($0) })
                 }
             } else {
                 if self.isFilterFeedbackBarListPickerStyle {
@@ -1519,5 +1520,35 @@ public extension View {
     /// - Returns: A view with the customized empty-search-results view applied via the environment.
     func listPickerSearchResultsEmptyView(@ViewBuilder _ view: @escaping () -> some View) -> some View {
         self.environment(\.listPickerSearchResultsEmptyView) { view() }
+    }
+}
+
+/// Display mode for the search bar in `ListPickerDestination`.
+public enum ListPickerSearchBarDisplayMode {
+    /// The search bar is hidden until the user scrolls. This is the default behavior.
+    case automatic
+    /// The search bar is always visible.
+    case always
+}
+
+struct ListPickerSearchBarDisplayModeKey: EnvironmentKey {
+    static let defaultValue: ListPickerSearchBarDisplayMode = .automatic
+}
+
+public extension EnvironmentValues {
+    /// The display mode of the search bar shown in `ListPickerDestination`. Defaults to `.automatic`.
+    var listPickerSearchBarDisplayMode: ListPickerSearchBarDisplayMode {
+        get { self[ListPickerSearchBarDisplayModeKey.self] }
+        set { self[ListPickerSearchBarDisplayModeKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Set the display mode of the search bar shown in `ListPickerDestination`.
+    ///
+    /// - Parameter mode: `.automatic` (default) hides the search bar until the user scrolls; `.always` keeps it visible.
+    /// - Returns: A view with the search bar display mode applied via the environment.
+    func listPickerSearchBarDisplayMode(_ mode: ListPickerSearchBarDisplayMode) -> some View {
+        self.environment(\.listPickerSearchBarDisplayMode, mode)
     }
 }
