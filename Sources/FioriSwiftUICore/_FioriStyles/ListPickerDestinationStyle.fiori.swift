@@ -123,7 +123,7 @@ struct ListPickerDestinationButtonStyle: FioriButtonStyle {
         let config = FioriButtonConfiguration(foregroundColor: foregroundColor,
                                               backgroundColor: .clear,
                                               font: font,
-                                              padding: EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                                              padding: EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         return configuration.containerView(.unspecified)
             .fioriButtonConfiguration(config)
     }
