@@ -41,6 +41,7 @@ struct ListPickerItemExample: View {
     @State var disableContentSection: Bool = false
     @State var allowEmpty: Bool = false
     @State var autoDismissDestination: Bool = false
+    @State var customSearchEmptyView: Bool = false
     
     @State var isRequired = false
     @State var state: ControlState = .normal
@@ -126,7 +127,9 @@ struct ListPickerItemExample: View {
                 Toggle("Tracking Live Changes", isOn: self.$isTrackingLiveChanges)
                 
                 Toggle("Search Support", isOn: self.$allowSearch)
-                
+
+                Toggle("Custom Search Empty View", isOn: self.$customSearchEmptyView)
+
                 Toggle("Custom Destination", isOn: self.$customDestination)
 
                 Toggle("Disable Entries Section", isOn: self.$disableEntriesSection)
@@ -172,6 +175,21 @@ struct ListPickerItemExample: View {
             .disableContentSection(self.disableContentSection)
             .autoDismissDestination(self.autoDismissDestination)
             .navigationTitle("Destination Title")
+            .ifApply(self.customSearchEmptyView) {
+                $0.listPickerSearchResultsEmptyView {
+                    VStack(spacing: 12) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 48))
+                            .foregroundStyle(Color.preferredColor(.tintColor))
+                        Text("Custom Empty View")
+                            .font(.headline)
+                        Text("This is a custom view injected via .listPickerSearchResultsEmptyView modifier.")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                            .multilineTextAlignment(.center)
+                    }
+                }
+            }
             .ifApply(self.confirmationDialogMode == .customLabels) {
                 $0.confirmationDialogConfiguration(
                     ConfirmationDialogConfiguration(

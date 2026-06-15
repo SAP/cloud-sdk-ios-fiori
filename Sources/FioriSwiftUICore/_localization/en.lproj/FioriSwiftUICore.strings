@@ -706,3 +706,9 @@
 
 /*XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
 "+%d more" = "+%d more";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "No Results Found";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Check your search for any spelling errors or try a different search term.";
