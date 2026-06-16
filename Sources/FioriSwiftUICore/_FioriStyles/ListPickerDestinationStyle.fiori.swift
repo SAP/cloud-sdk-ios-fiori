@@ -581,6 +581,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
 
     @Environment(\.listPickerSearchResultsEmptyView) private var searchResultsEmptyView
     @Environment(\.listPickerSearchBarDisplayMode) private var searchBarDisplayMode
+    @Environment(\.listPickerDirtyStateBinding) private var dirtyStateBinding
     
     init(_ sections: SectionData,
          id: KeyPath<Data.Element, ID>,
@@ -668,6 +669,13 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         }
         .setOnChange(of: self.selections) {
             self.postSelectionsUpdated()
+            self.publishDirtyState()
+        }
+        .setOnChange(of: self.selectionsPool) {
+            self.publishDirtyState()
+        }
+        .onAppear {
+            self.publishDirtyState()
         }
         .ifApply(!self.isTrackingLiveChanges && self.isTopLevel) {
             $0.toolbar {
@@ -714,6 +722,20 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         // Use async to support
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name.selectionsUpdatedNotification, object: self.selections)
+        }
+    }
+
+    /// Mirror the picker's dirty state (selectionsPool != selections) to an external binding,
+    /// when the consumer has registered one via `.listPickerDirtyState(_:)`.
+    /// Only meaningful when `isTrackingLiveChanges` is false and this is the top-level picker;
+    /// otherwise the binding is kept at false.
+    func publishDirtyState() {
+        guard let binding = self.dirtyStateBinding else { return }
+        let newValue: Bool = (!self.isTrackingLiveChanges && self.isTopLevel) ? (self.selections != self.selectionsPool) : false
+        if binding.wrappedValue != newValue {
+            DispatchQueue.main.async {
+                binding.wrappedValue = newValue
+            }
         }
     }
     
@@ -1550,5 +1572,35 @@ public extension View {
     /// - Returns: A view with the search bar display mode applied via the environment.
     func listPickerSearchBarDisplayMode(_ mode: ListPickerSearchBarDisplayMode) -> some View {
         self.environment(\.listPickerSearchBarDisplayMode, mode)
+    }
+}
+
+struct ListPickerDirtyStateBindingKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool>? = nil
+}
+
+extension EnvironmentValues {
+    var listPickerDirtyStateBinding: Binding<Bool>? {
+        get { self[ListPickerDirtyStateBindingKey.self] }
+        set { self[ListPickerDirtyStateBindingKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Mirror the picker's internal "has unsaved changes" state to an external binding.
+    ///
+    /// Useful when `ListPickerDestination` is presented inside a consumer-owned sheet:
+    /// the binding lets the caller drive their own discard-confirmation logic
+    /// (for example, blocking interactive swipe-to-dismiss with `.interactiveDismissDisabled`).
+    ///
+    /// The binding is only meaningful when `isTrackingLiveChanges` is `false` —
+    /// in live-tracking mode every tap is committed immediately, so there is no draft state.
+    /// In live-tracking mode (or for non-top-level pickers) this binding is kept at `false`.
+    ///
+    /// - Parameter isDirty: A binding that receives `true` whenever the picker has
+    ///   uncommitted changes (i.e. the user has toggled selections without tapping Apply).
+    /// - Returns: A view with the dirty-state binding registered via the environment.
+    func listPickerDirtyState(_ isDirty: Binding<Bool>) -> some View {
+        self.environment(\.listPickerDirtyStateBinding, isDirty)
     }
 }

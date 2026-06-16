@@ -43,6 +43,9 @@ struct ListPickerItemExample: View {
     @State var autoDismissDestination: Bool = false
     @State var customSearchEmptyView: Bool = false
     @State var alwaysShowSearchBar: Bool = false
+    @State var dirtyStateSheetPresented: Bool = false
+    @State var isPickerDirty: Bool = false
+    @State var showDiscardAlert: Bool = false
     
     @State var isRequired = false
     @State var state: ControlState = .normal
@@ -168,8 +171,68 @@ struct ListPickerItemExample: View {
                     }
                 }
             }
+
+            Section("Dirty State Tracking") {
+                Text("Demonstrates `.listPickerDirtyState($isDirty)`. Open the sheet and toggle some items WITHOUT tapping Apply — the indicator in the toolbar flips to `Dirty` (red). Then either swipe down or tap Close: a discard confirmation dialog is shown so the user does not silently lose unsaved changes.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                Button("Open Picker In Sheet") {
+                    self.dirtyStateSheetPresented = true
+                }
+            }
         }
         .navigationTitle("List Picker Item")
+        .sheet(isPresented: self.$dirtyStateSheetPresented) {
+            NavigationStack {
+                ListPickerDestination(self.stringsModel,
+                                      id: \.self,
+                                      selections: self.$selections,
+                                      allowEmpty: true,
+                                      isTrackingLiveChanges: false)
+                { e in
+                    self.rowContent(e)
+                        .accessibilityAddTraits(.isButton)
+                }
+                .navigationTitle("Tap items to make dirty")
+                .listPickerDirtyState(self.$isPickerDirty)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Close") {
+                            self.attemptCloseDirtySheet()
+                        }
+                    }
+                    // Live indicator that visualizes the value the SDK is writing
+                    // into the $isPickerDirty binding as the user toggles rows.
+                    ToolbarItem(placement: .principal) {
+                        Text(self.isPickerDirty ? "● Dirty" : "○ Clean")
+                            .font(.caption.bold())
+                            .foregroundStyle(self.isPickerDirty ? Color.red : Color.secondary)
+                    }
+                }
+            }
+            // Block the swipe-to-dismiss gesture only while there are unsaved changes,
+            // so we can route the user through our discard confirmation instead.
+            .interactiveDismissDisabled(self.isPickerDirty)
+            .alert("Discard changes?", isPresented: self.$showDiscardAlert) {
+                Button("Discard", role: .destructive) {
+                    self.isPickerDirty = false
+                    self.dirtyStateSheetPresented = false
+                }
+                Button("Keep Editing", role: .cancel) {}
+            } message: {
+                Text("You have unsaved selections. Closing now will lose them.")
+            }
+        }
+    }
+
+    /// Decide what to do when the consumer-owned sheet is being closed.
+    /// If the picker reports dirty state, show the discard alert instead of dismissing immediately.
+    private func attemptCloseDirtySheet() {
+        if self.isPickerDirty {
+            self.showDiscardAlert = true
+        } else {
+            self.dirtyStateSheetPresented = false
+        }
     }
     
     func destinationViewGroup() -> some View {
