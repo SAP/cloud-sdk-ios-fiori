@@ -29,7 +29,7 @@ struct AttachmentExamples: View {
                 NavigationLink(
                     destination: MandatoryAttachmentExample(),
                     label: {
-                        Text("Mandatory Attachment")
+                        Text("Mandatory Attachment/Custom Title")
                     }
                 )
 
