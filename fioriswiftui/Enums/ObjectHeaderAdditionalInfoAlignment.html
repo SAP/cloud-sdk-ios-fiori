@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ToastModifier Structure Reference</title>
+    <title>ObjectHeaderAdditionalInfoAlignment Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ToastModifier" class="dashAnchor"></a>
-    <a title="ToastModifier Structure Reference"></a>
+    <a name="//apple_ref/swift/Enum/ObjectHeaderAdditionalInfoAlignment" class="dashAnchor"></a>
+    <a title="ObjectHeaderAdditionalInfoAlignment Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -29,9 +29,9 @@
           <span class="no-mobile">
             <a href="../index.html">FioriSwiftUICore</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            <a href="../Structs.html">Structures</a>
+            <a href="../Enums.html">Enumerations</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            ToastModifier Structure Reference
+            ObjectHeaderAdditionalInfoAlignment Enumeration Reference
           </span>
         </p>
       </div>
@@ -41,16 +41,20 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>ToastModifier</h1>
+              <h1>ObjectHeaderAdditionalInfoAlignment</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ToastModifier</span> <span class="p">:</span> <span class="kt">ViewModifier</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ObjectHeaderAdditionalInfoAlignment</span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p>Controls how the additional info section (<code>tags</code>, <code>bodyText</code>, <code>footnote</code>)
+— and <code>descriptionText</code> when shown in its place — is horizontally aligned
+within <code><a href="../Structs/ObjectHeader.html">ObjectHeader</a></code> when a <code>detailImage</code> is present.</p>
+
+<p><code>title</code> and <code>subtitle</code> always stay together on the top row next to the
+detail image, regardless of this value.</p>
 
             </section>
             <section class="section task-group-section">
@@ -59,9 +63,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI12ViewModifierP4body7content4BodyQzAA01_cD8_ContentVyxG_tF"></a>
-                      <a name="//apple_ref/swift/Method/body(content:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI12ViewModifierP4body7content4BodyQzAA01_cD8_ContentVyxG_tF">body(content:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore35ObjectHeaderAdditionalInfoAlignmentO14alignWithTitleyA2CmF"></a>
+                      <a name="//apple_ref/swift/Element/alignWithTitle" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35ObjectHeaderAdditionalInfoAlignmentO14alignWithTitleyA2CmF">alignWithTitle</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -69,14 +73,43 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          
+                          <p>Tags, body text, and footnote indent under the title, past the trailing
+edge of the detail image. This is the default behavior.</p>
+
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">body</span><span class="p">(</span><span class="nv">content</span><span class="p">:</span> <span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                            <pre class="highlight swift"><code><span class="k">case</span> <span class="n">alignWithTitle</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore35ObjectHeaderAdditionalInfoAlignmentO11leadingEdgeyA2CmF"></a>
+                      <a name="//apple_ref/swift/Element/leadingEdge" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore35ObjectHeaderAdditionalInfoAlignmentO11leadingEdgeyA2CmF">leadingEdge</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Tags, body text, and footnote align with the container&rsquo;s leading edge —
+the same edge as the detail image — instead of indenting under the title.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">case</span> <span class="n">leadingEdge</span></code></pre>
 
                           </div>
                         </div>
@@ -335,6 +368,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderSkeletonLoadingPattern.html">ObjectHeaderSkeletonLoadingPattern</a>
@@ -5979,9 +6015,6 @@
                   <a href="../Structs/TitleStyleModifier.html">TitleStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/Toast.html">Toast</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ToastMessage.html">ToastMessage</a>
                 </li>
                 <li class="nav-group-task">
@@ -6004,12 +6037,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ToastMessageTitleStyle.html">ToastMessageTitleStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ToastModifier.html">ToastModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ToastView.html">ToastView</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/TopDivider.html">TopDivider</a>
@@ -6584,7 +6611,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-06-04)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-06-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
