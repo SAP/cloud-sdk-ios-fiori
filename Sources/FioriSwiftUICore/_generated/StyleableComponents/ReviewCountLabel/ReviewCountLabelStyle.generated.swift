@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ReviewCountLabelStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ReviewCountLabelStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ReviewCountLabelConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ReviewCountLabelConfiguration) -> Body
 }
 
 struct AnyReviewCountLabelStyle: ReviewCountLabelStyle {

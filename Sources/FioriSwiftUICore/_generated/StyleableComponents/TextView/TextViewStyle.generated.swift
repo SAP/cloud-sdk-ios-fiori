@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TextViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TextViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TextViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TextViewConfiguration) -> Body
 }
 
 struct AnyTextViewStyle: TextViewStyle {

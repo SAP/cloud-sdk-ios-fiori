@@ -429,15 +429,8 @@ private struct FilterFormViewLayout: Layout {
     }
 }
 
-struct FilterFormViewButtonSizeKey: EnvironmentKey {
-    static var defaultValue: FilterButtonSize? = nil
-}
-
 extension EnvironmentValues {
-    var filterFormViewButtonSize: FilterButtonSize? {
-        get { self[FilterFormViewButtonSizeKey.self] }
-        set { self[FilterFormViewButtonSizeKey.self] = newValue }
-    }
+    @Entry var filterFormViewButtonSize: FilterButtonSize? = nil
 }
 
 public extension View {

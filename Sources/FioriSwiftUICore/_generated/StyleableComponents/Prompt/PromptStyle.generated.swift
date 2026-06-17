@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol PromptStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol PromptStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: PromptConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: PromptConfiguration) -> Body
 }
 
 struct AnyPromptStyle: PromptStyle {

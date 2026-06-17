@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol NowIndicatorNodeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol NowIndicatorNodeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NowIndicatorNodeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: NowIndicatorNodeConfiguration) -> Body
 }
 
 struct AnyNowIndicatorNodeStyle: NowIndicatorNodeStyle {

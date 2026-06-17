@@ -37,6 +37,7 @@ public extension JouleWelcomeScreen {
 }
 
 public extension JouleWelcomeScreen {
+    @MainActor
     init(mediaImage: Image? = nil,
          greetingText: AttributedString,
          title: AttributedString,
@@ -85,7 +86,7 @@ private extension JouleWelcomeScreen {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         JouleWelcomeScreen(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), greetingText: .init(self.greetingText), title: .init(self.title), footnote: .init(self.footnote), messageContent: .init(self.messageContent)))
             .shouldApplyDefaultStyle(false)
             .jouleWelcomeScreenStyle(JouleWelcomeScreenFioriStyle.ContentFioriStyle())

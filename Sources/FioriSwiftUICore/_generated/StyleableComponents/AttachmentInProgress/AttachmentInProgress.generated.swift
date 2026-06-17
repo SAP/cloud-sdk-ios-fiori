@@ -50,6 +50,7 @@ public extension AttachmentInProgress {
 }
 
 public extension AttachmentInProgress {
+    @MainActor
     init(attachmentInProgressTitle: AttributedString,
          attachmentInfo: AttachmentInfo,
          onPreview: ((AttachmentInfo) -> Void)? = nil,
@@ -96,7 +97,7 @@ private extension AttachmentInProgress {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentInProgress(.init(componentIdentifier: self.componentIdentifier, attachmentInProgressTitle: .init(self.attachmentInProgressTitle), attachmentInfo: self.attachmentInfo, onPreview: self.onPreview, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .attachmentInProgressStyle(AttachmentInProgressFioriStyle.ContentFioriStyle())

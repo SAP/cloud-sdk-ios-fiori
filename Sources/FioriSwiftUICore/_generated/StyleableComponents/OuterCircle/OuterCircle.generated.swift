@@ -25,6 +25,7 @@ public extension OuterCircle {
 }
 
 public extension OuterCircle {
+    @MainActor
     init(outerCircle: any Shape = Circle()) {
         self.init(outerCircle: { outerCircle })
     }
@@ -64,7 +65,7 @@ private extension OuterCircle {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         OuterCircle(.init(componentIdentifier: self.componentIdentifier, outerCircle: .init(self.outerCircle)))
             .shouldApplyDefaultStyle(false)
             .outerCircleStyle(.fiori)

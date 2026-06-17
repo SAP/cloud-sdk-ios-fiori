@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TextInputInfoViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TextInputInfoViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TextInputInfoViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TextInputInfoViewConfiguration) -> Body
 }
 
 struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {

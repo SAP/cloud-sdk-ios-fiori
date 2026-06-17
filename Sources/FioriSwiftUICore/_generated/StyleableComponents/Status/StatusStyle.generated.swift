@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StatusStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StatusStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StatusConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StatusConfiguration) -> Body
 }
 
 struct AnyStatusStyle: StatusStyle {

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TitleFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TitleFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TitleFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TitleFormViewConfiguration) -> Body
 }
 
 struct AnyTitleFormViewStyle: TitleFormViewStyle {

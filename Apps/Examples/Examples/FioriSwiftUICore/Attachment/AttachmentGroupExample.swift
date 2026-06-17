@@ -60,7 +60,7 @@ struct AttachmentGroupExample: View {
         self.useDemoDelegate = false
         self.showDefaultThumbnailWithPreview = false
     }
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -92,9 +92,9 @@ struct AttachmentGroupExample: View {
                                         await MainActor.run {
                                             self.attachmentInfo[index] = .uploading(sourceURL: url)
                                         }
-                                        
+
                                         try? await Task.sleep(nanoseconds: [1000000000, 3000000000, 5000000000].randomElement() ?? 3000000000)
-                                        
+
                                         await MainActor.run {
                                             if Bool.random() {
                                                 self.attachmentInfo[index] = .uploaded(destinationURL: url, sourceURL: url, extraInfo: self.showExtranInfo ? MyExtraInfo.random() : nil)
@@ -145,17 +145,17 @@ struct AttachmentGroupExample: View {
                         Button("Close") {
                             self.showConfiguraton.toggle()
                         }
-                        
+
                         Picker("State", selection: self.$state) {
                             Text("Normal").tag(ControlState.normal)
                             Text("Disabled").tag(ControlState.disabled)
                             Text("Readonly").tag(ControlState.readOnly)
                         }
                         .pickerStyle(.segmented)
-                        
+
                         Stepper("Max # \(self.maxCount != nil ? String(self.maxCount!) : "nil")",
                                 value: Binding<Int>(get: { self.maxCount ?? self.attachmentInfo.count + 3 }, set: { self.maxCount = $0 < self.attachmentInfo.count ? nil : $0 }))
-                        
+
                         Toggle(self.opsAsMenu ? "Use Operation Menu" : "Use Operation Dialog", isOn: self.$opsAsMenu)
 
                         Toggle(self.useDemoDelegate ? "Demo Slow Upload with Random Error" : "Demo Fast Upload without Error", isOn: self.$useDemoDelegate)
@@ -163,7 +163,7 @@ struct AttachmentGroupExample: View {
                         #if os(iOS)
                             Toggle(self.defaultPreview ? "Use QuickLookPreview" : "Use Custom Preview", isOn: self.$defaultPreview)
                         #endif
-                        
+
                         Toggle(self.defaultGridLayout ? "Use Default Grid Layout" : "Use Custom List Layout", isOn: self.$defaultGridLayout)
 
                         Toggle(self.defaultThumbnail ? "Use Default Attachment Style" : "Use Custom Attachment Style", isOn: self.$defaultThumbnail)
@@ -171,13 +171,13 @@ struct AttachmentGroupExample: View {
                         if !self.defaultThumbnail || !self.defaultGridLayout {
                             Toggle(self.showExtranInfo ? "Show Extra Info" : "No Extra Info", isOn: self.$showExtranInfo)
                         }
-                        
+
                         if self.defaultThumbnail {
                             Toggle(self.showDefaultThumbnailWithPreview ? "Show Thumbnail" : "No Thumbnail", isOn: self.$showDefaultThumbnailWithPreview)
                         }
 
                         Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
-                        
+
                         FilterCFG(photoFilters: self.$photoFilters, fileFilters: self.$fileFilters)
                         Spacer()
                     }
@@ -190,11 +190,11 @@ struct AttachmentGroupExample: View {
                 let mgr = FileManager.default
                 let folder = mgr.temporaryDirectory.appendingPathComponent(BasicAttachmentDelegate.demoFolderName, isDirectory: true)
                 try mgr.removeItem(at: folder)
-                
+
                 if !mgr.fileExists(atPath: folder.path) {
                     try mgr.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
                 }
-                
+
                 var urls: [URL] = []
                 try [
                     Bundle.main.url(forResource: "Text File Example", withExtension: "txt"),
@@ -204,7 +204,7 @@ struct AttachmentGroupExample: View {
                     try mgr.copyItem(at: $0, to: folder.appendingPathComponent($0.lastPathComponent))
                     urls.append(folder.appendingPathComponent($0.lastPathComponent))
                 }
-                
+
                 self.attachmentInfo.append(contentsOf: urls.map { AttachmentInfo.uploaded(destinationURL: $0, sourceURL: $0, extraInfo: nil) })
             } catch {
                 print("Error preparing demo folder: \(error)")
@@ -215,13 +215,13 @@ struct AttachmentGroupExample: View {
                 let mgr = FileManager.default
                 let folder = mgr.temporaryDirectory.appendingPathComponent(BasicAttachmentDelegate.demoFolderName, isDirectory: true)
                 try mgr.removeItem(at: folder)
-                
+
             } catch {
                 print("Error deleting folder: \(error)")
             }
         }
     }
-    
+
     @ViewBuilder
     func attachments() -> some View {
         AttachmentGroup(
@@ -311,7 +311,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                 self.getExtraInfoView(configuration)
             }
             .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
-            
+
             Text("* < Not  Visible> *")
                 .font(.caption)
                 .foregroundStyle(.red)
@@ -319,7 +319,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
         .frame(width: AttachmentConstants.thumbnailWidth)
         .attachmentDefaultGuestures(configuration: configuration)
     }
-    
+
     @ViewBuilder
     func getExtraInfoView(_ configuration: AttachmentConfiguration) -> some View {
         switch configuration.attachmentInfo {
@@ -339,7 +339,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
             EmptyView()
         }
     }
-    
+
     @ViewBuilder
     func getExtraInfoView(_ configuration: AttachmentConfiguration, value: Bool) -> some View {
         VStack(alignment: .center) {
@@ -388,7 +388,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                     .controlSize(ControlSize.mini)
                     .scaleEffect(0.75)
             }
-            
+
             Text("Count: \(value)")
                 .font(.caption)
                 .foregroundStyle(.red)
@@ -401,7 +401,7 @@ struct WriteAndUploadView: View {
     @State private var attachmentName = "MyTextDoc.txt"
     @State private var content: String = ""
     let onDone: (String, String) -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("Write and Upload")
@@ -431,7 +431,7 @@ struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
             configuration.title
                 .accessibilityIdentifier("Attachment:Title-\(configuration.title)-\(UUID().uuidString)")
                 .padding(.bottom, AttachmentConstants.extraTitleBottomPadding)
-    
+
             ForEach(0 ..< configuration.attachments.count, id: \.self) { index in
                 AttachmentElement(
                     attachmentInfo: configuration.attachments[index],
@@ -452,7 +452,7 @@ struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
                     }
                 )
             }
-            
+
             if configuration.controlState != .readOnly {
                 if let maxCount = configuration.maxCount {
                     if maxCount > configuration.attachments.count {
@@ -487,7 +487,7 @@ struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
 
 struct MyAttachmentStyleForListLayout: AttachmentStyle {
     @Environment(AttachmentContext.self) var context
-    
+
     public func makeBody(_ configuration: AttachmentConfiguration) -> some View {
         HStack {
             VStack(alignment: .leading) {
@@ -498,9 +498,9 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
             .foregroundStyle(.gray)
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             self.getExtraInfoView(configuration)
-            
+
             FioriIcon.actions.delete.padding(.horizontal)
                 .onTapGesture {
                     configuration.onDelete?(configuration.attachmentInfo)
@@ -513,7 +513,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
         .contentShape(Rectangle())
         .attachmentDefaultGuestures(configuration: configuration)
     }
-    
+
     @ViewBuilder
     func getExtraInfoView(_ configuration: AttachmentConfiguration) -> some View {
         if case .uploaded(_, _, let extraInfo) = configuration.attachmentInfo {
@@ -530,7 +530,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
             EmptyView()
         }
     }
-    
+
     @ViewBuilder
     func getSwitch(_ configuration: AttachmentConfiguration, value: Bool) -> some View {
         HStack {
@@ -550,7 +550,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                         switch configuration.attachmentInfo {
                         case .uploading, .error:
                             break
-                        case .uploaded(let destinationURL, let sourceURL, _):
+                        case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
                         }
                     }
@@ -559,7 +559,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
             }
         }
     }
-    
+
     @ViewBuilder
     func getStepper(_ configuration: AttachmentConfiguration, value: Int) -> some View {
         HStack {
@@ -575,7 +575,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                         switch configuration.attachmentInfo {
                         case .uploading, .error:
                             return
-                        case .uploaded(let destinationURL, let sourceURL, _):
+                        case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
                         }
                     }
@@ -655,7 +655,7 @@ extension MyExtraInfo {
             return .init(intValue: Int.random(in: 0 ..< 100))
         }
     }
-    
+
     static func create(extraInfo: Any) -> Self {
         if extraInfo is Bool {
             return MyExtraInfo(boolValue: extraInfo as? Bool)
@@ -667,18 +667,20 @@ extension MyExtraInfo {
     }
 }
 
-class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
+class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate, @unchecked Sendable {
     public init() {
         super.init()
     }
-    
-    override func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+
+    override func upload(contentFrom provider: NSItemProvider, onStarting: (@MainActor @Sendable (URL) -> Void)? = nil, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
                     if let onStarting {
-                        DispatchQueue.main.async {
-                            onStarting(url)
+                        Task {
+                            await MainActor.run {
+                                onStarting(url)
+                            }
                         }
                     }
                     Thread.sleep(forTimeInterval: [2.0, 3.0, 5.0, 7.0, 10.0].randomElement() ?? 3.0)

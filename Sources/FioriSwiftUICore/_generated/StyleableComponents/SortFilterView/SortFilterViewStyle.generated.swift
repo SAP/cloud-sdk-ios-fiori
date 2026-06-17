@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SortFilterViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SortFilterViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SortFilterViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SortFilterViewConfiguration) -> Body
 }
 
 struct AnySortFilterViewStyle: SortFilterViewStyle {

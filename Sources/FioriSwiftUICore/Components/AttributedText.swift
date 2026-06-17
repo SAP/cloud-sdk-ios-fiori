@@ -3,10 +3,10 @@ import SwiftUI
 public struct AttributedText: View {
     @State private var height: CGFloat = 0
     
-    let attributedText: NSAttributedString?
-    let configuration: ((UITextView) -> Void)?
+    nonisolated(unsafe) let attributedText: NSAttributedString?
+    nonisolated let configuration: (@Sendable (UITextView) -> Void)?
     
-    public init(attributedText: NSAttributedString?, configuration: ((UITextView) -> Void)? = nil) {
+    public nonisolated init(attributedText: NSAttributedString?, configuration: (@Sendable (UITextView) -> Void)? = nil) {
         self.attributedText = attributedText
         self.configuration = configuration
     }
@@ -18,7 +18,7 @@ public struct AttributedText: View {
 }
 
 extension AttributedText {
-    init(bodyAttributedText: NSAttributedString?, configuration: ((UITextView) -> Void)? = nil) {
+    nonisolated init(bodyAttributedText: NSAttributedString?, configuration: (@Sendable (UITextView) -> Void)? = nil) {
         self.init(attributedText: bodyAttributedText, configuration: configuration)
     }
 }
@@ -26,7 +26,7 @@ extension AttributedText {
 struct UITextViewContainer: UIViewRepresentable {
     @Binding var attributedText: NSAttributedString?
     @Binding var height: CGFloat
-    let configuration: ((UITextView) -> Void)?
+    let configuration: (@Sendable (UITextView) -> Void)?
     
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()

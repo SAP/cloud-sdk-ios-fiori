@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol MenuSelectionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol MenuSelectionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: MenuSelectionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: MenuSelectionConfiguration) -> Body
 }
 
 struct AnyMenuSelectionStyle: MenuSelectionStyle {

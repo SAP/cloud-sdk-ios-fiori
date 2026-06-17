@@ -58,7 +58,7 @@ private extension AuthInput {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AuthInput(.init(componentIdentifier: self.componentIdentifier, authInput: .init(self.authInput)))
             .shouldApplyDefaultStyle(false)
             .authInputStyle(.fiori)

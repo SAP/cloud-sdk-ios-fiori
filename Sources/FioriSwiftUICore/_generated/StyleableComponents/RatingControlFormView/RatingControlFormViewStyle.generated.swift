@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol RatingControlFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol RatingControlFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: RatingControlFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: RatingControlFormViewConfiguration) -> Body
 }
 
 struct AnyRatingControlFormViewStyle: RatingControlFormViewStyle {

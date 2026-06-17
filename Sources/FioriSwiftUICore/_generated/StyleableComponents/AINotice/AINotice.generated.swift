@@ -58,6 +58,7 @@ public extension AINotice {
 }
 
 public extension AINotice {
+    @MainActor
     init(icon: Image? = nil,
          description: AttributedString? = nil,
          actionLabel: AttributedString? = nil,
@@ -106,7 +107,7 @@ private extension AINotice {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AINotice(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: self.description, actionLabel: self.actionLabel, viewMoreAction: self.viewMoreAction, viewAlignment: self.viewAlignment))
             .shouldApplyDefaultStyle(false)
             .aINoticeStyle(AINoticeFioriStyle.ContentFioriStyle())

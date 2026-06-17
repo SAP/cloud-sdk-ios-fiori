@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WhatsNewPageViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WhatsNewPageViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WhatsNewPageViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WhatsNewPageViewConfiguration) -> Body
 }
 
 struct AnyWhatsNewPageViewStyle: WhatsNewPageViewStyle {

@@ -25,6 +25,7 @@ public extension AgreeAction {
 }
 
 public extension AgreeAction {
+    @MainActor
     init(agreeAction: FioriButton? = FioriButton { _ in Text("Agree".localizedFioriString()) }) {
         self.init(agreeAction: { agreeAction })
     }
@@ -64,7 +65,7 @@ private extension AgreeAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AgreeAction(.init(componentIdentifier: self.componentIdentifier, agreeAction: .init(self.agreeAction)))
             .shouldApplyDefaultStyle(false)
             .agreeActionStyle(.fiori)

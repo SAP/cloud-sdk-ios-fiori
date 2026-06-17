@@ -25,6 +25,7 @@ public extension DenyAction {
 }
 
 public extension DenyAction {
+    @MainActor
     init(denyAction: FioriButton? = FioriButton { _ in Text("Deny".localizedFioriString()) }) {
         self.init(denyAction: { denyAction })
     }
@@ -64,7 +65,7 @@ private extension DenyAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DenyAction(.init(componentIdentifier: self.componentIdentifier, denyAction: .init(self.denyAction)))
             .shouldApplyDefaultStyle(false)
             .denyActionStyle(.fiori)

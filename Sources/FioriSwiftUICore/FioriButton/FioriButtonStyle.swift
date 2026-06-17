@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 /// The object that supplies styles to the content of `FioriButton` instances.
-public protocol FioriButtonStyle {
+@MainActor @preconcurrency public protocol FioriButtonStyle: DynamicProperty {
     /// A view that represents the body of a button.
     associatedtype Body: View
     
@@ -13,7 +13,7 @@ public protocol FioriButtonStyle {
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration: The properties of the Fiori button.
-    func makeBody(configuration: Configuration) -> Self.Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(configuration: Configuration) -> Self.Body
 
     /// The properties of a Fiori button.
     typealias Configuration = FioriButtonStyleConfiguration
@@ -444,7 +444,7 @@ public extension View {
     }
 }
 
-struct FioriButtonLabelKey: EnvironmentKey {
+@MainActor struct FioriButtonLabelKey: @preconcurrency EnvironmentKey {
     static let defaultValue = AnyFioriButtonStyle(FioriPrimaryButtonStyle())
 }
 

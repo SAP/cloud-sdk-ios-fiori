@@ -12,7 +12,7 @@ import SwiftUI
 ///     print("tap videoCall")
 /// }), .init(type: .message, didSelectActivityItem: {
 ///     print("tap message")
-/// })])
+/// })]).removeDetailImageDefaultStyle(false)
 ///
 /// ContactItem {
 ///      Text("Headline only example")
@@ -26,7 +26,7 @@ import SwiftUI
 ///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
 ///          print("tap phone")
 ///      })])
-/// }
+/// }.removeDetailImageDefaultStyle(false)
 /// ```
 public struct ContactItem {
     let title: any View
@@ -62,6 +62,7 @@ public extension ContactItem {
 }
 
 public extension ContactItem {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          description: AttributedString? = nil,
@@ -110,7 +111,7 @@ private extension ContactItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ContactItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems)))
             .shouldApplyDefaultStyle(false)
             .contactItemStyle(ContactItemFioriStyle.ContentFioriStyle())

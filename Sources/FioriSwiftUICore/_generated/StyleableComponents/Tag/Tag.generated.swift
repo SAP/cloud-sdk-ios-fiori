@@ -25,6 +25,7 @@ public extension Tag {
 }
 
 public extension Tag {
+    @MainActor
     init(tag: TextOrIcon) {
         self.init(tag: { TextOrIconView(tag) })
     }
@@ -64,7 +65,7 @@ private extension Tag {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Tag(.init(componentIdentifier: self.componentIdentifier, tag: .init(self.tag)))
             .shouldApplyDefaultStyle(false)
             .tagStyle(.fiori)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol IconStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol IconStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: IconConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: IconConfiguration) -> Body
 }
 
 struct AnyIconStyle: IconStyle {

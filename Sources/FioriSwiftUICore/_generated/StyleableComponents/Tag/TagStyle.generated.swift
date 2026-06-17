@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TagStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TagStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TagConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TagConfiguration) -> Body
 }
 
 struct AnyTagStyle: TagStyle {

@@ -25,6 +25,7 @@ public extension Prompt {
 }
 
 public extension Prompt {
+    @MainActor
     init(prompt: AttributedString? = nil) {
         self.init(prompt: { OptionalText(prompt) })
     }
@@ -64,7 +65,7 @@ private extension Prompt {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Prompt(.init(componentIdentifier: self.componentIdentifier, prompt: .init(self.prompt)))
             .shouldApplyDefaultStyle(false)
             .promptStyle(.fiori)

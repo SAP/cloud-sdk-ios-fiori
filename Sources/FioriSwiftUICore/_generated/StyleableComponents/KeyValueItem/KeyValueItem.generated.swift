@@ -49,6 +49,7 @@ public extension KeyValueItem {
 }
 
 public extension KeyValueItem {
+    @MainActor
     init(key: AttributedString,
          value: AttributedString? = nil,
          controlState: ControlState = .normal,
@@ -97,7 +98,7 @@ private extension KeyValueItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         KeyValueItem(.init(componentIdentifier: self.componentIdentifier, key: .init(self.key), value: .init(self.value), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis))
             .shouldApplyDefaultStyle(false)
             .keyValueItemStyle(KeyValueItemFioriStyle.ContentFioriStyle())

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol MediaImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol MediaImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: MediaImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: MediaImageConfiguration) -> Body
 }
 
 struct AnyMediaImageStyle: MediaImageStyle {

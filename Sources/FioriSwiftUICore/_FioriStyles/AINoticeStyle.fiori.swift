@@ -112,7 +112,7 @@ extension EnvironmentValues {
     }
 }
 
-struct AINoticeItemConfiguration {
+struct AINoticeItemConfiguration: @unchecked Sendable {
     let isPresented: Binding<Bool>
     let icon: Image?
     let description: AttributedString?

@@ -49,6 +49,7 @@ public extension TextInputInfoView {
 }
 
 public extension TextInputInfoView {
+    @MainActor
     init(icon: Image? = nil,
          description: AttributedString? = nil,
          counter: AttributedString? = nil)
@@ -93,7 +94,7 @@ private extension TextInputInfoView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         TextInputInfoView(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description), counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .textInputInfoViewStyle(TextInputInfoViewFioriStyle.ContentFioriStyle())

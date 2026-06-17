@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentThumbnailStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentThumbnailStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> Body
 }
 
 struct AnyAttachmentThumbnailStyle: AttachmentThumbnailStyle {

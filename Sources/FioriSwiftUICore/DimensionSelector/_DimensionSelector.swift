@@ -277,8 +277,8 @@ extension _DimensionSelector {
     struct HStackPreferenceKey: PreferenceKey {
         typealias Value = [CGFloat]
 
-        static var defaultValue: [CGFloat] = []
-        
+        static let defaultValue: [CGFloat] = []
+
         static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
             value.append(contentsOf: nextValue())
         }
@@ -298,8 +298,8 @@ extension _DimensionSelector {
     struct SegmentPreferenceKey: PreferenceKey {
         typealias Value = [CGSize]
 
-        static var defaultValue: [CGSize] = []
-        
+        static let defaultValue: [CGSize] = []
+
         static func reduce(value: inout [CGSize], nextValue: () -> [CGSize]) {
             value.append(contentsOf: nextValue())
         }

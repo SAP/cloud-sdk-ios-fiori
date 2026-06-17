@@ -69,7 +69,7 @@ public extension View {
 
 struct WATextInputModifier: ViewModifier {
     @Binding var text: String
-    
+
     @StateObject var context: WritingAssistantContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
@@ -80,9 +80,9 @@ struct WATextInputModifier: ViewModifier {
     @Environment(\.waShowPanel) private var waShowPanel
     @Environment(\.waAutoSave) private var waAutoSave
     @Environment(\.isLoading) var isLoading
-    
+
     var formView: WritingAssistantForm
-    
+
     init(text: Binding<String>,
          menus: [[WAMenu]],
          menuHandler: @escaping ((WAMenu, String) async -> WAResult),
@@ -98,11 +98,11 @@ struct WATextInputModifier: ViewModifier {
         self._context = StateObject(wrappedValue: context)
         self.formView = WritingAssistantForm(text: text, menus: menus)
     }
-    
+
     func isSameTextInput(_ l: (any WATextInput)?, _ r: (any WATextInput)?) -> Bool {
         ObjectIdentifier(l as AnyObject) == ObjectIdentifier(r as AnyObject)
     }
-    
+
     // swiftlint:disable function_body_length cyclomatic_complexity
     func body(content: Content) -> some View {
         content
@@ -213,7 +213,7 @@ struct WATextInputModifier: ViewModifier {
     }
 
     @State private var logShowPanelChanged = true
-    
+
     var toolbarEntryView: some View {
         HStack {
             Spacer()
@@ -232,7 +232,7 @@ struct WATextInputModifier: ViewModifier {
             .fixedSize()
         }
     }
-    
+
     func startWAPanel() {
         if let waAllowed {
             Task {
@@ -246,14 +246,14 @@ struct WATextInputModifier: ViewModifier {
             self.showsWAPanel()
         }
     }
-    
+
     func showsWAPanel() {
         self.context.originalValue = self.text
         self.context.updateOriginalSelectedRange()
         self.context.updateInWAFlow(true)
         self.context.isPresented = true
     }
-    
+
     func waFlowDidChanged(_ inWAFlow: Bool) {
         if !inWAFlow {
             if self.context.showCancelAlert {
@@ -272,11 +272,11 @@ struct WATextInputModifier: ViewModifier {
             }
         }
     }
-    
+
     func selectionDidChanged(_ menu: WAMenu?) {
         if let menu {
             self.context.startMenuTask(menu: menu)
-            
+
             if UIAccessibility.isVoiceOverRunning {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                     let formatString = "Text updated to Version %d of %d".localizedFioriString()
@@ -287,7 +287,7 @@ struct WATextInputModifier: ViewModifier {
             }
         }
     }
-    
+
     func handleHelperAction(_ helpAction: WAHelperAction) {
         switch helpAction {
         case .none:
@@ -309,7 +309,7 @@ struct WATextInputModifier: ViewModifier {
     }
 
     private let toastMessage = "Thank you for your feedback".localizedFioriString()
-	
+
     var popoverView: some View {
         self.formView
             .frame(idealWidth: 400, idealHeight: 400)
@@ -338,7 +338,7 @@ struct WATextInputModifier: ViewModifier {
                 self.waSheetHeightUpdated?(0)
             }
     }
-    
+
     @MainActor func restoreSelectedRange(by range: NSRange? = nil) {
         if let textView = self.context.waTextInput as? UITextView {
             let selectedRange = range ?? NSRange(location: textView.selectedRange.location, length: 0)
@@ -356,7 +356,7 @@ struct WATextInputModifier: ViewModifier {
             }
         }
     }
-    
+
     @MainActor func switchKeyboard(useWAPanel: Bool) {
         defer {
             self.context.logKeyboardChanged = true
@@ -401,7 +401,7 @@ struct WATextInputModifier: ViewModifier {
             }
         }
     }
-    
+
     var keyboardPublisher: AnyPublisher<(keyboardShown: Bool, textView: (any WATextInput)?), Never> {
         Publishers.Merge(
             NotificationCenter
@@ -438,30 +438,49 @@ extension Notification.Name {
 }
 
 extension WritingAssistantContext {
+    @MainActor
     func observeSelectionChange(for textView: UITextView) {
-        selectionKVO?.invalidate()
-        selectionKVO = textView.observe(\.selectedTextRange, options: [.new]) { [weak self] tv, _ in
-            guard let self else { return }
-            if let range = tv.selectedTextRange {
-                let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
-                let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
-                let nsRange = NSRange(location: start, length: end - start)
-                self.resetSelectedRange(nsRange)
-            }
-        }
+        NotificationCenter.default.removeObserver(self, name: UITextView.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.handleTextViewSelectionDidChange(_:)),
+                                               name: UITextView.textDidChangeNotification,
+                                               object: textView)
     }
-    
+
+    @MainActor
     func observeSelectionChange(for textField: UITextField) {
-        selectionKVO?.invalidate()
-        selectionKVO = textField.observe(\.selectedTextRange, options: [.new]) { [weak self] tv, _ in
-            guard let self else { return }
-            if let range = tv.selectedTextRange {
-                let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
-                let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
-                let nsRange = NSRange(location: start, length: end - start)
-                self.resetSelectedRange(nsRange)
-            }
-        }
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.handleTextFieldSelectionDidChange(_:)),
+                                               name: UITextField.textDidChangeNotification,
+                                               object: textField)
+    }
+
+    @MainActor
+    @objc private func handleTextViewSelectionDidChange(_ notification: Notification) {
+        guard let textView = notification.object as? UITextView,
+              let nsRange = self.selectedNSRange(in: textView)
+        else { return }
+
+        self.resetSelectedRange(nsRange)
+    }
+
+    @MainActor
+    @objc private func handleTextFieldSelectionDidChange(_ notification: Notification) {
+        guard let textField = notification.object as? UITextField,
+              let nsRange = self.selectedNSRange(in: textField)
+        else { return }
+
+        self.resetSelectedRange(nsRange)
+    }
+
+    @MainActor
+    private func selectedNSRange(in textInput: any UITextInput) -> NSRange? {
+        guard let range = textInput.selectedTextRange else { return nil }
+
+        let start = textInput.offset(from: textInput.beginningOfDocument, to: range.start)
+        let end = textInput.offset(from: textInput.beginningOfDocument, to: range.end)
+        return NSRange(location: start, length: end - start)
     }
 }
 
@@ -473,8 +492,8 @@ protocol WATextInput: Equatable {
     #endif
 }
 
-extension UITextField: WATextInput {}
-extension UITextView: WATextInput {}
+extension UITextField: @preconcurrency WATextInput {}
+extension UITextView: @preconcurrency WATextInput {}
 
 extension UITextField {
     var selectedRange: NSRange {
@@ -499,7 +518,7 @@ extension UITextField {
     }
 }
 
-private weak var currentWAFirstResponder: UIResponder?
+private nonisolated(unsafe) weak var currentWAFirstResponder: UIResponder?
 
 extension UIResponder {
     static func findFirstResponder() -> UIResponder? {

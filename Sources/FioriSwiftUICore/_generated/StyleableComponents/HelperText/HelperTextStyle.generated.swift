@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HelperTextStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HelperTextStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HelperTextConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HelperTextConfiguration) -> Body
 }
 
 struct AnyHelperTextStyle: HelperTextStyle {

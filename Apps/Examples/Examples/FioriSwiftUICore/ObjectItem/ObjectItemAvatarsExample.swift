@@ -20,7 +20,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
         self.getObjectItem(for: indexPath).typeErased
     }
     
-    func getObjectItem(for indexPath: IndexPath) -> some View {
+    @MainActor func getObjectItem(for indexPath: IndexPath) -> some View {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             let oi = ObjectItem(title: {

@@ -25,6 +25,7 @@ public extension SignInAction {
 }
 
 public extension SignInAction {
+    @MainActor
     init(signInAction: FioriButton? = FioriButton { _ in Text("Sign In".localizedFioriString()) }) {
         self.init(signInAction: { signInAction })
     }
@@ -64,7 +65,7 @@ private extension SignInAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SignInAction(.init(componentIdentifier: self.componentIdentifier, signInAction: .init(self.signInAction)))
             .shouldApplyDefaultStyle(false)
             .signInActionStyle(.fiori)

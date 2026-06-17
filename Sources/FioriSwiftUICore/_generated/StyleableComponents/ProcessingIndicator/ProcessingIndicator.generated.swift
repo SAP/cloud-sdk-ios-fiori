@@ -31,6 +31,7 @@ public extension ProcessingIndicator {
 }
 
 public extension ProcessingIndicator {
+    @MainActor
     init(optionalTitle: AttributedString?) {
         self.init(optionalTitle: { OptionalText(optionalTitle) })
     }
@@ -70,7 +71,7 @@ private extension ProcessingIndicator {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ProcessingIndicator(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle)))
             .shouldApplyDefaultStyle(false)
             .processingIndicatorStyle(ProcessingIndicatorFioriStyle.ContentFioriStyle())

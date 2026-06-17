@@ -91,6 +91,7 @@ public extension CardExtHeader {
 }
 
 public extension CardExtHeader {
+    @MainActor
     init(@ViewBuilder row1: () -> any View = { EmptyView() },
          @ViewBuilder row2: () -> any View = { EmptyView() },
          @ViewBuilder row3: () -> any View = { EmptyView() },
@@ -139,7 +140,7 @@ private extension CardExtHeader {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CardExtHeader(.init(componentIdentifier: self.componentIdentifier, row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)))
             .shouldApplyDefaultStyle(false)
             .cardExtHeaderStyle(CardExtHeaderFioriStyle.ContentFioriStyle())

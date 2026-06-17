@@ -49,7 +49,7 @@ extension _UserConsentForm: View {
         }
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func makeBody() -> some View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
@@ -57,7 +57,7 @@ extension _UserConsentForm: View {
             .alert(configuration: self.alertConfiguration, isPresented: $_showAlert.0)
     }
     
-    var alertConfiguration: AlertConfiguration {
+    @MainActor var alertConfiguration: AlertConfiguration {
         guard let alertConfig = _alertConfiguration?(_showAlert.1) else {
             fatalError("UserConsentForm: alert configuration cannot be nil")
         }
@@ -84,7 +84,7 @@ extension _UserConsentForm: View {
         return newAlertConfig
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     private var toolBar: some View {
         HStack {
             if _pageIndex == _userConsentPages.count - 1 {
@@ -115,7 +115,7 @@ extension _UserConsentForm: View {
         .padding()
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     private var navBarLeadingView: some View {
         switch _pageIndex {
         case 0:
@@ -134,7 +134,7 @@ extension _UserConsentForm: View {
         }
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     private var navBarTrailingView: some View {
         switch _pageIndex {
         case _userConsentPages.count - 1:

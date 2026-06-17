@@ -86,6 +86,7 @@ public extension ObjectHeader {
 }
 
 public extension ObjectHeader {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          tags: [AttributedString] = [],
@@ -144,7 +145,7 @@ private extension ObjectHeader {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ObjectHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), tags: .init(self.tags), bodyText: .init(self.bodyText), footnote: .init(self.footnote), descriptionText: .init(self.descriptionText), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .objectHeaderStyle(ObjectHeaderFioriStyle.ContentFioriStyle())

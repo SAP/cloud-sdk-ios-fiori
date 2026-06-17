@@ -20,7 +20,7 @@ public extension AvatarList {
     }
 }
 
-struct AvatarsListStack: AvatarList {
+struct AvatarsListStack: @preconcurrency AvatarList {
     let avatars: [any View]
     
     init(_ avatars: [TextOrIcon]) {
@@ -49,6 +49,7 @@ struct AvatarsListStack: AvatarList {
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum AvatarsBuilder {
     /// :nodoc:
     public static func buildBlock(_ components: any View...) -> some AvatarList {

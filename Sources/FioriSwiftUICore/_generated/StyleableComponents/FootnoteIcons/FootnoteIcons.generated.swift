@@ -25,6 +25,7 @@ public extension FootnoteIcons {
 }
 
 public extension FootnoteIcons {
+    @MainActor
     init(footnoteIcons: [TextOrIcon] = []) {
         self.init(footnoteIcons: { FootnoteIconStack(footnoteIcons) })
     }
@@ -64,7 +65,7 @@ private extension FootnoteIcons {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FootnoteIcons(.init(componentIdentifier: self.componentIdentifier, footnoteIcons: .init(self.footnoteIcons)))
             .shouldApplyDefaultStyle(false)
             .footnoteIconsStyle(.fiori)

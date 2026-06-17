@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ListPickerContentStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ListPickerContentStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ListPickerContentConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ListPickerContentConfiguration) -> Body
 }
 
 struct AnyListPickerContentStyle: ListPickerContentStyle {

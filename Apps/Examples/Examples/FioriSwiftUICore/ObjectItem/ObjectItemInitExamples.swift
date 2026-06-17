@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectItemInitExamples: ObjectItemListDataProtocol {
+struct ObjectItemInitExamples: @preconcurrency ObjectItemListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -47,7 +47,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
         self.getObjectItem(for: indexPath).typeErased
     }
     
-    func getObjectItem(for indexPath: IndexPath) -> some View {
+    @MainActor func getObjectItem(for indexPath: IndexPath) -> some View {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             // Regular, 1st is text, init with ViewBuilder

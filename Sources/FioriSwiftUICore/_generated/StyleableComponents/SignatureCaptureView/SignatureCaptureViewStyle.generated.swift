@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SignatureCaptureViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SignatureCaptureViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SignatureCaptureViewConfiguration) -> Body
 }
 
 struct AnySignatureCaptureViewStyle: SignatureCaptureViewStyle {

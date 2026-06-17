@@ -28,10 +28,11 @@ struct CustomResolvedChildViewStyle: View {
 }
 
 struct CustomChildViewConfiguration {
-    @ObservedObject var dataModel: CustomDataModel
+    var dataModel: CustomDataModel
 }
 
 struct CustomChildViewBaseStyle {
+    @MainActor
     func makeBody(_ configuration: CustomChildViewConfiguration) -> some View {
         ScrollView {
             VStack {
@@ -52,6 +53,6 @@ struct CustomChildViewBaseStyle {
     }
 }
 
-class CustomDataModel: ObservableObject {
+class CustomDataModel: ObservableObject, @unchecked Sendable {
     @Published var monthViewHeight: CGFloat = 20
 }

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UpVoteActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UpVoteActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UpVoteActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UpVoteActionConfiguration) -> Body
 }
 
 struct AnyUpVoteActionStyle: UpVoteActionStyle {

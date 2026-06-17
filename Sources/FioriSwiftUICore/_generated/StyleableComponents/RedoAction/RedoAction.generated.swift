@@ -27,6 +27,7 @@ public extension RedoAction {
 }
 
 public extension RedoAction {
+    @MainActor
     init(redoAction: FioriButton? = FioriButton._redoButton) {
         self.init(redoAction: { redoAction })
     }
@@ -66,7 +67,7 @@ private extension RedoAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         RedoAction(.init(componentIdentifier: self.componentIdentifier, redoAction: .init(self.redoAction)))
             .shouldApplyDefaultStyle(false)
             .redoActionStyle(.fiori)

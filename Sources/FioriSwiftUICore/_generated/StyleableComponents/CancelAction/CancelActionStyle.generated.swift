@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CancelActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CancelActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CancelActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CancelActionConfiguration) -> Body
 }
 
 struct AnyCancelActionStyle: CancelActionStyle {

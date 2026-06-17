@@ -7,11 +7,11 @@ import SwiftUI
 struct CustomDestination: Hashable {
     let id = UUID()
     let destination: any View
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.id)
     }
-    
+
     static func == (lhs: CustomDestination, rhs: CustomDestination) -> Bool {
         lhs.id == rhs.id
     }
@@ -21,13 +21,13 @@ struct WAErrorModel: Equatable {
     var isFeedbackError: Bool
     var isInMenuView: Bool
     var error: WAError?
-    
+
     init(isFeedbackError: Bool = false, isInMenuView: Bool = false, error: WAError? = nil) {
         self.isFeedbackError = isFeedbackError
         self.isInMenuView = isInMenuView
         self.error = error
     }
-    
+
     static func == (lhs: WAErrorModel, rhs: WAErrorModel) -> Bool {
         lhs.isFeedbackError == rhs.isFeedbackError &&
             lhs.isInMenuView == rhs.isInMenuView &&
@@ -36,16 +36,15 @@ struct WAErrorModel: Equatable {
 }
 
 class WritingAssistantContext: NSObject, ObservableObject {
-    var selectionKVO: NSKeyValueObservation?
     var waTextInput: (any WATextInput)?
-    
+
     @Published var originalValue: String
     @Published var displayedValue: String
-    
+
     var originalSelectedRange: NSRange? = nil
     var selectedRange: NSRange? = nil
     var canResetSelectedRange = true
-    
+
     @Published var inProgress: Bool = false
     @Published var isPresented: Bool = false
     @Published var showCancelAlert: Bool = false
@@ -53,27 +52,27 @@ class WritingAssistantContext: NSObject, ObservableObject {
     @Published var customDestination: CustomDestination? = nil
 
     var rewriteTextSet: [(range: NSRange, value: String)] = []
-    
+
     @Published var isInWAFlow: Bool = false
     var logKeyboardChanged = true
-    
+
     func updateInWAFlow(_ showKeyboard: Bool) {
         self.isInWAFlow = showKeyboard
     }
-    
+
     @Published var selection: WAMenu? = nil
     @Published var lastSelection: WAMenu? = nil
-    
+
     @Published var errorModel = WAErrorModel()
-    
+
     var isErrorHappenedInMenuView: Bool {
         self.errorModel.isInMenuView && self.errorModel.error != nil
     }
-    
+
     var showErrorInFeedbackView: Bool {
         self.errorModel.isFeedbackError && !self.errorModel.isInMenuView && self.errorModel.error != nil
     }
-    
+
     var indexOfCurrentValue: Int = 0
     var rangeChangedShouldBeMonitored: Bool = true
     var lastFeedbackInformation: (voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool)?
@@ -81,28 +80,28 @@ class WritingAssistantContext: NSObject, ObservableObject {
     let menuHandler: (WAMenu, String) async -> WAResult
     let feedbackOptions: [String]
     let feedbackHandler: ((AIUserFeedbackVoteState, [String]) async -> WAFeedbackResult)?
-    
+
     @Published var feedbackVoteState: AIUserFeedbackVoteState = .notDetermined
     @Published var feedbackSubmitButtonState: AIUserFeedbackSubmitButtonState = .normal
-    
+
     var feedbackDownvoted: Bool {
         self.feedbackVoteState == .downVote
     }
-    
+
     var feedbackUpvoted: Bool {
         self.feedbackVoteState == .upVote
     }
-    
+
     @State private var task: Task<Void, Never>? = nil
-    
+
     var textIsChanged: Bool {
         self.displayedValue != self.originalValue
     }
-    
+
     func setError(_ error: WAError, isFeedbackError: Bool = false, isInMenuView: Bool = true) {
         self.errorModel = WAErrorModel(isFeedbackError: isFeedbackError, isInMenuView: isInMenuView, error: error)
     }
-    
+
     init(originalValue: String,
          menus: [[WAMenu]],
          menuHandler: @escaping (WAMenu, String) async -> WAResult,
@@ -118,8 +117,13 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.indexOfCurrentValue = 0
         self.displayedValue = originalValue
     }
-    
-    func startMenuTask(menu: WAMenu) {
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UITextView.textDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+    }
+
+    @MainActor func startMenuTask(menu: WAMenu) {
         self.errorModel.error = nil
         self.inProgress = true
         self.logKeyboardChanged = false
@@ -131,7 +135,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         }
         self.removeSelection(menu)
     }
-    
+
     @MainActor func updateMenuResult(_ menu: WAMenu, _ result: WAResult) {
         switch result {
         case .success(let value):
@@ -144,8 +148,8 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.inProgress = false
         self.logKeyboardChanged = true
     }
-    
-    func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
+
+    @MainActor func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
         if let feedbackHandler {
             self.errorModel.error = nil
             self.lastFeedbackInformation = (voteState, options, inMenuView)
@@ -158,14 +162,14 @@ class WritingAssistantContext: NSObject, ObservableObject {
             }
         }
     }
-    
-    func retryFeedbackTask() {
+
+    @MainActor func retryFeedbackTask() {
         guard let lastFeedbackInformation = self.lastFeedbackInformation else { return }
         self.startFeedbackTask(voteState: lastFeedbackInformation.voteState,
                                options: lastFeedbackInformation.options,
                                inMenuView: lastFeedbackInformation.inMenuView)
     }
-    
+
     @MainActor func updateFeedbackResult(_ result: WAFeedbackResult, voteState: AIUserFeedbackVoteState, inMenuView: Bool) {
         self.inProgress = false
         switch result {
@@ -180,7 +184,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
             self.setError(error, isFeedbackError: true, isInMenuView: inMenuView)
         }
     }
-    
+
     func cancelTask() {
         if let task = self.task {
             task.cancel()
@@ -194,7 +198,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
             self.selectedRange = textInput.selectedRange
         }
     }
-    
+
     func resetSelectedRange(_ range: NSRange) {
         guard self.canResetSelectedRange, self.selectedRange != range else {
             self.canResetSelectedRange = true
@@ -206,12 +210,12 @@ class WritingAssistantContext: NSObject, ObservableObject {
             self.rewriteTextSet[self.indexOfCurrentValue].range = range
         }
     }
-    
+
     func removeSelection(_ menu: WAMenu) {
         self.lastSelection = menu
         self.selection = nil
     }
-    
+
     func addNewValue(_ value: String, for menu: WAMenu?) {
         self.rangeChangedShouldBeMonitored = true
         self.updateOriginalSetIfNeeded()
@@ -227,20 +231,20 @@ class WritingAssistantContext: NSObject, ObservableObject {
             self.lastSelection = menu
         }
     }
-    
+
     private func updateOriginalSetIfNeeded() {
         if self.indexOfCurrentValue == 0, !self.rewriteTextSet.isEmpty {
             self.rewriteTextSet[0].range = self.usedSelectedRange
             self.rewriteTextSet[0].value = self.displayedValue
         }
     }
-    
+
     private func removeUnnecessaryRewriteTextSet() {
         if self.indexOfCurrentValue < self.rewriteTextSet.count - 1 {
             self.rewriteTextSet.removeSubrange((self.indexOfCurrentValue + 1) ..< self.rewriteTextSet.count)
         }
     }
-    
+
     var usedSelectedRange: NSRange {
         let r: NSRange
         if let range = selectedRange, range.length > 0 {
@@ -250,60 +254,60 @@ class WritingAssistantContext: NSObject, ObservableObject {
         }
         return r
     }
-    
+
     func revertToPreviousValue() {
         if self.indexOfCurrentValue > 0 {
             self.indexOfCurrentValue -= 1
             self.handleTextWhenIndexChanged()
         }
     }
-    
+
     func forwardToNextValue() {
         if self.indexOfCurrentValue < self.rewriteTextSet.count - 1 {
             self.indexOfCurrentValue += 1
             self.handleTextWhenIndexChanged()
         }
     }
-    
+
     func handleTextWhenIndexChanged() {
         self.rangeChangedShouldBeMonitored = true
         let textTuple = self.rewriteTextSet[self.indexOfCurrentValue]
         self.displayedValue = textTuple.value
         self.selectedRange = textTuple.range
     }
-    
+
     var revertIsEnabled: Bool {
         self.indexOfCurrentValue > 0
     }
-    
+
     var forwardIsEnabled: Bool {
         self.indexOfCurrentValue < self.rewriteTextSet.count - 1
     }
-    
+
     func cancelAction() {
         self.revertToOriginalValue()
         self.isPresented = false
     }
-    
+
     func aiWritingDone() {
         self.originalValue = self.displayedValue
         self.doneContext()
         self.isPresented = false
     }
-    
+
     func revertToOriginalValue() {
         self.rangeChangedShouldBeMonitored = true
         self.selectedRange = self.originalSelectedRange
         self.displayedValue = self.originalValue
         self.refreshContext()
     }
-    
+
     func doneContext() {
         self.rangeChangedShouldBeMonitored = true
         self.selectedRange = NSRange(location: self.displayedValue.count, length: 0)
         self.refreshContext()
     }
-    
+
     func refreshContext() {
         self.cancelTask()
         self.rewriteTextSet = [(self.usedSelectedRange, self.displayedValue)]

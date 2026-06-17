@@ -25,6 +25,7 @@ public extension MediaImage {
 }
 
 public extension MediaImage {
+    @MainActor
     init(mediaImage: Image? = nil) {
         self.init(mediaImage: { OptionalImage(mediaImage) })
     }
@@ -64,7 +65,7 @@ private extension MediaImage {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         MediaImage(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage)))
             .shouldApplyDefaultStyle(false)
             .mediaImageStyle(.fiori)

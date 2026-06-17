@@ -25,6 +25,7 @@ public extension NextAction {
 }
 
 public extension NextAction {
+    @MainActor
     init(nextAction: FioriButton? = FioriButton { _ in Text("Next".localizedFioriString()) }) {
         self.init(nextAction: { nextAction })
     }
@@ -64,7 +65,7 @@ private extension NextAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         NextAction(.init(componentIdentifier: self.componentIdentifier, nextAction: .init(self.nextAction)))
             .shouldApplyDefaultStyle(false)
             .nextActionStyle(.fiori)

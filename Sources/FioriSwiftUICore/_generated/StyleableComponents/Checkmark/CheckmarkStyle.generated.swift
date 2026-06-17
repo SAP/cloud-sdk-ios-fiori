@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CheckmarkStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CheckmarkStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CheckmarkConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CheckmarkConfiguration) -> Body
 }
 
 struct AnyCheckmarkStyle: CheckmarkStyle {

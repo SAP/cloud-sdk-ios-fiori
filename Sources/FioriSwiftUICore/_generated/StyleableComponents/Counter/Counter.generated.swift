@@ -25,6 +25,7 @@ public extension Counter {
 }
 
 public extension Counter {
+    @MainActor
     init(counter: AttributedString? = nil) {
         self.init(counter: { OptionalText(counter) })
     }
@@ -64,7 +65,7 @@ private extension Counter {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Counter(.init(componentIdentifier: self.componentIdentifier, counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .counterStyle(.fiori)

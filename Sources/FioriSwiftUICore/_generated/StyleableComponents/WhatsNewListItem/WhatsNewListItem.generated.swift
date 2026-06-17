@@ -32,6 +32,7 @@ public extension WhatsNewListItem {
 }
 
 public extension WhatsNewListItem {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          subtitle: AttributedString? = nil)
@@ -76,7 +77,7 @@ private extension WhatsNewListItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         WhatsNewListItem(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle)))
             .shouldApplyDefaultStyle(false)
             .whatsNewListItemStyle(WhatsNewListItemFioriStyle.ContentFioriStyle())

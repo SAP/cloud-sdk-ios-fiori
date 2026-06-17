@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentGroupStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentGroupStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentGroupConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentGroupConfiguration) -> Body
 }
 
 struct AnyAttachmentGroupStyle: AttachmentGroupStyle {

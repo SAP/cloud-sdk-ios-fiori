@@ -25,7 +25,7 @@ public extension TagViewList {
 }
 
 /// SingleTag
-public struct SingleTag<Content: View>: TagViewList {
+public struct SingleTag<Content: View>: @preconcurrency TagViewList {
     let view: Content
     
     public var count: Int {
@@ -38,7 +38,7 @@ public struct SingleTag<Content: View>: TagViewList {
     }
 }
 
-public struct ConditionalSingleTag<TrueContent: View, FalseContent: View>: TagViewList {
+public struct ConditionalSingleTag<TrueContent: View, FalseContent: View>: @preconcurrency TagViewList {
     let first: TrueContent?
     let second: FalseContent?
     
@@ -66,7 +66,7 @@ public struct ConditionalSingleTag<TrueContent: View, FalseContent: View>: TagVi
     }
 }
 
-public struct PairTag<First: View, Second: TagViewList>: TagViewList {
+public struct PairTag<First: View, Second: TagViewList>: @preconcurrency TagViewList {
     let first: First
     let remainder: Second
     
@@ -90,6 +90,7 @@ public struct PairTag<First: View, Second: TagViewList>: TagViewList {
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum TagBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

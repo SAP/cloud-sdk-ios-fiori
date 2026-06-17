@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DenyActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DenyActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DenyActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DenyActionConfiguration) -> Body
 }
 
 struct AnyDenyActionStyle: DenyActionStyle {

@@ -25,6 +25,7 @@ public extension StateLabel {
 }
 
 public extension StateLabel {
+    @MainActor
     init(stateLabel: AttributedString? = nil) {
         self.init(stateLabel: { OptionalText(stateLabel) })
     }
@@ -64,7 +65,7 @@ private extension StateLabel {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         StateLabel(.init(componentIdentifier: self.componentIdentifier, stateLabel: .init(self.stateLabel)))
             .shouldApplyDefaultStyle(false)
             .stateLabelStyle(.fiori)

@@ -10,7 +10,7 @@ extension VerticalAlignment {
     static let iconStackAlignmentGuide = VerticalAlignment(IconStackAlignment.self)
 }
 
-extension IconStack: ViewList {
+@MainActor extension IconStack: @preconcurrency ViewList {
     public var count: Int {
         let tmpIcons: [TextOrIcon] = _icons == nil ? [] : _icons!
         

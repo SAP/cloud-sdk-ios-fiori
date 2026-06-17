@@ -63,6 +63,7 @@ public extension CardFooter {
 }
 
 public extension CardFooter {
+    @MainActor
     init(action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil,
          tertiaryAction: FioriButton? = nil,
@@ -109,7 +110,7 @@ private extension CardFooter {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CardFooter(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), secondaryAction: .init(self.secondaryAction), tertiaryAction: .init(self.tertiaryAction), overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)
             .cardFooterStyle(CardFooterFioriStyle.ContentFioriStyle())

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DurationPickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DurationPickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DurationPickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DurationPickerConfiguration) -> Body
 }
 
 struct AnyDurationPickerStyle: DurationPickerStyle {

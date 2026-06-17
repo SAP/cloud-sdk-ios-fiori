@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol BannerMultiMessageSheetStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol BannerMultiMessageSheetStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> Body
 }
 
 struct AnyBannerMultiMessageSheetStyle: BannerMultiMessageSheetStyle {

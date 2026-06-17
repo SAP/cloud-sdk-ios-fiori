@@ -18,13 +18,16 @@ import SwiftUI
 public struct HierarchyViewBaseStyle: HierarchyViewStyle {
     @Environment(\.editMode) private var editMode
     @Environment(\.hierarchyItemSelectionMode) private var selectionMode
-    @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+    private var isMultiColumnLayout: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
     @Environment(\.hierarchyViewIsAsync) private var isAsync
     @EnvironmentObject private var modelObject: HierarchyViewModelObject
     
     @State private var asyncCount: Int = 0
     @State private var asyncCountParentID: String? = nil
-    
+
     public func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
         VStack(spacing: 0) {
             if self.isMultiColumnLayout {
@@ -73,7 +76,7 @@ public struct HierarchyViewBaseStyle: HierarchyViewStyle {
                                     self.fullHeightProgress(minHeight: geo.size.height)
                                 }
                             }
-                            .task(id: self.modelObject.currentActiveItemID) {
+                            .task(id: self.modelObject.currentActiveItemID) { [configuration] in
                                 guard let id = modelObject.currentActiveItemID else {
                                     await MainActor.run {
                                         self.asyncCount = 0
@@ -161,13 +164,15 @@ public struct HierarchyViewBaseStyle: HierarchyViewStyle {
 extension HierarchyViewFioriStyle {
     struct ContentFioriStyle: HierarchyViewStyle {
         @StateObject private var modelObject = HierarchyViewModelObject()
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+
         @Environment(\.hierarchyViewIsAsync) private var isAsync
         
         func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
             let hierarchyView = AnyView(HierarchyView(configuration, dataSource: configuration.dataSource))
                 .environmentObject(self.modelObject)
-                .environment(\.isHierarchyViewMultiColumnLayout, UIDevice.current.userInterfaceIdiom == .pad)
                 .environment(\.onCurrentHierarchyItemChange, self.modelObject.onCurrentActiveItemChange) // Let HierarchyIndicatorView have the opportunity to change the ID independently.
             
             return Group {

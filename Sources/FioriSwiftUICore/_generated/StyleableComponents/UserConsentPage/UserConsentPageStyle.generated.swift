@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UserConsentPageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UserConsentPageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UserConsentPageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UserConsentPageConfiguration) -> Body
 }
 
 struct AnyUserConsentPageStyle: UserConsentPageStyle {

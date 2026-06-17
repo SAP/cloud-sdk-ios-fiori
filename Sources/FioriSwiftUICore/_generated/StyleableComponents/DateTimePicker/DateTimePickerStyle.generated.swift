@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DateTimePickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DateTimePickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DateTimePickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DateTimePickerConfiguration) -> Body
 }
 
 struct AnyDateTimePickerStyle: DateTimePickerStyle {

@@ -102,6 +102,7 @@ public extension Attachment {
 }
 
 public extension Attachment {
+    @MainActor
     init(attachmentTitle: AttributedString,
          attachmentSubtitle: AttributedString,
          attachmentFootnote: AttributedString,
@@ -156,7 +157,7 @@ private extension Attachment {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Attachment(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle), attachmentSubtitle: .init(self.attachmentSubtitle), attachmentFootnote: .init(self.attachmentFootnote), attachmentInfo: self.attachmentInfo, controlState: self.controlState, onExtraInfoChange: self.onExtraInfoChange, onPreview: self.onPreview, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .attachmentStyle(AttachmentFioriStyle.ContentFioriStyle())

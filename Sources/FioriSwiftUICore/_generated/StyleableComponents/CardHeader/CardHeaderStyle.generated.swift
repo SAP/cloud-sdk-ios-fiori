@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardHeaderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardHeaderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardHeaderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardHeaderConfiguration) -> Body
 }
 
 struct AnyCardHeaderStyle: CardHeaderStyle {

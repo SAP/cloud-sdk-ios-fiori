@@ -38,6 +38,7 @@ public extension ActivityItem {
 }
 
 public extension ActivityItem {
+    @MainActor
     init(icon: Image? = nil,
          subtitle: AttributedString? = nil,
          layout: ActivityItemLayout = .vertical)
@@ -82,7 +83,7 @@ private extension ActivityItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ActivityItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), subtitle: .init(self.subtitle), layout: self.layout))
             .shouldApplyDefaultStyle(false)
             .activityItemStyle(ActivityItemFioriStyle.ContentFioriStyle())

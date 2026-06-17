@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol Row2Style: DynamicProperty {
+@MainActor @preconcurrency public protocol Row2Style: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: Row2Configuration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: Row2Configuration) -> Body
 }
 
 struct AnyRow2Style: Row2Style {

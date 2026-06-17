@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KPISubItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KPISubItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KPISubItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KPISubItemConfiguration) -> Body
 }
 
 struct AnyKPISubItemStyle: KPISubItemStyle {

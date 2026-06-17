@@ -27,6 +27,7 @@ public extension IncrementAction {
 }
 
 public extension IncrementAction {
+    @MainActor
     init(incrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.add }) {
         self.init(incrementAction: { incrementAction })
     }
@@ -66,7 +67,7 @@ private extension IncrementAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         IncrementAction(.init(componentIdentifier: self.componentIdentifier, incrementAction: .init(self.incrementAction)))
             .shouldApplyDefaultStyle(false)
             .incrementActionStyle(.fiori)

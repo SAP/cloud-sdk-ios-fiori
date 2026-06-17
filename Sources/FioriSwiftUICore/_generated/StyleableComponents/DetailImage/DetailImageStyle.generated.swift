@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DetailImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DetailImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DetailImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DetailImageConfiguration) -> Body
 }
 
 struct AnyDetailImageStyle: DetailImageStyle {

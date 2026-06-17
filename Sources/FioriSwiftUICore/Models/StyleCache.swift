@@ -23,7 +23,7 @@ import SwiftUI
 //    }
 // }
 
-public final class StyleCache: ObservableObject {
+public final class StyleCache: ObservableObject, @unchecked Sendable {
     static let shared = StyleCache()
     var styles: [String: AnyViewModifier] = [:]
     public static func upsertStyles(_ styles: [String: AnyViewModifier]) throws {

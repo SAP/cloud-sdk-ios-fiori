@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TrendImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TrendImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TrendImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TrendImageConfiguration) -> Body
 }
 
 struct AnyTrendImageStyle: TrendImageStyle {

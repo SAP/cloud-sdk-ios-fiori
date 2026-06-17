@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HeaderActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HeaderActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HeaderActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HeaderActionConfiguration) -> Body
 }
 
 struct AnyHeaderActionStyle: HeaderActionStyle {

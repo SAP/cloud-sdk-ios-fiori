@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HierarchyItemViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HierarchyItemViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HierarchyItemViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HierarchyItemViewConfiguration) -> Body
 }
 
 struct AnyHierarchyItemViewStyle: HierarchyItemViewStyle {

@@ -55,6 +55,7 @@ public extension AttachmentButtonImage {
 }
 
 public extension AttachmentButtonImage {
+    @MainActor
     init(addButtonImage: Image = FioriIcon.actions.add.renderingMode(.template).resizable(),
          controlState: ControlState = .normal)
     {
@@ -97,7 +98,7 @@ private extension AttachmentButtonImage {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentButtonImage(.init(componentIdentifier: self.componentIdentifier, addButtonImage: .init(self.addButtonImage), controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .attachmentButtonImageStyle(AttachmentButtonImageFioriStyle.ContentFioriStyle())

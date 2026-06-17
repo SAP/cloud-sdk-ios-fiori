@@ -25,6 +25,7 @@ public extension BodyText {
 }
 
 public extension BodyText {
+    @MainActor
     init(bodyText: AttributedString? = nil) {
         self.init(bodyText: { OptionalText(bodyText) })
     }
@@ -64,7 +65,7 @@ private extension BodyText {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         BodyText(.init(componentIdentifier: self.componentIdentifier, bodyText: .init(self.bodyText)))
             .shouldApplyDefaultStyle(false)
             .bodyTextStyle(.fiori)

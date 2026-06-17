@@ -25,6 +25,7 @@ public extension Xmark {
 }
 
 public extension Xmark {
+    @MainActor
     init(xmark: Image? = Image(systemName: "xmark")) {
         self.init(xmark: { xmark })
     }
@@ -64,7 +65,7 @@ private extension Xmark {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Xmark(.init(componentIdentifier: self.componentIdentifier, xmark: .init(self.xmark)))
             .shouldApplyDefaultStyle(false)
             .xmarkStyle(.fiori)

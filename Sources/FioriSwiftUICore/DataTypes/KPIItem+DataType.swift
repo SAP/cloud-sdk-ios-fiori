@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Data types for KPIItemView.
-public enum KPIItemData {
+public enum KPIItemData: @unchecked Sendable {
     /// Combinations of available KPI components
     case components([KPIItemData.Component])
     /// Measurement type that takes in unit value and MeasurementFormatter

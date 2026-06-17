@@ -58,7 +58,7 @@ private extension Options {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Options(.init(componentIdentifier: self.componentIdentifier, options: self.options))
             .shouldApplyDefaultStyle(false)
             .optionsStyle(.fiori)

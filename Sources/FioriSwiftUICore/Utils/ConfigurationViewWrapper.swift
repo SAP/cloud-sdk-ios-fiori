@@ -13,7 +13,7 @@ public struct ConfigurationViewWrapper: View {
     }
 }
 
-extension ConfigurationViewWrapper: _ViewEmptyChecking {
+extension ConfigurationViewWrapper: @preconcurrency _ViewEmptyChecking {
     public var isEmpty: Bool {
         self.v.isEmpty
     }

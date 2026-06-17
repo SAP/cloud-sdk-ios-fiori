@@ -3,7 +3,7 @@
 import SwiftUI
 
 /// Not used by developers.
-public struct _UserConsentFormsContainer {
+@preconcurrency public struct _UserConsentFormsContainer {
     // Will be removed when `_UserConsentFormModel` removed.
     var _userConsentForms: [_UserConsentFormModel]
     

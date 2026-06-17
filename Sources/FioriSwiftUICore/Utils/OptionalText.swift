@@ -21,7 +21,7 @@ struct OptionalText: View {
     }
 }
 
-extension OptionalText: _ViewEmptyChecking {
+extension OptionalText: @preconcurrency _ViewEmptyChecking {
     var isEmpty: Bool {
         self.attributedString == nil
     }

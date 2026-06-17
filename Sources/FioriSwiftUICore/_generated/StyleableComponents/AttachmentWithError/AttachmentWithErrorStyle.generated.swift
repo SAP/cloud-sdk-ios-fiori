@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentWithErrorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentWithErrorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> Body
 }
 
 struct AnyAttachmentWithErrorStyle: AttachmentWithErrorStyle {

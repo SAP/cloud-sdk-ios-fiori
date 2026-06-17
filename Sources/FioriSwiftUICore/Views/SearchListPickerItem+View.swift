@@ -121,7 +121,7 @@ extension SearchListPickerItem: View {
             }
             DispatchQueue.main.async {
                 let screenHeight = Screen.bounds.size.height
-                let safeAreaInset = self.getSafeAreaInsets()
+                let safeAreaInset = UIEdgeInsets.getSafeAreaInsets()
                 var maxScrollViewHeight = screenHeight - self.additionalHeight()
                 if UIDevice.current.userInterfaceIdiom != .phone {
                     if self.barItemFrame.arrowDirection() == .top {
@@ -182,7 +182,7 @@ extension SearchListPickerItem: View {
         .accessibilityElement(children: .combine)
     }
     
-    private func selectionHeader() -> some View {
+    @MainActor private func selectionHeader() -> some View {
         HStack {
             if allowsDisplaySelectionCount {
                 Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(_value.count))")
@@ -219,7 +219,7 @@ extension SearchListPickerItem: View {
             }
     }
     
-    private func selectAllView() -> some View {
+    @MainActor private func selectAllView() -> some View {
         HStack {
             Text(NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                 .foregroundStyle(Color.preferredColor(.secondaryLabel))
@@ -264,21 +264,10 @@ extension SearchListPickerItem: View {
         }
     }
     
-    private func getSafeAreaInsets() -> UIEdgeInsets {
-        guard let keyWindow = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive })
-            .flatMap({ $0 as? UIWindowScene })?.windows
-            .first(where: \.isKeyWindow)
-        else {
-            return .zero
-        }
-        return keyWindow.safeAreaInsets
-    }
-    
     private func additionalHeight() -> CGFloat {
         let isNotIphone = UIDevice.current.userInterfaceIdiom != .phone
         var height = 0.0
-        height += self.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
+        height += UIEdgeInsets.getSafeAreaInsets().bottom + (isNotIphone ? 13 : 16)
         height += isNotIphone ? 50 : 56
         if !self.isSearchBarHidden {
             if self._keyboardHeight == 0 {

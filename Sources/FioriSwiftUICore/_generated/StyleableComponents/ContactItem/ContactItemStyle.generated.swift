@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ContactItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ContactItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ContactItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ContactItemConfiguration) -> Body
 }
 
 struct AnyContactItemStyle: ContactItemStyle {

@@ -43,6 +43,7 @@ public extension TimelinePreviewItem {
 }
 
 public extension TimelinePreviewItem {
+    @MainActor
     init(title: AttributedString,
          icon: Image? = nil,
          timelineNode: TimelineNodeType,
@@ -93,7 +94,7 @@ private extension TimelinePreviewItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         TimelinePreviewItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), icon: .init(self.icon), timelineNode: .init(self.timelineNode), timestamp: .init(self.timestamp), isFuture: self.isFuture, nodeType: self.nodeType))
             .shouldApplyDefaultStyle(false)
             .timelinePreviewItemStyle(TimelinePreviewItemFioriStyle.ContentFioriStyle())

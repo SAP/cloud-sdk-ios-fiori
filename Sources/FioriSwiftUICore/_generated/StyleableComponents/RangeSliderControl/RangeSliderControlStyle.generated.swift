@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol RangeSliderControlStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol RangeSliderControlStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: RangeSliderControlConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: RangeSliderControlConfiguration) -> Body
 }
 
 struct AnyRangeSliderControlStyle: RangeSliderControlStyle {

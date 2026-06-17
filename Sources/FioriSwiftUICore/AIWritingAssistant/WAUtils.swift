@@ -5,7 +5,7 @@ import UIKit
 /// :nodoc:
 public extension FioriButton {
     /// Not for developers, back button used in navigation bar top leading action.
-    static let _backButton = FioriButton { _ in
+    nonisolated(unsafe) static let _backButton = FioriButton { _ in
         HStack {
             Image(systemName: "chevron.backward")
             Text("Back".localizedFioriString())
@@ -13,7 +13,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _writingAssistantButton = FioriButton { _ in
+    nonisolated(unsafe) static let _writingAssistantButton = FioriButton { _ in
         HStack {
             FioriIcon.actions.ai
             Text("Writing Assistant".localizedFioriString())
@@ -23,7 +23,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _undoButton = FioriButton { _ in
+    nonisolated(unsafe) static let _undoButton = FioriButton { _ in
         HStack {
             FioriIcon.actions.undo
             Text("Undo".localizedFioriString())
@@ -31,7 +31,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _redoButton = FioriButton { _ in
+    nonisolated(unsafe) static let _redoButton = FioriButton { _ in
         HStack {
             Text("Redo".localizedFioriString())
             FioriIcon.actions.redo
@@ -40,7 +40,7 @@ public extension FioriButton {
 }
 
 /// Result for `menuHandler` in writing assistant.
-public enum WAResult {
+public enum WAResult: @unchecked Sendable {
     /// Represents a successful result with a string. Writing assistant will update the text by the value.
     case success(String)
     /// Represents a successful result with a destination view. You can do some customization in your own view.
@@ -50,7 +50,7 @@ public enum WAResult {
 }
 
 /// Result for `feedbackHandler` in writing assistant.
-public enum WAFeedbackResult {
+public enum WAFeedbackResult: @unchecked Sendable {
     /// Represents a successful result, a success toast message will be displayed.
     case success
     /// Represents a failure with an error.  Will show an `IllustratedMessage` by the error.
@@ -58,7 +58,7 @@ public enum WAFeedbackResult {
 }
 
 /// Helper action for writing assistant. This is used to trigger extra actions in the writing assistant, such as retrying an operation, updating the text directly, or navigating to a different view.
-public enum WAHelperAction: Equatable {
+public enum WAHelperAction: Equatable, @unchecked Sendable {
     /// N/A value, which means no action is needed.
     case none
     /// Retry action which can be used to retry the last operation.
@@ -88,11 +88,11 @@ struct WAHelperActionKey: EnvironmentKey {
 }
 
 struct WASheetHeightUpdatedKey: EnvironmentKey {
-    static let defaultValue: ((CGFloat) -> Void)? = nil
+    nonisolated(unsafe) static let defaultValue: ((CGFloat) -> Void)? = nil
 }
 
 struct WAAuthorizationKey: EnvironmentKey {
-    static let defaultValue: (() async -> Bool)? = nil
+    nonisolated(unsafe) static let defaultValue: (() async -> Bool)? = nil
 }
 
 struct WAShowPanelKey: EnvironmentKey {

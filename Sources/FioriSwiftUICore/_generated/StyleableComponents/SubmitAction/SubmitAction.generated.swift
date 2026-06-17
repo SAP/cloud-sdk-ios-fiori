@@ -25,6 +25,7 @@ public extension SubmitAction {
 }
 
 public extension SubmitAction {
+    @MainActor
     init(submitAction: FioriButton? = nil) {
         self.init(submitAction: { submitAction })
     }
@@ -64,7 +65,7 @@ private extension SubmitAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SubmitAction(.init(componentIdentifier: self.componentIdentifier, submitAction: .init(self.submitAction)))
             .shouldApplyDefaultStyle(false)
             .submitActionStyle(.fiori)

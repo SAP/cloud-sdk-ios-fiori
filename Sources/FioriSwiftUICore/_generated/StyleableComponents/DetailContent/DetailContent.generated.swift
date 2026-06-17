@@ -58,7 +58,7 @@ private extension DetailContent {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DetailContent(.init(componentIdentifier: self.componentIdentifier, detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)
             .detailContentStyle(.fiori)

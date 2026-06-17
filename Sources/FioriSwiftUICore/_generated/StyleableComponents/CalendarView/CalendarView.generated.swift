@@ -134,7 +134,7 @@ private extension CalendarView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CalendarView(.init(componentIdentifier: self.componentIdentifier, model: self.model, titleChangeCallback: self.titleChangeCallback, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)
             .calendarViewStyle(CalendarViewFioriStyle.ContentFioriStyle())

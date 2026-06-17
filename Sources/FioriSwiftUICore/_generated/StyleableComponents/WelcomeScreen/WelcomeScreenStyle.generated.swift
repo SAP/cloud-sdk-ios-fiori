@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WelcomeScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WelcomeScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WelcomeScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WelcomeScreenConfiguration) -> Body
 }
 
 struct AnyWelcomeScreenStyle: WelcomeScreenStyle {

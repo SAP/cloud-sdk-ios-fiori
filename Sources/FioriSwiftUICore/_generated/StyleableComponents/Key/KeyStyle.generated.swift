@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KeyStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KeyStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KeyConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KeyConfiguration) -> Body
 }
 
 struct AnyKeyStyle: KeyStyle {

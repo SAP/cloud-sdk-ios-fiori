@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SelectedEntriesSectionTitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SelectedEntriesSectionTitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SelectedEntriesSectionTitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SelectedEntriesSectionTitleConfiguration) -> Body
 }
 
 struct AnySelectedEntriesSectionTitleStyle: SelectedEntriesSectionTitleStyle {

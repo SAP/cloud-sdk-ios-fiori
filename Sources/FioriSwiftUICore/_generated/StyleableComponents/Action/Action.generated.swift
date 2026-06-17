@@ -25,6 +25,7 @@ public extension Action {
 }
 
 public extension Action {
+    @MainActor
     init(action: FioriButton? = nil) {
         self.init(action: { action })
     }
@@ -64,7 +65,7 @@ private extension Action {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Action(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action)))
             .shouldApplyDefaultStyle(false)
             .actionStyle(.fiori)

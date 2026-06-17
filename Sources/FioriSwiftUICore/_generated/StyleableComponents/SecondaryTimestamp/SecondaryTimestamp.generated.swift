@@ -25,6 +25,7 @@ public extension SecondaryTimestamp {
 }
 
 public extension SecondaryTimestamp {
+    @MainActor
     init(secondaryTimestamp: TextOrIcon? = nil) {
         self.init(secondaryTimestamp: { TextOrIconView(secondaryTimestamp) })
     }
@@ -64,7 +65,7 @@ private extension SecondaryTimestamp {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SecondaryTimestamp(.init(componentIdentifier: self.componentIdentifier, secondaryTimestamp: .init(self.secondaryTimestamp)))
             .shouldApplyDefaultStyle(false)
             .secondaryTimestampStyle(.fiori)

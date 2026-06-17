@@ -25,6 +25,7 @@ public extension Node {
 }
 
 public extension Node {
+    @MainActor
     init(node: TextOrIcon? = nil) {
         self.init(node: { TextOrIconView(node) })
     }
@@ -64,7 +65,7 @@ private extension Node {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Node(.init(componentIdentifier: self.componentIdentifier, node: .init(self.node)))
             .shouldApplyDefaultStyle(false)
             .nodeStyle(.fiori)

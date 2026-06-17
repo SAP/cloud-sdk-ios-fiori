@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol RedoActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol RedoActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: RedoActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: RedoActionConfiguration) -> Body
 }
 
 struct AnyRedoActionStyle: RedoActionStyle {

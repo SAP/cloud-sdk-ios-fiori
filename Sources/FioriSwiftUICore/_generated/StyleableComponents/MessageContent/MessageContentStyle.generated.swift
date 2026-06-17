@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol MessageContentStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol MessageContentStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: MessageContentConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: MessageContentConfiguration) -> Body
 }
 
 struct AnyMessageContentStyle: MessageContentStyle {

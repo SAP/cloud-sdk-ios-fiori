@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UserConsentFormStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UserConsentFormStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UserConsentFormConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UserConsentFormConfiguration) -> Body
 }
 
 struct AnyUserConsentFormStyle: UserConsentFormStyle {

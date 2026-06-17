@@ -70,6 +70,7 @@ public extension ObjectItem {
 }
 
 public extension ObjectItem {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -138,7 +139,7 @@ private extension ObjectItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ObjectItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), footnoteIconsText: .init(self.footnoteIconsText), tags: .init(self.tags), action: .init(self.action), objectItemButton: .init(self.objectItemButton), showsDescriptionInCompact: self.showsDescriptionInCompact))
             .shouldApplyDefaultStyle(false)
             .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())

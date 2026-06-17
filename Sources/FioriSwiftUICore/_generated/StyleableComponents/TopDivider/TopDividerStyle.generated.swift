@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TopDividerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TopDividerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TopDividerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TopDividerConfiguration) -> Body
 }
 
 struct AnyTopDividerStyle: TopDividerStyle {

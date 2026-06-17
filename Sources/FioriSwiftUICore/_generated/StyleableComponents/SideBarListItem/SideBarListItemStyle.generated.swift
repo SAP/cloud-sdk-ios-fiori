@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SideBarListItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SideBarListItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SideBarListItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SideBarListItemConfiguration) -> Body
 }
 
 struct AnySideBarListItemStyle: SideBarListItemStyle {

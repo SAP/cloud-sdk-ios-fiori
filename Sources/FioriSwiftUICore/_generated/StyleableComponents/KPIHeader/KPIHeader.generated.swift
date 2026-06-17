@@ -58,6 +58,7 @@ public extension KPIHeader {
 }
 
 public extension KPIHeader {
+    @MainActor
     init(items: [any KPIHeaderItemModel] = [],
          bannerMessage: BannerMessage? = nil,
          isItemOrderForced: Bool = false,
@@ -106,7 +107,7 @@ private extension KPIHeader {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         KPIHeader(.init(componentIdentifier: self.componentIdentifier, items: .init(self.items), bannerMessage: .init(self.bannerMessage), isItemOrderForced: self.isItemOrderForced, interItemSpacing: self.interItemSpacing, isPresented: self.$isPresented))
             .shouldApplyDefaultStyle(false)
             .kPIHeaderStyle(KPIHeaderFioriStyle.ContentFioriStyle())

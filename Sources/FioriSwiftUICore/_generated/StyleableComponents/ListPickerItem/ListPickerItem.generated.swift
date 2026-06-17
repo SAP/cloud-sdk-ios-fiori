@@ -124,6 +124,7 @@ public extension ListPickerItem {
 }
 
 public extension ListPickerItem {
+    @MainActor
     init(title: AttributedString,
          value: AttributedString? = nil,
          description: AttributedString? = nil,
@@ -180,7 +181,7 @@ private extension ListPickerItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ListPickerItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), value: .init(self.value), description: .init(self.description), controlState: self.controlState, errorMessage: self.errorMessage, axis: self.axis, destination: .init(self.destination)))
             .shouldApplyDefaultStyle(false)
             .listPickerItemStyle(ListPickerItemFioriStyle.ContentFioriStyle())

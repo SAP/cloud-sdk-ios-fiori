@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -74,6 +74,7 @@ public extension ToastMessage {
 }
 
 public extension ToastMessage {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          duration: Double = 1,
@@ -138,7 +139,7 @@ private extension ToastMessage {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow, accessibilityMessage: self.accessibilityMessage))
             .shouldApplyDefaultStyle(false)
             .toastMessageStyle(ToastMessageFioriStyle.ContentFioriStyle())

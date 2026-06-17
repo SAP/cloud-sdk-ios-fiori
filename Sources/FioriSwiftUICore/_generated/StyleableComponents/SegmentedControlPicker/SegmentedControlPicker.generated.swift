@@ -71,7 +71,7 @@ private extension SegmentedControlPicker {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SegmentedControlPicker(.init(componentIdentifier: self.componentIdentifier, options: self.options, selectedIndex: self.$selectedIndex))
             .shouldApplyDefaultStyle(false)
             .segmentedControlPickerStyle(SegmentedControlPickerFioriStyle.ContentFioriStyle())

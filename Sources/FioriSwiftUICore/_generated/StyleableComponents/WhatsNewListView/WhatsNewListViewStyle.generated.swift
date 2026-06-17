@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WhatsNewListViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WhatsNewListViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WhatsNewListViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WhatsNewListViewConfiguration) -> Body
 }
 
 struct AnyWhatsNewListViewStyle: WhatsNewListViewStyle {

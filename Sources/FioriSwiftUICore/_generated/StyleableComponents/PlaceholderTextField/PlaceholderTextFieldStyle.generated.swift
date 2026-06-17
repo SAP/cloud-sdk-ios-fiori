@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol PlaceholderTextFieldStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol PlaceholderTextFieldStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> Body
 }
 
 struct AnyPlaceholderTextFieldStyle: PlaceholderTextFieldStyle {

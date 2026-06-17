@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KpiCaptionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KpiCaptionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KpiCaptionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KpiCaptionConfiguration) -> Body
 }
 
 struct AnyKpiCaptionStyle: KpiCaptionStyle {

@@ -25,6 +25,7 @@ public extension DetailImage {
 }
 
 public extension DetailImage {
+    @MainActor
     init(detailImage: Image? = nil) {
         self.init(detailImage: { detailImage })
     }
@@ -64,7 +65,7 @@ private extension DetailImage {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DetailImage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage)))
             .shouldApplyDefaultStyle(false)
             .detailImageStyle(.fiori)

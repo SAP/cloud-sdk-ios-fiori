@@ -60,7 +60,7 @@ public extension ViewList {
 }
 
 /// Single
-public struct Single<Content: View>: ViewList {
+public struct Single<Content: View>: @preconcurrency ViewList {
     @Environment(\.numberOfLines) var numberOfLines
     
     let view: Content
@@ -94,7 +94,7 @@ public struct Single<Content: View>: ViewList {
     }
 }
 
-public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList {
+public struct ConditionalSingle<TrueContent: View, FalseContent: View>: @preconcurrency ViewList {
     @Environment(\.numberOfLines) var numberOfLines
     
     let first: TrueContent?
@@ -140,7 +140,7 @@ public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList
     }
 }
 
-public struct Pair<First: View, Second: ViewList>: ViewList {
+public struct Pair<First: View, Second: ViewList>: @preconcurrency ViewList {
     @Environment(\.numberOfLines) var numberOfLines
     
     let first: First
@@ -180,6 +180,7 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum IconBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

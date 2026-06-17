@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OnStarImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OnStarImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OnStarImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OnStarImageConfiguration) -> Body
 }
 
 struct AnyOnStarImageStyle: OnStarImageStyle {

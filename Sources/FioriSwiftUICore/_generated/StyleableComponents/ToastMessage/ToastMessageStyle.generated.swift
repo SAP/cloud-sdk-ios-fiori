@@ -1,12 +1,12 @@
-// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
 
-public protocol ToastMessageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ToastMessageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ToastMessageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ToastMessageConfiguration) -> Body
 }
 
 struct AnyToastMessageStyle: ToastMessageStyle {

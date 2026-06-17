@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol PlaceholderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol PlaceholderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: PlaceholderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: PlaceholderConfiguration) -> Body
 }
 
 struct AnyPlaceholderStyle: PlaceholderStyle {

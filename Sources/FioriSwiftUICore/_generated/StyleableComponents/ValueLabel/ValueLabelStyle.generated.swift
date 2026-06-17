@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ValueLabelStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ValueLabelStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ValueLabelConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ValueLabelConfiguration) -> Body
 }
 
 struct AnyValueLabelStyle: ValueLabelStyle {

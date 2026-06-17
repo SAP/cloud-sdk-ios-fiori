@@ -127,7 +127,7 @@ extension TableLayoutManager {
         
         // use cacheLayoutDataForMeasurement
         if let ld = cacheLayoutDataForMeasurement, ld.size.width == size.width {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if self.cacheLayoutData == nil || self.model.editMode != .inline {
                     self.cacheLayoutData = ld.copy()
                 }
@@ -221,7 +221,7 @@ extension TableLayoutManager {
         return CGSize(width: width, height: height)
     }
     
-    func getListItems() -> [AnyView] {
+    @MainActor func getListItems() -> [AnyView] {
         var items: [AnyView] = []
         let rows = self.model.rowData
         for row in rows {
@@ -232,7 +232,7 @@ extension TableLayoutManager {
         return items
     }
     
-    func makeObjectView(row: TableRowItem) -> some View {
+    @MainActor func makeObjectView(row: TableRowItem) -> some View {
         let items = row.data
         var textBindings: [ObjectViewProperty.Text: AnyView] = [:]
         var imageBindings: [ObjectViewProperty.Image: AnyView] = [:]

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HeaderChartStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HeaderChartStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HeaderChartConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HeaderChartConfiguration) -> Body
 }
 
 struct AnyHeaderChartStyle: HeaderChartStyle {

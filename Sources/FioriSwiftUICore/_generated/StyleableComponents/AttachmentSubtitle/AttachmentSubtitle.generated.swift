@@ -25,6 +25,7 @@ public extension AttachmentSubtitle {
 }
 
 public extension AttachmentSubtitle {
+    @MainActor
     init(attachmentSubtitle: AttributedString) {
         self.init(attachmentSubtitle: { Text(attachmentSubtitle) })
     }
@@ -64,7 +65,7 @@ private extension AttachmentSubtitle {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentSubtitle(.init(componentIdentifier: self.componentIdentifier, attachmentSubtitle: .init(self.attachmentSubtitle)))
             .shouldApplyDefaultStyle(false)
             .attachmentSubtitleStyle(.fiori)

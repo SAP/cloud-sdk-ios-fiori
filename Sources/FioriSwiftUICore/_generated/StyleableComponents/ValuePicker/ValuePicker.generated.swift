@@ -61,6 +61,7 @@ public extension ValuePicker {
 }
 
 public extension ValuePicker {
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
@@ -119,7 +120,7 @@ private extension ValuePicker {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ValuePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), options: self.options, selectedIndex: self.$selectedIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, alwaysShowPicker: self.alwaysShowPicker, controlState: self.controlState, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)
             .valuePickerStyle(ValuePickerFioriStyle.ContentFioriStyle())

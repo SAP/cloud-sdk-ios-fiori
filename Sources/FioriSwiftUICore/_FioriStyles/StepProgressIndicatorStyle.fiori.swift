@@ -17,6 +17,7 @@ public extension EnvironmentValues {
 
 /// :nodoc:
 public extension StepProgressIndicator {
+    @MainActor
     init(selection: Binding<String>,
          @ViewBuilder title: () -> any View = { EmptyView() },
          @ViewBuilder action: () -> any View = { EmptyView() },
@@ -32,6 +33,7 @@ public extension StepProgressIndicator {
     ///   - stepItems: An array of `StepItem` for default steps generation.
     ///   - title: Title for current step displayed on the top leading side of the step progress indicator.
     ///   - action: Action for steps displayed on the top trailing side of the step progress indicator. It will show vertical steps.
+    @MainActor
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder title: @escaping () -> any View,
@@ -48,6 +50,7 @@ public extension StepProgressIndicator {
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
     ///   - title: Title for current step displayed on the top leading side of the step progress indicator.
+    @MainActor
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder title: @escaping () -> any View)
@@ -62,6 +65,7 @@ public extension StepProgressIndicator {
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
     ///   - action: Action for steps displayed on the top trailing side of the step progress indicator. It will show vertical steps.
+    @MainActor
     init(selection: Binding<String>,
          stepItems: [StepItem],
          @ViewBuilder action: @escaping () -> any View)
@@ -76,6 +80,7 @@ public extension StepProgressIndicator {
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
     ///   - stepItems: An array of `StepItem` for default steps generation.
+    @MainActor
     init(selection: Binding<String>,
          stepItems: [StepItem])
     {

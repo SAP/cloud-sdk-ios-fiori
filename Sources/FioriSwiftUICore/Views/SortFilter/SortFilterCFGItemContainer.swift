@@ -20,7 +20,7 @@ public struct SortFilterCFGItemContainer {
     /// - Parameters:
     ///   - items: Option views in the list.
     ///   - btnFrame: The frame of the view toggle to show this view.
-    public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
+    @MainActor public init(items: Binding<[[SortFilterItem]]>, btnFrame: CGRect = .zero) {
         self.__items = items
         self.btnFrame = btnFrame
     }
@@ -107,7 +107,7 @@ extension SortFilterCFGItemContainer: View {
             }
     }
     
-    func checkUpdateButtonState() {
+    @MainActor func checkUpdateButtonState() {
         var isApplyButtonEnabled = false
         var isResetButtonEnabled = false
         
@@ -125,7 +125,7 @@ extension SortFilterCFGItemContainer: View {
         self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func rowView(row r: Int, column c: Int) -> some View {
         switch self._items[r][c] {
         case .picker:
@@ -170,7 +170,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    func navigationLink(row r: Int, column c: Int) -> some View {
+    @MainActor func navigationLink(row r: Int, column c: Int) -> some View {
         ListPickerItem(title: {
             Text(self._items[r][c].picker.name)
                 .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
@@ -213,7 +213,7 @@ extension SortFilterCFGItemContainer: View {
         .frame(minHeight: 44)
     }
     
-    func listPickerDestination(row r: Int, column c: Int) -> some View {
+    @MainActor func listPickerDestination(row r: Int, column c: Int) -> some View {
         let filter: ((SortFilterItem.PickerItem.ValueOptionModel, String) -> Bool) = { f, s in
             if !s.isEmpty {
                 if let customFilter = self._items[r][c].picker.configuration?.searchFilter {
@@ -355,7 +355,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func toolbarForListPicker(v: some View, row r: Int, column c: Int) -> some View {
+    @MainActor private func toolbarForListPicker(v: some View, row r: Int, column c: Int) -> some View {
         v.toolbar {
             var item = self._items[r][c].picker
             ToolbarItem(placement: .topBarTrailing) {
@@ -376,7 +376,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    func picker(row r: Int, column c: Int) -> some View {
+    @MainActor func picker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].picker.name)
@@ -401,7 +401,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    func filterfeedback(row r: Int, column c: Int) -> some View {
+    @MainActor func filterfeedback(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].filterfeedback.name)
@@ -419,7 +419,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    func switcher(row r: Int, column c: Int) -> some View {
+    @MainActor func switcher(row r: Int, column c: Int) -> some View {
         SwitchView(title: AttributedString(self._items[r][c].switch.name), isOn: Binding<Bool>(get: { self._items[r][c].switch.workingValue ?? false }, set: { self._items[r][c].switch.workingValue = $0 }))
             .titleStyle(content: { config in
                 config.title
@@ -429,7 +429,7 @@ extension SortFilterCFGItemContainer: View {
             .padding([.top, .bottom], 6.5)
     }
     
-    func slider(row r: Int, column c: Int) -> some View {
+    @MainActor func slider(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].slider.name)
@@ -481,7 +481,7 @@ extension SortFilterCFGItemContainer: View {
         .padding([.leading, .trailing], 0)
     }
     
-    @ViewBuilder func datetimePicker(row r: Int, column c: Int) -> some View {
+    @MainActor @ViewBuilder func datetimePicker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].datetime.name)
@@ -519,7 +519,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func filterFormCell(row r: Int, column c: Int) -> some View {
+    @MainActor private func filterFormCell(row r: Int, column c: Int) -> some View {
         FilterFormView(title: {
             EmptyView()
         }, options: self._items[r][c].picker.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self._items[r][c].picker.allowsMultipleSelection, allowsEmptySelection: self._items[r][c].picker.allowsEmptySelection, value: Binding<[Int]>(get: { self._items[r][c].picker.workingValue }, set: { self._items[r][c].picker.workingValue = $0 }), buttonSize: self._items[r][c].picker.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
@@ -528,7 +528,7 @@ extension SortFilterCFGItemContainer: View {
         .padding(.top, 8)
     }
     
-    private func menuView(row r: Int, column c: Int) -> some View {
+    @MainActor private func menuView(row r: Int, column c: Int) -> some View {
         HStack {
             Menu {
                 ForEach(self._items[r][c].picker.valueOptions.indices, id: \.self) { idx in
@@ -564,7 +564,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func stepper(row r: Int, column c: Int) -> some View {
+    @MainActor private func stepper(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].stepper.name)
@@ -613,7 +613,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func titleForm(row r: Int, column c: Int) -> some View {
+    @MainActor private func titleForm(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].title.name)
@@ -637,7 +637,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func noteForm(row r: Int, column c: Int) -> some View {
+    @MainActor private func noteForm(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].note.name)
@@ -662,7 +662,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func durationPicker(row r: Int, column c: Int) -> some View {
+    @MainActor private func durationPicker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].durationPicker.name)
@@ -677,7 +677,7 @@ extension SortFilterCFGItemContainer: View {
         }
     }
     
-    private func orderPicker(row r: Int, column c: Int) -> some View {
+    @MainActor private func orderPicker(row r: Int, column c: Int) -> some View {
         VStack {
             HStack {
                 Text(self._items[r][c].orderPicker.name)
@@ -717,17 +717,6 @@ extension SortFilterCFGItemContainer: View {
         return nil
     }
     
-    private func getSafeAreaInsets() -> UIEdgeInsets {
-        guard let keyWindow = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive })
-            .flatMap({ $0 as? UIWindowScene })?.windows
-            .first(where: \.isKeyWindow)
-        else {
-            return .zero
-        }
-        return keyWindow.safeAreaInsets
-    }
-    
     private func lowerTextFieldBorderColor(item: SortFilterItem.SliderItem) -> Color? {
         let workingLowerValue = item.workingLowerValue ?? item.minimumValue
         let workingUpperValue = item.workingUpperValue ?? item.maximumValue
@@ -746,7 +735,7 @@ extension SortFilterCFGItemContainer: View {
         return nil
     }
     
-    private func getInfoStyle() -> any InformationViewStyle {
+    @MainActor private func getInfoStyle() -> any InformationViewStyle {
         switch self.sliderDescType {
         case .error:
             return InformationViewErrorStyle.error

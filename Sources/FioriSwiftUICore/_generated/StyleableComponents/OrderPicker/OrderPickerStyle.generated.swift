@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OrderPickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OrderPickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OrderPickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OrderPickerConfiguration) -> Body
 }
 
 struct AnyOrderPickerStyle: OrderPickerStyle {

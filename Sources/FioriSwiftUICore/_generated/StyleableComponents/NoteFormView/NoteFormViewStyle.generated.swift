@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol NoteFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol NoteFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NoteFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: NoteFormViewConfiguration) -> Body
 }
 
 struct AnyNoteFormViewStyle: NoteFormViewStyle {

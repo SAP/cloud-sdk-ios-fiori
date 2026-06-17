@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TrailingAccessoryStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TrailingAccessoryStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TrailingAccessoryConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TrailingAccessoryConfiguration) -> Body
 }
 
 struct AnyTrailingAccessoryStyle: TrailingAccessoryStyle {

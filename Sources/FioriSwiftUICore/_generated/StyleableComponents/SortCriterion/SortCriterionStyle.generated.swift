@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SortCriterionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SortCriterionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SortCriterionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SortCriterionConfiguration) -> Body
 }
 
 struct AnySortCriterionStyle: SortCriterionStyle {

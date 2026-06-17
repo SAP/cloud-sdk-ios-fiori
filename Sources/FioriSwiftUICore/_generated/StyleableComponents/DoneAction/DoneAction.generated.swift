@@ -27,6 +27,7 @@ public extension DoneAction {
 }
 
 public extension DoneAction {
+    @MainActor
     init(doneAction: FioriButton? = FioriButton { _ in Text("Done".localizedFioriString()) }) {
         self.init(doneAction: { doneAction })
     }
@@ -66,7 +67,7 @@ private extension DoneAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DoneAction(.init(componentIdentifier: self.componentIdentifier, doneAction: .init(self.doneAction)))
             .shouldApplyDefaultStyle(false)
             .doneActionStyle(.fiori)

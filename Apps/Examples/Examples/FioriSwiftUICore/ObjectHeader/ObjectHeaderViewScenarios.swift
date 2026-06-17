@@ -2,7 +2,7 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectHeaderViewScenarios: ListDataProtocol {
+struct ObjectHeaderViewScenarios: @preconcurrency ListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     

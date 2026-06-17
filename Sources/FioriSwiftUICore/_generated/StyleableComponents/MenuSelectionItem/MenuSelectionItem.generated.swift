@@ -31,6 +31,7 @@ public extension MenuSelectionItem {
 }
 
 public extension MenuSelectionItem {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          action: (() -> Void)? = nil)
@@ -75,7 +76,7 @@ private extension MenuSelectionItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         MenuSelectionItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), action: self.action))
             .shouldApplyDefaultStyle(false)
             .menuSelectionItemStyle(MenuSelectionItemFioriStyle.ContentFioriStyle())

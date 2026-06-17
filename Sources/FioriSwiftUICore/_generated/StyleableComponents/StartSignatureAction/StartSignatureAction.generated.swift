@@ -25,6 +25,7 @@ public extension StartSignatureAction {
 }
 
 public extension StartSignatureAction {
+    @MainActor
     init(startSignatureAction: FioriButton? = FioriButton { _ in Text("Tap to Sign".localizedFioriString()) }) {
         self.init(startSignatureAction: { startSignatureAction })
     }
@@ -64,7 +65,7 @@ private extension StartSignatureAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         StartSignatureAction(.init(componentIdentifier: self.componentIdentifier, startSignatureAction: .init(self.startSignatureAction)))
             .shouldApplyDefaultStyle(false)
             .startSignatureActionStyle(.fiori)

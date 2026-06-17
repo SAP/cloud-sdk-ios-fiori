@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UndoActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UndoActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UndoActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UndoActionConfiguration) -> Body
 }
 
 struct AnyUndoActionStyle: UndoActionStyle {

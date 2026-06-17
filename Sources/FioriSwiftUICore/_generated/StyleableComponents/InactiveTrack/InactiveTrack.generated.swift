@@ -25,6 +25,7 @@ public extension InactiveTrack {
 }
 
 public extension InactiveTrack {
+    @MainActor
     init(inactiveTrack: any Shape = Capsule()) {
         self.init(inactiveTrack: { inactiveTrack })
     }
@@ -64,7 +65,7 @@ private extension InactiveTrack {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         InactiveTrack(.init(componentIdentifier: self.componentIdentifier, inactiveTrack: .init(self.inactiveTrack)))
             .shouldApplyDefaultStyle(false)
             .inactiveTrackStyle(.fiori)

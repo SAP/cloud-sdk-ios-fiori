@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FlexItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FlexItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FlexItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FlexItemConfiguration) -> Body
 }
 
 struct AnyFlexItemStyle: FlexItemStyle {

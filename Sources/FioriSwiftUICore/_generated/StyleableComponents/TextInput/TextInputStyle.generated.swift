@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TextInputStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TextInputStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TextInputConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TextInputConfiguration) -> Body
 }
 
 struct AnyTextInputStyle: TextInputStyle {

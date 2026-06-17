@@ -3,7 +3,7 @@ import SwiftUI
 /**
  The enum denoting `CalendarStyle`.
  */
-public enum CalendarStyle {
+public enum CalendarStyle: Sendable {
     /**
      Creates a calendar displaying one month at a time on the screen with vertical scrolling enabled. Allows for single selection only.
      */
@@ -40,7 +40,7 @@ public enum CalendarStyle {
 /**
  The types of secondary calendar to be displayed in `CalendarView`.
  */
-public enum AlternateCalendarType: CaseIterable {
+public enum AlternateCalendarType: CaseIterable, Sendable {
     /// No alternate calendar.
     case none
 

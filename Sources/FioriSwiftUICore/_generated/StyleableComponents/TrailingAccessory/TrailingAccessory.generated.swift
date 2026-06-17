@@ -58,7 +58,7 @@ private extension TrailingAccessory {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         TrailingAccessory(.init(componentIdentifier: self.componentIdentifier, trailingAccessory: .init(self.trailingAccessory)))
             .shouldApplyDefaultStyle(false)
             .trailingAccessoryStyle(.fiori)

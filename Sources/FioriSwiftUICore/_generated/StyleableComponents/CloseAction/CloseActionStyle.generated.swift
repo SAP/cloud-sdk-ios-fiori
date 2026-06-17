@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CloseActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CloseActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CloseActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CloseActionConfiguration) -> Body
 }
 
 struct AnyCloseActionStyle: CloseActionStyle {

@@ -25,6 +25,7 @@ public extension AccessoryIcon {
 }
 
 public extension AccessoryIcon {
+    @MainActor
     init(accessoryIcon: Image? = nil) {
         self.init(accessoryIcon: { accessoryIcon })
     }
@@ -64,7 +65,7 @@ private extension AccessoryIcon {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AccessoryIcon(.init(componentIdentifier: self.componentIdentifier, accessoryIcon: .init(self.accessoryIcon)))
             .shouldApplyDefaultStyle(false)
             .accessoryIconStyle(.fiori)

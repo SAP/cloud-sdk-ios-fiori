@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CalendarViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CalendarViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CalendarViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CalendarViewConfiguration) -> Body
 }
 
 struct AnyCalendarViewStyle: CalendarViewStyle {

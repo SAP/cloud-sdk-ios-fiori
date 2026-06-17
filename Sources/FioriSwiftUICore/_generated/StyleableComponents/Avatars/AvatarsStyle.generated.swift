@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AvatarsStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AvatarsStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AvatarsConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AvatarsConfiguration) -> Body
 }
 
 struct AnyAvatarsStyle: AvatarsStyle {

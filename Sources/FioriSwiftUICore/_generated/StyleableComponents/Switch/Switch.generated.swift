@@ -58,7 +58,7 @@ private extension Switch {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Switch(.init(componentIdentifier: self.componentIdentifier, isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .switchStyle(.fiori)

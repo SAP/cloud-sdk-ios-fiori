@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DeselectAllActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DeselectAllActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DeselectAllActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DeselectAllActionConfiguration) -> Body
 }
 
 struct AnyDeselectAllActionStyle: DeselectAllActionStyle {

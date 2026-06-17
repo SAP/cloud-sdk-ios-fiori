@@ -137,6 +137,7 @@ public extension SignatureCaptureView {
 }
 
 public extension SignatureCaptureView {
+    @MainActor
     init(title: AttributedString,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
@@ -223,7 +224,7 @@ private extension SignatureCaptureView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SignatureCaptureView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), startSignatureAction: .init(self.startSignatureAction), reenterSignatureAction: .init(self.reenterSignatureAction), cancelAction: .init(self.cancelAction), clearAction: .init(self.clearAction), saveAction: .init(self.saveAction), xmark: .init(self.xmark), watermark: .init(self.watermark), signatureImage: self.signatureImage, drawingViewMaxHeight: self.drawingViewMaxHeight, drawingViewBackgroundColor: self.drawingViewBackgroundColor, strokeWidth: self.strokeWidth, appliesTintColorToImage: self.appliesTintColorToImage, strokeColor: self.strokeColor, signatureLineColor: self.signatureLineColor, hidesSignatureLine: self.hidesSignatureLine, watermarkAlignment: self.watermarkAlignment, addsTimestampInImage: self.addsTimestampInImage, timestampFormatter: self.timestampFormatter, cropsImage: self.cropsImage, onSave: self.onSave, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .signatureCaptureViewStyle(SignatureCaptureViewFioriStyle.ContentFioriStyle())

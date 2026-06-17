@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Activity item predefined types
-public enum ActivityItemType {
+public enum ActivityItemType: Sendable {
     case phone
     case email
     case message
@@ -51,7 +51,7 @@ extension ActivityItemType: Equatable {
 
 // loose port of https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/Contact%20views.html#/s:8SAPFiori15FUIActivityItemV
 /// :nodoc:
-public struct ActivityItemDataType: Identifiable {
+public struct ActivityItemDataType: Identifiable, @unchecked Sendable {
     public private(set) var type: ActivityItemType
 
     public private(set) var data: String?

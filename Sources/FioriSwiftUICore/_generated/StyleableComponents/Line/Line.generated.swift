@@ -58,7 +58,7 @@ private extension Line {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Line(.init(componentIdentifier: self.componentIdentifier, line: .init(self.line)))
             .shouldApplyDefaultStyle(false)
             .lineStyle(.fiori)

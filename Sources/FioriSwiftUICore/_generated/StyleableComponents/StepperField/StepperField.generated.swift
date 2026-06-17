@@ -51,6 +51,7 @@ public extension StepperField {
 }
 
 public extension StepperField {
+    @MainActor
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
          isSecureEnabled: Bool? = false,
@@ -105,7 +106,7 @@ private extension StepperField {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         StepperField(.init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported))
             .shouldApplyDefaultStyle(false)
             .stepperFieldStyle(StepperFieldFioriStyle.ContentFioriStyle())

@@ -669,9 +669,9 @@ struct CustomSliderExample: View {
     }
 }
 
-var outOfRangeValidationFormat = "The entered value '%@' is outside the possible range (%@)"
+let outOfRangeValidationFormat = "The entered value '%@' is outside the possible range (%@)"
 
-var rangeValueValidationFormat = "The lower value '%@' must be less than or equal to the upper value '%@'"
+let rangeValueValidationFormat = "The lower value '%@' must be less than or equal to the upper value '%@'"
 
 func getInfoStyle(value: Double, range: ClosedRange<Double>) -> any InformationViewStyle {
     (range ~= value) ? InformationViewFioriStyle.fiori : InformationViewErrorStyle.error

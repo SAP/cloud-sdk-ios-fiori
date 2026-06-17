@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SideBarStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SideBarStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SideBarConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SideBarConfiguration) -> Body
 }
 
 struct AnySideBarStyle: SideBarStyle {

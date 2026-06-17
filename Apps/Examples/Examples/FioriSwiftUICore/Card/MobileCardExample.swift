@@ -619,3 +619,20 @@ struct CarouselTestView: View {
     .cardStyle(.intrinsicHeightCard)
     .padding()
 }
+
+/// Card Tests
+@MainActor
+enum CardFooterTests {
+    static let footer0 = CardFooter(action: FioriButton(title: "Primary"))
+    static let footer1 = CardFooter(secondaryAction: FioriButton(title: "Secondary"))
+    static let footer2 = CardFooter(tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer3 = CardFooter(action: FioriButton(title: "Primary long long long long"))
+    static let footer4 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"))
+    static let footer5 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer6 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer7 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary"))
+    static let footer8 = CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"))
+    static let footer9 = CardFooter(action: FioriButton(title: "Primary long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    static let footer10 = CardFooter(action: FioriButton(title: "Primary long long long long long long long long long long long long long long long long long long long"), secondaryAction: FioriButton(title: "Secondary long long long long long a b c long long long long"), tertiaryAction: FioriButton(title: "Tertiary"))
+    public static let examples = [footer0, footer1, footer2, footer3, footer4, footer5, footer6, footer7, footer8, footer9, footer10]
+}

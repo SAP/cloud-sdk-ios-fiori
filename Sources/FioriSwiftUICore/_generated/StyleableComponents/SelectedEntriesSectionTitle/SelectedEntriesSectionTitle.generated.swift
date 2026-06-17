@@ -25,6 +25,7 @@ public extension SelectedEntriesSectionTitle {
 }
 
 public extension SelectedEntriesSectionTitle {
+    @MainActor
     init(selectedEntriesSectionTitle: AttributedString? = AttributedString("Selected".localizedFioriString())) {
         self.init(selectedEntriesSectionTitle: { OptionalText(selectedEntriesSectionTitle) })
     }
@@ -64,7 +65,7 @@ private extension SelectedEntriesSectionTitle {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SelectedEntriesSectionTitle(.init(componentIdentifier: self.componentIdentifier, selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle)))
             .shouldApplyDefaultStyle(false)
             .selectedEntriesSectionTitleStyle(.fiori)

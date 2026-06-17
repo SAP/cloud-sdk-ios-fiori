@@ -74,6 +74,7 @@ public extension TitleFormView {
 }
 
 public extension TitleFormView {
+    @MainActor
     init(text: Binding<String>,
          isSecureEnabled: Bool? = false,
          formatter: FormattedStringEditing? = nil,
@@ -140,7 +141,7 @@ private extension TitleFormView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         TitleFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled))
             .shouldApplyDefaultStyle(false)
             .titleFormViewStyle(TitleFormViewFioriStyle.ContentFioriStyle())

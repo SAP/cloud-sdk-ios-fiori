@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineMarkerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineMarkerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineMarkerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineMarkerConfiguration) -> Body
 }
 
 struct AnyTimelineMarkerStyle: TimelineMarkerStyle {

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardFooterStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardFooterStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardFooterConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardFooterConfiguration) -> Body
 }
 
 struct AnyCardFooterStyle: CardFooterStyle {

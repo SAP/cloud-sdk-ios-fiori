@@ -615,7 +615,7 @@ extension ObjectHeaderFioriStyle {
 ///
 /// `title` and `subtitle` always stay together on the top row next to the
 /// detail image, regardless of this value.
-public enum ObjectHeaderAdditionalInfoAlignment {
+public enum ObjectHeaderAdditionalInfoAlignment: Sendable {
     /// Tags, body text, and footnote indent under the title, past the trailing
     /// edge of the detail image. This is the default behavior.
     case alignWithTitle
@@ -659,7 +659,7 @@ public extension View {
 }
 
 /// ObjectHeaderSkeletonLoadingPattern provides predefined patterns for ObjectHeader skeleton loading.
-public enum ObjectHeaderSkeletonLoadingPattern {
+@MainActor public enum ObjectHeaderSkeletonLoadingPattern {
     /// Provides a pattern with all fields populated.
     public static let allField = ObjectHeader(title: {
         Text("Object Header Title")

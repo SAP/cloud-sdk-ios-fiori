@@ -79,6 +79,7 @@ public extension KeyValueFormView {
 }
 
 public extension KeyValueFormView {
+    @MainActor
     init(title: AttributedString,
          text: Binding<String>,
          placeholder: AttributedString? = nil,
@@ -151,7 +152,7 @@ private extension KeyValueFormView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         KeyValueFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled))
             .shouldApplyDefaultStyle(false)
             .keyValueFormViewStyle(KeyValueFormViewFioriStyle.ContentFioriStyle())

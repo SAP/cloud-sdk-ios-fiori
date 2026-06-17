@@ -52,6 +52,7 @@ public extension CardMedia {
 }
 
 public extension CardMedia {
+    @MainActor
     init(mediaImage: Image? = nil,
          description: AttributedString? = nil)
     {
@@ -94,7 +95,7 @@ private extension CardMedia {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CardMedia(.init(componentIdentifier: self.componentIdentifier, mediaImage: .init(self.mediaImage), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .cardMediaStyle(CardMediaFioriStyle.ContentFioriStyle())

@@ -372,9 +372,9 @@ public struct FioriSliderTextFieldStyle {
         self.disabledForegroundColor = disabledForegroundColor ?? FioriSliderTextFieldStyle.leading.disabledForegroundColor
     }
     
-    static let leading = FioriSliderTextFieldStyle(borderColor: Color(.opaqueSeparator), focusedBorderColor: Color.preferredColor(.tintColor), disabledBorderColor: Color.preferredColor(.quaternaryLabel), borderWidth: 1, focusedBorderWidth: 2, cornerRadius: 10, font: Font.fiori(forTextStyle: .body), foregroundColor: Color.preferredColor(.primaryLabel), disabledForegroundColor: Color.preferredColor(.quaternaryLabel))
+    nonisolated(unsafe) static let leading = FioriSliderTextFieldStyle(borderColor: Color(.opaqueSeparator), focusedBorderColor: Color.preferredColor(.tintColor), disabledBorderColor: Color.preferredColor(.quaternaryLabel), borderWidth: 1, focusedBorderWidth: 2, cornerRadius: 10, font: Font.fiori(forTextStyle: .body), foregroundColor: Color.preferredColor(.primaryLabel), disabledForegroundColor: Color.preferredColor(.quaternaryLabel))
     
-    static let trailing = FioriSliderTextFieldStyle(borderColor: Color(.opaqueSeparator), focusedBorderColor: Color.preferredColor(.tintColor), disabledBorderColor: Color.preferredColor(.quaternaryLabel), borderWidth: 1, focusedBorderWidth: 2, cornerRadius: 10, font: Font.fiori(forTextStyle: .body), foregroundColor: Color.preferredColor(.primaryLabel), disabledForegroundColor: Color.preferredColor(.quaternaryLabel))
+    nonisolated(unsafe) static let trailing = FioriSliderTextFieldStyle(borderColor: Color(.opaqueSeparator), focusedBorderColor: Color.preferredColor(.tintColor), disabledBorderColor: Color.preferredColor(.quaternaryLabel), borderWidth: 1, focusedBorderWidth: 2, cornerRadius: 10, font: Font.fiori(forTextStyle: .body), foregroundColor: Color.preferredColor(.primaryLabel), disabledForegroundColor: Color.preferredColor(.quaternaryLabel))
 }
 
 extension ValueLabel {
@@ -495,7 +495,7 @@ struct NumbersOnlyTextField: View {
 }
 
 extension TextField {
-    func numbersOnly(_ text: Binding<String>, decimalPlace: Int = 0, onValueChange: ((String) -> Void)? = nil) -> some View {
+    @MainActor func numbersOnly(_ text: Binding<String>, decimalPlace: Int = 0, onValueChange: ((String) -> Void)? = nil) -> some View {
         self.modifier(NumbersOnlyViewModifier(text: text, decimalPlace: decimalPlace, onValueChange: onValueChange))
     }
 }
@@ -617,11 +617,11 @@ struct FioriTextFieldStylesModifier: ViewModifier { // To change the appearance 
 }
 
 struct SliderLeadingTextFieldStyleKey: EnvironmentKey {
-    static let defaultValue: FioriSliderTextFieldStyle = .leading
+    nonisolated(unsafe) static let defaultValue: FioriSliderTextFieldStyle = .leading
 }
 
 struct SliderTrailingTextFieldStyleKey: EnvironmentKey {
-    static let defaultValue: FioriSliderTextFieldStyle = .trailing
+    nonisolated(unsafe) static let defaultValue: FioriSliderTextFieldStyle = .trailing
 }
 
 struct FioriSliderValueFormatKey: EnvironmentKey {

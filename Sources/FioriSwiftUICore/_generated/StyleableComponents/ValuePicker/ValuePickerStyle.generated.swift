@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ValuePickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ValuePickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ValuePickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ValuePickerConfiguration) -> Body
 }
 
 struct AnyValuePickerStyle: ValuePickerStyle {

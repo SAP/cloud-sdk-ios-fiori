@@ -25,14 +25,14 @@ public struct _UserConsentPagesContainer {
     }
 }
 
-extension _UserConsentPagesContainer: IndexedViewContainer {
+extension _UserConsentPagesContainer: @preconcurrency IndexedViewContainer {
     /// Count of indexed views.
     public var count: Int {
         self.usePages ? self.pages.count : self._userConsentPages.count
     }
     
     /// :nodoc:
-    public func view(at index: Int) -> some View {
+    @MainActor public func view(at index: Int) -> some View {
         Group {
             if self.usePages {
                 self.pages[index]

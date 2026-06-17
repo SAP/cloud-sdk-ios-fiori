@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StepperFieldStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StepperFieldStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StepperFieldConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StepperFieldConfiguration) -> Body
 }
 
 struct AnyStepperFieldStyle: StepperFieldStyle {

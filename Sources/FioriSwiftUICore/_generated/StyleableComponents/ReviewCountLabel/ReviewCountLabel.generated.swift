@@ -25,6 +25,7 @@ public extension ReviewCountLabel {
 }
 
 public extension ReviewCountLabel {
+    @MainActor
     init(reviewCountLabel: AttributedString? = nil) {
         self.init(reviewCountLabel: { OptionalText(reviewCountLabel) })
     }
@@ -64,7 +65,7 @@ private extension ReviewCountLabel {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ReviewCountLabel(.init(componentIdentifier: self.componentIdentifier, reviewCountLabel: .init(self.reviewCountLabel)))
             .shouldApplyDefaultStyle(false)
             .reviewCountLabelStyle(.fiori)

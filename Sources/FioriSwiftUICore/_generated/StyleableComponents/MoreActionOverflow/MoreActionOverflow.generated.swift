@@ -58,7 +58,7 @@ private extension MoreActionOverflow {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         MoreActionOverflow(.init(componentIdentifier: self.componentIdentifier, moreActionOverflow: .init(self.moreActionOverflow)))
             .shouldApplyDefaultStyle(false)
             .moreActionOverflowStyle(.fiori)

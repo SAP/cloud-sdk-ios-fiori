@@ -2,16 +2,16 @@ import Foundation
 import SwiftUI
 
 public extension MenuSelection {
-    init(action: FioriButton? = nil,
-         isExpanded: Binding<Bool>,
-         items: [MenuSelectionItemProtocol] = [],
-         actionHandler: @escaping (MenuSelectionItemProtocol) -> Void)
+    @MainActor init(action: FioriButton? = nil,
+                    isExpanded: Binding<Bool>,
+                    items: [MenuSelectionItemProtocol] = [],
+                    actionHandler: @escaping (MenuSelectionItemProtocol) -> Void)
     {
         self.init(action: { action }, isExpanded: isExpanded, items: { _MenuSelectionContainer(items, actionHandler: actionHandler) })
     }
 }
 
-struct _MenuSelectionContainer: View {
+@preconcurrency struct _MenuSelectionContainer: View {
     let items: [MenuSelectionItemProtocol]
     let actionHandler: ((MenuSelectionItemProtocol) -> Void)?
     

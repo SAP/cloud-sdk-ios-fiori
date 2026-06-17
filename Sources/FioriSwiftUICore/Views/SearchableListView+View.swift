@@ -71,6 +71,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     ///   - rowBackground: The background for the list row.
+    @MainActor
     init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
@@ -94,6 +95,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - selection: A binding to a set which stores the selected items.
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
+    @MainActor
     init(data: [String],
          selection: Binding<Set<String>>?,
          allowsMultipleSelection: Bool = false,
@@ -111,6 +113,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowBackground: The background for the list row.
+    @MainActor
     init(data: [String],
          selection: Binding<Set<String>>?,
          allowsMultipleSelection: Bool = false,
@@ -132,6 +135,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolean by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    @MainActor
     init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
@@ -159,6 +163,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ///   - rowBackground: The background for the list row.
     ///   - cancelAction: Customzation searchable list cancel action.
     ///   - doneAction: Customzation searchable list done action.
+    @MainActor
     init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
@@ -190,7 +195,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         }
         contentView = content.typeErased
     }
-    
+
+    @MainActor
     init<Data: RandomAccessCollection, ID: Hashable>(
         data: Data,
         id: KeyPath<Data.Element, ID>,

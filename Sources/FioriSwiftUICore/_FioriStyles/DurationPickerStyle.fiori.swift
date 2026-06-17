@@ -141,21 +141,9 @@ extension DurationPickerFioriStyle {
     }
 }
 
-/// The key for measurement formatter of duration picker in the environment.
-struct MeasurementFormatterKey: EnvironmentKey {
-    static var defaultValue: MeasurementFormatter = .init()
-}
-
 public extension EnvironmentValues {
     /// The formatter for duration picker.
-    var measurementFormatter: MeasurementFormatter {
-        get {
-            self[MeasurementFormatterKey.self]
-        }
-        set {
-            self[MeasurementFormatterKey.self] = newValue
-        }
-    }
+    @Entry var measurementFormatter: MeasurementFormatter = .init()
 }
 
 public extension View {

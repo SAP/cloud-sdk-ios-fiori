@@ -2,13 +2,13 @@ import Foundation
 import UniformTypeIdentifiers
 
 /// Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behaviors by overriding functions.
-open class BasicAttachmentDelegate: AttachmentDelegate {
+open class BasicAttachmentDelegate: AttachmentDelegate, @unchecked Sendable {
     /// Default folder
     public static let demoFolderName = "AttachmentDemoFolder"
 
     /// Convince property for Apps to get local folder
     public let localFolder: URL
-    
+
     public init(localFolderName: String? = nil, onPreparation: ((URL) -> Void)? = nil) {
         let folderName = localFolderName ?? BasicAttachmentDelegate.demoFolderName
         let mgr = FileManager.default
@@ -19,9 +19,9 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
         self.localFolder = folder
         onPreparation?(folder)
     }
-    
+
     /// Delete attachment identified by an URL asynchronously.
-    open func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {
+    open func delete(url: URL, onCompletion: @escaping @Sendable (URL, (any Error)?) -> Void) {
         do {
             try FileManager.default.removeItem(at: url)
             onCompletion(url, nil)
@@ -33,15 +33,17 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             }
         }
     }
-    
+
     /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously.
-    open func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    open func upload(contentFrom provider: NSItemProvider, onStarting: (@MainActor @Sendable (URL) -> Void)? = nil, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
                     if let onStarting {
-                        DispatchQueue.main.async {
-                            onStarting(url)
+                        Task {
+                            await MainActor.run {
+                                onStarting(url)
+                            }
                         }
                     }
                     self.saveLocally(url: url, identifier: identifier, onCompletion: onCompletion)
@@ -53,9 +55,9 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             onCompletion(nil, AttachmentError.failedToUploadAttachment("Failed to get type identifier of the provider."))
         }
     }
-    
+
     /// Save an attachment to local folder asynchronously. The local copy is identified by the URL.
-    open func saveLocally(url: URL, identifier: String, onCompletion: @escaping (URL?, Error?) -> Void) {
+    open func saveLocally(url: URL, identifier: String, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         do {
             let copy = try self.getAttachmentNameAndExt(from: url, utTypeidentifier: identifier)
             try FileManager.default.copyItem(at: url, to: copy)
@@ -68,7 +70,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             }
         }
     }
-    
+
     /// Get targert file name in local folder for avoiding conflicts by appending random UUID to file name when conflicts are detected.
     open func getAttachmentNameAndExt(from url: URL, utTypeidentifier identifier: String) throws -> URL {
         var ext = url.pathExtension
@@ -87,7 +89,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
             return copy
         }
     }
-    
+
     /// infer attachment file name from URL components.
     open func getOrInferExt(extension ext: String, utTypeidentifier identifier: String) -> String {
         ext.isEmpty ? (UTType(identifier)?.preferredFilenameExtension ?? "") : ext

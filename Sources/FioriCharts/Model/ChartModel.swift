@@ -20,7 +20,7 @@ import SwiftUI
  ```
  */
 
-public class ChartModel: ObservableObject, Identifiable, NSCopying {
+public final class ChartModel: ObservableObject, Identifiable, NSCopying, @unchecked Sendable {
     /// An internal data structure to hold a single piece of data or an array of data
     public enum DimensionData<T>: CustomStringConvertible, Equatable where T: Equatable {
         case single(T)

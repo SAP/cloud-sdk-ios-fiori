@@ -86,6 +86,7 @@ public extension OnboardingScanView {
 }
 
 public extension OnboardingScanView {
+    @MainActor
     init(scanViewContext: OnboardingScanViewContext = OnboardingScanViewContext(),
          shouldValidateScanResult: ((String) -> Bool)? = nil,
          didCancel: (() -> Void)? = nil,
@@ -136,7 +137,7 @@ private extension OnboardingScanView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         OnboardingScanView(.init(componentIdentifier: self.componentIdentifier, scanViewContext: self.scanViewContext, shouldValidateScanResult: self.shouldValidateScanResult, didCancel: self.didCancel, usesCameraOnly: self.usesCameraOnly, scanConfirmationView: .init(self.scanConfirmationView), didTapContinue: self.didTapContinue))
             .shouldApplyDefaultStyle(false)
             .onboardingScanViewStyle(OnboardingScanViewFioriStyle.ContentFioriStyle())

@@ -28,6 +28,7 @@ public extension PlaceholderTextEditor {
 }
 
 public extension PlaceholderTextEditor {
+    @MainActor
     init(text: Binding<String>,
          placeholder: AttributedString? = nil)
     {
@@ -70,7 +71,7 @@ private extension PlaceholderTextEditor {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         PlaceholderTextEditor(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle.ContentFioriStyle())

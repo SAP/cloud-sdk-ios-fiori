@@ -58,7 +58,7 @@ private extension ProgressIndicatorProtocol {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ProgressIndicatorProtocol(.init(componentIdentifier: self.componentIdentifier, progress: self.$progress))
             .shouldApplyDefaultStyle(false)
             .progressIndicatorProtocolStyle(.fiori)

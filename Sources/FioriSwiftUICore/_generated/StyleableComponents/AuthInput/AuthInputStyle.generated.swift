@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AuthInputStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AuthInputStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AuthInputConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AuthInputConfiguration) -> Body
 }
 
 struct AnyAuthInputStyle: AuthInputStyle {

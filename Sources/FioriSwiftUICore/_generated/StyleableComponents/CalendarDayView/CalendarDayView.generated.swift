@@ -105,7 +105,7 @@ private extension CalendarDayView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CalendarDayView(.init(componentIdentifier: self.componentIdentifier, title: self.title, subtitle: self.subtitle, isEventIndicatorVisible: self.isEventIndicatorVisible, state: self.state, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)
             .calendarDayViewStyle(CalendarDayViewFioriStyle.ContentFioriStyle())

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ColorStyleCompatibilityProvider {
+protocol ColorStyleCompatibilityProvider: Sendable {
     /// :nodoc:
     var uuid: UUID { get }
     

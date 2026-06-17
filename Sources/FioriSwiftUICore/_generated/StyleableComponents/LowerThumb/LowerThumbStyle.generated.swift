@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LowerThumbStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LowerThumbStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LowerThumbConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LowerThumbConfiguration) -> Body
 }
 
 struct AnyLowerThumbStyle: LowerThumbStyle {

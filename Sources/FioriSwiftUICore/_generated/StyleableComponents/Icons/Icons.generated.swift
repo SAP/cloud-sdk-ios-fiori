@@ -25,6 +25,7 @@ public extension Icons {
 }
 
 public extension Icons {
+    @MainActor
     init(icons: [TextOrIcon] = []) {
         self.init(icons: { IconStack(icons) })
     }
@@ -64,7 +65,7 @@ private extension Icons {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Icons(.init(componentIdentifier: self.componentIdentifier, icons: .init(self.icons)))
             .shouldApplyDefaultStyle(false)
             .iconsStyle(.fiori)

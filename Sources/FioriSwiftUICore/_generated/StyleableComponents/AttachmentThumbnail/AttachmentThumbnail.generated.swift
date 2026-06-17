@@ -117,7 +117,7 @@ private extension AttachmentThumbnail {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentThumbnail(.init(componentIdentifier: self.componentIdentifier, url: self.url, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .attachmentThumbnailStyle(AttachmentThumbnailFioriStyle.ContentFioriStyle())

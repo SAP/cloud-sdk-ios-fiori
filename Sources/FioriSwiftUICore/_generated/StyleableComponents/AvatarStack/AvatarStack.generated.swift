@@ -28,6 +28,7 @@ public extension AvatarStack {
 }
 
 public extension AvatarStack {
+    @MainActor
     init(avatars: [TextOrIcon] = [],
          avatarsTitle: AttributedString? = nil)
     {
@@ -70,7 +71,7 @@ private extension AvatarStack {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AvatarStack(.init(componentIdentifier: self.componentIdentifier, avatars: .init(self.avatars), avatarsTitle: .init(self.avatarsTitle)))
             .shouldApplyDefaultStyle(false)
             .avatarStackStyle(AvatarStackFioriStyle.ContentFioriStyle())

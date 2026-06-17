@@ -186,15 +186,8 @@ extension ContactItemFioriStyle {
     }
 }
 
-struct RemoveDetailImageDefaultStyleKey: EnvironmentKey {
-    static var defaultValue: Bool = false
-}
-
 extension EnvironmentValues {
-    var removeDetailImageDefaultStyle: Bool {
-        get { self[RemoveDetailImageDefaultStyleKey.self] }
-        set { self[RemoveDetailImageDefaultStyleKey.self] = newValue }
-    }
+    @Entry var removeDetailImageDefaultStyle: Bool = false
 }
 
 public extension View {

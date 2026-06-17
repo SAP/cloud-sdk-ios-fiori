@@ -16,7 +16,7 @@ struct OptionalKPIItem: View {
     }
 }
 
-extension OptionalKPIItem: _ViewEmptyChecking {
+extension OptionalKPIItem: @preconcurrency _ViewEmptyChecking {
     var isEmpty: Bool {
         self.data == nil
     }

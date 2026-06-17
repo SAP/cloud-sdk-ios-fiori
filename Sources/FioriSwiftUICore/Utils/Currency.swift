@@ -34,7 +34,7 @@ public protocol currencyFormatting {
 }
 
 /// Enum representing the type of currency formatter to use.
-public enum formatType {
+public enum formatType: Sendable {
     /// Uses Swift's Decimal.FormatStyle.Currency for formatting.
     case formatStyle(Decimal.FormatStyle.Currency)
     /// Uses Apple's NumberFormatter for formatting.

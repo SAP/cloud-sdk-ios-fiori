@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AINoticeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AINoticeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AINoticeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AINoticeConfiguration) -> Body
 }
 
 struct AnyAINoticeStyle: AINoticeStyle {

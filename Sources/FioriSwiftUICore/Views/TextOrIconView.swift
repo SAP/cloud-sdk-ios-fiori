@@ -65,7 +65,7 @@ public struct TextOrIconView: View {
     }
 }
 
-extension TextOrIconView: _ViewEmptyChecking {
+extension TextOrIconView: @preconcurrency _ViewEmptyChecking {
     public var isEmpty: Bool {
         self.content == nil
     }

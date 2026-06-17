@@ -66,7 +66,7 @@ private extension TextInputField {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         TextInputField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter))
             .shouldApplyDefaultStyle(false)
             .textInputFieldStyle(TextInputFieldFioriStyle.ContentFioriStyle())

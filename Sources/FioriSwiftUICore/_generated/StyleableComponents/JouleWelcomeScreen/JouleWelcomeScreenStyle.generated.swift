@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol JouleWelcomeScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol JouleWelcomeScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> Body
 }
 
 struct AnyJouleWelcomeScreenStyle: JouleWelcomeScreenStyle {

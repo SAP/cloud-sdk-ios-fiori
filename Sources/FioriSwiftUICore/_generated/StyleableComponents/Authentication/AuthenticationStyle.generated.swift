@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AuthenticationStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AuthenticationStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AuthenticationConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AuthenticationConfiguration) -> Body
 }
 
 struct AnyAuthenticationStyle: AuthenticationStyle {

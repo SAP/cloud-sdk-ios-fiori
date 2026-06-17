@@ -35,6 +35,7 @@ public extension SortCriterion {
 }
 
 public extension SortCriterion {
+    @MainActor
     init(checkmark: Image? = Image(systemName: "checkmark"),
          title: AttributedString,
          subtitle: AttributedString? = nil,
@@ -81,7 +82,7 @@ private extension SortCriterion {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SortCriterion(.init(componentIdentifier: self.componentIdentifier, checkmark: .init(self.checkmark), title: .init(self.title), subtitle: .init(self.subtitle), data: self.$data))
             .shouldApplyDefaultStyle(false)
             .sortCriterionStyle(SortCriterionFioriStyle.ContentFioriStyle())

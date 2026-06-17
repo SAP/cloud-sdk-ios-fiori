@@ -50,6 +50,7 @@ public extension AttachmentWithError {
 }
 
 public extension AttachmentWithError {
+    @MainActor
     init(attachmentErrorTitle: AttributedString,
          attachmentInfo: AttachmentInfo,
          onPreview: ((AttachmentInfo) -> Void)? = nil,
@@ -96,7 +97,7 @@ private extension AttachmentWithError {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentWithError(.init(componentIdentifier: self.componentIdentifier, attachmentErrorTitle: .init(self.attachmentErrorTitle), attachmentInfo: self.attachmentInfo, onPreview: self.onPreview, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)
             .attachmentWithErrorStyle(AttachmentWithErrorFioriStyle.ContentFioriStyle())

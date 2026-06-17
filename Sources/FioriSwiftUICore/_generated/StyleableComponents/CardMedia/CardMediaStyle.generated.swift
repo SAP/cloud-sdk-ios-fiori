@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardMediaStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardMediaStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardMediaConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardMediaConfiguration) -> Body
 }
 
 struct AnyCardMediaStyle: CardMediaStyle {

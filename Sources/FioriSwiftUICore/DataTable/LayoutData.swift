@@ -2,57 +2,57 @@ import Foundation
 import SwiftUI
 
 // swiftlint:disable file_length
-class LayoutData {
+class LayoutData: @unchecked Sendable {
     var size: CGSize = .zero
-    
+
     var sizeClass: UserInterfaceSizeClass = .compact
-    
+
     var dynamicTypeSize: DynamicTypeSize?
-    
+
     var editMode: TableModel.EditMode = .none
-    
+
     var hasHeader: Bool = false
-    
+
     // custom header cell's padding; if set it overwrites default value
     var headerCellPadding: EdgeInsets?
-    
+
     // custom data cell's padding; if set it overwrites default value
     var dataCellPadding: EdgeInsets?
-    
+
     var minRowHeight: CGFloat = 48
-    
+
     var minColumnWidth: CGFloat = 48
-    
+
     /// changes for rowData
     /// each row: -1: delete; 0: no change; 1: add; 2: change
     var rowDataChanges: [Int] = []
-    
+
     var rowData: [TableRowItem] = []
-    
+
     var columnAttributes: [ColumnAttribute] = []
-    
+
     var rowAlignment: RowAlignment = .top
-    
+
     var allDataItems: [[DataTableItem]] = []
-    
+
     /// number of errors checked against TableModel.validateDataItem
     var numOfErrors: Int = 0
-    
+
     /// column width including padding
     var columnWidths: [CGFloat] = []
-    
+
     /// row height including top and bottom padding
     var rowHeights: [CGFloat] = []
-    
+
     /// firstBaselineHeights for rows
     var firstBaselineHeights: [CGFloat] = []
-    
+
     var leadingAccessoryViewWidth: CGFloat = 0
     var trailingAccessoryViewWidth: CGFloat = 0
-    
+
     /// cache the result
     var numOfColumns: Int = -1
-    
+
     func copy() -> LayoutData {
         let copy = LayoutData()
         copy.size = self.size
@@ -74,10 +74,10 @@ class LayoutData {
         copy.leadingAccessoryViewWidth = self.leadingAccessoryViewWidth
         copy.trailingAccessoryViewWidth = self.trailingAccessoryViewWidth
         copy.numOfColumns = self.numOfColumns
-        
+
         return copy
     }
-    
+
     func numberOfColumns() -> Int {
         if self.numOfColumns > -1 {
             return self.numOfColumns
@@ -89,32 +89,32 @@ class LayoutData {
 
         return self.numOfColumns
     }
-    
+
     func numberOfRows() -> Int {
         self.rowData.count
     }
-    
+
     func columnAttribute(for columnIndex: Int) -> ColumnAttribute {
         if columnIndex < self.columnAttributes.count {
             return self.columnAttributes[columnIndex]
         }
-        
+
         return ColumnAttribute()
     }
-    
+
     func initRowData(model: TableModel) -> [TableRowItem] {
         var rowData: [TableRowItem] = []
         if model.hasHeader, let header = model.headerData {
             rowData.append(header)
         }
-        
+
         rowData.append(contentsOf: model.rowData)
         self.hasHeader = model.hasHeader
         self.columnAttributes = model.columnAttributes
-        
+
         return rowData
     }
-    
+
     /// Calculate all cells' content size in one line based on allDataItems and fromLayoutData
     ///
     /// - Parameter fromLayoutData: use this to reduce some calculations
@@ -127,18 +127,18 @@ class LayoutData {
         var maxFirstBaselineHeights = [CGFloat]()
         // reset it
         self.numOfErrors = 0
-        
+
         /// minimize efforts to init items by using layoutData with rowDataChanges
         for i in 0 ..< numbOfRows {
             if workItem?.isCancelled ?? false {
                 return ([[]], [])
             }
-            
+
             // unchanged, just copy it
             if let ld = fromLayoutData, i < ld.allDataItems.count, i < ld.firstBaselineHeights.count, i < rowDataChanges.count, rowDataChanges[i] == 0 {
                 res.append(ld.allDataItems[i])
                 maxFirstBaselineHeights.append(ld.firstBaselineHeights[i])
-                
+
                 // check isValid
                 for di in ld.allDataItems[i] where !di.isValid {
                     self.numOfErrors += 1
@@ -152,7 +152,7 @@ class LayoutData {
 
         return (res, maxFirstBaselineHeights)
     }
-    
+
     func calcDataItemSize(_ dataItem: DataTableItem) -> CGSize {
         var contentWidth = CGFloat(MAXFLOAT)
         let columnAttribute = columnAttribute(for: dataItem.columnIndex)
@@ -168,7 +168,7 @@ class LayoutData {
         if dataItem.type == .listitem {
             contentWidth -= 15
         }
-        
+
         if let uifont = dataItem.uifont, let title = dataItem.text {
             var size = title.boundingBoxSize(with: uifont, width: contentWidth, height: CGFloat(MAXFLOAT))
             if dataItem.type == .listitem { // add a spacing and chevron's size
@@ -178,23 +178,23 @@ class LayoutData {
 
             return size
         }
-        
+
         return .zero
     }
-    
+
     func createDataItemForRow(model: TableModel, at index: Int, workItem: DispatchWorkItem?) -> ([DataTableItem], CGFloat) {
         let numOfColumns = self.numberOfColumns()
-        
+
         let dataInEachRow = self.rowData[index].data
         let isHeader: Bool = index == 0 && self.hasHeader
-        
+
         var maxFirstBaselineHeight: CGFloat = 0
         var res: [DataTableItem] = []
         for i in 0 ..< numOfColumns {
             if workItem?.isCancelled ?? false {
                 return ([], 0)
             }
-            
+
             var contentWidth = CGFloat(MAXFLOAT)
             let columnAttribute = columnAttribute(for: i)
             let textAlignment = columnAttribute.textAlignment
@@ -204,10 +204,10 @@ class LayoutData {
             default:
                 contentWidth = CGFloat(MAXFLOAT)
             }
-            
+
             let contentInset = self.cellContentInsets(for: index, columnIndex: i)
             contentWidth -= contentInset.horizontal * 2
-            
+
             // miss the data item fill with a empty text
             if !dataInEachRow.indices.contains(i) {
                 res.append(DataTableItem(type: .text,
@@ -232,17 +232,17 @@ class LayoutData {
             let finalReadonly = self.isReadonlyForCell(rowIsReadonly: self.rowData[index].isReadonly, columnIsReadonly: columnAttribute.isReadonly, cellIsReadonly: dataInEachRow[i].isReadonly)
             if let currentItem = dataInEachRow[i] as? DataTableItemConvertion, let item = currentItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader, isValid: validState.0, isReadonly: finalReadonly) {
                 res.append(item)
-                
+
                 if let uifont = item.uifont {
                     let firstBaselineHeight = uifont.lineHeight + uifont.descender
                     maxFirstBaselineHeight = max(maxFirstBaselineHeight, firstBaselineHeight)
                 }
             }
         }
-        
+
         return (res, maxFirstBaselineHeight)
     }
-    
+
     /// Determine the cell's `isReadonly` from `isReadonly`of the row, column and cell
     func isReadonlyForCell(rowIsReadonly: Bool?, columnIsReadonly: Bool?, cellIsReadonly: Bool?) -> Bool {
         /// cellIsReadonly is the highest priority
@@ -254,16 +254,16 @@ class LayoutData {
         if let value = rowIsReadonly {
             return value
         }
-        
+
         /// columnIsReadonly is the lowest priority
         if let value = columnIsReadonly {
             return value
         }
-        
+
         /// If none of them is set, return `false`
         return false
     }
-    
+
     func getTrailingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
         width = self.rowData.reduce(0) { partialResult, row in
@@ -274,17 +274,17 @@ class LayoutData {
                     return max(partialResult, TableViewLayout.iconSize)
                 }
             }
-            
+
             return partialResult
         }
-        
+
         if width > 0 {
             width += TableViewLayout.rightPaddingForLeadingAccessoryView(self.sizeClass)
         }
-        
+
         return width
     }
-    
+
     func getleadingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
         var icons = 0
@@ -304,21 +304,21 @@ class LayoutData {
             buttons = max(buttons, currentButtons)
             icons = max(icons, currentIcons)
         }
-        
+
         width = CGFloat(buttons) * TableViewLayout.buttonSize + CGFloat(icons) * TableViewLayout.iconSize + CGFloat(max(0, buttons + icons - 1)) * TableViewLayout.accessorySpacing
-        
+
         if width > 0 {
             width += TableViewLayout.rightPaddingForLeadingAccessoryView(self.sizeClass)
         }
-        
+
         return width
     }
-    
+
     /**
      columnWidth:
-         .fixed: max(1, fixedWidth)
-         .flexible: 48 pt -- 50%
-         .infinity: 48 pt -- 50%, then fill the remaining space if possible
+     .fixed: max(1, fixedWidth)
+     .flexible: 48 pt -- 50%
+     .infinity: 48 pt -- 50%, then fill the remaining space if possible
      */
     /// Calculate column widths based on allDataItems and fromLayoutData
     ///
@@ -332,17 +332,17 @@ class LayoutData {
         if numberOfColumns < 1 || numberOfRows < 1 {
             return []
         }
-        
+
         var tmpColumnWidths: [CGFloat] = []
-        
+
         // first round, go through all columns without applying 50% rule
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
-            
+
             if workItem?.isCancelled ?? false {
                 return []
             }
-            
+
             /// find max column width in all rows
             for i in 0 ..< numberOfRows {
                 let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: j, containerWidth: self.size.width, applyMaxColumnWidthRule: false)
@@ -350,42 +350,42 @@ class LayoutData {
             }
             tmpColumnWidths.append(maxItemWidth)
         }
-        
+
         if workItem?.isCancelled ?? false {
             return []
         }
-        
+
         var allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
         }
-        
+
         // by default, the first column will expand to fill the space
         let infinityIndex: Int = self.infinityColumnIndex()
         // all columns fit in the container width
         var totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
-        
+
         // totalWidth is less or equal than the container width so the infinity column needs to expand its width to fill th remaining space then return
         if totalWidth <= self.size.width {
             tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
             return tmpColumnWidths
         }
-        
+
         // second round
         // totalWidth is great than the container width: go through all columns with applying 50% rule
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
-            
+
             if workItem?.isCancelled ?? false {
                 return []
             }
-            
+
             for i in 0 ..< numberOfRows {
                 let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: j, containerWidth: self.size.width, applyMaxColumnWidthRule: true)
                 maxItemWidth = max(maxItemWidth, currentItemWidth)
             }
             tmpColumnWidths[j] = maxItemWidth
         }
-        
+
         // check it again, all columns fit in the container width
         allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
@@ -395,10 +395,10 @@ class LayoutData {
             tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
             return tmpColumnWidths
         }
-        
+
         return tmpColumnWidths
     }
-    
+
     /// one cell change can cause the change of two column width. One is its column and other is the .infinity column
     func updateOneColumnWidth(for rowIndex: Int, columnIndex: Int) -> [CGFloat] {
         let numberOfColumns = self.numberOfColumns()
@@ -406,19 +406,19 @@ class LayoutData {
         if numberOfColumns < 1 || numberOfRows < 1 {
             return []
         }
-        
+
         var tmpColumnWidths: [CGFloat] = self.columnWidths
-        
+
         // first round, go through all columns without applying 50% rule
         var maxItemWidth: CGFloat = 0
-        
+
         /// find max column width in all rows
         for i in 0 ..< numberOfRows {
             let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: columnIndex, containerWidth: self.size.width, applyMaxColumnWidthRule: false)
             maxItemWidth = max(maxItemWidth, currentItemWidth)
         }
         tmpColumnWidths[columnIndex] = maxItemWidth
-        
+
         var allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
         }
@@ -426,13 +426,13 @@ class LayoutData {
         let infinityIndex: Int = self.infinityColumnIndex()
         // all columns fit in the container width
         var totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
-        
+
         // totalWidth is less or equal than the container width so the infinity column needs to expand its width to fill th remaining space then return
         if totalWidth <= self.size.width {
             tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
             return tmpColumnWidths
         }
-        
+
         // second round
         // totalWidth is great than the container width: go through all columns with applying 50% rule
         maxItemWidth = 0
@@ -441,7 +441,7 @@ class LayoutData {
             maxItemWidth = max(maxItemWidth, currentItemWidth)
         }
         tmpColumnWidths[columnIndex] = maxItemWidth
-        
+
         // check it again, all columns fit in the container width
         allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
@@ -451,14 +451,14 @@ class LayoutData {
             tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
             return tmpColumnWidths
         }
-        
+
         return tmpColumnWidths
     }
-    
+
     /**
-        .fixed: max(1, fixedWidth)
-        .flexible: 48 pt --50%
-        .infinity: 48 pt -- 50%, then fill the remaining space if possible
+     .fixed: max(1, fixedWidth)
+     .flexible: 48 pt --50%
+     .infinity: 48 pt -- 50%, then fill the remaining space if possible
      */
     func cellWidth(rowIndex: Int, columnIndex: Int, containerWidth: CGFloat, applyMaxColumnWidthRule: Bool = true) -> CGFloat {
         let columnAttri = self.columnAttribute(for: columnIndex)
@@ -468,29 +468,29 @@ class LayoutData {
         default:
             break
         }
-        
+
         let currentItem = self.allDataItems[rowIndex][columnIndex]
         let contentWidth = currentItem.size.width
         let maxColumnWidth: CGFloat = containerWidth > 0 ? containerWidth * TableViewLayout.maxColumnWidth : CGFloat(MAXFLOAT)
         let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
         let contentWidthWithPaddings: CGFloat = contentWidth + contentInset.horizontal
-        
+
         return applyMaxColumnWidthRule ? min(maxColumnWidth, max(self.minColumnWidth, contentWidthWithPaddings)) : contentWidthWithPaddings
     }
-    
+
     func cellContentInsets(for rowIndex: Int, columnIndex: Int) -> EdgeInsets {
         let isHeader = self.hasHeader && rowIndex == 0
         if let padding = headerCellPadding, isHeader {
             return padding
         }
-        
+
         if let padding = dataCellPadding {
             return padding
         }
-        
+
         let vPadding = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
         let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
-        
+
         let numOfColumns = self.numberOfColumns()
         if numOfColumns < 1 {
             return EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -498,7 +498,7 @@ class LayoutData {
             return EdgeInsets(top: vPadding, leading: contentInset, bottom: vPadding, trailing: contentInset)
         }
     }
-    
+
     /// Calculate row heights based on allDataItems, columnWidths and fromLayoutData
     ///
     /// - Parameter fromLayoutData: use this to reduce some calculations
@@ -507,25 +507,25 @@ class LayoutData {
     /// - Returns: heights for all rows
     func calcRowHeights(fromLayoutData: LayoutData? = nil, workItem: DispatchWorkItem? = nil) -> [CGFloat] {
         var heights: [CGFloat] = []
-    
+
         for rowIndex in self.allDataItems.indices {
             if workItem?.isCancelled ?? false {
                 return []
             }
-            
+
             // copy the height from fromLayoutData if these conditions are met
             if let ld = fromLayoutData, rowIndex < ld.allDataItems.count, rowIndex < ld.rowHeights.count, rowIndex < rowDataChanges.count, rowDataChanges[rowIndex] == 0, ld.columnWidths == self.columnWidths {
                 heights.append(ld.rowHeights[rowIndex])
                 continue
             }
-            
+
             var itemHeight: CGFloat = 0
-            
+
             for columnIndex in self.allDataItems[rowIndex].indices {
                 if workItem?.isCancelled ?? false {
                     return []
                 }
-                
+
                 let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
                 let item = self.allDataItems[rowIndex][columnIndex]
                 if let title = item.text, let uifont = item.uifont {
@@ -551,28 +551,28 @@ class LayoutData {
                     self.allDataItems[rowIndex][columnIndex].rowHeight = item.size.height
                 }
             }
-            
+
             let verticalPadding = self.cellContentInsets(for: rowIndex, columnIndex: 0).vertical
             let rowHeight = max(itemHeight + verticalPadding, self.minRowHeight)
             heights.append(rowHeight)
         }
-        
+
         return heights
     }
-    
+
     /// only recalculate cells heights that its columnIndex is contained in the columnIndexes
     func updateRowHeights(for rowIndex: Int, columnIndexes: Set<Int>) -> [CGFloat] {
         var heights: [CGFloat] = self.rowHeights
-    
+
         for rowIndex in self.allDataItems.indices {
             var itemHeight: CGFloat = 0
-            
+
             for columnIndex in self.allDataItems[rowIndex].indices {
                 if !columnIndexes.contains(columnIndex) {
                     itemHeight = max(self.allDataItems[rowIndex][columnIndex].rowHeight, itemHeight)
                     continue
                 }
-                
+
                 let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
                 let item = self.allDataItems[rowIndex][columnIndex]
                 if let title = item.text, let uifont = item.uifont {
@@ -596,20 +596,20 @@ class LayoutData {
                     itemHeight = max(item.size.height, itemHeight)
                 }
             }
-            
+
             let verticalPadding = self.cellContentInsets(for: rowIndex, columnIndex: 0).vertical
             let rowHeight = max(itemHeight + verticalPadding, self.minRowHeight)
             heights[rowIndex] = rowHeight
         }
-        
+
         return heights
     }
-    
+
     /**
-        Steps:
-        1. update that column width: one cell change can cause the change of two column width. One is its column and other is the .infinity column
-        2. update all rows height (only recalculate cells heights that its columnIndex is contained in the columnIndexes)
-        3. update positions
+     Steps:
+     1. update that column width: one cell change can cause the change of two column width. One is its column and other is the .infinity column
+     2. update all rows height (only recalculate cells heights that its columnIndex is contained in the columnIndexes)
+     3. update positions
      */
     func updateCellLayout(for rowIndex: Int, columnIndex: Int) {
         let origColumnWidths = self.columnWidths
@@ -622,19 +622,19 @@ class LayoutData {
         self.rowHeights = self.updateRowHeights(for: rowIndex, columnIndexes: changedColumns)
         self.allDataItems = self.updatedItemsPos()
     }
-    
+
     func updatedItemsPos() -> [[DataTableItem]] {
         let numOfColumns = self.numberOfColumns()
         let numOfRows = self.numberOfRows()
-        
+
         var items = self.allDataItems
         var heightSoFar: CGFloat = 0
-        
+
         for i in 0 ..< numOfRows {
             let posY = heightSoFar + self.rowHeights[i] / 2
             heightSoFar += self.rowHeights[i]
             var widthSoFar: CGFloat = 0
-            
+
             for j in 0 ..< numOfColumns {
                 var item = items[i][j]
                 let posX = widthSoFar + self.columnWidths[j] / 2
@@ -644,10 +644,10 @@ class LayoutData {
                 items[i][j] = item
             }
         }
-        
+
         return items
     }
-    
+
     func infinityColumnIndex() -> Int {
         // by default, the first column will expand to fill the space
         var infinityIndex = 0
@@ -655,18 +655,18 @@ class LayoutData {
             switch columnAttribute.width {
             case .infinity:
                 infinityIndex = index
-                
+
             default:
                 continue
             }
         }
-        
+
         return infinityIndex
     }
-    
+
     func copyCacheData(_ layoutData: LayoutData?) {
         guard let ld = layoutData else { return }
-        
+
         self.hasHeader = ld.hasHeader
         self.rowData = ld.rowData
         self.columnAttributes = ld.columnAttributes
@@ -674,20 +674,14 @@ class LayoutData {
         self.firstBaselineHeights = ld.firstBaselineHeights
         self.numOfErrors = ld.numOfErrors
     }
-    
+
     func multipleLineTextSize(text: String, font: UIFont, numberOfLines: Int, width: CGFloat) -> CGSize {
-        let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: width, height: 2000)
-        label.text = text
-        label.font = font
-        label.numberOfLines = numberOfLines
-        label.textColor = .black
-        
-        let sizeToFit = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let tmpTextSize = label.sizeThatFits(sizeToFit)
-        let textSize = CGSize(width: max(1, min(width, tmpTextSize.width)), height: tmpTextSize.height)
-    
-        return textSize
+        let textSize = text.boundingBoxSize(with: font,
+                                            lineLimit: numberOfLines,
+                                            width: width,
+                                            height: CGFloat.greatestFiniteMagnitude)
+
+        return CGSize(width: max(1, min(width, textSize.width)), height: textSize.height)
     }
 }
 
@@ -708,21 +702,21 @@ extension String {
                 return CGSize(width: width, height: size.height)
             }
         }
-        
+
         // lineLimit > 1
         let fontSize = font.pointSize
         let lineHeight = font.lineHeight
         let tmpLineSpacing = font.lineHeight / fontSize
         let numberOfLines = Int(0.1 + (size.height + tmpLineSpacing) / (font.lineHeight + tmpLineSpacing))
-        
+
         if Int(numberOfLines) <= lineLimit || numberOfLines <= 1 {
             return size
         }
-    
+
         let lineSpacing2 = (size.height - CGFloat(numberOfLines) * lineHeight) / CGFloat(numberOfLines - 1)
         let lineSpacing = lineSpacing2 > tmpLineSpacing ? lineSpacing2 : tmpLineSpacing
         let height = CGFloat(lineLimit) * lineHeight + lineSpacing * (CGFloat(lineLimit) - 1)
-        
+
         return CGSize(width: size.width, height: height)
     }
 }
@@ -737,7 +731,7 @@ extension String {
 class UIFontInfo {
     /// used to create UIFont other than Fiori fonts
     var fontDescriptor: UIFontDescriptor
-    
+
     /// below properties are used to create a Fiori font
     var isItalic: Bool
     var isBold: Bool
@@ -745,7 +739,7 @@ class UIFontInfo {
     var fontSize: CGFloat?
     var textStyle: UIFont.TextStyle?
     var weight: UIFont.Weight?
-    
+
     init(fontDescriptor: UIFontDescriptor, isItalic: Bool = false, isBold: Bool = false, isCondensed: Bool = false, fontSize: CGFloat? = nil, textStyle: UIFont.TextStyle? = nil, weight: UIFont.Weight? = nil) {
         self.fontDescriptor = fontDescriptor
         self.isItalic = isItalic
@@ -766,7 +760,7 @@ extension FontProvider {
         let fi = fontInfo(with: traitCollection)
         let fd = fi.fontDescriptor
         let attributes = fd.fontAttributes
-        
+
         // fiori fonts
         if let fontName = attributes[.name] as? String, fontName.prefix(2) == "72" {
             var isCondensed = fi.isCondensed
@@ -774,15 +768,15 @@ extension FontProvider {
             if let traits = attributes[.traits] as? NSDictionary, let tmpWeight = traits[UIFontDescriptor.TraitKey.weight] as? UIFont.Weight {
                 weight = tmpWeight
             }
-            
+
             if fontName.prefix(12).caseInsensitiveCompare("72-condensed") == .orderedSame {
                 isCondensed = true
             }
-            
+
             if fi.isBold, weight.rawValue < UIFont.Weight.bold.rawValue {
                 weight = .bold
             }
-            
+
             if let style = fi.textStyle {
                 return UIFont.preferredFioriFont(forTextStyle: style, weight: weight.fiori72Weight, isItalic: fi.isItalic, isCondensed: isCondensed)
             } else {
@@ -806,22 +800,22 @@ struct SystemProvider: FontProvider {
     var size: CGFloat
     var design: UIFontDescriptor.SystemDesign?
     var weight: UIFont.Weight?
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         var fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection)
             .addingAttributes([
                 .size: self.size
             ])
-        
+
         if let design, let tmpFd = fd.withDesign(design) {
             fd = tmpFd
         }
-        
+
         if let weight {
             fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
             return UIFontInfo(fontDescriptor: fd, weight: weight)
         }
-        
+
         return UIFontInfo(fontDescriptor: fd, fontSize: self.size, weight: self.weight)
     }
 }
@@ -830,7 +824,7 @@ struct TextStyleProvider: FontProvider {
     var textStyle: UIFont.TextStyle?
     var design: UIFontDescriptor.SystemDesign?
     var weight: UIFont.Weight?
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         var fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: self.textStyle ?? .body, compatibleWith: traitCollection)
         if let design, let tmpFd = fd.withDesign(design) {
@@ -841,7 +835,7 @@ struct TextStyleProvider: FontProvider {
             fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
             return UIFontInfo(fontDescriptor: fd, textStyle: self.textStyle, weight: weight)
         }
-        
+
         return UIFontInfo(fontDescriptor: fd, textStyle: self.textStyle, weight: self.weight)
     }
 }
@@ -850,7 +844,7 @@ struct NamedProvider: FontProvider {
     var name: String
     var size: CGFloat
     var textStyle: UIFont.TextStyle?
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         if let textStyle, size <= 34 {
             let metrics = UIFontMetrics(forTextStyle: textStyle)
@@ -858,14 +852,14 @@ struct NamedProvider: FontProvider {
                 .name: name,
                 .size: metrics.scaledValue(for: self.size, compatibleWith: traitCollection)
             ])
-            
+
             return UIFontInfo(fontDescriptor: fd, textStyle: textStyle)
         } else {
             let fd = UIFontDescriptor(fontAttributes: [
                 .name: name,
                 .size: size
             ])
-            
+
             return UIFontInfo(fontDescriptor: fd, fontSize: self.size)
         }
     }
@@ -873,7 +867,7 @@ struct NamedProvider: FontProvider {
 
 struct StaticModifierProvider<M: StaticFontModifier>: FontProvider {
     var base: FontProvider
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         var info = self.base.fontInfo(with: traitCollection)
 
@@ -886,17 +880,17 @@ struct StaticModifierProvider<M: StaticFontModifier>: FontProvider {
 struct WeightModifierProvider: FontProvider {
     var base: FontProvider
     var weight: UIFont.Weight?
-    
+
     init(base: FontProvider, weight: UIFont.Weight?) {
         self.base = base
         self.weight = weight
     }
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         let info = self.base.fontInfo(with: traitCollection)
         info.fontDescriptor = info.fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: self.weight]])
         info.weight = self.weight
-        
+
         return info
     }
 }
@@ -904,12 +898,12 @@ struct WeightModifierProvider: FontProvider {
 struct WidthModifierProvider: FontProvider {
     var base: FontProvider
     var isCondensed: Bool
-    
+
     init(base: FontProvider, isCondensed: Bool = false) {
         self.base = base
         self.isCondensed = isCondensed
     }
-    
+
     func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
         let info = self.base.fontInfo(with: traitCollection)
 //        info.fontDescriptor = info.fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]])
@@ -956,19 +950,19 @@ extension UIFont {
             }
 
             return self.resolveFontProvider(base).map(StaticModifierProvider<ItalicModifier>.init)
-            
+
         case "StaticModifierProvider<BoldModifier>":
             guard let base = mirror.descendant("base", "provider", "base") else {
                 return nil
             }
-            
+
             return self.resolveFontProvider(base).map(StaticModifierProvider<BoldModifier>.init)
-        
+
         case "ModifierProvider<WidthModifier>":
             guard let base = mirror.descendant("base", "provider", "base") else {
                 return nil
             }
-            
+
             if let widthValue = mirror.descendant("modifier", "width") as? CGFloat {
                 #if swift(>=5.7.1)
                     if #available(iOS 16.0, watchOS 9.0, *) {
@@ -984,12 +978,12 @@ extension UIFont {
             }
 
             return self.resolveFontProvider(base)
-            
+
         case "ModifierProvider<WeightModifier>":
             guard let base = mirror.descendant("base", "provider", "base") else {
                 return nil
             }
-            
+
             var weight = UIFont.Weight.regular
             if let weightValue = mirror.descendant("modifier", "weight", "value") as? CGFloat {
                 let tmpWeight = UIFont.Weight(rawValue: weightValue)
@@ -1001,12 +995,12 @@ extension UIFont {
             } else {
                 return nil
             }
-            
+
         case "SystemProvider":
             guard let size = mirror.descendant("size") as? CGFloat else {
                 return nil
             }
-            
+
             var uiDesign: UIFontDescriptor.SystemDesign?
             if let design = mirror.descendant("design") as? Font.Design {
                 uiDesign = design.uiDesign
@@ -1017,12 +1011,12 @@ extension UIFont {
             }
 
             return SystemProvider(size: size, design: uiDesign, weight: uiWeight)
-            
+
         case "TextStyleProvider":
             guard let textStyle = mirror.descendant("style") as? Font.TextStyle else {
                 return nil
             }
-            
+
             var uiDesign: UIFontDescriptor.SystemDesign?
             if let design = mirror.descendant("design") as? Font.Design {
                 uiDesign = design.uiDesign
@@ -1031,9 +1025,9 @@ extension UIFont {
             if let weight = mirror.descendant("weight") as? Font.Weight {
                 uiWeight = weight.uiWeight
             }
-            
+
             return TextStyleProvider(textStyle: textStyle.uiTextStyle, design: uiDesign, weight: uiWeight)
-            
+
         case "NamedProvider":
             guard let name = mirror.descendant("name") as? String,
                   let size = mirror.descendant("size") as? CGFloat
@@ -1045,15 +1039,15 @@ extension UIFont {
             if let textStyle = mirror.descendant("textStyle") as? Font.TextStyle {
                 style = textStyle.uiTextStyle
             }
-            
+
             return NamedProvider(name: name, size: size, textStyle: style)
-            
+
         default:
             // Not exhaustive, more providers need to be handled here.
             return nil
         }
     }
-    
+
     class func resolveFont(_ font: Font) -> FontProvider? {
         let mirror = Mirror(reflecting: font)
         guard let provider = mirror.descendant("provider", "base") else {
@@ -1111,7 +1105,7 @@ extension UIFont {
         if !UIFont.is72FontsAvailable {
             return font
         }
-        
+
         let metrics: UIFontMetrics
         if textStyle == .KPI || textStyle == .largeKPI {
             metrics = UIFontMetrics(forTextStyle: .largeTitle)
@@ -1122,7 +1116,7 @@ extension UIFont {
         let scaledFont = metrics.scaledFont(for: font)
         return scaledFont
     }
-    
+
     /// Get `Fiori` preferred font with a given size. Not a scaled font.
     ///
     /// Supported attributes: `Regular`, `Italic`, `Light`, `Bold`, `BoldItalic`, `Black`, `Condensed`, `CondensedBold`.
@@ -1157,7 +1151,7 @@ extension UIFont {
         return font
     }
 }
- 
+
 extension UIFont {
     // Check if 72 fonts are registered.
     static var is72FontsAvailable: Bool {
@@ -1168,7 +1162,7 @@ extension UIFont {
 extension UIFont.TextStyle {
     /// KPI text style.
     static let KPI = UIFont.TextStyle(rawValue: "com.sap.sdk.ios.SAPFiori.TextStyle.KPI")
-    
+
     /// Large KPI text style.
     static let largeKPI = UIFont.TextStyle(rawValue: "com.sap.sdk.ios.SAPFiori.TextStyle.largeKPI")
 }
@@ -1212,7 +1206,7 @@ extension UIFont.Weight {
     func getFioriWeight(isItalic: Bool, isCondensed: Bool) -> UIFont.Weight {
         isItalic ? self.italicWeight : (isCondensed ? self.condensedWeight : self.fioriWeight)
     }
-    
+
     // Available 72 weights
     private var fioriWeight: UIFont.Weight {
         switch self {
@@ -1228,7 +1222,7 @@ extension UIFont.Weight {
             return .regular
         }
     }
-    
+
     private var italicWeight: UIFont.Weight {
         switch self.fioriWeight {
         case .black, .bold:
@@ -1237,7 +1231,7 @@ extension UIFont.Weight {
             return .regular
         }
     }
-    
+
     private var condensedWeight: UIFont.Weight {
         switch self.fioriWeight {
         case .black, .bold:
@@ -1246,7 +1240,7 @@ extension UIFont.Weight {
             return .regular
         }
     }
-    
+
     // Available 72 weights
     var fiori72Weight: UIFont.Weight {
         if rawValue >= 0.56 { // heavy & black; use black
@@ -1259,10 +1253,10 @@ extension UIFont.Weight {
             return .regular
         }
     }
-    
+
     var fioriDescription: String {
         let name: String
-        
+
         switch self {
         case .black:
             name = "black"
@@ -1285,7 +1279,7 @@ extension UIFont.Weight {
         default:
             name = "Unknown"
         }
-        
+
         return name
     }
 }

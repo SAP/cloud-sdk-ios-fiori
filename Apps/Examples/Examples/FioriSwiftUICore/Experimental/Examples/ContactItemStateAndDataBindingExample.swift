@@ -30,7 +30,7 @@ struct ContactItemStateExample_Previews: PreviewProvider {
 
 // MARK: View Model
 
-class EmailContactViewModel: ObservableObject {
+class EmailContactViewModel: ObservableObject, @unchecked Sendable {
     @Published var showingAlert = false
 
     @Published var name: String = EmailContactViewModel.randomName

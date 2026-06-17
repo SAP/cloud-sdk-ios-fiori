@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol MoreActionOverflowStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol MoreActionOverflowStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: MoreActionOverflowConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: MoreActionOverflowConfiguration) -> Body
 }
 
 struct AnyMoreActionOverflowStyle: MoreActionOverflowStyle {

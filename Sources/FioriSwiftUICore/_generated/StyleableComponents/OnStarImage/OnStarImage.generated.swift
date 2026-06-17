@@ -28,6 +28,7 @@ public extension OnStarImage {
 }
 
 public extension OnStarImage {
+    @MainActor
     init(onStarImage: Image = FioriIcon.actions.favorite.renderingMode(.template).resizable()) {
         self.init(onStarImage: { onStarImage })
     }
@@ -67,7 +68,7 @@ private extension OnStarImage {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         OnStarImage(.init(componentIdentifier: self.componentIdentifier, onStarImage: .init(self.onStarImage)))
             .shouldApplyDefaultStyle(false)
             .onStarImageStyle(.fiori)

@@ -70,6 +70,7 @@ public extension FilterFormView {
 }
 
 public extension FilterFormView {
+    @MainActor
     init(title: AttributedString,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
@@ -138,7 +139,7 @@ private extension FilterFormView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FilterFormView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), options: self.options, controlState: self.controlState, errorMessage: self.errorMessage, isEnabled: self.isEnabled, allowsMultipleSelection: self.allowsMultipleSelection, allowsEmptySelection: self.allowsEmptySelection, value: self.$value, buttonSize: self.buttonSize, isSingleLine: self.isSingleLine, numberOfLines: self.numberOfLines, onValueChange: self.onValueChange, checkmarkImage: .init(self.checkmarkImage)))
             .shouldApplyDefaultStyle(false)
             .filterFormViewStyle(FilterFormViewFioriStyle.ContentFioriStyle())

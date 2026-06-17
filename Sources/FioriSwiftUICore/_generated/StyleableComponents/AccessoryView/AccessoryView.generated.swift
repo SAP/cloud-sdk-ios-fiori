@@ -60,7 +60,7 @@ private extension AccessoryView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AccessoryView(.init(componentIdentifier: self.componentIdentifier, accessoryType: self.accessoryType))
             .shouldApplyDefaultStyle(false)
             .accessoryViewStyle(.fiori)

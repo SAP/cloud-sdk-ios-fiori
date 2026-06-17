@@ -27,6 +27,7 @@ public extension DecrementAction {
 }
 
 public extension DecrementAction {
+    @MainActor
     init(decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less }) {
         self.init(decrementAction: { decrementAction })
     }
@@ -66,7 +67,7 @@ private extension DecrementAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DecrementAction(.init(componentIdentifier: self.componentIdentifier, decrementAction: .init(self.decrementAction)))
             .shouldApplyDefaultStyle(false)
             .decrementActionStyle(.fiori)

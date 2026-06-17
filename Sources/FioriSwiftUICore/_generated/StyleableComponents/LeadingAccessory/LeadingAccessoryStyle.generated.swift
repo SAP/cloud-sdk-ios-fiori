@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LeadingAccessoryStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LeadingAccessoryStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LeadingAccessoryConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LeadingAccessoryConfiguration) -> Body
 }
 
 struct AnyLeadingAccessoryStyle: LeadingAccessoryStyle {

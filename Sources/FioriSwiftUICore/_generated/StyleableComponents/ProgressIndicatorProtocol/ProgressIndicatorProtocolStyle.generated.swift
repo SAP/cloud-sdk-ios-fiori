@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ProgressIndicatorProtocolStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ProgressIndicatorProtocolStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ProgressIndicatorProtocolConfiguration) -> Body
 }
 
 struct AnyProgressIndicatorProtocolStyle: ProgressIndicatorProtocolStyle {

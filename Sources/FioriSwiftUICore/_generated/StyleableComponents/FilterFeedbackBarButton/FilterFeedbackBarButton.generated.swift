@@ -52,6 +52,7 @@ public extension FilterFeedbackBarButton {
 }
 
 public extension FilterFeedbackBarButton {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          isSelected: Bool,
@@ -98,7 +99,7 @@ private extension FilterFeedbackBarButton {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FilterFeedbackBarButton(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), isSelected: self.isSelected, spacing: self.spacing))
             .shouldApplyDefaultStyle(false)
             .filterFeedbackBarButtonStyle(FilterFeedbackBarButtonFioriStyle.ContentFioriStyle())

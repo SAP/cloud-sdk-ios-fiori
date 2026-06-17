@@ -129,7 +129,7 @@ struct ListPickerDestinationButtonStyle: FioriButtonStyle {
     }
 }
 
-public extension ListPickerDestination {
+@MainActor public extension ListPickerDestination {
     /// Create a destination for `ListPickerItem`.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
@@ -335,7 +335,7 @@ public extension ListPickerDestination {
 
 // MARK: - Grouped Initializer
 
-public extension ListPickerDestination {
+@MainActor public extension ListPickerDestination {
     /// Create a destination for `ListPickerItem` with grouped sections. Need Data.Element is a `ListPickerSectionModel`
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
@@ -1256,7 +1256,7 @@ struct ConfirmationDialogConfigurationEnvironment: EnvironmentKey {
 }
 
 struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
-    static var defaultValue: Color? = nil
+    nonisolated(unsafe) static var defaultValue: Color? = nil
 
     static func reduce(value: inout Color?, nextValue: () -> Color?) {
         value = nextValue()
@@ -1264,11 +1264,11 @@ struct DestinationRowBackgroundPreferenceKey: PreferenceKey {
 }
 
 struct ListPickerItemIgnoreValueKey: EnvironmentKey {
-    static var defaultValue: Bool = false
+    nonisolated(unsafe) static var defaultValue: Bool = false
 }
 
 struct DestinationDisplayModeKey: EnvironmentKey {
-    static var defaultValue: DestinationDisplayMode = .push
+    nonisolated(unsafe) static var defaultValue: DestinationDisplayMode = .push
 }
 
 extension EnvironmentValues {
@@ -1366,7 +1366,7 @@ extension Notification.Name {
 }
 
 /// Display modes when navigating to destination of list picker item.
-public enum DestinationDisplayMode {
+public enum DestinationDisplayMode: Sendable {
     /// Push destination from current view.
     case push
     
@@ -1376,7 +1376,7 @@ public enum DestinationDisplayMode {
 
 /// The configuration for customizing the confirmation dialog shown when
 /// cancelling a `ListPickerDestination` with unsaved selections.
-public struct ConfirmationDialogConfiguration {
+public struct ConfirmationDialogConfiguration: @unchecked Sendable {
     /// The title text displayed in the confirmation dialog.
     public let title: String
 

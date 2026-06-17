@@ -61,6 +61,7 @@ public extension EULAView {
 }
 
 public extension EULAView {
+    @MainActor
     init(title: AttributedString,
          bodyText: AttributedString? = nil,
          agreeAction: FioriButton? = FioriButton { _ in Text("Agree".localizedFioriString()) },
@@ -115,7 +116,7 @@ private extension EULAView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         EULAView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), bodyText: .init(self.bodyText), agreeAction: .init(self.agreeAction), disagreeAction: .init(self.disagreeAction), cancelAction: .init(self.cancelAction), didAgree: self.didAgree, didDisagree: self.didDisagree, didCancel: self.didCancel))
             .shouldApplyDefaultStyle(false)
             .eULAViewStyle(EULAViewFioriStyle.ContentFioriStyle())

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SegmentedControlPickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SegmentedControlPickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SegmentedControlPickerConfiguration) -> Body
 }
 
 struct AnySegmentedControlPickerStyle: SegmentedControlPickerStyle {

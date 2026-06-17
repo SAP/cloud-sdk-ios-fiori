@@ -25,7 +25,7 @@ public extension FootnoteIconList {
     }
 }
 
-public struct SingleFootnoteIcon<Content: View>: FootnoteIconList {
+public struct SingleFootnoteIcon<Content: View>: @preconcurrency FootnoteIconList {
     let view: Content
     
     public var count: Int {
@@ -57,7 +57,7 @@ public struct SingleFootnoteIcon<Content: View>: FootnoteIconList {
     }
 }
 
-public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: View>: FootnoteIconList {
+public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: View>: @preconcurrency FootnoteIconList {
     let first: TrueContent?
     let second: FalseContent?
     
@@ -104,7 +104,7 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
     }
 }
 
-public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteIconList {
+public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: @preconcurrency FootnoteIconList {
     let first: First
     let remainder: Second
     
@@ -148,6 +148,7 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum FootnoteIconsBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {
@@ -227,7 +228,7 @@ public enum FootnoteIconsBuilder {
     }
 }
 
-extension FootnoteIconStack: FootnoteIconList {
+extension FootnoteIconStack: @preconcurrency FootnoteIconList {
     public var count: Int {
         let tmpIcons: [TextOrIcon] = _footnoteIcons == nil ? [] : _footnoteIcons!
         return tmpIcons.count

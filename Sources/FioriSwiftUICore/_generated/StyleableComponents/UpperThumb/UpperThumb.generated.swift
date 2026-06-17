@@ -25,6 +25,7 @@ public extension UpperThumb {
 }
 
 public extension UpperThumb {
+    @MainActor
     init(upperThumb: any Shape = Circle()) {
         self.init(upperThumb: { upperThumb })
     }
@@ -64,7 +65,7 @@ private extension UpperThumb {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         UpperThumb(.init(componentIdentifier: self.componentIdentifier, upperThumb: .init(self.upperThumb)))
             .shouldApplyDefaultStyle(false)
             .upperThumbStyle(.fiori)

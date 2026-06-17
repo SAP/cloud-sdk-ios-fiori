@@ -88,7 +88,7 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
     }
 }
 
-public struct SingleWhatsNewPage<Content: View>: WhatsNewPageList {
+public struct SingleWhatsNewPage<Content: View>: @preconcurrency WhatsNewPageList {
     let view: Content
     
     public var count: Int {
@@ -101,7 +101,7 @@ public struct SingleWhatsNewPage<Content: View>: WhatsNewPageList {
 }
 
 /// Conditional single view
-public struct ConditionalSingleWhatsNewPage<TrueContent: View, FalseContent: View>: WhatsNewPageList {
+public struct ConditionalSingleWhatsNewPage<TrueContent: View, FalseContent: View>: @preconcurrency WhatsNewPageList {
     let first: TrueContent?
     let second: FalseContent?
     
@@ -129,7 +129,7 @@ public struct ConditionalSingleWhatsNewPage<TrueContent: View, FalseContent: Vie
 }
 
 /// Pair of views
-public struct WhatsNewPagePair<First: View, Second: WhatsNewPageList>: WhatsNewPageList {
+public struct WhatsNewPagePair<First: View, Second: WhatsNewPageList>: @preconcurrency WhatsNewPageList {
     let first: First
     let remainder: Second
     
@@ -152,6 +152,7 @@ public struct WhatsNewPagePair<First: View, Second: WhatsNewPageList>: WhatsNewP
 /// Returns an instance of a view that is used internally by the WhatsNewPageView.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum WhatsNewPagesBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

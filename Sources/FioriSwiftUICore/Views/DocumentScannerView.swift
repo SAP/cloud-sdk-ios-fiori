@@ -3,13 +3,13 @@ import SwiftUI
 import VisionKit
 
 /// Define the possible output formats for the scanned document
-public enum ScanOutputFormat {
+public enum ScanOutputFormat: Sendable {
     case images
     case pdf
 }
 
 /// Define the possible output types: either an array of images or a PDF document
-public enum ScanOutput {
+public enum ScanOutput: @unchecked Sendable {
     case images([UIImage])
     case pdf(PDFDocument)
 }
@@ -53,7 +53,7 @@ public struct DocumentScannerView: UIViewControllerRepresentable {
 
 /// Coordinator class to handle the delegate methods of the VNDocumentCameraViewController
 public extension DocumentScannerView {
-    class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
+    class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate, @unchecked Sendable {
         var parent: DocumentScannerView
         
         init(_ parent: DocumentScannerView) {
@@ -98,7 +98,7 @@ public extension DocumentScannerView {
 
 /// Create a PDF document from an array of images
 extension DocumentScannerView.Coordinator {
-    private func createPDF(from images: [UIImage], completion: @escaping (Result<PDFDocument, Error>) -> Void) {
+    private func createPDF(from images: [UIImage], completion: @escaping @Sendable (Result<PDFDocument, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 /// Create a new PDF document

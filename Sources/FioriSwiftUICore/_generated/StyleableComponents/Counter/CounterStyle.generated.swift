@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CounterStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CounterStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CounterConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CounterConfiguration) -> Body
 }
 
 struct AnyCounterStyle: CounterStyle {

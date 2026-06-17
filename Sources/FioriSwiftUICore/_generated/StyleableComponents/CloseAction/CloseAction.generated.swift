@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct CloseAction {
     let closeAction: any View
 
@@ -25,6 +27,7 @@ public extension CloseAction {
 }
 
 public extension CloseAction {
+    @MainActor
     init(closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") }) {
         self.init(closeAction: { closeAction })
     }
@@ -64,7 +67,7 @@ private extension CloseAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CloseAction(.init(componentIdentifier: self.componentIdentifier, closeAction: .init(self.closeAction)))
             .shouldApplyDefaultStyle(false)
             .closeActionStyle(.fiori)

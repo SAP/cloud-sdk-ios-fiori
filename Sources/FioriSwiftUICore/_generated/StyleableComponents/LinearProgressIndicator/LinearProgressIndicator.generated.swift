@@ -58,7 +58,7 @@ private extension LinearProgressIndicator {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         LinearProgressIndicator(.init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress))
             .shouldApplyDefaultStyle(false)
             .linearProgressIndicatorStyle(.fiori)

@@ -34,6 +34,7 @@ public extension PlaceholderTextField {
 }
 
 public extension PlaceholderTextField {
+    @MainActor
     init(text: Binding<String>,
          isSecureEnabled: Bool? = false,
          formatter: FormattedStringEditing? = nil,
@@ -80,7 +81,7 @@ private extension PlaceholderTextField {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         PlaceholderTextField(.init(componentIdentifier: self.componentIdentifier, text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle.ContentFioriStyle())

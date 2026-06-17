@@ -275,6 +275,7 @@ public extension FioriSlider {
 }
 
 public extension FioriSlider {
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          lowerThumb: any Shape = Circle(),
@@ -371,7 +372,7 @@ private extension FioriSlider {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FioriSlider(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange, icon: .init(self.icon), description: .init(self.description), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory), isRangeSlider: self.isRangeSlider, valueFormat: self.valueFormat, rangeFormat: self.rangeFormat, leadingValueFormat: self.leadingValueFormat, trailingValueFormat: self.trailingValueFormat, showsValueLabel: self.showsValueLabel, showsLeadingAccessory: self.showsLeadingAccessory, showsTrailingAccessory: self.showsTrailingAccessory, onValueChange: self.onValueChange, onEditFieldFocusStatusChange: self.onEditFieldFocusStatusChange))
             .shouldApplyDefaultStyle(false)
             .fioriSliderStyle(FioriSliderFioriStyle.ContentFioriStyle())

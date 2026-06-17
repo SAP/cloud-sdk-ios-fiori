@@ -4,7 +4,7 @@ import SwiftUI
 /**
  A singleton object to customize the `Locale` to be used.
  */
-public class FioriLocale: NSObject {
+public class FioriLocale: NSObject, @unchecked Sendable {
     /**
      The shared singleton `FioriLocale`.
      */
@@ -22,7 +22,7 @@ public class FioriLocale: NSObject {
                 return
             }
             let language = locale.language
-            var regionLanguage: String? = nil
+            var regionLanguage: String?
             switch languageCode {
             case "de", "en", "es", "fr", "it", "pt":
                 // For these languages we support sub-languages based on the region code

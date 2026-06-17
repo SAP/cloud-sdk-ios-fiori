@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentConfiguration) -> Body
 }
 
 struct AnyAttachmentStyle: AttachmentStyle {

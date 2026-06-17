@@ -70,7 +70,7 @@ private extension ProgressIndicator {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ProgressIndicator(.init(componentIdentifier: self.componentIdentifier, progress: self.$progress))
             .shouldApplyDefaultStyle(false)
             .progressIndicatorStyle(ProgressIndicatorFioriStyle.ContentFioriStyle())

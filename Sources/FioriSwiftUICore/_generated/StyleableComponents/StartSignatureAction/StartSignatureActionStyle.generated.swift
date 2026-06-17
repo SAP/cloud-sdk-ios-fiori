@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StartSignatureActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StartSignatureActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StartSignatureActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StartSignatureActionConfiguration) -> Body
 }
 
 struct AnyStartSignatureActionStyle: StartSignatureActionStyle {

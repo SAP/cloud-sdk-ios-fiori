@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AIUserFeedbackStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AIUserFeedbackStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AIUserFeedbackConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AIUserFeedbackConfiguration) -> Body
 }
 
 struct AnyAIUserFeedbackStyle: AIUserFeedbackStyle {

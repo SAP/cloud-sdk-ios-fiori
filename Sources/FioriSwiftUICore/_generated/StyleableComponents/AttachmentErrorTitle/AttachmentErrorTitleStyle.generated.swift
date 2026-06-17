@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentErrorTitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentErrorTitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentErrorTitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentErrorTitleConfiguration) -> Body
 }
 
 struct AnyAttachmentErrorTitleStyle: AttachmentErrorTitleStyle {

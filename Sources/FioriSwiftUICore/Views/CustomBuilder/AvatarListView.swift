@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SingleAvatar: View, AvatarList {
+struct SingleAvatar: View, @preconcurrency AvatarList {
     var count: Int {
         self.isEmpty ? 0 : 1
     }

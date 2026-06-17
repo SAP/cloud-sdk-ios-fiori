@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol EULAViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol EULAViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: EULAViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: EULAViewConfiguration) -> Body
 }
 
 struct AnyEULAViewStyle: EULAViewStyle {

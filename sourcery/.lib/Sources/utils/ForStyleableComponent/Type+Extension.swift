@@ -54,6 +54,7 @@ extension Type {
         
         return """
         \(accessLevelDecl)extension \(componentName) {
+            @MainActor
             init(\(allStoredVariables.dataInitParams)) {
                 \(allStoredVariables.dataInitBody)
             }
@@ -129,7 +130,7 @@ extension Type {
                 return s
             }
         
-            func defaultStyle() -> some View {
+            @MainActor func defaultStyle() -> some View {
                 \(initDecl)
                 .shouldApplyDefaultStyle(false)
                 .\(styleProtocolName.lowercasingFirst())(\(fioriStyle))
@@ -201,10 +202,10 @@ extension Type {
     
     var styleProtocolDecl: String {
         """
-        \(accessLevelDecl)protocol \(styleProtocolName): DynamicProperty {
+        @MainActor @preconcurrency \(accessLevelDecl)protocol \(styleProtocolName): DynamicProperty {
             associatedtype Body: View
 
-            func makeBody(_ configuration: \(configurationName)) -> Body
+            @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: \(configurationName)) -> Body
         }
         """
     }

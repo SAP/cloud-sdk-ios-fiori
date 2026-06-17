@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DimensionSegmentStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DimensionSegmentStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DimensionSegmentConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DimensionSegmentConfiguration) -> Body
 }
 
 struct AnyDimensionSegmentStyle: DimensionSegmentStyle {

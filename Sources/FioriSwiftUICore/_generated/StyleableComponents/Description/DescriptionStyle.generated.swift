@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DescriptionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DescriptionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DescriptionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DescriptionConfiguration) -> Body
 }
 
 struct AnyDescriptionStyle: DescriptionStyle {

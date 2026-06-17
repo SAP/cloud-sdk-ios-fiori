@@ -12,11 +12,11 @@ extension EnvironmentValues {
 }
 
 struct StepStyleKey: EnvironmentKey {
-    static var defaultValue: ((_ id: String) -> AnyStepStyle?) = { _ in AnyStepStyle(DefaultStepStyle()) }
+    nonisolated(unsafe) static var defaultValue: ((_ id: String) -> AnyStepStyle?) = { _ in AnyStepStyle(DefaultStepStyle()) }
 }
 
 struct FlexibleStepProgressIndicatorKey: EnvironmentKey {
-    static var defaultValue: Bool = false
+    static let defaultValue: Bool = false
 }
 
 extension EnvironmentValues {
@@ -54,7 +54,7 @@ public extension View {
     }
 }
 
-struct StepLineModifierKey: EnvironmentKey {
+@MainActor struct StepLineModifierKey: @preconcurrency EnvironmentKey {
     /// Step separator line environment key for `SingleStep`.
     public static let defaultValue = AnyViewModifier { $0 }
 }

@@ -18,7 +18,7 @@ struct OptionalImage: View {
     }
 }
 
-extension OptionalImage: _ViewEmptyChecking {
+extension OptionalImage: @preconcurrency _ViewEmptyChecking {
     var isEmpty: Bool {
         self.image == nil
     }

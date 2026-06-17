@@ -979,7 +979,7 @@ struct AvatarsAndTextLayout: Layout {
 }
 
 /// `ObjectItemSkeletonLoadingPattern` provides a set of predefined skeleton loading patterns for ObjectItem.
-public enum ObjectItemSkeletonLoadingPattern {
+@MainActor public enum ObjectItemSkeletonLoadingPattern {
     /// Predefined skeleton loading patterns for ObjectItem with one line.
     public static let oneLine = ObjectItem(title: {
         Text("Object Item Title")
@@ -1045,7 +1045,7 @@ struct GeometrySizeView: View {
     }
 }
 
-enum ObjectItemElement {
+enum ObjectItemElement: Sendable {
     case detailImage
     case status
     case singleActionButton
@@ -1059,8 +1059,8 @@ struct MyViewPreferenceData {
 struct MyViewPreferenceKey: PreferenceKey {
     typealias Value = [MyViewPreferenceData]
     
-    static var defaultValue: [MyViewPreferenceData] = []
-    
+    static let defaultValue: [MyViewPreferenceData] = []
+
     static func reduce(value: inout [MyViewPreferenceData], nextValue: () -> [MyViewPreferenceData]) {
         value.append(contentsOf: nextValue())
     }

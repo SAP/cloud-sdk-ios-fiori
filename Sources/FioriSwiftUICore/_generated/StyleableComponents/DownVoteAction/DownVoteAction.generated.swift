@@ -27,6 +27,7 @@ public extension DownVoteAction {
 }
 
 public extension DownVoteAction {
+    @MainActor
     init(downVoteAction: FioriButton? = FioriButton { _ in FioriIcon.actions.thumbDown }) {
         self.init(downVoteAction: { downVoteAction })
     }
@@ -66,7 +67,7 @@ private extension DownVoteAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DownVoteAction(.init(componentIdentifier: self.componentIdentifier, downVoteAction: .init(self.downVoteAction)))
             .shouldApplyDefaultStyle(false)
             .downVoteActionStyle(.fiori)

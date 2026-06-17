@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DimensionSelectorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DimensionSelectorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DimensionSelectorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DimensionSelectorConfiguration) -> Body
 }
 
 struct AnyDimensionSelectorStyle: DimensionSelectorStyle {

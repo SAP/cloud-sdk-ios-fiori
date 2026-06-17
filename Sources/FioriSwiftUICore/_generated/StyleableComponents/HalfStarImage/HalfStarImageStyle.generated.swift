@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HalfStarImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HalfStarImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HalfStarImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HalfStarImageConfiguration) -> Body
 }
 
 struct AnyHalfStarImageStyle: HalfStarImageStyle {

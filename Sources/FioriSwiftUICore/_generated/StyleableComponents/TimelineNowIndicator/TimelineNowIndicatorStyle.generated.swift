@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineNowIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineNowIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> Body
 }
 
 struct AnyTimelineNowIndicatorStyle: TimelineNowIndicatorStyle {

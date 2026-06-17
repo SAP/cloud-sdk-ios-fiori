@@ -25,6 +25,7 @@ public extension Watermark {
 }
 
 public extension Watermark {
+    @MainActor
     init(watermark: AttributedString? = nil) {
         self.init(watermark: { OptionalText(watermark) })
     }
@@ -64,7 +65,7 @@ private extension Watermark {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Watermark(.init(componentIdentifier: self.componentIdentifier, watermark: .init(self.watermark)))
             .shouldApplyDefaultStyle(false)
             .watermarkStyle(.fiori)

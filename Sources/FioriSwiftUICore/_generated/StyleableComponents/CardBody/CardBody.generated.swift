@@ -58,7 +58,7 @@ private extension CardBody {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         CardBody(.init(componentIdentifier: self.componentIdentifier, cardBody: .init(self.cardBody)))
             .shouldApplyDefaultStyle(false)
             .cardBodyStyle(.fiori)

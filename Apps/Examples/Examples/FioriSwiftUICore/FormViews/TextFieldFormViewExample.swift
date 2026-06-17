@@ -43,7 +43,7 @@ struct TextFieldFormViewExample: View {
     @State var showingOptions = false
 
     @State var text = ""
-    
+
     var customizeNoticeMsg: AttributedString {
         var msgText = AttributedString("Customized AI Notice. ")
         msgText.font = .footnote.italic()
@@ -67,39 +67,12 @@ struct TextFieldFormViewExample: View {
                     }
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                    Text("Default TextFieldForm")
-                        .italic()
-                    TextFieldFormView(title: self.key1, text: self.$valueText1, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction1(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                        .aiNoticeView(isPresented: self.$showAINotice)
-
-                    Text("Existing Text")
-                        .italic()
-                    TextFieldFormView(title: self.key2, text: self.$valueText2, isSecureEnabled: self.isSecureEnabled, placeholder: "TextFieldFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction2(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon. ", actionLabel: "View more details", viewMoreAction: self.toggleShowSheet)
-                        .sheet(isPresented: self.$showBottomSheet) {
-                            RatingControlBottomSheetDetailView()
-                                .presentationDetents([.height(250), .medium])
-                                .presentationDragIndicator(.visible)
-                        }
-
-                    Text("Empty Text")
-                        .italic()
-                    TextFieldFormView(title: self.key3, text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Please enter something", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction3(), actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice with icon, long long long long long long message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-
-                    Text("Disabled")
-                    TextFieldFormView(title: "Disabled Cell", text: self.$disabledText, isSecureEnabled: self.isSecureEnabled, placeholder: "Disabled", controlState: .disabled, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(fioriName: "fiori.ai"), description: "AI Notice message. ", actionLabel: "View more link", viewMoreAction: self.openURL)
-                        .disabled(true)
-
-                    Text("Read-Only")
-                    TextFieldFormView(title: "Read-Only Cell", text: self.$readOnlyText, isSecureEnabled: self.isSecureEnabled, placeholder: "Read-Only", controlState: .readOnly, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
-                        .aiNoticeView(isPresented: self.$showAINotice, icon: Image(systemName: "wand.and.sparkles"), description: self.customizeNoticeMsg, actionLabel: self.customizeNoticeActionLabel, viewMoreAction: self.openURL)
-                        .iconStyle(content: { config in
-                            config.icon.foregroundStyle(Color.purple)
-                        })
-                    
-                    TextFieldFormView(title: "", text: self.$valueText3, isSecureEnabled: self.isSecureEnabled, placeholder: "Enter Something", controlState: .normal, hidesReadOnlyHint: self.hidesReadonlyHint, isRequired: self.isRequired, actionIcon: self.getActionIcon(), action: self.getAction4())
+                    self.defaultTextFieldSection
+                    self.existingTextFieldSection
+                    self.emptyTextFieldSection
+                    self.disabledTextFieldSection
+                    self.readOnlyTextFieldSection
+                    self.untitledTextFieldSection
                 }
                 .padding(.horizontal, 16)
             }
@@ -115,64 +88,194 @@ struct TextFieldFormViewExample: View {
                     }
                 }
                 .sheet(isPresented: self.$showingOptions) {
-                    NavigationStack {
-                        List {
-                            Toggle("Shows Hint Text", isOn: self.$showsHintText)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Shows Char Count", isOn: self.$showsCharCount)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Shows Action", isOn: self.$showsAction)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Mandatory Field", isOn: self.$isRequired)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Secure Mode", isOn: self.$isSecureEnabled)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("AI Notice", isOn: self.$showAINotice)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                            Toggle("Show SkeletonLoading", isOn: self.$isLoading)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
-                        }
-                        .navigationTitle("Options")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Done") {
-                                    self.showingOptions = false
-                                }
-                            }
-                        }
-                    }
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
+                    self.optionsSheet
                 }
         }
+    }
+
+    @ViewBuilder
+    var defaultTextFieldSection: some View {
+        Text("Default TextFieldForm")
+            .italic()
+        TextFieldFormView(title: self.key1,
+                          text: self.$valueText1,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "TextFieldFormView",
+                          errorMessage: self.getErrorMessage(),
+                          maxTextLength: self.getMaxTextLength(),
+                          hintText: self.getHintText(),
+                          isCharCountEnabled: self.showsCharCount,
+                          allowsBeyondLimit: self.allowsBeyondLimit,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction1(),
+                          actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+            .aiNoticeView(isPresented: self.$showAINotice)
+    }
+
+    @ViewBuilder
+    var existingTextFieldSection: some View {
+        Text("Existing Text")
+            .italic()
+        TextFieldFormView(title: self.key2,
+                          text: self.$valueText2,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "TextFieldFormView",
+                          errorMessage: self.getErrorMessage(),
+                          maxTextLength: self.getMaxTextLength(),
+                          hintText: self.getHintText(),
+                          isCharCountEnabled: self.showsCharCount,
+                          allowsBeyondLimit: self.allowsBeyondLimit,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction2(),
+                          actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+            .aiNoticeView(isPresented: self.$showAINotice,
+                          icon: Image(fioriName: "fiori.ai"),
+                          description: "AI Notice with icon. ",
+                          actionLabel: "View more details",
+                          viewMoreAction: self.toggleShowSheet)
+            .sheet(isPresented: self.$showBottomSheet) {
+                RatingControlBottomSheetDetailView()
+                    .presentationDetents([.height(250), .medium])
+                    .presentationDragIndicator(.visible)
+            }
+    }
+
+    @ViewBuilder
+    var emptyTextFieldSection: some View {
+        Text("Empty Text")
+            .italic()
+        TextFieldFormView(title: self.key3,
+                          text: self.$valueText3,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "Please enter something",
+                          errorMessage: self.getErrorMessage(),
+                          maxTextLength: self.getMaxTextLength(),
+                          hintText: self.getHintText(),
+                          isCharCountEnabled: self.showsCharCount,
+                          allowsBeyondLimit: self.allowsBeyondLimit,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction3(),
+                          actionIconAccessibilityLabel: self.getActionIconAccessibilityLabel())
+            .aiNoticeView(isPresented: self.$showAINotice,
+                          icon: Image(fioriName: "fiori.ai"),
+                          description: "AI Notice with icon, long long long long long long message. ",
+                          actionLabel: "View more link",
+                          viewMoreAction: self.openURL)
+    }
+
+    @ViewBuilder
+    var disabledTextFieldSection: some View {
+        Text("Disabled")
+        TextFieldFormView(title: "Disabled Cell",
+                          text: self.$disabledText,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "Disabled",
+                          controlState: .disabled,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction4())
+            .aiNoticeView(isPresented: self.$showAINotice,
+                          icon: Image(fioriName: "fiori.ai"),
+                          description: "AI Notice message. ",
+                          actionLabel: "View more link",
+                          viewMoreAction: self.openURL)
+            .disabled(true)
+    }
+
+    @ViewBuilder
+    var readOnlyTextFieldSection: some View {
+        Text("Read-Only")
+        TextFieldFormView(title: "Read-Only Cell",
+                          text: self.$readOnlyText,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "Read-Only",
+                          controlState: .readOnly,
+                          hidesReadOnlyHint: self.hidesReadonlyHint,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction4())
+            .aiNoticeView(isPresented: self.$showAINotice,
+                          icon: Image(systemName: "wand.and.sparkles"),
+                          description: self.customizeNoticeMsg,
+                          actionLabel: self.customizeNoticeActionLabel,
+                          viewMoreAction: self.openURL)
+            .iconStyle(content: { config in
+                config.icon.foregroundStyle(Color.purple)
+            })
+    }
+
+    var untitledTextFieldSection: some View {
+        TextFieldFormView(title: "",
+                          text: self.$valueText3,
+                          isSecureEnabled: self.isSecureEnabled,
+                          placeholder: "Enter Something",
+                          controlState: .normal,
+                          hidesReadOnlyHint: self.hidesReadonlyHint,
+                          isRequired: self.isRequired,
+                          actionIcon: self.getActionIcon(),
+                          action: self.getAction4())
+    }
+
+    var optionsSheet: some View {
+        NavigationStack {
+            List {
+                Toggle("Shows Hint Text", isOn: self.$showsHintText)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Shows Error Message", isOn: self.$showsErrorMessage)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Shows Char Count", isOn: self.$showsCharCount)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Allows Beyond Limit", isOn: self.$allowsBeyondLimit)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Hides Read-Only Hint", isOn: self.$hidesReadonlyHint)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Shows Action", isOn: self.$showsAction)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Mandatory Field", isOn: self.$isRequired)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Secure Mode", isOn: self.$isSecureEnabled)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("AI Notice", isOn: self.$showAINotice)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                Toggle("Show SkeletonLoading", isOn: self.$isLoading)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+            }
+            .navigationTitle("Options")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        self.showingOptions = false
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
     }
 
     func openURL() {
         let url = URL(string: "https://sap.com")!
         UIApplication.shared.open(url)
     }
-    
+
     func toggleShowSheet() {
         self.showBottomSheet.toggle()
     }
-    
+
     func getHintText() -> AttributedString? {
         self.showsHintText ? self.hintText : nil
     }
@@ -198,7 +301,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction1() -> (() -> Void)? {
-        self.showsAction ? self.myAction1 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction1() }
     }
 
     func myAction1() {
@@ -207,7 +313,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction2() -> (() -> Void)? {
-        self.showsAction ? self.myAction2 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction2() }
     }
 
     func myAction2() {
@@ -216,7 +325,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction3() -> (() -> Void)? {
-        self.showsAction ? self.myAction3 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction3() }
     }
 
     func myAction3() {
@@ -225,7 +337,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction4() -> (() -> Void)? {
-        self.showsAction ? self.myAction3 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction4() }
     }
 
     func myAction4() {

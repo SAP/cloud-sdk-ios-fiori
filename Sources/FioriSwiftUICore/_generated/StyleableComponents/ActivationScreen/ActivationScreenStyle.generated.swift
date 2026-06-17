@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ActivationScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ActivationScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ActivationScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ActivationScreenConfiguration) -> Body
 }
 
 struct AnyActivationScreenStyle: ActivationScreenStyle {

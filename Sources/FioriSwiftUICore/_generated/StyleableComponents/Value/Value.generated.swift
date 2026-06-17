@@ -25,6 +25,7 @@ public extension Value {
 }
 
 public extension Value {
+    @MainActor
     init(value: AttributedString? = nil) {
         self.init(value: { OptionalText(value) })
     }
@@ -64,7 +65,7 @@ private extension Value {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Value(.init(componentIdentifier: self.componentIdentifier, value: .init(self.value)))
             .shouldApplyDefaultStyle(false)
             .valueStyle(.fiori)

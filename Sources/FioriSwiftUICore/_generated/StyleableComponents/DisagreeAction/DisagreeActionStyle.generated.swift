@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DisagreeActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DisagreeActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DisagreeActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DisagreeActionConfiguration) -> Body
 }
 
 struct AnyDisagreeActionStyle: DisagreeActionStyle {

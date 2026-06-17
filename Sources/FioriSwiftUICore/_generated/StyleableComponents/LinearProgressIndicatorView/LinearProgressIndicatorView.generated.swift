@@ -31,6 +31,7 @@ public extension LinearProgressIndicatorView {
 }
 
 public extension LinearProgressIndicatorView {
+    @MainActor
     init(indicatorProgress: Binding<Double>,
          icon: Image? = nil,
          description: AttributedString? = nil)
@@ -75,7 +76,7 @@ private extension LinearProgressIndicatorView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         LinearProgressIndicatorView(.init(componentIdentifier: self.componentIdentifier, indicatorProgress: self.$indicatorProgress, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .linearProgressIndicatorViewStyle(LinearProgressIndicatorViewFioriStyle.ContentFioriStyle())

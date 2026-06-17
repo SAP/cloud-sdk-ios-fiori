@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension TagStack: TagViewList {
+extension TagStack: @preconcurrency TagViewList {
     public var count: Int {
         var tags: [String] = []
 

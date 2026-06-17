@@ -89,6 +89,7 @@ public extension UserConsentView {
 }
 
 public extension UserConsentView {
+    @MainActor
     init(userConsentForms: [UserConsentForm] = [],
          didAllow: ((Int) -> Void)? = nil,
          didDeny: ((Int, Bool) -> Void)? = nil,
@@ -137,7 +138,7 @@ private extension UserConsentView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         UserConsentView(.init(componentIdentifier: self.componentIdentifier, userConsentForms: self.userConsentForms, didAllow: self.didAllow, didDeny: self.didDeny, didCancel: self.didCancel, didFinish: self.didFinish))
             .shouldApplyDefaultStyle(false)
             .userConsentViewStyle(UserConsentViewFioriStyle.ContentFioriStyle())

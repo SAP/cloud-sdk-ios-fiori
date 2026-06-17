@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 /// Fiori style shadow.
-public enum FioriShadowStyle: CaseIterable {
+public enum FioriShadowStyle: CaseIterable, Sendable {
     /// Shadow level 0. Most used in banner, header or previews.
     case level0
     /// Shadow Level 1.

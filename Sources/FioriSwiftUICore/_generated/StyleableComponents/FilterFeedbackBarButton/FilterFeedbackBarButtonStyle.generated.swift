@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FilterFeedbackBarButtonStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FilterFeedbackBarButtonStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FilterFeedbackBarButtonConfiguration) -> Body
 }
 
 struct AnyFilterFeedbackBarButtonStyle: FilterFeedbackBarButtonStyle {

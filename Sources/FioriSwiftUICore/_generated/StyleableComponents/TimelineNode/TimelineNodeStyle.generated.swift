@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineNodeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineNodeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineNodeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineNodeConfiguration) -> Body
 }
 
 struct AnyTimelineNodeStyle: TimelineNodeStyle {

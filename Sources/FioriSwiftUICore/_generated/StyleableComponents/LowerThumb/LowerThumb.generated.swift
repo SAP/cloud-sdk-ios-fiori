@@ -25,6 +25,7 @@ public extension LowerThumb {
 }
 
 public extension LowerThumb {
+    @MainActor
     init(lowerThumb: any Shape = Circle()) {
         self.init(lowerThumb: { lowerThumb })
     }
@@ -64,7 +65,7 @@ private extension LowerThumb {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         LowerThumb(.init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb)))
             .shouldApplyDefaultStyle(false)
             .lowerThumbStyle(.fiori)

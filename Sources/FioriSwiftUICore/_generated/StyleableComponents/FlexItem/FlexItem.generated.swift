@@ -58,7 +58,7 @@ private extension FlexItem {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FlexItem(.init(componentIdentifier: self.componentIdentifier, flexItem: .init(self.flexItem)))
             .shouldApplyDefaultStyle(false)
             .flexItemStyle(.fiori)

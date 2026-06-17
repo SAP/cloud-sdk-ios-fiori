@@ -251,7 +251,7 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
  - Bar charts display the numeric axis as the X axis.
  - Line, column, and combo charts display the numeric axis as the Y axis.
  */
-public class ChartNumericAxisAttributes: ChartAxisAttributes {
+public class ChartNumericAxisAttributes: ChartAxisAttributes, @unchecked Sendable {
     public init(axisId: ChartAxisId? = nil,
                 baseline: ChartBaselineAttributes? = nil,
                 gridlines: ChartGridlineAttributes? = nil,
@@ -490,7 +490,7 @@ public enum ChartCategoryAxisLabelLayoutStyle: CustomStringConvertible {
  - Bar charts display the category axis as the Y axis.
  - Line, column, and combo charts display the category axis as the X axis.
  */
-public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
+public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes, @unchecked Sendable {
     public init(axisId: ChartAxisId? = nil,
                 baseline: ChartBaselineAttributes? = nil,
                 gridlines: ChartGridlineAttributes? = nil,

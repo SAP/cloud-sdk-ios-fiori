@@ -21,7 +21,7 @@ struct ObjectItemActionButtonStyle: FioriButtonStyle {
     }
 }
 
-struct SingleActionProfiles: ObjectItemListDataProtocol {
+struct SingleActionProfiles: @preconcurrency ObjectItemListDataProtocol {
     @Binding var cellTapped: Bool
     
     init(cellTapped: Binding<Bool>) {

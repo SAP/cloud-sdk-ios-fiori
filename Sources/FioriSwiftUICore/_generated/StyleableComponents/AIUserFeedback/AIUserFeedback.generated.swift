@@ -145,6 +145,7 @@ public extension AIUserFeedback {
 }
 
 public extension AIUserFeedback {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          description: AttributedString? = nil,
@@ -227,7 +228,7 @@ private extension AIUserFeedback {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AIUserFeedback(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment, submitAction: .init(self.submitAction), cancelAction: .init(self.cancelAction), navigationTitle: self.navigationTitle, filterFormView: self.filterFormView, keyValueFormView: self.keyValueFormView, displayMode: self.displayMode, isBackgroundInteractionEnabled: self.isBackgroundInteractionEnabled, errorView: .init(self.errorView), onCancel: self.onCancel, onUpVote: self.onUpVote, onDownVote: self.onDownVote, onSubmit: self.onSubmit, voteState: self.$voteState, submitButtonState: self.$submitButtonState))
             .shouldApplyDefaultStyle(false)
             .aIUserFeedbackStyle(AIUserFeedbackFioriStyle.ContentFioriStyle())

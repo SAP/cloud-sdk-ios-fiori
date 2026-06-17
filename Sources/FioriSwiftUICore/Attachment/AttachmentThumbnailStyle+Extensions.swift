@@ -53,11 +53,12 @@ extension AttachmentThumbnailStyle {
 /// AttachmentThumbnail(configuration)
 ///     .attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
 /// ```
+@MainActor
 public struct AttachmentThumbnailWithPreviewStyle: AttachmentThumbnailStyle {
     @State var image: AnyView? = nil
-    
+
     public init() {}
-    
+
     public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
         if let image {
             image
@@ -65,15 +66,15 @@ public struct AttachmentThumbnailWithPreviewStyle: AttachmentThumbnailStyle {
             AnyView(
                 AttachmentThumbnail(configuration)
                     .onAppear {
-                        Task {
-                            self.generateThumbnail(url: configuration.url)
+                        Task { @MainActor in
+                            await self.generateThumbnail(url: configuration.url)
                         }
                     }
             )
         }
     }
-    
-    func generateThumbnail(url: URL) {
+
+    func generateThumbnail(url: URL) async {
         let size = CGSize(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
         #if os(visionOS)
             let scale = 1.0
@@ -86,26 +87,21 @@ public struct AttachmentThumbnailWithPreviewStyle: AttachmentThumbnailStyle {
             scale: scale,
             representationTypes: .thumbnail
         )
-        
-        let generator = QLThumbnailGenerator.shared
-        generator.generateBestRepresentation(for: request) { thumbnail, error in
-            DispatchQueue.main.async {
-                if let error {
-                    os_log("Error generating thumbnail: %@", log: OSLog.coreLogger, type: .debug, "\(error)")
-                    return
-                }
-                if let thumbnailUiImage = thumbnail?.uiImage {
-                    self.image = AnyView(
-                        Image(uiImage: thumbnailUiImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
-                            .clipShape(
-                                RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius)
-                            )
+
+        do {
+            let thumbnail = try await QLThumbnailGenerator.shared.generateBestRepresentation(for: request)
+            let thumbnailUiImage = thumbnail.uiImage
+            self.image = AnyView(
+                Image(uiImage: thumbnailUiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: AttachmentConstants.thumbnailWidth, height: AttachmentConstants.thumbnailHeight)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: AttachmentConstants.thumbnailCornerRadius)
                     )
-                }
-            }
+            )
+        } catch {
+            os_log("Error generating thumbnail: %@", log: OSLog.coreLogger, type: .debug, "\(error)")
         }
     }
 }

@@ -25,6 +25,7 @@ public extension AttachmentFootnote {
 }
 
 public extension AttachmentFootnote {
+    @MainActor
     init(attachmentFootnote: AttributedString) {
         self.init(attachmentFootnote: { Text(attachmentFootnote) })
     }
@@ -64,7 +65,7 @@ private extension AttachmentFootnote {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         AttachmentFootnote(.init(componentIdentifier: self.componentIdentifier, attachmentFootnote: .init(self.attachmentFootnote)))
             .shouldApplyDefaultStyle(false)
             .attachmentFootnoteStyle(.fiori)

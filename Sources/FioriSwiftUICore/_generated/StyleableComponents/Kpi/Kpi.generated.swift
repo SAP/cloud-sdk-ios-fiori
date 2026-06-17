@@ -25,6 +25,7 @@ public extension Kpi {
 }
 
 public extension Kpi {
+    @MainActor
     init(kpi: KPIItemData? = nil) {
         self.init(kpi: { OptionalKPIItem(kpi) })
     }
@@ -64,7 +65,7 @@ private extension Kpi {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Kpi(.init(componentIdentifier: self.componentIdentifier, kpi: .init(self.kpi)))
             .shouldApplyDefaultStyle(false)
             .kpiStyle(.fiori)

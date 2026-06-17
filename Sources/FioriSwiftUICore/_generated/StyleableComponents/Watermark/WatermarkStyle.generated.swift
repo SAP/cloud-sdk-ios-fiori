@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WatermarkStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WatermarkStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WatermarkConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WatermarkConfiguration) -> Body
 }
 
 struct AnyWatermarkStyle: WatermarkStyle {

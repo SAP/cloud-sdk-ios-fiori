@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LabelItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LabelItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LabelItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LabelItemConfiguration) -> Body
 }
 
 struct AnyLabelItemStyle: LabelItemStyle {

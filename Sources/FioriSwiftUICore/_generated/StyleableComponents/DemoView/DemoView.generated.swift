@@ -37,6 +37,7 @@ extension DemoView {
 }
 
 extension DemoView {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          status: TextOrIcon? = nil,
@@ -85,7 +86,7 @@ private extension DemoView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DemoView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), action: .init(self.action), isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .demoViewStyle(DemoViewFioriStyle.ContentFioriStyle())

@@ -65,6 +65,7 @@ public extension SwitchView {
 }
 
 public extension SwitchView {
+    @MainActor
     init(title: AttributedString,
          isOn: Binding<Bool>,
          stateLabel: AttributedString? = nil,
@@ -115,7 +116,7 @@ private extension SwitchView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SwitchView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isOn: self.$isOn, stateLabel: .init(self.stateLabel), icon: .init(self.icon), description: .init(self.description), controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .switchViewStyle(SwitchViewFioriStyle.ContentFioriStyle())

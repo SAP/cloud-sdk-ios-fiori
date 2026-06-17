@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SwitchViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SwitchViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SwitchViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SwitchViewConfiguration) -> Body
 }
 
 struct AnySwitchViewStyle: SwitchViewStyle {

@@ -25,6 +25,7 @@ public extension Placeholder {
 }
 
 public extension Placeholder {
+    @MainActor
     init(placeholder: AttributedString? = nil) {
         self.init(placeholder: { OptionalText(placeholder) })
     }
@@ -64,7 +65,7 @@ private extension Placeholder {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Placeholder(.init(componentIdentifier: self.componentIdentifier, placeholder: .init(self.placeholder)))
             .shouldApplyDefaultStyle(false)
             .placeholderStyle(.fiori)

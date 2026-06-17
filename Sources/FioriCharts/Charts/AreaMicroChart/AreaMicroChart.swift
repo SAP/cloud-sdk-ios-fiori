@@ -77,23 +77,3 @@ struct AreaMicroChart: View {
         }
     }
 }
-
-// MARK: - preview content
-
-struct AreaMicroChart_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ForEach(AreaMicroChartModel.allCases) {
-                // MARK: standard layout previews
-
-                AreaMicroChart().environmentObject($0)
-                    .frame(width: 312, height: 100, alignment: .center)
-                
-                // MARK: wide layout previews
-
-                AreaMicroChart(mode: .wide).environmentObject($0)
-                    .frame(width: 312, height: 100, alignment: .center)
-            }.previewLayout(.sizeThatFits)
-        }
-    }
-}

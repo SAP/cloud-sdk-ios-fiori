@@ -25,6 +25,7 @@ public extension FilledIcon {
 }
 
 public extension FilledIcon {
+    @MainActor
     init(filledIcon: Image? = nil) {
         self.init(filledIcon: { filledIcon })
     }
@@ -64,7 +65,7 @@ private extension FilledIcon {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         FilledIcon(.init(componentIdentifier: self.componentIdentifier, filledIcon: .init(self.filledIcon)))
             .shouldApplyDefaultStyle(false)
             .filledIconStyle(.fiori)

@@ -36,6 +36,7 @@ public extension SectionHeader {
 }
 
 public extension SectionHeader {
+    @MainActor
     init(title: AttributedString,
          attribute: AttributedString? = nil,
          sectionHeaderStyle: SectionHeaderFooterStyle = .title,
@@ -82,7 +83,7 @@ private extension SectionHeader {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         SectionHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionHeaderStyle: self.sectionHeaderStyle, didSelectHandler: self.didSelectHandler))
             .shouldApplyDefaultStyle(false)
             .sectionHeaderStyle(SectionHeaderFioriStyle.ContentFioriStyle())

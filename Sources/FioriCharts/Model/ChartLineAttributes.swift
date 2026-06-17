@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// Gridline properties for an Axis.
-public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {
+public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible, @unchecked Sendable {
     public init(width: Double = 1,
                 color: Color = .preferredColor(.secondaryFill),
                 dashPatternLength: Double = 1,
@@ -55,7 +55,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
 }
 
 // Baseline properties for an Axis.
-public class ChartBaselineAttributes: ChartGridlineAttributes {
+public class ChartBaselineAttributes: ChartGridlineAttributes, @unchecked Sendable {
     public init(width: Double = 1,
                 color: Color = .preferredColor(.secondaryFill),
                 dashPatternLength: Double = 1,

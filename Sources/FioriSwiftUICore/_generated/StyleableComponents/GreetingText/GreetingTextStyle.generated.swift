@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol GreetingTextStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol GreetingTextStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: GreetingTextConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: GreetingTextConfiguration) -> Body
 }
 
 struct AnyGreetingTextStyle: GreetingTextStyle {

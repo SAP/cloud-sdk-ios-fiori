@@ -113,7 +113,7 @@ private extension WhatsNewPageView {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         WhatsNewPageView(.init(componentIdentifier: self.componentIdentifier, whatsNewPages: .init(self.whatsNewPages), currentIndex: self.$currentIndex, didClose: self.didClose, didFinish: self.didFinish))
             .shouldApplyDefaultStyle(false)
             .whatsNewPageViewStyle(WhatsNewPageViewFioriStyle.ContentFioriStyle())

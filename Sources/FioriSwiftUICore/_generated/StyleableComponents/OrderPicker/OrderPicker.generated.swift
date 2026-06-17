@@ -41,6 +41,7 @@ public extension OrderPicker {
 }
 
 public extension OrderPicker {
+    @MainActor
     init(optionalTitle: AttributedString?,
          data: Binding<[OrderPickerItemModel]>,
          isAtLeastOneSelected: Bool = true,
@@ -89,7 +90,7 @@ private extension OrderPicker {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         OrderPicker(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), data: self.$data, isAtLeastOneSelected: self.isAtLeastOneSelected, onChangeHandler: self.onChangeHandler, controlState: self.controlState))
             .shouldApplyDefaultStyle(false)
             .orderPickerStyle(OrderPickerFioriStyle.ContentFioriStyle())

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol BackActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol BackActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: BackActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: BackActionConfiguration) -> Body
 }
 
 struct AnyBackActionStyle: BackActionStyle {

@@ -25,6 +25,7 @@ public extension Title {
 }
 
 public extension Title {
+    @MainActor
     init(title: AttributedString) {
         self.init(title: { Text(title) })
     }
@@ -64,7 +65,7 @@ private extension Title {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         Title(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title)))
             .shouldApplyDefaultStyle(false)
             .titleStyle(.fiori)

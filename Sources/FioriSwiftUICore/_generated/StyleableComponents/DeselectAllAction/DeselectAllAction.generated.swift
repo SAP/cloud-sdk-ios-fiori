@@ -25,6 +25,7 @@ public extension DeselectAllAction {
 }
 
 public extension DeselectAllAction {
+    @MainActor
     init(deselectAllAction: FioriButton? = FioriButton { _ in Text("Deselect All".localizedFioriString()) }) {
         self.init(deselectAllAction: { deselectAllAction })
     }
@@ -64,7 +65,7 @@ private extension DeselectAllAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         DeselectAllAction(.init(componentIdentifier: self.componentIdentifier, deselectAllAction: .init(self.deselectAllAction)))
             .shouldApplyDefaultStyle(false)
             .deselectAllActionStyle(.fiori)

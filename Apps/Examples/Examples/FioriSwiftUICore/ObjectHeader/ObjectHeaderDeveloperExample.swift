@@ -2,7 +2,7 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectHeaderDeveloperExample: ListDataProtocol {
+struct ObjectHeaderDeveloperExample: @preconcurrency ListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     

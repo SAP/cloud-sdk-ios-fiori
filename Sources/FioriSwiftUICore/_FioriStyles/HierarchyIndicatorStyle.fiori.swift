@@ -52,11 +52,14 @@ extension HierarchyIndicatorFioriStyle {
         @Environment(\.sizeCategory) private var sizeCategory
         @Environment(\.onCurrentHierarchyItemChange) private var onCurrentItemChange
         @Environment(\.hierarchyViewMultiColumnIndex) private var columnIndex
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
         @Environment(\.isHierarchyViewMultiColumnItemActived) private var isItemActived
         @State private var isActive = false
         @State var scale: CGFloat = 1.0
-        
+
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+
         func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> some View {
             let isLargeSizeCategory = HierarchyIndicatorConfiguration.isLargeSizeCategory(self.sizeCategory)
             let topPadding: CGFloat = (configuration.isMultiline || isLargeSizeCategory) ? 2 : 0
@@ -123,9 +126,12 @@ extension HierarchyIndicatorFioriStyle {
 
     struct IconFioriStyle: IconStyle {
         let hierarchyIndicatorConfiguration: HierarchyIndicatorConfiguration
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
         @Environment(\.isHierarchyViewMultiColumnItemActived) private var isItemActived
-        
+
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+		
         func makeBody(_ configuration: IconConfiguration) -> some View {
             var active = self.hierarchyIndicatorConfiguration.isSelected
             if let isItemActived, isMultiColumnLayout {

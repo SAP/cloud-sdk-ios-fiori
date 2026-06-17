@@ -25,6 +25,7 @@ public extension ReenterSignatureAction {
 }
 
 public extension ReenterSignatureAction {
+    @MainActor
     init(reenterSignatureAction: FioriButton? = FioriButton { _ in Text("Re-enter Signature".localizedFioriString()) }) {
         self.init(reenterSignatureAction: { reenterSignatureAction })
     }
@@ -64,7 +65,7 @@ private extension ReenterSignatureAction {
         return s
     }
 
-    func defaultStyle() -> some View {
+    @MainActor func defaultStyle() -> some View {
         ReenterSignatureAction(.init(componentIdentifier: self.componentIdentifier, reenterSignatureAction: .init(self.reenterSignatureAction)))
             .shouldApplyDefaultStyle(false)
             .reenterSignatureActionStyle(.fiori)
