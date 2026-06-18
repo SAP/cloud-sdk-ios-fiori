@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LineStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LineStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LineConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LineConfiguration) -> Body
 }
 
 struct AnyLineStyle: LineStyle {
@@ -31,5 +31,14 @@ public struct LineConfiguration {
 extension LineConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct LineDefaultStyle: LineStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: LineConfiguration) -> some View {
+        Line(configuration)
+            .lineStyle(LineBaseStyle())
     }
 }

@@ -25,6 +25,7 @@ public extension Timestamp {
 }
 
 public extension Timestamp {
+    @MainActor
     init(timestamp: AttributedString? = nil) {
         self.init(timestamp: { OptionalText(timestamp) })
     }
@@ -64,6 +65,7 @@ private extension Timestamp {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Timestamp(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp)))
             .shouldApplyDefaultStyle(false)

@@ -218,6 +218,7 @@ private extension HierarchyView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HierarchyView(.init(componentIdentifier: self.componentIdentifier, dataSource: self.dataSource, header: .init(self.header), hierarchyItem: self.hierarchyItem, activeChildItem: self.$activeChildItem, selectedItems: self.$selectedItems))
             .shouldApplyDefaultStyle(false)

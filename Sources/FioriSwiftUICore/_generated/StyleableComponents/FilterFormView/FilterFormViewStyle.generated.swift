@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FilterFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FilterFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FilterFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FilterFormViewConfiguration) -> Body
 }
 
 struct AnyFilterFormViewStyle: FilterFormViewStyle {
@@ -53,5 +53,15 @@ public struct FilterFormViewFioriStyle: FilterFormViewStyle {
             .titleStyle(TitleFioriStyle(filterFormViewConfiguration: configuration))
             .optionsStyle(OptionsFioriStyle(filterFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(filterFormViewConfiguration: configuration))
+    }
+}
+
+struct FilterFormViewDefaultStyle: FilterFormViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FilterFormViewConfiguration) -> some View {
+        FilterFormView(configuration)
+            .filterFormViewStyle(FilterFormViewFioriStyle())
+            .modifier(FilterFormViewStyleModifier(style: FilterFormViewBaseStyle()))
     }
 }

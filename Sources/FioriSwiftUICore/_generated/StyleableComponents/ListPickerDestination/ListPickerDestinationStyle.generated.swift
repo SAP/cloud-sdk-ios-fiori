@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ListPickerDestinationStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ListPickerDestinationStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ListPickerDestinationConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ListPickerDestinationConfiguration) -> Body
 }
 
 struct AnyListPickerDestinationStyle: ListPickerDestinationStyle {
@@ -59,5 +59,15 @@ public struct ListPickerDestinationFioriStyle: ListPickerDestinationStyle {
             .allEntriesSectionTitleStyle(AllEntriesSectionTitleFioriStyle(listPickerDestinationConfiguration: configuration))
             .listPickerContentStyle(ListPickerContentFioriStyle(listPickerDestinationConfiguration: configuration))
             .promptStyle(PromptFioriStyle(listPickerDestinationConfiguration: configuration))
+    }
+}
+
+struct ListPickerDestinationDefaultStyle: ListPickerDestinationStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ListPickerDestinationConfiguration) -> some View {
+        ListPickerDestination(configuration)
+            .listPickerDestinationStyle(ListPickerDestinationFioriStyle())
+            .modifier(ListPickerDestinationStyleModifier(style: ListPickerDestinationBaseStyle()))
     }
 }

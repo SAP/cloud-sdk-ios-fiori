@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class FioriButtonStyleTests: XCTestCase {
+@MainActor final class FioriButtonStyleTests: XCTestCase {
     // MARK: - Helper to create configuration
 
     private func makeConfig(state: UIControl.State, imagePosition: FioriButtonImagePosition = .leading) -> FioriButtonStyleConfiguration {

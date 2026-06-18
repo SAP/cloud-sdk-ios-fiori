@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OptionalTitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OptionalTitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OptionalTitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OptionalTitleConfiguration) -> Body
 }
 
 struct AnyOptionalTitleStyle: OptionalTitleStyle {
@@ -31,5 +31,14 @@ public struct OptionalTitleConfiguration {
 extension OptionalTitleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct OptionalTitleDefaultStyle: OptionalTitleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OptionalTitleConfiguration) -> some View {
+        OptionalTitle(configuration)
+            .optionalTitleStyle(OptionalTitleBaseStyle())
     }
 }

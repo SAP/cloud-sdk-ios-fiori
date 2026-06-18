@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 public extension MenuSelection {
+    @MainActor
     init(action: FioriButton? = nil,
          isExpanded: Binding<Bool>,
          items: [MenuSelectionItemProtocol] = [],

@@ -25,6 +25,7 @@ public extension ApplyAction {
 }
 
 public extension ApplyAction {
+    @MainActor
     init(applyAction: FioriButton? = FioriButton { _ in Text("Apply".localizedFioriString()) }) {
         self.init(applyAction: { applyAction })
     }
@@ -64,6 +65,7 @@ private extension ApplyAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ApplyAction(.init(componentIdentifier: self.componentIdentifier, applyAction: .init(self.applyAction)))
             .shouldApplyDefaultStyle(false)

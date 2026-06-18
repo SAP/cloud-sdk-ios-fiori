@@ -37,9 +37,9 @@ extension View {
         )
     }
     
-    func fioriSizeReader(in coordinateSpace: CoordinateSpace = .global, size: @escaping (CGSize) -> Void) -> some View {
+    func fioriSizeReader(size: @escaping (CGSize) -> Void) -> some View {
         onGeometryChange(for: CGSize.self, of: { geometry in
-            geometry.frame(in: coordinateSpace).size
+            geometry.size
         }, action: { newValue in
             size(newValue)
         })

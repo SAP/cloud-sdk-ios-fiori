@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DateRangePickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DateRangePickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DateRangePickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DateRangePickerConfiguration) -> Body
 }
 
 struct AnyDateRangePickerStyle: DateRangePickerStyle {
@@ -49,5 +49,15 @@ public struct DateRangePickerFioriStyle: DateRangePickerStyle {
             .titleStyle(TitleFioriStyle(dateRangePickerConfiguration: configuration))
             .valueLabelStyle(ValueLabelFioriStyle(dateRangePickerConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(dateRangePickerConfiguration: configuration))
+    }
+}
+
+struct DateRangePickerDefaultStyle: DateRangePickerStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
+        DateRangePicker(configuration)
+            .dateRangePickerStyle(DateRangePickerFioriStyle())
+            .modifier(DateRangePickerStyleModifier(style: DateRangePickerBaseStyle()))
     }
 }

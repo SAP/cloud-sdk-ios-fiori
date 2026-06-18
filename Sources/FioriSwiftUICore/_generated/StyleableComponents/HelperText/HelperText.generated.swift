@@ -25,6 +25,7 @@ public extension HelperText {
 }
 
 public extension HelperText {
+    @MainActor
     init(helperText: AttributedString? = nil) {
         self.init(helperText: { OptionalText(helperText) })
     }
@@ -64,6 +65,7 @@ private extension HelperText {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HelperText(.init(componentIdentifier: self.componentIdentifier, helperText: .init(self.helperText)))
             .shouldApplyDefaultStyle(false)

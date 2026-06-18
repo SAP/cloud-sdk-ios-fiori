@@ -31,6 +31,7 @@ public extension UserConsentPage {
 }
 
 public extension UserConsentPage {
+    @MainActor
     init(title: AttributedString,
          bodyText: AttributedString? = nil,
          action: FioriButton? = nil)
@@ -75,6 +76,7 @@ private extension UserConsentPage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         UserConsentPage(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), bodyText: .init(self.bodyText), action: .init(self.action)))
             .shouldApplyDefaultStyle(false)

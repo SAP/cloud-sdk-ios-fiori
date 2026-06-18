@@ -1,7 +1,7 @@
 import Foundation
 
 /// Protocol defining available color palette provider.
-public protocol PaletteProvider {
+public protocol PaletteProvider: Sendable {
     /// :nodoc:
     var uuid: UUID { get }
     

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StepProgressIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StepProgressIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> Body
 }
 
 struct AnyStepProgressIndicatorStyle: StepProgressIndicatorStyle {
@@ -47,5 +47,15 @@ public struct StepProgressIndicatorFioriStyle: StepProgressIndicatorStyle {
             .titleStyle(TitleFioriStyle(stepProgressIndicatorConfiguration: configuration))
             .actionStyle(ActionFioriStyle(stepProgressIndicatorConfiguration: configuration))
             .cancelActionStyle(CancelActionFioriStyle(stepProgressIndicatorConfiguration: configuration))
+    }
+}
+
+struct StepProgressIndicatorDefaultStyle: StepProgressIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: StepProgressIndicatorConfiguration) -> some View {
+        StepProgressIndicator(configuration)
+            .stepProgressIndicatorStyle(StepProgressIndicatorFioriStyle())
+            .modifier(StepProgressIndicatorStyleModifier(style: StepProgressIndicatorBaseStyle()))
     }
 }

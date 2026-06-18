@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol PlaceholderTextEditorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol PlaceholderTextEditorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> Body
 }
 
 struct AnyPlaceholderTextEditorStyle: PlaceholderTextEditorStyle {
@@ -40,5 +40,15 @@ public struct PlaceholderTextEditorFioriStyle: PlaceholderTextEditorStyle {
         PlaceholderTextEditor(configuration)
             .textViewStyle(TextViewFioriStyle(placeholderTextEditorConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(placeholderTextEditorConfiguration: configuration))
+    }
+}
+
+struct PlaceholderTextEditorDefaultStyle: PlaceholderTextEditorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
+        PlaceholderTextEditor(configuration)
+            .placeholderTextEditorStyle(PlaceholderTextEditorFioriStyle())
+            .modifier(PlaceholderTextEditorStyleModifier(style: PlaceholderTextEditorBaseStyle()))
     }
 }

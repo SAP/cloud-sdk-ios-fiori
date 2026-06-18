@@ -241,9 +241,12 @@ struct CardFullWidthSingleButtonExample: View {
                     return
                 }
                 
-                _ = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false, block: { _ in
-                    self.updateDataSource(id: id)
-                })
+                Task { [id] in
+                    try? await Task.sleep(nanoseconds: UInt64(timeInterval * 1000000000))
+                    await MainActor.run {
+                        self.updateDataSource(id: id)
+                    }
+                }
                 break
             }
         }

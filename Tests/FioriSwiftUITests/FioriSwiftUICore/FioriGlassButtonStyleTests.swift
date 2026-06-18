@@ -4,7 +4,7 @@ import XCTest
 
 @available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *)
 @available(visionOS, unavailable)
-final class FioriGlassButtonStyleTests: XCTestCase {
+@MainActor final class FioriGlassButtonStyleTests: XCTestCase {
     // MARK: - Helpers
 
     private func makeConfig(

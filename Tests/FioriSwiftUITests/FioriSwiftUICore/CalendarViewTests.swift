@@ -8,7 +8,7 @@
 import SwiftUI
 import XCTest
 
-final class CalendarViewTests: XCTestCase {
+@MainActor final class CalendarViewTests: XCTestCase {
     var fm: DateFormatter {
         let fm = DateFormatter()
         fm.timeZone = Calendar.current.timeZone

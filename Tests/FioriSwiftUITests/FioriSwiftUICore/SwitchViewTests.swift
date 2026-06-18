@@ -3,7 +3,7 @@ import SwiftUI
 import ViewInspector
 import XCTest
 
-final class SwitchViewTests: XCTestCase {
+@MainActor final class SwitchViewTests: XCTestCase {
     func testSwitchViewConfigurations() {
         let title = AttributedString("My Switch")
         let isOn = true

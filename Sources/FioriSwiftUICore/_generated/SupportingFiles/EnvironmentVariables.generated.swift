@@ -6,12 +6,12 @@ import SwiftUI
 // MARK: AINoticeStyle
 
 struct AINoticeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AINoticeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AINoticeStyle] = []
 }
 
 extension EnvironmentValues {
     var aINoticeStyle: any AINoticeStyle {
-        self.aINoticeStyleStack.last ?? .base.concat(.fiori)
+        self.aINoticeStyleStack.last ?? AINoticeDefaultStyle()
     }
 
     var aINoticeStyleStack: [any AINoticeStyle] {
@@ -27,12 +27,12 @@ extension EnvironmentValues {
 // MARK: AIUserFeedbackStyle
 
 struct AIUserFeedbackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AIUserFeedbackStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AIUserFeedbackStyle] = []
 }
 
 extension EnvironmentValues {
     var aIUserFeedbackStyle: any AIUserFeedbackStyle {
-        self.aIUserFeedbackStyleStack.last ?? .base.concat(.fiori)
+        self.aIUserFeedbackStyleStack.last ?? AIUserFeedbackDefaultStyle()
     }
 
     var aIUserFeedbackStyleStack: [any AIUserFeedbackStyle] {
@@ -48,12 +48,12 @@ extension EnvironmentValues {
 // MARK: AccessoryIconStyle
 
 struct AccessoryIconStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AccessoryIconStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AccessoryIconStyle] = []
 }
 
 extension EnvironmentValues {
     var accessoryIconStyle: any AccessoryIconStyle {
-        self.accessoryIconStyleStack.last ?? .base
+        self.accessoryIconStyleStack.last ?? AccessoryIconDefaultStyle()
     }
 
     var accessoryIconStyleStack: [any AccessoryIconStyle] {
@@ -69,12 +69,12 @@ extension EnvironmentValues {
 // MARK: AccessoryViewStyle
 
 struct AccessoryViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AccessoryViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AccessoryViewStyle] = []
 }
 
 extension EnvironmentValues {
     var accessoryViewStyle: any AccessoryViewStyle {
-        self.accessoryViewStyleStack.last ?? .base
+        self.accessoryViewStyleStack.last ?? AccessoryViewDefaultStyle()
     }
 
     var accessoryViewStyleStack: [any AccessoryViewStyle] {
@@ -90,12 +90,12 @@ extension EnvironmentValues {
 // MARK: ActionStyle
 
 struct ActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ActionStyle] = []
 }
 
 extension EnvironmentValues {
     var actionStyle: any ActionStyle {
-        self.actionStyleStack.last ?? .base
+        self.actionStyleStack.last ?? ActionDefaultStyle()
     }
 
     var actionStyleStack: [any ActionStyle] {
@@ -111,12 +111,12 @@ extension EnvironmentValues {
 // MARK: ActivationScreenStyle
 
 struct ActivationScreenStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActivationScreenStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ActivationScreenStyle] = []
 }
 
 extension EnvironmentValues {
     var activationScreenStyle: any ActivationScreenStyle {
-        self.activationScreenStyleStack.last ?? .base.concat(.fiori)
+        self.activationScreenStyleStack.last ?? ActivationScreenDefaultStyle()
     }
 
     var activationScreenStyleStack: [any ActivationScreenStyle] {
@@ -132,12 +132,12 @@ extension EnvironmentValues {
 // MARK: ActiveTrackStyle
 
 struct ActiveTrackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActiveTrackStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ActiveTrackStyle] = []
 }
 
 extension EnvironmentValues {
     var activeTrackStyle: any ActiveTrackStyle {
-        self.activeTrackStyleStack.last ?? .base
+        self.activeTrackStyleStack.last ?? ActiveTrackDefaultStyle()
     }
 
     var activeTrackStyleStack: [any ActiveTrackStyle] {
@@ -153,12 +153,12 @@ extension EnvironmentValues {
 // MARK: ActivityItemStyle
 
 struct ActivityItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActivityItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ActivityItemStyle] = []
 }
 
 extension EnvironmentValues {
     var activityItemStyle: any ActivityItemStyle {
-        self.activityItemStyleStack.last ?? .base.concat(.fiori)
+        self.activityItemStyleStack.last ?? ActivityItemDefaultStyle()
     }
 
     var activityItemStyleStack: [any ActivityItemStyle] {
@@ -174,12 +174,12 @@ extension EnvironmentValues {
 // MARK: ActivityItemsStyle
 
 struct ActivityItemsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ActivityItemsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ActivityItemsStyle] = []
 }
 
 extension EnvironmentValues {
     var activityItemsStyle: any ActivityItemsStyle {
-        self.activityItemsStyleStack.last ?? .base
+        self.activityItemsStyleStack.last ?? ActivityItemsDefaultStyle()
     }
 
     var activityItemsStyleStack: [any ActivityItemsStyle] {
@@ -195,12 +195,12 @@ extension EnvironmentValues {
 // MARK: AgreeActionStyle
 
 struct AgreeActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AgreeActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AgreeActionStyle] = []
 }
 
 extension EnvironmentValues {
     var agreeActionStyle: any AgreeActionStyle {
-        self.agreeActionStyleStack.last ?? .base
+        self.agreeActionStyleStack.last ?? AgreeActionDefaultStyle()
     }
 
     var agreeActionStyleStack: [any AgreeActionStyle] {
@@ -216,12 +216,12 @@ extension EnvironmentValues {
 // MARK: AllEntriesSectionTitleStyle
 
 struct AllEntriesSectionTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AllEntriesSectionTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AllEntriesSectionTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var allEntriesSectionTitleStyle: any AllEntriesSectionTitleStyle {
-        self.allEntriesSectionTitleStyleStack.last ?? .base
+        self.allEntriesSectionTitleStyleStack.last ?? AllEntriesSectionTitleDefaultStyle()
     }
 
     var allEntriesSectionTitleStyleStack: [any AllEntriesSectionTitleStyle] {
@@ -237,12 +237,12 @@ extension EnvironmentValues {
 // MARK: AllowActionStyle
 
 struct AllowActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AllowActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AllowActionStyle] = []
 }
 
 extension EnvironmentValues {
     var allowActionStyle: any AllowActionStyle {
-        self.allowActionStyleStack.last ?? .base
+        self.allowActionStyleStack.last ?? AllowActionDefaultStyle()
     }
 
     var allowActionStyleStack: [any AllowActionStyle] {
@@ -258,12 +258,12 @@ extension EnvironmentValues {
 // MARK: ApplyActionStyle
 
 struct ApplyActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ApplyActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ApplyActionStyle] = []
 }
 
 extension EnvironmentValues {
     var applyActionStyle: any ApplyActionStyle {
-        self.applyActionStyleStack.last ?? .base
+        self.applyActionStyleStack.last ?? ApplyActionDefaultStyle()
     }
 
     var applyActionStyleStack: [any ApplyActionStyle] {
@@ -279,12 +279,12 @@ extension EnvironmentValues {
 // MARK: AttachmentButtonImageStyle
 
 struct AttachmentButtonImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentButtonImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentButtonImageStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentButtonImageStyle: any AttachmentButtonImageStyle {
-        self.attachmentButtonImageStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentButtonImageStyleStack.last ?? AttachmentButtonImageDefaultStyle()
     }
 
     var attachmentButtonImageStyleStack: [any AttachmentButtonImageStyle] {
@@ -300,12 +300,12 @@ extension EnvironmentValues {
 // MARK: AttachmentStyle
 
 struct AttachmentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentStyle: any AttachmentStyle {
-        self.attachmentStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentStyleStack.last ?? AttachmentDefaultStyle()
     }
 
     var attachmentStyleStack: [any AttachmentStyle] {
@@ -321,12 +321,12 @@ extension EnvironmentValues {
 // MARK: AttachmentElementStyle
 
 struct AttachmentElementStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentElementStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentElementStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentElementStyle: any AttachmentElementStyle {
-        self.attachmentElementStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentElementStyleStack.last ?? AttachmentElementDefaultStyle()
     }
 
     var attachmentElementStyleStack: [any AttachmentElementStyle] {
@@ -342,12 +342,12 @@ extension EnvironmentValues {
 // MARK: AttachmentErrorTitleStyle
 
 struct AttachmentErrorTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentErrorTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentErrorTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentErrorTitleStyle: any AttachmentErrorTitleStyle {
-        self.attachmentErrorTitleStyleStack.last ?? .base
+        self.attachmentErrorTitleStyleStack.last ?? AttachmentErrorTitleDefaultStyle()
     }
 
     var attachmentErrorTitleStyleStack: [any AttachmentErrorTitleStyle] {
@@ -363,12 +363,12 @@ extension EnvironmentValues {
 // MARK: AttachmentFootnoteStyle
 
 struct AttachmentFootnoteStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentFootnoteStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentFootnoteStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentFootnoteStyle: any AttachmentFootnoteStyle {
-        self.attachmentFootnoteStyleStack.last ?? .base
+        self.attachmentFootnoteStyleStack.last ?? AttachmentFootnoteDefaultStyle()
     }
 
     var attachmentFootnoteStyleStack: [any AttachmentFootnoteStyle] {
@@ -384,12 +384,12 @@ extension EnvironmentValues {
 // MARK: AttachmentGroupStyle
 
 struct AttachmentGroupStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentGroupStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentGroupStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentGroupStyle: any AttachmentGroupStyle {
-        self.attachmentGroupStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentGroupStyleStack.last ?? AttachmentGroupDefaultStyle()
     }
 
     var attachmentGroupStyleStack: [any AttachmentGroupStyle] {
@@ -405,12 +405,12 @@ extension EnvironmentValues {
 // MARK: AttachmentInProgressStyle
 
 struct AttachmentInProgressStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentInProgressStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentInProgressStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentInProgressStyle: any AttachmentInProgressStyle {
-        self.attachmentInProgressStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentInProgressStyleStack.last ?? AttachmentInProgressDefaultStyle()
     }
 
     var attachmentInProgressStyleStack: [any AttachmentInProgressStyle] {
@@ -426,12 +426,12 @@ extension EnvironmentValues {
 // MARK: AttachmentInProgressTitleStyle
 
 struct AttachmentInProgressTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentInProgressTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentInProgressTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentInProgressTitleStyle: any AttachmentInProgressTitleStyle {
-        self.attachmentInProgressTitleStyleStack.last ?? .base
+        self.attachmentInProgressTitleStyleStack.last ?? AttachmentInProgressTitleDefaultStyle()
     }
 
     var attachmentInProgressTitleStyleStack: [any AttachmentInProgressTitleStyle] {
@@ -447,12 +447,12 @@ extension EnvironmentValues {
 // MARK: AttachmentSubtitleStyle
 
 struct AttachmentSubtitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentSubtitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentSubtitleStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentSubtitleStyle: any AttachmentSubtitleStyle {
-        self.attachmentSubtitleStyleStack.last ?? .base
+        self.attachmentSubtitleStyleStack.last ?? AttachmentSubtitleDefaultStyle()
     }
 
     var attachmentSubtitleStyleStack: [any AttachmentSubtitleStyle] {
@@ -468,12 +468,12 @@ extension EnvironmentValues {
 // MARK: AttachmentThumbnailStyle
 
 struct AttachmentThumbnailStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentThumbnailStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentThumbnailStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentThumbnailStyle: any AttachmentThumbnailStyle {
-        self.attachmentThumbnailStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentThumbnailStyleStack.last ?? AttachmentThumbnailDefaultStyle()
     }
 
     var attachmentThumbnailStyleStack: [any AttachmentThumbnailStyle] {
@@ -489,12 +489,12 @@ extension EnvironmentValues {
 // MARK: AttachmentTitleStyle
 
 struct AttachmentTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentTitleStyle: any AttachmentTitleStyle {
-        self.attachmentTitleStyleStack.last ?? .base
+        self.attachmentTitleStyleStack.last ?? AttachmentTitleDefaultStyle()
     }
 
     var attachmentTitleStyleStack: [any AttachmentTitleStyle] {
@@ -510,12 +510,12 @@ extension EnvironmentValues {
 // MARK: AttachmentWithErrorStyle
 
 struct AttachmentWithErrorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttachmentWithErrorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttachmentWithErrorStyle] = []
 }
 
 extension EnvironmentValues {
     var attachmentWithErrorStyle: any AttachmentWithErrorStyle {
-        self.attachmentWithErrorStyleStack.last ?? .base.concat(.fiori)
+        self.attachmentWithErrorStyleStack.last ?? AttachmentWithErrorDefaultStyle()
     }
 
     var attachmentWithErrorStyleStack: [any AttachmentWithErrorStyle] {
@@ -531,12 +531,12 @@ extension EnvironmentValues {
 // MARK: AttributeStyle
 
 struct AttributeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AttributeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AttributeStyle] = []
 }
 
 extension EnvironmentValues {
     var attributeStyle: any AttributeStyle {
-        self.attributeStyleStack.last ?? .base
+        self.attributeStyleStack.last ?? AttributeDefaultStyle()
     }
 
     var attributeStyleStack: [any AttributeStyle] {
@@ -552,12 +552,12 @@ extension EnvironmentValues {
 // MARK: AuthInputStyle
 
 struct AuthInputStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AuthInputStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AuthInputStyle] = []
 }
 
 extension EnvironmentValues {
     var authInputStyle: any AuthInputStyle {
-        self.authInputStyleStack.last ?? .base
+        self.authInputStyleStack.last ?? AuthInputDefaultStyle()
     }
 
     var authInputStyleStack: [any AuthInputStyle] {
@@ -573,12 +573,12 @@ extension EnvironmentValues {
 // MARK: AuthenticationStyle
 
 struct AuthenticationStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AuthenticationStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AuthenticationStyle] = []
 }
 
 extension EnvironmentValues {
     var authenticationStyle: any AuthenticationStyle {
-        self.authenticationStyleStack.last ?? .base.concat(.fiori)
+        self.authenticationStyleStack.last ?? AuthenticationDefaultStyle()
     }
 
     var authenticationStyleStack: [any AuthenticationStyle] {
@@ -594,12 +594,12 @@ extension EnvironmentValues {
 // MARK: AvatarStackStyle
 
 struct AvatarStackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AvatarStackStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AvatarStackStyle] = []
 }
 
 extension EnvironmentValues {
     var avatarStackStyle: any AvatarStackStyle {
-        self.avatarStackStyleStack.last ?? .base.concat(.fiori)
+        self.avatarStackStyleStack.last ?? AvatarStackDefaultStyle()
     }
 
     var avatarStackStyleStack: [any AvatarStackStyle] {
@@ -615,12 +615,12 @@ extension EnvironmentValues {
 // MARK: AvatarsStyle
 
 struct AvatarsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AvatarsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AvatarsStyle] = []
 }
 
 extension EnvironmentValues {
     var avatarsStyle: any AvatarsStyle {
-        self.avatarsStyleStack.last ?? .base
+        self.avatarsStyleStack.last ?? AvatarsDefaultStyle()
     }
 
     var avatarsStyleStack: [any AvatarsStyle] {
@@ -636,12 +636,12 @@ extension EnvironmentValues {
 // MARK: AvatarsTitleStyle
 
 struct AvatarsTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any AvatarsTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any AvatarsTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var avatarsTitleStyle: any AvatarsTitleStyle {
-        self.avatarsTitleStyleStack.last ?? .base
+        self.avatarsTitleStyleStack.last ?? AvatarsTitleDefaultStyle()
     }
 
     var avatarsTitleStyleStack: [any AvatarsTitleStyle] {
@@ -657,12 +657,12 @@ extension EnvironmentValues {
 // MARK: BackActionStyle
 
 struct BackActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any BackActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any BackActionStyle] = []
 }
 
 extension EnvironmentValues {
     var backActionStyle: any BackActionStyle {
-        self.backActionStyleStack.last ?? .base
+        self.backActionStyleStack.last ?? BackActionDefaultStyle()
     }
 
     var backActionStyleStack: [any BackActionStyle] {
@@ -678,12 +678,12 @@ extension EnvironmentValues {
 // MARK: BannerMessageStyle
 
 struct BannerMessageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any BannerMessageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any BannerMessageStyle] = []
 }
 
 extension EnvironmentValues {
     var bannerMessageStyle: any BannerMessageStyle {
-        self.bannerMessageStyleStack.last ?? .base.concat(.fiori)
+        self.bannerMessageStyleStack.last ?? BannerMessageDefaultStyle()
     }
 
     var bannerMessageStyleStack: [any BannerMessageStyle] {
@@ -699,12 +699,12 @@ extension EnvironmentValues {
 // MARK: BannerMultiMessageSheetStyle
 
 struct BannerMultiMessageSheetStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any BannerMultiMessageSheetStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any BannerMultiMessageSheetStyle] = []
 }
 
 extension EnvironmentValues {
     var bannerMultiMessageSheetStyle: any BannerMultiMessageSheetStyle {
-        self.bannerMultiMessageSheetStyleStack.last ?? .base.concat(.fiori)
+        self.bannerMultiMessageSheetStyleStack.last ?? BannerMultiMessageSheetDefaultStyle()
     }
 
     var bannerMultiMessageSheetStyleStack: [any BannerMultiMessageSheetStyle] {
@@ -720,12 +720,12 @@ extension EnvironmentValues {
 // MARK: BodyTextStyle
 
 struct BodyTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any BodyTextStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any BodyTextStyle] = []
 }
 
 extension EnvironmentValues {
     var bodyTextStyle: any BodyTextStyle {
-        self.bodyTextStyleStack.last ?? .base
+        self.bodyTextStyleStack.last ?? BodyTextDefaultStyle()
     }
 
     var bodyTextStyleStack: [any BodyTextStyle] {
@@ -741,12 +741,12 @@ extension EnvironmentValues {
 // MARK: CalendarDayViewStyle
 
 struct CalendarDayViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CalendarDayViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CalendarDayViewStyle] = []
 }
 
 extension EnvironmentValues {
     var calendarDayViewStyle: any CalendarDayViewStyle {
-        self.calendarDayViewStyleStack.last ?? .base.concat(.fiori)
+        self.calendarDayViewStyleStack.last ?? CalendarDayViewDefaultStyle()
     }
 
     var calendarDayViewStyleStack: [any CalendarDayViewStyle] {
@@ -762,12 +762,12 @@ extension EnvironmentValues {
 // MARK: CalendarMonthViewStyle
 
 struct CalendarMonthViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CalendarMonthViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CalendarMonthViewStyle] = []
 }
 
 extension EnvironmentValues {
     var calendarMonthViewStyle: any CalendarMonthViewStyle {
-        self.calendarMonthViewStyleStack.last ?? .base.concat(.fiori)
+        self.calendarMonthViewStyleStack.last ?? CalendarMonthViewDefaultStyle()
     }
 
     var calendarMonthViewStyleStack: [any CalendarMonthViewStyle] {
@@ -783,12 +783,12 @@ extension EnvironmentValues {
 // MARK: CalendarViewStyle
 
 struct CalendarViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CalendarViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CalendarViewStyle] = []
 }
 
 extension EnvironmentValues {
     var calendarViewStyle: any CalendarViewStyle {
-        self.calendarViewStyleStack.last ?? .base.concat(.fiori)
+        self.calendarViewStyleStack.last ?? CalendarViewDefaultStyle()
     }
 
     var calendarViewStyleStack: [any CalendarViewStyle] {
@@ -804,12 +804,12 @@ extension EnvironmentValues {
 // MARK: CalendarWeekViewStyle
 
 struct CalendarWeekViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CalendarWeekViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CalendarWeekViewStyle] = []
 }
 
 extension EnvironmentValues {
     var calendarWeekViewStyle: any CalendarWeekViewStyle {
-        self.calendarWeekViewStyleStack.last ?? .base.concat(.fiori)
+        self.calendarWeekViewStyleStack.last ?? CalendarWeekViewDefaultStyle()
     }
 
     var calendarWeekViewStyleStack: [any CalendarWeekViewStyle] {
@@ -825,12 +825,12 @@ extension EnvironmentValues {
 // MARK: CancelActionStyle
 
 struct CancelActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CancelActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CancelActionStyle] = []
 }
 
 extension EnvironmentValues {
     var cancelActionStyle: any CancelActionStyle {
-        self.cancelActionStyleStack.last ?? .base
+        self.cancelActionStyleStack.last ?? CancelActionDefaultStyle()
     }
 
     var cancelActionStyleStack: [any CancelActionStyle] {
@@ -846,12 +846,12 @@ extension EnvironmentValues {
 // MARK: CardBodyStyle
 
 struct CardBodyStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardBodyStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardBodyStyle] = []
 }
 
 extension EnvironmentValues {
     var cardBodyStyle: any CardBodyStyle {
-        self.cardBodyStyleStack.last ?? .base
+        self.cardBodyStyleStack.last ?? CardBodyDefaultStyle()
     }
 
     var cardBodyStyleStack: [any CardBodyStyle] {
@@ -867,12 +867,12 @@ extension EnvironmentValues {
 // MARK: CardStyle
 
 struct CardStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardStyle] = []
 }
 
 extension EnvironmentValues {
     var cardStyle: any CardStyle {
-        self.cardStyleStack.last ?? .base.concat(.fiori)
+        self.cardStyleStack.last ?? CardDefaultStyle()
     }
 
     var cardStyleStack: [any CardStyle] {
@@ -888,12 +888,12 @@ extension EnvironmentValues {
 // MARK: CardExtHeaderStyle
 
 struct CardExtHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardExtHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardExtHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var cardExtHeaderStyle: any CardExtHeaderStyle {
-        self.cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardExtHeaderStyleStack.last ?? CardExtHeaderDefaultStyle()
     }
 
     var cardExtHeaderStyleStack: [any CardExtHeaderStyle] {
@@ -909,12 +909,12 @@ extension EnvironmentValues {
 // MARK: CardFooterStyle
 
 struct CardFooterStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardFooterStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardFooterStyle] = []
 }
 
 extension EnvironmentValues {
     var cardFooterStyle: any CardFooterStyle {
-        self.cardFooterStyleStack.last ?? .base.concat(.fiori)
+        self.cardFooterStyleStack.last ?? CardFooterDefaultStyle()
     }
 
     var cardFooterStyleStack: [any CardFooterStyle] {
@@ -930,12 +930,12 @@ extension EnvironmentValues {
 // MARK: CardHeaderStyle
 
 struct CardHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var cardHeaderStyle: any CardHeaderStyle {
-        self.cardHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardHeaderStyleStack.last ?? CardHeaderDefaultStyle()
     }
 
     var cardHeaderStyleStack: [any CardHeaderStyle] {
@@ -951,12 +951,12 @@ extension EnvironmentValues {
 // MARK: CardMainHeaderStyle
 
 struct CardMainHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardMainHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardMainHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var cardMainHeaderStyle: any CardMainHeaderStyle {
-        self.cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.cardMainHeaderStyleStack.last ?? CardMainHeaderDefaultStyle()
     }
 
     var cardMainHeaderStyleStack: [any CardMainHeaderStyle] {
@@ -972,12 +972,12 @@ extension EnvironmentValues {
 // MARK: CardMediaStyle
 
 struct CardMediaStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CardMediaStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CardMediaStyle] = []
 }
 
 extension EnvironmentValues {
     var cardMediaStyle: any CardMediaStyle {
-        self.cardMediaStyleStack.last ?? .base.concat(.fiori)
+        self.cardMediaStyleStack.last ?? CardMediaDefaultStyle()
     }
 
     var cardMediaStyleStack: [any CardMediaStyle] {
@@ -993,12 +993,12 @@ extension EnvironmentValues {
 // MARK: CheckmarkStyle
 
 struct CheckmarkStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CheckmarkStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CheckmarkStyle] = []
 }
 
 extension EnvironmentValues {
     var checkmarkStyle: any CheckmarkStyle {
-        self.checkmarkStyleStack.last ?? .base
+        self.checkmarkStyleStack.last ?? CheckmarkDefaultStyle()
     }
 
     var checkmarkStyleStack: [any CheckmarkStyle] {
@@ -1014,12 +1014,12 @@ extension EnvironmentValues {
 // MARK: CheckoutIndicatorStyle
 
 struct CheckoutIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CheckoutIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CheckoutIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var checkoutIndicatorStyle: any CheckoutIndicatorStyle {
-        self.checkoutIndicatorStyleStack.last ?? .base
+        self.checkoutIndicatorStyleStack.last ?? CheckoutIndicatorDefaultStyle()
     }
 
     var checkoutIndicatorStyleStack: [any CheckoutIndicatorStyle] {
@@ -1035,12 +1035,12 @@ extension EnvironmentValues {
 // MARK: ClearActionStyle
 
 struct ClearActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ClearActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ClearActionStyle] = []
 }
 
 extension EnvironmentValues {
     var clearActionStyle: any ClearActionStyle {
-        self.clearActionStyleStack.last ?? .base
+        self.clearActionStyleStack.last ?? ClearActionDefaultStyle()
     }
 
     var clearActionStyleStack: [any ClearActionStyle] {
@@ -1056,12 +1056,12 @@ extension EnvironmentValues {
 // MARK: CloseActionStyle
 
 struct CloseActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CloseActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CloseActionStyle] = []
 }
 
 extension EnvironmentValues {
     var closeActionStyle: any CloseActionStyle {
-        self.closeActionStyleStack.last ?? .base
+        self.closeActionStyleStack.last ?? CloseActionDefaultStyle()
     }
 
     var closeActionStyleStack: [any CloseActionStyle] {
@@ -1077,12 +1077,12 @@ extension EnvironmentValues {
 // MARK: ContactItemStyle
 
 struct ContactItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ContactItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ContactItemStyle] = []
 }
 
 extension EnvironmentValues {
     var contactItemStyle: any ContactItemStyle {
-        self.contactItemStyleStack.last ?? .base.concat(.fiori)
+        self.contactItemStyleStack.last ?? ContactItemDefaultStyle()
     }
 
     var contactItemStyleStack: [any ContactItemStyle] {
@@ -1098,12 +1098,12 @@ extension EnvironmentValues {
 // MARK: CounterStyle
 
 struct CounterStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any CounterStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any CounterStyle] = []
 }
 
 extension EnvironmentValues {
     var counterStyle: any CounterStyle {
-        self.counterStyleStack.last ?? .base
+        self.counterStyleStack.last ?? CounterDefaultStyle()
     }
 
     var counterStyleStack: [any CounterStyle] {
@@ -1119,12 +1119,12 @@ extension EnvironmentValues {
 // MARK: DateRangePickerStyle
 
 struct DateRangePickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DateRangePickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DateRangePickerStyle] = []
 }
 
 extension EnvironmentValues {
     var dateRangePickerStyle: any DateRangePickerStyle {
-        self.dateRangePickerStyleStack.last ?? .base.concat(.fiori)
+        self.dateRangePickerStyleStack.last ?? DateRangePickerDefaultStyle()
     }
 
     var dateRangePickerStyleStack: [any DateRangePickerStyle] {
@@ -1140,12 +1140,12 @@ extension EnvironmentValues {
 // MARK: DateTimePickerStyle
 
 struct DateTimePickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DateTimePickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DateTimePickerStyle] = []
 }
 
 extension EnvironmentValues {
     var dateTimePickerStyle: any DateTimePickerStyle {
-        self.dateTimePickerStyleStack.last ?? .base.concat(.fiori)
+        self.dateTimePickerStyleStack.last ?? DateTimePickerDefaultStyle()
     }
 
     var dateTimePickerStyleStack: [any DateTimePickerStyle] {
@@ -1161,12 +1161,12 @@ extension EnvironmentValues {
 // MARK: DecrementActionStyle
 
 struct DecrementActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DecrementActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DecrementActionStyle] = []
 }
 
 extension EnvironmentValues {
     var decrementActionStyle: any DecrementActionStyle {
-        self.decrementActionStyleStack.last ?? .base
+        self.decrementActionStyleStack.last ?? DecrementActionDefaultStyle()
     }
 
     var decrementActionStyleStack: [any DecrementActionStyle] {
@@ -1182,12 +1182,12 @@ extension EnvironmentValues {
 // MARK: DemoViewStyle
 
 struct DemoViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DemoViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DemoViewStyle] = []
 }
 
 extension EnvironmentValues {
     var demoViewStyle: any DemoViewStyle {
-        self.demoViewStyleStack.last ?? .base.concat(.fiori)
+        self.demoViewStyleStack.last ?? DemoViewDefaultStyle()
     }
 
     var demoViewStyleStack: [any DemoViewStyle] {
@@ -1203,12 +1203,12 @@ extension EnvironmentValues {
 // MARK: DenyActionStyle
 
 struct DenyActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DenyActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DenyActionStyle] = []
 }
 
 extension EnvironmentValues {
     var denyActionStyle: any DenyActionStyle {
-        self.denyActionStyleStack.last ?? .base
+        self.denyActionStyleStack.last ?? DenyActionDefaultStyle()
     }
 
     var denyActionStyleStack: [any DenyActionStyle] {
@@ -1224,12 +1224,12 @@ extension EnvironmentValues {
 // MARK: DescriptionStyle
 
 struct DescriptionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DescriptionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DescriptionStyle] = []
 }
 
 extension EnvironmentValues {
     var descriptionStyle: any DescriptionStyle {
-        self.descriptionStyleStack.last ?? .base
+        self.descriptionStyleStack.last ?? DescriptionDefaultStyle()
     }
 
     var descriptionStyleStack: [any DescriptionStyle] {
@@ -1245,12 +1245,12 @@ extension EnvironmentValues {
 // MARK: DescriptionTextStyle
 
 struct DescriptionTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DescriptionTextStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DescriptionTextStyle] = []
 }
 
 extension EnvironmentValues {
     var descriptionTextStyle: any DescriptionTextStyle {
-        self.descriptionTextStyleStack.last ?? .base
+        self.descriptionTextStyleStack.last ?? DescriptionTextDefaultStyle()
     }
 
     var descriptionTextStyleStack: [any DescriptionTextStyle] {
@@ -1266,12 +1266,12 @@ extension EnvironmentValues {
 // MARK: DeselectAllActionStyle
 
 struct DeselectAllActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DeselectAllActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DeselectAllActionStyle] = []
 }
 
 extension EnvironmentValues {
     var deselectAllActionStyle: any DeselectAllActionStyle {
-        self.deselectAllActionStyleStack.last ?? .base
+        self.deselectAllActionStyleStack.last ?? DeselectAllActionDefaultStyle()
     }
 
     var deselectAllActionStyleStack: [any DeselectAllActionStyle] {
@@ -1287,12 +1287,12 @@ extension EnvironmentValues {
 // MARK: DetailContentStyle
 
 struct DetailContentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DetailContentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DetailContentStyle] = []
 }
 
 extension EnvironmentValues {
     var detailContentStyle: any DetailContentStyle {
-        self.detailContentStyleStack.last ?? .base
+        self.detailContentStyleStack.last ?? DetailContentDefaultStyle()
     }
 
     var detailContentStyleStack: [any DetailContentStyle] {
@@ -1308,12 +1308,12 @@ extension EnvironmentValues {
 // MARK: DetailImageStyle
 
 struct DetailImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DetailImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DetailImageStyle] = []
 }
 
 extension EnvironmentValues {
     var detailImageStyle: any DetailImageStyle {
-        self.detailImageStyleStack.last ?? .base
+        self.detailImageStyleStack.last ?? DetailImageDefaultStyle()
     }
 
     var detailImageStyleStack: [any DetailImageStyle] {
@@ -1329,12 +1329,12 @@ extension EnvironmentValues {
 // MARK: DimensionSegmentStyle
 
 struct DimensionSegmentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DimensionSegmentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DimensionSegmentStyle] = []
 }
 
 extension EnvironmentValues {
     var dimensionSegmentStyle: any DimensionSegmentStyle {
-        self.dimensionSegmentStyleStack.last ?? .base.concat(.fiori)
+        self.dimensionSegmentStyleStack.last ?? DimensionSegmentDefaultStyle()
     }
 
     var dimensionSegmentStyleStack: [any DimensionSegmentStyle] {
@@ -1350,12 +1350,12 @@ extension EnvironmentValues {
 // MARK: DimensionSelectorStyle
 
 struct DimensionSelectorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DimensionSelectorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DimensionSelectorStyle] = []
 }
 
 extension EnvironmentValues {
     var dimensionSelectorStyle: any DimensionSelectorStyle {
-        self.dimensionSelectorStyleStack.last ?? .base.concat(.fiori)
+        self.dimensionSelectorStyleStack.last ?? DimensionSelectorDefaultStyle()
     }
 
     var dimensionSelectorStyleStack: [any DimensionSelectorStyle] {
@@ -1371,12 +1371,12 @@ extension EnvironmentValues {
 // MARK: DisagreeActionStyle
 
 struct DisagreeActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DisagreeActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DisagreeActionStyle] = []
 }
 
 extension EnvironmentValues {
     var disagreeActionStyle: any DisagreeActionStyle {
-        self.disagreeActionStyleStack.last ?? .base
+        self.disagreeActionStyleStack.last ?? DisagreeActionDefaultStyle()
     }
 
     var disagreeActionStyleStack: [any DisagreeActionStyle] {
@@ -1392,12 +1392,12 @@ extension EnvironmentValues {
 // MARK: DoneActionStyle
 
 struct DoneActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DoneActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DoneActionStyle] = []
 }
 
 extension EnvironmentValues {
     var doneActionStyle: any DoneActionStyle {
-        self.doneActionStyleStack.last ?? .base
+        self.doneActionStyleStack.last ?? DoneActionDefaultStyle()
     }
 
     var doneActionStyleStack: [any DoneActionStyle] {
@@ -1413,12 +1413,12 @@ extension EnvironmentValues {
 // MARK: DownVoteActionStyle
 
 struct DownVoteActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DownVoteActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DownVoteActionStyle] = []
 }
 
 extension EnvironmentValues {
     var downVoteActionStyle: any DownVoteActionStyle {
-        self.downVoteActionStyleStack.last ?? .base
+        self.downVoteActionStyleStack.last ?? DownVoteActionDefaultStyle()
     }
 
     var downVoteActionStyleStack: [any DownVoteActionStyle] {
@@ -1434,12 +1434,12 @@ extension EnvironmentValues {
 // MARK: DurationPickerStyle
 
 struct DurationPickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DurationPickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any DurationPickerStyle] = []
 }
 
 extension EnvironmentValues {
     var durationPickerStyle: any DurationPickerStyle {
-        self.durationPickerStyleStack.last ?? .base.concat(.fiori)
+        self.durationPickerStyleStack.last ?? DurationPickerDefaultStyle()
     }
 
     var durationPickerStyleStack: [any DurationPickerStyle] {
@@ -1455,12 +1455,12 @@ extension EnvironmentValues {
 // MARK: EULAViewStyle
 
 struct EULAViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any EULAViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any EULAViewStyle] = []
 }
 
 extension EnvironmentValues {
     var eULAViewStyle: any EULAViewStyle {
-        self.eULAViewStyleStack.last ?? .base.concat(.fiori)
+        self.eULAViewStyleStack.last ?? EULAViewDefaultStyle()
     }
 
     var eULAViewStyleStack: [any EULAViewStyle] {
@@ -1476,12 +1476,12 @@ extension EnvironmentValues {
 // MARK: FilledIconStyle
 
 struct FilledIconStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FilledIconStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FilledIconStyle] = []
 }
 
 extension EnvironmentValues {
     var filledIconStyle: any FilledIconStyle {
-        self.filledIconStyleStack.last ?? .base
+        self.filledIconStyleStack.last ?? FilledIconDefaultStyle()
     }
 
     var filledIconStyleStack: [any FilledIconStyle] {
@@ -1497,12 +1497,12 @@ extension EnvironmentValues {
 // MARK: FilterFeedbackBarButtonStyle
 
 struct FilterFeedbackBarButtonStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FilterFeedbackBarButtonStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FilterFeedbackBarButtonStyle] = []
 }
 
 extension EnvironmentValues {
     var filterFeedbackBarButtonStyle: any FilterFeedbackBarButtonStyle {
-        self.filterFeedbackBarButtonStyleStack.last ?? .base.concat(.fiori)
+        self.filterFeedbackBarButtonStyleStack.last ?? FilterFeedbackBarButtonDefaultStyle()
     }
 
     var filterFeedbackBarButtonStyleStack: [any FilterFeedbackBarButtonStyle] {
@@ -1518,12 +1518,12 @@ extension EnvironmentValues {
 // MARK: FilterFeedbackBarStyle
 
 struct FilterFeedbackBarStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FilterFeedbackBarStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FilterFeedbackBarStyle] = []
 }
 
 extension EnvironmentValues {
     var filterFeedbackBarStyle: any FilterFeedbackBarStyle {
-        self.filterFeedbackBarStyleStack.last ?? .base.concat(.fiori)
+        self.filterFeedbackBarStyleStack.last ?? FilterFeedbackBarDefaultStyle()
     }
 
     var filterFeedbackBarStyleStack: [any FilterFeedbackBarStyle] {
@@ -1539,12 +1539,12 @@ extension EnvironmentValues {
 // MARK: FilterFeedbackBarItemStyle
 
 struct FilterFeedbackBarItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FilterFeedbackBarItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FilterFeedbackBarItemStyle] = []
 }
 
 extension EnvironmentValues {
     var filterFeedbackBarItemStyle: any FilterFeedbackBarItemStyle {
-        self.filterFeedbackBarItemStyleStack.last ?? .base.concat(.fiori)
+        self.filterFeedbackBarItemStyleStack.last ?? FilterFeedbackBarItemDefaultStyle()
     }
 
     var filterFeedbackBarItemStyleStack: [any FilterFeedbackBarItemStyle] {
@@ -1560,12 +1560,12 @@ extension EnvironmentValues {
 // MARK: FilterFormViewStyle
 
 struct FilterFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FilterFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FilterFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var filterFormViewStyle: any FilterFormViewStyle {
-        self.filterFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.filterFormViewStyleStack.last ?? FilterFormViewDefaultStyle()
     }
 
     var filterFormViewStyleStack: [any FilterFormViewStyle] {
@@ -1581,12 +1581,12 @@ extension EnvironmentValues {
 // MARK: FioriSliderStyle
 
 struct FioriSliderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FioriSliderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FioriSliderStyle] = []
 }
 
 extension EnvironmentValues {
     var fioriSliderStyle: any FioriSliderStyle {
-        self.fioriSliderStyleStack.last ?? .base.concat(.fiori)
+        self.fioriSliderStyleStack.last ?? FioriSliderDefaultStyle()
     }
 
     var fioriSliderStyleStack: [any FioriSliderStyle] {
@@ -1602,12 +1602,12 @@ extension EnvironmentValues {
 // MARK: FlexItemStyle
 
 struct FlexItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FlexItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FlexItemStyle] = []
 }
 
 extension EnvironmentValues {
     var flexItemStyle: any FlexItemStyle {
-        self.flexItemStyleStack.last ?? .base
+        self.flexItemStyleStack.last ?? FlexItemDefaultStyle()
     }
 
     var flexItemStyleStack: [any FlexItemStyle] {
@@ -1623,12 +1623,12 @@ extension EnvironmentValues {
 // MARK: FootnoteStyle
 
 struct FootnoteStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FootnoteStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FootnoteStyle] = []
 }
 
 extension EnvironmentValues {
     var footnoteStyle: any FootnoteStyle {
-        self.footnoteStyleStack.last ?? .base
+        self.footnoteStyleStack.last ?? FootnoteDefaultStyle()
     }
 
     var footnoteStyleStack: [any FootnoteStyle] {
@@ -1644,12 +1644,12 @@ extension EnvironmentValues {
 // MARK: FootnoteIconsStyle
 
 struct FootnoteIconsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FootnoteIconsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FootnoteIconsStyle] = []
 }
 
 extension EnvironmentValues {
     var footnoteIconsStyle: any FootnoteIconsStyle {
-        self.footnoteIconsStyleStack.last ?? .base
+        self.footnoteIconsStyleStack.last ?? FootnoteIconsDefaultStyle()
     }
 
     var footnoteIconsStyleStack: [any FootnoteIconsStyle] {
@@ -1665,12 +1665,12 @@ extension EnvironmentValues {
 // MARK: FootnoteIconsTextStyle
 
 struct FootnoteIconsTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FootnoteIconsTextStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FootnoteIconsTextStyle] = []
 }
 
 extension EnvironmentValues {
     var footnoteIconsTextStyle: any FootnoteIconsTextStyle {
-        self.footnoteIconsTextStyleStack.last ?? .base
+        self.footnoteIconsTextStyleStack.last ?? FootnoteIconsTextDefaultStyle()
     }
 
     var footnoteIconsTextStyleStack: [any FootnoteIconsTextStyle] {
@@ -1686,12 +1686,12 @@ extension EnvironmentValues {
 // MARK: FormViewStyle
 
 struct FormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any FormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var formViewStyle: any FormViewStyle {
-        self.formViewStyleStack.last ?? .base.concat(.fiori)
+        self.formViewStyleStack.last ?? FormViewDefaultStyle()
     }
 
     var formViewStyleStack: [any FormViewStyle] {
@@ -1707,12 +1707,12 @@ extension EnvironmentValues {
 // MARK: GreetingTextStyle
 
 struct GreetingTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any GreetingTextStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any GreetingTextStyle] = []
 }
 
 extension EnvironmentValues {
     var greetingTextStyle: any GreetingTextStyle {
-        self.greetingTextStyleStack.last ?? .base
+        self.greetingTextStyleStack.last ?? GreetingTextDefaultStyle()
     }
 
     var greetingTextStyleStack: [any GreetingTextStyle] {
@@ -1728,12 +1728,12 @@ extension EnvironmentValues {
 // MARK: HalfStarImageStyle
 
 struct HalfStarImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HalfStarImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HalfStarImageStyle] = []
 }
 
 extension EnvironmentValues {
     var halfStarImageStyle: any HalfStarImageStyle {
-        self.halfStarImageStyleStack.last ?? .base
+        self.halfStarImageStyleStack.last ?? HalfStarImageDefaultStyle()
     }
 
     var halfStarImageStyleStack: [any HalfStarImageStyle] {
@@ -1749,12 +1749,12 @@ extension EnvironmentValues {
 // MARK: HeaderActionStyle
 
 struct HeaderActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HeaderActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HeaderActionStyle] = []
 }
 
 extension EnvironmentValues {
     var headerActionStyle: any HeaderActionStyle {
-        self.headerActionStyleStack.last ?? .base
+        self.headerActionStyleStack.last ?? HeaderActionDefaultStyle()
     }
 
     var headerActionStyleStack: [any HeaderActionStyle] {
@@ -1770,12 +1770,12 @@ extension EnvironmentValues {
 // MARK: HeaderChartStyle
 
 struct HeaderChartStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HeaderChartStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HeaderChartStyle] = []
 }
 
 extension EnvironmentValues {
     var headerChartStyle: any HeaderChartStyle {
-        self.headerChartStyleStack.last ?? .base.concat(.fiori)
+        self.headerChartStyleStack.last ?? HeaderChartDefaultStyle()
     }
 
     var headerChartStyleStack: [any HeaderChartStyle] {
@@ -1791,12 +1791,12 @@ extension EnvironmentValues {
 // MARK: HelperTextStyle
 
 struct HelperTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HelperTextStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HelperTextStyle] = []
 }
 
 extension EnvironmentValues {
     var helperTextStyle: any HelperTextStyle {
-        self.helperTextStyleStack.last ?? .base
+        self.helperTextStyleStack.last ?? HelperTextDefaultStyle()
     }
 
     var helperTextStyleStack: [any HelperTextStyle] {
@@ -1812,12 +1812,12 @@ extension EnvironmentValues {
 // MARK: HierarchyIndicatorStyle
 
 struct HierarchyIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HierarchyIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HierarchyIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var hierarchyIndicatorStyle: any HierarchyIndicatorStyle {
-        self.hierarchyIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.hierarchyIndicatorStyleStack.last ?? HierarchyIndicatorDefaultStyle()
     }
 
     var hierarchyIndicatorStyleStack: [any HierarchyIndicatorStyle] {
@@ -1833,12 +1833,12 @@ extension EnvironmentValues {
 // MARK: HierarchyItemViewStyle
 
 struct HierarchyItemViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HierarchyItemViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HierarchyItemViewStyle] = []
 }
 
 extension EnvironmentValues {
     var hierarchyItemViewStyle: any HierarchyItemViewStyle {
-        self.hierarchyItemViewStyleStack.last ?? .base.concat(.fiori)
+        self.hierarchyItemViewStyleStack.last ?? HierarchyItemViewDefaultStyle()
     }
 
     var hierarchyItemViewStyleStack: [any HierarchyItemViewStyle] {
@@ -1854,12 +1854,12 @@ extension EnvironmentValues {
 // MARK: HierarchyViewStyle
 
 struct HierarchyViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HierarchyViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HierarchyViewStyle] = []
 }
 
 extension EnvironmentValues {
     var hierarchyViewStyle: any HierarchyViewStyle {
-        self.hierarchyViewStyleStack.last ?? .base.concat(.fiori)
+        self.hierarchyViewStyleStack.last ?? HierarchyViewDefaultStyle()
     }
 
     var hierarchyViewStyleStack: [any HierarchyViewStyle] {
@@ -1875,12 +1875,12 @@ extension EnvironmentValues {
 // MARK: HierarchyViewHeaderStyle
 
 struct HierarchyViewHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any HierarchyViewHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any HierarchyViewHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var hierarchyViewHeaderStyle: any HierarchyViewHeaderStyle {
-        self.hierarchyViewHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.hierarchyViewHeaderStyleStack.last ?? HierarchyViewHeaderDefaultStyle()
     }
 
     var hierarchyViewHeaderStyleStack: [any HierarchyViewHeaderStyle] {
@@ -1896,12 +1896,12 @@ extension EnvironmentValues {
 // MARK: IconStyle
 
 struct IconStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any IconStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any IconStyle] = []
 }
 
 extension EnvironmentValues {
     var iconStyle: any IconStyle {
-        self.iconStyleStack.last ?? .base
+        self.iconStyleStack.last ?? IconDefaultStyle()
     }
 
     var iconStyleStack: [any IconStyle] {
@@ -1917,12 +1917,12 @@ extension EnvironmentValues {
 // MARK: IconsStyle
 
 struct IconsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any IconsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any IconsStyle] = []
 }
 
 extension EnvironmentValues {
     var iconsStyle: any IconsStyle {
-        self.iconsStyleStack.last ?? .base
+        self.iconsStyleStack.last ?? IconsDefaultStyle()
     }
 
     var iconsStyleStack: [any IconsStyle] {
@@ -1938,12 +1938,12 @@ extension EnvironmentValues {
 // MARK: IllustratedMessageStyle
 
 struct IllustratedMessageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any IllustratedMessageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any IllustratedMessageStyle] = []
 }
 
 extension EnvironmentValues {
     var illustratedMessageStyle: any IllustratedMessageStyle {
-        self.illustratedMessageStyleStack.last ?? .base.concat(.fiori)
+        self.illustratedMessageStyleStack.last ?? IllustratedMessageDefaultStyle()
     }
 
     var illustratedMessageStyleStack: [any IllustratedMessageStyle] {
@@ -1959,12 +1959,12 @@ extension EnvironmentValues {
 // MARK: InactiveTrackStyle
 
 struct InactiveTrackStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InactiveTrackStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any InactiveTrackStyle] = []
 }
 
 extension EnvironmentValues {
     var inactiveTrackStyle: any InactiveTrackStyle {
-        self.inactiveTrackStyleStack.last ?? .base
+        self.inactiveTrackStyleStack.last ?? InactiveTrackDefaultStyle()
     }
 
     var inactiveTrackStyleStack: [any InactiveTrackStyle] {
@@ -1980,12 +1980,12 @@ extension EnvironmentValues {
 // MARK: IncrementActionStyle
 
 struct IncrementActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any IncrementActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any IncrementActionStyle] = []
 }
 
 extension EnvironmentValues {
     var incrementActionStyle: any IncrementActionStyle {
-        self.incrementActionStyleStack.last ?? .base
+        self.incrementActionStyleStack.last ?? IncrementActionDefaultStyle()
     }
 
     var incrementActionStyleStack: [any IncrementActionStyle] {
@@ -2001,12 +2001,12 @@ extension EnvironmentValues {
 // MARK: InfoViewStyle
 
 struct InfoViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InfoViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any InfoViewStyle] = []
 }
 
 extension EnvironmentValues {
     var infoViewStyle: any InfoViewStyle {
-        self.infoViewStyleStack.last ?? .base.concat(.fiori)
+        self.infoViewStyleStack.last ?? InfoViewDefaultStyle()
     }
 
     var infoViewStyleStack: [any InfoViewStyle] {
@@ -2022,12 +2022,12 @@ extension EnvironmentValues {
 // MARK: InformationViewStyle
 
 struct InformationViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InformationViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any InformationViewStyle] = []
 }
 
 extension EnvironmentValues {
     var informationViewStyle: any InformationViewStyle {
-        self.informationViewStyleStack.last ?? .base.concat(.fiori)
+        self.informationViewStyleStack.last ?? InformationViewDefaultStyle()
     }
 
     var informationViewStyleStack: [any InformationViewStyle] {
@@ -2043,12 +2043,12 @@ extension EnvironmentValues {
 // MARK: InnerCircleStyle
 
 struct InnerCircleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InnerCircleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any InnerCircleStyle] = []
 }
 
 extension EnvironmentValues {
     var innerCircleStyle: any InnerCircleStyle {
-        self.innerCircleStyleStack.last ?? .base
+        self.innerCircleStyleStack.last ?? InnerCircleDefaultStyle()
     }
 
     var innerCircleStyleStack: [any InnerCircleStyle] {
@@ -2064,12 +2064,12 @@ extension EnvironmentValues {
 // MARK: JouleWelcomeScreenStyle
 
 struct JouleWelcomeScreenStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any JouleWelcomeScreenStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any JouleWelcomeScreenStyle] = []
 }
 
 extension EnvironmentValues {
     var jouleWelcomeScreenStyle: any JouleWelcomeScreenStyle {
-        self.jouleWelcomeScreenStyleStack.last ?? .base.concat(.fiori)
+        self.jouleWelcomeScreenStyleStack.last ?? JouleWelcomeScreenDefaultStyle()
     }
 
     var jouleWelcomeScreenStyleStack: [any JouleWelcomeScreenStyle] {
@@ -2085,12 +2085,12 @@ extension EnvironmentValues {
 // MARK: KPIContentStyle
 
 struct KPIContentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPIContentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KPIContentStyle] = []
 }
 
 extension EnvironmentValues {
     var kPIContentStyle: any KPIContentStyle {
-        self.kPIContentStyleStack.last ?? .base
+        self.kPIContentStyleStack.last ?? KPIContentDefaultStyle()
     }
 
     var kPIContentStyleStack: [any KPIContentStyle] {
@@ -2106,12 +2106,12 @@ extension EnvironmentValues {
 // MARK: KPIHeaderStyle
 
 struct KPIHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPIHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KPIHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var kPIHeaderStyle: any KPIHeaderStyle {
-        self.kPIHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.kPIHeaderStyleStack.last ?? KPIHeaderDefaultStyle()
     }
 
     var kPIHeaderStyleStack: [any KPIHeaderStyle] {
@@ -2127,12 +2127,12 @@ extension EnvironmentValues {
 // MARK: KPIItemStyle
 
 struct KPIItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPIItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KPIItemStyle] = []
 }
 
 extension EnvironmentValues {
     var kPIItemStyle: any KPIItemStyle {
-        self.kPIItemStyleStack.last ?? .base.concat(.fiori)
+        self.kPIItemStyleStack.last ?? KPIItemDefaultStyle()
     }
 
     var kPIItemStyleStack: [any KPIItemStyle] {
@@ -2148,12 +2148,12 @@ extension EnvironmentValues {
 // MARK: KPIProgressItemStyle
 
 struct KPIProgressItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPIProgressItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KPIProgressItemStyle] = []
 }
 
 extension EnvironmentValues {
     var kPIProgressItemStyle: any KPIProgressItemStyle {
-        self.kPIProgressItemStyleStack.last ?? .base.concat(.fiori)
+        self.kPIProgressItemStyleStack.last ?? KPIProgressItemDefaultStyle()
     }
 
     var kPIProgressItemStyleStack: [any KPIProgressItemStyle] {
@@ -2169,12 +2169,12 @@ extension EnvironmentValues {
 // MARK: KPISubItemStyle
 
 struct KPISubItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KPISubItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KPISubItemStyle] = []
 }
 
 extension EnvironmentValues {
     var kPISubItemStyle: any KPISubItemStyle {
-        self.kPISubItemStyleStack.last ?? .base
+        self.kPISubItemStyleStack.last ?? KPISubItemDefaultStyle()
     }
 
     var kPISubItemStyleStack: [any KPISubItemStyle] {
@@ -2190,12 +2190,12 @@ extension EnvironmentValues {
 // MARK: KeyStyle
 
 struct KeyStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KeyStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KeyStyle] = []
 }
 
 extension EnvironmentValues {
     var keyStyle: any KeyStyle {
-        self.keyStyleStack.last ?? .base
+        self.keyStyleStack.last ?? KeyDefaultStyle()
     }
 
     var keyStyleStack: [any KeyStyle] {
@@ -2211,12 +2211,12 @@ extension EnvironmentValues {
 // MARK: KeyValueFormViewStyle
 
 struct KeyValueFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KeyValueFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KeyValueFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var keyValueFormViewStyle: any KeyValueFormViewStyle {
-        self.keyValueFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.keyValueFormViewStyleStack.last ?? KeyValueFormViewDefaultStyle()
     }
 
     var keyValueFormViewStyleStack: [any KeyValueFormViewStyle] {
@@ -2232,12 +2232,12 @@ extension EnvironmentValues {
 // MARK: KeyValueItemStyle
 
 struct KeyValueItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KeyValueItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KeyValueItemStyle] = []
 }
 
 extension EnvironmentValues {
     var keyValueItemStyle: any KeyValueItemStyle {
-        self.keyValueItemStyleStack.last ?? .base.concat(.fiori)
+        self.keyValueItemStyleStack.last ?? KeyValueItemDefaultStyle()
     }
 
     var keyValueItemStyleStack: [any KeyValueItemStyle] {
@@ -2253,12 +2253,12 @@ extension EnvironmentValues {
 // MARK: KpiCaptionStyle
 
 struct KpiCaptionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KpiCaptionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KpiCaptionStyle] = []
 }
 
 extension EnvironmentValues {
     var kpiCaptionStyle: any KpiCaptionStyle {
-        self.kpiCaptionStyleStack.last ?? .base
+        self.kpiCaptionStyleStack.last ?? KpiCaptionDefaultStyle()
     }
 
     var kpiCaptionStyleStack: [any KpiCaptionStyle] {
@@ -2274,12 +2274,12 @@ extension EnvironmentValues {
 // MARK: KpiStyle
 
 struct KpiStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any KpiStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any KpiStyle] = []
 }
 
 extension EnvironmentValues {
     var kpiStyle: any KpiStyle {
-        self.kpiStyleStack.last ?? .base
+        self.kpiStyleStack.last ?? KpiDefaultStyle()
     }
 
     var kpiStyleStack: [any KpiStyle] {
@@ -2295,12 +2295,12 @@ extension EnvironmentValues {
 // MARK: LabelItemStyle
 
 struct LabelItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LabelItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LabelItemStyle] = []
 }
 
 extension EnvironmentValues {
     var labelItemStyle: any LabelItemStyle {
-        self.labelItemStyleStack.last ?? .base.concat(.fiori)
+        self.labelItemStyleStack.last ?? LabelItemDefaultStyle()
     }
 
     var labelItemStyleStack: [any LabelItemStyle] {
@@ -2316,12 +2316,12 @@ extension EnvironmentValues {
 // MARK: LeadingAccessoryStyle
 
 struct LeadingAccessoryStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LeadingAccessoryStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LeadingAccessoryStyle] = []
 }
 
 extension EnvironmentValues {
     var leadingAccessoryStyle: any LeadingAccessoryStyle {
-        self.leadingAccessoryStyleStack.last ?? .base
+        self.leadingAccessoryStyleStack.last ?? LeadingAccessoryDefaultStyle()
     }
 
     var leadingAccessoryStyleStack: [any LeadingAccessoryStyle] {
@@ -2337,12 +2337,12 @@ extension EnvironmentValues {
 // MARK: LineStyle
 
 struct LineStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LineStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LineStyle] = []
 }
 
 extension EnvironmentValues {
     var lineStyle: any LineStyle {
-        self.lineStyleStack.last ?? .base
+        self.lineStyleStack.last ?? LineDefaultStyle()
     }
 
     var lineStyleStack: [any LineStyle] {
@@ -2358,12 +2358,12 @@ extension EnvironmentValues {
 // MARK: LinearProgressIndicatorStyle
 
 struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LinearProgressIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LinearProgressIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var linearProgressIndicatorStyle: any LinearProgressIndicatorStyle {
-        self.linearProgressIndicatorStyleStack.last ?? .base
+        self.linearProgressIndicatorStyleStack.last ?? LinearProgressIndicatorDefaultStyle()
     }
 
     var linearProgressIndicatorStyleStack: [any LinearProgressIndicatorStyle] {
@@ -2379,12 +2379,12 @@ extension EnvironmentValues {
 // MARK: LinearProgressIndicatorViewStyle
 
 struct LinearProgressIndicatorViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LinearProgressIndicatorViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LinearProgressIndicatorViewStyle] = []
 }
 
 extension EnvironmentValues {
     var linearProgressIndicatorViewStyle: any LinearProgressIndicatorViewStyle {
-        self.linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+        self.linearProgressIndicatorViewStyleStack.last ?? LinearProgressIndicatorViewDefaultStyle()
     }
 
     var linearProgressIndicatorViewStyleStack: [any LinearProgressIndicatorViewStyle] {
@@ -2400,12 +2400,12 @@ extension EnvironmentValues {
 // MARK: ListPickerContentStyle
 
 struct ListPickerContentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ListPickerContentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ListPickerContentStyle] = []
 }
 
 extension EnvironmentValues {
     var listPickerContentStyle: any ListPickerContentStyle {
-        self.listPickerContentStyleStack.last ?? .base
+        self.listPickerContentStyleStack.last ?? ListPickerContentDefaultStyle()
     }
 
     var listPickerContentStyleStack: [any ListPickerContentStyle] {
@@ -2421,12 +2421,12 @@ extension EnvironmentValues {
 // MARK: ListPickerDestinationStyle
 
 struct ListPickerDestinationStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ListPickerDestinationStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ListPickerDestinationStyle] = []
 }
 
 extension EnvironmentValues {
     var listPickerDestinationStyle: any ListPickerDestinationStyle {
-        self.listPickerDestinationStyleStack.last ?? .base.concat(.fiori)
+        self.listPickerDestinationStyleStack.last ?? ListPickerDestinationDefaultStyle()
     }
 
     var listPickerDestinationStyleStack: [any ListPickerDestinationStyle] {
@@ -2442,12 +2442,12 @@ extension EnvironmentValues {
 // MARK: ListPickerItemStyle
 
 struct ListPickerItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ListPickerItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ListPickerItemStyle] = []
 }
 
 extension EnvironmentValues {
     var listPickerItemStyle: any ListPickerItemStyle {
-        self.listPickerItemStyleStack.last ?? .base.concat(.fiori)
+        self.listPickerItemStyleStack.last ?? ListPickerItemDefaultStyle()
     }
 
     var listPickerItemStyleStack: [any ListPickerItemStyle] {
@@ -2463,12 +2463,12 @@ extension EnvironmentValues {
 // MARK: LoadingIndicatorStyle
 
 struct LoadingIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LoadingIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LoadingIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var loadingIndicatorStyle: any LoadingIndicatorStyle {
-        self.loadingIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.loadingIndicatorStyleStack.last ?? LoadingIndicatorDefaultStyle()
     }
 
     var loadingIndicatorStyleStack: [any LoadingIndicatorStyle] {
@@ -2484,12 +2484,12 @@ extension EnvironmentValues {
 // MARK: LowerThumbStyle
 
 struct LowerThumbStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any LowerThumbStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any LowerThumbStyle] = []
 }
 
 extension EnvironmentValues {
     var lowerThumbStyle: any LowerThumbStyle {
-        self.lowerThumbStyleStack.last ?? .base
+        self.lowerThumbStyleStack.last ?? LowerThumbDefaultStyle()
     }
 
     var lowerThumbStyleStack: [any LowerThumbStyle] {
@@ -2505,12 +2505,12 @@ extension EnvironmentValues {
 // MARK: MediaImageStyle
 
 struct MediaImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MediaImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any MediaImageStyle] = []
 }
 
 extension EnvironmentValues {
     var mediaImageStyle: any MediaImageStyle {
-        self.mediaImageStyleStack.last ?? .base
+        self.mediaImageStyleStack.last ?? MediaImageDefaultStyle()
     }
 
     var mediaImageStyleStack: [any MediaImageStyle] {
@@ -2526,12 +2526,12 @@ extension EnvironmentValues {
 // MARK: MenuSelectionStyle
 
 struct MenuSelectionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MenuSelectionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any MenuSelectionStyle] = []
 }
 
 extension EnvironmentValues {
     var menuSelectionStyle: any MenuSelectionStyle {
-        self.menuSelectionStyleStack.last ?? .base.concat(.fiori)
+        self.menuSelectionStyleStack.last ?? MenuSelectionDefaultStyle()
     }
 
     var menuSelectionStyleStack: [any MenuSelectionStyle] {
@@ -2547,12 +2547,12 @@ extension EnvironmentValues {
 // MARK: MenuSelectionItemStyle
 
 struct MenuSelectionItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MenuSelectionItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any MenuSelectionItemStyle] = []
 }
 
 extension EnvironmentValues {
     var menuSelectionItemStyle: any MenuSelectionItemStyle {
-        self.menuSelectionItemStyleStack.last ?? .base.concat(.fiori)
+        self.menuSelectionItemStyleStack.last ?? MenuSelectionItemDefaultStyle()
     }
 
     var menuSelectionItemStyleStack: [any MenuSelectionItemStyle] {
@@ -2568,12 +2568,12 @@ extension EnvironmentValues {
 // MARK: MessageContentStyle
 
 struct MessageContentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MessageContentStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any MessageContentStyle] = []
 }
 
 extension EnvironmentValues {
     var messageContentStyle: any MessageContentStyle {
-        self.messageContentStyleStack.last ?? .base
+        self.messageContentStyleStack.last ?? MessageContentDefaultStyle()
     }
 
     var messageContentStyleStack: [any MessageContentStyle] {
@@ -2589,12 +2589,12 @@ extension EnvironmentValues {
 // MARK: MoreActionOverflowStyle
 
 struct MoreActionOverflowStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any MoreActionOverflowStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any MoreActionOverflowStyle] = []
 }
 
 extension EnvironmentValues {
     var moreActionOverflowStyle: any MoreActionOverflowStyle {
-        self.moreActionOverflowStyleStack.last ?? .base
+        self.moreActionOverflowStyleStack.last ?? MoreActionOverflowDefaultStyle()
     }
 
     var moreActionOverflowStyleStack: [any MoreActionOverflowStyle] {
@@ -2610,12 +2610,12 @@ extension EnvironmentValues {
 // MARK: NextActionStyle
 
 struct NextActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NextActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any NextActionStyle] = []
 }
 
 extension EnvironmentValues {
     var nextActionStyle: any NextActionStyle {
-        self.nextActionStyleStack.last ?? .base
+        self.nextActionStyleStack.last ?? NextActionDefaultStyle()
     }
 
     var nextActionStyleStack: [any NextActionStyle] {
@@ -2631,12 +2631,12 @@ extension EnvironmentValues {
 // MARK: NodeStyle
 
 struct NodeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NodeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any NodeStyle] = []
 }
 
 extension EnvironmentValues {
     var nodeStyle: any NodeStyle {
-        self.nodeStyleStack.last ?? .base
+        self.nodeStyleStack.last ?? NodeDefaultStyle()
     }
 
     var nodeStyleStack: [any NodeStyle] {
@@ -2652,12 +2652,12 @@ extension EnvironmentValues {
 // MARK: NotNowActionStyle
 
 struct NotNowActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NotNowActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any NotNowActionStyle] = []
 }
 
 extension EnvironmentValues {
     var notNowActionStyle: any NotNowActionStyle {
-        self.notNowActionStyleStack.last ?? .base
+        self.notNowActionStyleStack.last ?? NotNowActionDefaultStyle()
     }
 
     var notNowActionStyleStack: [any NotNowActionStyle] {
@@ -2673,12 +2673,12 @@ extension EnvironmentValues {
 // MARK: NoteFormViewStyle
 
 struct NoteFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NoteFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any NoteFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var noteFormViewStyle: any NoteFormViewStyle {
-        self.noteFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.noteFormViewStyleStack.last ?? NoteFormViewDefaultStyle()
     }
 
     var noteFormViewStyleStack: [any NoteFormViewStyle] {
@@ -2694,12 +2694,12 @@ extension EnvironmentValues {
 // MARK: NowIndicatorNodeStyle
 
 struct NowIndicatorNodeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NowIndicatorNodeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any NowIndicatorNodeStyle] = []
 }
 
 extension EnvironmentValues {
     var nowIndicatorNodeStyle: any NowIndicatorNodeStyle {
-        self.nowIndicatorNodeStyleStack.last ?? .base
+        self.nowIndicatorNodeStyleStack.last ?? NowIndicatorNodeDefaultStyle()
     }
 
     var nowIndicatorNodeStyleStack: [any NowIndicatorNodeStyle] {
@@ -2715,12 +2715,12 @@ extension EnvironmentValues {
 // MARK: ObjectHeaderStyle
 
 struct ObjectHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ObjectHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ObjectHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var objectHeaderStyle: any ObjectHeaderStyle {
-        self.objectHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.objectHeaderStyleStack.last ?? ObjectHeaderDefaultStyle()
     }
 
     var objectHeaderStyleStack: [any ObjectHeaderStyle] {
@@ -2736,12 +2736,12 @@ extension EnvironmentValues {
 // MARK: ObjectItemStyle
 
 struct ObjectItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ObjectItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ObjectItemStyle] = []
 }
 
 extension EnvironmentValues {
     var objectItemStyle: any ObjectItemStyle {
-        self.objectItemStyleStack.last ?? .base.concat(.fiori)
+        self.objectItemStyleStack.last ?? ObjectItemDefaultStyle()
     }
 
     var objectItemStyleStack: [any ObjectItemStyle] {
@@ -2757,12 +2757,12 @@ extension EnvironmentValues {
 // MARK: OffStarImageStyle
 
 struct OffStarImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OffStarImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OffStarImageStyle] = []
 }
 
 extension EnvironmentValues {
     var offStarImageStyle: any OffStarImageStyle {
-        self.offStarImageStyleStack.last ?? .base
+        self.offStarImageStyleStack.last ?? OffStarImageDefaultStyle()
     }
 
     var offStarImageStyleStack: [any OffStarImageStyle] {
@@ -2778,12 +2778,12 @@ extension EnvironmentValues {
 // MARK: OnStarImageStyle
 
 struct OnStarImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OnStarImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OnStarImageStyle] = []
 }
 
 extension EnvironmentValues {
     var onStarImageStyle: any OnStarImageStyle {
-        self.onStarImageStyleStack.last ?? .base
+        self.onStarImageStyleStack.last ?? OnStarImageDefaultStyle()
     }
 
     var onStarImageStyleStack: [any OnStarImageStyle] {
@@ -2799,12 +2799,12 @@ extension EnvironmentValues {
 // MARK: OnboardingScanViewStyle
 
 struct OnboardingScanViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OnboardingScanViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OnboardingScanViewStyle] = []
 }
 
 extension EnvironmentValues {
     var onboardingScanViewStyle: any OnboardingScanViewStyle {
-        self.onboardingScanViewStyleStack.last ?? .base.concat(.fiori)
+        self.onboardingScanViewStyleStack.last ?? OnboardingScanViewDefaultStyle()
     }
 
     var onboardingScanViewStyleStack: [any OnboardingScanViewStyle] {
@@ -2820,12 +2820,12 @@ extension EnvironmentValues {
 // MARK: OptionalTitleStyle
 
 struct OptionalTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OptionalTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OptionalTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var optionalTitleStyle: any OptionalTitleStyle {
-        self.optionalTitleStyleStack.last ?? .base
+        self.optionalTitleStyleStack.last ?? OptionalTitleDefaultStyle()
     }
 
     var optionalTitleStyleStack: [any OptionalTitleStyle] {
@@ -2841,12 +2841,12 @@ extension EnvironmentValues {
 // MARK: OptionsStyle
 
 struct OptionsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OptionsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OptionsStyle] = []
 }
 
 extension EnvironmentValues {
     var optionsStyle: any OptionsStyle {
-        self.optionsStyleStack.last ?? .base
+        self.optionsStyleStack.last ?? OptionsDefaultStyle()
     }
 
     var optionsStyleStack: [any OptionsStyle] {
@@ -2862,12 +2862,12 @@ extension EnvironmentValues {
 // MARK: OrderPickerStyle
 
 struct OrderPickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OrderPickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OrderPickerStyle] = []
 }
 
 extension EnvironmentValues {
     var orderPickerStyle: any OrderPickerStyle {
-        self.orderPickerStyleStack.last ?? .base.concat(.fiori)
+        self.orderPickerStyleStack.last ?? OrderPickerDefaultStyle()
     }
 
     var orderPickerStyleStack: [any OrderPickerStyle] {
@@ -2883,12 +2883,12 @@ extension EnvironmentValues {
 // MARK: OuterCircleStyle
 
 struct OuterCircleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OuterCircleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OuterCircleStyle] = []
 }
 
 extension EnvironmentValues {
     var outerCircleStyle: any OuterCircleStyle {
-        self.outerCircleStyleStack.last ?? .base
+        self.outerCircleStyleStack.last ?? OuterCircleDefaultStyle()
     }
 
     var outerCircleStyleStack: [any OuterCircleStyle] {
@@ -2904,12 +2904,12 @@ extension EnvironmentValues {
 // MARK: OverflowActionStyle
 
 struct OverflowActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any OverflowActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any OverflowActionStyle] = []
 }
 
 extension EnvironmentValues {
     var overflowActionStyle: any OverflowActionStyle {
-        self.overflowActionStyleStack.last ?? .base
+        self.overflowActionStyleStack.last ?? OverflowActionDefaultStyle()
     }
 
     var overflowActionStyleStack: [any OverflowActionStyle] {
@@ -2925,12 +2925,12 @@ extension EnvironmentValues {
 // MARK: PlaceholderStyle
 
 struct PlaceholderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any PlaceholderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any PlaceholderStyle] = []
 }
 
 extension EnvironmentValues {
     var placeholderStyle: any PlaceholderStyle {
-        self.placeholderStyleStack.last ?? .base
+        self.placeholderStyleStack.last ?? PlaceholderDefaultStyle()
     }
 
     var placeholderStyleStack: [any PlaceholderStyle] {
@@ -2946,12 +2946,12 @@ extension EnvironmentValues {
 // MARK: PlaceholderTextEditorStyle
 
 struct PlaceholderTextEditorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any PlaceholderTextEditorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any PlaceholderTextEditorStyle] = []
 }
 
 extension EnvironmentValues {
     var placeholderTextEditorStyle: any PlaceholderTextEditorStyle {
-        self.placeholderTextEditorStyleStack.last ?? .base.concat(.fiori)
+        self.placeholderTextEditorStyleStack.last ?? PlaceholderTextEditorDefaultStyle()
     }
 
     var placeholderTextEditorStyleStack: [any PlaceholderTextEditorStyle] {
@@ -2967,12 +2967,12 @@ extension EnvironmentValues {
 // MARK: PlaceholderTextFieldStyle
 
 struct PlaceholderTextFieldStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any PlaceholderTextFieldStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any PlaceholderTextFieldStyle] = []
 }
 
 extension EnvironmentValues {
     var placeholderTextFieldStyle: any PlaceholderTextFieldStyle {
-        self.placeholderTextFieldStyleStack.last ?? .base.concat(.fiori)
+        self.placeholderTextFieldStyleStack.last ?? PlaceholderTextFieldDefaultStyle()
     }
 
     var placeholderTextFieldStyleStack: [any PlaceholderTextFieldStyle] {
@@ -2988,12 +2988,12 @@ extension EnvironmentValues {
 // MARK: ProcessingIndicatorStyle
 
 struct ProcessingIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProcessingIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ProcessingIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var processingIndicatorStyle: any ProcessingIndicatorStyle {
-        self.processingIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.processingIndicatorStyleStack.last ?? ProcessingIndicatorDefaultStyle()
     }
 
     var processingIndicatorStyleStack: [any ProcessingIndicatorStyle] {
@@ -3009,12 +3009,12 @@ extension EnvironmentValues {
 // MARK: ProfileHeaderStyle
 
 struct ProfileHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProfileHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ProfileHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var profileHeaderStyle: any ProfileHeaderStyle {
-        self.profileHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.profileHeaderStyleStack.last ?? ProfileHeaderDefaultStyle()
     }
 
     var profileHeaderStyleStack: [any ProfileHeaderStyle] {
@@ -3030,12 +3030,12 @@ extension EnvironmentValues {
 // MARK: ProgressStyle
 
 struct ProgressStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProgressStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ProgressStyle] = []
 }
 
 extension EnvironmentValues {
     var progressStyle: any ProgressStyle {
-        self.progressStyleStack.last ?? .base
+        self.progressStyleStack.last ?? ProgressDefaultStyle()
     }
 
     var progressStyleStack: [any ProgressStyle] {
@@ -3051,12 +3051,12 @@ extension EnvironmentValues {
 // MARK: ProgressIndicatorStyle
 
 struct ProgressIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProgressIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ProgressIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var progressIndicatorStyle: any ProgressIndicatorStyle {
-        self.progressIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.progressIndicatorStyleStack.last ?? ProgressIndicatorDefaultStyle()
     }
 
     var progressIndicatorStyleStack: [any ProgressIndicatorStyle] {
@@ -3072,12 +3072,12 @@ extension EnvironmentValues {
 // MARK: ProgressIndicatorProtocolStyle
 
 struct ProgressIndicatorProtocolStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProgressIndicatorProtocolStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ProgressIndicatorProtocolStyle] = []
 }
 
 extension EnvironmentValues {
     var progressIndicatorProtocolStyle: any ProgressIndicatorProtocolStyle {
-        self.progressIndicatorProtocolStyleStack.last ?? .base
+        self.progressIndicatorProtocolStyleStack.last ?? ProgressIndicatorProtocolDefaultStyle()
     }
 
     var progressIndicatorProtocolStyleStack: [any ProgressIndicatorProtocolStyle] {
@@ -3093,12 +3093,12 @@ extension EnvironmentValues {
 // MARK: PromptStyle
 
 struct PromptStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any PromptStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any PromptStyle] = []
 }
 
 extension EnvironmentValues {
     var promptStyle: any PromptStyle {
-        self.promptStyleStack.last ?? .base
+        self.promptStyleStack.last ?? PromptDefaultStyle()
     }
 
     var promptStyleStack: [any PromptStyle] {
@@ -3114,12 +3114,12 @@ extension EnvironmentValues {
 // MARK: RangeSliderControlStyle
 
 struct RangeSliderControlStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any RangeSliderControlStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any RangeSliderControlStyle] = []
 }
 
 extension EnvironmentValues {
     var rangeSliderControlStyle: any RangeSliderControlStyle {
-        self.rangeSliderControlStyleStack.last ?? .base.concat(.fiori)
+        self.rangeSliderControlStyleStack.last ?? RangeSliderControlDefaultStyle()
     }
 
     var rangeSliderControlStyleStack: [any RangeSliderControlStyle] {
@@ -3135,12 +3135,12 @@ extension EnvironmentValues {
 // MARK: RatingControlStyle
 
 struct RatingControlStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any RatingControlStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any RatingControlStyle] = []
 }
 
 extension EnvironmentValues {
     var ratingControlStyle: any RatingControlStyle {
-        self.ratingControlStyleStack.last ?? .base.concat(.fiori)
+        self.ratingControlStyleStack.last ?? RatingControlDefaultStyle()
     }
 
     var ratingControlStyleStack: [any RatingControlStyle] {
@@ -3156,12 +3156,12 @@ extension EnvironmentValues {
 // MARK: RatingControlFormViewStyle
 
 struct RatingControlFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any RatingControlFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any RatingControlFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var ratingControlFormViewStyle: any RatingControlFormViewStyle {
-        self.ratingControlFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.ratingControlFormViewStyleStack.last ?? RatingControlFormViewDefaultStyle()
     }
 
     var ratingControlFormViewStyleStack: [any RatingControlFormViewStyle] {
@@ -3177,12 +3177,12 @@ extension EnvironmentValues {
 // MARK: RedoActionStyle
 
 struct RedoActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any RedoActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any RedoActionStyle] = []
 }
 
 extension EnvironmentValues {
     var redoActionStyle: any RedoActionStyle {
-        self.redoActionStyleStack.last ?? .base
+        self.redoActionStyleStack.last ?? RedoActionDefaultStyle()
     }
 
     var redoActionStyleStack: [any RedoActionStyle] {
@@ -3198,12 +3198,12 @@ extension EnvironmentValues {
 // MARK: ReenterSignatureActionStyle
 
 struct ReenterSignatureActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ReenterSignatureActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ReenterSignatureActionStyle] = []
 }
 
 extension EnvironmentValues {
     var reenterSignatureActionStyle: any ReenterSignatureActionStyle {
-        self.reenterSignatureActionStyleStack.last ?? .base
+        self.reenterSignatureActionStyleStack.last ?? ReenterSignatureActionDefaultStyle()
     }
 
     var reenterSignatureActionStyleStack: [any ReenterSignatureActionStyle] {
@@ -3219,12 +3219,12 @@ extension EnvironmentValues {
 // MARK: ResetActionStyle
 
 struct ResetActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ResetActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ResetActionStyle] = []
 }
 
 extension EnvironmentValues {
     var resetActionStyle: any ResetActionStyle {
-        self.resetActionStyleStack.last ?? .base
+        self.resetActionStyleStack.last ?? ResetActionDefaultStyle()
     }
 
     var resetActionStyleStack: [any ResetActionStyle] {
@@ -3240,12 +3240,12 @@ extension EnvironmentValues {
 // MARK: ReviewCountLabelStyle
 
 struct ReviewCountLabelStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ReviewCountLabelStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ReviewCountLabelStyle] = []
 }
 
 extension EnvironmentValues {
     var reviewCountLabelStyle: any ReviewCountLabelStyle {
-        self.reviewCountLabelStyleStack.last ?? .base
+        self.reviewCountLabelStyleStack.last ?? ReviewCountLabelDefaultStyle()
     }
 
     var reviewCountLabelStyleStack: [any ReviewCountLabelStyle] {
@@ -3261,12 +3261,12 @@ extension EnvironmentValues {
 // MARK: Row1Style
 
 struct Row1StyleStackKey: EnvironmentKey {
-    static let defaultValue: [any Row1Style] = []
+    nonisolated(unsafe) static let defaultValue: [any Row1Style] = []
 }
 
 extension EnvironmentValues {
     var row1Style: any Row1Style {
-        self.row1StyleStack.last ?? .base
+        self.row1StyleStack.last ?? Row1DefaultStyle()
     }
 
     var row1StyleStack: [any Row1Style] {
@@ -3282,12 +3282,12 @@ extension EnvironmentValues {
 // MARK: Row2Style
 
 struct Row2StyleStackKey: EnvironmentKey {
-    static let defaultValue: [any Row2Style] = []
+    nonisolated(unsafe) static let defaultValue: [any Row2Style] = []
 }
 
 extension EnvironmentValues {
     var row2Style: any Row2Style {
-        self.row2StyleStack.last ?? .base
+        self.row2StyleStack.last ?? Row2DefaultStyle()
     }
 
     var row2StyleStack: [any Row2Style] {
@@ -3303,12 +3303,12 @@ extension EnvironmentValues {
 // MARK: Row3Style
 
 struct Row3StyleStackKey: EnvironmentKey {
-    static let defaultValue: [any Row3Style] = []
+    nonisolated(unsafe) static let defaultValue: [any Row3Style] = []
 }
 
 extension EnvironmentValues {
     var row3Style: any Row3Style {
-        self.row3StyleStack.last ?? .base
+        self.row3StyleStack.last ?? Row3DefaultStyle()
     }
 
     var row3StyleStack: [any Row3Style] {
@@ -3324,12 +3324,12 @@ extension EnvironmentValues {
 // MARK: SaveActionStyle
 
 struct SaveActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SaveActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SaveActionStyle] = []
 }
 
 extension EnvironmentValues {
     var saveActionStyle: any SaveActionStyle {
-        self.saveActionStyleStack.last ?? .base
+        self.saveActionStyleStack.last ?? SaveActionDefaultStyle()
     }
 
     var saveActionStyleStack: [any SaveActionStyle] {
@@ -3345,12 +3345,12 @@ extension EnvironmentValues {
 // MARK: SecondaryActionStyle
 
 struct SecondaryActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SecondaryActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SecondaryActionStyle] = []
 }
 
 extension EnvironmentValues {
     var secondaryActionStyle: any SecondaryActionStyle {
-        self.secondaryActionStyleStack.last ?? .base
+        self.secondaryActionStyleStack.last ?? SecondaryActionDefaultStyle()
     }
 
     var secondaryActionStyleStack: [any SecondaryActionStyle] {
@@ -3366,12 +3366,12 @@ extension EnvironmentValues {
 // MARK: SecondaryTimestampStyle
 
 struct SecondaryTimestampStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SecondaryTimestampStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SecondaryTimestampStyle] = []
 }
 
 extension EnvironmentValues {
     var secondaryTimestampStyle: any SecondaryTimestampStyle {
-        self.secondaryTimestampStyleStack.last ?? .base
+        self.secondaryTimestampStyleStack.last ?? SecondaryTimestampDefaultStyle()
     }
 
     var secondaryTimestampStyleStack: [any SecondaryTimestampStyle] {
@@ -3387,12 +3387,12 @@ extension EnvironmentValues {
 // MARK: SectionFooterStyle
 
 struct SectionFooterStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SectionFooterStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SectionFooterStyle] = []
 }
 
 extension EnvironmentValues {
     var sectionFooterStyle: any SectionFooterStyle {
-        self.sectionFooterStyleStack.last ?? .base.concat(.fiori)
+        self.sectionFooterStyleStack.last ?? SectionFooterDefaultStyle()
     }
 
     var sectionFooterStyleStack: [any SectionFooterStyle] {
@@ -3408,12 +3408,12 @@ extension EnvironmentValues {
 // MARK: SectionHeaderStyle
 
 struct SectionHeaderStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SectionHeaderStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SectionHeaderStyle] = []
 }
 
 extension EnvironmentValues {
     var sectionHeaderStyle: any SectionHeaderStyle {
-        self.sectionHeaderStyleStack.last ?? .base.concat(.fiori)
+        self.sectionHeaderStyleStack.last ?? SectionHeaderDefaultStyle()
     }
 
     var sectionHeaderStyleStack: [any SectionHeaderStyle] {
@@ -3429,12 +3429,12 @@ extension EnvironmentValues {
 // MARK: SegmentedControlPickerStyle
 
 struct SegmentedControlPickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SegmentedControlPickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SegmentedControlPickerStyle] = []
 }
 
 extension EnvironmentValues {
     var segmentedControlPickerStyle: any SegmentedControlPickerStyle {
-        self.segmentedControlPickerStyleStack.last ?? .base.concat(.fiori)
+        self.segmentedControlPickerStyleStack.last ?? SegmentedControlPickerDefaultStyle()
     }
 
     var segmentedControlPickerStyleStack: [any SegmentedControlPickerStyle] {
@@ -3450,12 +3450,12 @@ extension EnvironmentValues {
 // MARK: SelectAllActionStyle
 
 struct SelectAllActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SelectAllActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SelectAllActionStyle] = []
 }
 
 extension EnvironmentValues {
     var selectAllActionStyle: any SelectAllActionStyle {
-        self.selectAllActionStyleStack.last ?? .base
+        self.selectAllActionStyleStack.last ?? SelectAllActionDefaultStyle()
     }
 
     var selectAllActionStyleStack: [any SelectAllActionStyle] {
@@ -3471,12 +3471,12 @@ extension EnvironmentValues {
 // MARK: SelectedEntriesSectionTitleStyle
 
 struct SelectedEntriesSectionTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SelectedEntriesSectionTitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SelectedEntriesSectionTitleStyle] = []
 }
 
 extension EnvironmentValues {
     var selectedEntriesSectionTitleStyle: any SelectedEntriesSectionTitleStyle {
-        self.selectedEntriesSectionTitleStyleStack.last ?? .base
+        self.selectedEntriesSectionTitleStyleStack.last ?? SelectedEntriesSectionTitleDefaultStyle()
     }
 
     var selectedEntriesSectionTitleStyleStack: [any SelectedEntriesSectionTitleStyle] {
@@ -3492,12 +3492,12 @@ extension EnvironmentValues {
 // MARK: SideBarStyle
 
 struct SideBarStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SideBarStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SideBarStyle] = []
 }
 
 extension EnvironmentValues {
     var sideBarStyle: any SideBarStyle {
-        self.sideBarStyleStack.last ?? .base.concat(.fiori)
+        self.sideBarStyleStack.last ?? SideBarDefaultStyle()
     }
 
     var sideBarStyleStack: [any SideBarStyle] {
@@ -3513,12 +3513,12 @@ extension EnvironmentValues {
 // MARK: SideBarListItemStyle
 
 struct SideBarListItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SideBarListItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SideBarListItemStyle] = []
 }
 
 extension EnvironmentValues {
     var sideBarListItemStyle: any SideBarListItemStyle {
-        self.sideBarListItemStyleStack.last ?? .base.concat(.fiori)
+        self.sideBarListItemStyleStack.last ?? SideBarListItemDefaultStyle()
     }
 
     var sideBarListItemStyleStack: [any SideBarListItemStyle] {
@@ -3534,12 +3534,12 @@ extension EnvironmentValues {
 // MARK: SignInActionStyle
 
 struct SignInActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SignInActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SignInActionStyle] = []
 }
 
 extension EnvironmentValues {
     var signInActionStyle: any SignInActionStyle {
-        self.signInActionStyleStack.last ?? .base
+        self.signInActionStyleStack.last ?? SignInActionDefaultStyle()
     }
 
     var signInActionStyleStack: [any SignInActionStyle] {
@@ -3555,12 +3555,12 @@ extension EnvironmentValues {
 // MARK: SignatureCaptureViewStyle
 
 struct SignatureCaptureViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SignatureCaptureViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SignatureCaptureViewStyle] = []
 }
 
 extension EnvironmentValues {
     var signatureCaptureViewStyle: any SignatureCaptureViewStyle {
-        self.signatureCaptureViewStyleStack.last ?? .base.concat(.fiori)
+        self.signatureCaptureViewStyleStack.last ?? SignatureCaptureViewDefaultStyle()
     }
 
     var signatureCaptureViewStyleStack: [any SignatureCaptureViewStyle] {
@@ -3576,12 +3576,12 @@ extension EnvironmentValues {
 // MARK: SingleStepStyle
 
 struct SingleStepStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SingleStepStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SingleStepStyle] = []
 }
 
 extension EnvironmentValues {
     var singleStepStyle: any SingleStepStyle {
-        self.singleStepStyleStack.last ?? .base.concat(.fiori)
+        self.singleStepStyleStack.last ?? SingleStepDefaultStyle()
     }
 
     var singleStepStyleStack: [any SingleStepStyle] {
@@ -3597,12 +3597,12 @@ extension EnvironmentValues {
 // MARK: SortCriterionStyle
 
 struct SortCriterionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SortCriterionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SortCriterionStyle] = []
 }
 
 extension EnvironmentValues {
     var sortCriterionStyle: any SortCriterionStyle {
-        self.sortCriterionStyleStack.last ?? .base.concat(.fiori)
+        self.sortCriterionStyleStack.last ?? SortCriterionDefaultStyle()
     }
 
     var sortCriterionStyleStack: [any SortCriterionStyle] {
@@ -3618,12 +3618,12 @@ extension EnvironmentValues {
 // MARK: SortFilterViewStyle
 
 struct SortFilterViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SortFilterViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SortFilterViewStyle] = []
 }
 
 extension EnvironmentValues {
     var sortFilterViewStyle: any SortFilterViewStyle {
-        self.sortFilterViewStyleStack.last ?? .base.concat(.fiori)
+        self.sortFilterViewStyleStack.last ?? SortFilterViewDefaultStyle()
     }
 
     var sortFilterViewStyleStack: [any SortFilterViewStyle] {
@@ -3639,12 +3639,12 @@ extension EnvironmentValues {
 // MARK: StartSignatureActionStyle
 
 struct StartSignatureActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StartSignatureActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StartSignatureActionStyle] = []
 }
 
 extension EnvironmentValues {
     var startSignatureActionStyle: any StartSignatureActionStyle {
-        self.startSignatureActionStyleStack.last ?? .base
+        self.startSignatureActionStyleStack.last ?? StartSignatureActionDefaultStyle()
     }
 
     var startSignatureActionStyleStack: [any StartSignatureActionStyle] {
@@ -3660,12 +3660,12 @@ extension EnvironmentValues {
 // MARK: StateLabelStyle
 
 struct StateLabelStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StateLabelStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StateLabelStyle] = []
 }
 
 extension EnvironmentValues {
     var stateLabelStyle: any StateLabelStyle {
-        self.stateLabelStyleStack.last ?? .base
+        self.stateLabelStyleStack.last ?? StateLabelDefaultStyle()
     }
 
     var stateLabelStyleStack: [any StateLabelStyle] {
@@ -3681,12 +3681,12 @@ extension EnvironmentValues {
 // MARK: StatusStyle
 
 struct StatusStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StatusStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StatusStyle] = []
 }
 
 extension EnvironmentValues {
     var statusStyle: any StatusStyle {
-        self.statusStyleStack.last ?? .base
+        self.statusStyleStack.last ?? StatusDefaultStyle()
     }
 
     var statusStyleStack: [any StatusStyle] {
@@ -3702,12 +3702,12 @@ extension EnvironmentValues {
 // MARK: StepProgressIndicatorStyle
 
 struct StepProgressIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StepProgressIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StepProgressIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var stepProgressIndicatorStyle: any StepProgressIndicatorStyle {
-        self.stepProgressIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.stepProgressIndicatorStyleStack.last ?? StepProgressIndicatorDefaultStyle()
     }
 
     var stepProgressIndicatorStyleStack: [any StepProgressIndicatorStyle] {
@@ -3723,12 +3723,12 @@ extension EnvironmentValues {
 // MARK: StepperFieldStyle
 
 struct StepperFieldStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StepperFieldStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StepperFieldStyle] = []
 }
 
 extension EnvironmentValues {
     var stepperFieldStyle: any StepperFieldStyle {
-        self.stepperFieldStyleStack.last ?? .base.concat(.fiori)
+        self.stepperFieldStyleStack.last ?? StepperFieldDefaultStyle()
     }
 
     var stepperFieldStyleStack: [any StepperFieldStyle] {
@@ -3744,12 +3744,12 @@ extension EnvironmentValues {
 // MARK: StepperViewStyle
 
 struct StepperViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any StepperViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any StepperViewStyle] = []
 }
 
 extension EnvironmentValues {
     var stepperViewStyle: any StepperViewStyle {
-        self.stepperViewStyleStack.last ?? .base.concat(.fiori)
+        self.stepperViewStyleStack.last ?? StepperViewDefaultStyle()
     }
 
     var stepperViewStyleStack: [any StepperViewStyle] {
@@ -3765,12 +3765,12 @@ extension EnvironmentValues {
 // MARK: SubAttributeStyle
 
 struct SubAttributeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SubAttributeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SubAttributeStyle] = []
 }
 
 extension EnvironmentValues {
     var subAttributeStyle: any SubAttributeStyle {
-        self.subAttributeStyleStack.last ?? .base
+        self.subAttributeStyleStack.last ?? SubAttributeDefaultStyle()
     }
 
     var subAttributeStyleStack: [any SubAttributeStyle] {
@@ -3786,12 +3786,12 @@ extension EnvironmentValues {
 // MARK: SubmitActionStyle
 
 struct SubmitActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SubmitActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SubmitActionStyle] = []
 }
 
 extension EnvironmentValues {
     var submitActionStyle: any SubmitActionStyle {
-        self.submitActionStyleStack.last ?? .base
+        self.submitActionStyleStack.last ?? SubmitActionDefaultStyle()
     }
 
     var submitActionStyleStack: [any SubmitActionStyle] {
@@ -3807,12 +3807,12 @@ extension EnvironmentValues {
 // MARK: SubstatusStyle
 
 struct SubstatusStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SubstatusStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SubstatusStyle] = []
 }
 
 extension EnvironmentValues {
     var substatusStyle: any SubstatusStyle {
-        self.substatusStyleStack.last ?? .base
+        self.substatusStyleStack.last ?? SubstatusDefaultStyle()
     }
 
     var substatusStyleStack: [any SubstatusStyle] {
@@ -3828,12 +3828,12 @@ extension EnvironmentValues {
 // MARK: SubtitleStyle
 
 struct SubtitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SubtitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SubtitleStyle] = []
 }
 
 extension EnvironmentValues {
     var subtitleStyle: any SubtitleStyle {
-        self.subtitleStyleStack.last ?? .base
+        self.subtitleStyleStack.last ?? SubtitleDefaultStyle()
     }
 
     var subtitleStyleStack: [any SubtitleStyle] {
@@ -3849,12 +3849,12 @@ extension EnvironmentValues {
 // MARK: SwitchStyle
 
 struct SwitchStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SwitchStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SwitchStyle] = []
 }
 
 extension EnvironmentValues {
     var switchStyle: any SwitchStyle {
-        self.switchStyleStack.last ?? .base
+        self.switchStyleStack.last ?? SwitchDefaultStyle()
     }
 
     var switchStyleStack: [any SwitchStyle] {
@@ -3870,12 +3870,12 @@ extension EnvironmentValues {
 // MARK: SwitchViewStyle
 
 struct SwitchViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any SwitchViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any SwitchViewStyle] = []
 }
 
 extension EnvironmentValues {
     var switchViewStyle: any SwitchViewStyle {
-        self.switchViewStyleStack.last ?? .base.concat(.fiori)
+        self.switchViewStyleStack.last ?? SwitchViewDefaultStyle()
     }
 
     var switchViewStyleStack: [any SwitchViewStyle] {
@@ -3891,12 +3891,12 @@ extension EnvironmentValues {
 // MARK: TagStyle
 
 struct TagStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TagStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TagStyle] = []
 }
 
 extension EnvironmentValues {
     var tagStyle: any TagStyle {
-        self.tagStyleStack.last ?? .base
+        self.tagStyleStack.last ?? TagDefaultStyle()
     }
 
     var tagStyleStack: [any TagStyle] {
@@ -3912,12 +3912,12 @@ extension EnvironmentValues {
 // MARK: TagsStyle
 
 struct TagsStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TagsStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TagsStyle] = []
 }
 
 extension EnvironmentValues {
     var tagsStyle: any TagsStyle {
-        self.tagsStyleStack.last ?? .base
+        self.tagsStyleStack.last ?? TagsDefaultStyle()
     }
 
     var tagsStyleStack: [any TagsStyle] {
@@ -3933,12 +3933,12 @@ extension EnvironmentValues {
 // MARK: TertiaryActionStyle
 
 struct TertiaryActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TertiaryActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TertiaryActionStyle] = []
 }
 
 extension EnvironmentValues {
     var tertiaryActionStyle: any TertiaryActionStyle {
-        self.tertiaryActionStyleStack.last ?? .base
+        self.tertiaryActionStyleStack.last ?? TertiaryActionDefaultStyle()
     }
 
     var tertiaryActionStyleStack: [any TertiaryActionStyle] {
@@ -3954,12 +3954,12 @@ extension EnvironmentValues {
 // MARK: TextFieldFormViewStyle
 
 struct TextFieldFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TextFieldFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TextFieldFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var textFieldFormViewStyle: any TextFieldFormViewStyle {
-        self.textFieldFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.textFieldFormViewStyleStack.last ?? TextFieldFormViewDefaultStyle()
     }
 
     var textFieldFormViewStyleStack: [any TextFieldFormViewStyle] {
@@ -3975,12 +3975,12 @@ extension EnvironmentValues {
 // MARK: TextInputStyle
 
 struct TextInputStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TextInputStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TextInputStyle] = []
 }
 
 extension EnvironmentValues {
     var textInputStyle: any TextInputStyle {
-        self.textInputStyleStack.last ?? .base
+        self.textInputStyleStack.last ?? TextInputDefaultStyle()
     }
 
     var textInputStyleStack: [any TextInputStyle] {
@@ -3996,12 +3996,12 @@ extension EnvironmentValues {
 // MARK: TextInputFieldStyle
 
 struct TextInputFieldStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TextInputFieldStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TextInputFieldStyle] = []
 }
 
 extension EnvironmentValues {
     var textInputFieldStyle: any TextInputFieldStyle {
-        self.textInputFieldStyleStack.last ?? .base.concat(.fiori)
+        self.textInputFieldStyleStack.last ?? TextInputFieldDefaultStyle()
     }
 
     var textInputFieldStyleStack: [any TextInputFieldStyle] {
@@ -4017,12 +4017,12 @@ extension EnvironmentValues {
 // MARK: TextInputInfoViewStyle
 
 struct TextInputInfoViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TextInputInfoViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TextInputInfoViewStyle] = []
 }
 
 extension EnvironmentValues {
     var textInputInfoViewStyle: any TextInputInfoViewStyle {
-        self.textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
+        self.textInputInfoViewStyleStack.last ?? TextInputInfoViewDefaultStyle()
     }
 
     var textInputInfoViewStyleStack: [any TextInputInfoViewStyle] {
@@ -4038,12 +4038,12 @@ extension EnvironmentValues {
 // MARK: TextViewStyle
 
 struct TextViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TextViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TextViewStyle] = []
 }
 
 extension EnvironmentValues {
     var textViewStyle: any TextViewStyle {
-        self.textViewStyleStack.last ?? .base
+        self.textViewStyleStack.last ?? TextViewDefaultStyle()
     }
 
     var textViewStyleStack: [any TextViewStyle] {
@@ -4059,12 +4059,12 @@ extension EnvironmentValues {
 // MARK: TimelineStyle
 
 struct TimelineStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelineStyle] = []
 }
 
 extension EnvironmentValues {
     var timelineStyle: any TimelineStyle {
-        self.timelineStyleStack.last ?? .base.concat(.fiori)
+        self.timelineStyleStack.last ?? TimelineDefaultStyle()
     }
 
     var timelineStyleStack: [any TimelineStyle] {
@@ -4080,12 +4080,12 @@ extension EnvironmentValues {
 // MARK: TimelineMarkerStyle
 
 struct TimelineMarkerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineMarkerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelineMarkerStyle] = []
 }
 
 extension EnvironmentValues {
     var timelineMarkerStyle: any TimelineMarkerStyle {
-        self.timelineMarkerStyleStack.last ?? .base.concat(.fiori)
+        self.timelineMarkerStyleStack.last ?? TimelineMarkerDefaultStyle()
     }
 
     var timelineMarkerStyleStack: [any TimelineMarkerStyle] {
@@ -4101,12 +4101,12 @@ extension EnvironmentValues {
 // MARK: TimelineNodeStyle
 
 struct TimelineNodeStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineNodeStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelineNodeStyle] = []
 }
 
 extension EnvironmentValues {
     var timelineNodeStyle: any TimelineNodeStyle {
-        self.timelineNodeStyleStack.last ?? .base
+        self.timelineNodeStyleStack.last ?? TimelineNodeDefaultStyle()
     }
 
     var timelineNodeStyleStack: [any TimelineNodeStyle] {
@@ -4122,12 +4122,12 @@ extension EnvironmentValues {
 // MARK: TimelineNowIndicatorStyle
 
 struct TimelineNowIndicatorStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelineNowIndicatorStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelineNowIndicatorStyle] = []
 }
 
 extension EnvironmentValues {
     var timelineNowIndicatorStyle: any TimelineNowIndicatorStyle {
-        self.timelineNowIndicatorStyleStack.last ?? .base.concat(.fiori)
+        self.timelineNowIndicatorStyleStack.last ?? TimelineNowIndicatorDefaultStyle()
     }
 
     var timelineNowIndicatorStyleStack: [any TimelineNowIndicatorStyle] {
@@ -4143,12 +4143,12 @@ extension EnvironmentValues {
 // MARK: TimelinePreviewStyle
 
 struct TimelinePreviewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelinePreviewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelinePreviewStyle] = []
 }
 
 extension EnvironmentValues {
     var timelinePreviewStyle: any TimelinePreviewStyle {
-        self.timelinePreviewStyleStack.last ?? .base.concat(.fiori)
+        self.timelinePreviewStyleStack.last ?? TimelinePreviewDefaultStyle()
     }
 
     var timelinePreviewStyleStack: [any TimelinePreviewStyle] {
@@ -4164,12 +4164,12 @@ extension EnvironmentValues {
 // MARK: TimelinePreviewItemStyle
 
 struct TimelinePreviewItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimelinePreviewItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimelinePreviewItemStyle] = []
 }
 
 extension EnvironmentValues {
     var timelinePreviewItemStyle: any TimelinePreviewItemStyle {
-        self.timelinePreviewItemStyleStack.last ?? .base.concat(.fiori)
+        self.timelinePreviewItemStyleStack.last ?? TimelinePreviewItemDefaultStyle()
     }
 
     var timelinePreviewItemStyleStack: [any TimelinePreviewItemStyle] {
@@ -4185,12 +4185,12 @@ extension EnvironmentValues {
 // MARK: TimestampStyle
 
 struct TimestampStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TimestampStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TimestampStyle] = []
 }
 
 extension EnvironmentValues {
     var timestampStyle: any TimestampStyle {
-        self.timestampStyleStack.last ?? .base
+        self.timestampStyleStack.last ?? TimestampDefaultStyle()
     }
 
     var timestampStyleStack: [any TimestampStyle] {
@@ -4206,12 +4206,12 @@ extension EnvironmentValues {
 // MARK: TitleStyle
 
 struct TitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TitleStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TitleStyle] = []
 }
 
 extension EnvironmentValues {
     var titleStyle: any TitleStyle {
-        self.titleStyleStack.last ?? .base
+        self.titleStyleStack.last ?? TitleDefaultStyle()
     }
 
     var titleStyleStack: [any TitleStyle] {
@@ -4227,12 +4227,12 @@ extension EnvironmentValues {
 // MARK: TitleFormViewStyle
 
 struct TitleFormViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TitleFormViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TitleFormViewStyle] = []
 }
 
 extension EnvironmentValues {
     var titleFormViewStyle: any TitleFormViewStyle {
-        self.titleFormViewStyleStack.last ?? .base.concat(.fiori)
+        self.titleFormViewStyleStack.last ?? TitleFormViewDefaultStyle()
     }
 
     var titleFormViewStyleStack: [any TitleFormViewStyle] {
@@ -4248,12 +4248,12 @@ extension EnvironmentValues {
 // MARK: ToastMessageStyle
 
 struct ToastMessageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ToastMessageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ToastMessageStyle] = []
 }
 
 extension EnvironmentValues {
     var toastMessageStyle: any ToastMessageStyle {
-        self.toastMessageStyleStack.last ?? .base.concat(.fiori)
+        self.toastMessageStyleStack.last ?? ToastMessageDefaultStyle()
     }
 
     var toastMessageStyleStack: [any ToastMessageStyle] {
@@ -4269,12 +4269,12 @@ extension EnvironmentValues {
 // MARK: TopDividerStyle
 
 struct TopDividerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TopDividerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TopDividerStyle] = []
 }
 
 extension EnvironmentValues {
     var topDividerStyle: any TopDividerStyle {
-        self.topDividerStyleStack.last ?? .base
+        self.topDividerStyleStack.last ?? TopDividerDefaultStyle()
     }
 
     var topDividerStyleStack: [any TopDividerStyle] {
@@ -4290,12 +4290,12 @@ extension EnvironmentValues {
 // MARK: TrailingAccessoryStyle
 
 struct TrailingAccessoryStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TrailingAccessoryStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TrailingAccessoryStyle] = []
 }
 
 extension EnvironmentValues {
     var trailingAccessoryStyle: any TrailingAccessoryStyle {
-        self.trailingAccessoryStyleStack.last ?? .base
+        self.trailingAccessoryStyleStack.last ?? TrailingAccessoryDefaultStyle()
     }
 
     var trailingAccessoryStyleStack: [any TrailingAccessoryStyle] {
@@ -4311,12 +4311,12 @@ extension EnvironmentValues {
 // MARK: TrendStyle
 
 struct TrendStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TrendStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TrendStyle] = []
 }
 
 extension EnvironmentValues {
     var trendStyle: any TrendStyle {
-        self.trendStyleStack.last ?? .base
+        self.trendStyleStack.last ?? TrendDefaultStyle()
     }
 
     var trendStyleStack: [any TrendStyle] {
@@ -4332,12 +4332,12 @@ extension EnvironmentValues {
 // MARK: TrendImageStyle
 
 struct TrendImageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any TrendImageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any TrendImageStyle] = []
 }
 
 extension EnvironmentValues {
     var trendImageStyle: any TrendImageStyle {
-        self.trendImageStyleStack.last ?? .base
+        self.trendImageStyleStack.last ?? TrendImageDefaultStyle()
     }
 
     var trendImageStyleStack: [any TrendImageStyle] {
@@ -4353,12 +4353,12 @@ extension EnvironmentValues {
 // MARK: UndoActionStyle
 
 struct UndoActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UndoActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UndoActionStyle] = []
 }
 
 extension EnvironmentValues {
     var undoActionStyle: any UndoActionStyle {
-        self.undoActionStyleStack.last ?? .base
+        self.undoActionStyleStack.last ?? UndoActionDefaultStyle()
     }
 
     var undoActionStyleStack: [any UndoActionStyle] {
@@ -4374,12 +4374,12 @@ extension EnvironmentValues {
 // MARK: UpVoteActionStyle
 
 struct UpVoteActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UpVoteActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UpVoteActionStyle] = []
 }
 
 extension EnvironmentValues {
     var upVoteActionStyle: any UpVoteActionStyle {
-        self.upVoteActionStyleStack.last ?? .base
+        self.upVoteActionStyleStack.last ?? UpVoteActionDefaultStyle()
     }
 
     var upVoteActionStyleStack: [any UpVoteActionStyle] {
@@ -4395,12 +4395,12 @@ extension EnvironmentValues {
 // MARK: UpperThumbStyle
 
 struct UpperThumbStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UpperThumbStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UpperThumbStyle] = []
 }
 
 extension EnvironmentValues {
     var upperThumbStyle: any UpperThumbStyle {
-        self.upperThumbStyleStack.last ?? .base
+        self.upperThumbStyleStack.last ?? UpperThumbDefaultStyle()
     }
 
     var upperThumbStyleStack: [any UpperThumbStyle] {
@@ -4416,12 +4416,12 @@ extension EnvironmentValues {
 // MARK: UserConsentFormStyle
 
 struct UserConsentFormStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UserConsentFormStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UserConsentFormStyle] = []
 }
 
 extension EnvironmentValues {
     var userConsentFormStyle: any UserConsentFormStyle {
-        self.userConsentFormStyleStack.last ?? .base.concat(.fiori)
+        self.userConsentFormStyleStack.last ?? UserConsentFormDefaultStyle()
     }
 
     var userConsentFormStyleStack: [any UserConsentFormStyle] {
@@ -4437,12 +4437,12 @@ extension EnvironmentValues {
 // MARK: UserConsentPageStyle
 
 struct UserConsentPageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UserConsentPageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UserConsentPageStyle] = []
 }
 
 extension EnvironmentValues {
     var userConsentPageStyle: any UserConsentPageStyle {
-        self.userConsentPageStyleStack.last ?? .base.concat(.fiori)
+        self.userConsentPageStyleStack.last ?? UserConsentPageDefaultStyle()
     }
 
     var userConsentPageStyleStack: [any UserConsentPageStyle] {
@@ -4458,12 +4458,12 @@ extension EnvironmentValues {
 // MARK: UserConsentViewStyle
 
 struct UserConsentViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any UserConsentViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any UserConsentViewStyle] = []
 }
 
 extension EnvironmentValues {
     var userConsentViewStyle: any UserConsentViewStyle {
-        self.userConsentViewStyleStack.last ?? .base.concat(.fiori)
+        self.userConsentViewStyleStack.last ?? UserConsentViewDefaultStyle()
     }
 
     var userConsentViewStyleStack: [any UserConsentViewStyle] {
@@ -4479,12 +4479,12 @@ extension EnvironmentValues {
 // MARK: ValueStyle
 
 struct ValueStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ValueStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ValueStyle] = []
 }
 
 extension EnvironmentValues {
     var valueStyle: any ValueStyle {
-        self.valueStyleStack.last ?? .base
+        self.valueStyleStack.last ?? ValueDefaultStyle()
     }
 
     var valueStyleStack: [any ValueStyle] {
@@ -4500,12 +4500,12 @@ extension EnvironmentValues {
 // MARK: ValueLabelStyle
 
 struct ValueLabelStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ValueLabelStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ValueLabelStyle] = []
 }
 
 extension EnvironmentValues {
     var valueLabelStyle: any ValueLabelStyle {
-        self.valueLabelStyleStack.last ?? .base
+        self.valueLabelStyleStack.last ?? ValueLabelDefaultStyle()
     }
 
     var valueLabelStyleStack: [any ValueLabelStyle] {
@@ -4521,12 +4521,12 @@ extension EnvironmentValues {
 // MARK: ValuePickerStyle
 
 struct ValuePickerStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ValuePickerStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any ValuePickerStyle] = []
 }
 
 extension EnvironmentValues {
     var valuePickerStyle: any ValuePickerStyle {
-        self.valuePickerStyleStack.last ?? .base.concat(.fiori)
+        self.valuePickerStyleStack.last ?? ValuePickerDefaultStyle()
     }
 
     var valuePickerStyleStack: [any ValuePickerStyle] {
@@ -4542,12 +4542,12 @@ extension EnvironmentValues {
 // MARK: WatermarkStyle
 
 struct WatermarkStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WatermarkStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WatermarkStyle] = []
 }
 
 extension EnvironmentValues {
     var watermarkStyle: any WatermarkStyle {
-        self.watermarkStyleStack.last ?? .base
+        self.watermarkStyleStack.last ?? WatermarkDefaultStyle()
     }
 
     var watermarkStyleStack: [any WatermarkStyle] {
@@ -4563,12 +4563,12 @@ extension EnvironmentValues {
 // MARK: WelcomeScreenStyle
 
 struct WelcomeScreenStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WelcomeScreenStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WelcomeScreenStyle] = []
 }
 
 extension EnvironmentValues {
     var welcomeScreenStyle: any WelcomeScreenStyle {
-        self.welcomeScreenStyleStack.last ?? .base.concat(.fiori)
+        self.welcomeScreenStyleStack.last ?? WelcomeScreenDefaultStyle()
     }
 
     var welcomeScreenStyleStack: [any WelcomeScreenStyle] {
@@ -4584,12 +4584,12 @@ extension EnvironmentValues {
 // MARK: WhatsNewListItemStyle
 
 struct WhatsNewListItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WhatsNewListItemStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WhatsNewListItemStyle] = []
 }
 
 extension EnvironmentValues {
     var whatsNewListItemStyle: any WhatsNewListItemStyle {
-        self.whatsNewListItemStyleStack.last ?? .base.concat(.fiori)
+        self.whatsNewListItemStyleStack.last ?? WhatsNewListItemDefaultStyle()
     }
 
     var whatsNewListItemStyleStack: [any WhatsNewListItemStyle] {
@@ -4605,12 +4605,12 @@ extension EnvironmentValues {
 // MARK: WhatsNewListViewStyle
 
 struct WhatsNewListViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WhatsNewListViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WhatsNewListViewStyle] = []
 }
 
 extension EnvironmentValues {
     var whatsNewListViewStyle: any WhatsNewListViewStyle {
-        self.whatsNewListViewStyleStack.last ?? .base.concat(.fiori)
+        self.whatsNewListViewStyleStack.last ?? WhatsNewListViewDefaultStyle()
     }
 
     var whatsNewListViewStyleStack: [any WhatsNewListViewStyle] {
@@ -4626,12 +4626,12 @@ extension EnvironmentValues {
 // MARK: WhatsNewPageStyle
 
 struct WhatsNewPageStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WhatsNewPageStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WhatsNewPageStyle] = []
 }
 
 extension EnvironmentValues {
     var whatsNewPageStyle: any WhatsNewPageStyle {
-        self.whatsNewPageStyleStack.last ?? .base.concat(.fiori)
+        self.whatsNewPageStyleStack.last ?? WhatsNewPageDefaultStyle()
     }
 
     var whatsNewPageStyleStack: [any WhatsNewPageStyle] {
@@ -4647,12 +4647,12 @@ extension EnvironmentValues {
 // MARK: WhatsNewPageViewStyle
 
 struct WhatsNewPageViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WhatsNewPageViewStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WhatsNewPageViewStyle] = []
 }
 
 extension EnvironmentValues {
     var whatsNewPageViewStyle: any WhatsNewPageViewStyle {
-        self.whatsNewPageViewStyleStack.last ?? .base.concat(.fiori)
+        self.whatsNewPageViewStyleStack.last ?? WhatsNewPageViewDefaultStyle()
     }
 
     var whatsNewPageViewStyleStack: [any WhatsNewPageViewStyle] {
@@ -4668,12 +4668,12 @@ extension EnvironmentValues {
 // MARK: WritingAssistantActionStyle
 
 struct WritingAssistantActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WritingAssistantActionStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WritingAssistantActionStyle] = []
 }
 
 extension EnvironmentValues {
     var writingAssistantActionStyle: any WritingAssistantActionStyle {
-        self.writingAssistantActionStyleStack.last ?? .base
+        self.writingAssistantActionStyleStack.last ?? WritingAssistantActionDefaultStyle()
     }
 
     var writingAssistantActionStyleStack: [any WritingAssistantActionStyle] {
@@ -4689,12 +4689,12 @@ extension EnvironmentValues {
 // MARK: WritingAssistantFormStyle
 
 struct WritingAssistantFormStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any WritingAssistantFormStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any WritingAssistantFormStyle] = []
 }
 
 extension EnvironmentValues {
     var writingAssistantFormStyle: any WritingAssistantFormStyle {
-        self.writingAssistantFormStyleStack.last ?? .base.concat(.fiori)
+        self.writingAssistantFormStyleStack.last ?? WritingAssistantFormDefaultStyle()
     }
 
     var writingAssistantFormStyleStack: [any WritingAssistantFormStyle] {
@@ -4710,12 +4710,12 @@ extension EnvironmentValues {
 // MARK: XmarkStyle
 
 struct XmarkStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any XmarkStyle] = []
+    nonisolated(unsafe) static let defaultValue: [any XmarkStyle] = []
 }
 
 extension EnvironmentValues {
     var xmarkStyle: any XmarkStyle {
-        self.xmarkStyleStack.last ?? .base
+        self.xmarkStyleStack.last ?? XmarkDefaultStyle()
     }
 
     var xmarkStyleStack: [any XmarkStyle] {

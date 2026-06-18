@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
+struct ObjectCell_Spec_Jan2018: @preconcurrency ObjectItemListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -39,6 +39,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
         true
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         let oi: any View
         switch (indexPath.section, indexPath.row) {

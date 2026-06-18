@@ -2,6 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+@MainActor
 public extension HeaderChart {
     /// Convenience initializer for `HeaderChart`
     /// - Parameters:

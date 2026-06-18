@@ -58,6 +58,7 @@ private extension TrailingAccessory {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TrailingAccessory(.init(componentIdentifier: self.componentIdentifier, trailingAccessory: .init(self.trailingAccessory)))
             .shouldApplyDefaultStyle(false)

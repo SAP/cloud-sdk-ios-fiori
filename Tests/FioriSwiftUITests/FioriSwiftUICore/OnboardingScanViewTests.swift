@@ -1,7 +1,7 @@
 @testable import FioriSwiftUICore
 import XCTest
 
-final class OnboardingScanViewTests: XCTestCase {
+@MainActor final class OnboardingScanViewTests: XCTestCase {
     func testProperties() {
         let context = OnboardingScanViewContext()
         let onboardingScanView = OnboardingScanView(scanViewContext: context, shouldValidateScanResult: { scanResult in

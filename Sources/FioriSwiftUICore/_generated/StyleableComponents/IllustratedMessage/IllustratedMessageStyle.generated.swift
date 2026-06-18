@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol IllustratedMessageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol IllustratedMessageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: IllustratedMessageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: IllustratedMessageConfiguration) -> Body
 }
 
 struct AnyIllustratedMessageStyle: IllustratedMessageStyle {
@@ -53,5 +53,15 @@ public struct IllustratedMessageFioriStyle: IllustratedMessageStyle {
             .descriptionStyle(DescriptionFioriStyle(illustratedMessageConfiguration: configuration))
             .actionStyle(ActionFioriStyle(illustratedMessageConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(illustratedMessageConfiguration: configuration))
+    }
+}
+
+struct IllustratedMessageDefaultStyle: IllustratedMessageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .illustratedMessageStyle(IllustratedMessageFioriStyle())
+            .modifier(IllustratedMessageStyleModifier(style: IllustratedMessageBaseStyle()))
     }
 }

@@ -58,6 +58,7 @@ private extension TopDivider {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TopDivider(.init(componentIdentifier: self.componentIdentifier, topDivider: .init(self.topDivider)))
             .shouldApplyDefaultStyle(false)

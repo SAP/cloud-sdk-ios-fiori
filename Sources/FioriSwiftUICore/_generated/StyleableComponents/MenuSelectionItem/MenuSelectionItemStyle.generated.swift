@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol MenuSelectionItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol MenuSelectionItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: MenuSelectionItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: MenuSelectionItemConfiguration) -> Body
 }
 
 struct AnyMenuSelectionItemStyle: MenuSelectionItemStyle {
@@ -42,5 +42,15 @@ public struct MenuSelectionItemFioriStyle: MenuSelectionItemStyle {
         MenuSelectionItem(configuration)
             .iconStyle(IconFioriStyle(menuSelectionItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(menuSelectionItemConfiguration: configuration))
+    }
+}
+
+struct MenuSelectionItemDefaultStyle: MenuSelectionItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: MenuSelectionItemConfiguration) -> some View {
+        MenuSelectionItem(configuration)
+            .menuSelectionItemStyle(MenuSelectionItemFioriStyle())
+            .modifier(MenuSelectionItemStyleModifier(style: MenuSelectionItemBaseStyle()))
     }
 }

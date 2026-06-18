@@ -8,7 +8,7 @@ public typealias ButtonCreator = (@escaping () -> Void) -> Button<EmptyView>
 /// Environment key for storing the `ButtonCreator` closure, enabling customization of the standard `Button` in `FioriButton`.
 private struct StandardButtonCreatorKey: EnvironmentKey {
     /// Default creator: Returns a plain `Button` with the provided action and `EmptyView` label.
-    static let defaultValue: ButtonCreator = { action in
+    nonisolated(unsafe) static let defaultValue: ButtonCreator = { action in
         Button(action: action) {
             EmptyView()
         }

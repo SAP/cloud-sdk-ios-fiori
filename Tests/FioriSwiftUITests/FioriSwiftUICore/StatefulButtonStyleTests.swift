@@ -36,7 +36,7 @@ extension TertiaryButtonStyle {
     }
 }
 
-final class StatefulButtonStyleTests: XCTestCase {
+@MainActor final class StatefulButtonStyleTests: XCTestCase {
     // Helper states list
     private let allStates: [UIControl.State] = [.normal, .highlighted, .selected, .disabled]
     

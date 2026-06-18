@@ -53,6 +53,7 @@ public extension KPIProgressItem {
 }
 
 public extension KPIProgressItem {
+    @MainActor
     init(@ViewBuilder kPIContent: () -> any View = { EmptyView() },
          kpiCaption: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -105,6 +106,7 @@ private extension KPIProgressItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         KPIProgressItem(.init(componentIdentifier: self.componentIdentifier, kPIContent: .init(self.kPIContent), kpiCaption: .init(self.kpiCaption), footnote: .init(self.footnote), innerCircle: .init(self.innerCircle), outerCircle: .init(self.outerCircle), data: self.$data, chartSize: self.chartSize))
             .shouldApplyDefaultStyle(false)

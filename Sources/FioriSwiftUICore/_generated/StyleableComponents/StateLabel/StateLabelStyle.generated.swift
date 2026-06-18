@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StateLabelStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StateLabelStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StateLabelConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StateLabelConfiguration) -> Body
 }
 
 struct AnyStateLabelStyle: StateLabelStyle {
@@ -31,5 +31,14 @@ public struct StateLabelConfiguration {
 extension StateLabelConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct StateLabelDefaultStyle: StateLabelStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: StateLabelConfiguration) -> some View {
+        StateLabel(configuration)
+            .stateLabelStyle(StateLabelBaseStyle())
     }
 }
