@@ -8,6 +8,7 @@ struct MandatoryAttachmentExample: View {
     
     @State var defaultMandatoryFieldIndicator = false
     @State var isLongTitle = false
+    @State var titleHasCustomStyle = false
     
     let delegate: BasicAttachmentDelegate
     
@@ -38,8 +39,11 @@ struct MandatoryAttachmentExample: View {
             Toggle("Long title", isOn: self.$isLongTitle)
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
+            Toggle("Title custom style", isOn: self.$titleHasCustomStyle)
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
             
-            VStack {
+            Group {
                 if self.defaultMandatoryFieldIndicator {
                     AttachmentGroup(
                         title: AttributedString("\(self.longTitleStr) (\(self.attachments.count))"),
@@ -48,13 +52,7 @@ struct MandatoryAttachmentExample: View {
                         maxCount: 5,
                         delegate: self.delegate,
                         errorMessage: self.$attachmentError,
-                        operations: {
-                            AttachmentButtonImage()
-                                .operationsMenu {
-                                    PhotosPickerMenuItem(filter: [.images])
-                                    FilesPickerMenuItem(filter: [.pdf, .presentation])
-                                }
-                        }
+                        operations: { self.operations }
                     )
                 } else {
                     AttachmentGroup(
@@ -63,14 +61,15 @@ struct MandatoryAttachmentExample: View {
                         maxCount: 5,
                         delegate: self.delegate,
                         errorMessage: self.$attachmentError,
-                        operations: {
-                            AttachmentButtonImage()
-                                .operationsMenu {
-                                    PhotosPickerMenuItem(filter: [.images])
-                                    FilesPickerMenuItem(filter: [.pdf, .presentation])
-                                }
-                        }
+                        operations: { self.operations }
                     )
+                }
+            }
+            .ifApply(self.titleHasCustomStyle) {
+                $0.titleStyle { config in
+                    config.title
+                        .foregroundStyle(Color.preferredColor(.green7))
+                        .font(.fiori(forTextStyle: .subheadline, weight: .regular))
                 }
             }
         }
@@ -102,5 +101,13 @@ struct MandatoryAttachmentExample: View {
     
     var longTitleStr: String {
         self.isLongTitle ? "Attachments long long long long long long long long long long title" : "Attachments"
+    }
+    
+    var operations: some View {
+        AttachmentButtonImage()
+            .operationsMenu {
+                PhotosPickerMenuItem(filter: [.images])
+                FilesPickerMenuItem(filter: [.pdf, .presentation])
+            }
     }
 }
