@@ -11,7 +11,7 @@ struct BubbleChart: View {
     }
 }
 
-class BubbleChartContext: DefaultChartContext {
+class BubbleChartContext: DefaultChartContext, @unchecked Sendable {
     override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
         if model.plotDataCache == nil {
             _ = self.plotData(model)

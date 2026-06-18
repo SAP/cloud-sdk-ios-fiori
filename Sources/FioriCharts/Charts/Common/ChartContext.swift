@@ -42,7 +42,7 @@ protocol ChartContext: AnyObject {
     func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)]
 }
 
-class DefaultChartContext: ChartContext {
+class DefaultChartContext: ChartContext, @unchecked Sendable {
     /// top left position
     func startPosition(_ model: ChartModel, plotViewSize: CGSize) -> CGPoint {
         let pos = self.centerPosition(model, plotViewSize: plotViewSize)

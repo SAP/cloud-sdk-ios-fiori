@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PointsShape: Shape {
+struct PointsShape: Shape, @unchecked Sendable {
     let model: ChartModel
     let chartContext: ChartContext
     let seriesIndex: Int

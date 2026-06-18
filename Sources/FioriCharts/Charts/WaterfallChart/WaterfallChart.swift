@@ -11,7 +11,7 @@ struct WaterfallChart: View {
     }
 }
 
-class WaterfallChartContext: StackedColumnChartContext {
+class WaterfallChartContext: StackedColumnChartContext, @unchecked Sendable {
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd

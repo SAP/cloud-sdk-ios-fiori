@@ -141,7 +141,7 @@ struct DateTimePickerExample: View {
             }
         }
         .onChange(of: self.s2) { _, _ in
-            print("s2 new Value:\(self.s2)")
+            print("s2 new Value:\(String(describing: self.s2))")
         }
         .onChange(of: self.separatedRangeStartDate) { _, _ in
             if let separatedRangeStartDate,

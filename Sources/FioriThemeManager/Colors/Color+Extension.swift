@@ -22,9 +22,13 @@ public extension Color {
         ///     - level: specifies whether the color should be used in the *base* or *elevated* level of the interface. Defaults to `.base`.
         /// - Returns: a static form of `Color`resolved from the dynamic color provider.
         func resolvedColor(with scheme: ColorScheme? = .light, in level: UIUserInterfaceLevel? = .base) -> Color {
-            let style: UITraitCollection = scheme == .light ? .init(userInterfaceStyle: .light) : .init(userInterfaceStyle: .dark)
-            let level: UITraitCollection = .init(userInterfaceLevel: level ?? .base)
-            return Color(self.uiColor().resolvedColor(with: .init(traitsFrom: [style, level])))
+            let userInterfaceStyle: UIUserInterfaceStyle = scheme == .light ? .light : .dark
+            let userInterfaceLevel: UIUserInterfaceLevel = level ?? .base
+            let traitCollection = UITraitCollection { mutableTraits in
+                mutableTraits.userInterfaceStyle = userInterfaceStyle
+                mutableTraits.userInterfaceLevel = userInterfaceLevel
+            }
+            return Color(self.uiColor().resolvedColor(with: traitCollection))
         }
     #endif
 }

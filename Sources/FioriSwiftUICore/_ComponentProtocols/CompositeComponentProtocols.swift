@@ -667,6 +667,7 @@ protocol _MenuSelectionComponent: _ActionComponent {
 }
 
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _BannerMessageComponent: _IconComponent, _TitleComponent, _CloseActionComponent, _TopDividerComponent {
     /// The action to be performed when the banner is tapped.
     var bannerTapAction: (() -> Void)? { get }
