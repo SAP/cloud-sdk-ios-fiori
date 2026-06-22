@@ -13,7 +13,7 @@ import SwiftUI
 /// ## Usage
 /// ```swift
 /// Timeline(timestamp: "06/21/24", secondaryTimestamp: .icon(Image(systemName: "sun.max")), timelineNode: .complete, title: "Complete(Disabled)", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", isPast: true)
-/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr")
+/// Timeline(timestamp: "06/21/24", secondaryTimestamp: .text("Sunny"), timelineNode: .open, title: "Open", subtitle: "abc", attribute: "attr", status: .text("Info"), substatus: .icon(Image(systemName: "exclamationmark.circle")), subAttribute: "subAttr", showUpperVerticalLine: false)
 /// ```
 public struct Timeline {
     let timestamp: any View
@@ -30,9 +30,11 @@ public struct Timeline {
     let isPast: Bool
     /// check if event is present
     let isPresent: Bool
-    /// Show upper vertical line or not. Default is to show.
+    /// Whether to show the upper vertical line.
+    /// Defaults to `true` (shows the line) when the value is not provided.
     let showUpperVerticalLine: Bool?
-    /// Show lower vertical line or not. Default is to show.
+    /// Whether to show the lower vertical line.
+    /// Defaults to `true` (shows the line) when the value is not provided.
     let showLowerVerticalLine: Bool?
 
     @Environment(\.timelineStyle) var style

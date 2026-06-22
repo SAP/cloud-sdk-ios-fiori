@@ -541,7 +541,7 @@ public final class VisionKitScanner: NSObject, BarcodeScanner {
             self.currentStatus = .error(.permissionDenied)
         } else {
             #if canImport(VisionKit) && os(iOS) && !targetEnvironment(macCatalyst)
-                if (self.visionScannerVC as? DataScannerViewController)?.isScanning ?? false {
+                if self.visionScannerVC?.isScanning ?? false {
                     self.currentStatus = .scanning
                 } else {
                     self.currentStatus = (self.visionScannerVC != nil) ? .ready : .idle

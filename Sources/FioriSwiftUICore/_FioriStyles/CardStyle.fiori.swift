@@ -806,8 +806,7 @@ public enum CardTests {
                     print("email")
                 })
             ])
-            
-            Map(coordinateRegion: .constant(CardTests.region))
+            Map(position: .constant(MapCameraPosition.region(CardTests.region)))
                 .frame(height: 200)
         }
     }
