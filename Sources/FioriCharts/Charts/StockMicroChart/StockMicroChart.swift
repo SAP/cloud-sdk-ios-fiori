@@ -11,7 +11,7 @@ struct StockMicroChart: View {
     }
 }
 
-class StockChartContext: LineChartContext {
+class StockChartContext: LineChartContext, @unchecked Sendable {
     var lastCategoryIndexRangeForXAxisView = -1 ... -1
     
     override func plotPath(_ model: ChartModel) -> [[[Path]]] {

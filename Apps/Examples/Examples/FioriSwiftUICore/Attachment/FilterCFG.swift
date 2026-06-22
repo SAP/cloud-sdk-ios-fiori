@@ -29,7 +29,7 @@ struct FilterCFG: View {
             }
 
             ForEach(self.photoFilters, id: \.self) { filter in
-                Text("\(filter)")
+                Text(String(describing: filter))
             }
 
             Section {
@@ -51,7 +51,7 @@ struct FilterCFG: View {
             } header: { Text("File Selection Filter") }
             
             ForEach(self.fileFilters, id: \.self) { filter in
-                Text("\(filter)")
+                Text(filter.identifier)
             }
         }
         .border(Color.blue)

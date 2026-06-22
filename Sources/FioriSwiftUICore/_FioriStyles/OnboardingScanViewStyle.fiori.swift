@@ -28,7 +28,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
                 Color.preferredColor(.headerBlended).opacity(0.5)
                     .ignoresSafeArea()
                 #if !os(visionOS)
-                    if self.scannerManager.status == ScannerStatus.ready || self.scannerManager.status == ScannerStatus.scanning, let visionKitScanner = scannerManager.getVisionKitScanner() {
+                    if self.scannerManager.status == ScannerStatus.ready || self.scannerManager.status == ScannerStatus.scanning, self.scannerManager.getVisionKitScanner() != nil {
                         VisionKitScannerRepresentable(scannerManager: self.scannerManager, isTorchOn: self.$isTorchOn, onCancelTapped: {})
                             .ignoresSafeArea(.all)
                     }

@@ -11,7 +11,7 @@ struct ColumnChart: View {
     }
 }
 
-class ColumnChartContext: DefaultChartContext {
+class ColumnChartContext: DefaultChartContext, @unchecked Sendable {
     override func columnWidth(_ model: ChartModel) -> CGFloat {
         let seriesCount = model.numOfSeries()
         let maxDataCount = model.numOfCategories()

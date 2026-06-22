@@ -11,7 +11,7 @@ struct StackedBarChart: View {
     }
 }
 
-class StackedBarChartContext: BarChartContext {
+class StackedBarChartContext: BarChartContext, @unchecked Sendable {
     override func columnWidth(_ model: ChartModel) -> CGFloat {
         let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))

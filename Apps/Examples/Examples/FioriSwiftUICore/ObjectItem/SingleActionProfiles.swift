@@ -62,17 +62,6 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
     
     //    @ViewBuilder
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
-        let actionBtn = Button {
-            print("Tapped Follow")
-        } label: {
-            Text("Follow")
-                .font(.callout)
-                .lineLimit(2)
-                .foregroundColor(Color.preferredColor(.tintColor))
-                .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
-        }.buttonStyle(PlainButtonStyle())
-        
         let oi: any View
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
