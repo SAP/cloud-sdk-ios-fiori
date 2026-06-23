@@ -5,8 +5,10 @@ import SwiftUI
 /// The base layout style for `TitleFormView`.
 public struct TitleFormViewBaseStyle: TitleFormViewStyle {
     @FocusState var isFocused: Bool
-    
+
+    @ViewBuilder
     public func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+        nonisolated(unsafe) let configuration = configuration
         SkeletonLoadingContainer {
             VStack(alignment: .leading) {
                 configuration._placeholderTextField

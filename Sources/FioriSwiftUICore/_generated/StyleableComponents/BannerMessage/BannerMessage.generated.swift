@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 public struct BannerMessage {
     let icon: any View
     let title: any View

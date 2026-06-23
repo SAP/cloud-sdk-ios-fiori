@@ -342,6 +342,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
     
     @ViewBuilder
     func getExtraInfoView(_ configuration: AttachmentConfiguration, value: Bool) -> some View {
+        nonisolated(unsafe) let configuration = configuration
         VStack(alignment: .center) {
             Toggle("", isOn: Binding<Bool>(
                 get: {
@@ -369,6 +370,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
 
     @ViewBuilder
     func getExtraInfoView(_ configuration: AttachmentConfiguration, value: Int) -> some View {
+        nonisolated(unsafe) let configuration = configuration
         VStack(alignment: .center) {
             HStack {
                 Stepper("", value: Binding<Int>(
@@ -533,6 +535,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
     
     @ViewBuilder
     func getSwitch(_ configuration: AttachmentConfiguration, value: Bool) -> some View {
+        nonisolated(unsafe) let configuration = configuration
         HStack {
             VStack {
                 Text("Shared?")
@@ -550,7 +553,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                         switch configuration.attachmentInfo {
                         case .uploading, .error:
                             break
-                        case .uploaded(let destinationURL, let sourceURL, _):
+                        case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
                         }
                     }
@@ -562,6 +565,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
     
     @ViewBuilder
     func getStepper(_ configuration: AttachmentConfiguration, value: Int) -> some View {
+        nonisolated(unsafe) let configuration = configuration
         HStack {
             VStack {
                 Text("Count: \(value)")
@@ -575,7 +579,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                         switch configuration.attachmentInfo {
                         case .uploading, .error:
                             return
-                        case .uploaded(let destinationURL, let sourceURL, _):
+                        case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
                         }
                     }

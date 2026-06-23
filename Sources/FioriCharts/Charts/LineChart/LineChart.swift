@@ -11,7 +11,7 @@ struct LineChart: View {
     }
 }
 
-class LineChartContext: DefaultChartContext {
+class LineChartContext: DefaultChartContext, @unchecked Sendable {
     override func plotPath(_ model: ChartModel) -> [[[Path]]] {
         if !model.path.isEmpty {
             return model.path

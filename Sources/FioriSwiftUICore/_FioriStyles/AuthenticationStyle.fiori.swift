@@ -193,6 +193,7 @@ public struct AuthTextFieldStyle: TextFieldFormViewStyle {
     @FocusState private var isFocused: Bool
     @State private var isEditing: Bool = false
     @State private var isSecure: Bool = false
+    @State private var securityIconWidth: CGFloat = 0
     
     public init() {}
     
@@ -203,6 +204,14 @@ public struct AuthTextFieldStyle: TextFieldFormViewStyle {
                     .foregroundStyle(self.getTitleColor(configuration))
                     .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
             }
+            .placeholderStyle(content: { config in
+                HStack(spacing: 0) {
+                    Placeholder(config)
+                    if configuration.isSecureEnabled ?? false {
+                        Spacer(minLength: self.securityIconWidth)
+                    }
+                }
+            })
             .placeholderTextFieldStyle { config in
                 HStack {
                     PlaceholderTextField(config)
@@ -239,13 +248,15 @@ public struct AuthTextFieldStyle: TextFieldFormViewStyle {
                         } else {
                             SecureField("", text: configuration.$text)
                         }
-                    }
-                    .overlay(alignment: .trailing) {
+                        
                         Image(systemName: self.isSecure ? "eye" : "eye.slash")
                             .font(.callout)
                             .foregroundStyle(Color.preferredColor(.tertiaryLabel))
                             .onTapGesture {
                                 self.isSecure.toggle()
+                            }
+                            .sizeReader { size in
+                                self.securityIconWidth = size.width
                             }
                     }
                 } else {

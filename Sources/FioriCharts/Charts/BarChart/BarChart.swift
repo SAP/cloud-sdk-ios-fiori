@@ -11,7 +11,7 @@ struct BarChart: View {
     }
 }
 
-class BarChartContext: ColumnChartContext {
+class BarChartContext: ColumnChartContext, @unchecked Sendable {
     override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
         if let result = model.yAxisLabels[model.numericAxis.labels.fontSize] {
             return result

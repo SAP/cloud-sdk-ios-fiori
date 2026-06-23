@@ -274,6 +274,7 @@ protocol _TopDividerComponent {
 }
 
 // sourcery: BaseComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _CloseActionComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "FioriButton { _ in Image(fioriName: "fiori.decline") }"
