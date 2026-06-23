@@ -12,7 +12,7 @@ import SwiftUI
 ///     print("tap videoCall")
 /// }), .init(type: .message, didSelectActivityItem: {
 ///     print("tap message")
-/// })])
+/// })]).removeDetailImageDefaultStyle(false)
 ///
 /// ContactItem {
 ///      Text("Headline only example")
@@ -26,7 +26,7 @@ import SwiftUI
 ///      ActivityItems(activityItems: [.init(type: .phone, didSelectActivityItem: {
 ///          print("tap phone")
 ///      })])
-/// }
+/// }.removeDetailImageDefaultStyle(false)
 /// ```
 public struct ContactItem {
     let title: any View

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct AxisTitle: Identifiable, Hashable {
+struct AxisTitle: Identifiable, Hashable, Sendable {
     // the index in model.data for x & y axis
     let index: Int
     let value: CGFloat

@@ -11,7 +11,7 @@ struct ComboChart: View {
     }
 }
 
-class ComboChartContext: ColumnChartContext {
+class ComboChartContext: ColumnChartContext, @unchecked Sendable {
     override func columnWidth(_ model: ChartModel) -> CGFloat {
         let columnSeries = model.indexesOfColumnSeries.sorted()
         let columnSeriesCount = max(1, columnSeries.count)
