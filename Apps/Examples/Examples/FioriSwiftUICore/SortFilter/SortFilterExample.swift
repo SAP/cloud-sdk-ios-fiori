@@ -33,11 +33,11 @@ struct SortFilterExample: View {
         [
             .picker(item: .init(name: "Priority", value: [0], valueOptions: ["High", "Medium", "Low"], allowsMultipleSelection: false, allowsEmptySelection: true, barItemDisplayMode: .nameAndValue, icon: "filemenu.and.cursorarrow"), showsOnFilterFeedbackBar: true),
             .filterfeedback(item: .init(name: "Sort Order", value: [0], valueOptions: ["Ascending", "Descending"], allowsMultipleSelection: false, allowsEmptySelection: false, icon: "checkmark")),
-            .stepper(item: .init(name: "Quantity", stepperTitle: "Label", value: 1, step: 1, stepRange: 0 ... 100, isDecimalSupported: false, description: "Hint Text"), showsOnFilterFeedbackBar: true)
+            .stepper(item: .init(name: "Quantity", stepperTitle: "Label", value: 1, step: 1, stepRange: 0 ... 100, isDecimalSupported: false, description: "Hint Text", resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true)
         ],
         [
             .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "Stories", icon: "number"), showsOnFilterFeedbackBar: true),
-            .slider(item: .init(name: "Range Slider Decimal", value: nil, range: 0 ... 10, step: 1.5, decimalPlaces: 1), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Range Slider Decimal", value: nil, range: 0 ... 10, step: 1.5, decimalPlaces: 1, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true),
             .slider(item: .init(name: "Range Slider", lowerValue: 100, upperValue: 150, range: 50 ... 200, step: 10, decimalPlaces: 0, formatter: "Price range (50 - 200)", hint: "Select price range.", onValueChange: SliderValueChangeHandler(onValueChange: { lowerValue, upperValue in
                 if !(50 ... 200 ~= lowerValue) {
                     return (.error, "Lower value is out of range.")
@@ -47,18 +47,18 @@ struct SortFilterExample: View {
                     return (.error, "Lower value is greater than upper value.")
                 }
                 return (.fiori, "")
-            })), showsOnFilterFeedbackBar: true),
-            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true),
+            }), resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true),
+            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar", resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true),
             .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd", icon: "calendar", components: .date), showsOnFilterFeedbackBar: true)
         ],
         [
             .datetime(item: .init(name: "Completion Date", value: nil), showsOnFilterFeedbackBar: true)
         ],
         [
-            .title(item: .init(name: "Title", text: "This is default text.", placeholder: "Please input", maxTextLength: 20, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: true),
+            .title(item: .init(name: "Title", text: "This is default text.", placeholder: "Please input", maxTextLength: 20, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit", resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true),
             .note(item: .init(name: "Note", text: "This is default text.", placeholder: "Please input", maxTextLength: 200, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: false)
         ],
-        [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1), showsOnFilterFeedbackBar: true)],
+        [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true)],
         [.orderPicker(item: .init(name: "OrderPicker", title: nil, value: [
             OrderPickerItemModel(criterion: "Priority", isSelected: false, isAscending: true, ascendingText: "Lowest first", descendingText: "Highest first"),
             OrderPickerItemModel(criterion: "Status", isSelected: true, isAscending: false, ascendingText: "Ascending", descendingText: "Descending"),

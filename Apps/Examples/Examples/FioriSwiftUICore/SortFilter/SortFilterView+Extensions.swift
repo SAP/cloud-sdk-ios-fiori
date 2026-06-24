@@ -65,7 +65,9 @@ extension View {
             string += String(value.criterion.characters)
             string += ","
         }
-        string.removeLast()
+        if !string.isEmpty {
+            string.removeLast()
+        }
         return "{name: \(item.name), value: \(string)}"
     }
 }
