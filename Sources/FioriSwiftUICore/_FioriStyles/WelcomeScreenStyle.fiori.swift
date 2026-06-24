@@ -65,6 +65,7 @@ public struct WelcomeScreenBaseStyle: WelcomeScreenStyle {
                                         .renderingMode(.original)
                                         .font(.fiori(forTextStyle: .body, weight: .light))
                                         .foregroundStyle(Color.preferredColor(.separator))
+                                        .accessibilityLabel("Checkbox".localizedFioriString())
                                 }
                             }
                             
