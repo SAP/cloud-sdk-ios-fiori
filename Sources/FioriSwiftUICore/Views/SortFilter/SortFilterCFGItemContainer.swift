@@ -380,9 +380,12 @@ extension SortFilterCFGItemContainer: View {
                     .buttonStyle(ResetButtonStyle())
                     .disabled({
                         switch item.resetButtonConfiguration.type {
-                        case .reset: return item.isOriginal
-                        case .clearAll: return item.workingValue.isEmpty
-                        case .deactivate: return !item.isChecked
+                        case .reset:
+                            return item.isOriginal
+                        case .clearAll:
+                            return item.workingValue.isEmpty
+                        case .deactivate:
+                            return !item.isChecked
                         }
                     }())
                 }
