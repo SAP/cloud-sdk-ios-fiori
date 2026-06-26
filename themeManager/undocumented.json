@@ -198,7 +198,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/Color+Extension.swift",
-      "line": 33,
+      "line": 37,
       "symbol": "Color.uiColor()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
