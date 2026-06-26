@@ -68,8 +68,14 @@ struct PickerSeparatorKey: EnvironmentKey {
     static let defaultValue = PickerSeparatorConfiguration(showSeparator: true, color: Color.preferredColor(.separatorOpaque), lineWidth: 0.33)
 }
 
-public extension EnvironmentValues {
-    // Gets or sets the separator configuration for picker components
+extension EnvironmentValues {
+    /// Gets or sets the separator configuration for picker components.
+    ///
+    /// Propagates the `PickerSeparatorConfiguration` through the view hierarchy.
+    /// Pickers (`DurationPicker`, `DateTimePicker`, `ValuePicker`, `DateRangePicker`)
+    /// read this value to render their internal separator. Prefer the
+    /// `View.pickerSeparator(_:color:lineWidth:)` modifier over setting this
+    /// environment value directly.
     var pickerSeparator: PickerSeparatorConfiguration {
         get { self[PickerSeparatorKey.self] }
         set { self[PickerSeparatorKey.self] = newValue }
@@ -88,6 +94,11 @@ public struct PickerSeparatorConfiguration {
     /// Width of the separator line.
     public let lineWidth: CGFloat
 
+    /// Creates a new picker separator configuration.
+    /// - Parameters:
+    ///   - showSeparator: Whether to show the separator.
+    ///   - color: Color of the separator.
+    ///   - lineWidth: Width of the separator line.
     public init(showSeparator: Bool, color: Color, lineWidth: CGFloat) {
         self.showSeparator = showSeparator
         self.color = color
