@@ -65,7 +65,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     } else if SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                         configuration._switch
                             .frame(width: 50, height: 35)
-                            .tint(Color.preferredColor(configuration.isOn ? .tintColor : .secondaryFill))
+                            .toggleStyle(SwitchToggleStyle(tint: Color.preferredColor(.tintColor)))
                             .opacity(1.0)
                         dragImage
                     }
