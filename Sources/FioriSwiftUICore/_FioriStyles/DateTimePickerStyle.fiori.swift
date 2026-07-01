@@ -6,9 +6,10 @@ import SwiftUI
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.dateTimePickerAutoSelected) var autoSelected
-    
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
+
     @State private var selectedDate: Date = .now
-   
+
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
         VStack {
             VStack(spacing: 0) {
@@ -25,13 +26,12 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 .animation(nil, value: configuration.pickerVisible)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .padding(.top, 8)
-                
+
                 if configuration.pickerVisible {
                     LazyVStack {
-                        if !configuration.hidesSeparator {
-                            Divider()
-                                .frame(height: 0.33)
-                                .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                        if !configuration.hidesSeparator, self.pickerSeparatorConfiguration.showSeparator {
+                            self.pickerSeparatorConfiguration.color
+                                .frame(height: self.pickerSeparatorConfiguration.lineWidth)
                                 .padding(.top, 14)
                         }
                         self.showPicker(configuration)

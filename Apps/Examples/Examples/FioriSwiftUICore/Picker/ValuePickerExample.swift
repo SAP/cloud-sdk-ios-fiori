@@ -26,6 +26,17 @@ struct ValuePickerExample: View {
     @State var pickerVisible5 = false
     @State var pickerVisible6 = false
 
+    @State var customizeSeparator = false
+    @State var showSeparator = true
+    @State var separatorColorIndex = 0
+    @State var separatorLineWidth: CGFloat = 0.3
+    let separatorColors: [(String, Color)] = [
+        ("Default", Color.preferredColor(.separatorOpaque)),
+        ("Red", .red),
+        ("Blue", .blue),
+        ("Green", .green)
+    ]
+
     struct CustomValuePickerStyle: ValuePickerStyle {
         func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
             ValuePicker(configuration)
@@ -89,6 +100,20 @@ struct ValuePickerExample: View {
                 Toggle("AI Notice", isOn: self.$showAINotice)
                 Toggle("Picker Visible", isOn: self.masterPickerVisibleBinding)
             }
+            Section("Picker Separator") {
+                Toggle("Customize Separator", isOn: self.$customizeSeparator)
+                if self.customizeSeparator {
+                    Toggle("Show Separator", isOn: self.$showSeparator)
+                    Picker("Color", selection: self.$separatorColorIndex) {
+                        ForEach(0 ..< self.separatorColors.count, id: \.self) { index in
+                            Text(self.separatorColors[index].0).tag(index)
+                        }
+                    }
+                    Stepper(value: self.$separatorLineWidth, in: 0.3 ... 5.0, step: 0.3) {
+                        Text(String(format: "Line Width: %.2f", self.separatorLineWidth))
+                    }
+                }
+            }
             Section {
                 ValuePicker(title: "Picker Title(Default Style)", isRequired: self.isRequired, options: self.valueOptions, selectedIndex: self.$negativeIndex, isTrackingLiveChanges: self.isTrackingLiveChanges, controlState: self.stateArray[self.stateIndex], pickerVisible: self.$pickerVisible1)
                     .aiNoticeView(isPresented: self.$showAINotice)
@@ -137,6 +162,9 @@ struct ValuePickerExample: View {
             }
             .ifApply(!self.isCustomTheming) {
                 $0.onAppear { self.resetTheming() }
+            }
+            .ifApply(self.customizeSeparator) {
+                $0.pickerSeparator(self.showSeparator, color: self.separatorColors[self.separatorColorIndex].1, lineWidth: self.separatorLineWidth)
             }
     }
     

@@ -6,9 +6,10 @@ import SwiftUI
 public struct DateRangePickerBaseStyle: DateRangePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
+
     @State var isPresented = false
-    
+
     public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
         VStack {
             VStack(spacing: 0) {
@@ -39,6 +40,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             }) {
                 self.isPresented = false
             }
+            .environment(\.pickerSeparator, self.pickerSeparatorConfiguration)
             .presentationDetents([.large])
         }
     }
