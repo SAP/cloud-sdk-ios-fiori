@@ -116,11 +116,7 @@ extension NoteFormViewFioriStyle {
                 }
                 .placeholderTextEditorStyle { config in
                     PlaceholderTextEditor(config)
-                        .frame(minHeight: self.getMinHeight(configuration))
-                        .frame(maxHeight: self.getMaxHeight(configuration))
-                        .ifApply(configuration.maxTextEditorHeight == nil && self.textContentHeight > 0) {
-                            $0.frame(height: max(self.getMinHeight(configuration), self.textContentHeight))
-                        }
+                        .frame(minHeight: self.getMinHeight(configuration), maxHeight: configuration.maxTextEditorHeight == nil ? (self.textContentHeight > 0 ? max(self.getMinHeight(configuration), self.textContentHeight) : .infinity) : self.getMaxHeight(configuration))
                         .background(self.getBackgroundColor(configuration))
                         .clipShape(RoundedRectangle(cornerRadius: self.noteFormViewCornerRadius))
                         .overlay(
@@ -140,8 +136,9 @@ extension NoteFormViewFioriStyle {
                         .ifApply(configuration.maxTextEditorHeight == nil) {
                             $0.modifier(FioriIntrospectModifier<UITextView> { textView in
                                 let newHeight = textView.contentSize.height
-                                guard newHeight > 0, newHeight != self.textContentHeight else { return }
+                                guard newHeight > 0 else { return }
                                 DispatchQueue.main.async {
+                                    guard newHeight != self.textContentHeight else { return }
                                     self.textContentHeight = newHeight
                                 }
                             })
