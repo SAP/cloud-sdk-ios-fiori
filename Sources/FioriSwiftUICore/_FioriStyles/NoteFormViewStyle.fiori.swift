@@ -99,6 +99,8 @@ extension NoteFormViewFioriStyle {
         @Environment(\.isLoading) var isLoading
         @Environment(\.isCustomizedBorder) var isCustomizedBorder
         @Environment(\.noteFormViewCornerRadius) var noteFormViewCornerRadius
+        @State private var textContentHeight: CGFloat = 0
+        
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
@@ -114,8 +116,7 @@ extension NoteFormViewFioriStyle {
                 }
                 .placeholderTextEditorStyle { config in
                     PlaceholderTextEditor(config)
-                        .frame(minHeight: self.getMinHeight(configuration))
-                        .frame(maxHeight: self.getMaxHeight(configuration))
+                        .frame(minHeight: self.getMinHeight(configuration), maxHeight: configuration.maxTextEditorHeight == nil ? (self.textContentHeight > 0 ? max(self.getMinHeight(configuration), self.textContentHeight) : .infinity) : self.getMaxHeight(configuration))
                         .background(self.getBackgroundColor(configuration))
                         .clipShape(RoundedRectangle(cornerRadius: self.noteFormViewCornerRadius))
                         .overlay(
@@ -132,6 +133,16 @@ extension NoteFormViewFioriStyle {
                             self.checkCharCount(configuration, textString: s)
                         }
                         .padding(.bottom, self.isInfoViewNeeded(configuration) ? 0 : 7)
+                        .ifApply(configuration.maxTextEditorHeight == nil) {
+                            $0.modifier(FioriIntrospectModifier<UITextView> { textView in
+                                let newHeight = textView.contentSize.height
+                                guard newHeight > 0 else { return }
+                                DispatchQueue.main.async {
+                                    guard newHeight != self.textContentHeight else { return }
+                                    self.textContentHeight = newHeight
+                                }
+                            })
+                        }
                 }
                 .textViewStyle { config in
                     TextView(config)
