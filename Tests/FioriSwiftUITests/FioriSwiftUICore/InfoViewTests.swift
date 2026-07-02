@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class InfoViewTests: XCTestCase {
+@MainActor final class InfoViewTests: XCTestCase {
     func testInfoViewLeftPadding() {
         XCTAssertEqual(getInfoViewLeftPadding(), 35.0)
     }

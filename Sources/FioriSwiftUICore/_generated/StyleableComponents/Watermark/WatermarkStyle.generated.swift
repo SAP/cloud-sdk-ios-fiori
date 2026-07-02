@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WatermarkStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WatermarkStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WatermarkConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WatermarkConfiguration) -> Body
 }
 
 struct AnyWatermarkStyle: WatermarkStyle {
@@ -31,5 +31,14 @@ public struct WatermarkConfiguration {
 extension WatermarkConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct WatermarkDefaultStyle: WatermarkStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: WatermarkConfiguration) -> some View {
+        Watermark(configuration)
+            .watermarkStyle(WatermarkBaseStyle())
     }
 }

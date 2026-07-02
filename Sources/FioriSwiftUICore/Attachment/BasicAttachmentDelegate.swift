@@ -2,7 +2,7 @@ import Foundation
 import UniformTypeIdentifiers
 
 /// Basic implementation of AttachmentDelegate protocol. This is a local folder based implementation. The implementation allows Apps to store attachment locally along with the Apps, The implementation also allows Apps to further customize uploading behaviors by overriding functions.
-open class BasicAttachmentDelegate: AttachmentDelegate {
+open class BasicAttachmentDelegate: AttachmentDelegate, @unchecked Sendable {
     /// Default folder
     public static let demoFolderName = "AttachmentDemoFolder"
 
@@ -21,7 +21,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     }
     
     /// Delete attachment identified by an URL asynchronously.
-    open func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {
+    open func delete(url: URL, onCompletion: @escaping @Sendable (URL, (any Error)?) -> Void) {
         do {
             try FileManager.default.removeItem(at: url)
             onCompletion(url, nil)
@@ -35,13 +35,15 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     }
     
     /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously.
-    open func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    open func upload(contentFrom provider: NSItemProvider, onStarting: (@MainActor @Sendable (URL) -> Void)? = nil, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
                     if let onStarting {
-                        DispatchQueue.main.async {
-                            onStarting(url)
+                        Task {
+                            await MainActor.run {
+                                onStarting(url)
+                            }
                         }
                     }
                     self.saveLocally(url: url, identifier: identifier, onCompletion: onCompletion)
@@ -55,7 +57,7 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     }
     
     /// Save an attachment to local folder asynchronously. The local copy is identified by the URL.
-    open func saveLocally(url: URL, identifier: String, onCompletion: @escaping (URL?, Error?) -> Void) {
+    open func saveLocally(url: URL, identifier: String, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         do {
             let copy = try self.getAttachmentNameAndExt(from: url, utTypeidentifier: identifier)
             try FileManager.default.copyItem(at: url, to: copy)

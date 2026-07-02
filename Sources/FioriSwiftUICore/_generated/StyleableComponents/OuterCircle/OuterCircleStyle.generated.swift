@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OuterCircleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OuterCircleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OuterCircleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OuterCircleConfiguration) -> Body
 }
 
 struct AnyOuterCircleStyle: OuterCircleStyle {
@@ -31,5 +31,14 @@ public struct OuterCircleConfiguration {
 extension OuterCircleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct OuterCircleDefaultStyle: OuterCircleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OuterCircleConfiguration) -> some View {
+        OuterCircle(configuration)
+            .outerCircleStyle(OuterCircleBaseStyle())
     }
 }

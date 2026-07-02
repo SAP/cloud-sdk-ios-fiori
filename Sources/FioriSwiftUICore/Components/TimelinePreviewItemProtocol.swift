@@ -28,7 +28,7 @@ public extension TimelinePreviewItemModel {
 /// Extension to provide an initializer for `TimelinePreviewItem` from a `TimelinePreviewItemModel`.
 public extension TimelinePreviewItem {
     /// Initialize a `TimelinePreviewItem` from a `TimelinePreviewItemModel`.
-    init(model: any TimelinePreviewItemModel) {
+    @MainActor init(model: any TimelinePreviewItemModel) {
         self.init(
             title: AttributedString(model.title),
             icon: model.icon,
@@ -41,7 +41,7 @@ public extension TimelinePreviewItem {
 }
 
 /// Controls the sort order of items in a `TimelinePreview`.
-public enum TimelinePreviewSortOrder {
+public enum TimelinePreviewSortOrder: Sendable {
     /// Ascending by due date (earliest first). Default.
     case ascending
     /// Descending by due date (latest first).

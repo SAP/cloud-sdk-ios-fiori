@@ -51,6 +51,7 @@ public extension ProfileHeader {
 }
 
 public extension ProfileHeader {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          subtitle: AttributedString? = nil,
@@ -101,6 +102,7 @@ private extension ProfileHeader {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ProfileHeader(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), animatable: self.animatable, detailContent: .init(self.detailContent)))
             .shouldApplyDefaultStyle(false)

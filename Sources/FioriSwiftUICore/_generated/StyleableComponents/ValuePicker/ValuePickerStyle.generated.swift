@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ValuePickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ValuePickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ValuePickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ValuePickerConfiguration) -> Body
 }
 
 struct AnyValuePickerStyle: ValuePickerStyle {
@@ -48,5 +48,15 @@ public struct ValuePickerFioriStyle: ValuePickerStyle {
             .titleStyle(TitleFioriStyle(valuePickerConfiguration: configuration))
             .valueLabelStyle(ValueLabelFioriStyle(valuePickerConfiguration: configuration))
             .optionsStyle(OptionsFioriStyle(valuePickerConfiguration: configuration))
+    }
+}
+
+struct ValuePickerDefaultStyle: ValuePickerStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ValuePickerConfiguration) -> some View {
+        ValuePicker(configuration)
+            .valuePickerStyle(ValuePickerFioriStyle())
+            .modifier(ValuePickerStyleModifier(style: ValuePickerBaseStyle()))
     }
 }

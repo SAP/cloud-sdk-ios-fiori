@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol XmarkStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol XmarkStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: XmarkConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: XmarkConfiguration) -> Body
 }
 
 struct AnyXmarkStyle: XmarkStyle {
@@ -31,5 +31,14 @@ public struct XmarkConfiguration {
 extension XmarkConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct XmarkDefaultStyle: XmarkStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: XmarkConfiguration) -> some View {
+        Xmark(configuration)
+            .xmarkStyle(XmarkBaseStyle())
     }
 }

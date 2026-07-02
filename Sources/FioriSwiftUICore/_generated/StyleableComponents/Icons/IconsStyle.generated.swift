@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol IconsStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol IconsStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: IconsConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: IconsConfiguration) -> Body
 }
 
 struct AnyIconsStyle: IconsStyle {
@@ -31,5 +31,14 @@ public struct IconsConfiguration {
 extension IconsConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct IconsDefaultStyle: IconsStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: IconsConfiguration) -> some View {
+        Icons(configuration)
+            .iconsStyle(IconsBaseStyle())
     }
 }

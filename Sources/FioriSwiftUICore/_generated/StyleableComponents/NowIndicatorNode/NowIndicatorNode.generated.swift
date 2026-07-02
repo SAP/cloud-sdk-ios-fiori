@@ -58,6 +58,7 @@ private extension NowIndicatorNode {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         NowIndicatorNode(.init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode)))
             .shouldApplyDefaultStyle(false)

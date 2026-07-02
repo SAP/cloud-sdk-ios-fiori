@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SaveActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SaveActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SaveActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SaveActionConfiguration) -> Body
 }
 
 struct AnySaveActionStyle: SaveActionStyle {
@@ -31,5 +31,14 @@ public struct SaveActionConfiguration {
 extension SaveActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SaveActionDefaultStyle: SaveActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SaveActionConfiguration) -> some View {
+        SaveAction(configuration)
+            .saveActionStyle(SaveActionBaseStyle())
     }
 }

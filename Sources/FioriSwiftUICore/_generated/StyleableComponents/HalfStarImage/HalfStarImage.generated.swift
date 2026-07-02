@@ -28,6 +28,7 @@ public extension HalfStarImage {
 }
 
 public extension HalfStarImage {
+    @MainActor
     init(halfStarImage: Image = FioriIcon.actions.halfStar.renderingMode(.template).resizable()) {
         self.init(halfStarImage: { halfStarImage })
     }
@@ -67,6 +68,7 @@ private extension HalfStarImage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HalfStarImage(.init(componentIdentifier: self.componentIdentifier, halfStarImage: .init(self.halfStarImage)))
             .shouldApplyDefaultStyle(false)

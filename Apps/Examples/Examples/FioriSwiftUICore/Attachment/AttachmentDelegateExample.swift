@@ -118,11 +118,11 @@ extension BasicAttachmentDelegate {
     }
 }
 
-public class MyAttachmentDelegate: BasicAttachmentDelegate {
+public class MyAttachmentDelegate: BasicAttachmentDelegate, @unchecked Sendable {
     public init() {
         super.init(localFolderName: "groupThreeAttachments") { folder in
             // you can play with commenting following code, which performs cleanup. Then, the second upload of the same file will cause an error.
-            let _ = BasicAttachmentDelegate.copy(attachments: [], to: folder)
+            _ = BasicAttachmentDelegate.copy(attachments: [], to: folder)
         }
     }
     

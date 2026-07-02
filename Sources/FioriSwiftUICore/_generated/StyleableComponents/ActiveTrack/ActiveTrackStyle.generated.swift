@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ActiveTrackStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ActiveTrackStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ActiveTrackConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ActiveTrackConfiguration) -> Body
 }
 
 struct AnyActiveTrackStyle: ActiveTrackStyle {
@@ -31,5 +31,14 @@ public struct ActiveTrackConfiguration {
 extension ActiveTrackConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct ActiveTrackDefaultStyle: ActiveTrackStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ActiveTrackConfiguration) -> some View {
+        ActiveTrack(configuration)
+            .activeTrackStyle(ActiveTrackBaseStyle())
     }
 }

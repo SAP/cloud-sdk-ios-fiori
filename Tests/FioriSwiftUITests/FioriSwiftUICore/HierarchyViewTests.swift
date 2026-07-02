@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class HierarchyViewTests: XCTestCase {
+@MainActor final class HierarchyViewTests: XCTestCase {
     func testIndicator() throws {
         let indicator = HierarchyIndicator(title: AttributedString("Indiator"), onClick: { "id" })
         

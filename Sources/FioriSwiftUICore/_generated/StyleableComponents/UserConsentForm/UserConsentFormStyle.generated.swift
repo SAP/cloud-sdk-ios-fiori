@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UserConsentFormStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UserConsentFormStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UserConsentFormConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UserConsentFormConfiguration) -> Body
 }
 
 struct AnyUserConsentFormStyle: UserConsentFormStyle {
@@ -57,5 +57,15 @@ public struct UserConsentFormFioriStyle: UserConsentFormStyle {
             .allowActionStyle(AllowActionFioriStyle(userConsentFormConfiguration: configuration))
             .denyActionStyle(DenyActionFioriStyle(userConsentFormConfiguration: configuration))
             .notNowActionStyle(NotNowActionFioriStyle(userConsentFormConfiguration: configuration))
+    }
+}
+
+struct UserConsentFormDefaultStyle: UserConsentFormStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
+        UserConsentForm(configuration)
+            .userConsentFormStyle(UserConsentFormFioriStyle())
+            .modifier(UserConsentFormStyleModifier(style: UserConsentFormBaseStyle()))
     }
 }

@@ -28,7 +28,7 @@ struct CustomResolvedChildViewStyle: View {
 }
 
 struct CustomChildViewConfiguration {
-    @ObservedObject var dataModel: CustomDataModel
+    var dataModel: CustomDataModel
 }
 
 struct CustomChildViewBaseStyle {

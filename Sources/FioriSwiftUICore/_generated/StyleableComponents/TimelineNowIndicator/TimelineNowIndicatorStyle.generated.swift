@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineNowIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineNowIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> Body
 }
 
 struct AnyTimelineNowIndicatorStyle: TimelineNowIndicatorStyle {
@@ -38,5 +38,15 @@ public struct TimelineNowIndicatorFioriStyle: TimelineNowIndicatorStyle {
     public func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
         TimelineNowIndicator(configuration)
             .nowIndicatorNodeStyle(NowIndicatorNodeFioriStyle(timelineNowIndicatorConfiguration: configuration))
+    }
+}
+
+struct TimelineNowIndicatorDefaultStyle: TimelineNowIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelineNowIndicatorConfiguration) -> some View {
+        TimelineNowIndicator(configuration)
+            .timelineNowIndicatorStyle(TimelineNowIndicatorFioriStyle())
+            .modifier(TimelineNowIndicatorStyleModifier(style: TimelineNowIndicatorBaseStyle()))
     }
 }

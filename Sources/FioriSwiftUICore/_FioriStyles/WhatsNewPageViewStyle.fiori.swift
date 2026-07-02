@@ -34,7 +34,7 @@ struct WhatsNewPageIndexEnvironmentKey: EnvironmentKey {
 }
 
 struct WhatsNewPageDidFinishEnvironmentKey: EnvironmentKey {
-    static let defaultValue: (() -> Void)? = nil
+    nonisolated(unsafe) static let defaultValue: (() -> Void)? = nil
 }
 
 public extension EnvironmentValues {

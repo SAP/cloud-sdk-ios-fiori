@@ -53,6 +53,8 @@ final class AttachmentGroupTests: XCTestCase {
     
     // Mock Attachment Delegate
     class MockAttachmentDelegate: AttachmentDelegate {
+        func upload(contentFrom provider: NSItemProvider, onStarting: (@MainActor @Sendable (URL) -> Void)?, onCompletion: @escaping @Sendable (URL?, (any Error)?) -> Void) {}
+		
         func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {}
         
         func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, (any Error)?) -> Void) {}

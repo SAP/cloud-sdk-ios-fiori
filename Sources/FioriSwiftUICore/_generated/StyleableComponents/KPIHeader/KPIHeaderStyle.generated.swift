@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KPIHeaderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KPIHeaderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KPIHeaderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KPIHeaderConfiguration) -> Body
 }
 
 struct AnyKPIHeaderStyle: KPIHeaderStyle {
@@ -42,5 +42,15 @@ extension KPIHeaderConfiguration {
 public struct KPIHeaderFioriStyle: KPIHeaderStyle {
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
         KPIHeader(configuration)
+    }
+}
+
+struct KPIHeaderDefaultStyle: KPIHeaderStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
+        KPIHeader(configuration)
+            .kPIHeaderStyle(KPIHeaderFioriStyle())
+            .modifier(KPIHeaderStyleModifier(style: KPIHeaderBaseStyle()))
     }
 }

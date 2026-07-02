@@ -145,16 +145,18 @@ public struct DefaultOperationsModifier: ViewModifier {
         .photosPickerStyle(.inline)
     }
     
-    var pdfScanner: some View {
+    @MainActor var pdfScanner: some View {
         DocumentScannerView(onCompletion: { result in
-            switch result {
-            case .success(.images(_)):
-                break
-            case .success(.pdf(let pdf)):
-                self.pdfDocument = pdf
-                os_log("Scanned PDF: %@", log: OSLog.coreLogger, type: .debug, "\(pdf)")
-            case .failure(let error):
-                os_log("Scan document error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
+            MainActor.assumeIsolated {
+                switch result {
+                case .success(.images(_)):
+                    break
+                case .success(.pdf(let pdf)):
+                    self.pdfDocument = pdf
+                    os_log("Scanned PDF: %@", log: OSLog.coreLogger, type: .debug, "\(pdf)")
+                case .failure(let error):
+                    os_log("Scan document error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
+                }
             }
         }, outputFormat: .pdf)
             .edgesIgnoringSafeArea(.all)
@@ -162,14 +164,16 @@ public struct DefaultOperationsModifier: ViewModifier {
     
     var imageScanner: some View {
         DocumentScannerView(onCompletion: { result in
-            switch result {
-            case .success(.images(let images)):
-                self.scannedImages = images
-                os_log("Scanned Images: %d", log: OSLog.coreLogger, type: .error, images.count)
-            case .success(.pdf(_)):
-                break
-            case .failure(let error):
-                os_log("Scan image error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
+            MainActor.assumeIsolated {
+                switch result {
+                case .success(.images(let images)):
+                    self.scannedImages = images
+                    os_log("Scanned Images: %d", log: OSLog.coreLogger, type: .error, images.count)
+                case .success(.pdf(_)):
+                    break
+                case .failure(let error):
+                    os_log("Scan image error: %@", log: OSLog.coreLogger, type: .error, "\(error)")
+                }
             }
         }, outputFormat: .images)
             .edgesIgnoringSafeArea(.all)

@@ -111,6 +111,7 @@ public extension WelcomeScreen {
 }
 
 public extension WelcomeScreen {
+    @MainActor
     init(title: AttributedString,
          description: AttributedString? = nil,
          icon: Image? = nil,
@@ -181,6 +182,7 @@ private extension WelcomeScreen {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         WelcomeScreen(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), description: .init(self.description), icon: .init(self.icon), footnote: .init(self.footnote), action: .init(self.action), secondaryAction: .init(self.secondaryAction), illustratedMessage: .init(self.illustratedMessage), headlineImage: .init(self.headlineImage), inputText: self.$inputText, legalText: .init(self.legalText), isLegalAgreementRequired: self.isLegalAgreementRequired, showsIllustratedMessage: self.showsIllustratedMessage, state: self.state, options: self.options, isDemoAvailable: self.isDemoAvailable, footerText: .init(self.footerText)))
             .shouldApplyDefaultStyle(false)

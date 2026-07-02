@@ -31,6 +31,7 @@ public extension MenuSelection {
 }
 
 public extension MenuSelection {
+    @MainActor
     init(action: FioriButton? = nil,
          isExpanded: Binding<Bool>,
          items: [MenuSelectionItemProtocol] = [])
@@ -75,6 +76,7 @@ private extension MenuSelection {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         MenuSelection(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items)))
             .shouldApplyDefaultStyle(false)

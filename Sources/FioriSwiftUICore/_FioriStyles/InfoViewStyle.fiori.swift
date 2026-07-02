@@ -120,7 +120,7 @@ extension InfoViewFioriStyle {
     }
 }
 
-func getInfoViewLeftPadding() -> CGFloat {
+@MainActor func getInfoViewLeftPadding() -> CGFloat {
     var margin: CGFloat = 35
     #if !os(visionOS)
         if UIDevice.current.userInterfaceIdiom == .pad {

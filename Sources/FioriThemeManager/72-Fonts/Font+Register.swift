@@ -8,7 +8,7 @@ extension Font {
     /// Call `Font.registerFioriFonts()` in AppDelegate to load all the fiori fonts into your app. If it is not called, `Font.fiori(forTextStyle:)` will return system font instead.
     
     // Add a static variable to track the registered fonts
-    private static var registeredFonts = Set<String>()
+    private nonisolated(unsafe) static var registeredFonts = Set<String>()
     
     public static func registerFioriFonts() {
         self.registerFont("72-Black", fileExtension: "ttf")

@@ -50,13 +50,15 @@ struct MultiLoadingButtonStatusChangeExample: View {
             .padding(30.0)
         }
         .navigationTitle("Multi Loading Buttons Status Change")
-        .onAppear {
-            self.changeLoadingStatus()
+        .task {
+            await self.changeLoadingStatus()
         }
     }
     
-    func changeLoadingStatus() {
-        _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in
+    @MainActor
+    func changeLoadingStatus() async {
+        while !Task.isCancelled {
+            try? await Task.sleep(for: .seconds(3))
             switch self._loadingState {
             case .unspecified:
                 self._loadingState = .processing
@@ -65,7 +67,7 @@ struct MultiLoadingButtonStatusChangeExample: View {
             case .success:
                 self._loadingState = .unspecified
             }
-        })
+        }
     }
     
     var customTitle: AttributedString {

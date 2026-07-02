@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AIUserFeedbackStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AIUserFeedbackStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AIUserFeedbackConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AIUserFeedbackConfiguration) -> Body
 }
 
 struct AnyAIUserFeedbackStyle: AIUserFeedbackStyle {
@@ -73,5 +73,15 @@ public struct AIUserFeedbackFioriStyle: AIUserFeedbackStyle {
             .submitActionStyle(SubmitActionFioriStyle(aIUserFeedbackConfiguration: configuration))
             .cancelActionStyle(CancelActionFioriStyle(aIUserFeedbackConfiguration: configuration))
             .illustratedMessageStyle(IllustratedMessageFioriStyle(aIUserFeedbackConfiguration: configuration))
+    }
+}
+
+struct AIUserFeedbackDefaultStyle: AIUserFeedbackStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
+        AIUserFeedback(configuration)
+            .aIUserFeedbackStyle(AIUserFeedbackFioriStyle())
+            .modifier(AIUserFeedbackStyleModifier(style: AIUserFeedbackBaseStyle()))
     }
 }

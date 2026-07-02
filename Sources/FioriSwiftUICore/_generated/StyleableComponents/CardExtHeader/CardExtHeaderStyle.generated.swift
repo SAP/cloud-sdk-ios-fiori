@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardExtHeaderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardExtHeaderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardExtHeaderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardExtHeaderConfiguration) -> Body
 }
 
 struct AnyCardExtHeaderStyle: CardExtHeaderStyle {
@@ -50,5 +50,15 @@ public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
             .row3Style(Row3FioriStyle(cardExtHeaderConfiguration: configuration))
             .kpiStyle(KpiFioriStyle(cardExtHeaderConfiguration: configuration))
             .kpiCaptionStyle(KpiCaptionFioriStyle(cardExtHeaderConfiguration: configuration))
+    }
+}
+
+struct CardExtHeaderDefaultStyle: CardExtHeaderStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
+        CardExtHeader(configuration)
+            .cardExtHeaderStyle(CardExtHeaderFioriStyle())
+            .modifier(CardExtHeaderStyleModifier(style: CardExtHeaderBaseStyle()))
     }
 }

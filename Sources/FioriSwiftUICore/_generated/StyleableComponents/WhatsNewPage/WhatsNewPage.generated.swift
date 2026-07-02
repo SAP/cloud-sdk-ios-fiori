@@ -40,6 +40,7 @@ public extension WhatsNewPage {
 }
 
 public extension WhatsNewPage {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          description: AttributedString? = nil,
@@ -88,6 +89,7 @@ private extension WhatsNewPage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         WhatsNewPage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), imageSize: self.imageSize, isImageExpanded: self.isImageExpanded))
             .shouldApplyDefaultStyle(false)

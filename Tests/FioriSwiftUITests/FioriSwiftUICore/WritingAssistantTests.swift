@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class WATextInputModifierTests: XCTestCase {
+@MainActor final class WATextInputModifierTests: XCTestCase {
     var textValue: String = "Initial"
     let menus = [[WAMenu(title: "Test")]]
     let menuHandler: (WAMenu, String) async -> WAResult = { _, _ in .success("result") }

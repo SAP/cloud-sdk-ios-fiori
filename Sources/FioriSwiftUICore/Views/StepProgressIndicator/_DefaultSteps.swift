@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 /// Not used by developers.
-public struct _DefaultSteps: IndexedViewContainer {
+public struct _DefaultSteps: @preconcurrency IndexedViewContainer {
     var stepItems: [StepItem]
     @Binding var selection: String
     var isSubstep: Bool = false
@@ -25,7 +25,7 @@ public struct _DefaultSteps: IndexedViewContainer {
     }
     
     /// :nodoc:
-    @ViewBuilder
+    @MainActor @ViewBuilder
     public func view(at index: Int) -> some View {
         let data = self.stepItems[index]
         let isNotLastStep = index < self.count - 1

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ResetActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ResetActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ResetActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ResetActionConfiguration) -> Body
 }
 
 struct AnyResetActionStyle: ResetActionStyle {
@@ -31,5 +31,14 @@ public struct ResetActionConfiguration {
 extension ResetActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct ResetActionDefaultStyle: ResetActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ResetActionConfiguration) -> some View {
+        ResetAction(configuration)
+            .resetActionStyle(ResetActionBaseStyle())
     }
 }

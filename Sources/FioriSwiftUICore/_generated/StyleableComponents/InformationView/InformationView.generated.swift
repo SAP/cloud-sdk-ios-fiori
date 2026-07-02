@@ -28,6 +28,7 @@ public extension InformationView {
 }
 
 public extension InformationView {
+    @MainActor
     init(icon: Image? = nil,
          description: AttributedString? = nil)
     {
@@ -70,6 +71,7 @@ private extension InformationView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         InformationView(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
