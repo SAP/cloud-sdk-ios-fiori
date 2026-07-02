@@ -5948,6 +5948,168 @@ Pass <code>.disabled</code> to suppress the dialog entirely.</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE028listPickerSearchResultsEmptyC0yQrqd__ycAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/listPickerSearchResultsEmptyView(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE028listPickerSearchResultsEmptyC0yQrqd__ycAaBRd__lF">listPickerSearchResultsEmptyView(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Override the empty state shown in <code><a href="../Structs/ListPickerDestination.html">ListPickerDestination</a></code> when the search yields no results.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">listPickerSearchResultsEmptyView</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="n">_</span> <span class="nv">view</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>view</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A view-builder producing the view to display when the search returns no matches.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the customized empty-search-results view applied via the environment.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE30listPickerSearchBarDisplayModeyQrAD04ListghijK0OF"></a>
+                      <a name="//apple_ref/swift/Method/listPickerSearchBarDisplayMode(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE30listPickerSearchBarDisplayModeyQrAD04ListghijK0OF">listPickerSearchBarDisplayMode(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Set the display mode of the search bar shown in <code><a href="../Structs/ListPickerDestination.html">ListPickerDestination</a></code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">listPickerSearchBarDisplayMode</span><span class="p">(</span><span class="n">_</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>mode</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p><code>.automatic</code> (default) hides the search bar until the user scrolls; <code>.always</code> keeps it visible.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the search bar display mode applied via the environment.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE20listPickerDirtyStateyQrAA7BindingVySbGF"></a>
+                      <a name="//apple_ref/swift/Method/listPickerDirtyState(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE20listPickerDirtyStateyQrAA7BindingVySbGF">listPickerDirtyState(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Mirror the picker&rsquo;s internal &ldquo;has unsaved changes&rdquo; state to an external binding.</p>
+
+<p>Useful when <code><a href="../Structs/ListPickerDestination.html">ListPickerDestination</a></code> is presented inside a consumer-owned sheet:
+the binding lets the caller drive their own discard-confirmation logic
+(for example, blocking interactive swipe-to-dismiss with <code>.interactiveDismissDisabled</code>).</p>
+
+<p>The binding is only meaningful when <code>isTrackingLiveChanges</code> is <code>false</code> —
+in live-tracking mode every tap is committed immediately, so there is no draft state.
+In live-tracking mode (or for non-top-level pickers) this binding is kept at <code>false</code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">listPickerDirtyState</span><span class="p">(</span><span class="n">_</span> <span class="nv">isDirty</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>isDirty</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A binding that receives <code>true</code> whenever the picker has
+uncommitted changes (i.e. the user has toggled selections without tapping Apply).</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the dirty-state binding registered via the environment.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE17indicatorPositionyQrAD16LoadingIndicatorV6LayoutOF"></a>
                       <a name="//apple_ref/swift/Method/indicatorPosition(_:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE17indicatorPositionyQrAD16LoadingIndicatorV6LayoutOF">indicatorPosition(_:<wbr>)</a>
@@ -25055,6 +25217,9 @@ and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
                 </li>
                 <li class="nav-group-task">
@@ -31296,7 +31461,7 @@ and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-07-01)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-07-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
