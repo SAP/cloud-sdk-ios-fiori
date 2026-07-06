@@ -123,7 +123,7 @@ struct ListPickerDestinationButtonStyle: FioriButtonStyle {
         let config = FioriButtonConfiguration(foregroundColor: foregroundColor,
                                               backgroundColor: .clear,
                                               font: font,
-                                              padding: EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                                              padding: EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         return configuration.containerView(.unspecified)
             .fioriButtonConfiguration(config)
     }
@@ -578,6 +578,10 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     @State var searchText = ""
     @State var confirmationSelections: Bool = false
     @State var isListContentOutOfView: Bool = false
+
+    @Environment(\.listPickerSearchResultsEmptyView) private var searchResultsEmptyView
+    @Environment(\.listPickerSearchBarDisplayMode) private var searchBarDisplayMode
+    @Environment(\.listPickerDirtyStateBinding) private var dirtyStateBinding
     
     init(_ sections: SectionData,
          id: KeyPath<Data.Element, ID>,
@@ -650,10 +654,10 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             if self.searchFilter != nil {
                 if self.isFilterFeedbackBarListPickerStyle {
                     self.listContentForFilterFeedbackBarListPicker()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: self.searchPrompt.map { Text($0) })
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: self.searchBarDisplayMode == .always ? .always : .automatic), prompt: self.searchPrompt.map { Text($0) })
                 } else {
                     self.listContent()
-                        .searchable(text: self.$searchText, placement: .navigationBarDrawer, prompt: self.searchPrompt.map { Text($0) })
+                        .searchable(text: self.$searchText, placement: .navigationBarDrawer(displayMode: self.searchBarDisplayMode == .always ? .always : .automatic), prompt: self.searchPrompt.map { Text($0) })
                 }
             } else {
                 if self.isFilterFeedbackBarListPickerStyle {
@@ -665,6 +669,13 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
         }
         .setOnChange(of: self.selections) {
             self.postSelectionsUpdated()
+            self.publishDirtyState()
+        }
+        .setOnChange(of: self.selectionsPool) {
+            self.publishDirtyState()
+        }
+        .onAppear {
+            self.publishDirtyState()
         }
         .ifApply(!self.isTrackingLiveChanges && self.isTopLevel) {
             $0.toolbar {
@@ -713,6 +724,20 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
             NotificationCenter.default.post(name: Notification.Name.selectionsUpdatedNotification, object: self.selections)
         }
     }
+
+    /// Mirror the picker's dirty state (selectionsPool != selections) to an external binding,
+    /// when the consumer has registered one via `.listPickerDirtyState(_:)`.
+    /// Only meaningful when `isTrackingLiveChanges` is false and this is the top-level picker;
+    /// otherwise the binding is kept at false.
+    func publishDirtyState() {
+        guard let binding = self.dirtyStateBinding else { return }
+        let newValue: Bool = (!self.isTrackingLiveChanges && self.isTopLevel) ? (self.selections != self.selectionsPool) : false
+        if binding.wrappedValue != newValue {
+            DispatchQueue.main.async {
+                binding.wrappedValue = newValue
+            }
+        }
+    }
     
     func cancelActionTapped() {
         if !(self.selections == self.selectionsPool) {
@@ -751,7 +776,18 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     }
     
     @ViewBuilder func listContent() -> some View {
-        if #available(iOS 18, *) {
+        if !self.searchText.isEmpty, self.filteredSectionDataOnPage().isEmpty {
+            ScrollView {
+                VStack {
+                    Spacer(minLength: 0)
+                    AnyView(self.searchResultsEmptyView())
+                    Spacer(minLength: 0)
+                }
+                .frame(maxWidth: .infinity, minHeight: 400)
+                .padding(10)
+            }
+            
+        } else if #available(iOS 18, *) {
             listContentView()
                 .onScrollGeometryChange(for: Bool.self) { geo in
                     geo.contentSize.height > geo.bounds.height
@@ -808,8 +844,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                             HStack {
                                 self.destinationConfiguration?.allEntriesSectionTitle
                                 Spacer()
-                                let selectionsCount = self.isTrackingLiveChanges ? self.selections.count : self.selectionsPool.count
-                                if self.flattenData(data: self.data).count == selectionsCount {
+                                if self.areAllVisibleItemsSelected() {
                                     self.destinationConfiguration?.deselectAllAction
                                         .onSimultaneousTapGesture {
                                             self.deselectAll()
@@ -834,99 +869,110 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     }
     
     @ViewBuilder func listContentForFilterFeedbackBarListPicker() -> some View {
-        List {
-            if self.showSelectedSection {
-                Section {
-                    if !self.selectedEntriesSectionHeaderIsEmpty(), self.selectionsCount() > 0 {
-                        HStack {
-                            self.destinationConfiguration?.selectedEntriesSectionTitle
-                            Spacer()
-                            self.destinationConfiguration?.deselectAllAction
-                                .onSimultaneousTapGesture {
-                                    self.deselectAll()
-                                }
-                        }
-                        .padding([.leading, .trailing], 16)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                            dimensions[.leading] - 16
-                        }
-                        .background(Color.preferredColor(.secondaryGroupedBackground))
+        if !self.searchText.isEmpty, self.filteredSectionDataOnPage().isEmpty {
+            ScrollView {
+                VStack {
+                    Spacer(minLength: 0)
+                    AnyView(self.searchResultsEmptyView())
+                    Spacer(minLength: 0)
+                }
+                .frame(maxWidth: .infinity, minHeight: 400)
+                .padding(10)
+            }
+        } else {
+            List {
+                if self.showSelectedSection {
+                    Section {
+                        if !self.selectedEntriesSectionHeaderIsEmpty(), self.selectionsCount() > 0 {
+                            HStack {
+                                self.destinationConfiguration?.selectedEntriesSectionTitle
+                                Spacer()
+                                self.destinationConfiguration?.deselectAllAction
+                                    .onSimultaneousTapGesture {
+                                        self.deselectAll()
+                                    }
+                            }
+                            .padding([.leading, .trailing], 16)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                dimensions[.leading] - 16
+                            }
+                            .background(Color.preferredColor(.secondaryGroupedBackground))
                         
-                        self.selectedSection()
-                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                            self.selectedSection()
+                                .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
                         
-                        #if !os(visionOS)
-                            Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                                .frame(height: 30)
-                                .listRowInsets(EdgeInsets())
+                            #if !os(visionOS)
+                                Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                                    .frame(height: 30)
+                                    .listRowInsets(EdgeInsets())
+                                    .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                        dimensions[.leading] - 16
+                                    }
+                                    .accessibilityHidden(true)
+                            #endif
+                        }
+                    }.textCase(.none)
+                }
+            
+                let filteredData = self.filteredSectionDataOnPage()
+            
+                if !(self.data.first?.title.isEmpty ?? true) {
+                    // grouped sections, no sdk header support
+                    ForEach(0 ..< filteredData.count, id: \.self) { index in
+                        Section {
+                            Text(filteredData[index].0)
+                                .padding([.leading, .trailing], 16)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 .alignmentGuide(.listRowSeparatorLeading) { dimensions in
                                     dimensions[.leading] - 16
                                 }
-                                .accessibilityHidden(true)
-                        #endif
+                                .background(Color.preferredColor(.secondaryGroupedBackground))
+                        
+                            self.generateSection(by: filteredData[index].1)
+                                .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                        }.textCase(.none)
                     }
-                }.textCase(.none)
-            }
-            
-            let filteredData = self.filteredSectionDataOnPage()
-            
-            if !(self.data.first?.title.isEmpty ?? true) {
-                // grouped sections, no sdk header support
-                ForEach(0 ..< filteredData.count, id: \.self) { index in
-                    Section {
-                        Text(filteredData[index].0)
-                            .padding([.leading, .trailing], 16)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                dimensions[.leading] - 16
-                            }
-                            .background(Color.preferredColor(.secondaryGroupedBackground))
-                        
-                        self.generateSection(by: filteredData[index].1)
-                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
-                    }.textCase(.none)
-                }
-            } else {
-                // single section
-                if let items = filteredData.first?.1 {
-                    Section {
-                        if !self.allEntriesHeaderIsEmpty(), !self.disableContentSection, !self.isSingleSelection {
-                            HStack {
-                                self.destinationConfiguration?.allEntriesSectionTitle
-                                Spacer()
-                                let selectionsCount = self.isTrackingLiveChanges ? self.selections.count : self.selectionsPool.count
-                                if self.flattenData(data: self.data).count == selectionsCount {
-                                    self.destinationConfiguration?.deselectAllAction
-                                        .onSimultaneousTapGesture {
-                                            self.deselectAll()
-                                        }
-                                } else {
-                                    self.destinationConfiguration?.selectAllAction
-                                        .onSimultaneousTapGesture {
-                                            self.selectAll()
-                                        }
-                                }
-                            }
-                            .padding([.leading, .trailing], 16)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                dimensions[.leading] - 16
-                            }
-                            .background(Color.preferredColor(.secondaryGroupedBackground))
-                        }
-                        
-                        self.generateSection(by: items)
-                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
-
-                    }.textCase(.none)
                 } else {
-                    EmptyView()
+                    // single section
+                    if let items = filteredData.first?.1 {
+                        Section {
+                            if !self.allEntriesHeaderIsEmpty(), !self.disableContentSection, !self.isSingleSelection {
+                                HStack {
+                                    self.destinationConfiguration?.allEntriesSectionTitle
+                                    Spacer()
+                                    if self.areAllVisibleItemsSelected() {
+                                        self.destinationConfiguration?.deselectAllAction
+                                            .onSimultaneousTapGesture {
+                                                self.deselectAll()
+                                            }
+                                    } else {
+                                        self.destinationConfiguration?.selectAllAction
+                                            .onSimultaneousTapGesture {
+                                                self.selectAll()
+                                            }
+                                    }
+                                }
+                                .padding([.leading, .trailing], 16)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                    dimensions[.leading] - 16
+                                }
+                                .background(Color.preferredColor(.secondaryGroupedBackground))
+                            }
+                        
+                            self.generateSection(by: items)
+                                .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+
+                        }.textCase(.none)
+                    } else {
+                        EmptyView()
+                    }
                 }
             }
         }
     }
-        
+
     @ViewBuilder func generateSection(by serialData: [Data.Element]) -> some View {
         ForEach(serialData, id: self.id) { element in
             Group {
@@ -1064,19 +1110,45 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
     }
     
     func selectAll() {
+        let visibleIDs = self.flattenedVisibleIDs()
         if self.isTrackingLiveChanges {
-            self.selections = Set(self.flattenData(data: self.data).map { $0[keyPath: self.id] })
+            self.selections.formUnion(visibleIDs)
         } else {
-            self.selectionsPool = Set(self.flattenData(data: self.data).map { $0[keyPath: self.id] })
+            self.selectionsPool.formUnion(visibleIDs)
         }
     }
-    
+
     func deselectAll() {
+        let visibleIDs = self.flattenedVisibleIDs()
         if self.isTrackingLiveChanges {
-            self.selections.removeAll()
+            self.selections.subtract(visibleIDs)
         } else {
-            self.selectionsPool.removeAll()
+            self.selectionsPool.subtract(visibleIDs)
         }
+    }
+
+    /// IDs of items visible after applying the current search filter, recursively flattened across children.
+    private func flattenedVisibleIDs() -> Set<ID> {
+        let visibleItems = self.filteredSectionDataOnPage().flatMap(\.1)
+        return Set(self.flattenItems(visibleItems).map { $0[keyPath: self.id] })
+    }
+
+    private func flattenItems(_ items: [Data.Element]) -> [Data.Element] {
+        items.flatMap { element -> [Data.Element] in
+            if let children, let childrenData = element[keyPath: children] {
+                return self.flattenItems(Array(childrenData))
+            } else {
+                return [element]
+            }
+        }
+    }
+
+    /// True when every item visible under the current search filter is already selected.
+    private func areAllVisibleItemsSelected() -> Bool {
+        let visibleIDs = self.flattenedVisibleIDs()
+        guard !visibleIDs.isEmpty else { return false }
+        let currentSelections = self.isTrackingLiveChanges ? self.selections : self.selectionsPool
+        return visibleIDs.isSubset(of: currentSelections)
     }
 }
 
@@ -1435,4 +1507,100 @@ public struct ConfirmationDialogConfiguration {
 
     /// A convenience configuration that disables the confirmation dialog entirely.
     public static let disabled = ConfirmationDialogConfiguration(isDialogDisabled: true)
+}
+
+struct ListPickerSearchResultsEmptyViewKey: EnvironmentKey {
+    static let defaultValue: () -> any View = {
+        IllustratedMessage(
+            detailImage: {
+                FioriIcon.illustrations.noEntriesSmall
+            },
+            title: {
+                Text("No Results Found".localizedFioriString())
+            },
+            description: {
+                Text("Check your search for any spelling errors or try a different search term.".localizedFioriString())
+            },
+            contentAlignment: .center
+        )
+    }
+}
+
+public extension EnvironmentValues {
+    /// A view-builder providing the empty-state view shown in `ListPickerDestination`
+    /// when the user's search yields no results. Defaults to a Fiori `IllustratedMessage`.
+    var listPickerSearchResultsEmptyView: () -> any View {
+        get { self[ListPickerSearchResultsEmptyViewKey.self] }
+        set { self[ListPickerSearchResultsEmptyViewKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Override the empty state shown in `ListPickerDestination` when the search yields no results.
+    ///
+    /// - Parameter view: A view-builder producing the view to display when the search returns no matches.
+    /// - Returns: A view with the customized empty-search-results view applied via the environment.
+    func listPickerSearchResultsEmptyView(@ViewBuilder _ view: @escaping () -> some View) -> some View {
+        self.environment(\.listPickerSearchResultsEmptyView) { view() }
+    }
+}
+
+/// Display mode for the search bar in `ListPickerDestination`.
+public enum ListPickerSearchBarDisplayMode {
+    /// The search bar is hidden until the user scrolls. This is the default behavior.
+    case automatic
+    /// The search bar is always visible.
+    case always
+}
+
+struct ListPickerSearchBarDisplayModeKey: EnvironmentKey {
+    static let defaultValue: ListPickerSearchBarDisplayMode = .automatic
+}
+
+public extension EnvironmentValues {
+    /// The display mode of the search bar shown in `ListPickerDestination`. Defaults to `.automatic`.
+    var listPickerSearchBarDisplayMode: ListPickerSearchBarDisplayMode {
+        get { self[ListPickerSearchBarDisplayModeKey.self] }
+        set { self[ListPickerSearchBarDisplayModeKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Set the display mode of the search bar shown in `ListPickerDestination`.
+    ///
+    /// - Parameter mode: `.automatic` (default) hides the search bar until the user scrolls; `.always` keeps it visible.
+    /// - Returns: A view with the search bar display mode applied via the environment.
+    func listPickerSearchBarDisplayMode(_ mode: ListPickerSearchBarDisplayMode) -> some View {
+        self.environment(\.listPickerSearchBarDisplayMode, mode)
+    }
+}
+
+struct ListPickerDirtyStateBindingKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool>? = nil
+}
+
+extension EnvironmentValues {
+    var listPickerDirtyStateBinding: Binding<Bool>? {
+        get { self[ListPickerDirtyStateBindingKey.self] }
+        set { self[ListPickerDirtyStateBindingKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Mirror the picker's internal "has unsaved changes" state to an external binding.
+    ///
+    /// Useful when `ListPickerDestination` is presented inside a consumer-owned sheet:
+    /// the binding lets the caller drive their own discard-confirmation logic
+    /// (for example, blocking interactive swipe-to-dismiss with `.interactiveDismissDisabled`).
+    ///
+    /// The binding is only meaningful when `isTrackingLiveChanges` is `false` —
+    /// in live-tracking mode every tap is committed immediately, so there is no draft state.
+    /// In live-tracking mode (or for non-top-level pickers) this binding is kept at `false`.
+    ///
+    /// - Parameter isDirty: A binding that receives `true` whenever the picker has
+    ///   uncommitted changes (i.e. the user has toggled selections without tapping Apply).
+    /// - Returns: A view with the dirty-state binding registered via the environment.
+    func listPickerDirtyState(_ isDirty: Binding<Bool>) -> some View {
+        self.environment(\.listPickerDirtyStateBinding, isDirty)
+    }
 }
