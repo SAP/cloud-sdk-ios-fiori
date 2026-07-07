@@ -389,6 +389,10 @@ struct TextInputFormViewConfiguration {
     }
 
     func hasErrorMessage() -> Bool {
+        if let errorMessage, !String(errorMessage.characters).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return true
+        }
+        
         guard let maxTextLength, maxTextLength > 0 else {
             // No limit
             return false
