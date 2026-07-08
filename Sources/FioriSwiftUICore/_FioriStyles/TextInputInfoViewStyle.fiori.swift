@@ -389,7 +389,7 @@ struct TextInputFormViewConfiguration {
     }
 
     func hasErrorMessage() -> Bool {
-        if let errorMessage, !String(errorMessage.characters).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if let errorMessage, !errorMessage.characters.isEmpty {
             return true
         }
         
