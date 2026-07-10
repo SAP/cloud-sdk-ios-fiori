@@ -162,31 +162,3 @@ extension DateRangePickerFioriStyle {
         }
     }
 }
-
-/// Predefined skeleton loading patterns for `DateRangePicker`.
-///
-/// Apply the ``EnvironmentValues/isLoading`` environment value to trigger the shimmer effect:
-///
-/// ```swift
-/// DateRangePickerSkeletonLoadingPattern.basic
-///     .environment(\.isLoading, true)
-/// ```
-public enum DateRangePickerSkeletonLoadingPattern {
-    /// A basic range picker skeleton without a selected range.
-    public static let basic = DateRangePicker(
-        title: { Text("Date Range") },
-        selectedRange: .constant(nil),
-        pickerVisible: .constant(false)
-    )
-
-    /// A range picker skeleton with a preselected range.
-    public static let withSelection: DateRangePicker = {
-        let now = Date()
-        let end = Calendar.current.date(byAdding: .day, value: 7, to: now) ?? now
-        return DateRangePicker(
-            title: { Text("Date Range") },
-            selectedRange: .constant(now ... end),
-            pickerVisible: .constant(false)
-        )
-    }()
-}
