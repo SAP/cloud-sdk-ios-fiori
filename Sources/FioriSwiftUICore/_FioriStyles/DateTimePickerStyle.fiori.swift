@@ -49,10 +49,9 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 }
             }
             .ifApply(FioriLocale.shared.locale != nil) {
-                $0.environment(\.locale, FioriLocale.shared.locale!)
-            }
-            .ifApply(FioriLocale.shared.locale != nil) {
-                $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
+                let fioriLocale = FioriLocale.shared.locale ?? .current
+                return $0.environment(\.locale, fioriLocale)
+                    .environment(\.calendar, fioriLocale.calendar)
             }
             .onChange(of: configuration.selectedDate) { _, _ in
                 if let configuredDate = configuration.selectedDate {
