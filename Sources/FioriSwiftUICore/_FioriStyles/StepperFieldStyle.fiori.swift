@@ -254,16 +254,17 @@ extension StepperFieldFioriStyle {
         let stepperFieldConfiguration: StepperFieldConfiguration
         @Environment(\.isEnabled) var isEnabled: Bool
         @Environment(\.colorScheme) var colorScheme
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
             let isDecrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.lowerBound > self.stepperFieldConfiguration.stepRange.lowerBound ? true : false : false
             let decrementDescFormat = NSLocalizedString("Decrease the value by %f", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let decrementDesc = String(format: decrementDescFormat, stepperFieldConfiguration.step)
             return DecrementAction(configuration)
-                .foregroundColor(.preferredColor(.tintColor))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .tintColor))
                 .frame(minWidth: 44, minHeight: 44)
                 .fioriButtonStyle(StepperPlainButtonStyle(colorScheme: self.colorScheme))
-                .disabled(!isDecrementBtnEnabled)
+                .disabled(self.isLoading ? true : !isDecrementBtnEnabled)
                 .accessibilityLabel(NSLocalizedString("Stepper decrease", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                 .accessibilityValue(Text(decrementDesc))
         }
@@ -272,9 +273,10 @@ extension StepperFieldFioriStyle {
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
         let stepperFieldConfiguration: StepperFieldConfiguration
         @Environment(\.isEnabled) var isEnabled: Bool
+        @Environment(\.isLoading) var isLoading
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
-                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : (self.isEnabled ? .tertiaryLabel : .separator)))
                 .accessibilityLabel(NSLocalizedString("Select specific value", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
         }
     }
@@ -283,16 +285,17 @@ extension StepperFieldFioriStyle {
         let stepperFieldConfiguration: StepperFieldConfiguration
         @Environment(\.isEnabled) var isEnabled: Bool
         @Environment(\.colorScheme) var colorScheme
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
             let isIncrementBtnEnabled: Bool = self.isEnabled ? Double(self.stepperFieldConfiguration.text) ?? self.stepperFieldConfiguration.stepRange.upperBound < self.stepperFieldConfiguration.stepRange.upperBound ? true : false : false
             let incrementDescFormat = NSLocalizedString("Increase the value by %f", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
             let incrementDesc = String(format: incrementDescFormat, stepperFieldConfiguration.step)
             return IncrementAction(configuration)
-                .foregroundColor(.preferredColor(.tintColor))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : .tintColor))
                 .frame(minWidth: 44, minHeight: 44)
                 .fioriButtonStyle(StepperPlainButtonStyle(colorScheme: self.colorScheme))
-                .disabled(!isIncrementBtnEnabled)
+                .disabled(self.isLoading ? true : !isIncrementBtnEnabled)
                 .accessibilityLabel(NSLocalizedString("Stepper increase", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                 .accessibilityValue(Text(incrementDesc))
         }

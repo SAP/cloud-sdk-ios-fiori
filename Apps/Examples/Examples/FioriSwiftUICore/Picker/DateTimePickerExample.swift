@@ -16,6 +16,7 @@ struct DateTimePickerExample: View {
     @State var isRequired = false
     @State var showsErrorMessage = false
     @State var showAINotice: Bool = false
+    @State var isLoading: Bool = false
     @State var pickerVisible = false
     @State var pickerVisible1 = false
     @State var pickerVisible2 = false
@@ -82,6 +83,7 @@ struct DateTimePickerExample: View {
             Toggle("Show Error/Hint message", isOn: self.$showsErrorMessage)
             Toggle("AI Notice", isOn: self.$showAINotice)
             Toggle("Picker Visible", isOn: self.masterPickerVisibleBinding)
+            Toggle("Skeleton Loading", isOn: self.$isLoading)
             Section(header: Text("")) {
                 DateTimePicker(title: "Default", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s1, pickerVisible: self.$pickerVisible)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
@@ -143,6 +145,7 @@ struct DateTimePickerExample: View {
         .onChange(of: self.s2) { _, _ in
             print("s2 new Value:\(String(describing: self.s2))")
         }
+        .environment(\.isLoading, self.isLoading)
         .onChange(of: self.separatedRangeStartDate) { _, _ in
             if let separatedRangeStartDate,
                let separatedRangeEndDate,

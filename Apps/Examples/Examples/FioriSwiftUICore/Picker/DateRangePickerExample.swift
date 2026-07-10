@@ -7,6 +7,7 @@ struct DateRangePickerExample: View {
     @State private var customizedMandatoryIndicator = false
     @State private var showsErrorMessage = false
     @State private var showAINotice: Bool = false
+    @State private var isLoading: Bool = false
     @State private var pickerVisible0 = false
     @State private var pickerVisible1 = false
     @State private var pickerVisible2 = false
@@ -82,6 +83,8 @@ struct DateRangePickerExample: View {
                 .tint(Color.preferredColor(.tintColor))
             Toggle("Picker Visible", isOn: self.managePickerVisibleBinding)
                 .tint(Color.preferredColor(.tintColor))
+            Toggle("Skeleton Loading", isOn: self.$isLoading)
+                .tint(Color.preferredColor(.tintColor))
             Section(header: Text("")) {
                 DateRangePicker(title: "Range Selection Long Title Long Title Long Title Long Title Long Title Long Title0", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange0, pickerVisible: self.$pickerVisible0)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information error message."))
@@ -136,6 +139,7 @@ struct DateRangePickerExample: View {
         .onChange(of: self.selectedRange5) { _, newValue in
             print("selectedRange5 new Value:\(self.getValueLabel(newValue))")
         }
+        .environment(\.isLoading, self.isLoading)
         .navigationTitle("Date Range Picker")
     }
 
