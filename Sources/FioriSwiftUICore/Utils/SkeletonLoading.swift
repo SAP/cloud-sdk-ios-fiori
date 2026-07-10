@@ -300,12 +300,24 @@ struct IsLoadingKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct IsAccessibilityCombinedKey: EnvironmentKey {
+    static let defaultValue: Bool = true
+}
+
 /// A custom environment key to manage loading state across views.
 public extension EnvironmentValues {
     /// A Boolean value indicating whether content is currently loading. It can be used to show the shimmer effect.
     var isLoading: Bool {
         get { self[IsLoadingKey.self] }
         set { self[IsLoadingKey.self] = newValue }
+    }
+}
+
+public extension EnvironmentValues {
+    /// A Boolean value indicating whether accessibility elements are combined into a single element. When `true`, child elements are combined. Default is `true`.
+    var isAccessibilityCombined: Bool {
+        get { self[IsAccessibilityCombinedKey.self] }
+        set { self[IsAccessibilityCombinedKey.self] = newValue }
     }
 }
 
