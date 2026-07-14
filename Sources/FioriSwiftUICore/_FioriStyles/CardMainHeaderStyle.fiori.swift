@@ -153,7 +153,6 @@ extension CardMainHeaderFioriStyle {
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
                 .multilineTextAlignment(.leading)
                 .environment(\.numberOfLines, 3)
-                .alignmentGuide(VerticalAlignment.top) { d in d[VerticalAlignment.top] }
         }
     }
     
