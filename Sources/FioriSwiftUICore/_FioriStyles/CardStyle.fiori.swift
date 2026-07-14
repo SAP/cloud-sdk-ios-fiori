@@ -544,12 +544,15 @@ public enum CardTests {
         } label: {
             Image(systemName: "bookmark")
                 .foregroundColor(.preferredColor(.tertiaryLabel))
+                .accessibilityLabel("Bookmark")
         }
     } row1: {
         HStack(spacing: 4) {
             Tag("Project").tagStyle(ColorTagStyle(textColor: .preferredColor(.blue9), fillColor: .preferredColor(.blue2)))
             Circle().frame(width: 2).foregroundColor(Color.preferredColor(.tertiaryLabel).opacity(0.9))
             LabelItem(icon: Image(systemName: "calendar"), title: "1 Oct 2023 - 31 Oct 2023", alignment: .leading)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("1 Oct 2023 - 31 Oct 2023")
         }
     }
     
@@ -567,9 +570,10 @@ public enum CardTests {
             .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
     } kpi: {
         VStack(alignment: .trailing) {
-            HStack(alignment: .bottom, spacing: 0) {
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
                 Text("$")
                     .font(.fiori(forTextStyle: .body, weight: .bold))
+                    .baselineOffset(2)
                 Text("90")
                     .font(.fiori(forTextStyle: .title2, weight: .bold))
             }
@@ -692,6 +696,7 @@ public enum CardTests {
         Image("ProfilePic")
     } headerAction: {
         FioriButton(title: "...")
+            .accessibilityLabel("More")
     } counter: {
         Text("1 of 3")
     } action: {
@@ -1260,6 +1265,7 @@ public enum CardTests {
             .foregroundColor(.preferredColor(.quaternaryLabel))
     } headerAction: {
         FioriButton(title: "...")
+            .accessibilityLabel("More")
     } counter: {
         Text("1 of 3")
     } action: {

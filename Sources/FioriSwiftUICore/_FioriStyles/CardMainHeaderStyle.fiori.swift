@@ -51,7 +51,7 @@ private struct CardMainHeaderView: View {
             }
 
             HStack(alignment: .top, spacing: 0) {
-                HStack(spacing: 8) {
+                HStack(alignment: .top, spacing: 8) {
                     if !self.configuration.icons.isEmpty {
                         self.configuration.icons
                             .accessibilityHidden(true)
@@ -153,6 +153,7 @@ extension CardMainHeaderFioriStyle {
                 .font(.fiori(forTextStyle: .title3, weight: .bold))
                 .multilineTextAlignment(.leading)
                 .environment(\.numberOfLines, 3)
+                .alignmentGuide(VerticalAlignment.top) { d in d[VerticalAlignment.top] }
         }
     }
     
