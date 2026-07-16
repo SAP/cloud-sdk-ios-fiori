@@ -3852,14 +3852,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/CardStyle.fiori.swift",
-      "line": 1322,
+      "line": 1329,
       "symbol": "CardTests.cardFooterSamples",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/CardStyle.fiori.swift",
-      "line": 1324,
+      "line": 1331,
       "symbol": "CardTests.flexItemCardSamples",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
