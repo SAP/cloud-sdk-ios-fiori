@@ -248,6 +248,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 Text(configuration.navigationTitle ?? "")
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                     .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
+                    .accessibilityAddTraits(.isHeader)
             }
         }
         .navigationBarBackButtonHidden(true)
