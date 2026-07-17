@@ -99,6 +99,7 @@ extension NoteFormViewFioriStyle {
         @Environment(\.isLoading) var isLoading
         @Environment(\.isCustomizedBorder) var isCustomizedBorder
         @Environment(\.noteFormViewCornerRadius) var noteFormViewCornerRadius
+        @Environment(\.noteFormViewScrollingEnabled) var noteFormViewScrollingEnabled
         
         @ViewBuilder
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
@@ -114,13 +115,11 @@ extension NoteFormViewFioriStyle {
                         .padding(.top, -8)
                 }
                 .placeholderTextEditorStyle { config in
+                    let scrollEnabled = self.noteFormViewScrollingEnabled ?? (configuration.maxTextEditorHeight != nil)
                     PlaceholderTextEditor(config)
-                        .frame(minHeight: self.getMinHeight(configuration), maxHeight: self.getMaxHeight(configuration))
-                        // When no maxTextEditorHeight is set, disable scrolling so that
-                        // TextEditor uses its content height as intrinsic size natively in SwiftUI.
-                        // When maxTextEditorHeight is set, scrolling remains enabled so the
-                        // editor stays within the given height limit and scrolls internally.
-                        .scrollDisabled(configuration.maxTextEditorHeight == nil)
+                        .frame(minHeight: self.getMinHeight(configuration))
+                        .frame(maxHeight: self.getMaxHeight(configuration))
+                        .scrollDisabled(!scrollEnabled)
                         .background(self.getBackgroundColor(configuration))
                         .clipShape(RoundedRectangle(cornerRadius: self.noteFormViewCornerRadius))
                         .overlay(
@@ -263,5 +262,41 @@ public extension View {
     /// - Returns: A view with specified corner radius.
     func noteFormViewCornerRadius(_ cornerRadius: CGFloat) -> some View {
         environment(\.noteFormViewCornerRadius, cornerRadius)
+    }
+}
+
+// MARK: - NoteFormView Scrolling Enabled
+
+struct NoteFormViewScrollingEnabledKey: EnvironmentKey {
+    /// nil means "auto": scroll when maxTextEditorHeight is set, no-scroll otherwise.
+    static let defaultValue: Bool? = nil
+}
+
+public extension EnvironmentValues {
+    /// Controls whether the NoteFormView's text editor scrolls internally.
+    /// - `nil` (default): automatically determined by `maxTextEditorHeight`.
+    ///   - `maxTextEditorHeight` is set → scrolling enabled (editor stays within height limit).
+    ///   - `maxTextEditorHeight` is nil → scrolling disabled (editor expands to fit all content).
+    /// - `true`: always enable scrolling, useful when the editor is inside a height-constrained parent view.
+    /// - `false`: always disable scrolling, editor always expands to fit all content.
+    var noteFormViewScrollingEnabled: Bool? {
+        get { self[NoteFormViewScrollingEnabledKey.self] }
+        set { self[NoteFormViewScrollingEnabledKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Controls whether the NoteFormView's text editor scrolls internally.
+    /// ```swift
+    /// // Force scrolling enabled when NoteFormView is inside a height-constrained parent:
+    /// VStack {
+    ///     NoteFormView(text: $text, maxTextEditorHeight: nil)
+    /// }
+    /// .frame(height: 100)
+    /// .noteFormViewScrollingEnabled(true)
+    /// ```
+    /// - Parameter enabled: `true` to enable scrolling, `false` to disable, `nil` for automatic behavior.
+    func noteFormViewScrollingEnabled(_ enabled: Bool?) -> some View {
+        environment(\.noteFormViewScrollingEnabled, enabled)
     }
 }
