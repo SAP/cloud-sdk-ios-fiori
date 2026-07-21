@@ -94,6 +94,8 @@ struct CardFullWidthSingleButtonExample: View {
         }
     }
     
+    @State private var availableGridViewWidth: CGFloat = 0
+    
     var body: some View {
         List {
             Section {
@@ -117,7 +119,8 @@ struct CardFullWidthSingleButtonExample: View {
                 .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                 
                 if self.isGridView {
-                    let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
+                    let count = self.availableGridViewWidth < 300 * 2 + 8 ? 1 : 2
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: count)
                     ScrollViewReader { proxy in
                         LazyVGrid(columns: columns, spacing: 10) {
                             ForEach(self._dataSource) { item in
@@ -133,6 +136,12 @@ struct CardFullWidthSingleButtonExample: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .onGeometryChange(for: CGFloat.self, of: { proxy in
+                        proxy.size.width
+                    }, action: { newValue in
+                        self.availableGridViewWidth = newValue
+                    })
                 } else {
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
