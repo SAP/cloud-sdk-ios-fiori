@@ -120,7 +120,7 @@ struct CardFullWidthSingleButtonExample: View {
                 .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                 
                 if self.isGridView {
-                    let count = self.availableGridViewWidth < self.cardWidth * 2 + 8 ? 1 : 2
+                    let count = self.availableGridViewWidth < self.cardWidth * 2 + 8 + 32 ? 1 : 2
                     let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: count)
                     ScrollViewReader { proxy in
                         LazyVGrid(columns: columns, spacing: 10) {
