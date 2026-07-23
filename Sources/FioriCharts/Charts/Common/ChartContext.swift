@@ -2,7 +2,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-protocol ChartContext: AnyObject, Sendable {
+protocol ChartContext: Sendable {
     func scaleX(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat
     
     func scaleY(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat

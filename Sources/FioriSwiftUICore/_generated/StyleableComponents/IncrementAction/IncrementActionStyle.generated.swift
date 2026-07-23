@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol IncrementActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol IncrementActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: IncrementActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: IncrementActionConfiguration) -> Body
 }
 
 struct AnyIncrementActionStyle: IncrementActionStyle {
@@ -31,5 +31,14 @@ public struct IncrementActionConfiguration {
 extension IncrementActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct IncrementActionDefaultStyle: IncrementActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: IncrementActionConfiguration) -> some View {
+        IncrementAction(configuration)
+            .incrementActionStyle(IncrementActionBaseStyle())
     }
 }

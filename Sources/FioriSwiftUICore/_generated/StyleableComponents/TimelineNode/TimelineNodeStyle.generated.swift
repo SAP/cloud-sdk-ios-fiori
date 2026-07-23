@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineNodeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineNodeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineNodeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineNodeConfiguration) -> Body
 }
 
 struct AnyTimelineNodeStyle: TimelineNodeStyle {
@@ -31,5 +31,14 @@ public struct TimelineNodeConfiguration {
 extension TimelineNodeConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct TimelineNodeDefaultStyle: TimelineNodeStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelineNodeConfiguration) -> some View {
+        TimelineNode(configuration)
+            .timelineNodeStyle(TimelineNodeBaseStyle())
     }
 }

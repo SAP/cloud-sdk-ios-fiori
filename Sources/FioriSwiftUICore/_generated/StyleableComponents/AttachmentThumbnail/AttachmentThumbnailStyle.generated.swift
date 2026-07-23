@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentThumbnailStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentThumbnailStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> Body
 }
 
 struct AnyAttachmentThumbnailStyle: AttachmentThumbnailStyle {
@@ -36,5 +36,15 @@ extension AttachmentThumbnailConfiguration {
 public struct AttachmentThumbnailFioriStyle: AttachmentThumbnailStyle {
     public func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
         AttachmentThumbnail(configuration)
+    }
+}
+
+struct AttachmentThumbnailDefaultStyle: AttachmentThumbnailStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentThumbnailConfiguration) -> some View {
+        AttachmentThumbnail(configuration)
+            .attachmentThumbnailStyle(AttachmentThumbnailFioriStyle())
+            .modifier(AttachmentThumbnailStyleModifier(style: AttachmentThumbnailBaseStyle()))
     }
 }

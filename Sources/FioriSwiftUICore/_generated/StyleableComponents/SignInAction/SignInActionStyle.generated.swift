@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SignInActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SignInActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SignInActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SignInActionConfiguration) -> Body
 }
 
 struct AnySignInActionStyle: SignInActionStyle {
@@ -31,5 +31,14 @@ public struct SignInActionConfiguration {
 extension SignInActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SignInActionDefaultStyle: SignInActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SignInActionConfiguration) -> some View {
+        SignInAction(configuration)
+            .signInActionStyle(SignInActionBaseStyle())
     }
 }

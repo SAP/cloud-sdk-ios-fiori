@@ -491,7 +491,7 @@ struct TagExample: View {
 }
 
 /// Card Tests
-public enum CardTests {
+@MainActor public enum CardTests {
     static let region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.766_241,
                                        longitude: -121.961_579),
@@ -1334,7 +1334,7 @@ public enum CardTests {
 /// Provides reusable skeleton loading patterns for `Card` components.
 /// These static properties offer placeholder card layouts to display while content is loading,
 /// ensuring a consistent and visually appealing loading state across the UI.
-public enum CardSkeletonLoadingPattern {
+@MainActor public enum CardSkeletonLoadingPattern {
     /// Provides a header-only card skeleton with a title.
     public static let oneLineCard = Card {
         Text("Title text for loading")

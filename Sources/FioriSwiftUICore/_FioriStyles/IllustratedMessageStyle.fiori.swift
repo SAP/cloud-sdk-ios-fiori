@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 public extension IllustratedMessage {
-    enum DetailImageSize {
+    enum DetailImageSize: Sendable {
         case extraSmall
         case small
         case medium

@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The key for storing max number of items value in the environment.
 public struct MaxNumberOfItemsKey: EnvironmentKey {
-    public static var defaultValue = 0
+    public static let defaultValue = 0
 }
 
 public extension EnvironmentValues {

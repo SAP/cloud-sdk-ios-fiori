@@ -64,6 +64,7 @@ private extension TimelineNowIndicator {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TimelineNowIndicator(.init(componentIdentifier: self.componentIdentifier, nowIndicatorNode: .init(self.nowIndicatorNode)))
             .shouldApplyDefaultStyle(false)

@@ -25,6 +25,7 @@ public extension FootnoteIconsText {
 }
 
 public extension FootnoteIconsText {
+    @MainActor
     init(footnoteIconsText: AttributedString? = nil) {
         self.init(footnoteIconsText: { OptionalText(footnoteIconsText) })
     }
@@ -64,6 +65,7 @@ private extension FootnoteIconsText {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         FootnoteIconsText(.init(componentIdentifier: self.componentIdentifier, footnoteIconsText: .init(self.footnoteIconsText)))
             .shouldApplyDefaultStyle(false)

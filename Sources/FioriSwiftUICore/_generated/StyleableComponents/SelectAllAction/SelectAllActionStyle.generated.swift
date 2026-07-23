@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SelectAllActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SelectAllActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SelectAllActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SelectAllActionConfiguration) -> Body
 }
 
 struct AnySelectAllActionStyle: SelectAllActionStyle {
@@ -31,5 +31,14 @@ public struct SelectAllActionConfiguration {
 extension SelectAllActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SelectAllActionDefaultStyle: SelectAllActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SelectAllActionConfiguration) -> some View {
+        SelectAllAction(configuration)
+            .selectAllActionStyle(SelectAllActionBaseStyle())
     }
 }

@@ -62,6 +62,7 @@ public extension ContactItem {
 }
 
 public extension ContactItem {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          description: AttributedString? = nil,
@@ -110,6 +111,7 @@ private extension ContactItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ContactItem(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), description: .init(self.description), detailImage: .init(self.detailImage), activityItems: .init(self.activityItems)))
             .shouldApplyDefaultStyle(false)

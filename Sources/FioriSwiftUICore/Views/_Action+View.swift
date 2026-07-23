@@ -31,7 +31,7 @@ extension _Action: View {
 }
 
 struct SharedActionKey: EnvironmentKey {
-    static let defaultValue: (() -> Void)? = nil
+    nonisolated(unsafe) static let defaultValue: (() -> Void)? = nil
 }
 
 extension EnvironmentValues {

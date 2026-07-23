@@ -209,11 +209,6 @@ extension EnvironmentValues {
         set { self[ProgressIndicatorTextModifierKey.self] = newValue }
     }
 
-    public var textInputValueModifier: AnyViewModifier {
-        get { return self[TextInputValueModifierKey.self] }
-        set { self[TextInputValueModifierKey.self] = newValue }
-    }
-
     public var cancelActionModifier: AnyViewModifier {
         get { return self[CancelActionModifierKey.self] }
         set { self[CancelActionModifierKey.self] = newValue }
@@ -222,36 +217,6 @@ extension EnvironmentValues {
     public var doneActionModifier: AnyViewModifier {
         get { return self[DoneActionModifierKey.self] }
         set { self[DoneActionModifierKey.self] = newValue }
-    }
-
-    public var actionModifier: AnyViewModifier {
-        get { return self[ActionModifierKey.self] }
-        set { self[ActionModifierKey.self] = newValue }
-    }
-
-    public var secondaryActionModifier: AnyViewModifier {
-        get { return self[SecondaryActionModifierKey.self] }
-        set { self[SecondaryActionModifierKey.self] = newValue }
-    }
-
-    public var textInputModifier: AnyViewModifier {
-        get { return self[TextInputModifierKey.self] }
-        set { self[TextInputModifierKey.self] = newValue }
-    }
-
-    public var itemsModifier: AnyViewModifier {
-        get { return self[ItemsModifierKey.self] }
-        set { self[ItemsModifierKey.self] = newValue }
-    }
-
-    public var resetActionModifier: AnyViewModifier {
-        get { return self[ResetActionModifierKey.self] }
-        set { self[ResetActionModifierKey.self] = newValue }
-    }
-
-    public var applyActionModifier: AnyViewModifier {
-        get { return self[ApplyActionModifierKey.self] }
-        set { self[ApplyActionModifierKey.self] = newValue }
     }
 
     public var nextActionModifier: AnyViewModifier {
@@ -272,6 +237,11 @@ extension EnvironmentValues {
     public var notNowActionModifier: AnyViewModifier {
         get { return self[NotNowActionModifierKey.self] }
         set { self[NotNowActionModifierKey.self] = newValue }
+    }
+
+    public var actionModifier: AnyViewModifier {
+        get { return self[ActionModifierKey.self] }
+        set { self[ActionModifierKey.self] = newValue }
     }
 
 }
@@ -484,11 +454,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func textInputValueModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.textInputValueModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.cancelActionModifier, AnyViewModifier(transform))
     }
@@ -496,36 +461,6 @@ public extension View {
     @ViewBuilder
     func doneActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.doneActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func actionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.actionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func secondaryActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.secondaryActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func textInputModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.textInputModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.itemsModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func resetActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.resetActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func applyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.applyActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
@@ -546,6 +481,11 @@ public extension View {
     @ViewBuilder
     func notNowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.notNowActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func actionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.actionModifier, AnyViewModifier(transform))
     }
 
 }

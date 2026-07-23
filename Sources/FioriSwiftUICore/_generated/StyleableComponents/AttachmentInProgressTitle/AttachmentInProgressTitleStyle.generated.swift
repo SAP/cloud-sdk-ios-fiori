@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentInProgressTitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentInProgressTitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentInProgressTitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentInProgressTitleConfiguration) -> Body
 }
 
 struct AnyAttachmentInProgressTitleStyle: AttachmentInProgressTitleStyle {
@@ -31,5 +31,14 @@ public struct AttachmentInProgressTitleConfiguration {
 extension AttachmentInProgressTitleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AttachmentInProgressTitleDefaultStyle: AttachmentInProgressTitleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentInProgressTitleConfiguration) -> some View {
+        AttachmentInProgressTitle(configuration)
+            .attachmentInProgressTitleStyle(AttachmentInProgressTitleBaseStyle())
     }
 }

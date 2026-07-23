@@ -671,18 +671,20 @@ extension MyExtraInfo {
     }
 }
 
-class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
+class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate, @unchecked Sendable {
     public init() {
         super.init()
     }
     
-    override func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    override func upload(contentFrom provider: NSItemProvider, onStarting: (@MainActor @Sendable (URL) -> Void)? = nil, onCompletion: @escaping @Sendable (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
                     if let onStarting {
-                        DispatchQueue.main.async {
-                            onStarting(url)
+                        Task {
+                            await MainActor.run {
+                                onStarting(url)
+                            }
                         }
                     }
                     Thread.sleep(forTimeInterval: [2.0, 3.0, 5.0, 7.0, 10.0].randomElement() ?? 3.0)

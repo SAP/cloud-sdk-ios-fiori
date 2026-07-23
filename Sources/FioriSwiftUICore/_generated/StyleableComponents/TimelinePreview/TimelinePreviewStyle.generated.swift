@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelinePreviewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelinePreviewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelinePreviewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelinePreviewConfiguration) -> Body
 }
 
 struct AnyTimelinePreviewStyle: TimelinePreviewStyle {
@@ -42,5 +42,15 @@ public struct TimelinePreviewFioriStyle: TimelinePreviewStyle {
         TimelinePreview(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(timelinePreviewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(timelinePreviewConfiguration: configuration))
+    }
+}
+
+struct TimelinePreviewDefaultStyle: TimelinePreviewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelinePreviewConfiguration) -> some View {
+        TimelinePreview(configuration)
+            .timelinePreviewStyle(TimelinePreviewFioriStyle())
+            .modifier(TimelinePreviewStyleModifier(style: TimelinePreviewBaseStyle()))
     }
 }

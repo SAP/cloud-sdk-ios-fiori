@@ -3,6 +3,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+@MainActor
 public extension SignatureCaptureView {
     /// Convenience initializer for signature capture view.
     /// - Parameters:

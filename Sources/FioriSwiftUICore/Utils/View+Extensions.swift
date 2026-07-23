@@ -19,7 +19,7 @@ extension View {
             action()
         }, perform: action)
     }
-    
+
     // In order to fix an issue where the simultaneous gesture is not activated in voice over.
     func accessibilitySimultaneousGesture(_ gesture: some Gesture, including mask: GestureMask = .all, perform action: @escaping () -> Void) -> some View {
         simultaneousGesture(gesture, including: mask)
@@ -39,21 +39,21 @@ extension View {
     }
 }
 
-public protocol _ViewEmptyChecking {
+@MainActor public protocol _ViewEmptyChecking {
     // Check if the view is an empty view. Some SDK components implement this protocol to define their own empty logic.
     var isEmpty: Bool { get }
 }
 
 extension View {
-    var isEmpty: Bool {
+    @MainActor var isEmpty: Bool {
         if self is EmptyView {
             return true
         }
-        
+
         if let self = self as? _ViewEmptyChecking {
             return self.isEmpty
         }
-        
+
         return false
     }
 }
@@ -96,11 +96,11 @@ extension View {
 /// Inline view modifier
 public struct InlineModifier<R: View>: ViewModifier {
     private let block: (Content) -> R
-    
+
     public init(@ViewBuilder _ block: @escaping (Content) -> R) {
         self.block = block
     }
-    
+
     public func body(content: Content) -> some View {
         self.block(content)
     }

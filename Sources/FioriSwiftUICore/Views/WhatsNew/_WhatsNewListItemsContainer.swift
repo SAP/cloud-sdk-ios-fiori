@@ -15,7 +15,7 @@ public struct _WhatsNewListItemsContainer: View {
     }
 }
 
-extension _WhatsNewListItemsContainer: IndexedViewContainer {
+extension _WhatsNewListItemsContainer: @preconcurrency IndexedViewContainer {
     /// Count of indexed views.
     public var count: Int {
         self.whatsNewListItems.count

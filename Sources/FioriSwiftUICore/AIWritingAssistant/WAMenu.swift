@@ -45,7 +45,7 @@ public struct WAMenu: Hashable, Identifiable, Sendable {
 }
 
 /// `WAError` represents an error in the writing assistant feature, providing details about the error and potential actions which will be used in `IllustratedMessage`.
-public struct WAError: Error {
+public struct WAError: Error, @unchecked Sendable {
     let id = UUID()
     /// Detail image for the error.
     public let detailImage: Image?

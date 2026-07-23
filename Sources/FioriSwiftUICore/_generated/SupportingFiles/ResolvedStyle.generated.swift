@@ -5,7 +5,7 @@ import SwiftUI
 
 // MARK: AINoticeStyle
 
-struct ResolvedAINoticeStyle<Style: AINoticeStyle>: View {
+@MainActor struct ResolvedAINoticeStyle<Style: AINoticeStyle>: View {
     let style: Style
     let configuration: AINoticeConfiguration
     var body: some View {
@@ -13,7 +13,7 @@ struct ResolvedAINoticeStyle<Style: AINoticeStyle>: View {
     }
 }
 
-extension AINoticeStyle {
+@MainActor extension AINoticeStyle {
     func resolve(configuration: AINoticeConfiguration) -> some View {
         ResolvedAINoticeStyle(style: self, configuration: configuration)
     }
@@ -21,7 +21,7 @@ extension AINoticeStyle {
 
 // MARK: AIUserFeedbackStyle
 
-struct ResolvedAIUserFeedbackStyle<Style: AIUserFeedbackStyle>: View {
+@MainActor struct ResolvedAIUserFeedbackStyle<Style: AIUserFeedbackStyle>: View {
     let style: Style
     let configuration: AIUserFeedbackConfiguration
     var body: some View {
@@ -29,7 +29,7 @@ struct ResolvedAIUserFeedbackStyle<Style: AIUserFeedbackStyle>: View {
     }
 }
 
-extension AIUserFeedbackStyle {
+@MainActor extension AIUserFeedbackStyle {
     func resolve(configuration: AIUserFeedbackConfiguration) -> some View {
         ResolvedAIUserFeedbackStyle(style: self, configuration: configuration)
     }
@@ -37,7 +37,7 @@ extension AIUserFeedbackStyle {
 
 // MARK: AccessoryIconStyle
 
-struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
+@MainActor struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
     let style: Style
     let configuration: AccessoryIconConfiguration
     var body: some View {
@@ -45,7 +45,7 @@ struct ResolvedAccessoryIconStyle<Style: AccessoryIconStyle>: View {
     }
 }
 
-extension AccessoryIconStyle {
+@MainActor extension AccessoryIconStyle {
     func resolve(configuration: AccessoryIconConfiguration) -> some View {
         ResolvedAccessoryIconStyle(style: self, configuration: configuration)
     }
@@ -53,7 +53,7 @@ extension AccessoryIconStyle {
 
 // MARK: AccessoryViewStyle
 
-struct ResolvedAccessoryViewStyle<Style: AccessoryViewStyle>: View {
+@MainActor struct ResolvedAccessoryViewStyle<Style: AccessoryViewStyle>: View {
     let style: Style
     let configuration: AccessoryViewConfiguration
     var body: some View {
@@ -61,7 +61,7 @@ struct ResolvedAccessoryViewStyle<Style: AccessoryViewStyle>: View {
     }
 }
 
-extension AccessoryViewStyle {
+@MainActor extension AccessoryViewStyle {
     func resolve(configuration: AccessoryViewConfiguration) -> some View {
         ResolvedAccessoryViewStyle(style: self, configuration: configuration)
     }
@@ -69,7 +69,7 @@ extension AccessoryViewStyle {
 
 // MARK: ActionStyle
 
-struct ResolvedActionStyle<Style: ActionStyle>: View {
+@MainActor struct ResolvedActionStyle<Style: ActionStyle>: View {
     let style: Style
     let configuration: ActionConfiguration
     var body: some View {
@@ -77,7 +77,7 @@ struct ResolvedActionStyle<Style: ActionStyle>: View {
     }
 }
 
-extension ActionStyle {
+@MainActor extension ActionStyle {
     func resolve(configuration: ActionConfiguration) -> some View {
         ResolvedActionStyle(style: self, configuration: configuration)
     }
@@ -85,7 +85,7 @@ extension ActionStyle {
 
 // MARK: ActivationScreenStyle
 
-struct ResolvedActivationScreenStyle<Style: ActivationScreenStyle>: View {
+@MainActor struct ResolvedActivationScreenStyle<Style: ActivationScreenStyle>: View {
     let style: Style
     let configuration: ActivationScreenConfiguration
     var body: some View {
@@ -93,7 +93,7 @@ struct ResolvedActivationScreenStyle<Style: ActivationScreenStyle>: View {
     }
 }
 
-extension ActivationScreenStyle {
+@MainActor extension ActivationScreenStyle {
     func resolve(configuration: ActivationScreenConfiguration) -> some View {
         ResolvedActivationScreenStyle(style: self, configuration: configuration)
     }
@@ -101,7 +101,7 @@ extension ActivationScreenStyle {
 
 // MARK: ActiveTrackStyle
 
-struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
+@MainActor struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
     let style: Style
     let configuration: ActiveTrackConfiguration
     var body: some View {
@@ -109,7 +109,7 @@ struct ResolvedActiveTrackStyle<Style: ActiveTrackStyle>: View {
     }
 }
 
-extension ActiveTrackStyle {
+@MainActor extension ActiveTrackStyle {
     func resolve(configuration: ActiveTrackConfiguration) -> some View {
         ResolvedActiveTrackStyle(style: self, configuration: configuration)
     }
@@ -117,7 +117,7 @@ extension ActiveTrackStyle {
 
 // MARK: ActivityItemStyle
 
-struct ResolvedActivityItemStyle<Style: ActivityItemStyle>: View {
+@MainActor struct ResolvedActivityItemStyle<Style: ActivityItemStyle>: View {
     let style: Style
     let configuration: ActivityItemConfiguration
     var body: some View {
@@ -125,7 +125,7 @@ struct ResolvedActivityItemStyle<Style: ActivityItemStyle>: View {
     }
 }
 
-extension ActivityItemStyle {
+@MainActor extension ActivityItemStyle {
     func resolve(configuration: ActivityItemConfiguration) -> some View {
         ResolvedActivityItemStyle(style: self, configuration: configuration)
     }
@@ -133,7 +133,7 @@ extension ActivityItemStyle {
 
 // MARK: ActivityItemsStyle
 
-struct ResolvedActivityItemsStyle<Style: ActivityItemsStyle>: View {
+@MainActor struct ResolvedActivityItemsStyle<Style: ActivityItemsStyle>: View {
     let style: Style
     let configuration: ActivityItemsConfiguration
     var body: some View {
@@ -141,7 +141,7 @@ struct ResolvedActivityItemsStyle<Style: ActivityItemsStyle>: View {
     }
 }
 
-extension ActivityItemsStyle {
+@MainActor extension ActivityItemsStyle {
     func resolve(configuration: ActivityItemsConfiguration) -> some View {
         ResolvedActivityItemsStyle(style: self, configuration: configuration)
     }
@@ -149,7 +149,7 @@ extension ActivityItemsStyle {
 
 // MARK: AgreeActionStyle
 
-struct ResolvedAgreeActionStyle<Style: AgreeActionStyle>: View {
+@MainActor struct ResolvedAgreeActionStyle<Style: AgreeActionStyle>: View {
     let style: Style
     let configuration: AgreeActionConfiguration
     var body: some View {
@@ -157,7 +157,7 @@ struct ResolvedAgreeActionStyle<Style: AgreeActionStyle>: View {
     }
 }
 
-extension AgreeActionStyle {
+@MainActor extension AgreeActionStyle {
     func resolve(configuration: AgreeActionConfiguration) -> some View {
         ResolvedAgreeActionStyle(style: self, configuration: configuration)
     }
@@ -165,7 +165,7 @@ extension AgreeActionStyle {
 
 // MARK: AllEntriesSectionTitleStyle
 
-struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {
+@MainActor struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: View {
     let style: Style
     let configuration: AllEntriesSectionTitleConfiguration
     var body: some View {
@@ -173,7 +173,7 @@ struct ResolvedAllEntriesSectionTitleStyle<Style: AllEntriesSectionTitleStyle>: 
     }
 }
 
-extension AllEntriesSectionTitleStyle {
+@MainActor extension AllEntriesSectionTitleStyle {
     func resolve(configuration: AllEntriesSectionTitleConfiguration) -> some View {
         ResolvedAllEntriesSectionTitleStyle(style: self, configuration: configuration)
     }
@@ -181,7 +181,7 @@ extension AllEntriesSectionTitleStyle {
 
 // MARK: AllowActionStyle
 
-struct ResolvedAllowActionStyle<Style: AllowActionStyle>: View {
+@MainActor struct ResolvedAllowActionStyle<Style: AllowActionStyle>: View {
     let style: Style
     let configuration: AllowActionConfiguration
     var body: some View {
@@ -189,7 +189,7 @@ struct ResolvedAllowActionStyle<Style: AllowActionStyle>: View {
     }
 }
 
-extension AllowActionStyle {
+@MainActor extension AllowActionStyle {
     func resolve(configuration: AllowActionConfiguration) -> some View {
         ResolvedAllowActionStyle(style: self, configuration: configuration)
     }
@@ -197,7 +197,7 @@ extension AllowActionStyle {
 
 // MARK: ApplyActionStyle
 
-struct ResolvedApplyActionStyle<Style: ApplyActionStyle>: View {
+@MainActor struct ResolvedApplyActionStyle<Style: ApplyActionStyle>: View {
     let style: Style
     let configuration: ApplyActionConfiguration
     var body: some View {
@@ -205,7 +205,7 @@ struct ResolvedApplyActionStyle<Style: ApplyActionStyle>: View {
     }
 }
 
-extension ApplyActionStyle {
+@MainActor extension ApplyActionStyle {
     func resolve(configuration: ApplyActionConfiguration) -> some View {
         ResolvedApplyActionStyle(style: self, configuration: configuration)
     }
@@ -213,7 +213,7 @@ extension ApplyActionStyle {
 
 // MARK: AttachmentButtonImageStyle
 
-struct ResolvedAttachmentButtonImageStyle<Style: AttachmentButtonImageStyle>: View {
+@MainActor struct ResolvedAttachmentButtonImageStyle<Style: AttachmentButtonImageStyle>: View {
     let style: Style
     let configuration: AttachmentButtonImageConfiguration
     var body: some View {
@@ -221,7 +221,7 @@ struct ResolvedAttachmentButtonImageStyle<Style: AttachmentButtonImageStyle>: Vi
     }
 }
 
-extension AttachmentButtonImageStyle {
+@MainActor extension AttachmentButtonImageStyle {
     func resolve(configuration: AttachmentButtonImageConfiguration) -> some View {
         ResolvedAttachmentButtonImageStyle(style: self, configuration: configuration)
     }
@@ -229,7 +229,7 @@ extension AttachmentButtonImageStyle {
 
 // MARK: AttachmentStyle
 
-struct ResolvedAttachmentStyle<Style: AttachmentStyle>: View {
+@MainActor struct ResolvedAttachmentStyle<Style: AttachmentStyle>: View {
     let style: Style
     let configuration: AttachmentConfiguration
     var body: some View {
@@ -237,7 +237,7 @@ struct ResolvedAttachmentStyle<Style: AttachmentStyle>: View {
     }
 }
 
-extension AttachmentStyle {
+@MainActor extension AttachmentStyle {
     func resolve(configuration: AttachmentConfiguration) -> some View {
         ResolvedAttachmentStyle(style: self, configuration: configuration)
     }
@@ -245,7 +245,7 @@ extension AttachmentStyle {
 
 // MARK: AttachmentElementStyle
 
-struct ResolvedAttachmentElementStyle<Style: AttachmentElementStyle>: View {
+@MainActor struct ResolvedAttachmentElementStyle<Style: AttachmentElementStyle>: View {
     let style: Style
     let configuration: AttachmentElementConfiguration
     var body: some View {
@@ -253,7 +253,7 @@ struct ResolvedAttachmentElementStyle<Style: AttachmentElementStyle>: View {
     }
 }
 
-extension AttachmentElementStyle {
+@MainActor extension AttachmentElementStyle {
     func resolve(configuration: AttachmentElementConfiguration) -> some View {
         ResolvedAttachmentElementStyle(style: self, configuration: configuration)
     }
@@ -261,7 +261,7 @@ extension AttachmentElementStyle {
 
 // MARK: AttachmentErrorTitleStyle
 
-struct ResolvedAttachmentErrorTitleStyle<Style: AttachmentErrorTitleStyle>: View {
+@MainActor struct ResolvedAttachmentErrorTitleStyle<Style: AttachmentErrorTitleStyle>: View {
     let style: Style
     let configuration: AttachmentErrorTitleConfiguration
     var body: some View {
@@ -269,7 +269,7 @@ struct ResolvedAttachmentErrorTitleStyle<Style: AttachmentErrorTitleStyle>: View
     }
 }
 
-extension AttachmentErrorTitleStyle {
+@MainActor extension AttachmentErrorTitleStyle {
     func resolve(configuration: AttachmentErrorTitleConfiguration) -> some View {
         ResolvedAttachmentErrorTitleStyle(style: self, configuration: configuration)
     }
@@ -277,7 +277,7 @@ extension AttachmentErrorTitleStyle {
 
 // MARK: AttachmentFootnoteStyle
 
-struct ResolvedAttachmentFootnoteStyle<Style: AttachmentFootnoteStyle>: View {
+@MainActor struct ResolvedAttachmentFootnoteStyle<Style: AttachmentFootnoteStyle>: View {
     let style: Style
     let configuration: AttachmentFootnoteConfiguration
     var body: some View {
@@ -285,7 +285,7 @@ struct ResolvedAttachmentFootnoteStyle<Style: AttachmentFootnoteStyle>: View {
     }
 }
 
-extension AttachmentFootnoteStyle {
+@MainActor extension AttachmentFootnoteStyle {
     func resolve(configuration: AttachmentFootnoteConfiguration) -> some View {
         ResolvedAttachmentFootnoteStyle(style: self, configuration: configuration)
     }
@@ -293,7 +293,7 @@ extension AttachmentFootnoteStyle {
 
 // MARK: AttachmentGroupStyle
 
-struct ResolvedAttachmentGroupStyle<Style: AttachmentGroupStyle>: View {
+@MainActor struct ResolvedAttachmentGroupStyle<Style: AttachmentGroupStyle>: View {
     let style: Style
     let configuration: AttachmentGroupConfiguration
     var body: some View {
@@ -301,7 +301,7 @@ struct ResolvedAttachmentGroupStyle<Style: AttachmentGroupStyle>: View {
     }
 }
 
-extension AttachmentGroupStyle {
+@MainActor extension AttachmentGroupStyle {
     func resolve(configuration: AttachmentGroupConfiguration) -> some View {
         ResolvedAttachmentGroupStyle(style: self, configuration: configuration)
     }
@@ -309,7 +309,7 @@ extension AttachmentGroupStyle {
 
 // MARK: AttachmentInProgressStyle
 
-struct ResolvedAttachmentInProgressStyle<Style: AttachmentInProgressStyle>: View {
+@MainActor struct ResolvedAttachmentInProgressStyle<Style: AttachmentInProgressStyle>: View {
     let style: Style
     let configuration: AttachmentInProgressConfiguration
     var body: some View {
@@ -317,7 +317,7 @@ struct ResolvedAttachmentInProgressStyle<Style: AttachmentInProgressStyle>: View
     }
 }
 
-extension AttachmentInProgressStyle {
+@MainActor extension AttachmentInProgressStyle {
     func resolve(configuration: AttachmentInProgressConfiguration) -> some View {
         ResolvedAttachmentInProgressStyle(style: self, configuration: configuration)
     }
@@ -325,7 +325,7 @@ extension AttachmentInProgressStyle {
 
 // MARK: AttachmentInProgressTitleStyle
 
-struct ResolvedAttachmentInProgressTitleStyle<Style: AttachmentInProgressTitleStyle>: View {
+@MainActor struct ResolvedAttachmentInProgressTitleStyle<Style: AttachmentInProgressTitleStyle>: View {
     let style: Style
     let configuration: AttachmentInProgressTitleConfiguration
     var body: some View {
@@ -333,7 +333,7 @@ struct ResolvedAttachmentInProgressTitleStyle<Style: AttachmentInProgressTitleSt
     }
 }
 
-extension AttachmentInProgressTitleStyle {
+@MainActor extension AttachmentInProgressTitleStyle {
     func resolve(configuration: AttachmentInProgressTitleConfiguration) -> some View {
         ResolvedAttachmentInProgressTitleStyle(style: self, configuration: configuration)
     }
@@ -341,7 +341,7 @@ extension AttachmentInProgressTitleStyle {
 
 // MARK: AttachmentSubtitleStyle
 
-struct ResolvedAttachmentSubtitleStyle<Style: AttachmentSubtitleStyle>: View {
+@MainActor struct ResolvedAttachmentSubtitleStyle<Style: AttachmentSubtitleStyle>: View {
     let style: Style
     let configuration: AttachmentSubtitleConfiguration
     var body: some View {
@@ -349,7 +349,7 @@ struct ResolvedAttachmentSubtitleStyle<Style: AttachmentSubtitleStyle>: View {
     }
 }
 
-extension AttachmentSubtitleStyle {
+@MainActor extension AttachmentSubtitleStyle {
     func resolve(configuration: AttachmentSubtitleConfiguration) -> some View {
         ResolvedAttachmentSubtitleStyle(style: self, configuration: configuration)
     }
@@ -357,7 +357,7 @@ extension AttachmentSubtitleStyle {
 
 // MARK: AttachmentThumbnailStyle
 
-struct ResolvedAttachmentThumbnailStyle<Style: AttachmentThumbnailStyle>: View {
+@MainActor struct ResolvedAttachmentThumbnailStyle<Style: AttachmentThumbnailStyle>: View {
     let style: Style
     let configuration: AttachmentThumbnailConfiguration
     var body: some View {
@@ -365,7 +365,7 @@ struct ResolvedAttachmentThumbnailStyle<Style: AttachmentThumbnailStyle>: View {
     }
 }
 
-extension AttachmentThumbnailStyle {
+@MainActor extension AttachmentThumbnailStyle {
     func resolve(configuration: AttachmentThumbnailConfiguration) -> some View {
         ResolvedAttachmentThumbnailStyle(style: self, configuration: configuration)
     }
@@ -373,7 +373,7 @@ extension AttachmentThumbnailStyle {
 
 // MARK: AttachmentTitleStyle
 
-struct ResolvedAttachmentTitleStyle<Style: AttachmentTitleStyle>: View {
+@MainActor struct ResolvedAttachmentTitleStyle<Style: AttachmentTitleStyle>: View {
     let style: Style
     let configuration: AttachmentTitleConfiguration
     var body: some View {
@@ -381,7 +381,7 @@ struct ResolvedAttachmentTitleStyle<Style: AttachmentTitleStyle>: View {
     }
 }
 
-extension AttachmentTitleStyle {
+@MainActor extension AttachmentTitleStyle {
     func resolve(configuration: AttachmentTitleConfiguration) -> some View {
         ResolvedAttachmentTitleStyle(style: self, configuration: configuration)
     }
@@ -389,7 +389,7 @@ extension AttachmentTitleStyle {
 
 // MARK: AttachmentWithErrorStyle
 
-struct ResolvedAttachmentWithErrorStyle<Style: AttachmentWithErrorStyle>: View {
+@MainActor struct ResolvedAttachmentWithErrorStyle<Style: AttachmentWithErrorStyle>: View {
     let style: Style
     let configuration: AttachmentWithErrorConfiguration
     var body: some View {
@@ -397,7 +397,7 @@ struct ResolvedAttachmentWithErrorStyle<Style: AttachmentWithErrorStyle>: View {
     }
 }
 
-extension AttachmentWithErrorStyle {
+@MainActor extension AttachmentWithErrorStyle {
     func resolve(configuration: AttachmentWithErrorConfiguration) -> some View {
         ResolvedAttachmentWithErrorStyle(style: self, configuration: configuration)
     }
@@ -405,7 +405,7 @@ extension AttachmentWithErrorStyle {
 
 // MARK: AttributeStyle
 
-struct ResolvedAttributeStyle<Style: AttributeStyle>: View {
+@MainActor struct ResolvedAttributeStyle<Style: AttributeStyle>: View {
     let style: Style
     let configuration: AttributeConfiguration
     var body: some View {
@@ -413,7 +413,7 @@ struct ResolvedAttributeStyle<Style: AttributeStyle>: View {
     }
 }
 
-extension AttributeStyle {
+@MainActor extension AttributeStyle {
     func resolve(configuration: AttributeConfiguration) -> some View {
         ResolvedAttributeStyle(style: self, configuration: configuration)
     }
@@ -421,7 +421,7 @@ extension AttributeStyle {
 
 // MARK: AuthInputStyle
 
-struct ResolvedAuthInputStyle<Style: AuthInputStyle>: View {
+@MainActor struct ResolvedAuthInputStyle<Style: AuthInputStyle>: View {
     let style: Style
     let configuration: AuthInputConfiguration
     var body: some View {
@@ -429,7 +429,7 @@ struct ResolvedAuthInputStyle<Style: AuthInputStyle>: View {
     }
 }
 
-extension AuthInputStyle {
+@MainActor extension AuthInputStyle {
     func resolve(configuration: AuthInputConfiguration) -> some View {
         ResolvedAuthInputStyle(style: self, configuration: configuration)
     }
@@ -437,7 +437,7 @@ extension AuthInputStyle {
 
 // MARK: AuthenticationStyle
 
-struct ResolvedAuthenticationStyle<Style: AuthenticationStyle>: View {
+@MainActor struct ResolvedAuthenticationStyle<Style: AuthenticationStyle>: View {
     let style: Style
     let configuration: AuthenticationConfiguration
     var body: some View {
@@ -445,7 +445,7 @@ struct ResolvedAuthenticationStyle<Style: AuthenticationStyle>: View {
     }
 }
 
-extension AuthenticationStyle {
+@MainActor extension AuthenticationStyle {
     func resolve(configuration: AuthenticationConfiguration) -> some View {
         ResolvedAuthenticationStyle(style: self, configuration: configuration)
     }
@@ -453,7 +453,7 @@ extension AuthenticationStyle {
 
 // MARK: AvatarStackStyle
 
-struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
+@MainActor struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
     let style: Style
     let configuration: AvatarStackConfiguration
     var body: some View {
@@ -461,7 +461,7 @@ struct ResolvedAvatarStackStyle<Style: AvatarStackStyle>: View {
     }
 }
 
-extension AvatarStackStyle {
+@MainActor extension AvatarStackStyle {
     func resolve(configuration: AvatarStackConfiguration) -> some View {
         ResolvedAvatarStackStyle(style: self, configuration: configuration)
     }
@@ -469,7 +469,7 @@ extension AvatarStackStyle {
 
 // MARK: AvatarsStyle
 
-struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
+@MainActor struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
     let style: Style
     let configuration: AvatarsConfiguration
     var body: some View {
@@ -477,7 +477,7 @@ struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
     }
 }
 
-extension AvatarsStyle {
+@MainActor extension AvatarsStyle {
     func resolve(configuration: AvatarsConfiguration) -> some View {
         ResolvedAvatarsStyle(style: self, configuration: configuration)
     }
@@ -485,7 +485,7 @@ extension AvatarsStyle {
 
 // MARK: AvatarsTitleStyle
 
-struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
+@MainActor struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
     let style: Style
     let configuration: AvatarsTitleConfiguration
     var body: some View {
@@ -493,7 +493,7 @@ struct ResolvedAvatarsTitleStyle<Style: AvatarsTitleStyle>: View {
     }
 }
 
-extension AvatarsTitleStyle {
+@MainActor extension AvatarsTitleStyle {
     func resolve(configuration: AvatarsTitleConfiguration) -> some View {
         ResolvedAvatarsTitleStyle(style: self, configuration: configuration)
     }
@@ -501,7 +501,7 @@ extension AvatarsTitleStyle {
 
 // MARK: BackActionStyle
 
-struct ResolvedBackActionStyle<Style: BackActionStyle>: View {
+@MainActor struct ResolvedBackActionStyle<Style: BackActionStyle>: View {
     let style: Style
     let configuration: BackActionConfiguration
     var body: some View {
@@ -509,7 +509,7 @@ struct ResolvedBackActionStyle<Style: BackActionStyle>: View {
     }
 }
 
-extension BackActionStyle {
+@MainActor extension BackActionStyle {
     func resolve(configuration: BackActionConfiguration) -> some View {
         ResolvedBackActionStyle(style: self, configuration: configuration)
     }
@@ -517,7 +517,7 @@ extension BackActionStyle {
 
 // MARK: BannerMessageStyle
 
-struct ResolvedBannerMessageStyle<Style: BannerMessageStyle>: View {
+@MainActor struct ResolvedBannerMessageStyle<Style: BannerMessageStyle>: View {
     let style: Style
     let configuration: BannerMessageConfiguration
     var body: some View {
@@ -525,7 +525,7 @@ struct ResolvedBannerMessageStyle<Style: BannerMessageStyle>: View {
     }
 }
 
-extension BannerMessageStyle {
+@MainActor extension BannerMessageStyle {
     func resolve(configuration: BannerMessageConfiguration) -> some View {
         ResolvedBannerMessageStyle(style: self, configuration: configuration)
     }
@@ -533,7 +533,7 @@ extension BannerMessageStyle {
 
 // MARK: BannerMultiMessageSheetStyle
 
-struct ResolvedBannerMultiMessageSheetStyle<Style: BannerMultiMessageSheetStyle>: View {
+@MainActor struct ResolvedBannerMultiMessageSheetStyle<Style: BannerMultiMessageSheetStyle>: View {
     let style: Style
     let configuration: BannerMultiMessageSheetConfiguration
     var body: some View {
@@ -541,7 +541,7 @@ struct ResolvedBannerMultiMessageSheetStyle<Style: BannerMultiMessageSheetStyle>
     }
 }
 
-extension BannerMultiMessageSheetStyle {
+@MainActor extension BannerMultiMessageSheetStyle {
     func resolve(configuration: BannerMultiMessageSheetConfiguration) -> some View {
         ResolvedBannerMultiMessageSheetStyle(style: self, configuration: configuration)
     }
@@ -549,7 +549,7 @@ extension BannerMultiMessageSheetStyle {
 
 // MARK: BodyTextStyle
 
-struct ResolvedBodyTextStyle<Style: BodyTextStyle>: View {
+@MainActor struct ResolvedBodyTextStyle<Style: BodyTextStyle>: View {
     let style: Style
     let configuration: BodyTextConfiguration
     var body: some View {
@@ -557,7 +557,7 @@ struct ResolvedBodyTextStyle<Style: BodyTextStyle>: View {
     }
 }
 
-extension BodyTextStyle {
+@MainActor extension BodyTextStyle {
     func resolve(configuration: BodyTextConfiguration) -> some View {
         ResolvedBodyTextStyle(style: self, configuration: configuration)
     }
@@ -565,7 +565,7 @@ extension BodyTextStyle {
 
 // MARK: CalendarDayViewStyle
 
-struct ResolvedCalendarDayViewStyle<Style: CalendarDayViewStyle>: View {
+@MainActor struct ResolvedCalendarDayViewStyle<Style: CalendarDayViewStyle>: View {
     let style: Style
     let configuration: CalendarDayViewConfiguration
     var body: some View {
@@ -573,7 +573,7 @@ struct ResolvedCalendarDayViewStyle<Style: CalendarDayViewStyle>: View {
     }
 }
 
-extension CalendarDayViewStyle {
+@MainActor extension CalendarDayViewStyle {
     func resolve(configuration: CalendarDayViewConfiguration) -> some View {
         ResolvedCalendarDayViewStyle(style: self, configuration: configuration)
     }
@@ -581,7 +581,7 @@ extension CalendarDayViewStyle {
 
 // MARK: CalendarMonthViewStyle
 
-struct ResolvedCalendarMonthViewStyle<Style: CalendarMonthViewStyle>: View {
+@MainActor struct ResolvedCalendarMonthViewStyle<Style: CalendarMonthViewStyle>: View {
     let style: Style
     let configuration: CalendarMonthViewConfiguration
     var body: some View {
@@ -589,7 +589,7 @@ struct ResolvedCalendarMonthViewStyle<Style: CalendarMonthViewStyle>: View {
     }
 }
 
-extension CalendarMonthViewStyle {
+@MainActor extension CalendarMonthViewStyle {
     func resolve(configuration: CalendarMonthViewConfiguration) -> some View {
         ResolvedCalendarMonthViewStyle(style: self, configuration: configuration)
     }
@@ -597,7 +597,7 @@ extension CalendarMonthViewStyle {
 
 // MARK: CalendarViewStyle
 
-struct ResolvedCalendarViewStyle<Style: CalendarViewStyle>: View {
+@MainActor struct ResolvedCalendarViewStyle<Style: CalendarViewStyle>: View {
     let style: Style
     let configuration: CalendarViewConfiguration
     var body: some View {
@@ -605,7 +605,7 @@ struct ResolvedCalendarViewStyle<Style: CalendarViewStyle>: View {
     }
 }
 
-extension CalendarViewStyle {
+@MainActor extension CalendarViewStyle {
     func resolve(configuration: CalendarViewConfiguration) -> some View {
         ResolvedCalendarViewStyle(style: self, configuration: configuration)
     }
@@ -613,7 +613,7 @@ extension CalendarViewStyle {
 
 // MARK: CalendarWeekViewStyle
 
-struct ResolvedCalendarWeekViewStyle<Style: CalendarWeekViewStyle>: View {
+@MainActor struct ResolvedCalendarWeekViewStyle<Style: CalendarWeekViewStyle>: View {
     let style: Style
     let configuration: CalendarWeekViewConfiguration
     var body: some View {
@@ -621,7 +621,7 @@ struct ResolvedCalendarWeekViewStyle<Style: CalendarWeekViewStyle>: View {
     }
 }
 
-extension CalendarWeekViewStyle {
+@MainActor extension CalendarWeekViewStyle {
     func resolve(configuration: CalendarWeekViewConfiguration) -> some View {
         ResolvedCalendarWeekViewStyle(style: self, configuration: configuration)
     }
@@ -629,7 +629,7 @@ extension CalendarWeekViewStyle {
 
 // MARK: CancelActionStyle
 
-struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
+@MainActor struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
     let style: Style
     let configuration: CancelActionConfiguration
     var body: some View {
@@ -637,7 +637,7 @@ struct ResolvedCancelActionStyle<Style: CancelActionStyle>: View {
     }
 }
 
-extension CancelActionStyle {
+@MainActor extension CancelActionStyle {
     func resolve(configuration: CancelActionConfiguration) -> some View {
         ResolvedCancelActionStyle(style: self, configuration: configuration)
     }
@@ -645,7 +645,7 @@ extension CancelActionStyle {
 
 // MARK: CardBodyStyle
 
-struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
+@MainActor struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
     let style: Style
     let configuration: CardBodyConfiguration
     var body: some View {
@@ -653,7 +653,7 @@ struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
     }
 }
 
-extension CardBodyStyle {
+@MainActor extension CardBodyStyle {
     func resolve(configuration: CardBodyConfiguration) -> some View {
         ResolvedCardBodyStyle(style: self, configuration: configuration)
     }
@@ -661,7 +661,7 @@ extension CardBodyStyle {
 
 // MARK: CardStyle
 
-struct ResolvedCardStyle<Style: CardStyle>: View {
+@MainActor struct ResolvedCardStyle<Style: CardStyle>: View {
     let style: Style
     let configuration: CardConfiguration
     var body: some View {
@@ -669,7 +669,7 @@ struct ResolvedCardStyle<Style: CardStyle>: View {
     }
 }
 
-extension CardStyle {
+@MainActor extension CardStyle {
     func resolve(configuration: CardConfiguration) -> some View {
         ResolvedCardStyle(style: self, configuration: configuration)
     }
@@ -677,7 +677,7 @@ extension CardStyle {
 
 // MARK: CardExtHeaderStyle
 
-struct ResolvedCardExtHeaderStyle<Style: CardExtHeaderStyle>: View {
+@MainActor struct ResolvedCardExtHeaderStyle<Style: CardExtHeaderStyle>: View {
     let style: Style
     let configuration: CardExtHeaderConfiguration
     var body: some View {
@@ -685,7 +685,7 @@ struct ResolvedCardExtHeaderStyle<Style: CardExtHeaderStyle>: View {
     }
 }
 
-extension CardExtHeaderStyle {
+@MainActor extension CardExtHeaderStyle {
     func resolve(configuration: CardExtHeaderConfiguration) -> some View {
         ResolvedCardExtHeaderStyle(style: self, configuration: configuration)
     }
@@ -693,7 +693,7 @@ extension CardExtHeaderStyle {
 
 // MARK: CardFooterStyle
 
-struct ResolvedCardFooterStyle<Style: CardFooterStyle>: View {
+@MainActor struct ResolvedCardFooterStyle<Style: CardFooterStyle>: View {
     let style: Style
     let configuration: CardFooterConfiguration
     var body: some View {
@@ -701,7 +701,7 @@ struct ResolvedCardFooterStyle<Style: CardFooterStyle>: View {
     }
 }
 
-extension CardFooterStyle {
+@MainActor extension CardFooterStyle {
     func resolve(configuration: CardFooterConfiguration) -> some View {
         ResolvedCardFooterStyle(style: self, configuration: configuration)
     }
@@ -709,7 +709,7 @@ extension CardFooterStyle {
 
 // MARK: CardHeaderStyle
 
-struct ResolvedCardHeaderStyle<Style: CardHeaderStyle>: View {
+@MainActor struct ResolvedCardHeaderStyle<Style: CardHeaderStyle>: View {
     let style: Style
     let configuration: CardHeaderConfiguration
     var body: some View {
@@ -717,7 +717,7 @@ struct ResolvedCardHeaderStyle<Style: CardHeaderStyle>: View {
     }
 }
 
-extension CardHeaderStyle {
+@MainActor extension CardHeaderStyle {
     func resolve(configuration: CardHeaderConfiguration) -> some View {
         ResolvedCardHeaderStyle(style: self, configuration: configuration)
     }
@@ -725,7 +725,7 @@ extension CardHeaderStyle {
 
 // MARK: CardMainHeaderStyle
 
-struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {
+@MainActor struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {
     let style: Style
     let configuration: CardMainHeaderConfiguration
     var body: some View {
@@ -733,7 +733,7 @@ struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {
     }
 }
 
-extension CardMainHeaderStyle {
+@MainActor extension CardMainHeaderStyle {
     func resolve(configuration: CardMainHeaderConfiguration) -> some View {
         ResolvedCardMainHeaderStyle(style: self, configuration: configuration)
     }
@@ -741,7 +741,7 @@ extension CardMainHeaderStyle {
 
 // MARK: CardMediaStyle
 
-struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
+@MainActor struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
     let style: Style
     let configuration: CardMediaConfiguration
     var body: some View {
@@ -749,7 +749,7 @@ struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
     }
 }
 
-extension CardMediaStyle {
+@MainActor extension CardMediaStyle {
     func resolve(configuration: CardMediaConfiguration) -> some View {
         ResolvedCardMediaStyle(style: self, configuration: configuration)
     }
@@ -757,7 +757,7 @@ extension CardMediaStyle {
 
 // MARK: CheckmarkStyle
 
-struct ResolvedCheckmarkStyle<Style: CheckmarkStyle>: View {
+@MainActor struct ResolvedCheckmarkStyle<Style: CheckmarkStyle>: View {
     let style: Style
     let configuration: CheckmarkConfiguration
     var body: some View {
@@ -765,7 +765,7 @@ struct ResolvedCheckmarkStyle<Style: CheckmarkStyle>: View {
     }
 }
 
-extension CheckmarkStyle {
+@MainActor extension CheckmarkStyle {
     func resolve(configuration: CheckmarkConfiguration) -> some View {
         ResolvedCheckmarkStyle(style: self, configuration: configuration)
     }
@@ -773,7 +773,7 @@ extension CheckmarkStyle {
 
 // MARK: CheckoutIndicatorStyle
 
-struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
+@MainActor struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
     let style: Style
     let configuration: CheckoutIndicatorConfiguration
     var body: some View {
@@ -781,7 +781,7 @@ struct ResolvedCheckoutIndicatorStyle<Style: CheckoutIndicatorStyle>: View {
     }
 }
 
-extension CheckoutIndicatorStyle {
+@MainActor extension CheckoutIndicatorStyle {
     func resolve(configuration: CheckoutIndicatorConfiguration) -> some View {
         ResolvedCheckoutIndicatorStyle(style: self, configuration: configuration)
     }
@@ -789,7 +789,7 @@ extension CheckoutIndicatorStyle {
 
 // MARK: ClearActionStyle
 
-struct ResolvedClearActionStyle<Style: ClearActionStyle>: View {
+@MainActor struct ResolvedClearActionStyle<Style: ClearActionStyle>: View {
     let style: Style
     let configuration: ClearActionConfiguration
     var body: some View {
@@ -797,7 +797,7 @@ struct ResolvedClearActionStyle<Style: ClearActionStyle>: View {
     }
 }
 
-extension ClearActionStyle {
+@MainActor extension ClearActionStyle {
     func resolve(configuration: ClearActionConfiguration) -> some View {
         ResolvedClearActionStyle(style: self, configuration: configuration)
     }
@@ -805,7 +805,7 @@ extension ClearActionStyle {
 
 // MARK: CloseActionStyle
 
-struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
+@MainActor struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
     let style: Style
     let configuration: CloseActionConfiguration
     var body: some View {
@@ -813,7 +813,7 @@ struct ResolvedCloseActionStyle<Style: CloseActionStyle>: View {
     }
 }
 
-extension CloseActionStyle {
+@MainActor extension CloseActionStyle {
     func resolve(configuration: CloseActionConfiguration) -> some View {
         ResolvedCloseActionStyle(style: self, configuration: configuration)
     }
@@ -821,7 +821,7 @@ extension CloseActionStyle {
 
 // MARK: ContactItemStyle
 
-struct ResolvedContactItemStyle<Style: ContactItemStyle>: View {
+@MainActor struct ResolvedContactItemStyle<Style: ContactItemStyle>: View {
     let style: Style
     let configuration: ContactItemConfiguration
     var body: some View {
@@ -829,7 +829,7 @@ struct ResolvedContactItemStyle<Style: ContactItemStyle>: View {
     }
 }
 
-extension ContactItemStyle {
+@MainActor extension ContactItemStyle {
     func resolve(configuration: ContactItemConfiguration) -> some View {
         ResolvedContactItemStyle(style: self, configuration: configuration)
     }
@@ -837,7 +837,7 @@ extension ContactItemStyle {
 
 // MARK: CounterStyle
 
-struct ResolvedCounterStyle<Style: CounterStyle>: View {
+@MainActor struct ResolvedCounterStyle<Style: CounterStyle>: View {
     let style: Style
     let configuration: CounterConfiguration
     var body: some View {
@@ -845,7 +845,7 @@ struct ResolvedCounterStyle<Style: CounterStyle>: View {
     }
 }
 
-extension CounterStyle {
+@MainActor extension CounterStyle {
     func resolve(configuration: CounterConfiguration) -> some View {
         ResolvedCounterStyle(style: self, configuration: configuration)
     }
@@ -853,7 +853,7 @@ extension CounterStyle {
 
 // MARK: DateRangePickerStyle
 
-struct ResolvedDateRangePickerStyle<Style: DateRangePickerStyle>: View {
+@MainActor struct ResolvedDateRangePickerStyle<Style: DateRangePickerStyle>: View {
     let style: Style
     let configuration: DateRangePickerConfiguration
     var body: some View {
@@ -861,7 +861,7 @@ struct ResolvedDateRangePickerStyle<Style: DateRangePickerStyle>: View {
     }
 }
 
-extension DateRangePickerStyle {
+@MainActor extension DateRangePickerStyle {
     func resolve(configuration: DateRangePickerConfiguration) -> some View {
         ResolvedDateRangePickerStyle(style: self, configuration: configuration)
     }
@@ -869,7 +869,7 @@ extension DateRangePickerStyle {
 
 // MARK: DateTimePickerStyle
 
-struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
+@MainActor struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
     let style: Style
     let configuration: DateTimePickerConfiguration
     var body: some View {
@@ -877,7 +877,7 @@ struct ResolvedDateTimePickerStyle<Style: DateTimePickerStyle>: View {
     }
 }
 
-extension DateTimePickerStyle {
+@MainActor extension DateTimePickerStyle {
     func resolve(configuration: DateTimePickerConfiguration) -> some View {
         ResolvedDateTimePickerStyle(style: self, configuration: configuration)
     }
@@ -885,7 +885,7 @@ extension DateTimePickerStyle {
 
 // MARK: DecrementActionStyle
 
-struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
+@MainActor struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
     let style: Style
     let configuration: DecrementActionConfiguration
     var body: some View {
@@ -893,7 +893,7 @@ struct ResolvedDecrementActionStyle<Style: DecrementActionStyle>: View {
     }
 }
 
-extension DecrementActionStyle {
+@MainActor extension DecrementActionStyle {
     func resolve(configuration: DecrementActionConfiguration) -> some View {
         ResolvedDecrementActionStyle(style: self, configuration: configuration)
     }
@@ -901,7 +901,7 @@ extension DecrementActionStyle {
 
 // MARK: DemoViewStyle
 
-struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
+@MainActor struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
     let style: Style
     let configuration: DemoViewConfiguration
     var body: some View {
@@ -909,7 +909,7 @@ struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
     }
 }
 
-extension DemoViewStyle {
+@MainActor extension DemoViewStyle {
     func resolve(configuration: DemoViewConfiguration) -> some View {
         ResolvedDemoViewStyle(style: self, configuration: configuration)
     }
@@ -917,7 +917,7 @@ extension DemoViewStyle {
 
 // MARK: DenyActionStyle
 
-struct ResolvedDenyActionStyle<Style: DenyActionStyle>: View {
+@MainActor struct ResolvedDenyActionStyle<Style: DenyActionStyle>: View {
     let style: Style
     let configuration: DenyActionConfiguration
     var body: some View {
@@ -925,7 +925,7 @@ struct ResolvedDenyActionStyle<Style: DenyActionStyle>: View {
     }
 }
 
-extension DenyActionStyle {
+@MainActor extension DenyActionStyle {
     func resolve(configuration: DenyActionConfiguration) -> some View {
         ResolvedDenyActionStyle(style: self, configuration: configuration)
     }
@@ -933,7 +933,7 @@ extension DenyActionStyle {
 
 // MARK: DescriptionStyle
 
-struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
+@MainActor struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
     let style: Style
     let configuration: DescriptionConfiguration
     var body: some View {
@@ -941,7 +941,7 @@ struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {
     }
 }
 
-extension DescriptionStyle {
+@MainActor extension DescriptionStyle {
     func resolve(configuration: DescriptionConfiguration) -> some View {
         ResolvedDescriptionStyle(style: self, configuration: configuration)
     }
@@ -949,7 +949,7 @@ extension DescriptionStyle {
 
 // MARK: DescriptionTextStyle
 
-struct ResolvedDescriptionTextStyle<Style: DescriptionTextStyle>: View {
+@MainActor struct ResolvedDescriptionTextStyle<Style: DescriptionTextStyle>: View {
     let style: Style
     let configuration: DescriptionTextConfiguration
     var body: some View {
@@ -957,7 +957,7 @@ struct ResolvedDescriptionTextStyle<Style: DescriptionTextStyle>: View {
     }
 }
 
-extension DescriptionTextStyle {
+@MainActor extension DescriptionTextStyle {
     func resolve(configuration: DescriptionTextConfiguration) -> some View {
         ResolvedDescriptionTextStyle(style: self, configuration: configuration)
     }
@@ -965,7 +965,7 @@ extension DescriptionTextStyle {
 
 // MARK: DeselectAllActionStyle
 
-struct ResolvedDeselectAllActionStyle<Style: DeselectAllActionStyle>: View {
+@MainActor struct ResolvedDeselectAllActionStyle<Style: DeselectAllActionStyle>: View {
     let style: Style
     let configuration: DeselectAllActionConfiguration
     var body: some View {
@@ -973,7 +973,7 @@ struct ResolvedDeselectAllActionStyle<Style: DeselectAllActionStyle>: View {
     }
 }
 
-extension DeselectAllActionStyle {
+@MainActor extension DeselectAllActionStyle {
     func resolve(configuration: DeselectAllActionConfiguration) -> some View {
         ResolvedDeselectAllActionStyle(style: self, configuration: configuration)
     }
@@ -981,7 +981,7 @@ extension DeselectAllActionStyle {
 
 // MARK: DetailContentStyle
 
-struct ResolvedDetailContentStyle<Style: DetailContentStyle>: View {
+@MainActor struct ResolvedDetailContentStyle<Style: DetailContentStyle>: View {
     let style: Style
     let configuration: DetailContentConfiguration
     var body: some View {
@@ -989,7 +989,7 @@ struct ResolvedDetailContentStyle<Style: DetailContentStyle>: View {
     }
 }
 
-extension DetailContentStyle {
+@MainActor extension DetailContentStyle {
     func resolve(configuration: DetailContentConfiguration) -> some View {
         ResolvedDetailContentStyle(style: self, configuration: configuration)
     }
@@ -997,7 +997,7 @@ extension DetailContentStyle {
 
 // MARK: DetailImageStyle
 
-struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
+@MainActor struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
     let style: Style
     let configuration: DetailImageConfiguration
     var body: some View {
@@ -1005,7 +1005,7 @@ struct ResolvedDetailImageStyle<Style: DetailImageStyle>: View {
     }
 }
 
-extension DetailImageStyle {
+@MainActor extension DetailImageStyle {
     func resolve(configuration: DetailImageConfiguration) -> some View {
         ResolvedDetailImageStyle(style: self, configuration: configuration)
     }
@@ -1013,7 +1013,7 @@ extension DetailImageStyle {
 
 // MARK: DimensionSegmentStyle
 
-struct ResolvedDimensionSegmentStyle<Style: DimensionSegmentStyle>: View {
+@MainActor struct ResolvedDimensionSegmentStyle<Style: DimensionSegmentStyle>: View {
     let style: Style
     let configuration: DimensionSegmentConfiguration
     var body: some View {
@@ -1021,7 +1021,7 @@ struct ResolvedDimensionSegmentStyle<Style: DimensionSegmentStyle>: View {
     }
 }
 
-extension DimensionSegmentStyle {
+@MainActor extension DimensionSegmentStyle {
     func resolve(configuration: DimensionSegmentConfiguration) -> some View {
         ResolvedDimensionSegmentStyle(style: self, configuration: configuration)
     }
@@ -1029,7 +1029,7 @@ extension DimensionSegmentStyle {
 
 // MARK: DimensionSelectorStyle
 
-struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
+@MainActor struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
     let style: Style
     let configuration: DimensionSelectorConfiguration
     var body: some View {
@@ -1037,7 +1037,7 @@ struct ResolvedDimensionSelectorStyle<Style: DimensionSelectorStyle>: View {
     }
 }
 
-extension DimensionSelectorStyle {
+@MainActor extension DimensionSelectorStyle {
     func resolve(configuration: DimensionSelectorConfiguration) -> some View {
         ResolvedDimensionSelectorStyle(style: self, configuration: configuration)
     }
@@ -1045,7 +1045,7 @@ extension DimensionSelectorStyle {
 
 // MARK: DisagreeActionStyle
 
-struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
+@MainActor struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
     let style: Style
     let configuration: DisagreeActionConfiguration
     var body: some View {
@@ -1053,7 +1053,7 @@ struct ResolvedDisagreeActionStyle<Style: DisagreeActionStyle>: View {
     }
 }
 
-extension DisagreeActionStyle {
+@MainActor extension DisagreeActionStyle {
     func resolve(configuration: DisagreeActionConfiguration) -> some View {
         ResolvedDisagreeActionStyle(style: self, configuration: configuration)
     }
@@ -1061,7 +1061,7 @@ extension DisagreeActionStyle {
 
 // MARK: DoneActionStyle
 
-struct ResolvedDoneActionStyle<Style: DoneActionStyle>: View {
+@MainActor struct ResolvedDoneActionStyle<Style: DoneActionStyle>: View {
     let style: Style
     let configuration: DoneActionConfiguration
     var body: some View {
@@ -1069,7 +1069,7 @@ struct ResolvedDoneActionStyle<Style: DoneActionStyle>: View {
     }
 }
 
-extension DoneActionStyle {
+@MainActor extension DoneActionStyle {
     func resolve(configuration: DoneActionConfiguration) -> some View {
         ResolvedDoneActionStyle(style: self, configuration: configuration)
     }
@@ -1077,7 +1077,7 @@ extension DoneActionStyle {
 
 // MARK: DownVoteActionStyle
 
-struct ResolvedDownVoteActionStyle<Style: DownVoteActionStyle>: View {
+@MainActor struct ResolvedDownVoteActionStyle<Style: DownVoteActionStyle>: View {
     let style: Style
     let configuration: DownVoteActionConfiguration
     var body: some View {
@@ -1085,7 +1085,7 @@ struct ResolvedDownVoteActionStyle<Style: DownVoteActionStyle>: View {
     }
 }
 
-extension DownVoteActionStyle {
+@MainActor extension DownVoteActionStyle {
     func resolve(configuration: DownVoteActionConfiguration) -> some View {
         ResolvedDownVoteActionStyle(style: self, configuration: configuration)
     }
@@ -1093,7 +1093,7 @@ extension DownVoteActionStyle {
 
 // MARK: DurationPickerStyle
 
-struct ResolvedDurationPickerStyle<Style: DurationPickerStyle>: View {
+@MainActor struct ResolvedDurationPickerStyle<Style: DurationPickerStyle>: View {
     let style: Style
     let configuration: DurationPickerConfiguration
     var body: some View {
@@ -1101,7 +1101,7 @@ struct ResolvedDurationPickerStyle<Style: DurationPickerStyle>: View {
     }
 }
 
-extension DurationPickerStyle {
+@MainActor extension DurationPickerStyle {
     func resolve(configuration: DurationPickerConfiguration) -> some View {
         ResolvedDurationPickerStyle(style: self, configuration: configuration)
     }
@@ -1109,7 +1109,7 @@ extension DurationPickerStyle {
 
 // MARK: EULAViewStyle
 
-struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {
+@MainActor struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {
     let style: Style
     let configuration: EULAViewConfiguration
     var body: some View {
@@ -1117,7 +1117,7 @@ struct ResolvedEULAViewStyle<Style: EULAViewStyle>: View {
     }
 }
 
-extension EULAViewStyle {
+@MainActor extension EULAViewStyle {
     func resolve(configuration: EULAViewConfiguration) -> some View {
         ResolvedEULAViewStyle(style: self, configuration: configuration)
     }
@@ -1125,7 +1125,7 @@ extension EULAViewStyle {
 
 // MARK: FilledIconStyle
 
-struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
+@MainActor struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
     let style: Style
     let configuration: FilledIconConfiguration
     var body: some View {
@@ -1133,7 +1133,7 @@ struct ResolvedFilledIconStyle<Style: FilledIconStyle>: View {
     }
 }
 
-extension FilledIconStyle {
+@MainActor extension FilledIconStyle {
     func resolve(configuration: FilledIconConfiguration) -> some View {
         ResolvedFilledIconStyle(style: self, configuration: configuration)
     }
@@ -1141,7 +1141,7 @@ extension FilledIconStyle {
 
 // MARK: FilterFeedbackBarButtonStyle
 
-struct ResolvedFilterFeedbackBarButtonStyle<Style: FilterFeedbackBarButtonStyle>: View {
+@MainActor struct ResolvedFilterFeedbackBarButtonStyle<Style: FilterFeedbackBarButtonStyle>: View {
     let style: Style
     let configuration: FilterFeedbackBarButtonConfiguration
     var body: some View {
@@ -1149,7 +1149,7 @@ struct ResolvedFilterFeedbackBarButtonStyle<Style: FilterFeedbackBarButtonStyle>
     }
 }
 
-extension FilterFeedbackBarButtonStyle {
+@MainActor extension FilterFeedbackBarButtonStyle {
     func resolve(configuration: FilterFeedbackBarButtonConfiguration) -> some View {
         ResolvedFilterFeedbackBarButtonStyle(style: self, configuration: configuration)
     }
@@ -1157,7 +1157,7 @@ extension FilterFeedbackBarButtonStyle {
 
 // MARK: FilterFeedbackBarStyle
 
-struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
+@MainActor struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
     let style: Style
     let configuration: FilterFeedbackBarConfiguration
     var body: some View {
@@ -1165,7 +1165,7 @@ struct ResolvedFilterFeedbackBarStyle<Style: FilterFeedbackBarStyle>: View {
     }
 }
 
-extension FilterFeedbackBarStyle {
+@MainActor extension FilterFeedbackBarStyle {
     func resolve(configuration: FilterFeedbackBarConfiguration) -> some View {
         ResolvedFilterFeedbackBarStyle(style: self, configuration: configuration)
     }
@@ -1173,7 +1173,7 @@ extension FilterFeedbackBarStyle {
 
 // MARK: FilterFeedbackBarItemStyle
 
-struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {
+@MainActor struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: View {
     let style: Style
     let configuration: FilterFeedbackBarItemConfiguration
     var body: some View {
@@ -1181,7 +1181,7 @@ struct ResolvedFilterFeedbackBarItemStyle<Style: FilterFeedbackBarItemStyle>: Vi
     }
 }
 
-extension FilterFeedbackBarItemStyle {
+@MainActor extension FilterFeedbackBarItemStyle {
     func resolve(configuration: FilterFeedbackBarItemConfiguration) -> some View {
         ResolvedFilterFeedbackBarItemStyle(style: self, configuration: configuration)
     }
@@ -1189,7 +1189,7 @@ extension FilterFeedbackBarItemStyle {
 
 // MARK: FilterFormViewStyle
 
-struct ResolvedFilterFormViewStyle<Style: FilterFormViewStyle>: View {
+@MainActor struct ResolvedFilterFormViewStyle<Style: FilterFormViewStyle>: View {
     let style: Style
     let configuration: FilterFormViewConfiguration
     var body: some View {
@@ -1197,7 +1197,7 @@ struct ResolvedFilterFormViewStyle<Style: FilterFormViewStyle>: View {
     }
 }
 
-extension FilterFormViewStyle {
+@MainActor extension FilterFormViewStyle {
     func resolve(configuration: FilterFormViewConfiguration) -> some View {
         ResolvedFilterFormViewStyle(style: self, configuration: configuration)
     }
@@ -1205,7 +1205,7 @@ extension FilterFormViewStyle {
 
 // MARK: FioriSliderStyle
 
-struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {
+@MainActor struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {
     let style: Style
     let configuration: FioriSliderConfiguration
     var body: some View {
@@ -1213,7 +1213,7 @@ struct ResolvedFioriSliderStyle<Style: FioriSliderStyle>: View {
     }
 }
 
-extension FioriSliderStyle {
+@MainActor extension FioriSliderStyle {
     func resolve(configuration: FioriSliderConfiguration) -> some View {
         ResolvedFioriSliderStyle(style: self, configuration: configuration)
     }
@@ -1221,7 +1221,7 @@ extension FioriSliderStyle {
 
 // MARK: FlexItemStyle
 
-struct ResolvedFlexItemStyle<Style: FlexItemStyle>: View {
+@MainActor struct ResolvedFlexItemStyle<Style: FlexItemStyle>: View {
     let style: Style
     let configuration: FlexItemConfiguration
     var body: some View {
@@ -1229,7 +1229,7 @@ struct ResolvedFlexItemStyle<Style: FlexItemStyle>: View {
     }
 }
 
-extension FlexItemStyle {
+@MainActor extension FlexItemStyle {
     func resolve(configuration: FlexItemConfiguration) -> some View {
         ResolvedFlexItemStyle(style: self, configuration: configuration)
     }
@@ -1237,7 +1237,7 @@ extension FlexItemStyle {
 
 // MARK: FootnoteStyle
 
-struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {
+@MainActor struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {
     let style: Style
     let configuration: FootnoteConfiguration
     var body: some View {
@@ -1245,7 +1245,7 @@ struct ResolvedFootnoteStyle<Style: FootnoteStyle>: View {
     }
 }
 
-extension FootnoteStyle {
+@MainActor extension FootnoteStyle {
     func resolve(configuration: FootnoteConfiguration) -> some View {
         ResolvedFootnoteStyle(style: self, configuration: configuration)
     }
@@ -1253,7 +1253,7 @@ extension FootnoteStyle {
 
 // MARK: FootnoteIconsStyle
 
-struct ResolvedFootnoteIconsStyle<Style: FootnoteIconsStyle>: View {
+@MainActor struct ResolvedFootnoteIconsStyle<Style: FootnoteIconsStyle>: View {
     let style: Style
     let configuration: FootnoteIconsConfiguration
     var body: some View {
@@ -1261,7 +1261,7 @@ struct ResolvedFootnoteIconsStyle<Style: FootnoteIconsStyle>: View {
     }
 }
 
-extension FootnoteIconsStyle {
+@MainActor extension FootnoteIconsStyle {
     func resolve(configuration: FootnoteIconsConfiguration) -> some View {
         ResolvedFootnoteIconsStyle(style: self, configuration: configuration)
     }
@@ -1269,7 +1269,7 @@ extension FootnoteIconsStyle {
 
 // MARK: FootnoteIconsTextStyle
 
-struct ResolvedFootnoteIconsTextStyle<Style: FootnoteIconsTextStyle>: View {
+@MainActor struct ResolvedFootnoteIconsTextStyle<Style: FootnoteIconsTextStyle>: View {
     let style: Style
     let configuration: FootnoteIconsTextConfiguration
     var body: some View {
@@ -1277,7 +1277,7 @@ struct ResolvedFootnoteIconsTextStyle<Style: FootnoteIconsTextStyle>: View {
     }
 }
 
-extension FootnoteIconsTextStyle {
+@MainActor extension FootnoteIconsTextStyle {
     func resolve(configuration: FootnoteIconsTextConfiguration) -> some View {
         ResolvedFootnoteIconsTextStyle(style: self, configuration: configuration)
     }
@@ -1285,7 +1285,7 @@ extension FootnoteIconsTextStyle {
 
 // MARK: FormViewStyle
 
-struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
+@MainActor struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
     let style: Style
     let configuration: FormViewConfiguration
     var body: some View {
@@ -1293,7 +1293,7 @@ struct ResolvedFormViewStyle<Style: FormViewStyle>: View {
     }
 }
 
-extension FormViewStyle {
+@MainActor extension FormViewStyle {
     func resolve(configuration: FormViewConfiguration) -> some View {
         ResolvedFormViewStyle(style: self, configuration: configuration)
     }
@@ -1301,7 +1301,7 @@ extension FormViewStyle {
 
 // MARK: GreetingTextStyle
 
-struct ResolvedGreetingTextStyle<Style: GreetingTextStyle>: View {
+@MainActor struct ResolvedGreetingTextStyle<Style: GreetingTextStyle>: View {
     let style: Style
     let configuration: GreetingTextConfiguration
     var body: some View {
@@ -1309,7 +1309,7 @@ struct ResolvedGreetingTextStyle<Style: GreetingTextStyle>: View {
     }
 }
 
-extension GreetingTextStyle {
+@MainActor extension GreetingTextStyle {
     func resolve(configuration: GreetingTextConfiguration) -> some View {
         ResolvedGreetingTextStyle(style: self, configuration: configuration)
     }
@@ -1317,7 +1317,7 @@ extension GreetingTextStyle {
 
 // MARK: HalfStarImageStyle
 
-struct ResolvedHalfStarImageStyle<Style: HalfStarImageStyle>: View {
+@MainActor struct ResolvedHalfStarImageStyle<Style: HalfStarImageStyle>: View {
     let style: Style
     let configuration: HalfStarImageConfiguration
     var body: some View {
@@ -1325,7 +1325,7 @@ struct ResolvedHalfStarImageStyle<Style: HalfStarImageStyle>: View {
     }
 }
 
-extension HalfStarImageStyle {
+@MainActor extension HalfStarImageStyle {
     func resolve(configuration: HalfStarImageConfiguration) -> some View {
         ResolvedHalfStarImageStyle(style: self, configuration: configuration)
     }
@@ -1333,7 +1333,7 @@ extension HalfStarImageStyle {
 
 // MARK: HeaderActionStyle
 
-struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
+@MainActor struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
     let style: Style
     let configuration: HeaderActionConfiguration
     var body: some View {
@@ -1341,7 +1341,7 @@ struct ResolvedHeaderActionStyle<Style: HeaderActionStyle>: View {
     }
 }
 
-extension HeaderActionStyle {
+@MainActor extension HeaderActionStyle {
     func resolve(configuration: HeaderActionConfiguration) -> some View {
         ResolvedHeaderActionStyle(style: self, configuration: configuration)
     }
@@ -1349,7 +1349,7 @@ extension HeaderActionStyle {
 
 // MARK: HeaderChartStyle
 
-struct ResolvedHeaderChartStyle<Style: HeaderChartStyle>: View {
+@MainActor struct ResolvedHeaderChartStyle<Style: HeaderChartStyle>: View {
     let style: Style
     let configuration: HeaderChartConfiguration
     var body: some View {
@@ -1357,7 +1357,7 @@ struct ResolvedHeaderChartStyle<Style: HeaderChartStyle>: View {
     }
 }
 
-extension HeaderChartStyle {
+@MainActor extension HeaderChartStyle {
     func resolve(configuration: HeaderChartConfiguration) -> some View {
         ResolvedHeaderChartStyle(style: self, configuration: configuration)
     }
@@ -1365,7 +1365,7 @@ extension HeaderChartStyle {
 
 // MARK: HelperTextStyle
 
-struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
+@MainActor struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
     let style: Style
     let configuration: HelperTextConfiguration
     var body: some View {
@@ -1373,7 +1373,7 @@ struct ResolvedHelperTextStyle<Style: HelperTextStyle>: View {
     }
 }
 
-extension HelperTextStyle {
+@MainActor extension HelperTextStyle {
     func resolve(configuration: HelperTextConfiguration) -> some View {
         ResolvedHelperTextStyle(style: self, configuration: configuration)
     }
@@ -1381,7 +1381,7 @@ extension HelperTextStyle {
 
 // MARK: HierarchyIndicatorStyle
 
-struct ResolvedHierarchyIndicatorStyle<Style: HierarchyIndicatorStyle>: View {
+@MainActor struct ResolvedHierarchyIndicatorStyle<Style: HierarchyIndicatorStyle>: View {
     let style: Style
     let configuration: HierarchyIndicatorConfiguration
     var body: some View {
@@ -1389,7 +1389,7 @@ struct ResolvedHierarchyIndicatorStyle<Style: HierarchyIndicatorStyle>: View {
     }
 }
 
-extension HierarchyIndicatorStyle {
+@MainActor extension HierarchyIndicatorStyle {
     func resolve(configuration: HierarchyIndicatorConfiguration) -> some View {
         ResolvedHierarchyIndicatorStyle(style: self, configuration: configuration)
     }
@@ -1397,7 +1397,7 @@ extension HierarchyIndicatorStyle {
 
 // MARK: HierarchyItemViewStyle
 
-struct ResolvedHierarchyItemViewStyle<Style: HierarchyItemViewStyle>: View {
+@MainActor struct ResolvedHierarchyItemViewStyle<Style: HierarchyItemViewStyle>: View {
     let style: Style
     let configuration: HierarchyItemViewConfiguration
     var body: some View {
@@ -1405,7 +1405,7 @@ struct ResolvedHierarchyItemViewStyle<Style: HierarchyItemViewStyle>: View {
     }
 }
 
-extension HierarchyItemViewStyle {
+@MainActor extension HierarchyItemViewStyle {
     func resolve(configuration: HierarchyItemViewConfiguration) -> some View {
         ResolvedHierarchyItemViewStyle(style: self, configuration: configuration)
     }
@@ -1413,7 +1413,7 @@ extension HierarchyItemViewStyle {
 
 // MARK: HierarchyViewStyle
 
-struct ResolvedHierarchyViewStyle<Style: HierarchyViewStyle>: View {
+@MainActor struct ResolvedHierarchyViewStyle<Style: HierarchyViewStyle>: View {
     let style: Style
     let configuration: HierarchyViewConfiguration
     var body: some View {
@@ -1421,7 +1421,7 @@ struct ResolvedHierarchyViewStyle<Style: HierarchyViewStyle>: View {
     }
 }
 
-extension HierarchyViewStyle {
+@MainActor extension HierarchyViewStyle {
     func resolve(configuration: HierarchyViewConfiguration) -> some View {
         ResolvedHierarchyViewStyle(style: self, configuration: configuration)
     }
@@ -1429,7 +1429,7 @@ extension HierarchyViewStyle {
 
 // MARK: HierarchyViewHeaderStyle
 
-struct ResolvedHierarchyViewHeaderStyle<Style: HierarchyViewHeaderStyle>: View {
+@MainActor struct ResolvedHierarchyViewHeaderStyle<Style: HierarchyViewHeaderStyle>: View {
     let style: Style
     let configuration: HierarchyViewHeaderConfiguration
     var body: some View {
@@ -1437,7 +1437,7 @@ struct ResolvedHierarchyViewHeaderStyle<Style: HierarchyViewHeaderStyle>: View {
     }
 }
 
-extension HierarchyViewHeaderStyle {
+@MainActor extension HierarchyViewHeaderStyle {
     func resolve(configuration: HierarchyViewHeaderConfiguration) -> some View {
         ResolvedHierarchyViewHeaderStyle(style: self, configuration: configuration)
     }
@@ -1445,7 +1445,7 @@ extension HierarchyViewHeaderStyle {
 
 // MARK: IconStyle
 
-struct ResolvedIconStyle<Style: IconStyle>: View {
+@MainActor struct ResolvedIconStyle<Style: IconStyle>: View {
     let style: Style
     let configuration: IconConfiguration
     var body: some View {
@@ -1453,7 +1453,7 @@ struct ResolvedIconStyle<Style: IconStyle>: View {
     }
 }
 
-extension IconStyle {
+@MainActor extension IconStyle {
     func resolve(configuration: IconConfiguration) -> some View {
         ResolvedIconStyle(style: self, configuration: configuration)
     }
@@ -1461,7 +1461,7 @@ extension IconStyle {
 
 // MARK: IconsStyle
 
-struct ResolvedIconsStyle<Style: IconsStyle>: View {
+@MainActor struct ResolvedIconsStyle<Style: IconsStyle>: View {
     let style: Style
     let configuration: IconsConfiguration
     var body: some View {
@@ -1469,7 +1469,7 @@ struct ResolvedIconsStyle<Style: IconsStyle>: View {
     }
 }
 
-extension IconsStyle {
+@MainActor extension IconsStyle {
     func resolve(configuration: IconsConfiguration) -> some View {
         ResolvedIconsStyle(style: self, configuration: configuration)
     }
@@ -1477,7 +1477,7 @@ extension IconsStyle {
 
 // MARK: IllustratedMessageStyle
 
-struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
+@MainActor struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
     let style: Style
     let configuration: IllustratedMessageConfiguration
     var body: some View {
@@ -1485,7 +1485,7 @@ struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
     }
 }
 
-extension IllustratedMessageStyle {
+@MainActor extension IllustratedMessageStyle {
     func resolve(configuration: IllustratedMessageConfiguration) -> some View {
         ResolvedIllustratedMessageStyle(style: self, configuration: configuration)
     }
@@ -1493,7 +1493,7 @@ extension IllustratedMessageStyle {
 
 // MARK: InactiveTrackStyle
 
-struct ResolvedInactiveTrackStyle<Style: InactiveTrackStyle>: View {
+@MainActor struct ResolvedInactiveTrackStyle<Style: InactiveTrackStyle>: View {
     let style: Style
     let configuration: InactiveTrackConfiguration
     var body: some View {
@@ -1501,7 +1501,7 @@ struct ResolvedInactiveTrackStyle<Style: InactiveTrackStyle>: View {
     }
 }
 
-extension InactiveTrackStyle {
+@MainActor extension InactiveTrackStyle {
     func resolve(configuration: InactiveTrackConfiguration) -> some View {
         ResolvedInactiveTrackStyle(style: self, configuration: configuration)
     }
@@ -1509,7 +1509,7 @@ extension InactiveTrackStyle {
 
 // MARK: IncrementActionStyle
 
-struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
+@MainActor struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
     let style: Style
     let configuration: IncrementActionConfiguration
     var body: some View {
@@ -1517,7 +1517,7 @@ struct ResolvedIncrementActionStyle<Style: IncrementActionStyle>: View {
     }
 }
 
-extension IncrementActionStyle {
+@MainActor extension IncrementActionStyle {
     func resolve(configuration: IncrementActionConfiguration) -> some View {
         ResolvedIncrementActionStyle(style: self, configuration: configuration)
     }
@@ -1525,7 +1525,7 @@ extension IncrementActionStyle {
 
 // MARK: InfoViewStyle
 
-struct ResolvedInfoViewStyle<Style: InfoViewStyle>: View {
+@MainActor struct ResolvedInfoViewStyle<Style: InfoViewStyle>: View {
     let style: Style
     let configuration: InfoViewConfiguration
     var body: some View {
@@ -1533,7 +1533,7 @@ struct ResolvedInfoViewStyle<Style: InfoViewStyle>: View {
     }
 }
 
-extension InfoViewStyle {
+@MainActor extension InfoViewStyle {
     func resolve(configuration: InfoViewConfiguration) -> some View {
         ResolvedInfoViewStyle(style: self, configuration: configuration)
     }
@@ -1541,7 +1541,7 @@ extension InfoViewStyle {
 
 // MARK: InformationViewStyle
 
-struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
+@MainActor struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
     let style: Style
     let configuration: InformationViewConfiguration
     var body: some View {
@@ -1549,7 +1549,7 @@ struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
     }
 }
 
-extension InformationViewStyle {
+@MainActor extension InformationViewStyle {
     func resolve(configuration: InformationViewConfiguration) -> some View {
         ResolvedInformationViewStyle(style: self, configuration: configuration)
     }
@@ -1557,7 +1557,7 @@ extension InformationViewStyle {
 
 // MARK: InnerCircleStyle
 
-struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
+@MainActor struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
     let style: Style
     let configuration: InnerCircleConfiguration
     var body: some View {
@@ -1565,7 +1565,7 @@ struct ResolvedInnerCircleStyle<Style: InnerCircleStyle>: View {
     }
 }
 
-extension InnerCircleStyle {
+@MainActor extension InnerCircleStyle {
     func resolve(configuration: InnerCircleConfiguration) -> some View {
         ResolvedInnerCircleStyle(style: self, configuration: configuration)
     }
@@ -1573,7 +1573,7 @@ extension InnerCircleStyle {
 
 // MARK: JouleWelcomeScreenStyle
 
-struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
+@MainActor struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
     let style: Style
     let configuration: JouleWelcomeScreenConfiguration
     var body: some View {
@@ -1581,7 +1581,7 @@ struct ResolvedJouleWelcomeScreenStyle<Style: JouleWelcomeScreenStyle>: View {
     }
 }
 
-extension JouleWelcomeScreenStyle {
+@MainActor extension JouleWelcomeScreenStyle {
     func resolve(configuration: JouleWelcomeScreenConfiguration) -> some View {
         ResolvedJouleWelcomeScreenStyle(style: self, configuration: configuration)
     }
@@ -1589,7 +1589,7 @@ extension JouleWelcomeScreenStyle {
 
 // MARK: KPIContentStyle
 
-struct ResolvedKPIContentStyle<Style: KPIContentStyle>: View {
+@MainActor struct ResolvedKPIContentStyle<Style: KPIContentStyle>: View {
     let style: Style
     let configuration: KPIContentConfiguration
     var body: some View {
@@ -1597,7 +1597,7 @@ struct ResolvedKPIContentStyle<Style: KPIContentStyle>: View {
     }
 }
 
-extension KPIContentStyle {
+@MainActor extension KPIContentStyle {
     func resolve(configuration: KPIContentConfiguration) -> some View {
         ResolvedKPIContentStyle(style: self, configuration: configuration)
     }
@@ -1605,7 +1605,7 @@ extension KPIContentStyle {
 
 // MARK: KPIHeaderStyle
 
-struct ResolvedKPIHeaderStyle<Style: KPIHeaderStyle>: View {
+@MainActor struct ResolvedKPIHeaderStyle<Style: KPIHeaderStyle>: View {
     let style: Style
     let configuration: KPIHeaderConfiguration
     var body: some View {
@@ -1613,7 +1613,7 @@ struct ResolvedKPIHeaderStyle<Style: KPIHeaderStyle>: View {
     }
 }
 
-extension KPIHeaderStyle {
+@MainActor extension KPIHeaderStyle {
     func resolve(configuration: KPIHeaderConfiguration) -> some View {
         ResolvedKPIHeaderStyle(style: self, configuration: configuration)
     }
@@ -1621,7 +1621,7 @@ extension KPIHeaderStyle {
 
 // MARK: KPIItemStyle
 
-struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {
+@MainActor struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {
     let style: Style
     let configuration: KPIItemConfiguration
     var body: some View {
@@ -1629,7 +1629,7 @@ struct ResolvedKPIItemStyle<Style: KPIItemStyle>: View {
     }
 }
 
-extension KPIItemStyle {
+@MainActor extension KPIItemStyle {
     func resolve(configuration: KPIItemConfiguration) -> some View {
         ResolvedKPIItemStyle(style: self, configuration: configuration)
     }
@@ -1637,7 +1637,7 @@ extension KPIItemStyle {
 
 // MARK: KPIProgressItemStyle
 
-struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
+@MainActor struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
     let style: Style
     let configuration: KPIProgressItemConfiguration
     var body: some View {
@@ -1645,7 +1645,7 @@ struct ResolvedKPIProgressItemStyle<Style: KPIProgressItemStyle>: View {
     }
 }
 
-extension KPIProgressItemStyle {
+@MainActor extension KPIProgressItemStyle {
     func resolve(configuration: KPIProgressItemConfiguration) -> some View {
         ResolvedKPIProgressItemStyle(style: self, configuration: configuration)
     }
@@ -1653,7 +1653,7 @@ extension KPIProgressItemStyle {
 
 // MARK: KPISubItemStyle
 
-struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
+@MainActor struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
     let style: Style
     let configuration: KPISubItemConfiguration
     var body: some View {
@@ -1661,7 +1661,7 @@ struct ResolvedKPISubItemStyle<Style: KPISubItemStyle>: View {
     }
 }
 
-extension KPISubItemStyle {
+@MainActor extension KPISubItemStyle {
     func resolve(configuration: KPISubItemConfiguration) -> some View {
         ResolvedKPISubItemStyle(style: self, configuration: configuration)
     }
@@ -1669,7 +1669,7 @@ extension KPISubItemStyle {
 
 // MARK: KeyStyle
 
-struct ResolvedKeyStyle<Style: KeyStyle>: View {
+@MainActor struct ResolvedKeyStyle<Style: KeyStyle>: View {
     let style: Style
     let configuration: KeyConfiguration
     var body: some View {
@@ -1677,7 +1677,7 @@ struct ResolvedKeyStyle<Style: KeyStyle>: View {
     }
 }
 
-extension KeyStyle {
+@MainActor extension KeyStyle {
     func resolve(configuration: KeyConfiguration) -> some View {
         ResolvedKeyStyle(style: self, configuration: configuration)
     }
@@ -1685,7 +1685,7 @@ extension KeyStyle {
 
 // MARK: KeyValueFormViewStyle
 
-struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
+@MainActor struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
     let style: Style
     let configuration: KeyValueFormViewConfiguration
     var body: some View {
@@ -1693,7 +1693,7 @@ struct ResolvedKeyValueFormViewStyle<Style: KeyValueFormViewStyle>: View {
     }
 }
 
-extension KeyValueFormViewStyle {
+@MainActor extension KeyValueFormViewStyle {
     func resolve(configuration: KeyValueFormViewConfiguration) -> some View {
         ResolvedKeyValueFormViewStyle(style: self, configuration: configuration)
     }
@@ -1701,7 +1701,7 @@ extension KeyValueFormViewStyle {
 
 // MARK: KeyValueItemStyle
 
-struct ResolvedKeyValueItemStyle<Style: KeyValueItemStyle>: View {
+@MainActor struct ResolvedKeyValueItemStyle<Style: KeyValueItemStyle>: View {
     let style: Style
     let configuration: KeyValueItemConfiguration
     var body: some View {
@@ -1709,7 +1709,7 @@ struct ResolvedKeyValueItemStyle<Style: KeyValueItemStyle>: View {
     }
 }
 
-extension KeyValueItemStyle {
+@MainActor extension KeyValueItemStyle {
     func resolve(configuration: KeyValueItemConfiguration) -> some View {
         ResolvedKeyValueItemStyle(style: self, configuration: configuration)
     }
@@ -1717,7 +1717,7 @@ extension KeyValueItemStyle {
 
 // MARK: KpiCaptionStyle
 
-struct ResolvedKpiCaptionStyle<Style: KpiCaptionStyle>: View {
+@MainActor struct ResolvedKpiCaptionStyle<Style: KpiCaptionStyle>: View {
     let style: Style
     let configuration: KpiCaptionConfiguration
     var body: some View {
@@ -1725,7 +1725,7 @@ struct ResolvedKpiCaptionStyle<Style: KpiCaptionStyle>: View {
     }
 }
 
-extension KpiCaptionStyle {
+@MainActor extension KpiCaptionStyle {
     func resolve(configuration: KpiCaptionConfiguration) -> some View {
         ResolvedKpiCaptionStyle(style: self, configuration: configuration)
     }
@@ -1733,7 +1733,7 @@ extension KpiCaptionStyle {
 
 // MARK: KpiStyle
 
-struct ResolvedKpiStyle<Style: KpiStyle>: View {
+@MainActor struct ResolvedKpiStyle<Style: KpiStyle>: View {
     let style: Style
     let configuration: KpiConfiguration
     var body: some View {
@@ -1741,7 +1741,7 @@ struct ResolvedKpiStyle<Style: KpiStyle>: View {
     }
 }
 
-extension KpiStyle {
+@MainActor extension KpiStyle {
     func resolve(configuration: KpiConfiguration) -> some View {
         ResolvedKpiStyle(style: self, configuration: configuration)
     }
@@ -1749,7 +1749,7 @@ extension KpiStyle {
 
 // MARK: LabelItemStyle
 
-struct ResolvedLabelItemStyle<Style: LabelItemStyle>: View {
+@MainActor struct ResolvedLabelItemStyle<Style: LabelItemStyle>: View {
     let style: Style
     let configuration: LabelItemConfiguration
     var body: some View {
@@ -1757,7 +1757,7 @@ struct ResolvedLabelItemStyle<Style: LabelItemStyle>: View {
     }
 }
 
-extension LabelItemStyle {
+@MainActor extension LabelItemStyle {
     func resolve(configuration: LabelItemConfiguration) -> some View {
         ResolvedLabelItemStyle(style: self, configuration: configuration)
     }
@@ -1765,7 +1765,7 @@ extension LabelItemStyle {
 
 // MARK: LeadingAccessoryStyle
 
-struct ResolvedLeadingAccessoryStyle<Style: LeadingAccessoryStyle>: View {
+@MainActor struct ResolvedLeadingAccessoryStyle<Style: LeadingAccessoryStyle>: View {
     let style: Style
     let configuration: LeadingAccessoryConfiguration
     var body: some View {
@@ -1773,7 +1773,7 @@ struct ResolvedLeadingAccessoryStyle<Style: LeadingAccessoryStyle>: View {
     }
 }
 
-extension LeadingAccessoryStyle {
+@MainActor extension LeadingAccessoryStyle {
     func resolve(configuration: LeadingAccessoryConfiguration) -> some View {
         ResolvedLeadingAccessoryStyle(style: self, configuration: configuration)
     }
@@ -1781,7 +1781,7 @@ extension LeadingAccessoryStyle {
 
 // MARK: LineStyle
 
-struct ResolvedLineStyle<Style: LineStyle>: View {
+@MainActor struct ResolvedLineStyle<Style: LineStyle>: View {
     let style: Style
     let configuration: LineConfiguration
     var body: some View {
@@ -1789,7 +1789,7 @@ struct ResolvedLineStyle<Style: LineStyle>: View {
     }
 }
 
-extension LineStyle {
+@MainActor extension LineStyle {
     func resolve(configuration: LineConfiguration) -> some View {
         ResolvedLineStyle(style: self, configuration: configuration)
     }
@@ -1797,7 +1797,7 @@ extension LineStyle {
 
 // MARK: LinearProgressIndicatorStyle
 
-struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
+@MainActor struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
     let style: Style
     let configuration: LinearProgressIndicatorConfiguration
     var body: some View {
@@ -1805,7 +1805,7 @@ struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>
     }
 }
 
-extension LinearProgressIndicatorStyle {
+@MainActor extension LinearProgressIndicatorStyle {
     func resolve(configuration: LinearProgressIndicatorConfiguration) -> some View {
         ResolvedLinearProgressIndicatorStyle(style: self, configuration: configuration)
     }
@@ -1813,7 +1813,7 @@ extension LinearProgressIndicatorStyle {
 
 // MARK: LinearProgressIndicatorViewStyle
 
-struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorViewStyle>: View {
+@MainActor struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorViewStyle>: View {
     let style: Style
     let configuration: LinearProgressIndicatorViewConfiguration
     var body: some View {
@@ -1821,7 +1821,7 @@ struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorVi
     }
 }
 
-extension LinearProgressIndicatorViewStyle {
+@MainActor extension LinearProgressIndicatorViewStyle {
     func resolve(configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         ResolvedLinearProgressIndicatorViewStyle(style: self, configuration: configuration)
     }
@@ -1829,7 +1829,7 @@ extension LinearProgressIndicatorViewStyle {
 
 // MARK: ListPickerContentStyle
 
-struct ResolvedListPickerContentStyle<Style: ListPickerContentStyle>: View {
+@MainActor struct ResolvedListPickerContentStyle<Style: ListPickerContentStyle>: View {
     let style: Style
     let configuration: ListPickerContentConfiguration
     var body: some View {
@@ -1837,7 +1837,7 @@ struct ResolvedListPickerContentStyle<Style: ListPickerContentStyle>: View {
     }
 }
 
-extension ListPickerContentStyle {
+@MainActor extension ListPickerContentStyle {
     func resolve(configuration: ListPickerContentConfiguration) -> some View {
         ResolvedListPickerContentStyle(style: self, configuration: configuration)
     }
@@ -1845,7 +1845,7 @@ extension ListPickerContentStyle {
 
 // MARK: ListPickerDestinationStyle
 
-struct ResolvedListPickerDestinationStyle<Style: ListPickerDestinationStyle>: View {
+@MainActor struct ResolvedListPickerDestinationStyle<Style: ListPickerDestinationStyle>: View {
     let style: Style
     let configuration: ListPickerDestinationConfiguration
     var body: some View {
@@ -1853,7 +1853,7 @@ struct ResolvedListPickerDestinationStyle<Style: ListPickerDestinationStyle>: Vi
     }
 }
 
-extension ListPickerDestinationStyle {
+@MainActor extension ListPickerDestinationStyle {
     func resolve(configuration: ListPickerDestinationConfiguration) -> some View {
         ResolvedListPickerDestinationStyle(style: self, configuration: configuration)
     }
@@ -1861,7 +1861,7 @@ extension ListPickerDestinationStyle {
 
 // MARK: ListPickerItemStyle
 
-struct ResolvedListPickerItemStyle<Style: ListPickerItemStyle>: View {
+@MainActor struct ResolvedListPickerItemStyle<Style: ListPickerItemStyle>: View {
     let style: Style
     let configuration: ListPickerItemConfiguration
     var body: some View {
@@ -1869,7 +1869,7 @@ struct ResolvedListPickerItemStyle<Style: ListPickerItemStyle>: View {
     }
 }
 
-extension ListPickerItemStyle {
+@MainActor extension ListPickerItemStyle {
     func resolve(configuration: ListPickerItemConfiguration) -> some View {
         ResolvedListPickerItemStyle(style: self, configuration: configuration)
     }
@@ -1877,7 +1877,7 @@ extension ListPickerItemStyle {
 
 // MARK: LoadingIndicatorStyle
 
-struct ResolvedLoadingIndicatorStyle<Style: LoadingIndicatorStyle>: View {
+@MainActor struct ResolvedLoadingIndicatorStyle<Style: LoadingIndicatorStyle>: View {
     let style: Style
     let configuration: LoadingIndicatorConfiguration
     var body: some View {
@@ -1885,7 +1885,7 @@ struct ResolvedLoadingIndicatorStyle<Style: LoadingIndicatorStyle>: View {
     }
 }
 
-extension LoadingIndicatorStyle {
+@MainActor extension LoadingIndicatorStyle {
     func resolve(configuration: LoadingIndicatorConfiguration) -> some View {
         ResolvedLoadingIndicatorStyle(style: self, configuration: configuration)
     }
@@ -1893,7 +1893,7 @@ extension LoadingIndicatorStyle {
 
 // MARK: LowerThumbStyle
 
-struct ResolvedLowerThumbStyle<Style: LowerThumbStyle>: View {
+@MainActor struct ResolvedLowerThumbStyle<Style: LowerThumbStyle>: View {
     let style: Style
     let configuration: LowerThumbConfiguration
     var body: some View {
@@ -1901,7 +1901,7 @@ struct ResolvedLowerThumbStyle<Style: LowerThumbStyle>: View {
     }
 }
 
-extension LowerThumbStyle {
+@MainActor extension LowerThumbStyle {
     func resolve(configuration: LowerThumbConfiguration) -> some View {
         ResolvedLowerThumbStyle(style: self, configuration: configuration)
     }
@@ -1909,7 +1909,7 @@ extension LowerThumbStyle {
 
 // MARK: MediaImageStyle
 
-struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
+@MainActor struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
     let style: Style
     let configuration: MediaImageConfiguration
     var body: some View {
@@ -1917,7 +1917,7 @@ struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
     }
 }
 
-extension MediaImageStyle {
+@MainActor extension MediaImageStyle {
     func resolve(configuration: MediaImageConfiguration) -> some View {
         ResolvedMediaImageStyle(style: self, configuration: configuration)
     }
@@ -1925,7 +1925,7 @@ extension MediaImageStyle {
 
 // MARK: MenuSelectionStyle
 
-struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
+@MainActor struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
     let style: Style
     let configuration: MenuSelectionConfiguration
     var body: some View {
@@ -1933,7 +1933,7 @@ struct ResolvedMenuSelectionStyle<Style: MenuSelectionStyle>: View {
     }
 }
 
-extension MenuSelectionStyle {
+@MainActor extension MenuSelectionStyle {
     func resolve(configuration: MenuSelectionConfiguration) -> some View {
         ResolvedMenuSelectionStyle(style: self, configuration: configuration)
     }
@@ -1941,7 +1941,7 @@ extension MenuSelectionStyle {
 
 // MARK: MenuSelectionItemStyle
 
-struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
+@MainActor struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
     let style: Style
     let configuration: MenuSelectionItemConfiguration
     var body: some View {
@@ -1949,7 +1949,7 @@ struct ResolvedMenuSelectionItemStyle<Style: MenuSelectionItemStyle>: View {
     }
 }
 
-extension MenuSelectionItemStyle {
+@MainActor extension MenuSelectionItemStyle {
     func resolve(configuration: MenuSelectionItemConfiguration) -> some View {
         ResolvedMenuSelectionItemStyle(style: self, configuration: configuration)
     }
@@ -1957,7 +1957,7 @@ extension MenuSelectionItemStyle {
 
 // MARK: MessageContentStyle
 
-struct ResolvedMessageContentStyle<Style: MessageContentStyle>: View {
+@MainActor struct ResolvedMessageContentStyle<Style: MessageContentStyle>: View {
     let style: Style
     let configuration: MessageContentConfiguration
     var body: some View {
@@ -1965,7 +1965,7 @@ struct ResolvedMessageContentStyle<Style: MessageContentStyle>: View {
     }
 }
 
-extension MessageContentStyle {
+@MainActor extension MessageContentStyle {
     func resolve(configuration: MessageContentConfiguration) -> some View {
         ResolvedMessageContentStyle(style: self, configuration: configuration)
     }
@@ -1973,7 +1973,7 @@ extension MessageContentStyle {
 
 // MARK: MoreActionOverflowStyle
 
-struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
+@MainActor struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
     let style: Style
     let configuration: MoreActionOverflowConfiguration
     var body: some View {
@@ -1981,7 +1981,7 @@ struct ResolvedMoreActionOverflowStyle<Style: MoreActionOverflowStyle>: View {
     }
 }
 
-extension MoreActionOverflowStyle {
+@MainActor extension MoreActionOverflowStyle {
     func resolve(configuration: MoreActionOverflowConfiguration) -> some View {
         ResolvedMoreActionOverflowStyle(style: self, configuration: configuration)
     }
@@ -1989,7 +1989,7 @@ extension MoreActionOverflowStyle {
 
 // MARK: NextActionStyle
 
-struct ResolvedNextActionStyle<Style: NextActionStyle>: View {
+@MainActor struct ResolvedNextActionStyle<Style: NextActionStyle>: View {
     let style: Style
     let configuration: NextActionConfiguration
     var body: some View {
@@ -1997,7 +1997,7 @@ struct ResolvedNextActionStyle<Style: NextActionStyle>: View {
     }
 }
 
-extension NextActionStyle {
+@MainActor extension NextActionStyle {
     func resolve(configuration: NextActionConfiguration) -> some View {
         ResolvedNextActionStyle(style: self, configuration: configuration)
     }
@@ -2005,7 +2005,7 @@ extension NextActionStyle {
 
 // MARK: NodeStyle
 
-struct ResolvedNodeStyle<Style: NodeStyle>: View {
+@MainActor struct ResolvedNodeStyle<Style: NodeStyle>: View {
     let style: Style
     let configuration: NodeConfiguration
     var body: some View {
@@ -2013,7 +2013,7 @@ struct ResolvedNodeStyle<Style: NodeStyle>: View {
     }
 }
 
-extension NodeStyle {
+@MainActor extension NodeStyle {
     func resolve(configuration: NodeConfiguration) -> some View {
         ResolvedNodeStyle(style: self, configuration: configuration)
     }
@@ -2021,7 +2021,7 @@ extension NodeStyle {
 
 // MARK: NotNowActionStyle
 
-struct ResolvedNotNowActionStyle<Style: NotNowActionStyle>: View {
+@MainActor struct ResolvedNotNowActionStyle<Style: NotNowActionStyle>: View {
     let style: Style
     let configuration: NotNowActionConfiguration
     var body: some View {
@@ -2029,7 +2029,7 @@ struct ResolvedNotNowActionStyle<Style: NotNowActionStyle>: View {
     }
 }
 
-extension NotNowActionStyle {
+@MainActor extension NotNowActionStyle {
     func resolve(configuration: NotNowActionConfiguration) -> some View {
         ResolvedNotNowActionStyle(style: self, configuration: configuration)
     }
@@ -2037,7 +2037,7 @@ extension NotNowActionStyle {
 
 // MARK: NoteFormViewStyle
 
-struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
+@MainActor struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
     let style: Style
     let configuration: NoteFormViewConfiguration
     var body: some View {
@@ -2045,7 +2045,7 @@ struct ResolvedNoteFormViewStyle<Style: NoteFormViewStyle>: View {
     }
 }
 
-extension NoteFormViewStyle {
+@MainActor extension NoteFormViewStyle {
     func resolve(configuration: NoteFormViewConfiguration) -> some View {
         ResolvedNoteFormViewStyle(style: self, configuration: configuration)
     }
@@ -2053,7 +2053,7 @@ extension NoteFormViewStyle {
 
 // MARK: NowIndicatorNodeStyle
 
-struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
+@MainActor struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
     let style: Style
     let configuration: NowIndicatorNodeConfiguration
     var body: some View {
@@ -2061,7 +2061,7 @@ struct ResolvedNowIndicatorNodeStyle<Style: NowIndicatorNodeStyle>: View {
     }
 }
 
-extension NowIndicatorNodeStyle {
+@MainActor extension NowIndicatorNodeStyle {
     func resolve(configuration: NowIndicatorNodeConfiguration) -> some View {
         ResolvedNowIndicatorNodeStyle(style: self, configuration: configuration)
     }
@@ -2069,7 +2069,7 @@ extension NowIndicatorNodeStyle {
 
 // MARK: ObjectHeaderStyle
 
-struct ResolvedObjectHeaderStyle<Style: ObjectHeaderStyle>: View {
+@MainActor struct ResolvedObjectHeaderStyle<Style: ObjectHeaderStyle>: View {
     let style: Style
     let configuration: ObjectHeaderConfiguration
     var body: some View {
@@ -2077,7 +2077,7 @@ struct ResolvedObjectHeaderStyle<Style: ObjectHeaderStyle>: View {
     }
 }
 
-extension ObjectHeaderStyle {
+@MainActor extension ObjectHeaderStyle {
     func resolve(configuration: ObjectHeaderConfiguration) -> some View {
         ResolvedObjectHeaderStyle(style: self, configuration: configuration)
     }
@@ -2085,7 +2085,7 @@ extension ObjectHeaderStyle {
 
 // MARK: ObjectItemStyle
 
-struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
+@MainActor struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     let style: Style
     let configuration: ObjectItemConfiguration
     var body: some View {
@@ -2093,7 +2093,7 @@ struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     }
 }
 
-extension ObjectItemStyle {
+@MainActor extension ObjectItemStyle {
     func resolve(configuration: ObjectItemConfiguration) -> some View {
         ResolvedObjectItemStyle(style: self, configuration: configuration)
     }
@@ -2101,7 +2101,7 @@ extension ObjectItemStyle {
 
 // MARK: OffStarImageStyle
 
-struct ResolvedOffStarImageStyle<Style: OffStarImageStyle>: View {
+@MainActor struct ResolvedOffStarImageStyle<Style: OffStarImageStyle>: View {
     let style: Style
     let configuration: OffStarImageConfiguration
     var body: some View {
@@ -2109,7 +2109,7 @@ struct ResolvedOffStarImageStyle<Style: OffStarImageStyle>: View {
     }
 }
 
-extension OffStarImageStyle {
+@MainActor extension OffStarImageStyle {
     func resolve(configuration: OffStarImageConfiguration) -> some View {
         ResolvedOffStarImageStyle(style: self, configuration: configuration)
     }
@@ -2117,7 +2117,7 @@ extension OffStarImageStyle {
 
 // MARK: OnStarImageStyle
 
-struct ResolvedOnStarImageStyle<Style: OnStarImageStyle>: View {
+@MainActor struct ResolvedOnStarImageStyle<Style: OnStarImageStyle>: View {
     let style: Style
     let configuration: OnStarImageConfiguration
     var body: some View {
@@ -2125,7 +2125,7 @@ struct ResolvedOnStarImageStyle<Style: OnStarImageStyle>: View {
     }
 }
 
-extension OnStarImageStyle {
+@MainActor extension OnStarImageStyle {
     func resolve(configuration: OnStarImageConfiguration) -> some View {
         ResolvedOnStarImageStyle(style: self, configuration: configuration)
     }
@@ -2133,7 +2133,7 @@ extension OnStarImageStyle {
 
 // MARK: OnboardingScanViewStyle
 
-struct ResolvedOnboardingScanViewStyle<Style: OnboardingScanViewStyle>: View {
+@MainActor struct ResolvedOnboardingScanViewStyle<Style: OnboardingScanViewStyle>: View {
     let style: Style
     let configuration: OnboardingScanViewConfiguration
     var body: some View {
@@ -2141,7 +2141,7 @@ struct ResolvedOnboardingScanViewStyle<Style: OnboardingScanViewStyle>: View {
     }
 }
 
-extension OnboardingScanViewStyle {
+@MainActor extension OnboardingScanViewStyle {
     func resolve(configuration: OnboardingScanViewConfiguration) -> some View {
         ResolvedOnboardingScanViewStyle(style: self, configuration: configuration)
     }
@@ -2149,7 +2149,7 @@ extension OnboardingScanViewStyle {
 
 // MARK: OptionalTitleStyle
 
-struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
+@MainActor struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
     let style: Style
     let configuration: OptionalTitleConfiguration
     var body: some View {
@@ -2157,7 +2157,7 @@ struct ResolvedOptionalTitleStyle<Style: OptionalTitleStyle>: View {
     }
 }
 
-extension OptionalTitleStyle {
+@MainActor extension OptionalTitleStyle {
     func resolve(configuration: OptionalTitleConfiguration) -> some View {
         ResolvedOptionalTitleStyle(style: self, configuration: configuration)
     }
@@ -2165,7 +2165,7 @@ extension OptionalTitleStyle {
 
 // MARK: OptionsStyle
 
-struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
+@MainActor struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
     let style: Style
     let configuration: OptionsConfiguration
     var body: some View {
@@ -2173,7 +2173,7 @@ struct ResolvedOptionsStyle<Style: OptionsStyle>: View {
     }
 }
 
-extension OptionsStyle {
+@MainActor extension OptionsStyle {
     func resolve(configuration: OptionsConfiguration) -> some View {
         ResolvedOptionsStyle(style: self, configuration: configuration)
     }
@@ -2181,7 +2181,7 @@ extension OptionsStyle {
 
 // MARK: OrderPickerStyle
 
-struct ResolvedOrderPickerStyle<Style: OrderPickerStyle>: View {
+@MainActor struct ResolvedOrderPickerStyle<Style: OrderPickerStyle>: View {
     let style: Style
     let configuration: OrderPickerConfiguration
     var body: some View {
@@ -2189,7 +2189,7 @@ struct ResolvedOrderPickerStyle<Style: OrderPickerStyle>: View {
     }
 }
 
-extension OrderPickerStyle {
+@MainActor extension OrderPickerStyle {
     func resolve(configuration: OrderPickerConfiguration) -> some View {
         ResolvedOrderPickerStyle(style: self, configuration: configuration)
     }
@@ -2197,7 +2197,7 @@ extension OrderPickerStyle {
 
 // MARK: OuterCircleStyle
 
-struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
+@MainActor struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
     let style: Style
     let configuration: OuterCircleConfiguration
     var body: some View {
@@ -2205,7 +2205,7 @@ struct ResolvedOuterCircleStyle<Style: OuterCircleStyle>: View {
     }
 }
 
-extension OuterCircleStyle {
+@MainActor extension OuterCircleStyle {
     func resolve(configuration: OuterCircleConfiguration) -> some View {
         ResolvedOuterCircleStyle(style: self, configuration: configuration)
     }
@@ -2213,7 +2213,7 @@ extension OuterCircleStyle {
 
 // MARK: OverflowActionStyle
 
-struct ResolvedOverflowActionStyle<Style: OverflowActionStyle>: View {
+@MainActor struct ResolvedOverflowActionStyle<Style: OverflowActionStyle>: View {
     let style: Style
     let configuration: OverflowActionConfiguration
     var body: some View {
@@ -2221,7 +2221,7 @@ struct ResolvedOverflowActionStyle<Style: OverflowActionStyle>: View {
     }
 }
 
-extension OverflowActionStyle {
+@MainActor extension OverflowActionStyle {
     func resolve(configuration: OverflowActionConfiguration) -> some View {
         ResolvedOverflowActionStyle(style: self, configuration: configuration)
     }
@@ -2229,7 +2229,7 @@ extension OverflowActionStyle {
 
 // MARK: PlaceholderStyle
 
-struct ResolvedPlaceholderStyle<Style: PlaceholderStyle>: View {
+@MainActor struct ResolvedPlaceholderStyle<Style: PlaceholderStyle>: View {
     let style: Style
     let configuration: PlaceholderConfiguration
     var body: some View {
@@ -2237,7 +2237,7 @@ struct ResolvedPlaceholderStyle<Style: PlaceholderStyle>: View {
     }
 }
 
-extension PlaceholderStyle {
+@MainActor extension PlaceholderStyle {
     func resolve(configuration: PlaceholderConfiguration) -> some View {
         ResolvedPlaceholderStyle(style: self, configuration: configuration)
     }
@@ -2245,7 +2245,7 @@ extension PlaceholderStyle {
 
 // MARK: PlaceholderTextEditorStyle
 
-struct ResolvedPlaceholderTextEditorStyle<Style: PlaceholderTextEditorStyle>: View {
+@MainActor struct ResolvedPlaceholderTextEditorStyle<Style: PlaceholderTextEditorStyle>: View {
     let style: Style
     let configuration: PlaceholderTextEditorConfiguration
     var body: some View {
@@ -2253,7 +2253,7 @@ struct ResolvedPlaceholderTextEditorStyle<Style: PlaceholderTextEditorStyle>: Vi
     }
 }
 
-extension PlaceholderTextEditorStyle {
+@MainActor extension PlaceholderTextEditorStyle {
     func resolve(configuration: PlaceholderTextEditorConfiguration) -> some View {
         ResolvedPlaceholderTextEditorStyle(style: self, configuration: configuration)
     }
@@ -2261,7 +2261,7 @@ extension PlaceholderTextEditorStyle {
 
 // MARK: PlaceholderTextFieldStyle
 
-struct ResolvedPlaceholderTextFieldStyle<Style: PlaceholderTextFieldStyle>: View {
+@MainActor struct ResolvedPlaceholderTextFieldStyle<Style: PlaceholderTextFieldStyle>: View {
     let style: Style
     let configuration: PlaceholderTextFieldConfiguration
     var body: some View {
@@ -2269,7 +2269,7 @@ struct ResolvedPlaceholderTextFieldStyle<Style: PlaceholderTextFieldStyle>: View
     }
 }
 
-extension PlaceholderTextFieldStyle {
+@MainActor extension PlaceholderTextFieldStyle {
     func resolve(configuration: PlaceholderTextFieldConfiguration) -> some View {
         ResolvedPlaceholderTextFieldStyle(style: self, configuration: configuration)
     }
@@ -2277,7 +2277,7 @@ extension PlaceholderTextFieldStyle {
 
 // MARK: ProcessingIndicatorStyle
 
-struct ResolvedProcessingIndicatorStyle<Style: ProcessingIndicatorStyle>: View {
+@MainActor struct ResolvedProcessingIndicatorStyle<Style: ProcessingIndicatorStyle>: View {
     let style: Style
     let configuration: ProcessingIndicatorConfiguration
     var body: some View {
@@ -2285,7 +2285,7 @@ struct ResolvedProcessingIndicatorStyle<Style: ProcessingIndicatorStyle>: View {
     }
 }
 
-extension ProcessingIndicatorStyle {
+@MainActor extension ProcessingIndicatorStyle {
     func resolve(configuration: ProcessingIndicatorConfiguration) -> some View {
         ResolvedProcessingIndicatorStyle(style: self, configuration: configuration)
     }
@@ -2293,7 +2293,7 @@ extension ProcessingIndicatorStyle {
 
 // MARK: ProfileHeaderStyle
 
-struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
+@MainActor struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
     let style: Style
     let configuration: ProfileHeaderConfiguration
     var body: some View {
@@ -2301,7 +2301,7 @@ struct ResolvedProfileHeaderStyle<Style: ProfileHeaderStyle>: View {
     }
 }
 
-extension ProfileHeaderStyle {
+@MainActor extension ProfileHeaderStyle {
     func resolve(configuration: ProfileHeaderConfiguration) -> some View {
         ResolvedProfileHeaderStyle(style: self, configuration: configuration)
     }
@@ -2309,7 +2309,7 @@ extension ProfileHeaderStyle {
 
 // MARK: ProgressStyle
 
-struct ResolvedProgressStyle<Style: ProgressStyle>: View {
+@MainActor struct ResolvedProgressStyle<Style: ProgressStyle>: View {
     let style: Style
     let configuration: ProgressConfiguration
     var body: some View {
@@ -2317,7 +2317,7 @@ struct ResolvedProgressStyle<Style: ProgressStyle>: View {
     }
 }
 
-extension ProgressStyle {
+@MainActor extension ProgressStyle {
     func resolve(configuration: ProgressConfiguration) -> some View {
         ResolvedProgressStyle(style: self, configuration: configuration)
     }
@@ -2325,7 +2325,7 @@ extension ProgressStyle {
 
 // MARK: ProgressIndicatorStyle
 
-struct ResolvedProgressIndicatorStyle<Style: ProgressIndicatorStyle>: View {
+@MainActor struct ResolvedProgressIndicatorStyle<Style: ProgressIndicatorStyle>: View {
     let style: Style
     let configuration: ProgressIndicatorConfiguration
     var body: some View {
@@ -2333,7 +2333,7 @@ struct ResolvedProgressIndicatorStyle<Style: ProgressIndicatorStyle>: View {
     }
 }
 
-extension ProgressIndicatorStyle {
+@MainActor extension ProgressIndicatorStyle {
     func resolve(configuration: ProgressIndicatorConfiguration) -> some View {
         ResolvedProgressIndicatorStyle(style: self, configuration: configuration)
     }
@@ -2341,7 +2341,7 @@ extension ProgressIndicatorStyle {
 
 // MARK: ProgressIndicatorProtocolStyle
 
-struct ResolvedProgressIndicatorProtocolStyle<Style: ProgressIndicatorProtocolStyle>: View {
+@MainActor struct ResolvedProgressIndicatorProtocolStyle<Style: ProgressIndicatorProtocolStyle>: View {
     let style: Style
     let configuration: ProgressIndicatorProtocolConfiguration
     var body: some View {
@@ -2349,7 +2349,7 @@ struct ResolvedProgressIndicatorProtocolStyle<Style: ProgressIndicatorProtocolSt
     }
 }
 
-extension ProgressIndicatorProtocolStyle {
+@MainActor extension ProgressIndicatorProtocolStyle {
     func resolve(configuration: ProgressIndicatorProtocolConfiguration) -> some View {
         ResolvedProgressIndicatorProtocolStyle(style: self, configuration: configuration)
     }
@@ -2357,7 +2357,7 @@ extension ProgressIndicatorProtocolStyle {
 
 // MARK: PromptStyle
 
-struct ResolvedPromptStyle<Style: PromptStyle>: View {
+@MainActor struct ResolvedPromptStyle<Style: PromptStyle>: View {
     let style: Style
     let configuration: PromptConfiguration
     var body: some View {
@@ -2365,7 +2365,7 @@ struct ResolvedPromptStyle<Style: PromptStyle>: View {
     }
 }
 
-extension PromptStyle {
+@MainActor extension PromptStyle {
     func resolve(configuration: PromptConfiguration) -> some View {
         ResolvedPromptStyle(style: self, configuration: configuration)
     }
@@ -2373,7 +2373,7 @@ extension PromptStyle {
 
 // MARK: RangeSliderControlStyle
 
-struct ResolvedRangeSliderControlStyle<Style: RangeSliderControlStyle>: View {
+@MainActor struct ResolvedRangeSliderControlStyle<Style: RangeSliderControlStyle>: View {
     let style: Style
     let configuration: RangeSliderControlConfiguration
     var body: some View {
@@ -2381,7 +2381,7 @@ struct ResolvedRangeSliderControlStyle<Style: RangeSliderControlStyle>: View {
     }
 }
 
-extension RangeSliderControlStyle {
+@MainActor extension RangeSliderControlStyle {
     func resolve(configuration: RangeSliderControlConfiguration) -> some View {
         ResolvedRangeSliderControlStyle(style: self, configuration: configuration)
     }
@@ -2389,7 +2389,7 @@ extension RangeSliderControlStyle {
 
 // MARK: RatingControlStyle
 
-struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
+@MainActor struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
     let style: Style
     let configuration: RatingControlConfiguration
     var body: some View {
@@ -2397,7 +2397,7 @@ struct ResolvedRatingControlStyle<Style: RatingControlStyle>: View {
     }
 }
 
-extension RatingControlStyle {
+@MainActor extension RatingControlStyle {
     func resolve(configuration: RatingControlConfiguration) -> some View {
         ResolvedRatingControlStyle(style: self, configuration: configuration)
     }
@@ -2405,7 +2405,7 @@ extension RatingControlStyle {
 
 // MARK: RatingControlFormViewStyle
 
-struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: View {
+@MainActor struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: View {
     let style: Style
     let configuration: RatingControlFormViewConfiguration
     var body: some View {
@@ -2413,7 +2413,7 @@ struct ResolvedRatingControlFormViewStyle<Style: RatingControlFormViewStyle>: Vi
     }
 }
 
-extension RatingControlFormViewStyle {
+@MainActor extension RatingControlFormViewStyle {
     func resolve(configuration: RatingControlFormViewConfiguration) -> some View {
         ResolvedRatingControlFormViewStyle(style: self, configuration: configuration)
     }
@@ -2421,7 +2421,7 @@ extension RatingControlFormViewStyle {
 
 // MARK: RedoActionStyle
 
-struct ResolvedRedoActionStyle<Style: RedoActionStyle>: View {
+@MainActor struct ResolvedRedoActionStyle<Style: RedoActionStyle>: View {
     let style: Style
     let configuration: RedoActionConfiguration
     var body: some View {
@@ -2429,7 +2429,7 @@ struct ResolvedRedoActionStyle<Style: RedoActionStyle>: View {
     }
 }
 
-extension RedoActionStyle {
+@MainActor extension RedoActionStyle {
     func resolve(configuration: RedoActionConfiguration) -> some View {
         ResolvedRedoActionStyle(style: self, configuration: configuration)
     }
@@ -2437,7 +2437,7 @@ extension RedoActionStyle {
 
 // MARK: ReenterSignatureActionStyle
 
-struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: View {
+@MainActor struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: View {
     let style: Style
     let configuration: ReenterSignatureActionConfiguration
     var body: some View {
@@ -2445,7 +2445,7 @@ struct ResolvedReenterSignatureActionStyle<Style: ReenterSignatureActionStyle>: 
     }
 }
 
-extension ReenterSignatureActionStyle {
+@MainActor extension ReenterSignatureActionStyle {
     func resolve(configuration: ReenterSignatureActionConfiguration) -> some View {
         ResolvedReenterSignatureActionStyle(style: self, configuration: configuration)
     }
@@ -2453,7 +2453,7 @@ extension ReenterSignatureActionStyle {
 
 // MARK: ResetActionStyle
 
-struct ResolvedResetActionStyle<Style: ResetActionStyle>: View {
+@MainActor struct ResolvedResetActionStyle<Style: ResetActionStyle>: View {
     let style: Style
     let configuration: ResetActionConfiguration
     var body: some View {
@@ -2461,7 +2461,7 @@ struct ResolvedResetActionStyle<Style: ResetActionStyle>: View {
     }
 }
 
-extension ResetActionStyle {
+@MainActor extension ResetActionStyle {
     func resolve(configuration: ResetActionConfiguration) -> some View {
         ResolvedResetActionStyle(style: self, configuration: configuration)
     }
@@ -2469,7 +2469,7 @@ extension ResetActionStyle {
 
 // MARK: ReviewCountLabelStyle
 
-struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
+@MainActor struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
     let style: Style
     let configuration: ReviewCountLabelConfiguration
     var body: some View {
@@ -2477,7 +2477,7 @@ struct ResolvedReviewCountLabelStyle<Style: ReviewCountLabelStyle>: View {
     }
 }
 
-extension ReviewCountLabelStyle {
+@MainActor extension ReviewCountLabelStyle {
     func resolve(configuration: ReviewCountLabelConfiguration) -> some View {
         ResolvedReviewCountLabelStyle(style: self, configuration: configuration)
     }
@@ -2485,7 +2485,7 @@ extension ReviewCountLabelStyle {
 
 // MARK: Row1Style
 
-struct ResolvedRow1Style<Style: Row1Style>: View {
+@MainActor struct ResolvedRow1Style<Style: Row1Style>: View {
     let style: Style
     let configuration: Row1Configuration
     var body: some View {
@@ -2493,7 +2493,7 @@ struct ResolvedRow1Style<Style: Row1Style>: View {
     }
 }
 
-extension Row1Style {
+@MainActor extension Row1Style {
     func resolve(configuration: Row1Configuration) -> some View {
         ResolvedRow1Style(style: self, configuration: configuration)
     }
@@ -2501,7 +2501,7 @@ extension Row1Style {
 
 // MARK: Row2Style
 
-struct ResolvedRow2Style<Style: Row2Style>: View {
+@MainActor struct ResolvedRow2Style<Style: Row2Style>: View {
     let style: Style
     let configuration: Row2Configuration
     var body: some View {
@@ -2509,7 +2509,7 @@ struct ResolvedRow2Style<Style: Row2Style>: View {
     }
 }
 
-extension Row2Style {
+@MainActor extension Row2Style {
     func resolve(configuration: Row2Configuration) -> some View {
         ResolvedRow2Style(style: self, configuration: configuration)
     }
@@ -2517,7 +2517,7 @@ extension Row2Style {
 
 // MARK: Row3Style
 
-struct ResolvedRow3Style<Style: Row3Style>: View {
+@MainActor struct ResolvedRow3Style<Style: Row3Style>: View {
     let style: Style
     let configuration: Row3Configuration
     var body: some View {
@@ -2525,7 +2525,7 @@ struct ResolvedRow3Style<Style: Row3Style>: View {
     }
 }
 
-extension Row3Style {
+@MainActor extension Row3Style {
     func resolve(configuration: Row3Configuration) -> some View {
         ResolvedRow3Style(style: self, configuration: configuration)
     }
@@ -2533,7 +2533,7 @@ extension Row3Style {
 
 // MARK: SaveActionStyle
 
-struct ResolvedSaveActionStyle<Style: SaveActionStyle>: View {
+@MainActor struct ResolvedSaveActionStyle<Style: SaveActionStyle>: View {
     let style: Style
     let configuration: SaveActionConfiguration
     var body: some View {
@@ -2541,7 +2541,7 @@ struct ResolvedSaveActionStyle<Style: SaveActionStyle>: View {
     }
 }
 
-extension SaveActionStyle {
+@MainActor extension SaveActionStyle {
     func resolve(configuration: SaveActionConfiguration) -> some View {
         ResolvedSaveActionStyle(style: self, configuration: configuration)
     }
@@ -2549,7 +2549,7 @@ extension SaveActionStyle {
 
 // MARK: SecondaryActionStyle
 
-struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
+@MainActor struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
     let style: Style
     let configuration: SecondaryActionConfiguration
     var body: some View {
@@ -2557,7 +2557,7 @@ struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
     }
 }
 
-extension SecondaryActionStyle {
+@MainActor extension SecondaryActionStyle {
     func resolve(configuration: SecondaryActionConfiguration) -> some View {
         ResolvedSecondaryActionStyle(style: self, configuration: configuration)
     }
@@ -2565,7 +2565,7 @@ extension SecondaryActionStyle {
 
 // MARK: SecondaryTimestampStyle
 
-struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
+@MainActor struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
     let style: Style
     let configuration: SecondaryTimestampConfiguration
     var body: some View {
@@ -2573,7 +2573,7 @@ struct ResolvedSecondaryTimestampStyle<Style: SecondaryTimestampStyle>: View {
     }
 }
 
-extension SecondaryTimestampStyle {
+@MainActor extension SecondaryTimestampStyle {
     func resolve(configuration: SecondaryTimestampConfiguration) -> some View {
         ResolvedSecondaryTimestampStyle(style: self, configuration: configuration)
     }
@@ -2581,7 +2581,7 @@ extension SecondaryTimestampStyle {
 
 // MARK: SectionFooterStyle
 
-struct ResolvedSectionFooterStyle<Style: SectionFooterStyle>: View {
+@MainActor struct ResolvedSectionFooterStyle<Style: SectionFooterStyle>: View {
     let style: Style
     let configuration: SectionFooterConfiguration
     var body: some View {
@@ -2589,7 +2589,7 @@ struct ResolvedSectionFooterStyle<Style: SectionFooterStyle>: View {
     }
 }
 
-extension SectionFooterStyle {
+@MainActor extension SectionFooterStyle {
     func resolve(configuration: SectionFooterConfiguration) -> some View {
         ResolvedSectionFooterStyle(style: self, configuration: configuration)
     }
@@ -2597,7 +2597,7 @@ extension SectionFooterStyle {
 
 // MARK: SectionHeaderStyle
 
-struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
+@MainActor struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
     let style: Style
     let configuration: SectionHeaderConfiguration
     var body: some View {
@@ -2605,7 +2605,7 @@ struct ResolvedSectionHeaderStyle<Style: SectionHeaderStyle>: View {
     }
 }
 
-extension SectionHeaderStyle {
+@MainActor extension SectionHeaderStyle {
     func resolve(configuration: SectionHeaderConfiguration) -> some View {
         ResolvedSectionHeaderStyle(style: self, configuration: configuration)
     }
@@ -2613,7 +2613,7 @@ extension SectionHeaderStyle {
 
 // MARK: SegmentedControlPickerStyle
 
-struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: View {
+@MainActor struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: View {
     let style: Style
     let configuration: SegmentedControlPickerConfiguration
     var body: some View {
@@ -2621,7 +2621,7 @@ struct ResolvedSegmentedControlPickerStyle<Style: SegmentedControlPickerStyle>: 
     }
 }
 
-extension SegmentedControlPickerStyle {
+@MainActor extension SegmentedControlPickerStyle {
     func resolve(configuration: SegmentedControlPickerConfiguration) -> some View {
         ResolvedSegmentedControlPickerStyle(style: self, configuration: configuration)
     }
@@ -2629,7 +2629,7 @@ extension SegmentedControlPickerStyle {
 
 // MARK: SelectAllActionStyle
 
-struct ResolvedSelectAllActionStyle<Style: SelectAllActionStyle>: View {
+@MainActor struct ResolvedSelectAllActionStyle<Style: SelectAllActionStyle>: View {
     let style: Style
     let configuration: SelectAllActionConfiguration
     var body: some View {
@@ -2637,7 +2637,7 @@ struct ResolvedSelectAllActionStyle<Style: SelectAllActionStyle>: View {
     }
 }
 
-extension SelectAllActionStyle {
+@MainActor extension SelectAllActionStyle {
     func resolve(configuration: SelectAllActionConfiguration) -> some View {
         ResolvedSelectAllActionStyle(style: self, configuration: configuration)
     }
@@ -2645,7 +2645,7 @@ extension SelectAllActionStyle {
 
 // MARK: SelectedEntriesSectionTitleStyle
 
-struct ResolvedSelectedEntriesSectionTitleStyle<Style: SelectedEntriesSectionTitleStyle>: View {
+@MainActor struct ResolvedSelectedEntriesSectionTitleStyle<Style: SelectedEntriesSectionTitleStyle>: View {
     let style: Style
     let configuration: SelectedEntriesSectionTitleConfiguration
     var body: some View {
@@ -2653,7 +2653,7 @@ struct ResolvedSelectedEntriesSectionTitleStyle<Style: SelectedEntriesSectionTit
     }
 }
 
-extension SelectedEntriesSectionTitleStyle {
+@MainActor extension SelectedEntriesSectionTitleStyle {
     func resolve(configuration: SelectedEntriesSectionTitleConfiguration) -> some View {
         ResolvedSelectedEntriesSectionTitleStyle(style: self, configuration: configuration)
     }
@@ -2661,7 +2661,7 @@ extension SelectedEntriesSectionTitleStyle {
 
 // MARK: SideBarStyle
 
-struct ResolvedSideBarStyle<Style: SideBarStyle>: View {
+@MainActor struct ResolvedSideBarStyle<Style: SideBarStyle>: View {
     let style: Style
     let configuration: SideBarConfiguration
     var body: some View {
@@ -2669,7 +2669,7 @@ struct ResolvedSideBarStyle<Style: SideBarStyle>: View {
     }
 }
 
-extension SideBarStyle {
+@MainActor extension SideBarStyle {
     func resolve(configuration: SideBarConfiguration) -> some View {
         ResolvedSideBarStyle(style: self, configuration: configuration)
     }
@@ -2677,7 +2677,7 @@ extension SideBarStyle {
 
 // MARK: SideBarListItemStyle
 
-struct ResolvedSideBarListItemStyle<Style: SideBarListItemStyle>: View {
+@MainActor struct ResolvedSideBarListItemStyle<Style: SideBarListItemStyle>: View {
     let style: Style
     let configuration: SideBarListItemConfiguration
     var body: some View {
@@ -2685,7 +2685,7 @@ struct ResolvedSideBarListItemStyle<Style: SideBarListItemStyle>: View {
     }
 }
 
-extension SideBarListItemStyle {
+@MainActor extension SideBarListItemStyle {
     func resolve(configuration: SideBarListItemConfiguration) -> some View {
         ResolvedSideBarListItemStyle(style: self, configuration: configuration)
     }
@@ -2693,7 +2693,7 @@ extension SideBarListItemStyle {
 
 // MARK: SignInActionStyle
 
-struct ResolvedSignInActionStyle<Style: SignInActionStyle>: View {
+@MainActor struct ResolvedSignInActionStyle<Style: SignInActionStyle>: View {
     let style: Style
     let configuration: SignInActionConfiguration
     var body: some View {
@@ -2701,7 +2701,7 @@ struct ResolvedSignInActionStyle<Style: SignInActionStyle>: View {
     }
 }
 
-extension SignInActionStyle {
+@MainActor extension SignInActionStyle {
     func resolve(configuration: SignInActionConfiguration) -> some View {
         ResolvedSignInActionStyle(style: self, configuration: configuration)
     }
@@ -2709,7 +2709,7 @@ extension SignInActionStyle {
 
 // MARK: SignatureCaptureViewStyle
 
-struct ResolvedSignatureCaptureViewStyle<Style: SignatureCaptureViewStyle>: View {
+@MainActor struct ResolvedSignatureCaptureViewStyle<Style: SignatureCaptureViewStyle>: View {
     let style: Style
     let configuration: SignatureCaptureViewConfiguration
     var body: some View {
@@ -2717,7 +2717,7 @@ struct ResolvedSignatureCaptureViewStyle<Style: SignatureCaptureViewStyle>: View
     }
 }
 
-extension SignatureCaptureViewStyle {
+@MainActor extension SignatureCaptureViewStyle {
     func resolve(configuration: SignatureCaptureViewConfiguration) -> some View {
         ResolvedSignatureCaptureViewStyle(style: self, configuration: configuration)
     }
@@ -2725,7 +2725,7 @@ extension SignatureCaptureViewStyle {
 
 // MARK: SingleStepStyle
 
-struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
+@MainActor struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
     let style: Style
     let configuration: SingleStepConfiguration
     var body: some View {
@@ -2733,7 +2733,7 @@ struct ResolvedSingleStepStyle<Style: SingleStepStyle>: View {
     }
 }
 
-extension SingleStepStyle {
+@MainActor extension SingleStepStyle {
     func resolve(configuration: SingleStepConfiguration) -> some View {
         ResolvedSingleStepStyle(style: self, configuration: configuration)
     }
@@ -2741,7 +2741,7 @@ extension SingleStepStyle {
 
 // MARK: SortCriterionStyle
 
-struct ResolvedSortCriterionStyle<Style: SortCriterionStyle>: View {
+@MainActor struct ResolvedSortCriterionStyle<Style: SortCriterionStyle>: View {
     let style: Style
     let configuration: SortCriterionConfiguration
     var body: some View {
@@ -2749,7 +2749,7 @@ struct ResolvedSortCriterionStyle<Style: SortCriterionStyle>: View {
     }
 }
 
-extension SortCriterionStyle {
+@MainActor extension SortCriterionStyle {
     func resolve(configuration: SortCriterionConfiguration) -> some View {
         ResolvedSortCriterionStyle(style: self, configuration: configuration)
     }
@@ -2757,7 +2757,7 @@ extension SortCriterionStyle {
 
 // MARK: SortFilterViewStyle
 
-struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
+@MainActor struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
     let style: Style
     let configuration: SortFilterViewConfiguration
     var body: some View {
@@ -2765,7 +2765,7 @@ struct ResolvedSortFilterViewStyle<Style: SortFilterViewStyle>: View {
     }
 }
 
-extension SortFilterViewStyle {
+@MainActor extension SortFilterViewStyle {
     func resolve(configuration: SortFilterViewConfiguration) -> some View {
         ResolvedSortFilterViewStyle(style: self, configuration: configuration)
     }
@@ -2773,7 +2773,7 @@ extension SortFilterViewStyle {
 
 // MARK: StartSignatureActionStyle
 
-struct ResolvedStartSignatureActionStyle<Style: StartSignatureActionStyle>: View {
+@MainActor struct ResolvedStartSignatureActionStyle<Style: StartSignatureActionStyle>: View {
     let style: Style
     let configuration: StartSignatureActionConfiguration
     var body: some View {
@@ -2781,7 +2781,7 @@ struct ResolvedStartSignatureActionStyle<Style: StartSignatureActionStyle>: View
     }
 }
 
-extension StartSignatureActionStyle {
+@MainActor extension StartSignatureActionStyle {
     func resolve(configuration: StartSignatureActionConfiguration) -> some View {
         ResolvedStartSignatureActionStyle(style: self, configuration: configuration)
     }
@@ -2789,7 +2789,7 @@ extension StartSignatureActionStyle {
 
 // MARK: StateLabelStyle
 
-struct ResolvedStateLabelStyle<Style: StateLabelStyle>: View {
+@MainActor struct ResolvedStateLabelStyle<Style: StateLabelStyle>: View {
     let style: Style
     let configuration: StateLabelConfiguration
     var body: some View {
@@ -2797,7 +2797,7 @@ struct ResolvedStateLabelStyle<Style: StateLabelStyle>: View {
     }
 }
 
-extension StateLabelStyle {
+@MainActor extension StateLabelStyle {
     func resolve(configuration: StateLabelConfiguration) -> some View {
         ResolvedStateLabelStyle(style: self, configuration: configuration)
     }
@@ -2805,7 +2805,7 @@ extension StateLabelStyle {
 
 // MARK: StatusStyle
 
-struct ResolvedStatusStyle<Style: StatusStyle>: View {
+@MainActor struct ResolvedStatusStyle<Style: StatusStyle>: View {
     let style: Style
     let configuration: StatusConfiguration
     var body: some View {
@@ -2813,7 +2813,7 @@ struct ResolvedStatusStyle<Style: StatusStyle>: View {
     }
 }
 
-extension StatusStyle {
+@MainActor extension StatusStyle {
     func resolve(configuration: StatusConfiguration) -> some View {
         ResolvedStatusStyle(style: self, configuration: configuration)
     }
@@ -2821,7 +2821,7 @@ extension StatusStyle {
 
 // MARK: StepProgressIndicatorStyle
 
-struct ResolvedStepProgressIndicatorStyle<Style: StepProgressIndicatorStyle>: View {
+@MainActor struct ResolvedStepProgressIndicatorStyle<Style: StepProgressIndicatorStyle>: View {
     let style: Style
     let configuration: StepProgressIndicatorConfiguration
     var body: some View {
@@ -2829,7 +2829,7 @@ struct ResolvedStepProgressIndicatorStyle<Style: StepProgressIndicatorStyle>: Vi
     }
 }
 
-extension StepProgressIndicatorStyle {
+@MainActor extension StepProgressIndicatorStyle {
     func resolve(configuration: StepProgressIndicatorConfiguration) -> some View {
         ResolvedStepProgressIndicatorStyle(style: self, configuration: configuration)
     }
@@ -2837,7 +2837,7 @@ extension StepProgressIndicatorStyle {
 
 // MARK: StepperFieldStyle
 
-struct ResolvedStepperFieldStyle<Style: StepperFieldStyle>: View {
+@MainActor struct ResolvedStepperFieldStyle<Style: StepperFieldStyle>: View {
     let style: Style
     let configuration: StepperFieldConfiguration
     var body: some View {
@@ -2845,7 +2845,7 @@ struct ResolvedStepperFieldStyle<Style: StepperFieldStyle>: View {
     }
 }
 
-extension StepperFieldStyle {
+@MainActor extension StepperFieldStyle {
     func resolve(configuration: StepperFieldConfiguration) -> some View {
         ResolvedStepperFieldStyle(style: self, configuration: configuration)
     }
@@ -2853,7 +2853,7 @@ extension StepperFieldStyle {
 
 // MARK: StepperViewStyle
 
-struct ResolvedStepperViewStyle<Style: StepperViewStyle>: View {
+@MainActor struct ResolvedStepperViewStyle<Style: StepperViewStyle>: View {
     let style: Style
     let configuration: StepperViewConfiguration
     var body: some View {
@@ -2861,7 +2861,7 @@ struct ResolvedStepperViewStyle<Style: StepperViewStyle>: View {
     }
 }
 
-extension StepperViewStyle {
+@MainActor extension StepperViewStyle {
     func resolve(configuration: StepperViewConfiguration) -> some View {
         ResolvedStepperViewStyle(style: self, configuration: configuration)
     }
@@ -2869,7 +2869,7 @@ extension StepperViewStyle {
 
 // MARK: SubAttributeStyle
 
-struct ResolvedSubAttributeStyle<Style: SubAttributeStyle>: View {
+@MainActor struct ResolvedSubAttributeStyle<Style: SubAttributeStyle>: View {
     let style: Style
     let configuration: SubAttributeConfiguration
     var body: some View {
@@ -2877,7 +2877,7 @@ struct ResolvedSubAttributeStyle<Style: SubAttributeStyle>: View {
     }
 }
 
-extension SubAttributeStyle {
+@MainActor extension SubAttributeStyle {
     func resolve(configuration: SubAttributeConfiguration) -> some View {
         ResolvedSubAttributeStyle(style: self, configuration: configuration)
     }
@@ -2885,7 +2885,7 @@ extension SubAttributeStyle {
 
 // MARK: SubmitActionStyle
 
-struct ResolvedSubmitActionStyle<Style: SubmitActionStyle>: View {
+@MainActor struct ResolvedSubmitActionStyle<Style: SubmitActionStyle>: View {
     let style: Style
     let configuration: SubmitActionConfiguration
     var body: some View {
@@ -2893,7 +2893,7 @@ struct ResolvedSubmitActionStyle<Style: SubmitActionStyle>: View {
     }
 }
 
-extension SubmitActionStyle {
+@MainActor extension SubmitActionStyle {
     func resolve(configuration: SubmitActionConfiguration) -> some View {
         ResolvedSubmitActionStyle(style: self, configuration: configuration)
     }
@@ -2901,7 +2901,7 @@ extension SubmitActionStyle {
 
 // MARK: SubstatusStyle
 
-struct ResolvedSubstatusStyle<Style: SubstatusStyle>: View {
+@MainActor struct ResolvedSubstatusStyle<Style: SubstatusStyle>: View {
     let style: Style
     let configuration: SubstatusConfiguration
     var body: some View {
@@ -2909,7 +2909,7 @@ struct ResolvedSubstatusStyle<Style: SubstatusStyle>: View {
     }
 }
 
-extension SubstatusStyle {
+@MainActor extension SubstatusStyle {
     func resolve(configuration: SubstatusConfiguration) -> some View {
         ResolvedSubstatusStyle(style: self, configuration: configuration)
     }
@@ -2917,7 +2917,7 @@ extension SubstatusStyle {
 
 // MARK: SubtitleStyle
 
-struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
+@MainActor struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
     let style: Style
     let configuration: SubtitleConfiguration
     var body: some View {
@@ -2925,7 +2925,7 @@ struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
     }
 }
 
-extension SubtitleStyle {
+@MainActor extension SubtitleStyle {
     func resolve(configuration: SubtitleConfiguration) -> some View {
         ResolvedSubtitleStyle(style: self, configuration: configuration)
     }
@@ -2933,7 +2933,7 @@ extension SubtitleStyle {
 
 // MARK: SwitchStyle
 
-struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
+@MainActor struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
     let style: Style
     let configuration: SwitchConfiguration
     var body: some View {
@@ -2941,7 +2941,7 @@ struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
     }
 }
 
-extension SwitchStyle {
+@MainActor extension SwitchStyle {
     func resolve(configuration: SwitchConfiguration) -> some View {
         ResolvedSwitchStyle(style: self, configuration: configuration)
     }
@@ -2949,7 +2949,7 @@ extension SwitchStyle {
 
 // MARK: SwitchViewStyle
 
-struct ResolvedSwitchViewStyle<Style: SwitchViewStyle>: View {
+@MainActor struct ResolvedSwitchViewStyle<Style: SwitchViewStyle>: View {
     let style: Style
     let configuration: SwitchViewConfiguration
     var body: some View {
@@ -2957,7 +2957,7 @@ struct ResolvedSwitchViewStyle<Style: SwitchViewStyle>: View {
     }
 }
 
-extension SwitchViewStyle {
+@MainActor extension SwitchViewStyle {
     func resolve(configuration: SwitchViewConfiguration) -> some View {
         ResolvedSwitchViewStyle(style: self, configuration: configuration)
     }
@@ -2965,7 +2965,7 @@ extension SwitchViewStyle {
 
 // MARK: TagStyle
 
-struct ResolvedTagStyle<Style: TagStyle>: View {
+@MainActor struct ResolvedTagStyle<Style: TagStyle>: View {
     let style: Style
     let configuration: TagConfiguration
     var body: some View {
@@ -2973,7 +2973,7 @@ struct ResolvedTagStyle<Style: TagStyle>: View {
     }
 }
 
-extension TagStyle {
+@MainActor extension TagStyle {
     func resolve(configuration: TagConfiguration) -> some View {
         ResolvedTagStyle(style: self, configuration: configuration)
     }
@@ -2981,7 +2981,7 @@ extension TagStyle {
 
 // MARK: TagsStyle
 
-struct ResolvedTagsStyle<Style: TagsStyle>: View {
+@MainActor struct ResolvedTagsStyle<Style: TagsStyle>: View {
     let style: Style
     let configuration: TagsConfiguration
     var body: some View {
@@ -2989,7 +2989,7 @@ struct ResolvedTagsStyle<Style: TagsStyle>: View {
     }
 }
 
-extension TagsStyle {
+@MainActor extension TagsStyle {
     func resolve(configuration: TagsConfiguration) -> some View {
         ResolvedTagsStyle(style: self, configuration: configuration)
     }
@@ -2997,7 +2997,7 @@ extension TagsStyle {
 
 // MARK: TertiaryActionStyle
 
-struct ResolvedTertiaryActionStyle<Style: TertiaryActionStyle>: View {
+@MainActor struct ResolvedTertiaryActionStyle<Style: TertiaryActionStyle>: View {
     let style: Style
     let configuration: TertiaryActionConfiguration
     var body: some View {
@@ -3005,7 +3005,7 @@ struct ResolvedTertiaryActionStyle<Style: TertiaryActionStyle>: View {
     }
 }
 
-extension TertiaryActionStyle {
+@MainActor extension TertiaryActionStyle {
     func resolve(configuration: TertiaryActionConfiguration) -> some View {
         ResolvedTertiaryActionStyle(style: self, configuration: configuration)
     }
@@ -3013,7 +3013,7 @@ extension TertiaryActionStyle {
 
 // MARK: TextFieldFormViewStyle
 
-struct ResolvedTextFieldFormViewStyle<Style: TextFieldFormViewStyle>: View {
+@MainActor struct ResolvedTextFieldFormViewStyle<Style: TextFieldFormViewStyle>: View {
     let style: Style
     let configuration: TextFieldFormViewConfiguration
     var body: some View {
@@ -3021,7 +3021,7 @@ struct ResolvedTextFieldFormViewStyle<Style: TextFieldFormViewStyle>: View {
     }
 }
 
-extension TextFieldFormViewStyle {
+@MainActor extension TextFieldFormViewStyle {
     func resolve(configuration: TextFieldFormViewConfiguration) -> some View {
         ResolvedTextFieldFormViewStyle(style: self, configuration: configuration)
     }
@@ -3029,7 +3029,7 @@ extension TextFieldFormViewStyle {
 
 // MARK: TextInputStyle
 
-struct ResolvedTextInputStyle<Style: TextInputStyle>: View {
+@MainActor struct ResolvedTextInputStyle<Style: TextInputStyle>: View {
     let style: Style
     let configuration: TextInputConfiguration
     var body: some View {
@@ -3037,7 +3037,7 @@ struct ResolvedTextInputStyle<Style: TextInputStyle>: View {
     }
 }
 
-extension TextInputStyle {
+@MainActor extension TextInputStyle {
     func resolve(configuration: TextInputConfiguration) -> some View {
         ResolvedTextInputStyle(style: self, configuration: configuration)
     }
@@ -3045,7 +3045,7 @@ extension TextInputStyle {
 
 // MARK: TextInputFieldStyle
 
-struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {
+@MainActor struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {
     let style: Style
     let configuration: TextInputFieldConfiguration
     var body: some View {
@@ -3053,7 +3053,7 @@ struct ResolvedTextInputFieldStyle<Style: TextInputFieldStyle>: View {
     }
 }
 
-extension TextInputFieldStyle {
+@MainActor extension TextInputFieldStyle {
     func resolve(configuration: TextInputFieldConfiguration) -> some View {
         ResolvedTextInputFieldStyle(style: self, configuration: configuration)
     }
@@ -3061,7 +3061,7 @@ extension TextInputFieldStyle {
 
 // MARK: TextInputInfoViewStyle
 
-struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
+@MainActor struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
     let style: Style
     let configuration: TextInputInfoViewConfiguration
     var body: some View {
@@ -3069,7 +3069,7 @@ struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
     }
 }
 
-extension TextInputInfoViewStyle {
+@MainActor extension TextInputInfoViewStyle {
     func resolve(configuration: TextInputInfoViewConfiguration) -> some View {
         ResolvedTextInputInfoViewStyle(style: self, configuration: configuration)
     }
@@ -3077,7 +3077,7 @@ extension TextInputInfoViewStyle {
 
 // MARK: TextViewStyle
 
-struct ResolvedTextViewStyle<Style: TextViewStyle>: View {
+@MainActor struct ResolvedTextViewStyle<Style: TextViewStyle>: View {
     let style: Style
     let configuration: TextViewConfiguration
     var body: some View {
@@ -3085,7 +3085,7 @@ struct ResolvedTextViewStyle<Style: TextViewStyle>: View {
     }
 }
 
-extension TextViewStyle {
+@MainActor extension TextViewStyle {
     func resolve(configuration: TextViewConfiguration) -> some View {
         ResolvedTextViewStyle(style: self, configuration: configuration)
     }
@@ -3093,7 +3093,7 @@ extension TextViewStyle {
 
 // MARK: TimelineStyle
 
-struct ResolvedTimelineStyle<Style: TimelineStyle>: View {
+@MainActor struct ResolvedTimelineStyle<Style: TimelineStyle>: View {
     let style: Style
     let configuration: TimelineConfiguration
     var body: some View {
@@ -3101,7 +3101,7 @@ struct ResolvedTimelineStyle<Style: TimelineStyle>: View {
     }
 }
 
-extension TimelineStyle {
+@MainActor extension TimelineStyle {
     func resolve(configuration: TimelineConfiguration) -> some View {
         ResolvedTimelineStyle(style: self, configuration: configuration)
     }
@@ -3109,7 +3109,7 @@ extension TimelineStyle {
 
 // MARK: TimelineMarkerStyle
 
-struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
+@MainActor struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
     let style: Style
     let configuration: TimelineMarkerConfiguration
     var body: some View {
@@ -3117,7 +3117,7 @@ struct ResolvedTimelineMarkerStyle<Style: TimelineMarkerStyle>: View {
     }
 }
 
-extension TimelineMarkerStyle {
+@MainActor extension TimelineMarkerStyle {
     func resolve(configuration: TimelineMarkerConfiguration) -> some View {
         ResolvedTimelineMarkerStyle(style: self, configuration: configuration)
     }
@@ -3125,7 +3125,7 @@ extension TimelineMarkerStyle {
 
 // MARK: TimelineNodeStyle
 
-struct ResolvedTimelineNodeStyle<Style: TimelineNodeStyle>: View {
+@MainActor struct ResolvedTimelineNodeStyle<Style: TimelineNodeStyle>: View {
     let style: Style
     let configuration: TimelineNodeConfiguration
     var body: some View {
@@ -3133,7 +3133,7 @@ struct ResolvedTimelineNodeStyle<Style: TimelineNodeStyle>: View {
     }
 }
 
-extension TimelineNodeStyle {
+@MainActor extension TimelineNodeStyle {
     func resolve(configuration: TimelineNodeConfiguration) -> some View {
         ResolvedTimelineNodeStyle(style: self, configuration: configuration)
     }
@@ -3141,7 +3141,7 @@ extension TimelineNodeStyle {
 
 // MARK: TimelineNowIndicatorStyle
 
-struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View {
+@MainActor struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View {
     let style: Style
     let configuration: TimelineNowIndicatorConfiguration
     var body: some View {
@@ -3149,7 +3149,7 @@ struct ResolvedTimelineNowIndicatorStyle<Style: TimelineNowIndicatorStyle>: View
     }
 }
 
-extension TimelineNowIndicatorStyle {
+@MainActor extension TimelineNowIndicatorStyle {
     func resolve(configuration: TimelineNowIndicatorConfiguration) -> some View {
         ResolvedTimelineNowIndicatorStyle(style: self, configuration: configuration)
     }
@@ -3157,7 +3157,7 @@ extension TimelineNowIndicatorStyle {
 
 // MARK: TimelinePreviewStyle
 
-struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
+@MainActor struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
     let style: Style
     let configuration: TimelinePreviewConfiguration
     var body: some View {
@@ -3165,7 +3165,7 @@ struct ResolvedTimelinePreviewStyle<Style: TimelinePreviewStyle>: View {
     }
 }
 
-extension TimelinePreviewStyle {
+@MainActor extension TimelinePreviewStyle {
     func resolve(configuration: TimelinePreviewConfiguration) -> some View {
         ResolvedTimelinePreviewStyle(style: self, configuration: configuration)
     }
@@ -3173,7 +3173,7 @@ extension TimelinePreviewStyle {
 
 // MARK: TimelinePreviewItemStyle
 
-struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
+@MainActor struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
     let style: Style
     let configuration: TimelinePreviewItemConfiguration
     var body: some View {
@@ -3181,7 +3181,7 @@ struct ResolvedTimelinePreviewItemStyle<Style: TimelinePreviewItemStyle>: View {
     }
 }
 
-extension TimelinePreviewItemStyle {
+@MainActor extension TimelinePreviewItemStyle {
     func resolve(configuration: TimelinePreviewItemConfiguration) -> some View {
         ResolvedTimelinePreviewItemStyle(style: self, configuration: configuration)
     }
@@ -3189,7 +3189,7 @@ extension TimelinePreviewItemStyle {
 
 // MARK: TimestampStyle
 
-struct ResolvedTimestampStyle<Style: TimestampStyle>: View {
+@MainActor struct ResolvedTimestampStyle<Style: TimestampStyle>: View {
     let style: Style
     let configuration: TimestampConfiguration
     var body: some View {
@@ -3197,7 +3197,7 @@ struct ResolvedTimestampStyle<Style: TimestampStyle>: View {
     }
 }
 
-extension TimestampStyle {
+@MainActor extension TimestampStyle {
     func resolve(configuration: TimestampConfiguration) -> some View {
         ResolvedTimestampStyle(style: self, configuration: configuration)
     }
@@ -3205,7 +3205,7 @@ extension TimestampStyle {
 
 // MARK: TitleStyle
 
-struct ResolvedTitleStyle<Style: TitleStyle>: View {
+@MainActor struct ResolvedTitleStyle<Style: TitleStyle>: View {
     let style: Style
     let configuration: TitleConfiguration
     var body: some View {
@@ -3213,7 +3213,7 @@ struct ResolvedTitleStyle<Style: TitleStyle>: View {
     }
 }
 
-extension TitleStyle {
+@MainActor extension TitleStyle {
     func resolve(configuration: TitleConfiguration) -> some View {
         ResolvedTitleStyle(style: self, configuration: configuration)
     }
@@ -3221,7 +3221,7 @@ extension TitleStyle {
 
 // MARK: TitleFormViewStyle
 
-struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
+@MainActor struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
     let style: Style
     let configuration: TitleFormViewConfiguration
     var body: some View {
@@ -3229,7 +3229,7 @@ struct ResolvedTitleFormViewStyle<Style: TitleFormViewStyle>: View {
     }
 }
 
-extension TitleFormViewStyle {
+@MainActor extension TitleFormViewStyle {
     func resolve(configuration: TitleFormViewConfiguration) -> some View {
         ResolvedTitleFormViewStyle(style: self, configuration: configuration)
     }
@@ -3237,7 +3237,7 @@ extension TitleFormViewStyle {
 
 // MARK: ToastMessageStyle
 
-struct ResolvedToastMessageStyle<Style: ToastMessageStyle>: View {
+@MainActor struct ResolvedToastMessageStyle<Style: ToastMessageStyle>: View {
     let style: Style
     let configuration: ToastMessageConfiguration
     var body: some View {
@@ -3245,7 +3245,7 @@ struct ResolvedToastMessageStyle<Style: ToastMessageStyle>: View {
     }
 }
 
-extension ToastMessageStyle {
+@MainActor extension ToastMessageStyle {
     func resolve(configuration: ToastMessageConfiguration) -> some View {
         ResolvedToastMessageStyle(style: self, configuration: configuration)
     }
@@ -3253,7 +3253,7 @@ extension ToastMessageStyle {
 
 // MARK: TopDividerStyle
 
-struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
+@MainActor struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
     let style: Style
     let configuration: TopDividerConfiguration
     var body: some View {
@@ -3261,7 +3261,7 @@ struct ResolvedTopDividerStyle<Style: TopDividerStyle>: View {
     }
 }
 
-extension TopDividerStyle {
+@MainActor extension TopDividerStyle {
     func resolve(configuration: TopDividerConfiguration) -> some View {
         ResolvedTopDividerStyle(style: self, configuration: configuration)
     }
@@ -3269,7 +3269,7 @@ extension TopDividerStyle {
 
 // MARK: TrailingAccessoryStyle
 
-struct ResolvedTrailingAccessoryStyle<Style: TrailingAccessoryStyle>: View {
+@MainActor struct ResolvedTrailingAccessoryStyle<Style: TrailingAccessoryStyle>: View {
     let style: Style
     let configuration: TrailingAccessoryConfiguration
     var body: some View {
@@ -3277,7 +3277,7 @@ struct ResolvedTrailingAccessoryStyle<Style: TrailingAccessoryStyle>: View {
     }
 }
 
-extension TrailingAccessoryStyle {
+@MainActor extension TrailingAccessoryStyle {
     func resolve(configuration: TrailingAccessoryConfiguration) -> some View {
         ResolvedTrailingAccessoryStyle(style: self, configuration: configuration)
     }
@@ -3285,7 +3285,7 @@ extension TrailingAccessoryStyle {
 
 // MARK: TrendStyle
 
-struct ResolvedTrendStyle<Style: TrendStyle>: View {
+@MainActor struct ResolvedTrendStyle<Style: TrendStyle>: View {
     let style: Style
     let configuration: TrendConfiguration
     var body: some View {
@@ -3293,7 +3293,7 @@ struct ResolvedTrendStyle<Style: TrendStyle>: View {
     }
 }
 
-extension TrendStyle {
+@MainActor extension TrendStyle {
     func resolve(configuration: TrendConfiguration) -> some View {
         ResolvedTrendStyle(style: self, configuration: configuration)
     }
@@ -3301,7 +3301,7 @@ extension TrendStyle {
 
 // MARK: TrendImageStyle
 
-struct ResolvedTrendImageStyle<Style: TrendImageStyle>: View {
+@MainActor struct ResolvedTrendImageStyle<Style: TrendImageStyle>: View {
     let style: Style
     let configuration: TrendImageConfiguration
     var body: some View {
@@ -3309,7 +3309,7 @@ struct ResolvedTrendImageStyle<Style: TrendImageStyle>: View {
     }
 }
 
-extension TrendImageStyle {
+@MainActor extension TrendImageStyle {
     func resolve(configuration: TrendImageConfiguration) -> some View {
         ResolvedTrendImageStyle(style: self, configuration: configuration)
     }
@@ -3317,7 +3317,7 @@ extension TrendImageStyle {
 
 // MARK: UndoActionStyle
 
-struct ResolvedUndoActionStyle<Style: UndoActionStyle>: View {
+@MainActor struct ResolvedUndoActionStyle<Style: UndoActionStyle>: View {
     let style: Style
     let configuration: UndoActionConfiguration
     var body: some View {
@@ -3325,7 +3325,7 @@ struct ResolvedUndoActionStyle<Style: UndoActionStyle>: View {
     }
 }
 
-extension UndoActionStyle {
+@MainActor extension UndoActionStyle {
     func resolve(configuration: UndoActionConfiguration) -> some View {
         ResolvedUndoActionStyle(style: self, configuration: configuration)
     }
@@ -3333,7 +3333,7 @@ extension UndoActionStyle {
 
 // MARK: UpVoteActionStyle
 
-struct ResolvedUpVoteActionStyle<Style: UpVoteActionStyle>: View {
+@MainActor struct ResolvedUpVoteActionStyle<Style: UpVoteActionStyle>: View {
     let style: Style
     let configuration: UpVoteActionConfiguration
     var body: some View {
@@ -3341,7 +3341,7 @@ struct ResolvedUpVoteActionStyle<Style: UpVoteActionStyle>: View {
     }
 }
 
-extension UpVoteActionStyle {
+@MainActor extension UpVoteActionStyle {
     func resolve(configuration: UpVoteActionConfiguration) -> some View {
         ResolvedUpVoteActionStyle(style: self, configuration: configuration)
     }
@@ -3349,7 +3349,7 @@ extension UpVoteActionStyle {
 
 // MARK: UpperThumbStyle
 
-struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
+@MainActor struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
     let style: Style
     let configuration: UpperThumbConfiguration
     var body: some View {
@@ -3357,7 +3357,7 @@ struct ResolvedUpperThumbStyle<Style: UpperThumbStyle>: View {
     }
 }
 
-extension UpperThumbStyle {
+@MainActor extension UpperThumbStyle {
     func resolve(configuration: UpperThumbConfiguration) -> some View {
         ResolvedUpperThumbStyle(style: self, configuration: configuration)
     }
@@ -3365,7 +3365,7 @@ extension UpperThumbStyle {
 
 // MARK: UserConsentFormStyle
 
-struct ResolvedUserConsentFormStyle<Style: UserConsentFormStyle>: View {
+@MainActor struct ResolvedUserConsentFormStyle<Style: UserConsentFormStyle>: View {
     let style: Style
     let configuration: UserConsentFormConfiguration
     var body: some View {
@@ -3373,7 +3373,7 @@ struct ResolvedUserConsentFormStyle<Style: UserConsentFormStyle>: View {
     }
 }
 
-extension UserConsentFormStyle {
+@MainActor extension UserConsentFormStyle {
     func resolve(configuration: UserConsentFormConfiguration) -> some View {
         ResolvedUserConsentFormStyle(style: self, configuration: configuration)
     }
@@ -3381,7 +3381,7 @@ extension UserConsentFormStyle {
 
 // MARK: UserConsentPageStyle
 
-struct ResolvedUserConsentPageStyle<Style: UserConsentPageStyle>: View {
+@MainActor struct ResolvedUserConsentPageStyle<Style: UserConsentPageStyle>: View {
     let style: Style
     let configuration: UserConsentPageConfiguration
     var body: some View {
@@ -3389,7 +3389,7 @@ struct ResolvedUserConsentPageStyle<Style: UserConsentPageStyle>: View {
     }
 }
 
-extension UserConsentPageStyle {
+@MainActor extension UserConsentPageStyle {
     func resolve(configuration: UserConsentPageConfiguration) -> some View {
         ResolvedUserConsentPageStyle(style: self, configuration: configuration)
     }
@@ -3397,7 +3397,7 @@ extension UserConsentPageStyle {
 
 // MARK: UserConsentViewStyle
 
-struct ResolvedUserConsentViewStyle<Style: UserConsentViewStyle>: View {
+@MainActor struct ResolvedUserConsentViewStyle<Style: UserConsentViewStyle>: View {
     let style: Style
     let configuration: UserConsentViewConfiguration
     var body: some View {
@@ -3405,7 +3405,7 @@ struct ResolvedUserConsentViewStyle<Style: UserConsentViewStyle>: View {
     }
 }
 
-extension UserConsentViewStyle {
+@MainActor extension UserConsentViewStyle {
     func resolve(configuration: UserConsentViewConfiguration) -> some View {
         ResolvedUserConsentViewStyle(style: self, configuration: configuration)
     }
@@ -3413,7 +3413,7 @@ extension UserConsentViewStyle {
 
 // MARK: ValueStyle
 
-struct ResolvedValueStyle<Style: ValueStyle>: View {
+@MainActor struct ResolvedValueStyle<Style: ValueStyle>: View {
     let style: Style
     let configuration: ValueConfiguration
     var body: some View {
@@ -3421,7 +3421,7 @@ struct ResolvedValueStyle<Style: ValueStyle>: View {
     }
 }
 
-extension ValueStyle {
+@MainActor extension ValueStyle {
     func resolve(configuration: ValueConfiguration) -> some View {
         ResolvedValueStyle(style: self, configuration: configuration)
     }
@@ -3429,7 +3429,7 @@ extension ValueStyle {
 
 // MARK: ValueLabelStyle
 
-struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
+@MainActor struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
     let style: Style
     let configuration: ValueLabelConfiguration
     var body: some View {
@@ -3437,7 +3437,7 @@ struct ResolvedValueLabelStyle<Style: ValueLabelStyle>: View {
     }
 }
 
-extension ValueLabelStyle {
+@MainActor extension ValueLabelStyle {
     func resolve(configuration: ValueLabelConfiguration) -> some View {
         ResolvedValueLabelStyle(style: self, configuration: configuration)
     }
@@ -3445,7 +3445,7 @@ extension ValueLabelStyle {
 
 // MARK: ValuePickerStyle
 
-struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
+@MainActor struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
     let style: Style
     let configuration: ValuePickerConfiguration
     var body: some View {
@@ -3453,7 +3453,7 @@ struct ResolvedValuePickerStyle<Style: ValuePickerStyle>: View {
     }
 }
 
-extension ValuePickerStyle {
+@MainActor extension ValuePickerStyle {
     func resolve(configuration: ValuePickerConfiguration) -> some View {
         ResolvedValuePickerStyle(style: self, configuration: configuration)
     }
@@ -3461,7 +3461,7 @@ extension ValuePickerStyle {
 
 // MARK: WatermarkStyle
 
-struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
+@MainActor struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
     let style: Style
     let configuration: WatermarkConfiguration
     var body: some View {
@@ -3469,7 +3469,7 @@ struct ResolvedWatermarkStyle<Style: WatermarkStyle>: View {
     }
 }
 
-extension WatermarkStyle {
+@MainActor extension WatermarkStyle {
     func resolve(configuration: WatermarkConfiguration) -> some View {
         ResolvedWatermarkStyle(style: self, configuration: configuration)
     }
@@ -3477,7 +3477,7 @@ extension WatermarkStyle {
 
 // MARK: WelcomeScreenStyle
 
-struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
+@MainActor struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
     let style: Style
     let configuration: WelcomeScreenConfiguration
     var body: some View {
@@ -3485,7 +3485,7 @@ struct ResolvedWelcomeScreenStyle<Style: WelcomeScreenStyle>: View {
     }
 }
 
-extension WelcomeScreenStyle {
+@MainActor extension WelcomeScreenStyle {
     func resolve(configuration: WelcomeScreenConfiguration) -> some View {
         ResolvedWelcomeScreenStyle(style: self, configuration: configuration)
     }
@@ -3493,7 +3493,7 @@ extension WelcomeScreenStyle {
 
 // MARK: WhatsNewListItemStyle
 
-struct ResolvedWhatsNewListItemStyle<Style: WhatsNewListItemStyle>: View {
+@MainActor struct ResolvedWhatsNewListItemStyle<Style: WhatsNewListItemStyle>: View {
     let style: Style
     let configuration: WhatsNewListItemConfiguration
     var body: some View {
@@ -3501,7 +3501,7 @@ struct ResolvedWhatsNewListItemStyle<Style: WhatsNewListItemStyle>: View {
     }
 }
 
-extension WhatsNewListItemStyle {
+@MainActor extension WhatsNewListItemStyle {
     func resolve(configuration: WhatsNewListItemConfiguration) -> some View {
         ResolvedWhatsNewListItemStyle(style: self, configuration: configuration)
     }
@@ -3509,7 +3509,7 @@ extension WhatsNewListItemStyle {
 
 // MARK: WhatsNewListViewStyle
 
-struct ResolvedWhatsNewListViewStyle<Style: WhatsNewListViewStyle>: View {
+@MainActor struct ResolvedWhatsNewListViewStyle<Style: WhatsNewListViewStyle>: View {
     let style: Style
     let configuration: WhatsNewListViewConfiguration
     var body: some View {
@@ -3517,7 +3517,7 @@ struct ResolvedWhatsNewListViewStyle<Style: WhatsNewListViewStyle>: View {
     }
 }
 
-extension WhatsNewListViewStyle {
+@MainActor extension WhatsNewListViewStyle {
     func resolve(configuration: WhatsNewListViewConfiguration) -> some View {
         ResolvedWhatsNewListViewStyle(style: self, configuration: configuration)
     }
@@ -3525,7 +3525,7 @@ extension WhatsNewListViewStyle {
 
 // MARK: WhatsNewPageStyle
 
-struct ResolvedWhatsNewPageStyle<Style: WhatsNewPageStyle>: View {
+@MainActor struct ResolvedWhatsNewPageStyle<Style: WhatsNewPageStyle>: View {
     let style: Style
     let configuration: WhatsNewPageConfiguration
     var body: some View {
@@ -3533,7 +3533,7 @@ struct ResolvedWhatsNewPageStyle<Style: WhatsNewPageStyle>: View {
     }
 }
 
-extension WhatsNewPageStyle {
+@MainActor extension WhatsNewPageStyle {
     func resolve(configuration: WhatsNewPageConfiguration) -> some View {
         ResolvedWhatsNewPageStyle(style: self, configuration: configuration)
     }
@@ -3541,7 +3541,7 @@ extension WhatsNewPageStyle {
 
 // MARK: WhatsNewPageViewStyle
 
-struct ResolvedWhatsNewPageViewStyle<Style: WhatsNewPageViewStyle>: View {
+@MainActor struct ResolvedWhatsNewPageViewStyle<Style: WhatsNewPageViewStyle>: View {
     let style: Style
     let configuration: WhatsNewPageViewConfiguration
     var body: some View {
@@ -3549,7 +3549,7 @@ struct ResolvedWhatsNewPageViewStyle<Style: WhatsNewPageViewStyle>: View {
     }
 }
 
-extension WhatsNewPageViewStyle {
+@MainActor extension WhatsNewPageViewStyle {
     func resolve(configuration: WhatsNewPageViewConfiguration) -> some View {
         ResolvedWhatsNewPageViewStyle(style: self, configuration: configuration)
     }
@@ -3557,7 +3557,7 @@ extension WhatsNewPageViewStyle {
 
 // MARK: WritingAssistantActionStyle
 
-struct ResolvedWritingAssistantActionStyle<Style: WritingAssistantActionStyle>: View {
+@MainActor struct ResolvedWritingAssistantActionStyle<Style: WritingAssistantActionStyle>: View {
     let style: Style
     let configuration: WritingAssistantActionConfiguration
     var body: some View {
@@ -3565,7 +3565,7 @@ struct ResolvedWritingAssistantActionStyle<Style: WritingAssistantActionStyle>: 
     }
 }
 
-extension WritingAssistantActionStyle {
+@MainActor extension WritingAssistantActionStyle {
     func resolve(configuration: WritingAssistantActionConfiguration) -> some View {
         ResolvedWritingAssistantActionStyle(style: self, configuration: configuration)
     }
@@ -3573,7 +3573,7 @@ extension WritingAssistantActionStyle {
 
 // MARK: WritingAssistantFormStyle
 
-struct ResolvedWritingAssistantFormStyle<Style: WritingAssistantFormStyle>: View {
+@MainActor struct ResolvedWritingAssistantFormStyle<Style: WritingAssistantFormStyle>: View {
     let style: Style
     let configuration: WritingAssistantFormConfiguration
     var body: some View {
@@ -3581,7 +3581,7 @@ struct ResolvedWritingAssistantFormStyle<Style: WritingAssistantFormStyle>: View
     }
 }
 
-extension WritingAssistantFormStyle {
+@MainActor extension WritingAssistantFormStyle {
     func resolve(configuration: WritingAssistantFormConfiguration) -> some View {
         ResolvedWritingAssistantFormStyle(style: self, configuration: configuration)
     }
@@ -3589,7 +3589,7 @@ extension WritingAssistantFormStyle {
 
 // MARK: XmarkStyle
 
-struct ResolvedXmarkStyle<Style: XmarkStyle>: View {
+@MainActor struct ResolvedXmarkStyle<Style: XmarkStyle>: View {
     let style: Style
     let configuration: XmarkConfiguration
     var body: some View {
@@ -3597,7 +3597,7 @@ struct ResolvedXmarkStyle<Style: XmarkStyle>: View {
     }
 }
 
-extension XmarkStyle {
+@MainActor extension XmarkStyle {
     func resolve(configuration: XmarkConfiguration) -> some View {
         ResolvedXmarkStyle(style: self, configuration: configuration)
     }

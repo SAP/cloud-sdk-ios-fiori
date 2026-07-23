@@ -158,6 +158,7 @@ private extension AttachmentElement {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AttachmentElement(.init(componentIdentifier: self.componentIdentifier, attachmentInfo: self.attachmentInfo, controlState: self.controlState, onExtraInfoChange: self.onExtraInfoChange, onPreview: self.onPreview, onDelete: self.onDelete))
             .shouldApplyDefaultStyle(false)

@@ -25,6 +25,7 @@ public extension KpiCaption {
 }
 
 public extension KpiCaption {
+    @MainActor
     init(kpiCaption: AttributedString? = nil) {
         self.init(kpiCaption: { OptionalText(kpiCaption) })
     }
@@ -64,6 +65,7 @@ private extension KpiCaption {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         KpiCaption(.init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption)))
             .shouldApplyDefaultStyle(false)

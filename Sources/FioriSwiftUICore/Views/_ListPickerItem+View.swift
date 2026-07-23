@@ -44,7 +44,7 @@ extension _ListPickerItem: View {
         }
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     var destinationView: some View {
         destinationConfiguration?
             .destinationView
@@ -57,7 +57,7 @@ extension _ListPickerItem: View {
     }
 }
 
-public extension _ListPickerItem {
+@MainActor public extension _ListPickerItem {
     /// Returns a list picker item with given configuration.
     /// - Parameters:
     ///   - key: The key view of the list.
@@ -76,7 +76,7 @@ public extension _ListPickerItem {
 }
 
 /// The configuration for constructing the list picker.
-public struct _ListPickerItemConfiguration {
+@MainActor public struct _ListPickerItemConfiguration {
     let destinationView: AnyView
     
     // A boolean that indicates whether show the children directly.
@@ -275,7 +275,7 @@ extension _ListPickerItem {
     }
 }
 
-struct ListpickerListStyleKey: EnvironmentKey {
+@MainActor struct ListpickerListStyleKey: @preconcurrency EnvironmentKey {
     static let defaultValue: any ListStyle = .automatic
 }
 
@@ -296,7 +296,7 @@ public extension View {
     }
 }
 
-struct ListPickerListViewModifierKey: EnvironmentKey {
+@MainActor struct ListPickerListViewModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

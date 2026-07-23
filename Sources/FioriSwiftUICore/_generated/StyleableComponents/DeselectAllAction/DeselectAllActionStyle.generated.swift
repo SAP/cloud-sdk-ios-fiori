@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DeselectAllActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DeselectAllActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DeselectAllActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DeselectAllActionConfiguration) -> Body
 }
 
 struct AnyDeselectAllActionStyle: DeselectAllActionStyle {
@@ -31,5 +31,14 @@ public struct DeselectAllActionConfiguration {
 extension DeselectAllActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct DeselectAllActionDefaultStyle: DeselectAllActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DeselectAllActionConfiguration) -> some View {
+        DeselectAllAction(configuration)
+            .deselectAllActionStyle(DeselectAllActionBaseStyle())
     }
 }

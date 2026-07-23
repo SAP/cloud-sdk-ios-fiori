@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ActivationScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ActivationScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ActivationScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ActivationScreenConfiguration) -> Body
 }
 
 struct AnyActivationScreenStyle: ActivationScreenStyle {
@@ -54,5 +54,15 @@ public struct ActivationScreenFioriStyle: ActivationScreenStyle {
             .footnoteStyle(FootnoteFioriStyle(activationScreenConfiguration: configuration))
             .actionStyle(ActionFioriStyle(activationScreenConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(activationScreenConfiguration: configuration))
+    }
+}
+
+struct ActivationScreenDefaultStyle: ActivationScreenStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ActivationScreenConfiguration) -> some View {
+        ActivationScreen(configuration)
+            .activationScreenStyle(ActivationScreenFioriStyle())
+            .modifier(ActivationScreenStyleModifier(style: ActivationScreenBaseStyle()))
     }
 }

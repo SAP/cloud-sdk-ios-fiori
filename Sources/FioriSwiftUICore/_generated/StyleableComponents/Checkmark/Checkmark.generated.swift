@@ -25,6 +25,7 @@ public extension Checkmark {
 }
 
 public extension Checkmark {
+    @MainActor
     init(checkmark: Image? = Image(systemName: "checkmark")) {
         self.init(checkmark: { checkmark })
     }
@@ -64,6 +65,7 @@ private extension Checkmark {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Checkmark(.init(componentIdentifier: self.componentIdentifier, checkmark: .init(self.checkmark)))
             .shouldApplyDefaultStyle(false)

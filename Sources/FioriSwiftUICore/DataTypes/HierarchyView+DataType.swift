@@ -54,38 +54,51 @@ public protocol HierarchyViewDataSource {
     /// Asynchronously returns the UUID of the root item for the hierarchy view.
     ///
     /// This async API is used when the environment value `hierarchyViewIsAsync` is true.
+    /// Marked `nonisolated(nonsending)` so this method runs on the caller's actor
+    /// (typically the `@MainActor` for SwiftUI). This avoids needing to send the
+    /// non-`Sendable` data source across concurrency domains.
     ///
     /// - Returns: the uuid for root item in hierarchy view.
+    nonisolated(nonsending)
     func rootIDAsync() async throws -> String
     
     /// Asynchronously gets the number of children for a given item ID
     ///
     /// This async API is used when the environment value `hierarchyViewIsAsync` is true.
     ///
+    /// Marked `nonisolated(nonsending)` so this method runs on the caller's actor.
+    ///
     /// - Parameters:
     ///   - id: The uuid of the item from which hierarchy view requests number of childre
     ///
     /// - Returns: Number of children the item has.
+    nonisolated(nonsending)
     func numberOfChildrenAsync(for id: String) async throws -> Int
     
     /// Asynchronously gets the uuid of the parent item of the specified child item.
     ///
     /// This async API is used when the environment value `hierarchyViewIsAsync` is true.
     ///
+    /// Marked `nonisolated(nonsending)` so this method runs on the caller's actor.
+    ///
     /// - parameter
     ///  - id: The uuid of the child item whose parent is requested.
     ///
     /// - returns: The uuid of the parent item or `nil` if parent does not exist.
+    nonisolated(nonsending)
     func parentIDAsync(for id: String) async throws -> String?
     
     /// Asynchronously gets the title for the item with specified uuid.
     ///
     /// This async API is used when the environment value `hierarchyViewIsAsync` is true.
     ///
+    /// Marked `nonisolated(nonsending)` so this method runs on the caller's actor.
+    ///
     /// - parameter
     ///  - uuid: The uuid of the item whose title is requested.
     ///
     ///  - returns: The title of the item or `nil` if it doesn't have a title.
+    nonisolated(nonsending)
     func itemTitleAsync(for id: String) async throws -> String?
 }
 
@@ -105,6 +118,7 @@ public extension HierarchyItemView {
     }
 }
 
+@MainActor
 extension HierarchyView {
     init(_ configuration: HierarchyViewConfiguration, dataSource: some HierarchyViewDataSource) {
         if !configuration.header.isEmpty { // display customized header view
@@ -119,6 +133,7 @@ extension HierarchyView {
     }
 }
 
+@MainActor
 struct HierarchyViewHeaderContent<DataSource: HierarchyViewDataSource>: View {
     let dataSource: DataSource
     @EnvironmentObject private var modelObject: HierarchyViewModelObject
@@ -170,6 +185,7 @@ struct HierarchyViewHeaderContent<DataSource: HierarchyViewDataSource>: View {
     }
 }
 
+@MainActor
 extension LeadingAccessory {
     // Wrapper the header's leading accessory clickable with default logic both the default and customized leading accessory
     init(_ configuration: LeadingAccessoryConfiguration, modelObject: HierarchyViewModelObject, isRTL: Bool, isEnabled: Bool, isAsync: Bool) {
@@ -180,7 +196,7 @@ extension LeadingAccessory {
 
                     if isAsync {
                         // Start an async Task from the synchronous action closure.
-                        Task {
+                        Task { @MainActor in
                             do {
                                 try await model.moveCurrentActiveItemAsync(isRTL)
                             } catch {
@@ -203,6 +219,7 @@ extension LeadingAccessory {
     }
 }
 
+@MainActor
 extension TrailingAccessory {
     // Wrapper the header's trailing accessory clickable with default logic both the default and customized trailing accessory
     init(_ configuration: TrailingAccessoryConfiguration, modelObject: HierarchyViewModelObject, isRTL: Bool, isEnabled: Bool, isAsync: Bool) {
@@ -213,7 +230,7 @@ extension TrailingAccessory {
 
                     if isAsync {
                         // Start an async Task from the synchronous action closure.
-                        Task {
+                        Task { @MainActor in
                             do {
                                 try await model.moveCurrentActiveItemAsync(!isRTL)
                             } catch {
@@ -237,6 +254,7 @@ extension TrailingAccessory {
     }
 }
 
+@MainActor
 extension HierarchyViewConfiguration {
     func numberOfChildren(_ dataSource: some HierarchyViewDataSource, parentID: String) -> Int {
         dataSource.numberOfChildren(for: parentID)
@@ -310,6 +328,7 @@ extension HierarchyViewConfiguration {
     }
 }
 
+@MainActor
 extension HierarchyItemViewConfiguration {
     func isSingleLine() -> Bool {
         let nonEmptyCount = [self.title, self.subtitle, self.footnote].filter { !$0.isEmpty }.count
@@ -394,6 +413,7 @@ extension View {
     }
 }
 
+@MainActor
 class HierarchyViewModelObject: ObservableObject {
     var dataSource: HierarchyViewDataSource?
     
@@ -493,7 +513,7 @@ class HierarchyViewModelObject: ObservableObject {
         }
     }
     
-    @MainActor func moveCurrentActiveItemAsync(_ toChild: Bool = true) async throws {
+    func moveCurrentActiveItemAsync(_ toChild: Bool = true) async throws {
         guard let item = toChild ? activeChildID : activeParentID else { return }
 
         let originalCurrent = self.currentActiveItemID
@@ -528,7 +548,7 @@ class HierarchyViewModelObject: ObservableObject {
 
         // Fetch parent off the main actor to avoid blocking UI/other main-actor work.
         // Use Task.detached to perform the fetch in a background context and propagate errors.
-        let fetchedParentID = try await Task.detached { try await ds.parentIDAsync(for: item) }.value
+        let fetchedParentID = try await ds.parentIDAsync(for: item)
 
         // Before mutating state, ensure the stack hasn't changed so insertion still makes sense.
         // If item is no longer at index 0, abort insertion (caller may have mutated the stack).
@@ -646,7 +666,7 @@ class HierarchyViewModelObject: ObservableObject {
 ///
 /// - Note: The selection mode can be utilized to manage the user's ability to select items
 ///         depending on the specific requirements of your application.
-public enum HierarchyItemSelectionMode {
+public enum HierarchyItemSelectionMode: Sendable {
     /// Do not allow selection of hierarchical items.
     case none
     
@@ -668,11 +688,7 @@ struct HierarchyViewIsAsyncKey: EnvironmentKey {
 }
 
 struct HierarchyIDChangeKey: EnvironmentKey {
-    static let defaultValue: ((String, Int) -> Void)? = nil
-}
-
-struct HierarchyViewMultiColumnLayoutKey: EnvironmentKey {
-    static let defaultValue: Bool = UIDevice.current.userInterfaceIdiom == .pad
+    nonisolated(unsafe) static let defaultValue: ((String, Int) -> Void)? = nil
 }
 
 struct HierarchyViewMultiColumnIndex: EnvironmentKey {
@@ -687,11 +703,6 @@ extension EnvironmentValues {
     var onCurrentHierarchyItemChange: ((String, Int) -> Void)? {
         get { self[HierarchyIDChangeKey.self] }
         set { self[HierarchyIDChangeKey.self] = newValue }
-    }
-    
-    var isHierarchyViewMultiColumnLayout: Bool {
-        get { self[HierarchyViewMultiColumnLayoutKey.self] }
-        set { self[HierarchyViewMultiColumnLayoutKey.self] = newValue }
     }
     
     var hierarchyViewMultiColumnIndex: Int {
@@ -727,6 +738,7 @@ public extension EnvironmentValues {
     }
 }
 
+@MainActor
 struct HierarchyItemSwippingColumnsLayoutView: View {
     var configuration: HierarchyViewConfiguration
     @EnvironmentObject private var modelObject: HierarchyViewModelObject
@@ -961,7 +973,7 @@ struct HierarchyItemSwippingColumnsLayoutView: View {
     private func reloadLeftParent(displayColumns: Int, token: UUID? = nil) async {
         let token = token ?? self.loadToken
         // capture parentID on MainActor
-        let parentID = await MainActor.run { self.modelObject.activeParentID }
+        let parentID = self.modelObject.activeParentID
         await self.reloadLeftParent(capturedParentID: parentID, displayColumns: displayColumns, token: token)
     }
 
@@ -982,17 +994,15 @@ struct HierarchyItemSwippingColumnsLayoutView: View {
                 return
             }
             if token == self.loadToken {
-                await MainActor.run {
-                    self.leftParentItems = []
-                    self.leftParentLoadedFor = nil
-                }
+                self.leftParentItems = []
+                self.leftParentLoadedFor = nil
             }
             return
         }
 
         // mark loading
         if token == self.loadToken {
-            await MainActor.run { self.leftParentItems = nil }
+            self.leftParentItems = nil
         }
 
         do {

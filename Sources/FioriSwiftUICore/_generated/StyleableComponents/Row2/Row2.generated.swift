@@ -58,6 +58,7 @@ private extension Row2 {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Row2(.init(componentIdentifier: self.componentIdentifier, row2: .init(self.row2)))
             .shouldApplyDefaultStyle(false)

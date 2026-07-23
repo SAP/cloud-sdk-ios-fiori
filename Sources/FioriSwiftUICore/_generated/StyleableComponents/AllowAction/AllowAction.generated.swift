@@ -25,6 +25,7 @@ public extension AllowAction {
 }
 
 public extension AllowAction {
+    @MainActor
     init(allowAction: FioriButton? = FioriButton { _ in Text("Allow".localizedFioriString()) }) {
         self.init(allowAction: { allowAction })
     }
@@ -64,6 +65,7 @@ private extension AllowAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AllowAction(.init(componentIdentifier: self.componentIdentifier, allowAction: .init(self.allowAction)))
             .shouldApplyDefaultStyle(false)

@@ -2,7 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-public extension SingleStep {
+@MainActor public extension SingleStep {
     init(id: String = UUID().uuidString,
          @ViewBuilder title: () -> any View,
          @ViewBuilder node: () -> any View,

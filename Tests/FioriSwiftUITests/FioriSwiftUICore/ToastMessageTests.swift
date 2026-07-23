@@ -5,7 +5,7 @@ import XCTest
 // If using ViewInspector, uncomment the next line and ensure it's added as a test dependency
 // import ViewInspector
 
-final class ToastMessageTests: XCTestCase {
+@MainActor final class ToastMessageTests: XCTestCase {
     func testToastMessageModifier_CanBeApplied() {
         // Given
         let isPresented = Binding.constant(true)

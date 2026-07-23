@@ -2,7 +2,7 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectHeaderViewScenarios: ListDataProtocol {
+struct ObjectHeaderViewScenarios: @preconcurrency ListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -44,6 +44,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
         false
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
 //        let objectHeader = tableView.dequeueReusableCell(withIdentifier: ObjectHeaderViewTestCell.reuseIdentifier, for: indexPath) as! ObjectHeaderViewTestCell
 //        let transformerLong: Test.Object = .transformerLong

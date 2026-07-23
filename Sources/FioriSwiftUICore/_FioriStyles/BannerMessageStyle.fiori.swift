@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 /// Banner multi message type
-public enum BannerMultiMessageType: Int {
+public enum BannerMultiMessageType: Int, Sendable {
     // Use this variant when neutral information is provided. Default. Message.
     case neutral
     // Use this variant when informative message is provided. For example, the status of a user action.

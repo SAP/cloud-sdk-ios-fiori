@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DoneActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DoneActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DoneActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DoneActionConfiguration) -> Body
 }
 
 struct AnyDoneActionStyle: DoneActionStyle {
@@ -31,5 +31,14 @@ public struct DoneActionConfiguration {
 extension DoneActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct DoneActionDefaultStyle: DoneActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DoneActionConfiguration) -> some View {
+        DoneAction(configuration)
+            .doneActionStyle(DoneActionBaseStyle())
     }
 }

@@ -25,6 +25,7 @@ public extension AllEntriesSectionTitle {
 }
 
 public extension AllEntriesSectionTitle {
+    @MainActor
     init(allEntriesSectionTitle: AttributedString? = AttributedString("All".localizedFioriString())) {
         self.init(allEntriesSectionTitle: { OptionalText(allEntriesSectionTitle) })
     }
@@ -64,6 +65,7 @@ private extension AllEntriesSectionTitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AllEntriesSectionTitle(.init(componentIdentifier: self.componentIdentifier, allEntriesSectionTitle: .init(self.allEntriesSectionTitle)))
             .shouldApplyDefaultStyle(false)

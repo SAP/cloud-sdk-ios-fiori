@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AvatarsStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AvatarsStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AvatarsConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AvatarsConfiguration) -> Body
 }
 
 struct AnyAvatarsStyle: AvatarsStyle {
@@ -31,5 +31,14 @@ public struct AvatarsConfiguration {
 extension AvatarsConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AvatarsDefaultStyle: AvatarsStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AvatarsConfiguration) -> some View {
+        Avatars(configuration)
+            .avatarsStyle(AvatarsBaseStyle())
     }
 }

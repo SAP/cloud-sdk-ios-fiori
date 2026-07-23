@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 import XCTest
 
-final class LinearProgressIndicatorTests: XCTestCase {
+@MainActor final class LinearProgressIndicatorTests: XCTestCase {
     // MARK: - Basic Initialization Tests
     
     func testInitWithProgress() {

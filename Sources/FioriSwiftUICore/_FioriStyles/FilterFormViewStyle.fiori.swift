@@ -430,7 +430,7 @@ private struct FilterFormViewLayout: Layout {
 }
 
 struct FilterFormViewButtonSizeKey: EnvironmentKey {
-    static var defaultValue: FilterButtonSize? = nil
+    static let defaultValue: FilterButtonSize? = nil
 }
 
 extension EnvironmentValues {

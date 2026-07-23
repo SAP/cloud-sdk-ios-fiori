@@ -102,6 +102,7 @@ private extension DimensionSelector {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DimensionSelector(.init(componentIdentifier: self.componentIdentifier, titles: self.titles, selectedIndex: self.$selectedIndex, interItemSpacing: self.interItemSpacing, contentInset: self.contentInset, segmentWidthMode: self.segmentWidthMode, allowEmptySelection: self.allowEmptySelection, segment: self.segment))
             .shouldApplyDefaultStyle(false)

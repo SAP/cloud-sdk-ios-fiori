@@ -62,6 +62,7 @@ public extension WhatsNewListView {
 }
 
 public extension WhatsNewListView {
+    @MainActor
     init(whatsNewListItems: [WhatsNewListItem] = [],
          didClose: (() -> Void)? = nil,
          didFinish: (() -> Void)? = nil)
@@ -106,6 +107,7 @@ private extension WhatsNewListView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         WhatsNewListView(.init(componentIdentifier: self.componentIdentifier, whatsNewListItems: self.whatsNewListItems, didClose: self.didClose, didFinish: self.didFinish))
             .shouldApplyDefaultStyle(false)

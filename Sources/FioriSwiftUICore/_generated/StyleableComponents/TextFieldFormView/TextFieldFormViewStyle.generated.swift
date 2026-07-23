@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TextFieldFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TextFieldFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TextFieldFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TextFieldFormViewConfiguration) -> Body
 }
 
 struct AnyTextFieldFormViewStyle: TextFieldFormViewStyle {
@@ -58,5 +58,15 @@ public struct TextFieldFormViewFioriStyle: TextFieldFormViewStyle {
             .titleStyle(TitleFioriStyle(textFieldFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(textFieldFormViewConfiguration: configuration))
             .titleFormViewStyle(TitleFormViewFioriStyle(textFieldFormViewConfiguration: configuration))
+    }
+}
+
+struct TextFieldFormViewDefaultStyle: TextFieldFormViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TextFieldFormViewConfiguration) -> some View {
+        TextFieldFormView(configuration)
+            .textFieldFormViewStyle(TextFieldFormViewFioriStyle())
+            .modifier(TextFieldFormViewStyleModifier(style: TextFieldFormViewBaseStyle()))
     }
 }

@@ -79,6 +79,7 @@ public extension TimelinePreview {
 }
 
 public extension TimelinePreview {
+    @MainActor
     init(optionalTitle: AttributedString?,
          action: FioriButton? = nil,
          items: Binding<[any TimelinePreviewItemModel]>)
@@ -123,6 +124,7 @@ private extension TimelinePreview {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TimelinePreview(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle), action: .init(self.action), items: self.$items))
             .shouldApplyDefaultStyle(false)

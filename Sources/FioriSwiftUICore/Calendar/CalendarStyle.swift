@@ -40,7 +40,7 @@ public enum CalendarStyle {
 /**
  The types of secondary calendar to be displayed in `CalendarView`.
  */
-public enum AlternateCalendarType: CaseIterable {
+public enum AlternateCalendarType: CaseIterable, Sendable {
     /// No alternate calendar.
     case none
 

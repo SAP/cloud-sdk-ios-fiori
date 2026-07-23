@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 /// A enum describing the state of an filter form option
-public enum FilterFormOptionState {
+public enum FilterFormOptionState: Sendable {
     /// option is enabled and unselected
     case enabledUnselected
     /// option is enabled and selected
@@ -14,7 +14,7 @@ public enum FilterFormOptionState {
 }
 
 /// A enum describing the shape of a filter form option
-public enum FilterFormOptionShape: Equatable {
+public enum FilterFormOptionShape: Equatable, Sendable {
     /// Rounded rectangle with a specific corner radius
     case roundedRectangle(CGFloat)
     /// Capsule shape (fully rounded ends)
@@ -22,7 +22,7 @@ public enum FilterFormOptionShape: Equatable {
 }
 
 struct FilterFormOptionAttributes: EnvironmentKey {
-    public static let defaultValue: [FilterFormOptionState: [NSAttributedString.Key: Any]] = [:]
+    public nonisolated(unsafe) static let defaultValue: [FilterFormOptionState: [NSAttributedString.Key: Any]] = [:]
 }
 
 struct FilterFormOptionMinHeight: EnvironmentKey {
