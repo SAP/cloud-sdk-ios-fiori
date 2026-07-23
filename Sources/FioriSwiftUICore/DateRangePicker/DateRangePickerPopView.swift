@@ -15,6 +15,7 @@ struct DateRangePickerPopView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.layoutDirection) var layoutDirection
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
     
     /// The initializer of DateRangePickerPopView.
     /// - Parameters:
@@ -82,21 +83,23 @@ struct DateRangePickerPopView: View {
                 }
                 .padding([.leading, .trailing], 16)
                 .padding(.top, 10)
-                
-                Divider()
-                    .frame(height: 0.33)
-                    .background(Color.preferredColor(.separator))
-                    .padding(.top, 10)
-                
+
+                if self.pickerSeparatorConfiguration.showSeparator {
+                    self.pickerSeparatorConfiguration.color
+                        .frame(height: self.pickerSeparatorConfiguration.lineWidth)
+                        .padding(.top, 10)
+                }
+
                 CalendarView(model: self.model)
                     .environment(\.monthHeaderDateFormat, "yyyy MMM")
                     .environment(\.customLanguageId, self.customLanguageID)
                     .environment(\.hasEventIndicator, false)
-                
-                Divider()
-                    .frame(height: 0.33)
-                    .background(Color.preferredColor(.separator))
-                    .padding(.bottom, 1)
+
+                if self.pickerSeparatorConfiguration.showSeparator {
+                    self.pickerSeparatorConfiguration.color
+                        .frame(height: self.pickerSeparatorConfiguration.lineWidth)
+                        .padding(.bottom, 1)
+                }
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

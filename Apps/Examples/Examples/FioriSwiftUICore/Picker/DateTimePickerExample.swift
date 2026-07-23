@@ -30,6 +30,17 @@ struct DateTimePickerExample: View {
     @State var separatedRangeStartPickerVisible = false
     @State var separatedRangeEndDate: Date? = .now
     @State var separatedRangeEndPickerVisible = false
+
+    @State var customizeSeparator = false
+    @State var showSeparator = true
+    @State var separatorColorIndex = 0
+    @State var separatorLineWidth: CGFloat = 0.33
+    let separatorColors: [(String, Color)] = [
+        ("Default", Color.preferredColor(.separatorOpaque)),
+        ("Red", .red),
+        ("Blue", .blue),
+        ("Green", .green)
+    ]
     
     // Limit the selectable dates from last seven days to next seven days
     var limitDateRange: ClosedRange<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ... Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
@@ -82,6 +93,20 @@ struct DateTimePickerExample: View {
             Toggle("Show Error/Hint message", isOn: self.$showsErrorMessage)
             Toggle("AI Notice", isOn: self.$showAINotice)
             Toggle("Picker Visible", isOn: self.masterPickerVisibleBinding)
+            Section("Picker Separator") {
+                Toggle("Customize Separator", isOn: self.$customizeSeparator)
+                if self.customizeSeparator {
+                    Toggle("Show Separator", isOn: self.$showSeparator)
+                    Picker("Color", selection: self.$separatorColorIndex) {
+                        ForEach(0 ..< self.separatorColors.count, id: \.self) { index in
+                            Text(self.separatorColors[index].0).tag(index)
+                        }
+                    }
+                    Stepper(value: self.$separatorLineWidth, in: 0.33 ... 5.0, step: 0.33) {
+                        Text(String(format: "Line Width: %.2f", self.separatorLineWidth))
+                    }
+                }
+            }
             Section(header: Text("")) {
                 DateTimePicker(title: "Default", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s1, pickerVisible: self.$pickerVisible)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
@@ -158,6 +183,9 @@ struct DateTimePickerExample: View {
             {
                 self.separatedRangeStartDate = self.separatedRangeEndDate
             }
+        }
+        .ifApply(self.customizeSeparator) {
+            $0.pickerSeparator(self.showSeparator, color: self.separatorColors[self.separatorColorIndex].1, lineWidth: self.separatorLineWidth)
         }
     }
 }
