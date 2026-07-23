@@ -4020,7 +4020,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/DateRangePickerStyle.fiori.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "DateRangePickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -4034,7 +4034,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/DateTimePickerStyle.fiori.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "DateTimePickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -4377,7 +4377,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/DurationPickerStyle.fiori.swift",
-      "line": 18,
+      "line": 19,
       "symbol": "DurationPickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -7758,7 +7758,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/ValuePickerStyle.fiori.swift",
-      "line": 11,
+      "line": 12,
       "symbol": "ValuePickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

@@ -1181,6 +1181,94 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE15pickerSeparator_5color9lineWidthQrSb_AA5ColorV14CoreFoundation7CGFloatVtF"></a>
+                      <a name="//apple_ref/swift/Method/pickerSeparator(_:color:lineWidth:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE15pickerSeparator_5color9lineWidthQrSb_AA5ColorV14CoreFoundation7CGFloatVtF">pickerSeparator(_:<wbr>color:<wbr>lineWidth:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Sets the separator for picker components.</p>
+
+<p>Applies to <code><a href="../Structs/DurationPicker.html">DurationPicker</a></code>, <code><a href="../Structs/DateTimePicker.html">DateTimePicker</a></code>, <code><a href="../Structs/ValuePicker.html">ValuePicker</a></code> and <code><a href="../Structs/DateRangePicker.html">DateRangePicker</a></code>&lsquo;s
+internal separators.</p>
+
+<p>Example usage:</p>
+<pre class="highlight swift"><code><span class="kt">DurationPicker</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">pickerSeparator</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>                              <span class="c1">// default style</span>
+    <span class="o">.</span><span class="nf">pickerSeparator</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="o">.</span><span class="n">red</span><span class="p">)</span>                 <span class="c1">// red separator</span>
+    <span class="o">.</span><span class="nf">pickerSeparator</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="o">.</span><span class="n">blue</span><span class="p">,</span> <span class="nv">lineWidth</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1">// thick blue separator</span>
+    <span class="o">.</span><span class="nf">pickerSeparator</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>                             <span class="c1">// hide separator</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">pickerSeparator</span><span class="p">(</span><span class="n">_</span> <span class="nv">visibility</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+                     <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">separatorOpaque</span><span class="p">),</span>
+                     <span class="nv">lineWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">0.33</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>visibility</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Whether to show the separator.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>color</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Color of the separator. Defaults to the opaque separator color.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>lineWidth</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>Width of the separator line. Defaults to 0.33.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A view with the applied separator configuration.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE6shadowyQrAD0D11ShadowStyleOF"></a>
                       <a name="//apple_ref/swift/Method/shadow(_:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE6shadowyQrAD0D11ShadowStyleOF">shadow(_:<wbr>)</a>
@@ -29458,6 +29546,9 @@ and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
                   <a href="../Structs/PhotosPickerMenuItem.html">PhotosPickerMenuItem</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/PickerSeparatorConfiguration.html">PickerSeparatorConfiguration</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/Placeholder.html">Placeholder</a>
                 </li>
                 <li class="nav-group-task">
@@ -31461,7 +31552,7 @@ and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-07-22)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-07-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
