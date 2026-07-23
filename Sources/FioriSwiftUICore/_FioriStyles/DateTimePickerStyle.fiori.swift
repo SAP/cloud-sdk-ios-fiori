@@ -7,6 +7,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.dateTimePickerAutoSelected) var autoSelected
     @Environment(\.isLoading) var isLoading
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
 
     @State private var selectedDate: Date = .now
 
@@ -30,10 +31,9 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
 
                     if configuration.pickerVisible, !self.isLoading {
                         LazyVStack {
-                            if !configuration.hidesSeparator {
-                                Divider()
-                                    .frame(height: 0.33)
-                                    .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                            if !configuration.hidesSeparator, self.pickerSeparatorConfiguration.showSeparator {
+                                self.pickerSeparatorConfiguration.color
+                                    .frame(height: self.pickerSeparatorConfiguration.lineWidth)
                                     .padding(.top, 14)
                             }
                             self.showPicker(configuration)

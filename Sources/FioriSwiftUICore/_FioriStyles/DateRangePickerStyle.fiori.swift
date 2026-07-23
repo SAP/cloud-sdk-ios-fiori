@@ -7,6 +7,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.isLoading) var isLoading
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
 
     @State var isPresented = false
 
@@ -42,6 +43,7 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
                 }
                 .presentationDetents([.large])
             }
+            .environment(\.pickerSeparator, self.pickerSeparatorConfiguration)
         }
     }
 

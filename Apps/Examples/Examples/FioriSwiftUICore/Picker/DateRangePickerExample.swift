@@ -14,6 +14,17 @@ struct DateRangePickerExample: View {
     @State private var pickerVisible3 = false
     @State private var pickerVisible4 = false
     @State private var pickerVisible5 = false
+
+    @State private var customizeSeparator = false
+    @State private var showSeparator = true
+    @State private var separatorColorIndex = 0
+    @State private var separatorLineWidth: CGFloat = 0.33
+    private let separatorColors: [(String, Color)] = [
+        ("Default", Color.preferredColor(.separatorOpaque)),
+        ("Red", .red),
+        ("Blue", .blue),
+        ("Green", .green)
+    ]
     
     // Limit the selectable dates from last seven days to next seven days
     private var limitDateRange: Range<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ..< Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
@@ -85,6 +96,22 @@ struct DateRangePickerExample: View {
                 .tint(Color.preferredColor(.tintColor))
             Toggle("Skeleton Loading", isOn: self.$isLoading)
                 .tint(Color.preferredColor(.tintColor))
+            Section("Picker Separator") {
+                Toggle("Customize Separator", isOn: self.$customizeSeparator)
+                    .tint(Color.preferredColor(.tintColor))
+                if self.customizeSeparator {
+                    Toggle("Show Separator", isOn: self.$showSeparator)
+                        .tint(Color.preferredColor(.tintColor))
+                    Picker("Color", selection: self.$separatorColorIndex) {
+                        ForEach(0 ..< self.separatorColors.count, id: \.self) { index in
+                            Text(self.separatorColors[index].0).tag(index)
+                        }
+                    }
+                    Stepper(value: self.$separatorLineWidth, in: 0.33 ... 5.0, step: 0.33) {
+                        Text(String(format: "Line Width: %.2f", self.separatorLineWidth))
+                    }
+                }
+            }
             Section(header: Text("")) {
                 DateRangePicker(title: "Range Selection Long Title Long Title Long Title Long Title Long Title Long Title0", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange0, pickerVisible: self.$pickerVisible0)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information error message."))
@@ -141,6 +168,9 @@ struct DateRangePickerExample: View {
         }
         .environment(\.isLoading, self.isLoading)
         .navigationTitle("Date Range Picker")
+        .ifApply(self.customizeSeparator) {
+            $0.pickerSeparator(self.showSeparator, color: self.separatorColors[self.separatorColorIndex].1, lineWidth: self.separatorLineWidth)
+        }
     }
 
     private func getValueLabel(_ selectedRange: ClosedRange<Date>?) -> String {
