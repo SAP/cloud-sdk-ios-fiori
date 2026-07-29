@@ -94,6 +94,9 @@ struct CardFullWidthSingleButtonExample: View {
         }
     }
     
+    @State private var availableGridViewWidth: CGFloat = 0
+    private var cardWidth: CGFloat = 300
+    
     var body: some View {
         List {
             Section {
@@ -117,7 +120,8 @@ struct CardFullWidthSingleButtonExample: View {
                 .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                 
                 if self.isGridView {
-                    let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 2)
+                    let count = self.availableGridViewWidth < self.cardWidth * 2 + 8 + 32 ? 1 : 2
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: count)
                     ScrollViewReader { proxy in
                         LazyVGrid(columns: columns, spacing: 10) {
                             ForEach(self._dataSource) { item in
@@ -133,6 +137,12 @@ struct CardFullWidthSingleButtonExample: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .onGeometryChange(for: CGFloat.self, of: { proxy in
+                        proxy.size.width
+                    }, action: { newValue in
+                        self.availableGridViewWidth = newValue
+                    })
                 } else {
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -140,7 +150,7 @@ struct CardFullWidthSingleButtonExample: View {
                                 ForEach(0 ..< self._dataSource.count, id: \.self) { index in
                                     let item = self._dataSource[index]
                                     self.cardView(for: item)
-                                        .frame(maxWidth: 300)
+                                        .frame(maxWidth: self.cardWidth)
                                         .accessibility(sortPriority: Double(self._dataSource.count - index))
                                         .id(item.id)
                                 }
@@ -203,7 +213,7 @@ struct CardFullWidthSingleButtonExample: View {
             .fioriButtonStyle(FioriPrimaryButtonStyle(.infinity, loadingState: item.loadingState))
             .disabled(item.loadingState != .unspecified)
         }
-        .frame(width: 300)
+        .frame(width: self.cardWidth)
         .fixedSize(horizontal: false, vertical: true)
         .background(Color.white)
         .accessibilityElement(children: .contain)

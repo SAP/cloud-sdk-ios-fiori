@@ -224,12 +224,19 @@ struct InternalWAForm: View {
             NavigationLink {
                 InternalWAForm(configuration: self.configuration, menus: [item.children], isTopLevel: false, navigationBarTitleString: item.title)
             } label: {
-                Text(item.title)
-                    .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
-                    .font(Font.fiori(forTextStyle: .body))
-                    .accessibilityHint("\(String(format: NSLocalizedString("Open to see %@ options", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), item.title))")
-                    .accessibilityAddTraits(.isButton)
+                HStack(spacing: 0) {
+                    Text(item.title)
+                        .foregroundStyle(Color.preferredColor(self.isEnabled && item.isEnabled ? .primaryLabel : .quaternaryLabel))
+                        .font(Font.fiori(forTextStyle: .body))
+                        .accessibilityHint("\(String(format: NSLocalizedString("Open to see %@ options", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), item.title))")
+                        .accessibilityAddTraits(.isButton)
+                    Spacer(minLength: 8)
+                    FioriIcon.arrows.slimArrowRight
+                        .font(.system(.callout, weight: .semibold))
+                        .foregroundStyle(Color.preferredColor(.separator))
+                }
             }
+            .navigationLinkIndicatorVisibility(.hidden)
             .disabled(!item.isEnabled)
         }
     }
