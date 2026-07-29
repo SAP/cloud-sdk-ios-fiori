@@ -6,45 +6,47 @@ import SwiftUI
 public struct DateRangePickerBaseStyle: DateRangePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.isLoading) var isLoading
     @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
 
     @State var isPresented = false
 
     public func makeBody(_ configuration: DateRangePickerConfiguration) -> some View {
-        VStack {
-            VStack(spacing: 0) {
-                Group {
-                    if self.dynamicTypeSize >= .accessibility3 {
-                        self.configureMainStack(configuration, isVertical: true)
-                    } else {
-                        ViewThatFits(in: .horizontal) {
-                            self.configureMainStack(configuration, isVertical: false)
+        SkeletonLoadingContainer {
+            VStack {
+                VStack(spacing: 0) {
+                    Group {
+                        if self.dynamicTypeSize >= .accessibility3 {
                             self.configureMainStack(configuration, isVertical: true)
+                        } else {
+                            ViewThatFits(in: .horizontal) {
+                                self.configureMainStack(configuration, isVertical: false)
+                                self.configureMainStack(configuration, isVertical: true)
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .padding(.top, 8)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .padding(.top, 8)
             }
-        }
-        .ifApply(FioriLocale.shared.locale != nil) {
-            $0.environment(\.locale, FioriLocale.shared.locale!)
-        }
-        .ifApply(FioriLocale.shared.locale != nil) {
-            $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
-        }
-        .sheet(isPresented: self.$isPresented) {
-            DateRangePickerPopView(startDate: configuration.range?.lowerBound, endDate: configuration.range?.upperBound, selectedRange: configuration.selectedRange, applyActionCallback: { selectedRange in
-                configuration.selectedRange = selectedRange
-                self.isPresented = false
-            }) {
-                self.isPresented = false
+            .ifApply(FioriLocale.shared.locale != nil) {
+                let fioriLocale = FioriLocale.shared.locale ?? .current
+                return $0.environment(\.locale, fioriLocale)
+                    .environment(\.calendar, fioriLocale.calendar)
+            }
+            .sheet(isPresented: self.$isPresented) {
+                DateRangePickerPopView(startDate: configuration.range?.lowerBound, endDate: configuration.range?.upperBound, selectedRange: configuration.selectedRange, applyActionCallback: { selectedRange in
+                    configuration.selectedRange = selectedRange
+                    self.isPresented = false
+                }) {
+                    self.isPresented = false
+                }
+                .presentationDetents([.large])
             }
             .environment(\.pickerSeparator, self.pickerSeparatorConfiguration)
-            .presentationDetents([.large])
         }
     }
-    
+
     func configureMainStack(_ configuration: DateRangePickerConfiguration, isVertical: Bool) -> some View {
         let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
         return mainStack {
@@ -54,14 +56,14 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             } else {
                 Divider().hidden()
             }
-            
+
             ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
                 .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
         }
         .accessibilityElement(children: .combine)
         .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
-        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly && !self.isLoading) {
             $0.onTapGesture(perform: {
                 self.isPresented = true
             })
@@ -121,25 +123,29 @@ extension DateRangePickerFioriStyle {
     
     struct TitleFioriStyle: TitleStyle {
         let dateRangePickerConfiguration: DateRangePickerConfiguration
-        
+        @Environment(\.isLoading) var isLoading
+
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateRangePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : (self.dateRangePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel)))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
-    
+
     struct ValueLabelFioriStyle: ValueLabelStyle {
         let dateRangePickerConfiguration: DateRangePickerConfiguration
-        
+        @Environment(\.isLoading) var isLoading
+
         func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
             ValueLabel(configuration)
                 .foregroundStyle(self.getFontColor(self.dateRangePickerConfiguration))
                 .font(.fiori(forTextStyle: .body))
         }
-        
+
         func getFontColor(_ configuration: DateRangePickerConfiguration) -> Color {
-            if configuration.controlState == .disabled {
+            if self.isLoading {
+                return .preferredColor(.separator)
+            } else if configuration.controlState == .disabled {
                 return .preferredColor(.separator)
             } else if configuration.selectedRange != nil {
                 return .preferredColor(.tintColor)
@@ -151,7 +157,7 @@ extension DateRangePickerFioriStyle {
     
     struct FormViewFioriStyle: FormViewStyle {
         let dateRangePickerConfiguration: DateRangePickerConfiguration
-        
+
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }

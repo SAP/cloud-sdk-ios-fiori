@@ -6,59 +6,61 @@ import SwiftUI
 public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.dateTimePickerAutoSelected) var autoSelected
+    @Environment(\.isLoading) var isLoading
     @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
 
     @State private var selectedDate: Date = .now
 
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
-        VStack {
-            VStack(spacing: 0) {
-                Group {
-                    if self.dynamicTypeSize >= .accessibility3 {
-                        self.configureMainStack(configuration, isVertical: true)
-                    } else {
-                        ViewThatFits(in: .horizontal) {
-                            self.configureMainStack(configuration, isVertical: false)
+        SkeletonLoadingContainer {
+            VStack {
+                VStack(spacing: 0) {
+                    Group {
+                        if self.dynamicTypeSize >= .accessibility3 {
                             self.configureMainStack(configuration, isVertical: true)
+                        } else {
+                            ViewThatFits(in: .horizontal) {
+                                self.configureMainStack(configuration, isVertical: false)
+                                self.configureMainStack(configuration, isVertical: true)
+                            }
                         }
                     }
-                }
-                .animation(nil, value: configuration.pickerVisible)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .padding(.top, 8)
+                    .animation(nil, value: configuration.pickerVisible)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .padding(.top, 8)
 
-                if configuration.pickerVisible {
-                    LazyVStack {
-                        if !configuration.hidesSeparator, self.pickerSeparatorConfiguration.showSeparator {
-                            self.pickerSeparatorConfiguration.color
-                                .frame(height: self.pickerSeparatorConfiguration.lineWidth)
-                                .padding(.top, 14)
+                    if configuration.pickerVisible, !self.isLoading {
+                        LazyVStack {
+                            if !configuration.hidesSeparator, self.pickerSeparatorConfiguration.showSeparator {
+                                self.pickerSeparatorConfiguration.color
+                                    .frame(height: self.pickerSeparatorConfiguration.lineWidth)
+                                    .padding(.top, 14)
+                            }
+                            self.showPicker(configuration)
                         }
-                        self.showPicker(configuration)
+                        .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
                     }
-                    .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
+                }
+                .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
+            }
+            .onAppear {
+                if let configuredDate = configuration.selectedDate {
+                    self.selectedDate = configuredDate
                 }
             }
-            .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
-        }
-        .onAppear {
-            if let configuredDate = configuration.selectedDate {
-                self.selectedDate = configuredDate
+            .ifApply(FioriLocale.shared.locale != nil) {
+                let fioriLocale = FioriLocale.shared.locale ?? .current
+                return $0.environment(\.locale, fioriLocale)
+                    .environment(\.calendar, fioriLocale.calendar)
             }
-        }
-        .ifApply(FioriLocale.shared.locale != nil) {
-            $0.environment(\.locale, FioriLocale.shared.locale!)
-        }
-        .ifApply(FioriLocale.shared.locale != nil) {
-            $0.environment(\.calendar, FioriLocale.shared.locale!.calendar)
-        }
-        .onChange(of: configuration.selectedDate) { _, _ in
-            if let configuredDate = configuration.selectedDate {
-                self.selectedDate = configuredDate
+            .onChange(of: configuration.selectedDate) { _, _ in
+                if let configuredDate = configuration.selectedDate {
+                    self.selectedDate = configuredDate
+                }
             }
         }
     }
-    
+
     func configureMainStack(_ configuration: DateTimePickerConfiguration, isVertical: Bool) -> some View {
         let mainStack = isVertical ? AnyLayout(VStackLayout(alignment: .leading, spacing: 3)) : AnyLayout(HStackLayout())
         return mainStack {
@@ -76,7 +78,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
         .accessibilityElement(children: .combine)
         .accessibilityHint(self.mainStackAccessibilityHint(configuration))
         .contentShape(Rectangle())
-        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly) {
+        .ifApply(configuration.controlState != .disabled && configuration.controlState != .readOnly && !self.isLoading) {
             $0.onTapGesture(perform: {
                 if configuration.selectedDate == Date(timeIntervalSince1970: 0.0) {
                     configuration.selectedDate = Date()
@@ -164,19 +166,24 @@ extension DateTimePickerFioriStyle {
 
     struct TitleFioriStyle: TitleStyle {
         let dateTimePickerConfiguration: DateTimePickerConfiguration
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundStyle(Color.preferredColor(self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel))
+                .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : (self.dateTimePickerConfiguration.controlState == .disabled ? .quaternaryLabel : .primaryLabel)))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
         }
     }
-    
+
     struct ValueLabelFioriStyle: ValueLabelStyle {
         let dateTimePickerConfiguration: DateTimePickerConfiguration
-    
+        @Environment(\.isLoading) var isLoading
+
         func makeBody(_ configuration: ValueLabelConfiguration) -> some View {
             ValueLabel(configuration)
+                .ifApply(self.isLoading) {
+                    $0.foregroundStyle(Color.preferredColor(.separator))
+                }
         }
     }
     
@@ -200,4 +207,38 @@ public extension EnvironmentValues {
         get { self[DateTimePickerAutoSelectedKey.self] }
         set { self[DateTimePickerAutoSelectedKey.self] = newValue }
     }
+}
+
+/// Predefined skeleton loading patterns for `DateTimePicker`.
+///
+/// Apply the ``EnvironmentValues/isLoading`` environment value to trigger the shimmer effect:
+///
+/// ```swift
+/// DateTimePickerSkeletonLoadingPattern.dateAndTime
+///     .environment(\.isLoading, true)
+/// ```
+public enum DateTimePickerSkeletonLoadingPattern {
+    /// A skeleton pattern that displays both a date and a time value.
+    public static let dateAndTime = DateTimePicker(
+        title: { Text("Date & Time") },
+        selectedDate: .constant(Date()),
+        pickerComponents: [.date, .hourAndMinute],
+        pickerVisible: .constant(false)
+    )
+
+    /// A skeleton pattern that displays only a date value.
+    public static let dateOnly = DateTimePicker(
+        title: { Text("Date") },
+        selectedDate: .constant(Date()),
+        pickerComponents: [.date],
+        pickerVisible: .constant(false)
+    )
+
+    /// A skeleton pattern that displays only a time value.
+    public static let timeOnly = DateTimePicker(
+        title: { Text("Time") },
+        selectedDate: .constant(Date()),
+        pickerComponents: [.hourAndMinute],
+        pickerVisible: .constant(false)
+    )
 }
