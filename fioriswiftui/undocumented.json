@@ -4020,7 +4020,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/DateRangePickerStyle.fiori.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "DateRangePickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -4034,7 +4034,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/DateTimePickerStyle.fiori.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "DateTimePickerBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -6848,21 +6848,21 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/StepperViewStyle.fiori.swift",
-      "line": 7,
+      "line": 9,
       "symbol": "StepperViewBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/StepperViewStyle.fiori.swift",
-      "line": 131,
+      "line": 139,
       "symbol": "StepperViewFocusedStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/StepperViewStyle.fiori.swift",
-      "line": 134,
+      "line": 142,
       "symbol": "StepperViewFocusedStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -40672,7 +40672,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/StepperView/StepperViewStyle.generated.swift",
-      "line": 154,
+      "line": 162,
       "symbol": "StepperViewStyle",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
