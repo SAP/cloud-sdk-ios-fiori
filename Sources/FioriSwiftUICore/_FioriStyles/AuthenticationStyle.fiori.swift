@@ -185,6 +185,86 @@ struct AuthInputFieldStyle: AuthInputStyle {
     }
 }
 
+// MARK: - Passcode Policy Authentication Style
+
+/// A custom authentication style that validates a passcode against a `FioriPasscodePolicy`.
+///
+/// It renders a secure passcode field followed by a live requirement checklist: each requirement
+/// defined by the policy is shown with a checkmark that updates as the user types. Use the policy's
+/// `validate(passcode:)` to drive the sign-in button's disabled state, for example:
+/// ```swift
+/// Authentication(
+///     title: { Text("Create Passcode") },
+///     isDisabled: !policy.validate(passcode: passcode)
+/// ) { /* accepted */ }
+/// .authenticationStyle(PasscodePolicyAuthenticationStyle(passcode: $passcode, policy: policy))
+/// ```
+public struct PasscodePolicyAuthenticationStyle: AuthenticationStyle {
+    @Binding var passcode: String
+    let policy: FioriPasscodePolicy
+
+    /// Initializes the passcode policy authentication style.
+    /// - Parameters:
+    ///   - passcode: Binding for the passcode field.
+    ///   - policy: The passcode policy that defines the requirements.
+    public init(passcode: Binding<String>, policy: FioriPasscodePolicy) {
+        self._passcode = passcode
+        self.policy = policy
+    }
+
+    public func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .authInputStyle(PasscodePolicyInputStyle(passcode: self.$passcode, policy: self.policy))
+    }
+}
+
+// MARK: - Passcode Policy Input Style
+
+/// Input style for `PasscodePolicyAuthenticationStyle`: renders the passcode input followed by a
+/// live requirement checklist driven by the `FioriPasscodePolicy`.
+///
+/// If the caller supplies a custom `authInput` (any number of fields / custom styles) via
+/// `Authentication(authInput:)`, that content is rendered as-is and the requirement checklist is
+/// appended below it. Otherwise a built-in secure passcode field is used.
+struct PasscodePolicyInputStyle: AuthInputStyle {
+    @Binding var passcode: String
+    let policy: FioriPasscodePolicy
+    @FocusState private var passcodeFocused: Bool
+
+    func makeBody(_ configuration: AuthInputConfiguration) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            if configuration.authInput.isEmpty {
+                // No custom input provided: use a built-in secure passcode field.
+                TextFieldFormView(title: "", text: self.$passcode, isSecureEnabled: true, placeholder: AttributedString("passcode".localizedFioriString()))
+                    .textFieldFormViewStyle(AuthTextFieldStyle())
+                    .focused(self.$passcodeFocused)
+            } else {
+                // Render the caller-provided custom input (custom fields / styles) as-is.
+                configuration.authInput
+            }
+
+            // Live requirement checklist, appended below whichever input is shown.
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(self.policy.requirements(for: self.passcode), id: \.requirement.id) { item in
+                    HStack(spacing: 8) {
+                        Image(systemName: item.isSatisfied ? "checkmark.circle.fill" : "circle")
+                            .foregroundStyle(item.isSatisfied ? Color.preferredColor(.positiveLabel) : Color.preferredColor(.tertiaryLabel))
+                        Text(item.requirement.displayName)
+                            .font(.fiori(forTextStyle: .subheadline))
+                            .foregroundStyle(item.isSatisfied ? Color.preferredColor(.primaryLabel) : Color.preferredColor(.tertiaryLabel))
+                    }
+                    .accessibilityElement(children: .combine)
+                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.passcodeFocused = true
+            }
+        }
+    }
+}
+
 // MARK: - Auth Text Field Style
 
 /// Style for authentication Text fields
