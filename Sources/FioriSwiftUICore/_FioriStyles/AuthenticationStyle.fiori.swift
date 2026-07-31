@@ -238,6 +238,11 @@ struct PasscodePolicyInputStyle: AuthInputStyle {
                 TextFieldFormView(title: "", text: self.$passcode, isSecureEnabled: true, placeholder: AttributedString("passcode".localizedFioriString()))
                     .textFieldFormViewStyle(AuthTextFieldStyle())
                     .focused(self.$passcodeFocused)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                            self.passcodeFocused = true
+                        }
+                    }
             } else {
                 // Render the caller-provided custom input (custom fields / styles) as-is.
                 configuration.authInput
@@ -255,11 +260,6 @@ struct PasscodePolicyInputStyle: AuthInputStyle {
                     }
                     .accessibilityElement(children: .combine)
                 }
-            }
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                self.passcodeFocused = true
             }
         }
     }

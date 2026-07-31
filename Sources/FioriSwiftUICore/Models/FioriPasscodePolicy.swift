@@ -40,7 +40,8 @@ public struct FioriPasscodePolicy {
     public var hasSpecial: Bool
 
     /// When `true`, the passcode must contain digits only. All of `hasDigit`, `hasUpper`,
-    /// `hasLower`, and `hasSpecial` are ignored when this is `true`.
+    /// `hasLower`, and `hasSpecial` are ignored when this is `true`. User-defined rules added
+    /// via `addPasscodeRule(_:)` are still evaluated.
     public var isDigitsOnly: Bool
 
     /// The minimum number of unique characters the passcode must contain.
@@ -90,7 +91,8 @@ public struct FioriPasscodePolicy {
 
     /// Validates a passcode against the policy.
     ///
-    /// The passcode passes only if every enabled requirement is satisfied.
+    /// The passcode passes only if every enabled requirement is satisfied. User-defined rules
+    /// added via `addPasscodeRule(_:)` are always evaluated, including when `isDigitsOnly` is `true`.
     /// - Parameter passcode: The passcode to check.
     /// - Returns: `true` if the passcode satisfies all requirements.
     public func validate(passcode: String) -> Bool {
@@ -131,15 +133,19 @@ public struct FioriPasscodePolicy {
 
     /// Returns each enabled requirement together with whether it is currently satisfied by
     /// the given passcode. This is intended to drive a live requirement checklist in the UI.
+    ///
+    /// - Note: Displayed user-defined rules (see `addPasscodeRule(_:)`) are always included,
+    ///   regardless of `isDigitsOnly`.
     /// - Parameter passcode: The passcode to evaluate.
     /// - Returns: The list of requirements with their current satisfaction state.
     public func requirements(for passcode: String) -> [(requirement: FioriPasscodeRequirement, isSatisfied: Bool)] {
         var result = self.requirements()
             .map { (requirement: $0, isSatisfied: $0.check(passcode)) }
-        // Include displayed user-defined rules.
-        for rule in self.passcodeRules where rule.isDisplayed {
-            let requirement = FioriPasscodeRequirement(id: "rule.\(rule.displayName)", displayName: rule.displayName, check: rule.rule)
-            result.append((requirement: requirement, isSatisfied: rule.rule(passcode)))
+        // Include displayed user-defined rules. Use the rule's index for a stable, unique id so
+        // rules that share a display name do not collide in SwiftUI's ForEach.
+        for (index, rule) in self.passcodeRules.enumerated() where rule.isDisplayed {
+            let requirement = FioriPasscodeRequirement(id: "rule.\(index)", displayName: rule.displayName, check: rule.rule)
+            result.append((requirement: requirement, isSatisfied: requirement.check(passcode)))
         }
         return result
     }
@@ -245,8 +251,10 @@ public struct FioriPasscodeRequirement: Identifiable {
 
 /// A user-defined passcode rule that can be added to a `FioriPasscodePolicy`.
 public struct FioriPasscodeRule {
-    let displayName: String
-    let isDisplayed: Bool
+    /// The text shown for this rule in the requirement checklist.
+    public let displayName: String
+    /// Whether this rule is shown to the user in the checklist.
+    public let isDisplayed: Bool
     let rule: (String) -> Bool
 
     /// Creates a user-defined passcode rule.
