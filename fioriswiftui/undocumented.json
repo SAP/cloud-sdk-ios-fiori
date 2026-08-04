@@ -3432,14 +3432,21 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/AuthenticationStyle.fiori.swift",
-      "line": 198,
+      "line": 215,
+      "symbol": "PasscodePolicyAuthenticationStyle.makeBody(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/AuthenticationStyle.fiori.swift",
+      "line": 278,
       "symbol": "AuthTextFieldStyle.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/AuthenticationStyle.fiori.swift",
-      "line": 200,
+      "line": 280,
       "symbol": "AuthTextFieldStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
