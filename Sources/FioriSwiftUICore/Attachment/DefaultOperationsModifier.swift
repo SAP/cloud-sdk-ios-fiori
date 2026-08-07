@@ -134,7 +134,22 @@ public struct DefaultOperationsModifier: ViewModifier {
     }
     
     var photoPicker: some View {
-        let maxSelectionCount = self.context.configuration?.maxCount == nil ? nil : (self.context.configuration?.maxCount ?? 0) - (self.context.configuration?.attachments.count ?? 0)
+        let maxSelectionCount: Int? = {
+            let remaining: Int? = {
+                guard let maxCount = self.context.configuration?.maxCount else {
+                    return nil
+                }
+                return max(0, maxCount - (self.context.configuration?.attachments.count ?? 0))
+            }()
+            if let explicit = self.context.configuration?.maxPhotoSelectionCount {
+                if let remaining {
+                    return min(explicit, remaining)
+                }
+                return explicit
+            }
+            return remaining
+        }()
+
         return PhotosPicker(
             "Pick a photo",
             selection: self.$selectedPhotos,
