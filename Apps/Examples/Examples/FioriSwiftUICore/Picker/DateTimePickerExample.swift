@@ -16,6 +16,7 @@ struct DateTimePickerExample: View {
     @State var isRequired = false
     @State var showsErrorMessage = false
     @State var showAINotice: Bool = false
+    @State var showsClearAction = false
     @State var isLoading: Bool = false
     @State var pickerVisible = false
     @State var pickerVisible1 = false
@@ -95,6 +96,7 @@ struct DateTimePickerExample: View {
             Toggle("AI Notice", isOn: self.$showAINotice)
             Toggle("Picker Visible", isOn: self.masterPickerVisibleBinding)
             Toggle("Skeleton Loading", isOn: self.$isLoading)
+            Toggle("Show Clear Action", isOn: self.$showsClearAction)
             Section("Picker Separator") {
                 Toggle("Customize Separator", isOn: self.$customizeSeparator)
                 if self.customizeSeparator {
@@ -110,11 +112,11 @@ struct DateTimePickerExample: View {
                 }
             }
             Section(header: Text("")) {
-                DateTimePicker(title: "Default", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s1, pickerVisible: self.$pickerVisible)
+                DateTimePicker(title: "Default", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s1, pickerVisible: self.$pickerVisible, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.informational)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Date only(No separator)", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date], pickerVisible: self.$pickerVisible1, hidesSeparator: true)
+                DateTimePicker(title: "Date only(No separator)", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s2, pickerComponents: [.date], pickerVisible: self.$pickerVisible1, hidesSeparator: true, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
@@ -126,23 +128,23 @@ struct DateTimePickerExample: View {
                             )
                             .clipShape(.rect(cornerRadius: 6))
                     }
-                DateTimePicker(title: "Time only", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s3, pickerComponents: [.hourAndMinute], pickerVisible: self.$pickerVisible2)
+                DateTimePicker(title: "Time only", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s3, pickerComponents: [.hourAndMinute], pickerVisible: self.$pickerVisible2, showsClearAction: self.showsClearAction)
                     .accessibilitySortPriority(3) // This is a workaround, because the picker in DateTimePicker style as a popup will not restore original focus when dismissed.
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Numeric Date Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$pickerVisible3)
+                DateTimePicker(title: "Numeric Date Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s4, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$pickerVisible3, showsClearAction: self.showsClearAction)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Auto selected date", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$autoSelectedDate, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$autoSelectedDatePickerVisible)
+                DateTimePicker(title: "Auto selected date", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$autoSelectedDate, pickerComponents: [.date], dateStyle: .numeric, pickerVisible: self.$autoSelectedDatePickerVisible, showsClearAction: self.showsClearAction)
                     .environment(\.dateTimePickerAutoSelected, true)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Long long long long long long label", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s5, pickerVisible: self.$pickerVisible4)
+                DateTimePicker(title: "Long long long long long long label", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s5, pickerVisible: self.$pickerVisible4, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("The Date should be before December."))
                     .informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                DateTimePicker(title: "Custom Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s6, pickerVisible: self.$pickerVisible5)
+                DateTimePicker(title: "Custom Style", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$s6, pickerVisible: self.$pickerVisible5, showsClearAction: self.showsClearAction)
                     .titleStyle(CustomTitleStyle())
                     .valueLabelStyle(CustomValueLabelStyle())
                 
-                DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible)
+                DateTimePicker(title: "Customized Date Formatter, locale and calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedDate: self.$customizedDate, dateFormatter: self.customizedDateFormatter, pickerVisible: self.$customizedPickerVisible, showsClearAction: self.showsClearAction)
                     .environment(\.locale, Locale(identifier: "zh-Hans"))
                     .environment(\.calendar, Calendar(identifier: .gregorian))
             }
@@ -154,15 +156,18 @@ struct DateTimePickerExample: View {
                 DateTimePicker(title: "In Read-Only Mode", controlState: .readOnly, selectedDate: self.$s7, pickerComponents: [.date], pickerVisible: self.$pickerVisible)
             }
             Section {
-                DateTimePicker(title: "Limit Selectable Dates", range: self.limitDateRange, selectedDate: self.$limitedDate, pickerVisible: self.$limitedDatePickerVisible)
+                DateTimePicker(title: "Limit Selectable Dates", range: self.limitDateRange, selectedDate: self.$limitedDate, pickerVisible: self.$limitedDatePickerVisible, showsClearAction: self.showsClearAction) {
+                    Image(systemName: "xmark.rectangle")
+                        .foregroundColor(.red)
+                }
             } header: {
-                Text("Range")
+                Text("Range, customized clear action")
                     .textCase(.none)
             }
             
             Section {
-                DateTimePicker(title: "Start Date/Time", selectedDate: self.$separatedRangeStartDate, pickerVisible: self.$separatedRangeStartPickerVisible)
-                DateTimePicker(title: "End Date/Time", selectedDate: self.$separatedRangeEndDate, pickerVisible: self.$separatedRangeEndPickerVisible)
+                DateTimePicker(title: "Start Date/Time", selectedDate: self.$separatedRangeStartDate, pickerVisible: self.$separatedRangeStartPickerVisible, showsClearAction: self.showsClearAction)
+                DateTimePicker(title: "End Date/Time", selectedDate: self.$separatedRangeEndDate, pickerVisible: self.$separatedRangeEndPickerVisible, showsClearAction: self.showsClearAction)
             } header: {
                 Text("Select time ranges separately")
             }

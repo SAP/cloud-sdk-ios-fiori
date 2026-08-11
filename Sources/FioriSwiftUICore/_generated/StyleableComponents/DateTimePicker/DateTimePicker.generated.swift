@@ -35,6 +35,7 @@ public struct DateTimePicker {
     let controlState: ControlState
     /// The error message of the form view.
     let errorMessage: AttributedString?
+    /// The inclusive range of selectable dates.
     let range: ClosedRange<Date>?
     @Binding var selectedDate: Date?
     /// The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
@@ -51,6 +52,10 @@ public struct DateTimePicker {
     @Binding var pickerVisible: Bool
     /// This property indicates whether the separator is to be displayed. Default is false.
     let hidesSeparator: Bool
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    let showsClearAction: Bool
+    /// view for clear the value
+    let clearAction: any View
 
     @Environment(\.dateTimePickerStyle) var style
 
@@ -71,6 +76,8 @@ public struct DateTimePicker {
                 noDateSelectedString: String? = nil,
                 pickerVisible: Binding<Bool>,
                 hidesSeparator: Bool = false,
+                showsClearAction: Bool = false,
+                @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) },
                 componentIdentifier: String? = DateTimePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -86,6 +93,8 @@ public struct DateTimePicker {
         self.noDateSelectedString = noDateSelectedString
         self._pickerVisible = pickerVisible
         self.hidesSeparator = hidesSeparator
+        self.showsClearAction = showsClearAction
+        self.clearAction = clearAction()
         self.componentIdentifier = componentIdentifier ?? DateTimePicker.identifier
     }
 }
@@ -109,11 +118,13 @@ public extension DateTimePicker {
          timeStyle: Date.FormatStyle.TimeStyle = .shortened,
          noDateSelectedString: String? = nil,
          pickerVisible: Binding<Bool>,
-         hidesSeparator: Bool = false)
+         hidesSeparator: Bool = false,
+         showsClearAction: Bool = false,
+         @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) })
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible, hidesSeparator: hidesSeparator)
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible, hidesSeparator: hidesSeparator, showsClearAction: showsClearAction, clearAction: clearAction)
     }
 }
 
@@ -136,6 +147,8 @@ public extension DateTimePicker {
         self.noDateSelectedString = configuration.noDateSelectedString
         self._pickerVisible = configuration.$pickerVisible
         self.hidesSeparator = configuration.hidesSeparator
+        self.showsClearAction = configuration.showsClearAction
+        self.clearAction = configuration.clearAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -146,7 +159,7 @@ extension DateTimePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible, hidesSeparator: self.hidesSeparator)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible, hidesSeparator: self.hidesSeparator, showsClearAction: self.showsClearAction, clearAction: .init(self.clearAction))).typeErased
                 .transformEnvironment(\.dateTimePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -164,7 +177,7 @@ private extension DateTimePicker {
     }
 
     func defaultStyle() -> some View {
-        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible, hidesSeparator: self.hidesSeparator))
+        DateTimePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedDate: self.$selectedDate, dateFormatter: self.dateFormatter, pickerComponents: self.pickerComponents, dateStyle: self.dateStyle, timeStyle: self.timeStyle, noDateSelectedString: self.noDateSelectedString, pickerVisible: self.$pickerVisible, hidesSeparator: self.hidesSeparator, showsClearAction: self.showsClearAction, clearAction: .init(self.clearAction)))
             .shouldApplyDefaultStyle(false)
             .dateTimePickerStyle(DateTimePickerFioriStyle.ContentFioriStyle())
             .typeErased
