@@ -128,7 +128,7 @@ extension TextFieldFormViewFioriStyle {
                         .typeErased
                         .padding(.top, -3)
                 }
-                .accessibilityElement(children: .combine)
+                .accessibilityElement(children: .contain)
                 .setCustomAction(self.showsActionButton(configuration), configuration: configuration, isFocused: self.$isFocused, isEditing: self.$isEditing, actionIconAccessibilityLabel: self.getActionAccessibilityLabel(configuration))
                 .setGestureOnTextFieldView(self.$isFocused, isEditing: self.$isEditing)
         }
