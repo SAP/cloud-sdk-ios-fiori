@@ -10,8 +10,18 @@ struct TimelinePreviewItemModelImplementation: TimelinePreviewItemModel {
     var formatter: DateFormatter?
     var isFuture: Bool?
     var isCurrent: Bool?
+    var showsTodayText: Bool
     
-    init(id: UUID = UUID(), title: String, icon: Image? = nil, timelineNode: FioriSwiftUICore.TimelineNodeType, due: Date, dateFormat: String? = nil, isFuture: Bool? = nil, isCurrent: Bool? = nil) {
+    init(id: UUID = UUID(),
+         title: String,
+         icon: Image? = nil,
+         timelineNode: FioriSwiftUICore.TimelineNodeType,
+         due: Date,
+         dateFormat: String? = nil,
+         isFuture: Bool? = nil,
+         isCurrent: Bool? = nil,
+         showsTodayText: Bool = true)
+    {
         self.id = id
         self.title = title
         self.icon = icon
@@ -25,6 +35,7 @@ struct TimelinePreviewItemModelImplementation: TimelinePreviewItemModel {
         }
         self.isFuture = isFuture
         self.isCurrent = isCurrent
+        self.showsTodayText = showsTodayText
     }
 }
 

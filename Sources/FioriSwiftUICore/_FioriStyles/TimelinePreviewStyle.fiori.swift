@@ -86,8 +86,11 @@ struct BuildTimelinePreviewItem: View {
                 let timestampFormat = NSLocalizedString("Today, %@", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
                 let timestampString = String(format: timestampFormat, dateString)
                 let isToday = Calendar.current.isDateInToday(item.due)
-                let dateAttributedString = AttributedString(isToday ? timestampString : dateString)
-                let a11yTime = isToday ? NSLocalizedString("Today", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : dateString
+                let showsTodayText = isToday && item.showsTodayText
+                let dateAttributedString = AttributedString(showsTodayText ? timestampString : dateString)
+                let a11yTime = showsTodayText
+                    ? NSLocalizedString("Today", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                    : dateString
                 let isFuture = item.isFuture ?? false
                 let statusDescription = isToday ? NSLocalizedString("Current", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : (isFuture ? NSLocalizedString("Future", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("Past", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                 let typeDescription = self.getNodeDescription(for: item.timelineNode)
