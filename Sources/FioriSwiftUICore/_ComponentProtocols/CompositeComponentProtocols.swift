@@ -2078,6 +2078,13 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     /// The maximum number of attachments
     var maxCount: Int? { get }
     
+    // sourcery: defaultValue = "nil"
+    /// The maximum number of images allowed to be selected in a single album pick.
+    /// When set, the PhotosPicker's selection limit is the smaller of this value and the remaining count (maxCount - existing attachment count), ensuring the total never exceeds `maxCount`.
+    /// When `nil`, the selection limit falls back to the remaining count only.
+    /// If `maxCount` is also `nil` (no total limit), this value is used directly as the selection limit.
+    var maxPhotoSelectionCount: Int? { get }
+    
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
     /// App specific attachment processing logics for adding or deleting attachments.
     var delegate: AttachmentDelegate { get }
