@@ -43,7 +43,7 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
             }
             .opacity(showClear ? 1 : 0)
             .allowsHitTesting(showClear)
-            .accessibilityLabel(Text("Clear text"))
+            .accessibilityLabel("Clear".localizedFioriString())
             .accessibilityHidden(!accessible)
         }
         .accessibilityElement(children: .contain)
