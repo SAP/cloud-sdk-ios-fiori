@@ -74,7 +74,7 @@ extension WritingAssistantFormFioriStyle {
         func makeBody(_ configuration: RedoActionConfiguration) -> some View {
             RedoAction(configuration)
                 .fioriButtonStyle(AIWAActionButtonStyle())
-                .accessibilityLabel(NSLocalizedString("Rodo change", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Redo change"))
+                .accessibilityLabel(NSLocalizedString("Redo change", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Redo change"))
                 .accessibilityAddTraits(.isButton)
         }
     }
