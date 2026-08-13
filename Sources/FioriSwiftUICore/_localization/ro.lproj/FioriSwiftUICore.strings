@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Indicator check-out";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+ încă %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Niciun rezultat găsit";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Verificați dacă există greșeli de ortografie în căutare sau încercați cu un termen de căutare diferit.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Casetă de marcaj";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Cel puțin %d caractere";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Cel puțin %d caractere univoce";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Cel puțin o cifră";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Cel puțin o literă majusculă";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Cel puțin o literă minusculă";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Cel puțin un caracter special";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Numai cifre";
+

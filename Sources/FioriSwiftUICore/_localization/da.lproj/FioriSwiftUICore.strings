@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Udtjekningsindikator";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d mere";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Ingen resultater blev fundet";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Kontroller din søgning efter stavefejl, eller prøv et andet søgekriterium.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Afkrydsningsfelt";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Mindst %d tegn";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Mindst %d entydige tegn";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Mindst et ciffer";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Mindst et stort bogstav";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Mindst et lille bogstav";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Mindst et specialtegn";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Kun cifre";
+

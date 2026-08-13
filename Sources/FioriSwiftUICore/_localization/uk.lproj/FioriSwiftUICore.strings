@@ -716,5 +716,38 @@
 "AI processing" = "Обробка ШІ";
 
 /* Checkout Indicator accessibility label: Checkout Indicator */
-"Checkout Indicator" = "Індикатор реєстрації при виході";
+"Checkout Indicator" = "Індикатор взяття на редагування";
+
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+ ще %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Результатів не знайдено";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Перевірте, чи немає в пошуковому запиті орфографічних помилок, або спробуйте інший шуканий термін.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Прапорець";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Принаймні %d символів";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Принаймні %d унікальних символів";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Принаймні одна цифра";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Принаймні одна велика літера";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Принаймні одна мала літера";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Принаймні один спеціальний символ";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Лише цифри";
 
