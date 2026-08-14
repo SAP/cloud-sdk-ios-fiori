@@ -79,7 +79,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
         .accessibilityAddTraits(.isButton)
         .accessibilityRemoveTraits(.isSelected)
         .accessibilityLabel({
-            if let subtitle = configuration.data.subtitle, !subtitle.isEmpty {
+            if let subtitle = configuration.data.subtitle, !subtitle.trimmingCharacters(in: .whitespaces).isEmpty {
                 return "\(configuration.data.title), \(subtitle)"
             }
             return configuration.data.title
