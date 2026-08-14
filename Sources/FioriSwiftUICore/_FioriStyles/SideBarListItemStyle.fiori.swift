@@ -58,6 +58,7 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                     }
                     
                     configuration.title.frame(height: 44, alignment: .leading).multilineTextAlignment(.leading)
+
                     Spacer()
                     if !SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                         configuration.subtitle.frame(height: 44, alignment: .leading).multilineTextAlignment(.trailing)
