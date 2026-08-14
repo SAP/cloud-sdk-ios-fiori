@@ -78,7 +78,12 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(.isButton)
         .accessibilityRemoveTraits(.isSelected)
-        .accessibilityLabel(configuration.data.title)
+        .accessibilityLabel({
+            if let subtitle = configuration.data.subtitle, !subtitle.isEmpty {
+                return "\(configuration.data.title), \(subtitle)"
+            }
+            return configuration.data.title
+        }())
     }
 }
 
@@ -111,7 +116,9 @@ extension SideBarListItemFioriStyle {
         @EnvironmentObject private var modelObject: SideBarListItemModelObject
         @EnvironmentObject private var sidebarModelObject: SideBarModelObject
         @Environment(\.editMode) private var editMode
-        
+        @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+        @Environment(\.colorScheme) private var colorScheme
+
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Group {
                 if self.modelObject.isSelected, !SideBarUtility.isEditing(self.sidebarModelObject, self.editMode?.wrappedValue) {
@@ -120,9 +127,12 @@ extension SideBarListItemFioriStyle {
                         .fontWeight(.bold)
                         .foregroundStyle(Color.preferredColor(.quinaryLabel))
                 } else {
+                    let iconColor = self.reduceTransparency && self.colorScheme == .dark
+                        ? Color.preferredColor(.tintColor, background: .lightConstant)
+                        : Color.preferredColor(.tintColor)
                     Icon(configuration)
                         .font(.fiori(forTextStyle: .body))
-                        .foregroundStyle(Color.preferredColor(.tintColor))
+                        .foregroundStyle(iconColor)
                 }
             }
         }
