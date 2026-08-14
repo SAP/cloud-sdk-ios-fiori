@@ -859,7 +859,7 @@ public enum CardTests {
             .aspectRatio(contentMode: .fill)
             .frame(height: 345)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title that goes to two lines before truncating just like that")
     } detailImage: {
@@ -1119,7 +1119,7 @@ public enum CardTests {
         Color.purple
             .frame(height: 84)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title")
     } subtitle: {
@@ -1178,7 +1178,7 @@ public enum CardTests {
             .aspectRatio(contentMode: .fill)
             .frame(height: 145)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title that goes to three lines before truncating just like that")
     } subtitle: {

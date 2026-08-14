@@ -34,6 +34,7 @@ public struct CardHeaderBaseStyle: CardHeaderStyle {
                     .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
             }
         }
+        .accessibilityElement(children: .contain)
     }
 }
 
@@ -317,7 +318,7 @@ extension CardHeaderFioriStyle {
         Color.purple
             .frame(height: 145)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title")
     } subtitle: {

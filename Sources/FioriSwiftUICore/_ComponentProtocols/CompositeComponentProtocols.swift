@@ -206,7 +206,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -291,7 +291,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -358,7 +358,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///
 /// ```swift
 /// Card(mediaImage: Image("productThumbnail"),
-///      description: "Title",
+///      description: "Description",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
 ///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],

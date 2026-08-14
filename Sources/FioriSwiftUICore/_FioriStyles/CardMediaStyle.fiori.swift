@@ -18,9 +18,11 @@ public struct CardMediaBaseStyle: CardMediaStyle {
         // Add default layout here
         ZStack(alignment: .bottomLeading) {
             configuration.mediaImage
-            
+                .accessibilitySortPriority(4)
+
             configuration.description
                 .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+                .accessibilitySortPriority(3)
         }
     }
 }
@@ -167,7 +169,7 @@ extension CardMediaFioriStyle {
             .frame(maxWidth: .infinity, maxHeight: 245)
             .border(Color.blue, width: 3)
     } description: {
-        Text("Title")
+        Text("Description")
     }
     .border(Color.green)
 }
@@ -188,7 +190,7 @@ extension CardMediaFioriStyle {
         Color.purple
             .frame(height: 145)
     } description: {
-        Text("Title")
+        Text("Description")
     }
     .border(Color.green)
 }
