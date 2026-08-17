@@ -410,9 +410,11 @@ class SideBarModelObject: ObservableObject {
 
 private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
     @Environment(\.sizeCategory) private var sizeCategory
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @Environment(\.colorScheme) private var colorScheme
     @ScaledMetric var scale: CGFloat = 1
     var onDisclosureGroupToggled: () -> Void
-    
+
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 0) {
             HStack {
@@ -420,12 +422,15 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
                     .font(.fiori(forTextStyle: .title3))
                     .foregroundColor(.preferredColor(.primaryLabel))
                 Spacer()
+                let chevronColor = self.reduceTransparency && self.colorScheme == .dark
+                    ? Color.preferredColor(.tintColor, background: .lightConstant)
+                    : Color.preferredColor(.tintColor)
                 Image(systemName: configuration.isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 14 * self.scale, height: 14 * self.scale)
                     .font(.fiori(fixedSize: 17, weight: .semibold))
-                    .foregroundColor(.preferredColor(.tintColor))
+                    .foregroundColor(chevronColor)
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 11, trailing: 0))
             
