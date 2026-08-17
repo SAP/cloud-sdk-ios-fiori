@@ -20,13 +20,24 @@ struct EULAViewDataModel {
     /// Parses an HTML resource into an `NSAttributedString`.
     /// - Important: HTML parsing relies on WebKit and MUST run on the main thread.
     @MainActor
-    static func loadHTML(resource: String, withExtension ext: String = "html") -> NSAttributedString? {
+    static func loadHTML(resource: String, withExtension ext: String = "html") async -> NSAttributedString? {
         guard let url = Bundle.main.url(forResource: resource, withExtension: ext) else {
             print("EULA resource not found: \(resource).\(ext)")
             return nil
         }
+
+        // Read the file on a background thread (Data is Sendable, so it's safe to return across actors)
+        let data: Data
         do {
-            let data = try Data(contentsOf: url)
+            data = try await Task.detached(priority: .userInitiated) {
+                try Data(contentsOf: url)
+            }.value
+        } catch {
+            print("Failed to read EULA HTML (\(resource)): \(error)")
+            return nil
+        }
+
+        do {
             let attString = try NSMutableAttributedString(
                 data: data,
                 options: [.documentType: NSAttributedString.DocumentType.html],
@@ -101,7 +112,7 @@ struct EULALongHtmlSample: View {
             self.presentationMode.wrappedValue.dismiss()
         }
         .task {
-            if let att = EULAViewDataModel.loadHTML(resource: "EULAText") {
+            if let att = await EULAViewDataModel.loadHTML(resource: "EULAText") {
                 self.model.bodyAttributedText = att
             }
         }
@@ -122,7 +133,7 @@ struct EULAShortHtmlSample: View {
             self.presentationMode.wrappedValue.dismiss()
         }
         .task {
-            if let att = EULAViewDataModel.loadHTML(resource: "EULA2") {
+            if let att = await EULAViewDataModel.loadHTML(resource: "EULA2") {
                 self.model.bodyAttributedText = att
             }
         }
