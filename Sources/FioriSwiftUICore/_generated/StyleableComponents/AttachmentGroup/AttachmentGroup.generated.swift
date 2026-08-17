@@ -66,6 +66,11 @@ public struct AttachmentGroup {
     @Binding var attachments: [AttachmentInfo]
     /// The maximum number of attachments
     let maxCount: Int?
+    /// The maximum number of images allowed to be selected in a single album pick.
+    /// When set, the PhotosPicker's selection limit is the smaller of this value and the remaining count (maxCount - existing attachment count), ensuring the total never exceeds `maxCount`.
+    /// When `nil`, the selection limit falls back to the remaining count only.
+    /// If `maxCount` is also `nil` (no total limit), this value is used directly as the selection limit.
+    let maxPhotoSelectionCount: Int?
     /// App specific attachment processing logics for adding or deleting attachments.
     let delegate: AttachmentDelegate
     /// The state of attachment group component
@@ -89,6 +94,7 @@ public struct AttachmentGroup {
                 context: AttachmentContext = AttachmentContext(),
                 attachments: Binding<[AttachmentInfo]>,
                 maxCount: Int? = nil,
+                maxPhotoSelectionCount: Int? = nil,
                 delegate: AttachmentDelegate = BasicAttachmentDelegate(),
                 controlState: ControlState = .normal,
                 errorMessage: Binding<AttributedString?> = .constant(nil),
@@ -101,6 +107,7 @@ public struct AttachmentGroup {
         self.context = context
         self._attachments = attachments
         self.maxCount = maxCount
+        self.maxPhotoSelectionCount = maxPhotoSelectionCount
         self.delegate = delegate
         self.controlState = controlState
         self._errorMessage = errorMessage
@@ -122,6 +129,7 @@ public extension AttachmentGroup {
          context: AttachmentContext = AttachmentContext(),
          attachments: Binding<[AttachmentInfo]>,
          maxCount: Int? = nil,
+         maxPhotoSelectionCount: Int? = nil,
          delegate: AttachmentDelegate = BasicAttachmentDelegate(),
          controlState: ControlState = .normal,
          errorMessage: Binding<AttributedString?>,
@@ -131,7 +139,7 @@ public extension AttachmentGroup {
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, context: context, attachments: attachments, maxCount: maxCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, defaultAttachmentExtraInfo: defaultAttachmentExtraInfo)
+        }, context: context, attachments: attachments, maxCount: maxCount, maxPhotoSelectionCount: maxPhotoSelectionCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, defaultAttachmentExtraInfo: defaultAttachmentExtraInfo)
     }
 }
 
@@ -145,6 +153,7 @@ public extension AttachmentGroup {
         self.context = configuration.context
         self._attachments = configuration.$attachments
         self.maxCount = configuration.maxCount
+        self.maxPhotoSelectionCount = configuration.maxPhotoSelectionCount
         self.delegate = configuration.delegate
         self.controlState = configuration.controlState
         self._errorMessage = configuration.$errorMessage
@@ -161,7 +170,7 @@ extension AttachmentGroup: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo)).typeErased
                 .transformEnvironment(\.attachmentGroupStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -179,7 +188,7 @@ private extension AttachmentGroup {
     }
 
     func defaultStyle() -> some View {
-        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo))
+        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo))
             .shouldApplyDefaultStyle(false)
             .attachmentGroupStyle(AttachmentGroupFioriStyle.ContentFioriStyle())
             .typeErased
