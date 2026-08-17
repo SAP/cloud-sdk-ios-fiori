@@ -65,6 +65,7 @@ public extension TimelineMarker {
 }
 
 public extension TimelineMarker {
+    @MainActor
     init(timestamp: AttributedString? = nil,
          secondaryTimestamp: TextOrIcon? = nil,
          timelineNode: TimelineNodeType,
@@ -121,6 +122,7 @@ private extension TimelineMarker {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TimelineMarker(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
             .shouldApplyDefaultStyle(false)

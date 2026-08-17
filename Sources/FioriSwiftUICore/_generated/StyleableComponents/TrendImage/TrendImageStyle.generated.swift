@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TrendImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TrendImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TrendImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TrendImageConfiguration) -> Body
 }
 
 struct AnyTrendImageStyle: TrendImageStyle {
@@ -31,5 +31,14 @@ public struct TrendImageConfiguration {
 extension TrendImageConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct TrendImageDefaultStyle: TrendImageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TrendImageConfiguration) -> some View {
+        TrendImage(configuration)
+            .trendImageStyle(TrendImageBaseStyle())
     }
 }

@@ -31,6 +31,7 @@ public extension DimensionSegment {
 }
 
 public extension DimensionSegment {
+    @MainActor
     init(title: AttributedString,
          isSelected: Bool)
     {
@@ -73,6 +74,7 @@ private extension DimensionSegment {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DimensionSegment(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), isSelected: self.isSelected))
             .shouldApplyDefaultStyle(false)

@@ -243,7 +243,7 @@ public protocol SearchableListViewModel {
 /// :nodoc:
 public protocol _KPIHeaderItemModel {}
 
-// sourcery: add_env_props = "_filterFeedbackBarStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: virtualPropHeight = "@State var _height: CGFloat = 44"
 // sourcery: virtualPropSearchText = "@State var _searchText: String = """

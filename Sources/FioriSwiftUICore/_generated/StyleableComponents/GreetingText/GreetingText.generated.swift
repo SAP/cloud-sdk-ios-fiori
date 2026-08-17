@@ -25,6 +25,7 @@ public extension GreetingText {
 }
 
 public extension GreetingText {
+    @MainActor
     init(greetingText: AttributedString) {
         self.init(greetingText: { Text(greetingText) })
     }
@@ -64,6 +65,7 @@ private extension GreetingText {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         GreetingText(.init(componentIdentifier: self.componentIdentifier, greetingText: .init(self.greetingText)))
             .shouldApplyDefaultStyle(false)

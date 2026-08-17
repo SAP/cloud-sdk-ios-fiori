@@ -58,6 +58,7 @@ private extension ListPickerContent {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ListPickerContent(.init(componentIdentifier: self.componentIdentifier, listPickerContent: .init(self.listPickerContent)))
             .shouldApplyDefaultStyle(false)

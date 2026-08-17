@@ -1,7 +1,7 @@
 import Combine
 import FioriThemeManager
 import Foundation
-import SwiftUI
+@preconcurrency import SwiftUI
 
 /**
  This file provides default fiori style for the component.
@@ -13,7 +13,7 @@ import SwiftUI
  */
 
 /// Single Banner Message Model
-public struct BannerMessageItemModel: Identifiable {
+public struct BannerMessageItemModel: Identifiable, Sendable {
     public var id: UUID
     /// Banner icon
     public var icon: (any View)?
@@ -96,7 +96,7 @@ public class BannerMessageListModel: Identifiable, Equatable, ObservableObject {
 // Base Layout style
 public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     @StateObject private var categorySelect = CategorySelect()
-    @State private var timer: Timer?
+    @State private var dismissTask: Task<Void, Never>?
     @State private var cancellableSet: Set<AnyCancellable> = []
     @State var dimensionSelectorIndex: Int? = 0
     @State var dimensionSelectorTitles: [String] = [NSLocalizedString("All", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")]
@@ -209,20 +209,25 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     }
     
     private func dismiss(_ configuration: BannerMultiMessageSheetConfiguration) {
-        self.timer?.invalidate()
-        self.timer = nil
-        
+        self.dismissTask?.cancel()
+        self.dismissTask = nil
+
         configuration.dismissAction?()
     }
     
     private func scheduleDismissIfNeeded(_ configuration: BannerMultiMessageSheetConfiguration) {
         if configuration.bannerMultiMessages.isEmpty {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
+            self.dismissTask?.cancel()
+            // Run on the main actor so `configuration` is never sent across
+            // concurrency domains; cancellation prevents races with re-entrance.
+            self.dismissTask = Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 2 * 1000000000)
+                guard !Task.isCancelled else { return }
                 self.dismiss(configuration)
-            })
+            }
         }
     }
-    
+
     private func bannerMessageStyle(_ messageType: BannerMultiMessageType) -> any BannerMessageStyle {
         switch messageType {
         case .neutral:
@@ -395,8 +400,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         })
         .background(Color.preferredColor(.chrome))
         .onDisappear(perform: {
-            self.timer?.invalidate()
-            self.timer = nil
+            self.dismissTask = nil
         })
         .frame(minWidth: !self.isPhone ? 393 : nil)
         .frame(height: self.popoverHeight)

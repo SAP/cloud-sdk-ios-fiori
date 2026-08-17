@@ -27,6 +27,7 @@ public extension WritingAssistantAction {
 }
 
 public extension WritingAssistantAction {
+    @MainActor
     init(writingAssistantAction: FioriButton? = FioriButton._writingAssistantButton) {
         self.init(writingAssistantAction: { writingAssistantAction })
     }
@@ -66,6 +67,7 @@ private extension WritingAssistantAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         WritingAssistantAction(.init(componentIdentifier: self.componentIdentifier, writingAssistantAction: .init(self.writingAssistantAction)))
             .shouldApplyDefaultStyle(false)

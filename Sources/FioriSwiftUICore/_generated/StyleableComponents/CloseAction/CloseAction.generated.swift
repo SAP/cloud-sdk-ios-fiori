@@ -27,6 +27,7 @@ public extension CloseAction {
 }
 
 public extension CloseAction {
+    @MainActor
     init(closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") }) {
         self.init(closeAction: { closeAction })
     }
@@ -66,6 +67,7 @@ private extension CloseAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CloseAction(.init(componentIdentifier: self.componentIdentifier, closeAction: .init(self.closeAction)))
             .shouldApplyDefaultStyle(false)

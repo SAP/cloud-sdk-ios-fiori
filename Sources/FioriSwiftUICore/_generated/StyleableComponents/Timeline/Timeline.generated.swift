@@ -82,6 +82,7 @@ public extension Timeline {
 }
 
 public extension Timeline {
+    @MainActor
     init(timestamp: AttributedString? = nil,
          secondaryTimestamp: TextOrIcon? = nil,
          timelineNode: TimelineNodeType,
@@ -148,6 +149,7 @@ private extension Timeline {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Timeline(.init(componentIdentifier: self.componentIdentifier, timestamp: .init(self.timestamp), secondaryTimestamp: .init(self.secondaryTimestamp), timelineNode: .init(self.timelineNode), icon: .init(self.icon), title: .init(self.title), subtitle: .init(self.subtitle), attribute: .init(self.attribute), status: .init(self.status), substatus: .init(self.substatus), subAttribute: .init(self.subAttribute), isPast: self.isPast, isPresent: self.isPresent, showUpperVerticalLine: self.showUpperVerticalLine, showLowerVerticalLine: self.showLowerVerticalLine))
             .shouldApplyDefaultStyle(false)

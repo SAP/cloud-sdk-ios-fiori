@@ -64,6 +64,7 @@ public extension SortFilterView {
 }
 
 public extension SortFilterView {
+    @MainActor
     init(title: AttributedString,
          cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          applyAction: FioriButton? = FioriButton { _ in Text("Apply".localizedFioriString()) },
@@ -118,6 +119,7 @@ private extension SortFilterView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SortFilterView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), resetAction: .init(self.resetAction), items: self.$items, onUpdate: self.onUpdate, onCancel: self.onCancel, onReset: self.onReset))
             .shouldApplyDefaultStyle(false)

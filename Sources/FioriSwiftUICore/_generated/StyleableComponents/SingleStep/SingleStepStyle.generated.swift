@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SingleStepStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SingleStepStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SingleStepConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SingleStepConfiguration) -> Body
 }
 
 struct AnySingleStepStyle: SingleStepStyle {
@@ -48,5 +48,15 @@ public struct SingleStepFioriStyle: SingleStepStyle {
             .titleStyle(TitleFioriStyle(singleStepConfiguration: configuration))
             .nodeStyle(NodeFioriStyle(singleStepConfiguration: configuration))
             .lineStyle(LineFioriStyle(singleStepConfiguration: configuration))
+    }
+}
+
+struct SingleStepDefaultStyle: SingleStepStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SingleStepConfiguration) -> some View {
+        SingleStep(configuration)
+            .singleStepStyle(SingleStepFioriStyle())
+            .modifier(SingleStepStyleModifier(style: SingleStepBaseStyle()))
     }
 }

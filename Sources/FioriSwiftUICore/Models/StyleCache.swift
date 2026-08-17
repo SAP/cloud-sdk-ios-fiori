@@ -23,7 +23,7 @@ import SwiftUI
 //    }
 // }
 
-public final class StyleCache: ObservableObject {
+public final class StyleCache: ObservableObject, @unchecked Sendable {
     static let shared = StyleCache()
     var styles: [String: AnyViewModifier] = [:]
     public static func upsertStyles(_ styles: [String: AnyViewModifier]) throws {
@@ -38,7 +38,7 @@ public final class StyleCache: ObservableObject {
 
     private init() {}
     
-    func resolveModifier(for path: [String]) -> Result<AnyViewModifier, Error> {
+    @MainActor func resolveModifier(for path: [String]) -> Result<AnyViewModifier, Error> {
         var isDirty = false
         let modifier: AnyViewModifier = path.reduce(AnyViewModifier { $0 }) { prevMod, nextClass in
             guard let mod = styles[nextClass] else { return prevMod }

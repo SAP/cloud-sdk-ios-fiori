@@ -67,6 +67,7 @@ private extension CheckoutIndicator {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CheckoutIndicator(.init(componentIdentifier: self.componentIdentifier, displayState: self.$displayState))
             .shouldApplyDefaultStyle(false)

@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class TimelinePreviewStyleTests: XCTestCase {
+@MainActor final class TimelinePreviewStyleTests: XCTestCase {
     // MARK: - Helper Test Model
     
     struct TestTimelinePreviewItemModel: TimelinePreviewItemModel {

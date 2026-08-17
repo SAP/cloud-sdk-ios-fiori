@@ -43,6 +43,7 @@ public extension HierarchyViewHeader {
 }
 
 public extension HierarchyViewHeader {
+    @MainActor
     init(title: AttributedString,
          @ViewBuilder leadingAccessory: () -> any View = { EmptyView() },
          @ViewBuilder trailingAccessory: () -> any View = { EmptyView() })
@@ -87,6 +88,7 @@ private extension HierarchyViewHeader {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HierarchyViewHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), leadingAccessory: .init(self.leadingAccessory), trailingAccessory: .init(self.trailingAccessory)))
             .shouldApplyDefaultStyle(false)

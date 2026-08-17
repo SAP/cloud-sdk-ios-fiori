@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DecrementActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DecrementActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DecrementActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DecrementActionConfiguration) -> Body
 }
 
 struct AnyDecrementActionStyle: DecrementActionStyle {
@@ -31,5 +31,14 @@ public struct DecrementActionConfiguration {
 extension DecrementActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct DecrementActionDefaultStyle: DecrementActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DecrementActionConfiguration) -> some View {
+        DecrementAction(configuration)
+            .decrementActionStyle(DecrementActionBaseStyle())
     }
 }

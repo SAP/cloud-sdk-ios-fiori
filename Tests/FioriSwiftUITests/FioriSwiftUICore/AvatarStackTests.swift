@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class AvatarStackTests: XCTestCase {
+@MainActor final class AvatarStackTests: XCTestCase {
     // MARK: - Initializer coverage
     
     func testDefaultInitializerProducesView() {

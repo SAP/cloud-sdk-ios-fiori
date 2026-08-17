@@ -8,7 +8,7 @@ public class FioriLocale: NSObject {
     /**
      The shared singleton `FioriLocale`.
      */
-    public static let shared = FioriLocale()
+    public nonisolated(unsafe) static let shared = FioriLocale()
 
     /**
      The customized `Locale` to be used to display the default messages by SAPFiori components.

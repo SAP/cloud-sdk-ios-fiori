@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UndoActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UndoActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UndoActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UndoActionConfiguration) -> Body
 }
 
 struct AnyUndoActionStyle: UndoActionStyle {
@@ -31,5 +31,14 @@ public struct UndoActionConfiguration {
 extension UndoActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct UndoActionDefaultStyle: UndoActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: UndoActionConfiguration) -> some View {
+        UndoAction(configuration)
+            .undoActionStyle(UndoActionBaseStyle())
     }
 }

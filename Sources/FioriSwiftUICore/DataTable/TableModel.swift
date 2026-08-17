@@ -29,9 +29,9 @@ import SwiftUI
  }
  ```
  */
-public class TableModel: ObservableObject {
+public class TableModel: ObservableObject, @unchecked Sendable {
     /// Edit mode for DataTable
-    public enum EditMode: Int, CaseIterable {
+    public enum EditMode: Int, CaseIterable, Sendable {
         /// none edit mode
         case none
         

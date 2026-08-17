@@ -25,6 +25,7 @@ public extension NotNowAction {
 }
 
 public extension NotNowAction {
+    @MainActor
     init(notNowAction: FioriButton? = FioriButton { _ in Text("NotNow".localizedFioriString()) }) {
         self.init(notNowAction: { notNowAction })
     }
@@ -64,6 +65,7 @@ private extension NotNowAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         NotNowAction(.init(componentIdentifier: self.componentIdentifier, notNowAction: .init(self.notNowAction)))
             .shouldApplyDefaultStyle(false)

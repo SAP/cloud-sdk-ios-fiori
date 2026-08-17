@@ -4,7 +4,7 @@ import SwiftUI
 /**
  DataTableItem. It contains layout info. Internal usage only.
  */
-struct DataTableItem: Identifiable, Hashable {
+struct DataTableItem: Identifiable, Hashable, Sendable {
     let type: DataItemType
     // store the edited value
     var text: String?

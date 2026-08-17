@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol DownVoteActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol DownVoteActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DownVoteActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DownVoteActionConfiguration) -> Body
 }
 
 struct AnyDownVoteActionStyle: DownVoteActionStyle {
@@ -31,5 +31,14 @@ public struct DownVoteActionConfiguration {
 extension DownVoteActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct DownVoteActionDefaultStyle: DownVoteActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DownVoteActionConfiguration) -> some View {
+        DownVoteAction(configuration)
+            .downVoteActionStyle(DownVoteActionBaseStyle())
     }
 }

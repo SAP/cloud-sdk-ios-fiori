@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol BannerMultiMessageSheetStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol BannerMultiMessageSheetStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> Body
 }
 
 struct AnyBannerMultiMessageSheetStyle: BannerMultiMessageSheetStyle {
@@ -46,5 +46,15 @@ public struct BannerMultiMessageSheetFioriStyle: BannerMultiMessageSheetStyle {
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         BannerMultiMessageSheet(configuration)
             .titleStyle(TitleFioriStyle(bannerMultiMessageSheetConfiguration: configuration))
+    }
+}
+
+struct BannerMultiMessageSheetDefaultStyle: BannerMultiMessageSheetStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        BannerMultiMessageSheet(configuration)
+            .bannerMultiMessageSheetStyle(BannerMultiMessageSheetFioriStyle())
+            .modifier(BannerMultiMessageSheetStyleModifier(style: BannerMultiMessageSheetBaseStyle()))
     }
 }

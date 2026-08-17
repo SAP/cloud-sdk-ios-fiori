@@ -187,7 +187,7 @@ extension ContactItemFioriStyle {
 }
 
 struct RemoveDetailImageDefaultStyleKey: EnvironmentKey {
-    static var defaultValue: Bool = false
+    static let defaultValue: Bool = false
 }
 
 extension EnvironmentValues {

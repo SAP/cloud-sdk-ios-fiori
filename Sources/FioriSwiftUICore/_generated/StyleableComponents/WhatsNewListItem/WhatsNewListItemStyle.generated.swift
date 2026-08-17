@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WhatsNewListItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WhatsNewListItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WhatsNewListItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WhatsNewListItemConfiguration) -> Body
 }
 
 struct AnyWhatsNewListItemStyle: WhatsNewListItemStyle {
@@ -44,5 +44,15 @@ public struct WhatsNewListItemFioriStyle: WhatsNewListItemStyle {
             .detailImageStyle(DetailImageFioriStyle(whatsNewListItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(whatsNewListItemConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(whatsNewListItemConfiguration: configuration))
+    }
+}
+
+struct WhatsNewListItemDefaultStyle: WhatsNewListItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: WhatsNewListItemConfiguration) -> some View {
+        WhatsNewListItem(configuration)
+            .whatsNewListItemStyle(WhatsNewListItemFioriStyle())
+            .modifier(WhatsNewListItemStyleModifier(style: WhatsNewListItemBaseStyle()))
     }
 }

@@ -32,7 +32,7 @@ public extension AINoticeStyle where Self == AINoticeIconStyle {
         AINoticeIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> AINoticeIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> AINoticeIconStyle {
         let style = AnyIconStyle(content)
         return AINoticeIconStyle(style: style)
     }
@@ -67,7 +67,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackDetailImageStyl
         AIUserFeedbackDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AIUserFeedbackDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AIUserFeedbackDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return AIUserFeedbackDetailImageStyle(style: style)
     }
@@ -88,7 +88,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackTitleStyle {
         AIUserFeedbackTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AIUserFeedbackTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AIUserFeedbackTitleStyle {
         let style = AnyTitleStyle(content)
         return AIUserFeedbackTitleStyle(style: style)
     }
@@ -109,7 +109,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackDescriptionStyl
         AIUserFeedbackDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> AIUserFeedbackDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> AIUserFeedbackDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return AIUserFeedbackDescriptionStyle(style: style)
     }
@@ -130,7 +130,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackActionStyle {
         AIUserFeedbackActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> AIUserFeedbackActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> AIUserFeedbackActionStyle {
         let style = AnyActionStyle(content)
         return AIUserFeedbackActionStyle(style: style)
     }
@@ -151,7 +151,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackSecondaryAction
         AIUserFeedbackSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> AIUserFeedbackSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> AIUserFeedbackSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return AIUserFeedbackSecondaryActionStyle(style: style)
     }
@@ -172,7 +172,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackSubmitActionSty
         AIUserFeedbackSubmitActionStyle(style: style)
     }
 
-    static func submitActionStyle(@ViewBuilder content: @escaping (SubmitActionConfiguration) -> some View) -> AIUserFeedbackSubmitActionStyle {
+    @MainActor static func submitActionStyle(@ViewBuilder content: @escaping (SubmitActionConfiguration) -> some View) -> AIUserFeedbackSubmitActionStyle {
         let style = AnySubmitActionStyle(content)
         return AIUserFeedbackSubmitActionStyle(style: style)
     }
@@ -193,7 +193,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackCancelActionSty
         AIUserFeedbackCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> AIUserFeedbackCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> AIUserFeedbackCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return AIUserFeedbackCancelActionStyle(style: style)
     }
@@ -214,7 +214,7 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackIllustratedMess
         AIUserFeedbackIllustratedMessageStyle(style: style)
     }
 
-    static func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> AIUserFeedbackIllustratedMessageStyle {
+    @MainActor static func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> AIUserFeedbackIllustratedMessageStyle {
         let style = AnyIllustratedMessageStyle(content)
         return AIUserFeedbackIllustratedMessageStyle(style: style)
     }
@@ -291,7 +291,7 @@ public extension ActivationScreenStyle where Self == ActivationScreenTitleStyle 
         ActivationScreenTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ActivationScreenTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ActivationScreenTitleStyle {
         let style = AnyTitleStyle(content)
         return ActivationScreenTitleStyle(style: style)
     }
@@ -312,7 +312,7 @@ public extension ActivationScreenStyle where Self == ActivationScreenDescription
         ActivationScreenDescriptionTextStyle(style: style)
     }
 
-    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ActivationScreenDescriptionTextStyle {
+    @MainActor static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ActivationScreenDescriptionTextStyle {
         let style = AnyDescriptionTextStyle(content)
         return ActivationScreenDescriptionTextStyle(style: style)
     }
@@ -333,7 +333,7 @@ public extension ActivationScreenStyle where Self == ActivationScreenFootnoteSty
         ActivationScreenFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ActivationScreenFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ActivationScreenFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return ActivationScreenFootnoteStyle(style: style)
     }
@@ -354,7 +354,7 @@ public extension ActivationScreenStyle where Self == ActivationScreenActionStyle
         ActivationScreenActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ActivationScreenActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ActivationScreenActionStyle {
         let style = AnyActionStyle(content)
         return ActivationScreenActionStyle(style: style)
     }
@@ -375,7 +375,7 @@ public extension ActivationScreenStyle where Self == ActivationScreenSecondaryAc
         ActivationScreenSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> ActivationScreenSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> ActivationScreenSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return ActivationScreenSecondaryActionStyle(style: style)
     }
@@ -424,7 +424,7 @@ public extension ActivityItemStyle where Self == ActivityItemIconStyle {
         ActivityItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ActivityItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ActivityItemIconStyle {
         let style = AnyIconStyle(content)
         return ActivityItemIconStyle(style: style)
     }
@@ -445,7 +445,7 @@ public extension ActivityItemStyle where Self == ActivityItemSubtitleStyle {
         ActivityItemSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ActivityItemSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ActivityItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ActivityItemSubtitleStyle(style: style)
     }
@@ -564,7 +564,7 @@ public extension AttachmentStyle where Self == AttachmentAttachmentTitleStyle {
         AttachmentAttachmentTitleStyle(style: style)
     }
 
-    static func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> AttachmentAttachmentTitleStyle {
+    @MainActor static func attachmentTitleStyle(@ViewBuilder content: @escaping (AttachmentTitleConfiguration) -> some View) -> AttachmentAttachmentTitleStyle {
         let style = AnyAttachmentTitleStyle(content)
         return AttachmentAttachmentTitleStyle(style: style)
     }
@@ -585,7 +585,7 @@ public extension AttachmentStyle where Self == AttachmentAttachmentSubtitleStyle
         AttachmentAttachmentSubtitleStyle(style: style)
     }
 
-    static func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> AttachmentAttachmentSubtitleStyle {
+    @MainActor static func attachmentSubtitleStyle(@ViewBuilder content: @escaping (AttachmentSubtitleConfiguration) -> some View) -> AttachmentAttachmentSubtitleStyle {
         let style = AnyAttachmentSubtitleStyle(content)
         return AttachmentAttachmentSubtitleStyle(style: style)
     }
@@ -606,7 +606,7 @@ public extension AttachmentStyle where Self == AttachmentAttachmentFootnoteStyle
         AttachmentAttachmentFootnoteStyle(style: style)
     }
 
-    static func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> AttachmentAttachmentFootnoteStyle {
+    @MainActor static func attachmentFootnoteStyle(@ViewBuilder content: @escaping (AttachmentFootnoteConfiguration) -> some View) -> AttachmentAttachmentFootnoteStyle {
         let style = AnyAttachmentFootnoteStyle(content)
         return AttachmentAttachmentFootnoteStyle(style: style)
     }
@@ -683,7 +683,7 @@ public extension AttachmentGroupStyle where Self == AttachmentGroupTitleStyle {
         AttachmentGroupTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AttachmentGroupTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AttachmentGroupTitleStyle {
         let style = AnyTitleStyle(content)
         return AttachmentGroupTitleStyle(style: style)
     }
@@ -718,7 +718,7 @@ public extension AttachmentInProgressStyle where Self == AttachmentInProgressAtt
         AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
     }
 
-    static func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> AttachmentInProgressAttachmentInProgressTitleStyle {
+    @MainActor static func attachmentInProgressTitleStyle(@ViewBuilder content: @escaping (AttachmentInProgressTitleConfiguration) -> some View) -> AttachmentInProgressAttachmentInProgressTitleStyle {
         let style = AnyAttachmentInProgressTitleStyle(content)
         return AttachmentInProgressAttachmentInProgressTitleStyle(style: style)
     }
@@ -809,7 +809,7 @@ public extension AttachmentWithErrorStyle where Self == AttachmentWithErrorAttac
         AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
     }
 
-    static func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> AttachmentWithErrorAttachmentErrorTitleStyle {
+    @MainActor static func attachmentErrorTitleStyle(@ViewBuilder content: @escaping (AttachmentErrorTitleConfiguration) -> some View) -> AttachmentWithErrorAttachmentErrorTitleStyle {
         let style = AnyAttachmentErrorTitleStyle(content)
         return AttachmentWithErrorAttachmentErrorTitleStyle(style: style)
     }
@@ -872,7 +872,7 @@ public extension AuthenticationStyle where Self == AuthenticationDetailImageStyl
         AuthenticationDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AuthenticationDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> AuthenticationDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return AuthenticationDetailImageStyle(style: style)
     }
@@ -893,7 +893,7 @@ public extension AuthenticationStyle where Self == AuthenticationTitleStyle {
         AuthenticationTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AuthenticationTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> AuthenticationTitleStyle {
         let style = AnyTitleStyle(content)
         return AuthenticationTitleStyle(style: style)
     }
@@ -914,7 +914,7 @@ public extension AuthenticationStyle where Self == AuthenticationSubtitleStyle {
         AuthenticationSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> AuthenticationSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> AuthenticationSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return AuthenticationSubtitleStyle(style: style)
     }
@@ -935,7 +935,7 @@ public extension AuthenticationStyle where Self == AuthenticationAuthInputStyle 
         AuthenticationAuthInputStyle(style: style)
     }
 
-    static func authInputStyle(@ViewBuilder content: @escaping (AuthInputConfiguration) -> some View) -> AuthenticationAuthInputStyle {
+    @MainActor static func authInputStyle(@ViewBuilder content: @escaping (AuthInputConfiguration) -> some View) -> AuthenticationAuthInputStyle {
         let style = AnyAuthInputStyle(content)
         return AuthenticationAuthInputStyle(style: style)
     }
@@ -956,7 +956,7 @@ public extension AuthenticationStyle where Self == AuthenticationSignInActionSty
         AuthenticationSignInActionStyle(style: style)
     }
 
-    static func signInActionStyle(@ViewBuilder content: @escaping (SignInActionConfiguration) -> some View) -> AuthenticationSignInActionStyle {
+    @MainActor static func signInActionStyle(@ViewBuilder content: @escaping (SignInActionConfiguration) -> some View) -> AuthenticationSignInActionStyle {
         let style = AnySignInActionStyle(content)
         return AuthenticationSignInActionStyle(style: style)
     }
@@ -991,7 +991,7 @@ public extension AvatarStackStyle where Self == AvatarStackAvatarsStyle {
         AvatarStackAvatarsStyle(style: style)
     }
 
-    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> AvatarStackAvatarsStyle {
+    @MainActor static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> AvatarStackAvatarsStyle {
         let style = AnyAvatarsStyle(content)
         return AvatarStackAvatarsStyle(style: style)
     }
@@ -1012,7 +1012,7 @@ public extension AvatarStackStyle where Self == AvatarStackAvatarsTitleStyle {
         AvatarStackAvatarsTitleStyle(style: style)
     }
 
-    static func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> AvatarStackAvatarsTitleStyle {
+    @MainActor static func avatarsTitleStyle(@ViewBuilder content: @escaping (AvatarsTitleConfiguration) -> some View) -> AvatarStackAvatarsTitleStyle {
         let style = AnyAvatarsTitleStyle(content)
         return AvatarStackAvatarsTitleStyle(style: style)
     }
@@ -1089,7 +1089,7 @@ public extension BannerMessageStyle where Self == BannerMessageIconStyle {
         BannerMessageIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> BannerMessageIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> BannerMessageIconStyle {
         let style = AnyIconStyle(content)
         return BannerMessageIconStyle(style: style)
     }
@@ -1110,7 +1110,7 @@ public extension BannerMessageStyle where Self == BannerMessageTitleStyle {
         BannerMessageTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMessageTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMessageTitleStyle {
         let style = AnyTitleStyle(content)
         return BannerMessageTitleStyle(style: style)
     }
@@ -1131,7 +1131,7 @@ public extension BannerMessageStyle where Self == BannerMessageCloseActionStyle 
         BannerMessageCloseActionStyle(style: style)
     }
 
-    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMessageCloseActionStyle {
+    @MainActor static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> BannerMessageCloseActionStyle {
         let style = AnyCloseActionStyle(content)
         return BannerMessageCloseActionStyle(style: style)
     }
@@ -1152,7 +1152,7 @@ public extension BannerMessageStyle where Self == BannerMessageTopDividerStyle {
         BannerMessageTopDividerStyle(style: style)
     }
 
-    static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
+    @MainActor static func topDividerStyle(@ViewBuilder content: @escaping (TopDividerConfiguration) -> some View) -> BannerMessageTopDividerStyle {
         let style = AnyTopDividerStyle(content)
         return BannerMessageTopDividerStyle(style: style)
     }
@@ -1187,7 +1187,7 @@ public extension BannerMultiMessageSheetStyle where Self == BannerMultiMessageSh
         BannerMultiMessageSheetTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMultiMessageSheetTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> BannerMultiMessageSheetTitleStyle {
         let style = AnyTitleStyle(content)
         return BannerMultiMessageSheetTitleStyle(style: style)
     }
@@ -1320,7 +1320,7 @@ public extension CardStyle where Self == CardMediaImageStyle {
         CardMediaImageStyle(style: style)
     }
 
-    static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardMediaImageStyle {
+    @MainActor static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardMediaImageStyle {
         let style = AnyMediaImageStyle(content)
         return CardMediaImageStyle(style: style)
     }
@@ -1341,7 +1341,7 @@ public extension CardStyle where Self == CardDescriptionStyle {
         CardDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return CardDescriptionStyle(style: style)
     }
@@ -1362,7 +1362,7 @@ public extension CardStyle where Self == CardTitleStyle {
         CardTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardTitleStyle {
         let style = AnyTitleStyle(content)
         return CardTitleStyle(style: style)
     }
@@ -1383,7 +1383,7 @@ public extension CardStyle where Self == CardSubtitleStyle {
         CardSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardSubtitleStyle(style: style)
     }
@@ -1404,7 +1404,7 @@ public extension CardStyle where Self == CardIconsStyle {
         CardIconsStyle(style: style)
     }
 
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardIconsStyle {
+    @MainActor static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardIconsStyle {
         let style = AnyIconsStyle(content)
         return CardIconsStyle(style: style)
     }
@@ -1425,7 +1425,7 @@ public extension CardStyle where Self == CardDetailImageStyle {
         CardDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardDetailImageStyle(style: style)
     }
@@ -1446,7 +1446,7 @@ public extension CardStyle where Self == CardHeaderActionStyle {
         CardHeaderActionStyle(style: style)
     }
 
-    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderActionStyle {
+    @MainActor static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderActionStyle {
         let style = AnyHeaderActionStyle(content)
         return CardHeaderActionStyle(style: style)
     }
@@ -1467,7 +1467,7 @@ public extension CardStyle where Self == CardCounterStyle {
         CardCounterStyle(style: style)
     }
 
-    static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardCounterStyle {
+    @MainActor static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardCounterStyle {
         let style = AnyCounterStyle(content)
         return CardCounterStyle(style: style)
     }
@@ -1488,7 +1488,7 @@ public extension CardStyle where Self == CardFlexItemStyle {
         CardFlexItemStyle(style: style)
     }
 
-    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardFlexItemStyle {
+    @MainActor static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardFlexItemStyle {
         let style = AnyFlexItemStyle(content)
         return CardFlexItemStyle(style: style)
     }
@@ -1509,7 +1509,7 @@ public extension CardStyle where Self == CardRow1Style {
         CardRow1Style(style: style)
     }
 
-    static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardRow1Style {
+    @MainActor static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardRow1Style {
         let style = AnyRow1Style(content)
         return CardRow1Style(style: style)
     }
@@ -1530,7 +1530,7 @@ public extension CardStyle where Self == CardRow2Style {
         CardRow2Style(style: style)
     }
 
-    static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardRow2Style {
+    @MainActor static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardRow2Style {
         let style = AnyRow2Style(content)
         return CardRow2Style(style: style)
     }
@@ -1551,7 +1551,7 @@ public extension CardStyle where Self == CardRow3Style {
         CardRow3Style(style: style)
     }
 
-    static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardRow3Style {
+    @MainActor static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardRow3Style {
         let style = AnyRow3Style(content)
         return CardRow3Style(style: style)
     }
@@ -1572,7 +1572,7 @@ public extension CardStyle where Self == CardKpiStyle {
         CardKpiStyle(style: style)
     }
 
-    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardKpiStyle {
+    @MainActor static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardKpiStyle {
         let style = AnyKpiStyle(content)
         return CardKpiStyle(style: style)
     }
@@ -1593,7 +1593,7 @@ public extension CardStyle where Self == CardKpiCaptionStyle {
         CardKpiCaptionStyle(style: style)
     }
 
-    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardKpiCaptionStyle {
+    @MainActor static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardKpiCaptionStyle {
         let style = AnyKpiCaptionStyle(content)
         return CardKpiCaptionStyle(style: style)
     }
@@ -1614,7 +1614,7 @@ public extension CardStyle where Self == CardCardBodyStyle {
         CardCardBodyStyle(style: style)
     }
 
-    static func cardBodyStyle(@ViewBuilder content: @escaping (CardBodyConfiguration) -> some View) -> CardCardBodyStyle {
+    @MainActor static func cardBodyStyle(@ViewBuilder content: @escaping (CardBodyConfiguration) -> some View) -> CardCardBodyStyle {
         let style = AnyCardBodyStyle(content)
         return CardCardBodyStyle(style: style)
     }
@@ -1635,7 +1635,7 @@ public extension CardStyle where Self == CardActionStyle {
         CardActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardActionStyle {
         let style = AnyActionStyle(content)
         return CardActionStyle(style: style)
     }
@@ -1656,7 +1656,7 @@ public extension CardStyle where Self == CardSecondaryActionStyle {
         CardSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return CardSecondaryActionStyle(style: style)
     }
@@ -1677,7 +1677,7 @@ public extension CardStyle where Self == CardTertiaryActionStyle {
         CardTertiaryActionStyle(style: style)
     }
 
-    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardTertiaryActionStyle {
+    @MainActor static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardTertiaryActionStyle {
         let style = AnyTertiaryActionStyle(content)
         return CardTertiaryActionStyle(style: style)
     }
@@ -1698,7 +1698,7 @@ public extension CardStyle where Self == CardOverflowActionStyle {
         CardOverflowActionStyle(style: style)
     }
 
-    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardOverflowActionStyle {
+    @MainActor static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardOverflowActionStyle {
         let style = AnyOverflowActionStyle(content)
         return CardOverflowActionStyle(style: style)
     }
@@ -1719,7 +1719,7 @@ public extension CardStyle where Self == CardCardHeaderStyle {
         CardCardHeaderStyle(style: style)
     }
 
-    static func cardHeaderStyle(@ViewBuilder content: @escaping (CardHeaderConfiguration) -> some View) -> CardCardHeaderStyle {
+    @MainActor static func cardHeaderStyle(@ViewBuilder content: @escaping (CardHeaderConfiguration) -> some View) -> CardCardHeaderStyle {
         let style = AnyCardHeaderStyle(content)
         return CardCardHeaderStyle(style: style)
     }
@@ -1740,7 +1740,7 @@ public extension CardStyle where Self == CardCardFooterStyle {
         CardCardFooterStyle(style: style)
     }
 
-    static func cardFooterStyle(@ViewBuilder content: @escaping (CardFooterConfiguration) -> some View) -> CardCardFooterStyle {
+    @MainActor static func cardFooterStyle(@ViewBuilder content: @escaping (CardFooterConfiguration) -> some View) -> CardCardFooterStyle {
         let style = AnyCardFooterStyle(content)
         return CardCardFooterStyle(style: style)
     }
@@ -1775,7 +1775,7 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderRow1Style {
         CardExtHeaderRow1Style(style: style)
     }
 
-    static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardExtHeaderRow1Style {
+    @MainActor static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardExtHeaderRow1Style {
         let style = AnyRow1Style(content)
         return CardExtHeaderRow1Style(style: style)
     }
@@ -1796,7 +1796,7 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderRow2Style {
         CardExtHeaderRow2Style(style: style)
     }
 
-    static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardExtHeaderRow2Style {
+    @MainActor static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardExtHeaderRow2Style {
         let style = AnyRow2Style(content)
         return CardExtHeaderRow2Style(style: style)
     }
@@ -1817,7 +1817,7 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderRow3Style {
         CardExtHeaderRow3Style(style: style)
     }
 
-    static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardExtHeaderRow3Style {
+    @MainActor static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardExtHeaderRow3Style {
         let style = AnyRow3Style(content)
         return CardExtHeaderRow3Style(style: style)
     }
@@ -1838,7 +1838,7 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderKpiStyle {
         CardExtHeaderKpiStyle(style: style)
     }
 
-    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardExtHeaderKpiStyle {
+    @MainActor static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardExtHeaderKpiStyle {
         let style = AnyKpiStyle(content)
         return CardExtHeaderKpiStyle(style: style)
     }
@@ -1859,7 +1859,7 @@ public extension CardExtHeaderStyle where Self == CardExtHeaderKpiCaptionStyle {
         CardExtHeaderKpiCaptionStyle(style: style)
     }
 
-    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardExtHeaderKpiCaptionStyle {
+    @MainActor static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardExtHeaderKpiCaptionStyle {
         let style = AnyKpiCaptionStyle(content)
         return CardExtHeaderKpiCaptionStyle(style: style)
     }
@@ -1894,7 +1894,7 @@ public extension CardFooterStyle where Self == CardFooterActionStyle {
         CardFooterActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardFooterActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardFooterActionStyle {
         let style = AnyActionStyle(content)
         return CardFooterActionStyle(style: style)
     }
@@ -1915,7 +1915,7 @@ public extension CardFooterStyle where Self == CardFooterSecondaryActionStyle {
         CardFooterSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardFooterSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> CardFooterSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return CardFooterSecondaryActionStyle(style: style)
     }
@@ -1936,7 +1936,7 @@ public extension CardFooterStyle where Self == CardFooterTertiaryActionStyle {
         CardFooterTertiaryActionStyle(style: style)
     }
 
-    static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardFooterTertiaryActionStyle {
+    @MainActor static func tertiaryActionStyle(@ViewBuilder content: @escaping (TertiaryActionConfiguration) -> some View) -> CardFooterTertiaryActionStyle {
         let style = AnyTertiaryActionStyle(content)
         return CardFooterTertiaryActionStyle(style: style)
     }
@@ -1957,7 +1957,7 @@ public extension CardFooterStyle where Self == CardFooterOverflowActionStyle {
         CardFooterOverflowActionStyle(style: style)
     }
 
-    static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardFooterOverflowActionStyle {
+    @MainActor static func overflowActionStyle(@ViewBuilder content: @escaping (OverflowActionConfiguration) -> some View) -> CardFooterOverflowActionStyle {
         let style = AnyOverflowActionStyle(content)
         return CardFooterOverflowActionStyle(style: style)
     }
@@ -1992,7 +1992,7 @@ public extension CardHeaderStyle where Self == CardHeaderMediaImageStyle {
         CardHeaderMediaImageStyle(style: style)
     }
 
-    static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardHeaderMediaImageStyle {
+    @MainActor static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardHeaderMediaImageStyle {
         let style = AnyMediaImageStyle(content)
         return CardHeaderMediaImageStyle(style: style)
     }
@@ -2013,7 +2013,7 @@ public extension CardHeaderStyle where Self == CardHeaderDescriptionStyle {
         CardHeaderDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardHeaderDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardHeaderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return CardHeaderDescriptionStyle(style: style)
     }
@@ -2034,7 +2034,7 @@ public extension CardHeaderStyle where Self == CardHeaderTitleStyle {
         CardHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return CardHeaderTitleStyle(style: style)
     }
@@ -2055,7 +2055,7 @@ public extension CardHeaderStyle where Self == CardHeaderSubtitleStyle {
         CardHeaderSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardHeaderSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardHeaderSubtitleStyle(style: style)
     }
@@ -2076,7 +2076,7 @@ public extension CardHeaderStyle where Self == CardHeaderIconsStyle {
         CardHeaderIconsStyle(style: style)
     }
 
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardHeaderIconsStyle {
+    @MainActor static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardHeaderIconsStyle {
         let style = AnyIconsStyle(content)
         return CardHeaderIconsStyle(style: style)
     }
@@ -2097,7 +2097,7 @@ public extension CardHeaderStyle where Self == CardHeaderDetailImageStyle {
         CardHeaderDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardHeaderDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardHeaderDetailImageStyle(style: style)
     }
@@ -2118,7 +2118,7 @@ public extension CardHeaderStyle where Self == CardHeaderHeaderActionStyle {
         CardHeaderHeaderActionStyle(style: style)
     }
 
-    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderHeaderActionStyle {
+    @MainActor static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderHeaderActionStyle {
         let style = AnyHeaderActionStyle(content)
         return CardHeaderHeaderActionStyle(style: style)
     }
@@ -2139,7 +2139,7 @@ public extension CardHeaderStyle where Self == CardHeaderCounterStyle {
         CardHeaderCounterStyle(style: style)
     }
 
-    static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardHeaderCounterStyle {
+    @MainActor static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardHeaderCounterStyle {
         let style = AnyCounterStyle(content)
         return CardHeaderCounterStyle(style: style)
     }
@@ -2160,7 +2160,7 @@ public extension CardHeaderStyle where Self == CardHeaderFlexItemStyle {
         CardHeaderFlexItemStyle(style: style)
     }
 
-    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardHeaderFlexItemStyle {
+    @MainActor static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardHeaderFlexItemStyle {
         let style = AnyFlexItemStyle(content)
         return CardHeaderFlexItemStyle(style: style)
     }
@@ -2181,7 +2181,7 @@ public extension CardHeaderStyle where Self == CardHeaderRow1Style {
         CardHeaderRow1Style(style: style)
     }
 
-    static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardHeaderRow1Style {
+    @MainActor static func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> CardHeaderRow1Style {
         let style = AnyRow1Style(content)
         return CardHeaderRow1Style(style: style)
     }
@@ -2202,7 +2202,7 @@ public extension CardHeaderStyle where Self == CardHeaderRow2Style {
         CardHeaderRow2Style(style: style)
     }
 
-    static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardHeaderRow2Style {
+    @MainActor static func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> CardHeaderRow2Style {
         let style = AnyRow2Style(content)
         return CardHeaderRow2Style(style: style)
     }
@@ -2223,7 +2223,7 @@ public extension CardHeaderStyle where Self == CardHeaderRow3Style {
         CardHeaderRow3Style(style: style)
     }
 
-    static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardHeaderRow3Style {
+    @MainActor static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardHeaderRow3Style {
         let style = AnyRow3Style(content)
         return CardHeaderRow3Style(style: style)
     }
@@ -2244,7 +2244,7 @@ public extension CardHeaderStyle where Self == CardHeaderKpiStyle {
         CardHeaderKpiStyle(style: style)
     }
 
-    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardHeaderKpiStyle {
+    @MainActor static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardHeaderKpiStyle {
         let style = AnyKpiStyle(content)
         return CardHeaderKpiStyle(style: style)
     }
@@ -2265,7 +2265,7 @@ public extension CardHeaderStyle where Self == CardHeaderKpiCaptionStyle {
         CardHeaderKpiCaptionStyle(style: style)
     }
 
-    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardHeaderKpiCaptionStyle {
+    @MainActor static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardHeaderKpiCaptionStyle {
         let style = AnyKpiCaptionStyle(content)
         return CardHeaderKpiCaptionStyle(style: style)
     }
@@ -2286,7 +2286,7 @@ public extension CardHeaderStyle where Self == CardHeaderCardMediaStyle {
         CardHeaderCardMediaStyle(style: style)
     }
 
-    static func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> CardHeaderCardMediaStyle {
+    @MainActor static func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> CardHeaderCardMediaStyle {
         let style = AnyCardMediaStyle(content)
         return CardHeaderCardMediaStyle(style: style)
     }
@@ -2307,7 +2307,7 @@ public extension CardHeaderStyle where Self == CardHeaderCardMainHeaderStyle {
         CardHeaderCardMainHeaderStyle(style: style)
     }
 
-    static func cardMainHeaderStyle(@ViewBuilder content: @escaping (CardMainHeaderConfiguration) -> some View) -> CardHeaderCardMainHeaderStyle {
+    @MainActor static func cardMainHeaderStyle(@ViewBuilder content: @escaping (CardMainHeaderConfiguration) -> some View) -> CardHeaderCardMainHeaderStyle {
         let style = AnyCardMainHeaderStyle(content)
         return CardHeaderCardMainHeaderStyle(style: style)
     }
@@ -2328,7 +2328,7 @@ public extension CardHeaderStyle where Self == CardHeaderCardExtHeaderStyle {
         CardHeaderCardExtHeaderStyle(style: style)
     }
 
-    static func cardExtHeaderStyle(@ViewBuilder content: @escaping (CardExtHeaderConfiguration) -> some View) -> CardHeaderCardExtHeaderStyle {
+    @MainActor static func cardExtHeaderStyle(@ViewBuilder content: @escaping (CardExtHeaderConfiguration) -> some View) -> CardHeaderCardExtHeaderStyle {
         let style = AnyCardExtHeaderStyle(content)
         return CardHeaderCardExtHeaderStyle(style: style)
     }
@@ -2363,7 +2363,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderTitleStyle {
         CardMainHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardMainHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> CardMainHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return CardMainHeaderTitleStyle(style: style)
     }
@@ -2384,7 +2384,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderSubtitleStyle {
         CardMainHeaderSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardMainHeaderSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardMainHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardMainHeaderSubtitleStyle(style: style)
     }
@@ -2405,7 +2405,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderIconsStyle {
         CardMainHeaderIconsStyle(style: style)
     }
 
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardMainHeaderIconsStyle {
+    @MainActor static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardMainHeaderIconsStyle {
         let style = AnyIconsStyle(content)
         return CardMainHeaderIconsStyle(style: style)
     }
@@ -2426,7 +2426,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderDetailImageStyl
         CardMainHeaderDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardMainHeaderDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardMainHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardMainHeaderDetailImageStyle(style: style)
     }
@@ -2447,7 +2447,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderHeaderActionSty
         CardMainHeaderHeaderActionStyle(style: style)
     }
 
-    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardMainHeaderHeaderActionStyle {
+    @MainActor static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardMainHeaderHeaderActionStyle {
         let style = AnyHeaderActionStyle(content)
         return CardMainHeaderHeaderActionStyle(style: style)
     }
@@ -2468,7 +2468,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderCounterStyle {
         CardMainHeaderCounterStyle(style: style)
     }
 
-    static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardMainHeaderCounterStyle {
+    @MainActor static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> CardMainHeaderCounterStyle {
         let style = AnyCounterStyle(content)
         return CardMainHeaderCounterStyle(style: style)
     }
@@ -2489,7 +2489,7 @@ public extension CardMainHeaderStyle where Self == CardMainHeaderFlexItemStyle {
         CardMainHeaderFlexItemStyle(style: style)
     }
 
-    static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardMainHeaderFlexItemStyle {
+    @MainActor static func flexItemStyle(@ViewBuilder content: @escaping (FlexItemConfiguration) -> some View) -> CardMainHeaderFlexItemStyle {
         let style = AnyFlexItemStyle(content)
         return CardMainHeaderFlexItemStyle(style: style)
     }
@@ -2524,7 +2524,7 @@ public extension CardMediaStyle where Self == CardMediaMediaImageStyle {
         CardMediaMediaImageStyle(style: style)
     }
 
-    static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardMediaMediaImageStyle {
+    @MainActor static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> CardMediaMediaImageStyle {
         let style = AnyMediaImageStyle(content)
         return CardMediaMediaImageStyle(style: style)
     }
@@ -2545,7 +2545,7 @@ public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
         CardMediaDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardMediaDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> CardMediaDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return CardMediaDescriptionStyle(style: style)
     }
@@ -2636,7 +2636,7 @@ public extension ContactItemStyle where Self == ContactItemTitleStyle {
         ContactItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ContactItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ContactItemTitleStyle {
         let style = AnyTitleStyle(content)
         return ContactItemTitleStyle(style: style)
     }
@@ -2657,7 +2657,7 @@ public extension ContactItemStyle where Self == ContactItemSubtitleStyle {
         ContactItemSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ContactItemSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ContactItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ContactItemSubtitleStyle(style: style)
     }
@@ -2678,7 +2678,7 @@ public extension ContactItemStyle where Self == ContactItemDescriptionStyle {
         ContactItemDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ContactItemDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ContactItemDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ContactItemDescriptionStyle(style: style)
     }
@@ -2699,7 +2699,7 @@ public extension ContactItemStyle where Self == ContactItemDetailImageStyle {
         ContactItemDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ContactItemDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ContactItemDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return ContactItemDetailImageStyle(style: style)
     }
@@ -2720,7 +2720,7 @@ public extension ContactItemStyle where Self == ContactItemActivityItemsStyle {
         ContactItemActivityItemsStyle(style: style)
     }
 
-    static func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> ContactItemActivityItemsStyle {
+    @MainActor static func activityItemsStyle(@ViewBuilder content: @escaping (ActivityItemsConfiguration) -> some View) -> ContactItemActivityItemsStyle {
         let style = AnyActivityItemsStyle(content)
         return ContactItemActivityItemsStyle(style: style)
     }
@@ -2769,7 +2769,7 @@ public extension DateRangePickerStyle where Self == DateRangePickerTitleStyle {
         DateRangePickerTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateRangePickerTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateRangePickerTitleStyle {
         let style = AnyTitleStyle(content)
         return DateRangePickerTitleStyle(style: style)
     }
@@ -2790,7 +2790,7 @@ public extension DateRangePickerStyle where Self == DateRangePickerValueLabelSty
         DateRangePickerValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateRangePickerValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateRangePickerValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return DateRangePickerValueLabelStyle(style: style)
     }
@@ -2811,7 +2811,7 @@ public extension DateRangePickerStyle where Self == DateRangePickerFormViewStyle
         DateRangePickerFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateRangePickerFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateRangePickerFormViewStyle {
         let style = AnyFormViewStyle(content)
         return DateRangePickerFormViewStyle(style: style)
     }
@@ -2846,7 +2846,7 @@ public extension DateTimePickerStyle where Self == DateTimePickerTitleStyle {
         DateTimePickerTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateTimePickerTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DateTimePickerTitleStyle {
         let style = AnyTitleStyle(content)
         return DateTimePickerTitleStyle(style: style)
     }
@@ -2867,7 +2867,7 @@ public extension DateTimePickerStyle where Self == DateTimePickerValueLabelStyle
         DateTimePickerValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateTimePickerValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DateTimePickerValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return DateTimePickerValueLabelStyle(style: style)
     }
@@ -2888,7 +2888,7 @@ public extension DateTimePickerStyle where Self == DateTimePickerFormViewStyle {
         DateTimePickerFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateTimePickerFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DateTimePickerFormViewStyle {
         let style = AnyFormViewStyle(content)
         return DateTimePickerFormViewStyle(style: style)
     }
@@ -2937,7 +2937,7 @@ extension DemoViewStyle where Self == DemoViewTitleStyle {
         DemoViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
         let style = AnyTitleStyle(content)
         return DemoViewTitleStyle(style: style)
     }
@@ -2958,7 +2958,7 @@ extension DemoViewStyle where Self == DemoViewSubtitleStyle {
         DemoViewSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> DemoViewSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> DemoViewSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return DemoViewSubtitleStyle(style: style)
     }
@@ -2979,7 +2979,7 @@ extension DemoViewStyle where Self == DemoViewStatusStyle {
         DemoViewStatusStyle(style: style)
     }
 
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> DemoViewStatusStyle {
+    @MainActor static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> DemoViewStatusStyle {
         let style = AnyStatusStyle(content)
         return DemoViewStatusStyle(style: style)
     }
@@ -3000,7 +3000,7 @@ extension DemoViewStyle where Self == DemoViewActionStyle {
         DemoViewActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> DemoViewActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> DemoViewActionStyle {
         let style = AnyActionStyle(content)
         return DemoViewActionStyle(style: style)
     }
@@ -3021,7 +3021,7 @@ extension DemoViewStyle where Self == DemoViewSwitchStyle {
         DemoViewSwitchStyle(style: style)
     }
 
-    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> DemoViewSwitchStyle {
+    @MainActor static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> DemoViewSwitchStyle {
         let style = AnySwitchStyle(content)
         return DemoViewSwitchStyle(style: style)
     }
@@ -3140,7 +3140,7 @@ public extension DimensionSegmentStyle where Self == DimensionSegmentTitleStyle 
         DimensionSegmentTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DimensionSegmentTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DimensionSegmentTitleStyle {
         let style = AnyTitleStyle(content)
         return DimensionSegmentTitleStyle(style: style)
     }
@@ -3231,7 +3231,7 @@ public extension DurationPickerStyle where Self == DurationPickerTitleStyle {
         DurationPickerTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DurationPickerTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DurationPickerTitleStyle {
         let style = AnyTitleStyle(content)
         return DurationPickerTitleStyle(style: style)
     }
@@ -3252,7 +3252,7 @@ public extension DurationPickerStyle where Self == DurationPickerValueLabelStyle
         DurationPickerValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DurationPickerValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> DurationPickerValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return DurationPickerValueLabelStyle(style: style)
     }
@@ -3273,7 +3273,7 @@ public extension DurationPickerStyle where Self == DurationPickerFormViewStyle {
         DurationPickerFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DurationPickerFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> DurationPickerFormViewStyle {
         let style = AnyFormViewStyle(content)
         return DurationPickerFormViewStyle(style: style)
     }
@@ -3308,7 +3308,7 @@ public extension EULAViewStyle where Self == EULAViewTitleStyle {
         EULAViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> EULAViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> EULAViewTitleStyle {
         let style = AnyTitleStyle(content)
         return EULAViewTitleStyle(style: style)
     }
@@ -3329,7 +3329,7 @@ public extension EULAViewStyle where Self == EULAViewBodyTextStyle {
         EULAViewBodyTextStyle(style: style)
     }
 
-    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> EULAViewBodyTextStyle {
+    @MainActor static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> EULAViewBodyTextStyle {
         let style = AnyBodyTextStyle(content)
         return EULAViewBodyTextStyle(style: style)
     }
@@ -3350,7 +3350,7 @@ public extension EULAViewStyle where Self == EULAViewAgreeActionStyle {
         EULAViewAgreeActionStyle(style: style)
     }
 
-    static func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> EULAViewAgreeActionStyle {
+    @MainActor static func agreeActionStyle(@ViewBuilder content: @escaping (AgreeActionConfiguration) -> some View) -> EULAViewAgreeActionStyle {
         let style = AnyAgreeActionStyle(content)
         return EULAViewAgreeActionStyle(style: style)
     }
@@ -3371,7 +3371,7 @@ public extension EULAViewStyle where Self == EULAViewDisagreeActionStyle {
         EULAViewDisagreeActionStyle(style: style)
     }
 
-    static func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> EULAViewDisagreeActionStyle {
+    @MainActor static func disagreeActionStyle(@ViewBuilder content: @escaping (DisagreeActionConfiguration) -> some View) -> EULAViewDisagreeActionStyle {
         let style = AnyDisagreeActionStyle(content)
         return EULAViewDisagreeActionStyle(style: style)
     }
@@ -3392,7 +3392,7 @@ public extension EULAViewStyle where Self == EULAViewCancelActionStyle {
         EULAViewCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> EULAViewCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> EULAViewCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return EULAViewCancelActionStyle(style: style)
     }
@@ -3441,7 +3441,7 @@ public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarBut
         FilterFeedbackBarButtonIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarButtonIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarButtonIconStyle {
         let style = AnyIconStyle(content)
         return FilterFeedbackBarButtonIconStyle(style: style)
     }
@@ -3462,7 +3462,7 @@ public extension FilterFeedbackBarButtonStyle where Self == FilterFeedbackBarBut
         FilterFeedbackBarButtonTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarButtonTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarButtonTitleStyle {
         let style = AnyTitleStyle(content)
         return FilterFeedbackBarButtonTitleStyle(style: style)
     }
@@ -3511,7 +3511,7 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemI
         FilterFeedbackBarItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FilterFeedbackBarItemIconStyle {
         let style = AnyIconStyle(content)
         return FilterFeedbackBarItemIconStyle(style: style)
     }
@@ -3532,7 +3532,7 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemT
         FilterFeedbackBarItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFeedbackBarItemTitleStyle {
         let style = AnyTitleStyle(content)
         return FilterFeedbackBarItemTitleStyle(style: style)
     }
@@ -3553,7 +3553,7 @@ public extension FilterFeedbackBarItemStyle where Self == FilterFeedbackBarItemA
         FilterFeedbackBarItemAccessoryIconStyle(style: style)
     }
 
-    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> FilterFeedbackBarItemAccessoryIconStyle {
+    @MainActor static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> FilterFeedbackBarItemAccessoryIconStyle {
         let style = AnyAccessoryIconStyle(content)
         return FilterFeedbackBarItemAccessoryIconStyle(style: style)
     }
@@ -3588,7 +3588,7 @@ public extension FilterFormViewStyle where Self == FilterFormViewTitleStyle {
         FilterFormViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FilterFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return FilterFormViewTitleStyle(style: style)
     }
@@ -3609,7 +3609,7 @@ public extension FilterFormViewStyle where Self == FilterFormViewOptionsStyle {
         FilterFormViewOptionsStyle(style: style)
     }
 
-    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> FilterFormViewOptionsStyle {
+    @MainActor static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> FilterFormViewOptionsStyle {
         let style = AnyOptionsStyle(content)
         return FilterFormViewOptionsStyle(style: style)
     }
@@ -3630,7 +3630,7 @@ public extension FilterFormViewStyle where Self == FilterFormViewFormViewStyle {
         FilterFormViewFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> FilterFormViewFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> FilterFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return FilterFormViewFormViewStyle(style: style)
     }
@@ -3665,7 +3665,7 @@ public extension FioriSliderStyle where Self == FioriSliderTitleStyle {
         FioriSliderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FioriSliderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> FioriSliderTitleStyle {
         let style = AnyTitleStyle(content)
         return FioriSliderTitleStyle(style: style)
     }
@@ -3686,7 +3686,7 @@ public extension FioriSliderStyle where Self == FioriSliderValueLabelStyle {
         FioriSliderValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> FioriSliderValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> FioriSliderValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return FioriSliderValueLabelStyle(style: style)
     }
@@ -3707,7 +3707,7 @@ public extension FioriSliderStyle where Self == FioriSliderLowerThumbStyle {
         FioriSliderLowerThumbStyle(style: style)
     }
 
-    static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> FioriSliderLowerThumbStyle {
+    @MainActor static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> FioriSliderLowerThumbStyle {
         let style = AnyLowerThumbStyle(content)
         return FioriSliderLowerThumbStyle(style: style)
     }
@@ -3728,7 +3728,7 @@ public extension FioriSliderStyle where Self == FioriSliderUpperThumbStyle {
         FioriSliderUpperThumbStyle(style: style)
     }
 
-    static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> FioriSliderUpperThumbStyle {
+    @MainActor static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> FioriSliderUpperThumbStyle {
         let style = AnyUpperThumbStyle(content)
         return FioriSliderUpperThumbStyle(style: style)
     }
@@ -3749,7 +3749,7 @@ public extension FioriSliderStyle where Self == FioriSliderActiveTrackStyle {
         FioriSliderActiveTrackStyle(style: style)
     }
 
-    static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> FioriSliderActiveTrackStyle {
+    @MainActor static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> FioriSliderActiveTrackStyle {
         let style = AnyActiveTrackStyle(content)
         return FioriSliderActiveTrackStyle(style: style)
     }
@@ -3770,7 +3770,7 @@ public extension FioriSliderStyle where Self == FioriSliderInactiveTrackStyle {
         FioriSliderInactiveTrackStyle(style: style)
     }
 
-    static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> FioriSliderInactiveTrackStyle {
+    @MainActor static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> FioriSliderInactiveTrackStyle {
         let style = AnyInactiveTrackStyle(content)
         return FioriSliderInactiveTrackStyle(style: style)
     }
@@ -3791,7 +3791,7 @@ public extension FioriSliderStyle where Self == FioriSliderIconStyle {
         FioriSliderIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FioriSliderIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> FioriSliderIconStyle {
         let style = AnyIconStyle(content)
         return FioriSliderIconStyle(style: style)
     }
@@ -3812,7 +3812,7 @@ public extension FioriSliderStyle where Self == FioriSliderDescriptionStyle {
         FioriSliderDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> FioriSliderDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> FioriSliderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return FioriSliderDescriptionStyle(style: style)
     }
@@ -3833,7 +3833,7 @@ public extension FioriSliderStyle where Self == FioriSliderLeadingAccessoryStyle
         FioriSliderLeadingAccessoryStyle(style: style)
     }
 
-    static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> FioriSliderLeadingAccessoryStyle {
+    @MainActor static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> FioriSliderLeadingAccessoryStyle {
         let style = AnyLeadingAccessoryStyle(content)
         return FioriSliderLeadingAccessoryStyle(style: style)
     }
@@ -3854,7 +3854,7 @@ public extension FioriSliderStyle where Self == FioriSliderTrailingAccessoryStyl
         FioriSliderTrailingAccessoryStyle(style: style)
     }
 
-    static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> FioriSliderTrailingAccessoryStyle {
+    @MainActor static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> FioriSliderTrailingAccessoryStyle {
         let style = AnyTrailingAccessoryStyle(content)
         return FioriSliderTrailingAccessoryStyle(style: style)
     }
@@ -3875,7 +3875,7 @@ public extension FioriSliderStyle where Self == FioriSliderRangeSliderControlSty
         FioriSliderRangeSliderControlStyle(style: style)
     }
 
-    static func rangeSliderControlStyle(@ViewBuilder content: @escaping (RangeSliderControlConfiguration) -> some View) -> FioriSliderRangeSliderControlStyle {
+    @MainActor static func rangeSliderControlStyle(@ViewBuilder content: @escaping (RangeSliderControlConfiguration) -> some View) -> FioriSliderRangeSliderControlStyle {
         let style = AnyRangeSliderControlStyle(content)
         return FioriSliderRangeSliderControlStyle(style: style)
     }
@@ -3896,7 +3896,7 @@ public extension FioriSliderStyle where Self == FioriSliderInformationViewStyle 
         FioriSliderInformationViewStyle(style: style)
     }
 
-    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> FioriSliderInformationViewStyle {
+    @MainActor static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> FioriSliderInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return FioriSliderInformationViewStyle(style: style)
     }
@@ -4043,7 +4043,7 @@ public extension HeaderChartStyle where Self == HeaderChartTitleStyle {
         HeaderChartTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HeaderChartTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HeaderChartTitleStyle {
         let style = AnyTitleStyle(content)
         return HeaderChartTitleStyle(style: style)
     }
@@ -4064,7 +4064,7 @@ public extension HeaderChartStyle where Self == HeaderChartSubtitleStyle {
         HeaderChartSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HeaderChartSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HeaderChartSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return HeaderChartSubtitleStyle(style: style)
     }
@@ -4085,7 +4085,7 @@ public extension HeaderChartStyle where Self == HeaderChartTrendStyle {
         HeaderChartTrendStyle(style: style)
     }
 
-    static func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> HeaderChartTrendStyle {
+    @MainActor static func trendStyle(@ViewBuilder content: @escaping (TrendConfiguration) -> some View) -> HeaderChartTrendStyle {
         let style = AnyTrendStyle(content)
         return HeaderChartTrendStyle(style: style)
     }
@@ -4106,7 +4106,7 @@ public extension HeaderChartStyle where Self == HeaderChartTrendImageStyle {
         HeaderChartTrendImageStyle(style: style)
     }
 
-    static func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> HeaderChartTrendImageStyle {
+    @MainActor static func trendImageStyle(@ViewBuilder content: @escaping (TrendImageConfiguration) -> some View) -> HeaderChartTrendImageStyle {
         let style = AnyTrendImageStyle(content)
         return HeaderChartTrendImageStyle(style: style)
     }
@@ -4127,7 +4127,7 @@ public extension HeaderChartStyle where Self == HeaderChartKpiStyle {
         HeaderChartKpiStyle(style: style)
     }
 
-    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> HeaderChartKpiStyle {
+    @MainActor static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> HeaderChartKpiStyle {
         let style = AnyKpiStyle(content)
         return HeaderChartKpiStyle(style: style)
     }
@@ -4176,7 +4176,7 @@ public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorTitleSt
         HierarchyIndicatorTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyIndicatorTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyIndicatorTitleStyle {
         let style = AnyTitleStyle(content)
         return HierarchyIndicatorTitleStyle(style: style)
     }
@@ -4197,7 +4197,7 @@ public extension HierarchyIndicatorStyle where Self == HierarchyIndicatorIconSty
         HierarchyIndicatorIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> HierarchyIndicatorIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> HierarchyIndicatorIconStyle {
         let style = AnyIconStyle(content)
         return HierarchyIndicatorIconStyle(style: style)
     }
@@ -4232,7 +4232,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewTitleStyl
         HierarchyItemViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyItemViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyItemViewTitleStyle {
         let style = AnyTitleStyle(content)
         return HierarchyItemViewTitleStyle(style: style)
     }
@@ -4253,7 +4253,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewSubtitleS
         HierarchyItemViewSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HierarchyItemViewSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> HierarchyItemViewSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return HierarchyItemViewSubtitleStyle(style: style)
     }
@@ -4274,7 +4274,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewFootnoteS
         HierarchyItemViewFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> HierarchyItemViewFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> HierarchyItemViewFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return HierarchyItemViewFootnoteStyle(style: style)
     }
@@ -4295,7 +4295,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewIconsStyl
         HierarchyItemViewIconsStyle(style: style)
     }
 
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> HierarchyItemViewIconsStyle {
+    @MainActor static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> HierarchyItemViewIconsStyle {
         let style = AnyIconsStyle(content)
         return HierarchyItemViewIconsStyle(style: style)
     }
@@ -4316,7 +4316,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewDetailIma
         HierarchyItemViewDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> HierarchyItemViewDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> HierarchyItemViewDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return HierarchyItemViewDetailImageStyle(style: style)
     }
@@ -4337,7 +4337,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewStatusSty
         HierarchyItemViewStatusStyle(style: style)
     }
 
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> HierarchyItemViewStatusStyle {
+    @MainActor static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> HierarchyItemViewStatusStyle {
         let style = AnyStatusStyle(content)
         return HierarchyItemViewStatusStyle(style: style)
     }
@@ -4358,7 +4358,7 @@ public extension HierarchyItemViewStyle where Self == HierarchyItemViewAccessory
         HierarchyItemViewAccessoryViewStyle(style: style)
     }
 
-    static func accessoryViewStyle(@ViewBuilder content: @escaping (AccessoryViewConfiguration) -> some View) -> HierarchyItemViewAccessoryViewStyle {
+    @MainActor static func accessoryViewStyle(@ViewBuilder content: @escaping (AccessoryViewConfiguration) -> some View) -> HierarchyItemViewAccessoryViewStyle {
         let style = AnyAccessoryViewStyle(content)
         return HierarchyItemViewAccessoryViewStyle(style: style)
     }
@@ -4407,7 +4407,7 @@ public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderTitle
         HierarchyViewHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyViewHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> HierarchyViewHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return HierarchyViewHeaderTitleStyle(style: style)
     }
@@ -4428,7 +4428,7 @@ public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderLeadi
         HierarchyViewHeaderLeadingAccessoryStyle(style: style)
     }
 
-    static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderLeadingAccessoryStyle {
+    @MainActor static func leadingAccessoryStyle(@ViewBuilder content: @escaping (LeadingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderLeadingAccessoryStyle {
         let style = AnyLeadingAccessoryStyle(content)
         return HierarchyViewHeaderLeadingAccessoryStyle(style: style)
     }
@@ -4449,7 +4449,7 @@ public extension HierarchyViewHeaderStyle where Self == HierarchyViewHeaderTrail
         HierarchyViewHeaderTrailingAccessoryStyle(style: style)
     }
 
-    static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderTrailingAccessoryStyle {
+    @MainActor static func trailingAccessoryStyle(@ViewBuilder content: @escaping (TrailingAccessoryConfiguration) -> some View) -> HierarchyViewHeaderTrailingAccessoryStyle {
         let style = AnyTrailingAccessoryStyle(content)
         return HierarchyViewHeaderTrailingAccessoryStyle(style: style)
     }
@@ -4512,7 +4512,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageDetailI
         IllustratedMessageDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> IllustratedMessageDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> IllustratedMessageDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return IllustratedMessageDetailImageStyle(style: style)
     }
@@ -4533,7 +4533,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageTitleSt
         IllustratedMessageTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> IllustratedMessageTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> IllustratedMessageTitleStyle {
         let style = AnyTitleStyle(content)
         return IllustratedMessageTitleStyle(style: style)
     }
@@ -4554,7 +4554,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageDescrip
         IllustratedMessageDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> IllustratedMessageDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> IllustratedMessageDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return IllustratedMessageDescriptionStyle(style: style)
     }
@@ -4575,7 +4575,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageActionS
         IllustratedMessageActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> IllustratedMessageActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> IllustratedMessageActionStyle {
         let style = AnyActionStyle(content)
         return IllustratedMessageActionStyle(style: style)
     }
@@ -4596,7 +4596,7 @@ public extension IllustratedMessageStyle where Self == IllustratedMessageSeconda
         IllustratedMessageSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> IllustratedMessageSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> IllustratedMessageSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return IllustratedMessageSecondaryActionStyle(style: style)
     }
@@ -4659,7 +4659,7 @@ public extension InfoViewStyle where Self == InfoViewTitleStyle {
         InfoViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> InfoViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> InfoViewTitleStyle {
         let style = AnyTitleStyle(content)
         return InfoViewTitleStyle(style: style)
     }
@@ -4680,7 +4680,7 @@ public extension InfoViewStyle where Self == InfoViewDescriptionTextStyle {
         InfoViewDescriptionTextStyle(style: style)
     }
 
-    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> InfoViewDescriptionTextStyle {
+    @MainActor static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> InfoViewDescriptionTextStyle {
         let style = AnyDescriptionTextStyle(content)
         return InfoViewDescriptionTextStyle(style: style)
     }
@@ -4701,7 +4701,7 @@ public extension InfoViewStyle where Self == InfoViewActionStyle {
         InfoViewActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> InfoViewActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> InfoViewActionStyle {
         let style = AnyActionStyle(content)
         return InfoViewActionStyle(style: style)
     }
@@ -4722,7 +4722,7 @@ public extension InfoViewStyle where Self == InfoViewSecondaryActionStyle {
         InfoViewSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> InfoViewSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> InfoViewSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return InfoViewSecondaryActionStyle(style: style)
     }
@@ -4757,7 +4757,7 @@ public extension InformationViewStyle where Self == InformationViewIconStyle {
         InformationViewIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> InformationViewIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> InformationViewIconStyle {
         let style = AnyIconStyle(content)
         return InformationViewIconStyle(style: style)
     }
@@ -4778,7 +4778,7 @@ public extension InformationViewStyle where Self == InformationViewDescriptionSt
         InformationViewDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return InformationViewDescriptionStyle(style: style)
     }
@@ -4827,7 +4827,7 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenMediaIm
         JouleWelcomeScreenMediaImageStyle(style: style)
     }
 
-    static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> JouleWelcomeScreenMediaImageStyle {
+    @MainActor static func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> JouleWelcomeScreenMediaImageStyle {
         let style = AnyMediaImageStyle(content)
         return JouleWelcomeScreenMediaImageStyle(style: style)
     }
@@ -4848,7 +4848,7 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenGreetin
         JouleWelcomeScreenGreetingTextStyle(style: style)
     }
 
-    static func greetingTextStyle(@ViewBuilder content: @escaping (GreetingTextConfiguration) -> some View) -> JouleWelcomeScreenGreetingTextStyle {
+    @MainActor static func greetingTextStyle(@ViewBuilder content: @escaping (GreetingTextConfiguration) -> some View) -> JouleWelcomeScreenGreetingTextStyle {
         let style = AnyGreetingTextStyle(content)
         return JouleWelcomeScreenGreetingTextStyle(style: style)
     }
@@ -4869,7 +4869,7 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenTitleSt
         JouleWelcomeScreenTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> JouleWelcomeScreenTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> JouleWelcomeScreenTitleStyle {
         let style = AnyTitleStyle(content)
         return JouleWelcomeScreenTitleStyle(style: style)
     }
@@ -4890,7 +4890,7 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenFootnot
         JouleWelcomeScreenFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> JouleWelcomeScreenFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> JouleWelcomeScreenFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return JouleWelcomeScreenFootnoteStyle(style: style)
     }
@@ -4911,7 +4911,7 @@ public extension JouleWelcomeScreenStyle where Self == JouleWelcomeScreenMessage
         JouleWelcomeScreenMessageContentStyle(style: style)
     }
 
-    static func messageContentStyle(@ViewBuilder content: @escaping (MessageContentConfiguration) -> some View) -> JouleWelcomeScreenMessageContentStyle {
+    @MainActor static func messageContentStyle(@ViewBuilder content: @escaping (MessageContentConfiguration) -> some View) -> JouleWelcomeScreenMessageContentStyle {
         let style = AnyMessageContentStyle(content)
         return JouleWelcomeScreenMessageContentStyle(style: style)
     }
@@ -4974,7 +4974,7 @@ public extension KPIItemStyle where Self == KPIItemKpiCaptionStyle {
         KPIItemKpiCaptionStyle(style: style)
     }
 
-    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIItemKpiCaptionStyle {
+    @MainActor static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIItemKpiCaptionStyle {
         let style = AnyKpiCaptionStyle(content)
         return KPIItemKpiCaptionStyle(style: style)
     }
@@ -5009,7 +5009,7 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemKPIContentSty
         KPIProgressItemKPIContentStyle(style: style)
     }
 
-    static func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> KPIProgressItemKPIContentStyle {
+    @MainActor static func kPIContentStyle(@ViewBuilder content: @escaping (KPIContentConfiguration) -> some View) -> KPIProgressItemKPIContentStyle {
         let style = AnyKPIContentStyle(content)
         return KPIProgressItemKPIContentStyle(style: style)
     }
@@ -5030,7 +5030,7 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemKpiCaptionSty
         KPIProgressItemKpiCaptionStyle(style: style)
     }
 
-    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIProgressItemKpiCaptionStyle {
+    @MainActor static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> KPIProgressItemKpiCaptionStyle {
         let style = AnyKpiCaptionStyle(content)
         return KPIProgressItemKpiCaptionStyle(style: style)
     }
@@ -5051,7 +5051,7 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemFootnoteStyle
         KPIProgressItemFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> KPIProgressItemFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> KPIProgressItemFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return KPIProgressItemFootnoteStyle(style: style)
     }
@@ -5072,7 +5072,7 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemInnerCircleSt
         KPIProgressItemInnerCircleStyle(style: style)
     }
 
-    static func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> KPIProgressItemInnerCircleStyle {
+    @MainActor static func innerCircleStyle(@ViewBuilder content: @escaping (InnerCircleConfiguration) -> some View) -> KPIProgressItemInnerCircleStyle {
         let style = AnyInnerCircleStyle(content)
         return KPIProgressItemInnerCircleStyle(style: style)
     }
@@ -5093,7 +5093,7 @@ public extension KPIProgressItemStyle where Self == KPIProgressItemOuterCircleSt
         KPIProgressItemOuterCircleStyle(style: style)
     }
 
-    static func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> KPIProgressItemOuterCircleStyle {
+    @MainActor static func outerCircleStyle(@ViewBuilder content: @escaping (OuterCircleConfiguration) -> some View) -> KPIProgressItemOuterCircleStyle {
         let style = AnyOuterCircleStyle(content)
         return KPIProgressItemOuterCircleStyle(style: style)
     }
@@ -5156,7 +5156,7 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewTitleStyle 
         KeyValueFormViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> KeyValueFormViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> KeyValueFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return KeyValueFormViewTitleStyle(style: style)
     }
@@ -5177,7 +5177,7 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewTextViewSty
         KeyValueFormViewTextViewStyle(style: style)
     }
 
-    static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> KeyValueFormViewTextViewStyle {
+    @MainActor static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> KeyValueFormViewTextViewStyle {
         let style = AnyTextViewStyle(content)
         return KeyValueFormViewTextViewStyle(style: style)
     }
@@ -5198,7 +5198,7 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewPlaceholder
         KeyValueFormViewPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> KeyValueFormViewPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> KeyValueFormViewPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return KeyValueFormViewPlaceholderStyle(style: style)
     }
@@ -5219,7 +5219,7 @@ public extension KeyValueFormViewStyle where Self == KeyValueFormViewNoteFormVie
         KeyValueFormViewNoteFormViewStyle(style: style)
     }
 
-    static func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> KeyValueFormViewNoteFormViewStyle {
+    @MainActor static func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> KeyValueFormViewNoteFormViewStyle {
         let style = AnyNoteFormViewStyle(content)
         return KeyValueFormViewNoteFormViewStyle(style: style)
     }
@@ -5254,7 +5254,7 @@ public extension KeyValueItemStyle where Self == KeyValueItemKeyStyle {
         KeyValueItemKeyStyle(style: style)
     }
 
-    static func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> KeyValueItemKeyStyle {
+    @MainActor static func keyStyle(@ViewBuilder content: @escaping (KeyConfiguration) -> some View) -> KeyValueItemKeyStyle {
         let style = AnyKeyStyle(content)
         return KeyValueItemKeyStyle(style: style)
     }
@@ -5275,7 +5275,7 @@ public extension KeyValueItemStyle where Self == KeyValueItemValueStyle {
         KeyValueItemValueStyle(style: style)
     }
 
-    static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> KeyValueItemValueStyle {
+    @MainActor static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> KeyValueItemValueStyle {
         let style = AnyValueStyle(content)
         return KeyValueItemValueStyle(style: style)
     }
@@ -5296,7 +5296,7 @@ public extension KeyValueItemStyle where Self == KeyValueItemFormViewStyle {
         KeyValueItemFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> KeyValueItemFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> KeyValueItemFormViewStyle {
         let style = AnyFormViewStyle(content)
         return KeyValueItemFormViewStyle(style: style)
     }
@@ -5359,7 +5359,7 @@ public extension LabelItemStyle where Self == LabelItemIconStyle {
         LabelItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LabelItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LabelItemIconStyle {
         let style = AnyIconStyle(content)
         return LabelItemIconStyle(style: style)
     }
@@ -5380,7 +5380,7 @@ public extension LabelItemStyle where Self == LabelItemTitleStyle {
         LabelItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LabelItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LabelItemTitleStyle {
         let style = AnyTitleStyle(content)
         return LabelItemTitleStyle(style: style)
     }
@@ -5457,7 +5457,7 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
         LinearProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
     }
 
-    static func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
+    @MainActor static func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
         let style = AnyLinearProgressIndicatorStyle(content)
         return LinearProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
     }
@@ -5478,7 +5478,7 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
         LinearProgressIndicatorViewIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LinearProgressIndicatorViewIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LinearProgressIndicatorViewIconStyle {
         let style = AnyIconStyle(content)
         return LinearProgressIndicatorViewIconStyle(style: style)
     }
@@ -5499,7 +5499,7 @@ public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIn
         LinearProgressIndicatorViewDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> LinearProgressIndicatorViewDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> LinearProgressIndicatorViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return LinearProgressIndicatorViewDescriptionStyle(style: style)
     }
@@ -5548,7 +5548,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationC
         ListPickerDestinationCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> ListPickerDestinationCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> ListPickerDestinationCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return ListPickerDestinationCancelActionStyle(style: style)
     }
@@ -5569,7 +5569,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationA
         ListPickerDestinationApplyActionStyle(style: style)
     }
 
-    static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> ListPickerDestinationApplyActionStyle {
+    @MainActor static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> ListPickerDestinationApplyActionStyle {
         let style = AnyApplyActionStyle(content)
         return ListPickerDestinationApplyActionStyle(style: style)
     }
@@ -5590,7 +5590,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationS
         ListPickerDestinationSelectedEntriesSectionTitleStyle(style: style)
     }
 
-    static func selectedEntriesSectionTitleStyle(@ViewBuilder content: @escaping (SelectedEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationSelectedEntriesSectionTitleStyle {
+    @MainActor static func selectedEntriesSectionTitleStyle(@ViewBuilder content: @escaping (SelectedEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationSelectedEntriesSectionTitleStyle {
         let style = AnySelectedEntriesSectionTitleStyle(content)
         return ListPickerDestinationSelectedEntriesSectionTitleStyle(style: style)
     }
@@ -5611,7 +5611,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationS
         ListPickerDestinationSelectAllActionStyle(style: style)
     }
 
-    static func selectAllActionStyle(@ViewBuilder content: @escaping (SelectAllActionConfiguration) -> some View) -> ListPickerDestinationSelectAllActionStyle {
+    @MainActor static func selectAllActionStyle(@ViewBuilder content: @escaping (SelectAllActionConfiguration) -> some View) -> ListPickerDestinationSelectAllActionStyle {
         let style = AnySelectAllActionStyle(content)
         return ListPickerDestinationSelectAllActionStyle(style: style)
     }
@@ -5632,7 +5632,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationD
         ListPickerDestinationDeselectAllActionStyle(style: style)
     }
 
-    static func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> ListPickerDestinationDeselectAllActionStyle {
+    @MainActor static func deselectAllActionStyle(@ViewBuilder content: @escaping (DeselectAllActionConfiguration) -> some View) -> ListPickerDestinationDeselectAllActionStyle {
         let style = AnyDeselectAllActionStyle(content)
         return ListPickerDestinationDeselectAllActionStyle(style: style)
     }
@@ -5653,7 +5653,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationA
         ListPickerDestinationAllEntriesSectionTitleStyle(style: style)
     }
 
-    static func allEntriesSectionTitleStyle(@ViewBuilder content: @escaping (AllEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationAllEntriesSectionTitleStyle {
+    @MainActor static func allEntriesSectionTitleStyle(@ViewBuilder content: @escaping (AllEntriesSectionTitleConfiguration) -> some View) -> ListPickerDestinationAllEntriesSectionTitleStyle {
         let style = AnyAllEntriesSectionTitleStyle(content)
         return ListPickerDestinationAllEntriesSectionTitleStyle(style: style)
     }
@@ -5674,7 +5674,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationL
         ListPickerDestinationListPickerContentStyle(style: style)
     }
 
-    static func listPickerContentStyle(@ViewBuilder content: @escaping (ListPickerContentConfiguration) -> some View) -> ListPickerDestinationListPickerContentStyle {
+    @MainActor static func listPickerContentStyle(@ViewBuilder content: @escaping (ListPickerContentConfiguration) -> some View) -> ListPickerDestinationListPickerContentStyle {
         let style = AnyListPickerContentStyle(content)
         return ListPickerDestinationListPickerContentStyle(style: style)
     }
@@ -5695,7 +5695,7 @@ public extension ListPickerDestinationStyle where Self == ListPickerDestinationP
         ListPickerDestinationPromptStyle(style: style)
     }
 
-    static func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> ListPickerDestinationPromptStyle {
+    @MainActor static func promptStyle(@ViewBuilder content: @escaping (PromptConfiguration) -> some View) -> ListPickerDestinationPromptStyle {
         let style = AnyPromptStyle(content)
         return ListPickerDestinationPromptStyle(style: style)
     }
@@ -5730,7 +5730,7 @@ public extension ListPickerItemStyle where Self == ListPickerItemTitleStyle {
         ListPickerItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ListPickerItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ListPickerItemTitleStyle {
         let style = AnyTitleStyle(content)
         return ListPickerItemTitleStyle(style: style)
     }
@@ -5751,7 +5751,7 @@ public extension ListPickerItemStyle where Self == ListPickerItemValueStyle {
         ListPickerItemValueStyle(style: style)
     }
 
-    static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> ListPickerItemValueStyle {
+    @MainActor static func valueStyle(@ViewBuilder content: @escaping (ValueConfiguration) -> some View) -> ListPickerItemValueStyle {
         let style = AnyValueStyle(content)
         return ListPickerItemValueStyle(style: style)
     }
@@ -5772,7 +5772,7 @@ public extension ListPickerItemStyle where Self == ListPickerItemDescriptionStyl
         ListPickerItemDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ListPickerItemDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ListPickerItemDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ListPickerItemDescriptionStyle(style: style)
     }
@@ -5793,7 +5793,7 @@ public extension ListPickerItemStyle where Self == ListPickerItemFormViewStyle {
         ListPickerItemFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> ListPickerItemFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> ListPickerItemFormViewStyle {
         let style = AnyFormViewStyle(content)
         return ListPickerItemFormViewStyle(style: style)
     }
@@ -5828,7 +5828,7 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorTitleStyle 
         LoadingIndicatorTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LoadingIndicatorTitleStyle {
         let style = AnyTitleStyle(content)
         return LoadingIndicatorTitleStyle(style: style)
     }
@@ -5849,7 +5849,7 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorProgressSty
         LoadingIndicatorProgressStyle(style: style)
     }
 
-    static func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
+    @MainActor static func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
         let style = AnyProgressStyle(content)
         return LoadingIndicatorProgressStyle(style: style)
     }
@@ -5912,7 +5912,7 @@ public extension MenuSelectionStyle where Self == MenuSelectionActionStyle {
         MenuSelectionActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> MenuSelectionActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> MenuSelectionActionStyle {
         let style = AnyActionStyle(content)
         return MenuSelectionActionStyle(style: style)
     }
@@ -5947,7 +5947,7 @@ public extension MenuSelectionItemStyle where Self == MenuSelectionItemIconStyle
         MenuSelectionItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> MenuSelectionItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> MenuSelectionItemIconStyle {
         let style = AnyIconStyle(content)
         return MenuSelectionItemIconStyle(style: style)
     }
@@ -5968,7 +5968,7 @@ public extension MenuSelectionItemStyle where Self == MenuSelectionItemTitleStyl
         MenuSelectionItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> MenuSelectionItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> MenuSelectionItemTitleStyle {
         let style = AnyTitleStyle(content)
         return MenuSelectionItemTitleStyle(style: style)
     }
@@ -6073,7 +6073,7 @@ public extension NoteFormViewStyle where Self == NoteFormViewTextViewStyle {
         NoteFormViewTextViewStyle(style: style)
     }
 
-    static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> NoteFormViewTextViewStyle {
+    @MainActor static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> NoteFormViewTextViewStyle {
         let style = AnyTextViewStyle(content)
         return NoteFormViewTextViewStyle(style: style)
     }
@@ -6094,7 +6094,7 @@ public extension NoteFormViewStyle where Self == NoteFormViewPlaceholderStyle {
         NoteFormViewPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> NoteFormViewPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> NoteFormViewPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return NoteFormViewPlaceholderStyle(style: style)
     }
@@ -6115,7 +6115,7 @@ public extension NoteFormViewStyle where Self == NoteFormViewPlaceholderTextEdit
         NoteFormViewPlaceholderTextEditorStyle(style: style)
     }
 
-    static func placeholderTextEditorStyle(@ViewBuilder content: @escaping (PlaceholderTextEditorConfiguration) -> some View) -> NoteFormViewPlaceholderTextEditorStyle {
+    @MainActor static func placeholderTextEditorStyle(@ViewBuilder content: @escaping (PlaceholderTextEditorConfiguration) -> some View) -> NoteFormViewPlaceholderTextEditorStyle {
         let style = AnyPlaceholderTextEditorStyle(content)
         return NoteFormViewPlaceholderTextEditorStyle(style: style)
     }
@@ -6136,7 +6136,7 @@ public extension NoteFormViewStyle where Self == NoteFormViewFormViewStyle {
         NoteFormViewFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> NoteFormViewFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> NoteFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return NoteFormViewFormViewStyle(style: style)
     }
@@ -6185,7 +6185,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderTitleStyle {
         ObjectHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return ObjectHeaderTitleStyle(style: style)
     }
@@ -6206,7 +6206,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderSubtitleStyle {
         ObjectHeaderSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectHeaderSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ObjectHeaderSubtitleStyle(style: style)
     }
@@ -6227,7 +6227,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderTagsStyle {
         ObjectHeaderTagsStyle(style: style)
     }
 
-    static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectHeaderTagsStyle {
+    @MainActor static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectHeaderTagsStyle {
         let style = AnyTagsStyle(content)
         return ObjectHeaderTagsStyle(style: style)
     }
@@ -6248,7 +6248,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderBodyTextStyle {
         ObjectHeaderBodyTextStyle(style: style)
     }
 
-    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> ObjectHeaderBodyTextStyle {
+    @MainActor static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> ObjectHeaderBodyTextStyle {
         let style = AnyBodyTextStyle(content)
         return ObjectHeaderBodyTextStyle(style: style)
     }
@@ -6269,7 +6269,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderFootnoteStyle {
         ObjectHeaderFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectHeaderFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectHeaderFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return ObjectHeaderFootnoteStyle(style: style)
     }
@@ -6290,7 +6290,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderDescriptionTextStyl
         ObjectHeaderDescriptionTextStyle(style: style)
     }
 
-    static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ObjectHeaderDescriptionTextStyle {
+    @MainActor static func descriptionTextStyle(@ViewBuilder content: @escaping (DescriptionTextConfiguration) -> some View) -> ObjectHeaderDescriptionTextStyle {
         let style = AnyDescriptionTextStyle(content)
         return ObjectHeaderDescriptionTextStyle(style: style)
     }
@@ -6311,7 +6311,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderStatusStyle {
         ObjectHeaderStatusStyle(style: style)
     }
 
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectHeaderStatusStyle {
+    @MainActor static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectHeaderStatusStyle {
         let style = AnyStatusStyle(content)
         return ObjectHeaderStatusStyle(style: style)
     }
@@ -6332,7 +6332,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderSubstatusStyle {
         ObjectHeaderSubstatusStyle(style: style)
     }
 
-    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectHeaderSubstatusStyle {
+    @MainActor static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectHeaderSubstatusStyle {
         let style = AnySubstatusStyle(content)
         return ObjectHeaderSubstatusStyle(style: style)
     }
@@ -6353,7 +6353,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderDetailImageStyle {
         ObjectHeaderDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectHeaderDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return ObjectHeaderDetailImageStyle(style: style)
     }
@@ -6374,7 +6374,7 @@ public extension ObjectHeaderStyle where Self == ObjectHeaderDetailContentStyle 
         ObjectHeaderDetailContentStyle(style: style)
     }
 
-    static func detailContentStyle(@ViewBuilder content: @escaping (DetailContentConfiguration) -> some View) -> ObjectHeaderDetailContentStyle {
+    @MainActor static func detailContentStyle(@ViewBuilder content: @escaping (DetailContentConfiguration) -> some View) -> ObjectHeaderDetailContentStyle {
         let style = AnyDetailContentStyle(content)
         return ObjectHeaderDetailContentStyle(style: style)
     }
@@ -6409,7 +6409,7 @@ public extension ObjectItemStyle where Self == ObjectItemTitleStyle {
         ObjectItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectItemTitleStyle {
         let style = AnyTitleStyle(content)
         return ObjectItemTitleStyle(style: style)
     }
@@ -6430,7 +6430,7 @@ public extension ObjectItemStyle where Self == ObjectItemSubtitleStyle {
         ObjectItemSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectItemSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ObjectItemSubtitleStyle(style: style)
     }
@@ -6451,7 +6451,7 @@ public extension ObjectItemStyle where Self == ObjectItemFootnoteStyle {
         ObjectItemFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectItemFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectItemFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return ObjectItemFootnoteStyle(style: style)
     }
@@ -6472,7 +6472,7 @@ public extension ObjectItemStyle where Self == ObjectItemDescriptionStyle {
         ObjectItemDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ObjectItemDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ObjectItemDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ObjectItemDescriptionStyle(style: style)
     }
@@ -6493,7 +6493,7 @@ public extension ObjectItemStyle where Self == ObjectItemStatusStyle {
         ObjectItemStatusStyle(style: style)
     }
 
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectItemStatusStyle {
+    @MainActor static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectItemStatusStyle {
         let style = AnyStatusStyle(content)
         return ObjectItemStatusStyle(style: style)
     }
@@ -6514,7 +6514,7 @@ public extension ObjectItemStyle where Self == ObjectItemSubstatusStyle {
         ObjectItemSubstatusStyle(style: style)
     }
 
-    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectItemSubstatusStyle {
+    @MainActor static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectItemSubstatusStyle {
         let style = AnySubstatusStyle(content)
         return ObjectItemSubstatusStyle(style: style)
     }
@@ -6535,7 +6535,7 @@ public extension ObjectItemStyle where Self == ObjectItemDetailImageStyle {
         ObjectItemDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectItemDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectItemDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return ObjectItemDetailImageStyle(style: style)
     }
@@ -6556,7 +6556,7 @@ public extension ObjectItemStyle where Self == ObjectItemIconsStyle {
         ObjectItemIconsStyle(style: style)
     }
 
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> ObjectItemIconsStyle {
+    @MainActor static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> ObjectItemIconsStyle {
         let style = AnyIconsStyle(content)
         return ObjectItemIconsStyle(style: style)
     }
@@ -6577,7 +6577,7 @@ public extension ObjectItemStyle where Self == ObjectItemAvatarsStyle {
         ObjectItemAvatarsStyle(style: style)
     }
 
-    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> ObjectItemAvatarsStyle {
+    @MainActor static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> ObjectItemAvatarsStyle {
         let style = AnyAvatarsStyle(content)
         return ObjectItemAvatarsStyle(style: style)
     }
@@ -6598,7 +6598,7 @@ public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsStyle {
         ObjectItemFootnoteIconsStyle(style: style)
     }
 
-    static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> ObjectItemFootnoteIconsStyle {
+    @MainActor static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> ObjectItemFootnoteIconsStyle {
         let style = AnyFootnoteIconsStyle(content)
         return ObjectItemFootnoteIconsStyle(style: style)
     }
@@ -6619,7 +6619,7 @@ public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsTextStyle 
         ObjectItemFootnoteIconsTextStyle(style: style)
     }
 
-    static func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> ObjectItemFootnoteIconsTextStyle {
+    @MainActor static func footnoteIconsTextStyle(@ViewBuilder content: @escaping (FootnoteIconsTextConfiguration) -> some View) -> ObjectItemFootnoteIconsTextStyle {
         let style = AnyFootnoteIconsTextStyle(content)
         return ObjectItemFootnoteIconsTextStyle(style: style)
     }
@@ -6640,7 +6640,7 @@ public extension ObjectItemStyle where Self == ObjectItemTagsStyle {
         ObjectItemTagsStyle(style: style)
     }
 
-    static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectItemTagsStyle {
+    @MainActor static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectItemTagsStyle {
         let style = AnyTagsStyle(content)
         return ObjectItemTagsStyle(style: style)
     }
@@ -6661,7 +6661,7 @@ public extension ObjectItemStyle where Self == ObjectItemActionStyle {
         ObjectItemActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ObjectItemActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ObjectItemActionStyle {
         let style = AnyActionStyle(content)
         return ObjectItemActionStyle(style: style)
     }
@@ -6766,7 +6766,7 @@ public extension OrderPickerStyle where Self == OrderPickerOptionalTitleStyle {
         OrderPickerOptionalTitleStyle(style: style)
     }
 
-    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> OrderPickerOptionalTitleStyle {
+    @MainActor static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> OrderPickerOptionalTitleStyle {
         let style = AnyOptionalTitleStyle(content)
         return OrderPickerOptionalTitleStyle(style: style)
     }
@@ -6843,7 +6843,7 @@ public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorT
         PlaceholderTextEditorTextViewStyle(style: style)
     }
 
-    static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> PlaceholderTextEditorTextViewStyle {
+    @MainActor static func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> PlaceholderTextEditorTextViewStyle {
         let style = AnyTextViewStyle(content)
         return PlaceholderTextEditorTextViewStyle(style: style)
     }
@@ -6864,7 +6864,7 @@ public extension PlaceholderTextEditorStyle where Self == PlaceholderTextEditorP
         PlaceholderTextEditorPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextEditorPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextEditorPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return PlaceholderTextEditorPlaceholderStyle(style: style)
     }
@@ -6899,7 +6899,7 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldPla
         PlaceholderTextFieldPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextFieldPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> PlaceholderTextFieldPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return PlaceholderTextFieldPlaceholderStyle(style: style)
     }
@@ -6920,7 +6920,7 @@ public extension PlaceholderTextFieldStyle where Self == PlaceholderTextFieldTex
         PlaceholderTextFieldTextInputFieldStyle(style: style)
     }
 
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
+    @MainActor static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> PlaceholderTextFieldTextInputFieldStyle {
         let style = AnyTextInputFieldStyle(content)
         return PlaceholderTextFieldTextInputFieldStyle(style: style)
     }
@@ -6955,7 +6955,7 @@ public extension ProcessingIndicatorStyle where Self == ProcessingIndicatorOptio
         ProcessingIndicatorOptionalTitleStyle(style: style)
     }
 
-    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> ProcessingIndicatorOptionalTitleStyle {
+    @MainActor static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> ProcessingIndicatorOptionalTitleStyle {
         let style = AnyOptionalTitleStyle(content)
         return ProcessingIndicatorOptionalTitleStyle(style: style)
     }
@@ -6990,7 +6990,7 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDetailImageStyle 
         ProfileHeaderDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ProfileHeaderDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ProfileHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return ProfileHeaderDetailImageStyle(style: style)
     }
@@ -7011,7 +7011,7 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderTitleStyle {
         ProfileHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ProfileHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ProfileHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return ProfileHeaderTitleStyle(style: style)
     }
@@ -7032,7 +7032,7 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderSubtitleStyle {
         ProfileHeaderSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ProfileHeaderSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ProfileHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return ProfileHeaderSubtitleStyle(style: style)
     }
@@ -7053,7 +7053,7 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
         ProfileHeaderDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ProfileHeaderDescriptionStyle(style: style)
     }
@@ -7102,7 +7102,7 @@ public extension ProgressIndicatorStyle where Self == ProgressIndicatorProgressI
         ProgressIndicatorProgressIndicatorProtocolStyle(style: style)
     }
 
-    static func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> ProgressIndicatorProgressIndicatorProtocolStyle {
+    @MainActor static func progressIndicatorProtocolStyle(@ViewBuilder content: @escaping (ProgressIndicatorProtocolConfiguration) -> some View) -> ProgressIndicatorProgressIndicatorProtocolStyle {
         let style = AnyProgressIndicatorProtocolStyle(content)
         return ProgressIndicatorProgressIndicatorProtocolStyle(style: style)
     }
@@ -7165,7 +7165,7 @@ public extension RangeSliderControlStyle where Self == RangeSliderControlLowerTh
         RangeSliderControlLowerThumbStyle(style: style)
     }
 
-    static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> RangeSliderControlLowerThumbStyle {
+    @MainActor static func lowerThumbStyle(@ViewBuilder content: @escaping (LowerThumbConfiguration) -> some View) -> RangeSliderControlLowerThumbStyle {
         let style = AnyLowerThumbStyle(content)
         return RangeSliderControlLowerThumbStyle(style: style)
     }
@@ -7186,7 +7186,7 @@ public extension RangeSliderControlStyle where Self == RangeSliderControlUpperTh
         RangeSliderControlUpperThumbStyle(style: style)
     }
 
-    static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> RangeSliderControlUpperThumbStyle {
+    @MainActor static func upperThumbStyle(@ViewBuilder content: @escaping (UpperThumbConfiguration) -> some View) -> RangeSliderControlUpperThumbStyle {
         let style = AnyUpperThumbStyle(content)
         return RangeSliderControlUpperThumbStyle(style: style)
     }
@@ -7207,7 +7207,7 @@ public extension RangeSliderControlStyle where Self == RangeSliderControlActiveT
         RangeSliderControlActiveTrackStyle(style: style)
     }
 
-    static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> RangeSliderControlActiveTrackStyle {
+    @MainActor static func activeTrackStyle(@ViewBuilder content: @escaping (ActiveTrackConfiguration) -> some View) -> RangeSliderControlActiveTrackStyle {
         let style = AnyActiveTrackStyle(content)
         return RangeSliderControlActiveTrackStyle(style: style)
     }
@@ -7228,7 +7228,7 @@ public extension RangeSliderControlStyle where Self == RangeSliderControlInactiv
         RangeSliderControlInactiveTrackStyle(style: style)
     }
 
-    static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> RangeSliderControlInactiveTrackStyle {
+    @MainActor static func inactiveTrackStyle(@ViewBuilder content: @escaping (InactiveTrackConfiguration) -> some View) -> RangeSliderControlInactiveTrackStyle {
         let style = AnyInactiveTrackStyle(content)
         return RangeSliderControlInactiveTrackStyle(style: style)
     }
@@ -7263,7 +7263,7 @@ public extension RatingControlStyle where Self == RatingControlValueLabelStyle {
         RatingControlValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return RatingControlValueLabelStyle(style: style)
     }
@@ -7284,7 +7284,7 @@ public extension RatingControlStyle where Self == RatingControlOnStarImageStyle 
         RatingControlOnStarImageStyle(style: style)
     }
 
-    static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlOnStarImageStyle {
+    @MainActor static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlOnStarImageStyle {
         let style = AnyOnStarImageStyle(content)
         return RatingControlOnStarImageStyle(style: style)
     }
@@ -7305,7 +7305,7 @@ public extension RatingControlStyle where Self == RatingControlOffStarImageStyle
         RatingControlOffStarImageStyle(style: style)
     }
 
-    static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlOffStarImageStyle {
+    @MainActor static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlOffStarImageStyle {
         let style = AnyOffStarImageStyle(content)
         return RatingControlOffStarImageStyle(style: style)
     }
@@ -7326,7 +7326,7 @@ public extension RatingControlStyle where Self == RatingControlHalfStarImageStyl
         RatingControlHalfStarImageStyle(style: style)
     }
 
-    static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlHalfStarImageStyle {
+    @MainActor static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlHalfStarImageStyle {
         let style = AnyHalfStarImageStyle(content)
         return RatingControlHalfStarImageStyle(style: style)
     }
@@ -7347,7 +7347,7 @@ public extension RatingControlStyle where Self == RatingControlReviewCountLabelS
         RatingControlReviewCountLabelStyle(style: style)
     }
 
-    static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlReviewCountLabelStyle {
+    @MainActor static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlReviewCountLabelStyle {
         let style = AnyReviewCountLabelStyle(content)
         return RatingControlReviewCountLabelStyle(style: style)
     }
@@ -7382,7 +7382,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewT
         RatingControlFormViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> RatingControlFormViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> RatingControlFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return RatingControlFormViewTitleStyle(style: style)
     }
@@ -7403,7 +7403,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewV
         RatingControlFormViewValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlFormViewValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> RatingControlFormViewValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return RatingControlFormViewValueLabelStyle(style: style)
     }
@@ -7424,7 +7424,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewO
         RatingControlFormViewOnStarImageStyle(style: style)
     }
 
-    static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlFormViewOnStarImageStyle {
+    @MainActor static func onStarImageStyle(@ViewBuilder content: @escaping (OnStarImageConfiguration) -> some View) -> RatingControlFormViewOnStarImageStyle {
         let style = AnyOnStarImageStyle(content)
         return RatingControlFormViewOnStarImageStyle(style: style)
     }
@@ -7445,7 +7445,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewO
         RatingControlFormViewOffStarImageStyle(style: style)
     }
 
-    static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlFormViewOffStarImageStyle {
+    @MainActor static func offStarImageStyle(@ViewBuilder content: @escaping (OffStarImageConfiguration) -> some View) -> RatingControlFormViewOffStarImageStyle {
         let style = AnyOffStarImageStyle(content)
         return RatingControlFormViewOffStarImageStyle(style: style)
     }
@@ -7466,7 +7466,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewH
         RatingControlFormViewHalfStarImageStyle(style: style)
     }
 
-    static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlFormViewHalfStarImageStyle {
+    @MainActor static func halfStarImageStyle(@ViewBuilder content: @escaping (HalfStarImageConfiguration) -> some View) -> RatingControlFormViewHalfStarImageStyle {
         let style = AnyHalfStarImageStyle(content)
         return RatingControlFormViewHalfStarImageStyle(style: style)
     }
@@ -7487,7 +7487,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewR
         RatingControlFormViewReviewCountLabelStyle(style: style)
     }
 
-    static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlFormViewReviewCountLabelStyle {
+    @MainActor static func reviewCountLabelStyle(@ViewBuilder content: @escaping (ReviewCountLabelConfiguration) -> some View) -> RatingControlFormViewReviewCountLabelStyle {
         let style = AnyReviewCountLabelStyle(content)
         return RatingControlFormViewReviewCountLabelStyle(style: style)
     }
@@ -7508,7 +7508,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewS
         RatingControlFormViewSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> RatingControlFormViewSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> RatingControlFormViewSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return RatingControlFormViewSubtitleStyle(style: style)
     }
@@ -7529,7 +7529,7 @@ public extension RatingControlFormViewStyle where Self == RatingControlFormViewR
         RatingControlFormViewRatingControlStyle(style: style)
     }
 
-    static func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> RatingControlFormViewRatingControlStyle {
+    @MainActor static func ratingControlStyle(@ViewBuilder content: @escaping (RatingControlConfiguration) -> some View) -> RatingControlFormViewRatingControlStyle {
         let style = AnyRatingControlStyle(content)
         return RatingControlFormViewRatingControlStyle(style: style)
     }
@@ -7704,7 +7704,7 @@ public extension SectionFooterStyle where Self == SectionFooterTitleStyle {
         SectionFooterTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionFooterTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionFooterTitleStyle {
         let style = AnyTitleStyle(content)
         return SectionFooterTitleStyle(style: style)
     }
@@ -7725,7 +7725,7 @@ public extension SectionFooterStyle where Self == SectionFooterAttributeStyle {
         SectionFooterAttributeStyle(style: style)
     }
 
-    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionFooterAttributeStyle {
+    @MainActor static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionFooterAttributeStyle {
         let style = AnyAttributeStyle(content)
         return SectionFooterAttributeStyle(style: style)
     }
@@ -7760,7 +7760,7 @@ public extension SectionHeaderStyle where Self == SectionHeaderTitleStyle {
         SectionHeaderTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionHeaderTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SectionHeaderTitleStyle {
         let style = AnyTitleStyle(content)
         return SectionHeaderTitleStyle(style: style)
     }
@@ -7781,7 +7781,7 @@ public extension SectionHeaderStyle where Self == SectionHeaderAttributeStyle {
         SectionHeaderAttributeStyle(style: style)
     }
 
-    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionHeaderAttributeStyle {
+    @MainActor static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> SectionHeaderAttributeStyle {
         let style = AnyAttributeStyle(content)
         return SectionHeaderAttributeStyle(style: style)
     }
@@ -7816,7 +7816,7 @@ public extension SegmentedControlPickerStyle where Self == SegmentedControlPicke
         SegmentedControlPickerOptionsStyle(style: style)
     }
 
-    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> SegmentedControlPickerOptionsStyle {
+    @MainActor static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> SegmentedControlPickerOptionsStyle {
         let style = AnyOptionsStyle(content)
         return SegmentedControlPickerOptionsStyle(style: style)
     }
@@ -7893,7 +7893,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemIconStyle {
         SideBarListItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SideBarListItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SideBarListItemIconStyle {
         let style = AnyIconStyle(content)
         return SideBarListItemIconStyle(style: style)
     }
@@ -7914,7 +7914,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemFilledIconSty
         SideBarListItemFilledIconStyle(style: style)
     }
 
-    static func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> SideBarListItemFilledIconStyle {
+    @MainActor static func filledIconStyle(@ViewBuilder content: @escaping (FilledIconConfiguration) -> some View) -> SideBarListItemFilledIconStyle {
         let style = AnyFilledIconStyle(content)
         return SideBarListItemFilledIconStyle(style: style)
     }
@@ -7935,7 +7935,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemTitleStyle {
         SideBarListItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SideBarListItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SideBarListItemTitleStyle {
         let style = AnyTitleStyle(content)
         return SideBarListItemTitleStyle(style: style)
     }
@@ -7956,7 +7956,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemSubtitleStyle
         SideBarListItemSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SideBarListItemSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SideBarListItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return SideBarListItemSubtitleStyle(style: style)
     }
@@ -7977,7 +7977,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemAccessoryIcon
         SideBarListItemAccessoryIconStyle(style: style)
     }
 
-    static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> SideBarListItemAccessoryIconStyle {
+    @MainActor static func accessoryIconStyle(@ViewBuilder content: @escaping (AccessoryIconConfiguration) -> some View) -> SideBarListItemAccessoryIconStyle {
         let style = AnyAccessoryIconStyle(content)
         return SideBarListItemAccessoryIconStyle(style: style)
     }
@@ -7998,7 +7998,7 @@ public extension SideBarListItemStyle where Self == SideBarListItemSwitchStyle {
         SideBarListItemSwitchStyle(style: style)
     }
 
-    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SideBarListItemSwitchStyle {
+    @MainActor static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SideBarListItemSwitchStyle {
         let style = AnySwitchStyle(content)
         return SideBarListItemSwitchStyle(style: style)
     }
@@ -8047,7 +8047,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewTit
         SignatureCaptureViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SignatureCaptureViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SignatureCaptureViewTitleStyle {
         let style = AnyTitleStyle(content)
         return SignatureCaptureViewTitleStyle(style: style)
     }
@@ -8068,7 +8068,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewSta
         SignatureCaptureViewStartSignatureActionStyle(style: style)
     }
 
-    static func startSignatureActionStyle(@ViewBuilder content: @escaping (StartSignatureActionConfiguration) -> some View) -> SignatureCaptureViewStartSignatureActionStyle {
+    @MainActor static func startSignatureActionStyle(@ViewBuilder content: @escaping (StartSignatureActionConfiguration) -> some View) -> SignatureCaptureViewStartSignatureActionStyle {
         let style = AnyStartSignatureActionStyle(content)
         return SignatureCaptureViewStartSignatureActionStyle(style: style)
     }
@@ -8089,7 +8089,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewRee
         SignatureCaptureViewReenterSignatureActionStyle(style: style)
     }
 
-    static func reenterSignatureActionStyle(@ViewBuilder content: @escaping (ReenterSignatureActionConfiguration) -> some View) -> SignatureCaptureViewReenterSignatureActionStyle {
+    @MainActor static func reenterSignatureActionStyle(@ViewBuilder content: @escaping (ReenterSignatureActionConfiguration) -> some View) -> SignatureCaptureViewReenterSignatureActionStyle {
         let style = AnyReenterSignatureActionStyle(content)
         return SignatureCaptureViewReenterSignatureActionStyle(style: style)
     }
@@ -8110,7 +8110,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewCan
         SignatureCaptureViewCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SignatureCaptureViewCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SignatureCaptureViewCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return SignatureCaptureViewCancelActionStyle(style: style)
     }
@@ -8131,7 +8131,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewCle
         SignatureCaptureViewClearActionStyle(style: style)
     }
 
-    static func clearActionStyle(@ViewBuilder content: @escaping (ClearActionConfiguration) -> some View) -> SignatureCaptureViewClearActionStyle {
+    @MainActor static func clearActionStyle(@ViewBuilder content: @escaping (ClearActionConfiguration) -> some View) -> SignatureCaptureViewClearActionStyle {
         let style = AnyClearActionStyle(content)
         return SignatureCaptureViewClearActionStyle(style: style)
     }
@@ -8152,7 +8152,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewSav
         SignatureCaptureViewSaveActionStyle(style: style)
     }
 
-    static func saveActionStyle(@ViewBuilder content: @escaping (SaveActionConfiguration) -> some View) -> SignatureCaptureViewSaveActionStyle {
+    @MainActor static func saveActionStyle(@ViewBuilder content: @escaping (SaveActionConfiguration) -> some View) -> SignatureCaptureViewSaveActionStyle {
         let style = AnySaveActionStyle(content)
         return SignatureCaptureViewSaveActionStyle(style: style)
     }
@@ -8173,7 +8173,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewXma
         SignatureCaptureViewXmarkStyle(style: style)
     }
 
-    static func xmarkStyle(@ViewBuilder content: @escaping (XmarkConfiguration) -> some View) -> SignatureCaptureViewXmarkStyle {
+    @MainActor static func xmarkStyle(@ViewBuilder content: @escaping (XmarkConfiguration) -> some View) -> SignatureCaptureViewXmarkStyle {
         let style = AnyXmarkStyle(content)
         return SignatureCaptureViewXmarkStyle(style: style)
     }
@@ -8194,7 +8194,7 @@ public extension SignatureCaptureViewStyle where Self == SignatureCaptureViewWat
         SignatureCaptureViewWatermarkStyle(style: style)
     }
 
-    static func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> SignatureCaptureViewWatermarkStyle {
+    @MainActor static func watermarkStyle(@ViewBuilder content: @escaping (WatermarkConfiguration) -> some View) -> SignatureCaptureViewWatermarkStyle {
         let style = AnyWatermarkStyle(content)
         return SignatureCaptureViewWatermarkStyle(style: style)
     }
@@ -8229,7 +8229,7 @@ public extension SingleStepStyle where Self == SingleStepTitleStyle {
         SingleStepTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SingleStepTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SingleStepTitleStyle {
         let style = AnyTitleStyle(content)
         return SingleStepTitleStyle(style: style)
     }
@@ -8250,7 +8250,7 @@ public extension SingleStepStyle where Self == SingleStepNodeStyle {
         SingleStepNodeStyle(style: style)
     }
 
-    static func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> SingleStepNodeStyle {
+    @MainActor static func nodeStyle(@ViewBuilder content: @escaping (NodeConfiguration) -> some View) -> SingleStepNodeStyle {
         let style = AnyNodeStyle(content)
         return SingleStepNodeStyle(style: style)
     }
@@ -8271,7 +8271,7 @@ public extension SingleStepStyle where Self == SingleStepLineStyle {
         SingleStepLineStyle(style: style)
     }
 
-    static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
+    @MainActor static func lineStyle(@ViewBuilder content: @escaping (LineConfiguration) -> some View) -> SingleStepLineStyle {
         let style = AnyLineStyle(content)
         return SingleStepLineStyle(style: style)
     }
@@ -8306,7 +8306,7 @@ public extension SortCriterionStyle where Self == SortCriterionCheckmarkStyle {
         SortCriterionCheckmarkStyle(style: style)
     }
 
-    static func checkmarkStyle(@ViewBuilder content: @escaping (CheckmarkConfiguration) -> some View) -> SortCriterionCheckmarkStyle {
+    @MainActor static func checkmarkStyle(@ViewBuilder content: @escaping (CheckmarkConfiguration) -> some View) -> SortCriterionCheckmarkStyle {
         let style = AnyCheckmarkStyle(content)
         return SortCriterionCheckmarkStyle(style: style)
     }
@@ -8327,7 +8327,7 @@ public extension SortCriterionStyle where Self == SortCriterionTitleStyle {
         SortCriterionTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortCriterionTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortCriterionTitleStyle {
         let style = AnyTitleStyle(content)
         return SortCriterionTitleStyle(style: style)
     }
@@ -8348,7 +8348,7 @@ public extension SortCriterionStyle where Self == SortCriterionSubtitleStyle {
         SortCriterionSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SortCriterionSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> SortCriterionSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return SortCriterionSubtitleStyle(style: style)
     }
@@ -8383,7 +8383,7 @@ public extension SortFilterViewStyle where Self == SortFilterViewTitleStyle {
         SortFilterViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortFilterViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SortFilterViewTitleStyle {
         let style = AnyTitleStyle(content)
         return SortFilterViewTitleStyle(style: style)
     }
@@ -8404,7 +8404,7 @@ public extension SortFilterViewStyle where Self == SortFilterViewCancelActionSty
         SortFilterViewCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SortFilterViewCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> SortFilterViewCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return SortFilterViewCancelActionStyle(style: style)
     }
@@ -8425,7 +8425,7 @@ public extension SortFilterViewStyle where Self == SortFilterViewApplyActionStyl
         SortFilterViewApplyActionStyle(style: style)
     }
 
-    static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> SortFilterViewApplyActionStyle {
+    @MainActor static func applyActionStyle(@ViewBuilder content: @escaping (ApplyActionConfiguration) -> some View) -> SortFilterViewApplyActionStyle {
         let style = AnyApplyActionStyle(content)
         return SortFilterViewApplyActionStyle(style: style)
     }
@@ -8446,7 +8446,7 @@ public extension SortFilterViewStyle where Self == SortFilterViewResetActionStyl
         SortFilterViewResetActionStyle(style: style)
     }
 
-    static func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> SortFilterViewResetActionStyle {
+    @MainActor static func resetActionStyle(@ViewBuilder content: @escaping (ResetActionConfiguration) -> some View) -> SortFilterViewResetActionStyle {
         let style = AnyResetActionStyle(content)
         return SortFilterViewResetActionStyle(style: style)
     }
@@ -8523,7 +8523,7 @@ public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorT
         StepProgressIndicatorTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepProgressIndicatorTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepProgressIndicatorTitleStyle {
         let style = AnyTitleStyle(content)
         return StepProgressIndicatorTitleStyle(style: style)
     }
@@ -8544,7 +8544,7 @@ public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorA
         StepProgressIndicatorActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> StepProgressIndicatorActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> StepProgressIndicatorActionStyle {
         let style = AnyActionStyle(content)
         return StepProgressIndicatorActionStyle(style: style)
     }
@@ -8565,7 +8565,7 @@ public extension StepProgressIndicatorStyle where Self == StepProgressIndicatorC
         StepProgressIndicatorCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> StepProgressIndicatorCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> StepProgressIndicatorCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return StepProgressIndicatorCancelActionStyle(style: style)
     }
@@ -8600,7 +8600,7 @@ public extension StepperFieldStyle where Self == StepperFieldDecrementActionStyl
         StepperFieldDecrementActionStyle(style: style)
     }
 
-    static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperFieldDecrementActionStyle {
+    @MainActor static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperFieldDecrementActionStyle {
         let style = AnyDecrementActionStyle(content)
         return StepperFieldDecrementActionStyle(style: style)
     }
@@ -8621,7 +8621,7 @@ public extension StepperFieldStyle where Self == StepperFieldIncrementActionStyl
         StepperFieldIncrementActionStyle(style: style)
     }
 
-    static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperFieldIncrementActionStyle {
+    @MainActor static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperFieldIncrementActionStyle {
         let style = AnyIncrementActionStyle(content)
         return StepperFieldIncrementActionStyle(style: style)
     }
@@ -8642,7 +8642,7 @@ public extension StepperFieldStyle where Self == StepperFieldTextInputFieldStyle
         StepperFieldTextInputFieldStyle(style: style)
     }
 
-    static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
+    @MainActor static func textInputFieldStyle(@ViewBuilder content: @escaping (TextInputFieldConfiguration) -> some View) -> StepperFieldTextInputFieldStyle {
         let style = AnyTextInputFieldStyle(content)
         return StepperFieldTextInputFieldStyle(style: style)
     }
@@ -8677,7 +8677,7 @@ public extension StepperViewStyle where Self == StepperViewTitleStyle {
         StepperViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepperViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> StepperViewTitleStyle {
         let style = AnyTitleStyle(content)
         return StepperViewTitleStyle(style: style)
     }
@@ -8698,7 +8698,7 @@ public extension StepperViewStyle where Self == StepperViewDecrementActionStyle 
         StepperViewDecrementActionStyle(style: style)
     }
 
-    static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperViewDecrementActionStyle {
+    @MainActor static func decrementActionStyle(@ViewBuilder content: @escaping (DecrementActionConfiguration) -> some View) -> StepperViewDecrementActionStyle {
         let style = AnyDecrementActionStyle(content)
         return StepperViewDecrementActionStyle(style: style)
     }
@@ -8719,7 +8719,7 @@ public extension StepperViewStyle where Self == StepperViewIncrementActionStyle 
         StepperViewIncrementActionStyle(style: style)
     }
 
-    static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperViewIncrementActionStyle {
+    @MainActor static func incrementActionStyle(@ViewBuilder content: @escaping (IncrementActionConfiguration) -> some View) -> StepperViewIncrementActionStyle {
         let style = AnyIncrementActionStyle(content)
         return StepperViewIncrementActionStyle(style: style)
     }
@@ -8740,7 +8740,7 @@ public extension StepperViewStyle where Self == StepperViewIconStyle {
         StepperViewIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> StepperViewIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> StepperViewIconStyle {
         let style = AnyIconStyle(content)
         return StepperViewIconStyle(style: style)
     }
@@ -8761,7 +8761,7 @@ public extension StepperViewStyle where Self == StepperViewDescriptionStyle {
         StepperViewDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> StepperViewDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> StepperViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return StepperViewDescriptionStyle(style: style)
     }
@@ -8782,7 +8782,7 @@ public extension StepperViewStyle where Self == StepperViewStepperFieldStyle {
         StepperViewStepperFieldStyle(style: style)
     }
 
-    static func stepperFieldStyle(@ViewBuilder content: @escaping (StepperFieldConfiguration) -> some View) -> StepperViewStepperFieldStyle {
+    @MainActor static func stepperFieldStyle(@ViewBuilder content: @escaping (StepperFieldConfiguration) -> some View) -> StepperViewStepperFieldStyle {
         let style = AnyStepperFieldStyle(content)
         return StepperViewStepperFieldStyle(style: style)
     }
@@ -8803,7 +8803,7 @@ public extension StepperViewStyle where Self == StepperViewInformationViewStyle 
         StepperViewInformationViewStyle(style: style)
     }
 
-    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> StepperViewInformationViewStyle {
+    @MainActor static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> StepperViewInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return StepperViewInformationViewStyle(style: style)
     }
@@ -8908,7 +8908,7 @@ public extension SwitchViewStyle where Self == SwitchViewTitleStyle {
         SwitchViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SwitchViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> SwitchViewTitleStyle {
         let style = AnyTitleStyle(content)
         return SwitchViewTitleStyle(style: style)
     }
@@ -8929,7 +8929,7 @@ public extension SwitchViewStyle where Self == SwitchViewSwitchStyle {
         SwitchViewSwitchStyle(style: style)
     }
 
-    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SwitchViewSwitchStyle {
+    @MainActor static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> SwitchViewSwitchStyle {
         let style = AnySwitchStyle(content)
         return SwitchViewSwitchStyle(style: style)
     }
@@ -8950,7 +8950,7 @@ public extension SwitchViewStyle where Self == SwitchViewStateLabelStyle {
         SwitchViewStateLabelStyle(style: style)
     }
 
-    static func stateLabelStyle(@ViewBuilder content: @escaping (StateLabelConfiguration) -> some View) -> SwitchViewStateLabelStyle {
+    @MainActor static func stateLabelStyle(@ViewBuilder content: @escaping (StateLabelConfiguration) -> some View) -> SwitchViewStateLabelStyle {
         let style = AnyStateLabelStyle(content)
         return SwitchViewStateLabelStyle(style: style)
     }
@@ -8971,7 +8971,7 @@ public extension SwitchViewStyle where Self == SwitchViewIconStyle {
         SwitchViewIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SwitchViewIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> SwitchViewIconStyle {
         let style = AnyIconStyle(content)
         return SwitchViewIconStyle(style: style)
     }
@@ -8992,7 +8992,7 @@ public extension SwitchViewStyle where Self == SwitchViewDescriptionStyle {
         SwitchViewDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> SwitchViewDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> SwitchViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return SwitchViewDescriptionStyle(style: style)
     }
@@ -9013,7 +9013,7 @@ public extension SwitchViewStyle where Self == SwitchViewInformationViewStyle {
         SwitchViewInformationViewStyle(style: style)
     }
 
-    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> SwitchViewInformationViewStyle {
+    @MainActor static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> SwitchViewInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return SwitchViewInformationViewStyle(style: style)
     }
@@ -9090,7 +9090,7 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleStyl
         TextFieldFormViewTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TextFieldFormViewTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TextFieldFormViewTitleStyle {
         let style = AnyTitleStyle(content)
         return TextFieldFormViewTitleStyle(style: style)
     }
@@ -9111,7 +9111,7 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewPlacehold
         TextFieldFormViewPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> TextFieldFormViewPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> TextFieldFormViewPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return TextFieldFormViewPlaceholderStyle(style: style)
     }
@@ -9132,7 +9132,7 @@ public extension TextFieldFormViewStyle where Self == TextFieldFormViewTitleForm
         TextFieldFormViewTitleFormViewStyle(style: style)
     }
 
-    static func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> TextFieldFormViewTitleFormViewStyle {
+    @MainActor static func titleFormViewStyle(@ViewBuilder content: @escaping (TitleFormViewConfiguration) -> some View) -> TextFieldFormViewTitleFormViewStyle {
         let style = AnyTitleFormViewStyle(content)
         return TextFieldFormViewTitleFormViewStyle(style: style)
     }
@@ -9195,7 +9195,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle
         TextInputInfoViewIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TextInputInfoViewIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TextInputInfoViewIconStyle {
         let style = AnyIconStyle(content)
         return TextInputInfoViewIconStyle(style: style)
     }
@@ -9216,7 +9216,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescripti
         TextInputInfoViewDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> TextInputInfoViewDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> TextInputInfoViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return TextInputInfoViewDescriptionStyle(style: style)
     }
@@ -9237,7 +9237,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterSt
         TextInputInfoViewCounterStyle(style: style)
     }
 
-    static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> TextInputInfoViewCounterStyle {
+    @MainActor static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> TextInputInfoViewCounterStyle {
         let style = AnyCounterStyle(content)
         return TextInputInfoViewCounterStyle(style: style)
     }
@@ -9258,7 +9258,7 @@ public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformati
         TextInputInfoViewInformationViewStyle(style: style)
     }
 
-    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> TextInputInfoViewInformationViewStyle {
+    @MainActor static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> TextInputInfoViewInformationViewStyle {
         let style = AnyInformationViewStyle(content)
         return TextInputInfoViewInformationViewStyle(style: style)
     }
@@ -9307,7 +9307,7 @@ public extension TimelineStyle where Self == TimelineTimestampStyle {
         TimelineTimestampStyle(style: style)
     }
 
-    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineTimestampStyle {
+    @MainActor static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineTimestampStyle {
         let style = AnyTimestampStyle(content)
         return TimelineTimestampStyle(style: style)
     }
@@ -9328,7 +9328,7 @@ public extension TimelineStyle where Self == TimelineSecondaryTimestampStyle {
         TimelineSecondaryTimestampStyle(style: style)
     }
 
-    static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineSecondaryTimestampStyle {
+    @MainActor static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineSecondaryTimestampStyle {
         let style = AnySecondaryTimestampStyle(content)
         return TimelineSecondaryTimestampStyle(style: style)
     }
@@ -9349,7 +9349,7 @@ public extension TimelineStyle where Self == TimelineTimelineNodeStyle {
         TimelineTimelineNodeStyle(style: style)
     }
 
-    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineTimelineNodeStyle {
+    @MainActor static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineTimelineNodeStyle {
         let style = AnyTimelineNodeStyle(content)
         return TimelineTimelineNodeStyle(style: style)
     }
@@ -9370,7 +9370,7 @@ public extension TimelineStyle where Self == TimelineIconStyle {
         TimelineIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineIconStyle {
         let style = AnyIconStyle(content)
         return TimelineIconStyle(style: style)
     }
@@ -9391,7 +9391,7 @@ public extension TimelineStyle where Self == TimelineTitleStyle {
         TimelineTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineTitleStyle {
         let style = AnyTitleStyle(content)
         return TimelineTitleStyle(style: style)
     }
@@ -9412,7 +9412,7 @@ public extension TimelineStyle where Self == TimelineSubtitleStyle {
         TimelineSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> TimelineSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> TimelineSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return TimelineSubtitleStyle(style: style)
     }
@@ -9433,7 +9433,7 @@ public extension TimelineStyle where Self == TimelineAttributeStyle {
         TimelineAttributeStyle(style: style)
     }
 
-    static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> TimelineAttributeStyle {
+    @MainActor static func attributeStyle(@ViewBuilder content: @escaping (AttributeConfiguration) -> some View) -> TimelineAttributeStyle {
         let style = AnyAttributeStyle(content)
         return TimelineAttributeStyle(style: style)
     }
@@ -9454,7 +9454,7 @@ public extension TimelineStyle where Self == TimelineStatusStyle {
         TimelineStatusStyle(style: style)
     }
 
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> TimelineStatusStyle {
+    @MainActor static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> TimelineStatusStyle {
         let style = AnyStatusStyle(content)
         return TimelineStatusStyle(style: style)
     }
@@ -9475,7 +9475,7 @@ public extension TimelineStyle where Self == TimelineSubstatusStyle {
         TimelineSubstatusStyle(style: style)
     }
 
-    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> TimelineSubstatusStyle {
+    @MainActor static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> TimelineSubstatusStyle {
         let style = AnySubstatusStyle(content)
         return TimelineSubstatusStyle(style: style)
     }
@@ -9496,7 +9496,7 @@ public extension TimelineStyle where Self == TimelineSubAttributeStyle {
         TimelineSubAttributeStyle(style: style)
     }
 
-    static func subAttributeStyle(@ViewBuilder content: @escaping (SubAttributeConfiguration) -> some View) -> TimelineSubAttributeStyle {
+    @MainActor static func subAttributeStyle(@ViewBuilder content: @escaping (SubAttributeConfiguration) -> some View) -> TimelineSubAttributeStyle {
         let style = AnySubAttributeStyle(content)
         return TimelineSubAttributeStyle(style: style)
     }
@@ -9531,7 +9531,7 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerTimestampStyle 
         TimelineMarkerTimestampStyle(style: style)
     }
 
-    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineMarkerTimestampStyle {
+    @MainActor static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelineMarkerTimestampStyle {
         let style = AnyTimestampStyle(content)
         return TimelineMarkerTimestampStyle(style: style)
     }
@@ -9552,7 +9552,7 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerSecondaryTimest
         TimelineMarkerSecondaryTimestampStyle(style: style)
     }
 
-    static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineMarkerSecondaryTimestampStyle {
+    @MainActor static func secondaryTimestampStyle(@ViewBuilder content: @escaping (SecondaryTimestampConfiguration) -> some View) -> TimelineMarkerSecondaryTimestampStyle {
         let style = AnySecondaryTimestampStyle(content)
         return TimelineMarkerSecondaryTimestampStyle(style: style)
     }
@@ -9573,7 +9573,7 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerTimelineNodeSty
         TimelineMarkerTimelineNodeStyle(style: style)
     }
 
-    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineMarkerTimelineNodeStyle {
+    @MainActor static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelineMarkerTimelineNodeStyle {
         let style = AnyTimelineNodeStyle(content)
         return TimelineMarkerTimelineNodeStyle(style: style)
     }
@@ -9594,7 +9594,7 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerIconStyle {
         TimelineMarkerIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineMarkerIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelineMarkerIconStyle {
         let style = AnyIconStyle(content)
         return TimelineMarkerIconStyle(style: style)
     }
@@ -9615,7 +9615,7 @@ public extension TimelineMarkerStyle where Self == TimelineMarkerTitleStyle {
         TimelineMarkerTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineMarkerTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelineMarkerTitleStyle {
         let style = AnyTitleStyle(content)
         return TimelineMarkerTitleStyle(style: style)
     }
@@ -9664,7 +9664,7 @@ public extension TimelineNowIndicatorStyle where Self == TimelineNowIndicatorNow
         TimelineNowIndicatorNowIndicatorNodeStyle(style: style)
     }
 
-    static func nowIndicatorNodeStyle(@ViewBuilder content: @escaping (NowIndicatorNodeConfiguration) -> some View) -> TimelineNowIndicatorNowIndicatorNodeStyle {
+    @MainActor static func nowIndicatorNodeStyle(@ViewBuilder content: @escaping (NowIndicatorNodeConfiguration) -> some View) -> TimelineNowIndicatorNowIndicatorNodeStyle {
         let style = AnyNowIndicatorNodeStyle(content)
         return TimelineNowIndicatorNowIndicatorNodeStyle(style: style)
     }
@@ -9699,7 +9699,7 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewOptionalTitle
         TimelinePreviewOptionalTitleStyle(style: style)
     }
 
-    static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> TimelinePreviewOptionalTitleStyle {
+    @MainActor static func optionalTitleStyle(@ViewBuilder content: @escaping (OptionalTitleConfiguration) -> some View) -> TimelinePreviewOptionalTitleStyle {
         let style = AnyOptionalTitleStyle(content)
         return TimelinePreviewOptionalTitleStyle(style: style)
     }
@@ -9720,7 +9720,7 @@ public extension TimelinePreviewStyle where Self == TimelinePreviewActionStyle {
         TimelinePreviewActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> TimelinePreviewActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> TimelinePreviewActionStyle {
         let style = AnyActionStyle(content)
         return TimelinePreviewActionStyle(style: style)
     }
@@ -9755,7 +9755,7 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTitle
         TimelinePreviewItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelinePreviewItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> TimelinePreviewItemTitleStyle {
         let style = AnyTitleStyle(content)
         return TimelinePreviewItemTitleStyle(style: style)
     }
@@ -9776,7 +9776,7 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemIconS
         TimelinePreviewItemIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelinePreviewItemIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TimelinePreviewItemIconStyle {
         let style = AnyIconStyle(content)
         return TimelinePreviewItemIconStyle(style: style)
     }
@@ -9797,7 +9797,7 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTimel
         TimelinePreviewItemTimelineNodeStyle(style: style)
     }
 
-    static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelinePreviewItemTimelineNodeStyle {
+    @MainActor static func timelineNodeStyle(@ViewBuilder content: @escaping (TimelineNodeConfiguration) -> some View) -> TimelinePreviewItemTimelineNodeStyle {
         let style = AnyTimelineNodeStyle(content)
         return TimelinePreviewItemTimelineNodeStyle(style: style)
     }
@@ -9818,7 +9818,7 @@ public extension TimelinePreviewItemStyle where Self == TimelinePreviewItemTimes
         TimelinePreviewItemTimestampStyle(style: style)
     }
 
-    static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelinePreviewItemTimestampStyle {
+    @MainActor static func timestampStyle(@ViewBuilder content: @escaping (TimestampConfiguration) -> some View) -> TimelinePreviewItemTimestampStyle {
         let style = AnyTimestampStyle(content)
         return TimelinePreviewItemTimestampStyle(style: style)
     }
@@ -9881,7 +9881,7 @@ public extension TitleFormViewStyle where Self == TitleFormViewPlaceholderStyle 
         TitleFormViewPlaceholderStyle(style: style)
     }
 
-    static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> TitleFormViewPlaceholderStyle {
+    @MainActor static func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> TitleFormViewPlaceholderStyle {
         let style = AnyPlaceholderStyle(content)
         return TitleFormViewPlaceholderStyle(style: style)
     }
@@ -9902,7 +9902,7 @@ public extension TitleFormViewStyle where Self == TitleFormViewPlaceholderTextFi
         TitleFormViewPlaceholderTextFieldStyle(style: style)
     }
 
-    static func placeholderTextFieldStyle(@ViewBuilder content: @escaping (PlaceholderTextFieldConfiguration) -> some View) -> TitleFormViewPlaceholderTextFieldStyle {
+    @MainActor static func placeholderTextFieldStyle(@ViewBuilder content: @escaping (PlaceholderTextFieldConfiguration) -> some View) -> TitleFormViewPlaceholderTextFieldStyle {
         let style = AnyPlaceholderTextFieldStyle(content)
         return TitleFormViewPlaceholderTextFieldStyle(style: style)
     }
@@ -9923,7 +9923,7 @@ public extension TitleFormViewStyle where Self == TitleFormViewFormViewStyle {
         TitleFormViewFormViewStyle(style: style)
     }
 
-    static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
+    @MainActor static func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> TitleFormViewFormViewStyle {
         let style = AnyFormViewStyle(content)
         return TitleFormViewFormViewStyle(style: style)
     }
@@ -9958,7 +9958,7 @@ public extension ToastMessageStyle where Self == ToastMessageIconStyle {
         ToastMessageIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ToastMessageIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> ToastMessageIconStyle {
         let style = AnyIconStyle(content)
         return ToastMessageIconStyle(style: style)
     }
@@ -9979,7 +9979,7 @@ public extension ToastMessageStyle where Self == ToastMessageTitleStyle {
         ToastMessageTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ToastMessageTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ToastMessageTitleStyle {
         let style = AnyTitleStyle(content)
         return ToastMessageTitleStyle(style: style)
     }
@@ -10112,7 +10112,7 @@ public extension UserConsentFormStyle where Self == UserConsentFormNextActionSty
         UserConsentFormNextActionStyle(style: style)
     }
 
-    static func nextActionStyle(@ViewBuilder content: @escaping (NextActionConfiguration) -> some View) -> UserConsentFormNextActionStyle {
+    @MainActor static func nextActionStyle(@ViewBuilder content: @escaping (NextActionConfiguration) -> some View) -> UserConsentFormNextActionStyle {
         let style = AnyNextActionStyle(content)
         return UserConsentFormNextActionStyle(style: style)
     }
@@ -10133,7 +10133,7 @@ public extension UserConsentFormStyle where Self == UserConsentFormCancelActionS
         UserConsentFormCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> UserConsentFormCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> UserConsentFormCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return UserConsentFormCancelActionStyle(style: style)
     }
@@ -10154,7 +10154,7 @@ public extension UserConsentFormStyle where Self == UserConsentFormAllowActionSt
         UserConsentFormAllowActionStyle(style: style)
     }
 
-    static func allowActionStyle(@ViewBuilder content: @escaping (AllowActionConfiguration) -> some View) -> UserConsentFormAllowActionStyle {
+    @MainActor static func allowActionStyle(@ViewBuilder content: @escaping (AllowActionConfiguration) -> some View) -> UserConsentFormAllowActionStyle {
         let style = AnyAllowActionStyle(content)
         return UserConsentFormAllowActionStyle(style: style)
     }
@@ -10175,7 +10175,7 @@ public extension UserConsentFormStyle where Self == UserConsentFormDenyActionSty
         UserConsentFormDenyActionStyle(style: style)
     }
 
-    static func denyActionStyle(@ViewBuilder content: @escaping (DenyActionConfiguration) -> some View) -> UserConsentFormDenyActionStyle {
+    @MainActor static func denyActionStyle(@ViewBuilder content: @escaping (DenyActionConfiguration) -> some View) -> UserConsentFormDenyActionStyle {
         let style = AnyDenyActionStyle(content)
         return UserConsentFormDenyActionStyle(style: style)
     }
@@ -10196,7 +10196,7 @@ public extension UserConsentFormStyle where Self == UserConsentFormNotNowActionS
         UserConsentFormNotNowActionStyle(style: style)
     }
 
-    static func notNowActionStyle(@ViewBuilder content: @escaping (NotNowActionConfiguration) -> some View) -> UserConsentFormNotNowActionStyle {
+    @MainActor static func notNowActionStyle(@ViewBuilder content: @escaping (NotNowActionConfiguration) -> some View) -> UserConsentFormNotNowActionStyle {
         let style = AnyNotNowActionStyle(content)
         return UserConsentFormNotNowActionStyle(style: style)
     }
@@ -10231,7 +10231,7 @@ public extension UserConsentPageStyle where Self == UserConsentPageTitleStyle {
         UserConsentPageTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> UserConsentPageTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> UserConsentPageTitleStyle {
         let style = AnyTitleStyle(content)
         return UserConsentPageTitleStyle(style: style)
     }
@@ -10252,7 +10252,7 @@ public extension UserConsentPageStyle where Self == UserConsentPageBodyTextStyle
         UserConsentPageBodyTextStyle(style: style)
     }
 
-    static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> UserConsentPageBodyTextStyle {
+    @MainActor static func bodyTextStyle(@ViewBuilder content: @escaping (BodyTextConfiguration) -> some View) -> UserConsentPageBodyTextStyle {
         let style = AnyBodyTextStyle(content)
         return UserConsentPageBodyTextStyle(style: style)
     }
@@ -10273,7 +10273,7 @@ public extension UserConsentPageStyle where Self == UserConsentPageActionStyle {
         UserConsentPageActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> UserConsentPageActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> UserConsentPageActionStyle {
         let style = AnyActionStyle(content)
         return UserConsentPageActionStyle(style: style)
     }
@@ -10350,7 +10350,7 @@ public extension ValuePickerStyle where Self == ValuePickerTitleStyle {
         ValuePickerTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ValuePickerTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ValuePickerTitleStyle {
         let style = AnyTitleStyle(content)
         return ValuePickerTitleStyle(style: style)
     }
@@ -10371,7 +10371,7 @@ public extension ValuePickerStyle where Self == ValuePickerValueLabelStyle {
         ValuePickerValueLabelStyle(style: style)
     }
 
-    static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> ValuePickerValueLabelStyle {
+    @MainActor static func valueLabelStyle(@ViewBuilder content: @escaping (ValueLabelConfiguration) -> some View) -> ValuePickerValueLabelStyle {
         let style = AnyValueLabelStyle(content)
         return ValuePickerValueLabelStyle(style: style)
     }
@@ -10392,7 +10392,7 @@ public extension ValuePickerStyle where Self == ValuePickerOptionsStyle {
         ValuePickerOptionsStyle(style: style)
     }
 
-    static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> ValuePickerOptionsStyle {
+    @MainActor static func optionsStyle(@ViewBuilder content: @escaping (OptionsConfiguration) -> some View) -> ValuePickerOptionsStyle {
         let style = AnyOptionsStyle(content)
         return ValuePickerOptionsStyle(style: style)
     }
@@ -10441,7 +10441,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenTitleStyle {
         WelcomeScreenTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WelcomeScreenTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WelcomeScreenTitleStyle {
         let style = AnyTitleStyle(content)
         return WelcomeScreenTitleStyle(style: style)
     }
@@ -10462,7 +10462,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenDescriptionStyle 
         WelcomeScreenDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WelcomeScreenDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WelcomeScreenDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return WelcomeScreenDescriptionStyle(style: style)
     }
@@ -10483,7 +10483,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenIconStyle {
         WelcomeScreenIconStyle(style: style)
     }
 
-    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> WelcomeScreenIconStyle {
+    @MainActor static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> WelcomeScreenIconStyle {
         let style = AnyIconStyle(content)
         return WelcomeScreenIconStyle(style: style)
     }
@@ -10504,7 +10504,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenFootnoteStyle {
         WelcomeScreenFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WelcomeScreenFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WelcomeScreenFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return WelcomeScreenFootnoteStyle(style: style)
     }
@@ -10525,7 +10525,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenActionStyle {
         WelcomeScreenActionStyle(style: style)
     }
 
-    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> WelcomeScreenActionStyle {
+    @MainActor static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> WelcomeScreenActionStyle {
         let style = AnyActionStyle(content)
         return WelcomeScreenActionStyle(style: style)
     }
@@ -10546,7 +10546,7 @@ public extension WelcomeScreenStyle where Self == WelcomeScreenSecondaryActionSt
         WelcomeScreenSecondaryActionStyle(style: style)
     }
 
-    static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> WelcomeScreenSecondaryActionStyle {
+    @MainActor static func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> WelcomeScreenSecondaryActionStyle {
         let style = AnySecondaryActionStyle(content)
         return WelcomeScreenSecondaryActionStyle(style: style)
     }
@@ -10581,7 +10581,7 @@ public extension WhatsNewListItemStyle where Self == WhatsNewListItemDetailImage
         WhatsNewListItemDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewListItemDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewListItemDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return WhatsNewListItemDetailImageStyle(style: style)
     }
@@ -10602,7 +10602,7 @@ public extension WhatsNewListItemStyle where Self == WhatsNewListItemTitleStyle 
         WhatsNewListItemTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewListItemTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewListItemTitleStyle {
         let style = AnyTitleStyle(content)
         return WhatsNewListItemTitleStyle(style: style)
     }
@@ -10623,7 +10623,7 @@ public extension WhatsNewListItemStyle where Self == WhatsNewListItemSubtitleSty
         WhatsNewListItemSubtitleStyle(style: style)
     }
 
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> WhatsNewListItemSubtitleStyle {
+    @MainActor static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> WhatsNewListItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return WhatsNewListItemSubtitleStyle(style: style)
     }
@@ -10672,7 +10672,7 @@ public extension WhatsNewPageStyle where Self == WhatsNewPageDetailImageStyle {
         WhatsNewPageDetailImageStyle(style: style)
     }
 
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewPageDetailImageStyle {
+    @MainActor static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> WhatsNewPageDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return WhatsNewPageDetailImageStyle(style: style)
     }
@@ -10693,7 +10693,7 @@ public extension WhatsNewPageStyle where Self == WhatsNewPageTitleStyle {
         WhatsNewPageTitleStyle(style: style)
     }
 
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewPageTitleStyle {
+    @MainActor static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> WhatsNewPageTitleStyle {
         let style = AnyTitleStyle(content)
         return WhatsNewPageTitleStyle(style: style)
     }
@@ -10714,7 +10714,7 @@ public extension WhatsNewPageStyle where Self == WhatsNewPageDescriptionStyle {
         WhatsNewPageDescriptionStyle(style: style)
     }
 
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WhatsNewPageDescriptionStyle {
+    @MainActor static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> WhatsNewPageDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return WhatsNewPageDescriptionStyle(style: style)
     }
@@ -10777,7 +10777,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormCan
         WritingAssistantFormCancelActionStyle(style: style)
     }
 
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> WritingAssistantFormCancelActionStyle {
+    @MainActor static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> WritingAssistantFormCancelActionStyle {
         let style = AnyCancelActionStyle(content)
         return WritingAssistantFormCancelActionStyle(style: style)
     }
@@ -10798,7 +10798,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormDon
         WritingAssistantFormDoneActionStyle(style: style)
     }
 
-    static func doneActionStyle(@ViewBuilder content: @escaping (DoneActionConfiguration) -> some View) -> WritingAssistantFormDoneActionStyle {
+    @MainActor static func doneActionStyle(@ViewBuilder content: @escaping (DoneActionConfiguration) -> some View) -> WritingAssistantFormDoneActionStyle {
         let style = AnyDoneActionStyle(content)
         return WritingAssistantFormDoneActionStyle(style: style)
     }
@@ -10819,7 +10819,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormClo
         WritingAssistantFormCloseActionStyle(style: style)
     }
 
-    static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> WritingAssistantFormCloseActionStyle {
+    @MainActor static func closeActionStyle(@ViewBuilder content: @escaping (CloseActionConfiguration) -> some View) -> WritingAssistantFormCloseActionStyle {
         let style = AnyCloseActionStyle(content)
         return WritingAssistantFormCloseActionStyle(style: style)
     }
@@ -10840,7 +10840,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormBac
         WritingAssistantFormBackActionStyle(style: style)
     }
 
-    static func backActionStyle(@ViewBuilder content: @escaping (BackActionConfiguration) -> some View) -> WritingAssistantFormBackActionStyle {
+    @MainActor static func backActionStyle(@ViewBuilder content: @escaping (BackActionConfiguration) -> some View) -> WritingAssistantFormBackActionStyle {
         let style = AnyBackActionStyle(content)
         return WritingAssistantFormBackActionStyle(style: style)
     }
@@ -10861,7 +10861,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormUnd
         WritingAssistantFormUndoActionStyle(style: style)
     }
 
-    static func undoActionStyle(@ViewBuilder content: @escaping (UndoActionConfiguration) -> some View) -> WritingAssistantFormUndoActionStyle {
+    @MainActor static func undoActionStyle(@ViewBuilder content: @escaping (UndoActionConfiguration) -> some View) -> WritingAssistantFormUndoActionStyle {
         let style = AnyUndoActionStyle(content)
         return WritingAssistantFormUndoActionStyle(style: style)
     }
@@ -10882,7 +10882,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormRed
         WritingAssistantFormRedoActionStyle(style: style)
     }
 
-    static func redoActionStyle(@ViewBuilder content: @escaping (RedoActionConfiguration) -> some View) -> WritingAssistantFormRedoActionStyle {
+    @MainActor static func redoActionStyle(@ViewBuilder content: @escaping (RedoActionConfiguration) -> some View) -> WritingAssistantFormRedoActionStyle {
         let style = AnyRedoActionStyle(content)
         return WritingAssistantFormRedoActionStyle(style: style)
     }
@@ -10903,7 +10903,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormUpV
         WritingAssistantFormUpVoteActionStyle(style: style)
     }
 
-    static func upVoteActionStyle(@ViewBuilder content: @escaping (UpVoteActionConfiguration) -> some View) -> WritingAssistantFormUpVoteActionStyle {
+    @MainActor static func upVoteActionStyle(@ViewBuilder content: @escaping (UpVoteActionConfiguration) -> some View) -> WritingAssistantFormUpVoteActionStyle {
         let style = AnyUpVoteActionStyle(content)
         return WritingAssistantFormUpVoteActionStyle(style: style)
     }
@@ -10924,7 +10924,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormDow
         WritingAssistantFormDownVoteActionStyle(style: style)
     }
 
-    static func downVoteActionStyle(@ViewBuilder content: @escaping (DownVoteActionConfiguration) -> some View) -> WritingAssistantFormDownVoteActionStyle {
+    @MainActor static func downVoteActionStyle(@ViewBuilder content: @escaping (DownVoteActionConfiguration) -> some View) -> WritingAssistantFormDownVoteActionStyle {
         let style = AnyDownVoteActionStyle(content)
         return WritingAssistantFormDownVoteActionStyle(style: style)
     }
@@ -10945,7 +10945,7 @@ public extension WritingAssistantFormStyle where Self == WritingAssistantFormFoo
         WritingAssistantFormFootnoteStyle(style: style)
     }
 
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WritingAssistantFormFootnoteStyle {
+    @MainActor static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> WritingAssistantFormFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return WritingAssistantFormFootnoteStyle(style: style)
     }

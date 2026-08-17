@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LoadingIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LoadingIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LoadingIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LoadingIndicatorConfiguration) -> Body
 }
 
 struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
@@ -44,5 +44,15 @@ public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
         LoadingIndicator(configuration)
             .titleStyle(TitleFioriStyle(loadingIndicatorConfiguration: configuration))
             .progressStyle(ProgressFioriStyle(loadingIndicatorConfiguration: configuration))
+    }
+}
+
+struct LoadingIndicatorDefaultStyle: LoadingIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
+        LoadingIndicator(configuration)
+            .loadingIndicatorStyle(LoadingIndicatorFioriStyle())
+            .modifier(LoadingIndicatorStyleModifier(style: LoadingIndicatorBaseStyle()))
     }
 }

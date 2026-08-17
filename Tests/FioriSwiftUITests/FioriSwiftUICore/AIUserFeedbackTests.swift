@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class AIUserFeedbackTests: XCTestCase {
+@MainActor final class AIUserFeedbackTests: XCTestCase {
     func testPrimaryInitializer() {
         var filterFormViewSelectionValue = [0]
         var valueText = ""

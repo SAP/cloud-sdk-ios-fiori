@@ -25,6 +25,7 @@ public extension Status {
 }
 
 public extension Status {
+    @MainActor
     init(status: TextOrIcon? = nil) {
         self.init(status: { TextOrIconView(status) })
     }
@@ -64,6 +65,7 @@ private extension Status {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Status(.init(componentIdentifier: self.componentIdentifier, status: .init(self.status)))
             .shouldApplyDefaultStyle(false)

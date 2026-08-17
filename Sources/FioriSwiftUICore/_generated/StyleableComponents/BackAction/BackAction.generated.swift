@@ -27,6 +27,7 @@ public extension BackAction {
 }
 
 public extension BackAction {
+    @MainActor
     init(backAction: FioriButton? = FioriButton._backButton) {
         self.init(backAction: { backAction })
     }
@@ -66,6 +67,7 @@ private extension BackAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         BackAction(.init(componentIdentifier: self.componentIdentifier, backAction: .init(self.backAction)))
             .shouldApplyDefaultStyle(false)

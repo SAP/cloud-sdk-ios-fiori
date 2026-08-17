@@ -76,6 +76,7 @@ public extension NoteFormView {
 }
 
 public extension NoteFormView {
+    @MainActor
     init(text: Binding<String>,
          placeholder: AttributedString? = nil,
          controlState: ControlState = .normal,
@@ -142,6 +143,7 @@ private extension NoteFormView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         NoteFormView(.init(componentIdentifier: self.componentIdentifier, text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg, isAINoticeEnabled: self.isAINoticeEnabled))
             .shouldApplyDefaultStyle(false)

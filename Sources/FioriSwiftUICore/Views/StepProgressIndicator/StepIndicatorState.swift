@@ -1,7 +1,7 @@
 import Foundation
 
 /// An option set for step state that used for default `StepProgressIndicator`
-public struct StepProgressIndicatorState: OptionSet {
+public struct StepProgressIndicatorState: OptionSet, Sendable {
     /// :nodoc:
     public let rawValue: UInt
     /// :nodoc:

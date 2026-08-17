@@ -5,7 +5,7 @@ import SwiftUI
 /// :nodoc:
 public extension AvatarStack {
     /// Layout for avatars in the stack.
-    enum Layout {
+    enum Layout: Sendable {
         /// Horizontal layout for avatars.
         case horizontal
         /// Grouped layout for avatars.
@@ -13,7 +13,7 @@ public extension AvatarStack {
     }
     
     /// Text position for icons.
-    enum TextPosition {
+    enum TextPosition: Sendable {
         /// Top position for text.
         case top
         /// Bottom position for text.

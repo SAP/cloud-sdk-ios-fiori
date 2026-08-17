@@ -40,6 +40,7 @@ public extension SingleStep {
 }
 
 public extension SingleStep {
+    @MainActor
     init(title: AttributedString,
          node: TextOrIcon? = nil,
          @ViewBuilder line: () -> any View = { Rectangle() },
@@ -90,6 +91,7 @@ private extension SingleStep {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SingleStep(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), node: .init(self.node), line: .init(self.line), id: self.id, state: self.state, substeps: self.substeps))
             .shouldApplyDefaultStyle(false)

@@ -53,6 +53,7 @@ public extension SideBarListItem {
 }
 
 public extension SideBarListItem {
+    @MainActor
     init(icon: Image? = nil,
          filledIcon: Image? = nil,
          title: AttributedString,
@@ -107,6 +108,7 @@ private extension SideBarListItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SideBarListItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), filledIcon: .init(self.filledIcon), title: .init(self.title), subtitle: .init(self.subtitle), accessoryIcon: .init(self.accessoryIcon), isOn: self.$isOn, data: self.data, isSelected: self.$isSelected))
             .shouldApplyDefaultStyle(false)

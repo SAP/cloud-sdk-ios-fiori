@@ -4,7 +4,7 @@ import SwiftUI
 import UIKit
 import XCTest
 
-class SignatureCaptureTests: XCTestCase {
+@MainActor class SignatureCaptureTests: XCTestCase {
     var isOnSaveCalled = false
     var isOnDeleteCalled = false
 

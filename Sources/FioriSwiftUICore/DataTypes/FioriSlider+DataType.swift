@@ -319,7 +319,7 @@ public extension View {
 /// The `FioriSliderTextFieldStyle` structure is used to customize the appearance of the text field in a Fiori Slider.
 /// It allows for the configuration of various properties such as border colors, widths, corner radius, font, and foreground colors.
 /// Consumers can create their own instances of `FioriSliderTextFieldStyle` to apply custom styles to the slider text field.
-public struct FioriSliderTextFieldStyle {
+public struct FioriSliderTextFieldStyle: Sendable {
     /// Specifies the border color of the text field when it is not focused.
     public var borderColor: Color
     
@@ -378,7 +378,7 @@ public struct FioriSliderTextFieldStyle {
 }
 
 extension ValueLabel {
-    init(_ configuration: ValueLabelConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
+    @MainActor init(_ configuration: ValueLabelConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
         if !fioriSliderConfiguration.showsValueLabel {
             self.init(valueLabel: { EmptyView() })
         } else if configuration.valueLabel.isEmpty, !fioriSliderConfiguration.isRangeSlider { // By default, display slider value for standard slider if there is no customized value label
@@ -390,7 +390,7 @@ extension ValueLabel {
 }
 
 extension LeadingAccessory {
-    init(configuration: LeadingAccessoryConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
+    @MainActor init(configuration: LeadingAccessoryConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
         if !fioriSliderConfiguration.showsLeadingAccessory {
             self.init(leadingAccessory: { EmptyView() })
         } else if !configuration.leadingAccessory.isEmpty { // display customized leading view
@@ -404,7 +404,7 @@ extension LeadingAccessory {
 }
 
 extension TrailingAccessory {
-    init(configuration: TrailingAccessoryConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
+    @MainActor init(configuration: TrailingAccessoryConfiguration, fioriSliderConfiguration: FioriSliderConfiguration) {
         if !fioriSliderConfiguration.showsTrailingAccessory {
             self.init(trailingAccessory: { EmptyView() })
         } else if !configuration.trailingAccessory.isEmpty { // display customized trailing view
@@ -495,7 +495,7 @@ struct NumbersOnlyTextField: View {
 }
 
 extension TextField {
-    func numbersOnly(_ text: Binding<String>, decimalPlace: Int = 0, onValueChange: ((String) -> Void)? = nil) -> some View {
+    @MainActor func numbersOnly(_ text: Binding<String>, decimalPlace: Int = 0, onValueChange: ((String) -> Void)? = nil) -> some View {
         self.modifier(NumbersOnlyViewModifier(text: text, decimalPlace: decimalPlace, onValueChange: onValueChange))
     }
 }

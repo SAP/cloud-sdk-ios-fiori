@@ -85,6 +85,7 @@ public extension Authentication {
 }
 
 public extension Authentication {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          subtitle: AttributedString? = nil,
@@ -137,6 +138,7 @@ private extension Authentication {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Authentication(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), subtitle: .init(self.subtitle), authInput: .init(self.authInput), signInAction: .init(self.signInAction), isDisabled: self.isDisabled, didSignIn: self.didSignIn))
             .shouldApplyDefaultStyle(false)

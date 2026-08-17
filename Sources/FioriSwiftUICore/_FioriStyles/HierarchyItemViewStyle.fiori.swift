@@ -68,16 +68,18 @@ public struct HierarchyItemViewBaseStyle: HierarchyItemViewStyle {
                     Spacer()
                     
                     let isVerticalCenter = (configuration.accessoryType != .disclosure && configuration.accessoryType != .none)
+                    let currentHStackHeight = self.hStackHeight
+                    let currentStatusHeight = self.statusHeight
                     configuration.status
                         .measureHeight { self.statusHeight = $0 }
                         .alignmentGuide(.top) { dimension in
-                            isVerticalCenter ? -((self.hStackHeight - self.statusHeight) / 2) : dimension[VerticalAlignment.top]
+                            isVerticalCenter ? -((currentHStackHeight - currentStatusHeight) / 2) : dimension[VerticalAlignment.top]
                         }
                     
                     let accessoryHeight = configuration.accessoryViewSize().height
                     AccessoryView(accessoryType: configuration.accessoryType)
                         .alignmentGuide(.top) { dimension in
-                            isVerticalCenter ? -((self.hStackHeight - accessoryHeight) / 2) : dimension[VerticalAlignment.top]
+                            isVerticalCenter ? -((currentHStackHeight - accessoryHeight) / 2) : dimension[VerticalAlignment.top]
                         }
                 }
                 .measureHeight { height in

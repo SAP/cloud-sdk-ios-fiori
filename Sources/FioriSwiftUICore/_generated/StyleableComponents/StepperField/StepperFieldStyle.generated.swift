@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol StepperFieldStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol StepperFieldStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: StepperFieldConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: StepperFieldConfiguration) -> Body
 }
 
 struct AnyStepperFieldStyle: StepperFieldStyle {
@@ -48,5 +48,15 @@ public struct StepperFieldFioriStyle: StepperFieldStyle {
             .decrementActionStyle(DecrementActionFioriStyle(stepperFieldConfiguration: configuration))
             .incrementActionStyle(IncrementActionFioriStyle(stepperFieldConfiguration: configuration))
             .textInputFieldStyle(TextInputFieldFioriStyle(stepperFieldConfiguration: configuration))
+    }
+}
+
+struct StepperFieldDefaultStyle: StepperFieldStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
+        StepperField(configuration)
+            .stepperFieldStyle(StepperFieldFioriStyle())
+            .modifier(StepperFieldStyleModifier(style: StepperFieldBaseStyle()))
     }
 }

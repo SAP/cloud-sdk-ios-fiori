@@ -14,7 +14,7 @@ public struct MasonryLayout: Layout {
         }
     }
     
-    public enum ViewOrder: Int, CaseIterable {
+    public enum ViewOrder: Int, CaseIterable, Sendable {
         /// The placement of the views is top-most then left-most then
         case topMost
         

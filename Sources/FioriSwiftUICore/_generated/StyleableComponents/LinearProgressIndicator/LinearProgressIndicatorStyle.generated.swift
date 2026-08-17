@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LinearProgressIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LinearProgressIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> Body
 }
 
 struct AnyLinearProgressIndicatorStyle: LinearProgressIndicatorStyle {
@@ -29,5 +29,14 @@ public struct LinearProgressIndicatorConfiguration {
 extension LinearProgressIndicatorConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct LinearProgressIndicatorDefaultStyle: LinearProgressIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
+        LinearProgressIndicator(configuration)
+            .linearProgressIndicatorStyle(LinearProgressIndicatorBaseStyle())
     }
 }

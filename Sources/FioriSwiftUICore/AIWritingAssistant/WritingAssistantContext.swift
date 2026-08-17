@@ -35,15 +35,15 @@ struct WAErrorModel: Equatable {
     }
 }
 
-class WritingAssistantContext: NSObject, ObservableObject {
+class WritingAssistantContext: NSObject, ObservableObject, @unchecked Sendable {
     var selectionKVO: NSKeyValueObservation?
     var waTextInput: (any WATextInput)?
     
     @Published var originalValue: String
     @Published var displayedValue: String
     
-    var originalSelectedRange: NSRange? = nil
-    var selectedRange: NSRange? = nil
+    var originalSelectedRange: NSRange?
+    var selectedRange: NSRange?
     var canResetSelectedRange = true
     
     @Published var inProgress: Bool = false
@@ -119,7 +119,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.displayedValue = originalValue
     }
     
-    func startMenuTask(menu: WAMenu) {
+    @MainActor func startMenuTask(menu: WAMenu) {
         self.errorModel.error = nil
         self.inProgress = true
         self.logKeyboardChanged = false
@@ -145,7 +145,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.logKeyboardChanged = true
     }
     
-    func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
+    @MainActor func startFeedbackTask(voteState: AIUserFeedbackVoteState, options: [String], inMenuView: Bool = true) {
         if let feedbackHandler {
             self.errorModel.error = nil
             self.lastFeedbackInformation = (voteState, options, inMenuView)
@@ -159,7 +159,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         }
     }
     
-    func retryFeedbackTask() {
+    @MainActor func retryFeedbackTask() {
         guard let lastFeedbackInformation = self.lastFeedbackInformation else { return }
         self.startFeedbackTask(voteState: lastFeedbackInformation.voteState,
                                options: lastFeedbackInformation.options,

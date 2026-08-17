@@ -66,6 +66,7 @@ public extension HeaderChart {
 }
 
 public extension HeaderChart {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          trend: AttributedString? = nil,
@@ -116,6 +117,7 @@ private extension HeaderChart {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HeaderChart(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), trend: .init(self.trend), trendImage: .init(self.trendImage), kpi: .init(self.kpi), chart: .init(self.chart)))
             .shouldApplyDefaultStyle(false)

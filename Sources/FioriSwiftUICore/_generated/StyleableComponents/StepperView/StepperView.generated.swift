@@ -60,6 +60,7 @@ public extension StepperView {
 }
 
 public extension StepperView {
+    @MainActor
     init(title: AttributedString,
          decrementAction: FioriButton? = FioriButton { _ in FioriIcon.actions.less },
          text: Binding<String>,
@@ -120,6 +121,7 @@ private extension StepperView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         StepperView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), decrementAction: .init(self.decrementAction), text: self.$text, isSecureEnabled: self.isSecureEnabled, formatter: self.formatter, incrementAction: .init(self.incrementAction), step: self.step, stepRange: self.stepRange, isDecimalSupported: self.isDecimalSupported, icon: .init(self.icon), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)

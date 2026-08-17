@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AgreeActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AgreeActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AgreeActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AgreeActionConfiguration) -> Body
 }
 
 struct AnyAgreeActionStyle: AgreeActionStyle {
@@ -31,5 +31,14 @@ public struct AgreeActionConfiguration {
 extension AgreeActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AgreeActionDefaultStyle: AgreeActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AgreeActionConfiguration) -> some View {
+        AgreeAction(configuration)
+            .agreeActionStyle(AgreeActionBaseStyle())
     }
 }

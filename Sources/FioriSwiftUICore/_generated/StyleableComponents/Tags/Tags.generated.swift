@@ -25,6 +25,7 @@ public extension Tags {
 }
 
 public extension Tags {
+    @MainActor
     init(tags: [AttributedString] = []) {
         self.init(tags: { TagStack(tags) })
     }
@@ -64,6 +65,7 @@ private extension Tags {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Tags(.init(componentIdentifier: self.componentIdentifier, tags: .init(self.tags)))
             .shouldApplyDefaultStyle(false)

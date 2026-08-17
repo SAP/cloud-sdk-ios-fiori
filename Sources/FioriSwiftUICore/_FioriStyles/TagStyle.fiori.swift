@@ -394,7 +394,7 @@ struct AnyMoreTagBuilder {
 
 /// Environment key for customizing the "more tags" indicator builder.
 struct MoreTagBuilderKey: EnvironmentKey {
-    static let defaultValue: AnyMoreTagBuilder = AnyMoreTagBuilder { count in
+    nonisolated(unsafe) static let defaultValue: AnyMoreTagBuilder = AnyMoreTagBuilder { count in
         Text(String(format: "+%d more".localizedFioriString(), count))
             .font(.fiori(forTextStyle: .footnote))
             .foregroundStyle(Color.preferredColor(.accentLabel10))

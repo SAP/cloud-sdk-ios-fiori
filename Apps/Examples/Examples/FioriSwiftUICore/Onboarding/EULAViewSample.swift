@@ -15,23 +15,23 @@ struct EULAViewDataModel {
     
     var didCancel: (() -> Void)?
     
-    static let HTML = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n"))
+    nonisolated(unsafe) static let HTML = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n"))
     
-    static let LongHTML: EULAViewDataModel = {
+    nonisolated(unsafe) static let LongHTML: EULAViewDataModel = {
         let eulaURL = Bundle.main.url(forResource: "EULAText", withExtension: "html")!
         let eulaData = try! Data(contentsOf: eulaURL)
         let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
         return EULAViewDataModel(bodyAttributedText: eulaAttString)
     }()
     
-    static let ShortHTML: EULAViewDataModel = {
+    nonisolated(unsafe) static let ShortHTML: EULAViewDataModel = {
         let eulaURL = Bundle.main.url(forResource: "EULA2", withExtension: "html")!
         let eulaData = try! Data(contentsOf: eulaURL)
         let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
         return EULAViewDataModel(bodyAttributedText: eulaAttString)
     }()
     
-    static let ConcatAttributedStrings: EULAViewDataModel = {
+    nonisolated(unsafe) static let ConcatAttributedStrings: EULAViewDataModel = {
         let title = "CUSTOM EULA"
         let string1 = NSAttributedString(string: "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n", attributes:
             [NSAttributedString.Key.font: UIFont(name: "Georgia", size: 22.0)!])
@@ -51,9 +51,9 @@ struct EULAViewDataModel {
         return EULAViewDataModel(title: title, bodyAttributedText: attText)
     }()
     
-    static let ShortStringWithLink = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "Short http://service.sap.com Short"))
+    nonisolated(unsafe) static let ShortStringWithLink = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "Short http://service.sap.com Short"))
     
-    static let ShortAttributedStringWithLink: EULAViewDataModel = {
+    nonisolated(unsafe) static let ShortAttributedStringWithLink: EULAViewDataModel = {
         let linkAttributes = [
             NSAttributedString.Key.link: URL(string: "https://service.sap.com")!,
             NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 18.0)!,

@@ -25,6 +25,7 @@ public extension Progress {
 }
 
 public extension Progress {
+    @MainActor
     init(progress: ProgressView<EmptyView, EmptyView> = ProgressView()) {
         self.init(progress: { progress })
     }
@@ -64,6 +65,7 @@ private extension Progress {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Progress(.init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress)))
             .shouldApplyDefaultStyle(false)

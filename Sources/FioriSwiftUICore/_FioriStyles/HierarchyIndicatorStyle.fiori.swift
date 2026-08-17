@@ -52,7 +52,10 @@ extension HierarchyIndicatorFioriStyle {
         @Environment(\.sizeCategory) private var sizeCategory
         @Environment(\.onCurrentHierarchyItemChange) private var onCurrentItemChange
         @Environment(\.hierarchyViewMultiColumnIndex) private var columnIndex
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+
         @Environment(\.isHierarchyViewMultiColumnItemActived) private var isItemActived
         @State private var isActive = false
         @State var scale: CGFloat = 1.0
@@ -123,7 +126,10 @@ extension HierarchyIndicatorFioriStyle {
 
     struct IconFioriStyle: IconStyle {
         let hierarchyIndicatorConfiguration: HierarchyIndicatorConfiguration
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+
         @Environment(\.isHierarchyViewMultiColumnItemActived) private var isItemActived
         
         func makeBody(_ configuration: IconConfiguration) -> some View {
@@ -141,7 +147,7 @@ extension HierarchyIndicatorFioriStyle {
 }
 
 extension Title {
-    init(_ configuration: TitleConfiguration, backgroundColorScheme: BackgroundColorScheme, isMultiline: Bool, isLargeSizeCategory: Bool) {
+    @MainActor init(_ configuration: TitleConfiguration, backgroundColorScheme: BackgroundColorScheme, isMultiline: Bool, isLargeSizeCategory: Bool) {
         let titleView = configuration.title
             .font(.headline)
             .minimumScaleFactor(0.1)

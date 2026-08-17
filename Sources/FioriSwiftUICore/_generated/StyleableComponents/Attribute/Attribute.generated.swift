@@ -25,6 +25,7 @@ public extension Attribute {
 }
 
 public extension Attribute {
+    @MainActor
     init(attribute: AttributedString? = nil) {
         self.init(attribute: { OptionalText(attribute) })
     }
@@ -64,6 +65,7 @@ private extension Attribute {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Attribute(.init(componentIdentifier: self.componentIdentifier, attribute: .init(self.attribute)))
             .shouldApplyDefaultStyle(false)

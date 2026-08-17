@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineConfiguration) -> Body
 }
 
 struct AnyTimelineStyle: TimelineStyle {
@@ -69,5 +69,15 @@ public struct TimelineFioriStyle: TimelineStyle {
             .statusStyle(StatusFioriStyle(timelineConfiguration: configuration))
             .substatusStyle(SubstatusFioriStyle(timelineConfiguration: configuration))
             .subAttributeStyle(SubAttributeFioriStyle(timelineConfiguration: configuration))
+    }
+}
+
+struct TimelineDefaultStyle: TimelineStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelineConfiguration) -> some View {
+        Timeline(configuration)
+            .timelineStyle(TimelineFioriStyle())
+            .modifier(TimelineStyleModifier(style: TimelineBaseStyle()))
     }
 }

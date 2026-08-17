@@ -11,14 +11,14 @@ struct Popover {
     ///   - popView: pop over view
     ///   - isPresented: A binding to a bool which means the popover is presented.
     ///   - context: A popover context, that can set the animation and pop edges.
-    init(popView: AnyView, isPresented: Binding<Bool>, context: PopoverContext = PopoverContext()) {
+    @MainActor init(popView: AnyView, isPresented: Binding<Bool>, context: PopoverContext = PopoverContext()) {
         self.popView = popView
         _isPresented = isPresented
         self.context = context
     }
 }
 
-extension Popover {
+@MainActor extension Popover {
     func present(in window: UIWindow?) {
         guard let window else { return }
         self.context.windowFrame = window.bounds

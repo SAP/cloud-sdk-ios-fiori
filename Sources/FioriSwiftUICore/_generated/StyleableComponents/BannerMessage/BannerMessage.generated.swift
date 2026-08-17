@@ -60,6 +60,7 @@ public extension BannerMessage {
 }
 
 public extension BannerMessage {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") },
@@ -118,6 +119,7 @@ private extension BannerMessage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         BannerMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), closeAction: .init(self.closeAction), topDivider: .init(self.topDivider), bannerTapAction: self.bannerTapAction, alignment: self.alignment, hideSeparator: self.hideSeparator, hidesCloseAction: self.hidesCloseAction, messageType: self.messageType, showDetailLink: self.showDetailLink))
             .shouldApplyDefaultStyle(false)

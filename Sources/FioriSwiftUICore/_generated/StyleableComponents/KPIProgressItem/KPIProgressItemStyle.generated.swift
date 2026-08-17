@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KPIProgressItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KPIProgressItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KPIProgressItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KPIProgressItemConfiguration) -> Body
 }
 
 struct AnyKPIProgressItemStyle: KPIProgressItemStyle {
@@ -52,5 +52,15 @@ public struct KPIProgressItemFioriStyle: KPIProgressItemStyle {
             .footnoteStyle(FootnoteFioriStyle(kPIProgressItemConfiguration: configuration))
             .innerCircleStyle(InnerCircleFioriStyle(kPIProgressItemConfiguration: configuration))
             .outerCircleStyle(OuterCircleFioriStyle(kPIProgressItemConfiguration: configuration))
+    }
+}
+
+struct KPIProgressItemDefaultStyle: KPIProgressItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: KPIProgressItemConfiguration) -> some View {
+        KPIProgressItem(configuration)
+            .kPIProgressItemStyle(KPIProgressItemFioriStyle())
+            .modifier(KPIProgressItemStyleModifier(style: KPIProgressItemBaseStyle()))
     }
 }

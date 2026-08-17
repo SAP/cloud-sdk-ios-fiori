@@ -25,6 +25,7 @@ public extension Footnote {
 }
 
 public extension Footnote {
+    @MainActor
     init(footnote: AttributedString? = nil) {
         self.init(footnote: { OptionalText(footnote) })
     }
@@ -64,6 +65,7 @@ private extension Footnote {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Footnote(.init(componentIdentifier: self.componentIdentifier, footnote: .init(self.footnote)))
             .shouldApplyDefaultStyle(false)

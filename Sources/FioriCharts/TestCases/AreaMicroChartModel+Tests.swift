@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 extension AreaMicroChartModel {
     static let chartPoints = AreaMicroChartModel.Item(points: [.zero, .init(x: 30, y: 20), .init(x: 60, y: 20), .init(x: 100, y: 80)])
     static let targetPoints = AreaMicroChartModel.Item(.target,

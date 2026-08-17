@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HierarchyIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HierarchyIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> Body
 }
 
 struct AnyHierarchyIndicatorStyle: HierarchyIndicatorStyle {
@@ -45,5 +45,15 @@ public struct HierarchyIndicatorFioriStyle: HierarchyIndicatorStyle {
         HierarchyIndicator(configuration)
             .titleStyle(TitleFioriStyle(hierarchyIndicatorConfiguration: configuration))
             .iconStyle(IconFioriStyle(hierarchyIndicatorConfiguration: configuration))
+    }
+}
+
+struct HierarchyIndicatorDefaultStyle: HierarchyIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: HierarchyIndicatorConfiguration) -> some View {
+        HierarchyIndicator(configuration)
+            .hierarchyIndicatorStyle(HierarchyIndicatorFioriStyle())
+            .modifier(HierarchyIndicatorStyleModifier(style: HierarchyIndicatorBaseStyle()))
     }
 }

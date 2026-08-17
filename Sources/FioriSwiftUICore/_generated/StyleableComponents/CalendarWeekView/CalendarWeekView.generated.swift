@@ -157,6 +157,7 @@ private extension CalendarWeekView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CalendarWeekView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, weekInfo: self.weekInfo, startDate: self.startDate, endDate: self.endDate, showsOutOfMonthDates: self.showsOutOfMonthDates, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)

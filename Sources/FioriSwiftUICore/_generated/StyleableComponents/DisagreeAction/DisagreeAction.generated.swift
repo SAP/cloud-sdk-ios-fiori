@@ -25,6 +25,7 @@ public extension DisagreeAction {
 }
 
 public extension DisagreeAction {
+    @MainActor
     init(disagreeAction: FioriButton? = FioriButton { _ in Text("Disagree".localizedFioriString()) }) {
         self.init(disagreeAction: { disagreeAction })
     }
@@ -64,6 +65,7 @@ private extension DisagreeAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DisagreeAction(.init(componentIdentifier: self.componentIdentifier, disagreeAction: .init(self.disagreeAction)))
             .shouldApplyDefaultStyle(false)

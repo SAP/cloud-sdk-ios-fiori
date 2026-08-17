@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SectionHeaderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SectionHeaderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SectionHeaderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SectionHeaderConfiguration) -> Body
 }
 
 struct AnySectionHeaderStyle: SectionHeaderStyle {
@@ -43,5 +43,15 @@ public struct SectionHeaderFioriStyle: SectionHeaderStyle {
         SectionHeader(configuration)
             .titleStyle(TitleFioriStyle(sectionHeaderConfiguration: configuration))
             .attributeStyle(AttributeFioriStyle(sectionHeaderConfiguration: configuration))
+    }
+}
+
+struct SectionHeaderDefaultStyle: SectionHeaderStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SectionHeaderConfiguration) -> some View {
+        SectionHeader(configuration)
+            .sectionHeaderStyle(SectionHeaderFioriStyle())
+            .modifier(SectionHeaderStyleModifier(style: SectionHeaderBaseStyle()))
     }
 }

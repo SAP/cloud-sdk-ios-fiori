@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class StepProgressIndicatorTests: XCTestCase {
+@MainActor final class StepProgressIndicatorTests: XCTestCase {
     // MARK: - Helper Test Model
     
     private struct TestStepItem: StepItem {

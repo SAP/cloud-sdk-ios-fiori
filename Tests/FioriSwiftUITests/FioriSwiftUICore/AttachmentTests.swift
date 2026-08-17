@@ -3,7 +3,7 @@ import SwiftUI
 import XCTest
 
 final class AttachmentTests: XCTestCase {
-    func testAttachmentInitAndActions() {
+    @MainActor func testAttachmentInitAndActions() {
         let attachmentInfo = AttachmentInfo.uploading(sourceURL: URL(fileURLWithPath: "/tmp/testfile.txt"))
         
         var didPreview = false

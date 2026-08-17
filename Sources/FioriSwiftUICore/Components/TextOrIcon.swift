@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// It is either a String or Image
-public enum TextOrIcon {
+public enum TextOrIcon: Sendable {
     /// Contains a text only
     case text(AttributedString)
     /// Contains an icon only

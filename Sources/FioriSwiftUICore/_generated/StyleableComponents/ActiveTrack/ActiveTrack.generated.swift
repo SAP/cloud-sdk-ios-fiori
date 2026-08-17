@@ -25,6 +25,7 @@ public extension ActiveTrack {
 }
 
 public extension ActiveTrack {
+    @MainActor
     init(activeTrack: any Shape = Capsule()) {
         self.init(activeTrack: { activeTrack })
     }
@@ -64,6 +65,7 @@ private extension ActiveTrack {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ActiveTrack(.init(componentIdentifier: self.componentIdentifier, activeTrack: .init(self.activeTrack)))
             .shouldApplyDefaultStyle(false)

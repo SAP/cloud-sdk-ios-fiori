@@ -25,6 +25,7 @@ public extension Trend {
 }
 
 public extension Trend {
+    @MainActor
     init(trend: AttributedString? = nil) {
         self.init(trend: { OptionalText(trend) })
     }
@@ -64,6 +65,7 @@ private extension Trend {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Trend(.init(componentIdentifier: self.componentIdentifier, trend: .init(self.trend)))
             .shouldApplyDefaultStyle(false)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ActivityItemsStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ActivityItemsStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ActivityItemsConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ActivityItemsConfiguration) -> Body
 }
 
 struct AnyActivityItemsStyle: ActivityItemsStyle {
@@ -31,5 +31,14 @@ public struct ActivityItemsConfiguration {
 extension ActivityItemsConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct ActivityItemsDefaultStyle: ActivityItemsStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ActivityItemsConfiguration) -> some View {
+        ActivityItems(configuration)
+            .activityItemsStyle(ActivityItemsBaseStyle())
     }
 }

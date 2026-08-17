@@ -1045,13 +1045,13 @@ struct GeometrySizeView: View {
     }
 }
 
-enum ObjectItemElement {
+enum ObjectItemElement: Sendable {
     case detailImage
     case status
     case singleActionButton
 }
 
-struct MyViewPreferenceData {
+struct MyViewPreferenceData: Sendable {
     let element: ObjectItemElement
     let bounds: Anchor<CGRect>
 }
@@ -1059,7 +1059,7 @@ struct MyViewPreferenceData {
 struct MyViewPreferenceKey: PreferenceKey {
     typealias Value = [MyViewPreferenceData]
     
-    static var defaultValue: [MyViewPreferenceData] = []
+    static let defaultValue: [MyViewPreferenceData] = []
     
     static func reduce(value: inout [MyViewPreferenceData], nextValue: () -> [MyViewPreferenceData]) {
         value.append(contentsOf: nextValue())

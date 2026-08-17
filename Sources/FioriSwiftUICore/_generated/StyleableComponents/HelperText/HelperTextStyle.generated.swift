@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HelperTextStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HelperTextStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HelperTextConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HelperTextConfiguration) -> Body
 }
 
 struct AnyHelperTextStyle: HelperTextStyle {
@@ -31,5 +31,14 @@ public struct HelperTextConfiguration {
 extension HelperTextConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct HelperTextDefaultStyle: HelperTextStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: HelperTextConfiguration) -> some View {
+        HelperText(configuration)
+            .helperTextStyle(HelperTextBaseStyle())
     }
 }

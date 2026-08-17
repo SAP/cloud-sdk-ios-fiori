@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol RatingControlStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol RatingControlStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: RatingControlConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: RatingControlConfiguration) -> Body
 }
 
 struct AnyRatingControlStyle: RatingControlStyle {
@@ -64,5 +64,15 @@ public struct RatingControlFioriStyle: RatingControlStyle {
             .offStarImageStyle(OffStarImageFioriStyle(ratingControlConfiguration: configuration))
             .halfStarImageStyle(HalfStarImageFioriStyle(ratingControlConfiguration: configuration))
             .reviewCountLabelStyle(ReviewCountLabelFioriStyle(ratingControlConfiguration: configuration))
+    }
+}
+
+struct RatingControlDefaultStyle: RatingControlStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: RatingControlConfiguration) -> some View {
+        RatingControl(configuration)
+            .ratingControlStyle(RatingControlFioriStyle())
+            .modifier(RatingControlStyleModifier(style: RatingControlBaseStyle()))
     }
 }

@@ -438,28 +438,32 @@ extension Notification.Name {
 }
 
 extension WritingAssistantContext {
-    func observeSelectionChange(for textView: UITextView) {
+    @MainActor func observeSelectionChange(for textView: UITextView) {
         selectionKVO?.invalidate()
         selectionKVO = textView.observe(\.selectedTextRange, options: [.new]) { [weak self] tv, _ in
             guard let self else { return }
-            if let range = tv.selectedTextRange {
-                let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
-                let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
-                let nsRange = NSRange(location: start, length: end - start)
-                self.resetSelectedRange(nsRange)
+            MainActor.assumeIsolated {
+                if let range = tv.selectedTextRange {
+                    let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
+                    let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
+                    let nsRange = NSRange(location: start, length: end - start)
+                    self.resetSelectedRange(nsRange)
+                }
             }
         }
     }
     
-    func observeSelectionChange(for textField: UITextField) {
+    @MainActor func observeSelectionChange(for textField: UITextField) {
         selectionKVO?.invalidate()
         selectionKVO = textField.observe(\.selectedTextRange, options: [.new]) { [weak self] tv, _ in
             guard let self else { return }
-            if let range = tv.selectedTextRange {
-                let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
-                let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
-                let nsRange = NSRange(location: start, length: end - start)
-                self.resetSelectedRange(nsRange)
+            MainActor.assumeIsolated {
+                if let range = tv.selectedTextRange {
+                    let start = tv.offset(from: tv.beginningOfDocument, to: range.start)
+                    let end = tv.offset(from: tv.beginningOfDocument, to: range.end)
+                    let nsRange = NSRange(location: start, length: end - start)
+                    self.resetSelectedRange(nsRange)
+                }
             }
         }
     }
@@ -473,8 +477,8 @@ protocol WATextInput: Equatable {
     #endif
 }
 
-extension UITextField: WATextInput {}
-extension UITextView: WATextInput {}
+extension UITextField: @preconcurrency WATextInput {}
+extension UITextView: @preconcurrency WATextInput {}
 
 extension UITextField {
     var selectedRange: NSRange {
@@ -499,7 +503,7 @@ extension UITextField {
     }
 }
 
-private weak var currentWAFirstResponder: UIResponder?
+private nonisolated(unsafe) weak var currentWAFirstResponder: UIResponder?
 
 extension UIResponder {
     static func findFirstResponder() -> UIResponder? {

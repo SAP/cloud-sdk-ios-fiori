@@ -3,7 +3,7 @@ import SwiftUI
 import ViewInspector
 import XCTest
 
-final class ProfileHeaderTests: XCTestCase {
+@MainActor final class ProfileHeaderTests: XCTestCase {
     // MARK: - Initialization Tests
     
     func testProfileHeaderWithMinimalConfiguration() throws {

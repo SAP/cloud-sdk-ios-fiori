@@ -176,6 +176,7 @@ private extension CalendarMonthView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CalendarMonthView(.init(componentIdentifier: self.componentIdentifier, calendarStyle: self.calendarStyle, model: self.model, startDate: self.startDate, endDate: self.endDate, showsMonthHeader: self.showsMonthHeader, showsOutOfMonthDates: self.showsOutOfMonthDates, selectedDate: self.selectedDate, selectedDates: self.selectedDates, selectedRange: self.selectedRange, disabledDates: self.disabledDates, dayTappedCallback: self.dayTappedCallback, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol LabelItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol LabelItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: LabelItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: LabelItemConfiguration) -> Body
 }
 
 struct AnyLabelItemStyle: LabelItemStyle {
@@ -42,5 +42,15 @@ public struct LabelItemFioriStyle: LabelItemStyle {
         LabelItem(configuration)
             .iconStyle(IconFioriStyle(labelItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(labelItemConfiguration: configuration))
+    }
+}
+
+struct LabelItemDefaultStyle: LabelItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .labelItemStyle(LabelItemFioriStyle())
+            .modifier(LabelItemStyleModifier(style: LabelItemBaseStyle()))
     }
 }

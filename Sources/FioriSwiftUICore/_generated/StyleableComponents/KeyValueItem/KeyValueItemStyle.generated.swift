@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KeyValueItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KeyValueItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KeyValueItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KeyValueItemConfiguration) -> Body
 }
 
 struct AnyKeyValueItemStyle: KeyValueItemStyle {
@@ -45,5 +45,15 @@ public struct KeyValueItemFioriStyle: KeyValueItemStyle {
             .keyStyle(KeyFioriStyle(keyValueItemConfiguration: configuration))
             .valueStyle(ValueFioriStyle(keyValueItemConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(keyValueItemConfiguration: configuration))
+    }
+}
+
+struct KeyValueItemDefaultStyle: KeyValueItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: KeyValueItemConfiguration) -> some View {
+        KeyValueItem(configuration)
+            .keyValueItemStyle(KeyValueItemFioriStyle())
+            .modifier(KeyValueItemStyleModifier(style: KeyValueItemBaseStyle()))
     }
 }

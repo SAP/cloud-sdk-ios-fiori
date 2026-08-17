@@ -3,7 +3,7 @@ import XCTest
 
 @testable import FioriSwiftUICore
 
-final class CalendarMonthViewTests: XCTestCase {
+@MainActor final class CalendarMonthViewTests: XCTestCase {
     var fm: DateFormatter {
         let fm = DateFormatter()
         fm.timeZone = Calendar.current.timeZone

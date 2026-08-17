@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SortCriterionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SortCriterionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SortCriterionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SortCriterionConfiguration) -> Body
 }
 
 struct AnySortCriterionStyle: SortCriterionStyle {
@@ -45,5 +45,15 @@ public struct SortCriterionFioriStyle: SortCriterionStyle {
             .checkmarkStyle(CheckmarkFioriStyle(sortCriterionConfiguration: configuration))
             .titleStyle(TitleFioriStyle(sortCriterionConfiguration: configuration))
             .subtitleStyle(SubtitleFioriStyle(sortCriterionConfiguration: configuration))
+    }
+}
+
+struct SortCriterionDefaultStyle: SortCriterionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SortCriterionConfiguration) -> some View {
+        SortCriterion(configuration)
+            .sortCriterionStyle(SortCriterionFioriStyle())
+            .modifier(SortCriterionStyleModifier(style: SortCriterionBaseStyle()))
     }
 }

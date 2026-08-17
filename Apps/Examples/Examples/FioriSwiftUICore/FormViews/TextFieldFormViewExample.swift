@@ -198,7 +198,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction1() -> (() -> Void)? {
-        self.showsAction ? self.myAction1 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction1() }
     }
 
     func myAction1() {
@@ -207,7 +210,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction2() -> (() -> Void)? {
-        self.showsAction ? self.myAction2 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction2() }
     }
 
     func myAction2() {
@@ -216,7 +222,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction3() -> (() -> Void)? {
-        self.showsAction ? self.myAction3 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction3() }
     }
 
     func myAction3() {
@@ -225,7 +234,10 @@ struct TextFieldFormViewExample: View {
     }
 
     func getAction4() -> (() -> Void)? {
-        self.showsAction ? self.myAction3 : nil
+        guard self.showsAction else {
+            return nil
+        }
+        return { self.myAction4() }
     }
 
     func myAction4() {

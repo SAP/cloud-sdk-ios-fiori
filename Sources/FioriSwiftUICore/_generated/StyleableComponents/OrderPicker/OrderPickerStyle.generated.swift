@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OrderPickerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OrderPickerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OrderPickerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OrderPickerConfiguration) -> Body
 }
 
 struct AnyOrderPickerStyle: OrderPickerStyle {
@@ -42,5 +42,15 @@ public struct OrderPickerFioriStyle: OrderPickerStyle {
     public func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
         OrderPicker(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(orderPickerConfiguration: configuration))
+    }
+}
+
+struct OrderPickerDefaultStyle: OrderPickerStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OrderPickerConfiguration) -> some View {
+        OrderPicker(configuration)
+            .orderPickerStyle(OrderPickerFioriStyle())
+            .modifier(OrderPickerStyleModifier(style: OrderPickerBaseStyle()))
     }
 }

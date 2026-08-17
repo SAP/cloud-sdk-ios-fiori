@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol NotNowActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol NotNowActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NotNowActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: NotNowActionConfiguration) -> Body
 }
 
 struct AnyNotNowActionStyle: NotNowActionStyle {
@@ -31,5 +31,14 @@ public struct NotNowActionConfiguration {
 extension NotNowActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct NotNowActionDefaultStyle: NotNowActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: NotNowActionConfiguration) -> some View {
+        NotNowAction(configuration)
+            .notNowActionStyle(NotNowActionBaseStyle())
     }
 }

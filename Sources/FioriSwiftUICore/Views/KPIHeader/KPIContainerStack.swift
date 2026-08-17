@@ -220,12 +220,12 @@ struct KPIContainerStack: View {
 
 /// The key for whether the order of items in `KPIHeader` is forced or not in the environment.
 struct KPIHeaderIsItemOrderForcedKey: EnvironmentKey {
-    static var defaultValue: Bool = false
+    static let defaultValue: Bool = false
 }
 
 /// The key for the inter item spacing of items in `KPIHeader` in the environment.
 struct KPIHeaderInterItemSpacingKey: EnvironmentKey {
-    static var defaultValue: CGFloat? = nil
+    static let defaultValue: CGFloat? = nil
 }
 
 public extension EnvironmentValues {

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FormViewConfiguration) -> Body
 }
 
 struct AnyFormViewStyle: FormViewStyle {
@@ -36,5 +36,15 @@ extension FormViewConfiguration {
 public struct FormViewFioriStyle: FormViewStyle {
     public func makeBody(_ configuration: FormViewConfiguration) -> some View {
         FormView(configuration)
+    }
+}
+
+struct FormViewDefaultStyle: FormViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FormViewConfiguration) -> some View {
+        FormView(configuration)
+            .formViewStyle(FormViewFioriStyle())
+            .modifier(FormViewStyleModifier(style: FormViewBaseStyle()))
     }
 }
