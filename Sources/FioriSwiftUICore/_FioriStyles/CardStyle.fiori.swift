@@ -637,6 +637,9 @@ public enum CardTests {
     } cardBody: {
         DataTable(model: CardTests.tableCard)
             .frame(height: 70)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Status table: Need Attention, Critical, Yesterday. Stable, Jul 5, 2021. Need Attention, Jul 4, 2021.")
+
     } action: {
         Button {
             print("Tapped")
@@ -1271,10 +1274,16 @@ public enum CardTests {
         Text("1 of 3")
     } action: {
         FioriButton(title: "Primary")
+            .accessibilityLabel("Primary")
+            .accessibilityHint("Primary action button")
     } secondaryAction: {
         FioriButton(title: "Secondary")
+            .accessibilityLabel("Secondary")
+            .accessibilityHint("Secondary action button")
     } tertiaryAction: {
         FioriButton(title: "Tertiary")
+            .accessibilityLabel("Tertiary")
+            .accessibilityHint("Tertiary action button")
     }
     
     static let sampleCard14 = Card(title: "Title",
