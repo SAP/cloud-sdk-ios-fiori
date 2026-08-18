@@ -16,44 +16,60 @@ import SwiftUI
 
 // Base Layout style
 public struct MenuSelectionBaseStyle: MenuSelectionStyle {
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+        _VariadicView.Tree(MenuSelectionViewLayout(configuration: configuration)) {
+            configuration.items
+        }
+    }
+}
+
+struct MenuSelectionViewLayout: _VariadicView_MultiViewRoot {
+    let configuration: MenuSelectionConfiguration
+    
     @Environment(\.maxNumberOfItems) var maxNumberOfItems
-    @State private var itemCount = 0
     @Environment(\.locale) var locale
     @Environment(\.isLoading) var isLoading
     
-    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
+    func body(children: _VariadicView.Children) -> some View {
         VStack(alignment: .leading) {
-            _CountableView(maxNumberOfItems: !self.isListCollapsed(configuration) ? 0 : self.maxNumberOfItems) {
-                configuration.items
-            }
-            .onPreferenceChange(ItemCountPreferenceKey.self, perform: { value in
-                self.itemCount = value
-            })
-           
-            if self.isListCollapsed(configuration) {
+            self.makeBody(children)
+            
+            if self.isListCollapsed(children) {
                 Group {
-                    if configuration.action.isEmpty {
-                        self.defaultAction
+                    if self.configuration.action.isEmpty {
+                        self.defaultAction(children)
                     } else {
-                        configuration.action
+                        self.configuration.action
                     }
                 }
                 .onSimultaneousTapGesture {
-                    configuration.isExpanded = true
+                    self.configuration.isExpanded = true
                 }
             }
         }
     }
     
-    private func isListCollapsed(_ config: MenuSelectionConfiguration) -> Bool {
-        self.maxNumberOfItems > 0 && !config.isExpanded && self.itemCount > self.maxNumberOfItems
+    func isListCollapsed(_ children: _VariadicView.Children) -> Bool {
+        self.maxNumberOfItems > 0 && !self.configuration.isExpanded && children.count > self.maxNumberOfItems
     }
     
-    private var defaultAction: some View {
-        FioriButton(title: .init("View All (%d)", args: self.itemCount, locale: self.locale))
+    func defaultAction(_ children: _VariadicView.Children) -> some View {
+        FioriButton(title: .init("View All (%d)", args: children.count, locale: self.locale))
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isEnabled, true)
             .accessibilityIdentifier("FioriSwiftUICore.MenuSelection.ViewAllButton")
+    }
+    
+    @ViewBuilder
+    func makeBody(_ children: _VariadicView.Children) -> some View {
+        let limitedNumberOfItems = !self.isListCollapsed(children) ? 0 : self.maxNumberOfItems
+        if limitedNumberOfItems <= 0 {
+            children
+        } else {
+            ForEach(0 ..< min(limitedNumberOfItems, children.count), id: \.self) {
+                children[$0]
+            }
+        }
     }
 }
 
