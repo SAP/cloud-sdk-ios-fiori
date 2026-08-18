@@ -32,9 +32,11 @@ struct MenuSelectionViewLayout: _VariadicView_MultiViewRoot {
     
     func body(children: _VariadicView.Children) -> some View {
         VStack(alignment: .leading) {
-            self.makeBody(children)
+            let isListCollapsed = self.maxNumberOfItems > 0 && !self.configuration.isExpanded && children.count > self.maxNumberOfItems
             
-            if self.isListCollapsed(children) {
+            self.makeItemsBody(children, isListCollapsed: isListCollapsed)
+            
+            if isListCollapsed {
                 Group {
                     if self.configuration.action.isEmpty {
                         self.defaultAction(children)
@@ -48,12 +50,9 @@ struct MenuSelectionViewLayout: _VariadicView_MultiViewRoot {
             }
         }
     }
-    
-    func isListCollapsed(_ children: _VariadicView.Children) -> Bool {
-        self.maxNumberOfItems > 0 && !self.configuration.isExpanded && children.count > self.maxNumberOfItems
-    }
-    
+
     func defaultAction(_ children: _VariadicView.Children) -> some View {
+        // `children.count` is the total unfiltered count, as _VariadicView always provides all children.
         FioriButton(title: .init("View All (%d)", args: children.count, locale: self.locale))
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isEnabled, true)
@@ -61,8 +60,8 @@ struct MenuSelectionViewLayout: _VariadicView_MultiViewRoot {
     }
     
     @ViewBuilder
-    func makeBody(_ children: _VariadicView.Children) -> some View {
-        let limitedNumberOfItems = !self.isListCollapsed(children) ? 0 : self.maxNumberOfItems
+    func makeItemsBody(_ children: _VariadicView.Children, isListCollapsed: Bool) -> some View {
+        let limitedNumberOfItems = !isListCollapsed ? 0 : self.maxNumberOfItems
         if limitedNumberOfItems <= 0 {
             children
         } else {
