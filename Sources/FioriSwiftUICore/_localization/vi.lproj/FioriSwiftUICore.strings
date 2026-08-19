@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Chỉ báo thanh toán";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d mục khác";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Không tìm thấy kết quả";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Kiểm tra tìm kiếm của bạn để xem có bất kỳ lỗi chính tả nào không hoặc thử một thuật ngữ tìm kiếm khác.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Ô đánh dấu";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Ít nhất %d ký tự";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Ít nhất %d ký tự duy nhất";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Ít nhất một chữ số";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Ít nhất một chữ cái viết hoa";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Ít nhất một chữ cái viết thường";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Ít nhất một ký tự đặc biệt";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Chỉ chữ số";
+
