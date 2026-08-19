@@ -148,7 +148,7 @@ struct DateRangePickerExample: View {
                 .environment(\.locale, Locale(identifier: "zh-Hans"))
                 .environment(\.calendar, Calendar(identifier: .gregorian))
             
-                DateRangePicker(title: "Range Selection in Disabled Control State,", mandatoryFieldIndicator: self.mandatoryFieldIndicator(true), isRequired: self.isRequired, controlState: .disabled, selectedRange: self.$selectedRange5, pickerVisible: self.$pickerVisible5, showsClearAction: self.showsClearAction)
+                DateRangePicker(title: "Range Selection in Disabled Control State", mandatoryFieldIndicator: self.mandatoryFieldIndicator(true), isRequired: self.isRequired, controlState: .disabled, selectedRange: self.$selectedRange5, pickerVisible: self.$pickerVisible5, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
                     .informationViewStyle(.success)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
