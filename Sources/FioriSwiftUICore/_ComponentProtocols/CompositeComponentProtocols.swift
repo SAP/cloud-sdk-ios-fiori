@@ -206,7 +206,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -291,7 +291,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -358,7 +358,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///
 /// ```swift
 /// Card(mediaImage: Image("productThumbnail"),
-///      description: "Title",
+///      description: "Description",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
 ///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],
@@ -2091,6 +2091,13 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: defaultValue = "nil"
     /// The maximum number of attachments
     var maxCount: Int? { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// The maximum number of images allowed to be selected in a single album pick.
+    /// When set, the PhotosPicker's selection limit is the smaller of this value and the remaining count (maxCount - existing attachment count), ensuring the total never exceeds `maxCount`.
+    /// When `nil`, the selection limit falls back to the remaining count only.
+    /// If `maxCount` is also `nil` (no total limit), this value is used directly as the selection limit.
+    var maxPhotoSelectionCount: Int? { get }
     
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
     /// App specific attachment processing logics for adding or deleting attachments.
