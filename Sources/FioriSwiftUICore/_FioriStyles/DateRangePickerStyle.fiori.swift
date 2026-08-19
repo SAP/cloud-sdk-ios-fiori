@@ -60,10 +60,10 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             HStack(spacing: 4) {
                 ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
                     .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
-                if configuration.controlState != .disabled,
+                if configuration.showsClearAction,
+                   configuration.controlState != .disabled,
                    configuration.controlState != .readOnly,
-                   configuration.selectedRange != nil,
-                   configuration.showsClearAction
+                   configuration.selectedRange != nil
                 {
                     configuration.clearAction
                         .onSimultaneousTapGesture {
