@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "סמן פעולת Checkout";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "ועוד %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "לא נמצאו תוצאות";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "חפש שגיאות איות בחיפוש או נסה מונח חיפוש אחר.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "תיבת סימון";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "לפחות %d תווים";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "לפחות %d תווים ייחודיים";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "ספרה אחת לפחות";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "אות גדולה אחת לפחות";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "אות קטנה אחת לפחות";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "לפחות תו מיוחד אחד";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "ספרות בלבד";
+

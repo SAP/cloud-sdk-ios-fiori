@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Paņemšanas indikators";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+ vēl %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Nekādi rezultāti nav atrasti";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Pārbaudiet, vai meklēšanas kritērijā nav pareizrakstības kļūdu, vai mēģiniet izmantot citu meklēšanas kritēriju.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Izvēles rūtiņa";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Vismaz %d rakstzīmes";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Vismaz %d unikālas rakstzīmes";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Vismaz viens cipars";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Vismaz viens lielais burts";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Vismaz viens mazais burts";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Vismaz viena speciālā rakstzīme";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Tikai cipari";
+

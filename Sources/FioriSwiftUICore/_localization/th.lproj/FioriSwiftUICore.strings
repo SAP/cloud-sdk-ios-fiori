@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "ตัวบ่งชี้การเช็คเอาท์";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "และอีก %d รายการ";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "ไม่พบผลลัพธ์";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "ตรวจสอบการค้นหาของคุณเพื่อดูข้อผิดพลาดในการสะกดคำหรือลองใช้คำที่ใช้ค้นหาอื่น";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "เช็คบ็อกซ์";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "อย่างน้อย %d อักขระ";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "อย่างน้อย %d อักขระที่ไม่ซ้ำกัน";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "ตัวเลขอย่างน้อยหนึ่งตัว";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "ตัวพิมพ์ใหญ่อย่างน้อยหนึ่งตัว";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "ตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "อักขระพิเศษอย่างน้อยหนึ่งตัว";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "ตัวเลขเท่านั้น";
+
