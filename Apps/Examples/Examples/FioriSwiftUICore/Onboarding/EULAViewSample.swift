@@ -15,21 +15,40 @@ struct EULAViewDataModel {
     
     var didCancel: (() -> Void)?
     
-    static let HTML = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n"))
+    static let HTML = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n"))
     
-    static let LongHTML: EULAViewDataModel = {
-        let eulaURL = Bundle.main.url(forResource: "EULAText", withExtension: "html")!
-        let eulaData = try! Data(contentsOf: eulaURL)
-        let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-        return EULAViewDataModel(bodyAttributedText: eulaAttString)
-    }()
-    
-    static let ShortHTML: EULAViewDataModel = {
-        let eulaURL = Bundle.main.url(forResource: "EULA2", withExtension: "html")!
-        let eulaData = try! Data(contentsOf: eulaURL)
-        let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-        return EULAViewDataModel(bodyAttributedText: eulaAttString)
-    }()
+    /// Parses an HTML resource into an `NSAttributedString`.
+    /// - Important: HTML parsing relies on WebKit and MUST run on the main thread.
+    @MainActor
+    static func loadHTML(resource: String, withExtension ext: String = "html") async -> NSAttributedString? {
+        guard let url = Bundle.main.url(forResource: resource, withExtension: ext) else {
+            print("EULA resource not found: \(resource).\(ext)")
+            return nil
+        }
+
+        // Read the file on a background thread (Data is Sendable, so it's safe to return across actors)
+        let data: Data
+        do {
+            data = try await Task.detached(priority: .userInitiated) {
+                try Data(contentsOf: url)
+            }.value
+        } catch {
+            print("Failed to read EULA HTML (\(resource)): \(error)")
+            return nil
+        }
+
+        do {
+            let attString = try NSMutableAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil
+            )
+            return attString
+        } catch {
+            print("Failed to parse EULA HTML (\(resource)): \(error)")
+            return nil
+        }
+    }
     
     static let ConcatAttributedStrings: EULAViewDataModel = {
         let title = "CUSTOM EULA"
@@ -82,11 +101,20 @@ struct EULAViewSample: View {
 struct EULALongHtmlSample: View {
     @Environment(\.presentationMode) var presentationMode
     
-    let model = EULAViewDataModel.LongHTML
+    @State private var model = EULAViewDataModel()
     
     var body: some View {
-        EULAView(title: AttributedString(self.model.title), bodyText: AttributedString(self.model.bodyAttributedText ?? NSAttributedString(string: "")), didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
+        EULAView(title: AttributedString(self.model.title),
+                 bodyText: AttributedString(self.model.bodyAttributedText ?? NSAttributedString(string: "")),
+                 didAgree: self.model.didAgree,
+                 didDisagree: self.model.didDisagree)
+        {
             self.presentationMode.wrappedValue.dismiss()
+        }
+        .task {
+            if let att = await EULAViewDataModel.loadHTML(resource: "EULAText") {
+                self.model.bodyAttributedText = att
+            }
         }
     }
 }
@@ -94,11 +122,20 @@ struct EULALongHtmlSample: View {
 struct EULAShortHtmlSample: View {
     @Environment(\.presentationMode) var presentationMode
     
-    let model = EULAViewDataModel.ShortHTML
+    @State private var model = EULAViewDataModel()
     
     var body: some View {
-        EULAView(title: AttributedString(self.model.title), bodyText: AttributedString(self.model.bodyAttributedText ?? NSAttributedString(string: "")), didAgree: self.model.didAgree, didDisagree: self.model.didDisagree) {
+        EULAView(title: AttributedString(self.model.title),
+                 bodyText: AttributedString(self.model.bodyAttributedText ?? NSAttributedString(string: "")),
+                 didAgree: self.model.didAgree,
+                 didDisagree: self.model.didDisagree)
+        {
             self.presentationMode.wrappedValue.dismiss()
+        }
+        .task {
+            if let att = await EULAViewDataModel.loadHTML(resource: "EULA2") {
+                self.model.bodyAttributedText = att
+            }
         }
     }
 }
