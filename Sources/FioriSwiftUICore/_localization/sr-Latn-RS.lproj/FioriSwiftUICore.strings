@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Pokazatelj obrade";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "Još +%d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Rezultati nisu nađeni";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Proverite da li pretraga sadrži pravopisne greške ili pokušajte s drugim traženim terminom.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Kvadratić za potvrdu";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Najmanje %d znakova";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Najmanje %d jedinstvenih znakova";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Najmanje jedna cifra";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Najmanje jedno veliko slovo";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Najmanje jedno malo slovo";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Najmanje jedan poseban znak";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Samo cifre";
+

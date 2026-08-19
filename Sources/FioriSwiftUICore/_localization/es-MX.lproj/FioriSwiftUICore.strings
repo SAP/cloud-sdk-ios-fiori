@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Indicador de registro de salida";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d más";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "No se encontraron resultados";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Verifique si hay errores ortográficos en su búsqueda o pruebe con otro término de búsqueda.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Casilla de selección";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Al menos %d caracteres";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Al menos %d caracteres únicos";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Al menos un dígito";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Al menos una letra mayúscula";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Al menos una letra minúscula";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Al menos un carácter especial";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Solo dígitos";
+
