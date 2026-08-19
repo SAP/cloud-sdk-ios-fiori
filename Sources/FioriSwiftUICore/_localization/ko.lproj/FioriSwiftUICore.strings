@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "체크아웃 지시자";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d개 항목 더";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "결과가 없습니다.";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "철자 오류가 없는지 검색을 확인하거나 다른 검색어를 사용해 보십시오.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "체크박스";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "%d자 이상";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "%d자 이상의 고유 문자";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "하나 이상의 숫자";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "하나 이상의 대문자";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "하나 이상의 소문자";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "하나 이상의 특수 문자";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "숫자만";
+
