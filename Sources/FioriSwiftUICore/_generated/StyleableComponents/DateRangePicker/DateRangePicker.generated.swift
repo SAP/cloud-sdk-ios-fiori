@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
 /// ## Usage
 /// ```swift
@@ -75,7 +77,7 @@ public struct DateRangePicker {
                 noRangeSelectedString: String? = nil,
                 pickerVisible: Binding<Bool>,
                 showsClearAction: Bool = false,
-                @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) },
+                @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) },
                 componentIdentifier: String? = DateRangePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -110,7 +112,7 @@ public extension DateRangePicker {
          noRangeSelectedString: String? = nil,
          pickerVisible: Binding<Bool>,
          showsClearAction: Bool = false,
-         @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) })
+         @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) })
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)

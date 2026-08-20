@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 /// `DateTimePicker`  provides a title and value label with Fiori styling and a `DatePicker`.
 ///
 /// ## Usage
@@ -77,7 +79,7 @@ public struct DateTimePicker {
                 pickerVisible: Binding<Bool>,
                 hidesSeparator: Bool = false,
                 showsClearAction: Bool = false,
-                @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) },
+                @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) },
                 componentIdentifier: String? = DateTimePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -120,7 +122,7 @@ public extension DateTimePicker {
          pickerVisible: Binding<Bool>,
          hidesSeparator: Bool = false,
          showsClearAction: Bool = false,
-         @ViewBuilder clearAction: () -> any View = { Image(systemName: "xmark.circle").foregroundColor(.gray) })
+         @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) })
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
