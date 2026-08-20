@@ -145,9 +145,10 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             if component == 0 {
                 let hourIndex = pickerView.selectedRow(inComponent: 0)
                 self.currentHourIndex = hourIndex
+                var minuteRow = pickerView.selectedRow(inComponent: 1)
                 pickerView.reloadComponent(1)
                 let minutes = self.parent.minutesForHour(hourIndex)
-                var minuteRow = pickerView.selectedRow(inComponent: 1)
+                
                 if minuteRow >= minutes.count {
                     minuteRow = max(0, minutes.count - 1)
                 }
@@ -292,9 +293,6 @@ extension DurationPickerViewWrapper {
         let selectedHour = self.hours[hourIndex]
         let start = (selectedHour == self.minimumMinutes / 60) ? (self.minimumMinutes % 60) : 0
         let lastMinute = (selectedHour == self.maximumMinutes / 60) ? (self.maximumMinutes % 60) : 59
-        guard lastMinute >= start else {
-            return [start]
-        }
         return Array(stride(from: start, to: lastMinute + 1, by: self.minuteInterval))
     }
 }
