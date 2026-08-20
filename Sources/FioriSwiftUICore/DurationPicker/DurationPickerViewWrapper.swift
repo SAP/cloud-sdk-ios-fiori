@@ -38,9 +38,22 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 let minute = self.selection % 60
 
                 if let hourIndex = hours.firstIndex(of: hour) {
-                    pickerView.selectRow(hourIndex, inComponent: 0, animated: true)
+                    let currentHourRow = pickerView.selectedRow(inComponent: 0)
+                    if currentHourRow != hourIndex {
+                        context.coordinator.currentHourIndex = hourIndex
+                        pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
+                        pickerView.reloadComponent(1)
+                    }
+                    let expectedMinuteRows = minutesForHour(hourIndex).count
+                    if pickerView.numberOfRows(inComponent: 1) != expectedMinuteRows {
+                        context.coordinator.currentHourIndex = hourIndex
+                        pickerView.reloadComponent(1)
+                    }
                     if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
-                        pickerView.selectRow(minuteIndex, inComponent: 1, animated: true)
+                        let currentMinuteRow = pickerView.selectedRow(inComponent: 1)
+                        if currentMinuteRow != minuteIndex {
+                            pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
+                        }
                     }
                 }
                 break
@@ -68,6 +81,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         let minute = self.selection % 60
         
         if let hourIndex = hours.firstIndex(of: hour) {
+            context.coordinator.currentHourIndex = hourIndex
             pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
             if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
                 pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
@@ -94,6 +108,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent: DurationPickerViewWrapper
         let pickerFont = UIFont.preferredFioriFont(fixedSize: 22)
+        var currentHourIndex: Int = 0
         
         init(_ parent: DurationPickerViewWrapper) {
             self.parent = parent
@@ -108,8 +123,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours.count
             case 1:
-                let hourIndex = pickerView.selectedRow(inComponent: 0)
-                return self.parent.minutesForHour(hourIndex).count
+                return self.parent.minutesForHour(self.currentHourIndex).count
             default:
                 return 0
             }
@@ -120,12 +134,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours[row].description
             case 1:
-                let hourIndex = pickerView.selectedRow(inComponent: 0)
-                if self.parent.minutesForHour(hourIndex).count > row {
-                    return self.parent.minutesForHour(hourIndex)[row].description
-                } else {
-                    return ""
-                }
+                let minutes = self.parent.minutesForHour(self.currentHourIndex)
+                return minutes.count > row ? minutes[row].description : ""
             default:
                 return ""
             }
@@ -133,15 +143,24 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             if component == 0 {
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                self.currentHourIndex = hourIndex
                 pickerView.reloadComponent(1)
+                let minutes = self.parent.minutesForHour(hourIndex)
+                var minuteRow = pickerView.selectedRow(inComponent: 1)
+                if minuteRow >= minutes.count {
+                    minuteRow = max(0, minutes.count - 1)
+                }
+                pickerView.selectRow(minuteRow, inComponent: 1, animated: false)
             }
             let hourIndex = pickerView.selectedRow(inComponent: 0)
             let minuteIndex = pickerView.selectedRow(inComponent: 1)
             guard hourIndex < self.parent.hours.count else { return }
-            if minuteIndex < self.parent.minutesForHour(hourIndex).count {
-                self.parent.selection = self.parent.hours[hourIndex] * 60 + self.parent.minutesForHour(hourIndex)[minuteIndex]
+            let minutes = self.parent.minutesForHour(hourIndex)
+            if minuteIndex < minutes.count {
+                self.parent.selection = self.parent.hours[hourIndex] * 60 + minutes[minuteIndex]
             } else {
-                self.parent.selection = self.parent.hours[hourIndex] * 60 + (self.parent.minutesForHour(hourIndex).last ?? 0)
+                self.parent.selection = self.parent.hours[hourIndex] * 60 + (minutes.last ?? 0)
             }
         }
         
@@ -168,9 +187,9 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 return view
             } else {
                 let view = self.setupMinuteView(label, forComponent: component)
-                let hourIndex = pickerView.selectedRow(inComponent: 0)
-                if self.parent.minutesForHour(hourIndex).count > row {
-                    view.accessibilityLabel = self.parent.minutesForHour(hourIndex)[row].description + self.parent.minuteText
+                let minutes = self.parent.minutesForHour(self.currentHourIndex)
+                if minutes.count > row {
+                    view.accessibilityLabel = minutes[row].description + self.parent.minuteText
                 }
                 return view
             }
@@ -267,19 +286,15 @@ extension DurationPickerViewWrapper {
         guard self.maximumMinutes >= self.minimumMinutes else {
             fatalError("Fiori Error: minimum should be not be less than maximum minutes")
         }
-        let selectedHour = self.hours[hourIndex]
-        let start: Int
-        let end: Int
-        if selectedHour == self.hours.first {
-            start = self.minimumMinutes % 60
-            end = min(60, self.maximumMinutes - self.minimumMinutes + 1)
-        } else if selectedHour == self.hours.last {
-            start = 0
-            end = self.maximumMinutes % 60 + 1
-        } else {
-            start = 0
-            end = 60
+        guard hourIndex >= 0, hourIndex < self.hours.count else {
+            return []
         }
-        return Array(stride(from: start, to: end, by: self.minuteInterval))
+        let selectedHour = self.hours[hourIndex]
+        let start = (selectedHour == self.minimumMinutes / 60) ? (self.minimumMinutes % 60) : 0
+        let lastMinute = (selectedHour == self.maximumMinutes / 60) ? (self.maximumMinutes % 60) : 59
+        guard lastMinute >= start else {
+            return [start]
+        }
+        return Array(stride(from: start, to: lastMinute + 1, by: self.minuteInterval))
     }
 }
