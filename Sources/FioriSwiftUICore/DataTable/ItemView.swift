@@ -19,6 +19,10 @@ struct FocusedEditingView: View {
     let layoutData: LayoutData
     var dataItem: DataTableItem
     
+    var isHeader: Bool {
+        self.rowIndex == 0 && self.layoutManager.model.hasHeader
+    }
+    
     init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>) {
         self.layoutManager = layoutManager
         self.layoutData = layoutData
@@ -53,7 +57,6 @@ struct FocusedEditingView: View {
     var body: some View {
         let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
         let foregroundColor: Color? = dataItem.foregroundColor
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let cellWidth = self.layoutData.columnWidths[self.columnIndex] * self.layoutManager.scaleX
         let cellHeight = self.layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY
         let contentInset = self.layoutData.cellContentInsets(for: self.rowIndex, columnIndex: self.columnIndex)
@@ -62,7 +65,7 @@ struct FocusedEditingView: View {
         let baselineHeightOffset = (layoutData.firstBaselineHeights[self.rowIndex] - dataItem.firstBaselineHeight) * self.layoutManager.scaleY
         let imageWidth = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleX)
         let imageHeight = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleY)
-        let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(isHeader)
+        let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(self.isHeader)
         let fontSize: CGFloat = uifont.pointSize * self.layoutManager.scaleX
         let finalFont = Font(uifont.withSize(fontSize))
         
@@ -77,7 +80,7 @@ struct FocusedEditingView: View {
                 guard self.layoutManager.model.editMode == .inline else { return }
                 
                 // header is not editable
-                if isHeader {
+                if self.isHeader {
                     if self.layoutManager.currentCell != nil {
                         self.layoutManager.currentCell = nil
                     }
@@ -351,12 +354,11 @@ struct FocusedEditingView: View {
     }
     
     func backgroundColorForCell() -> Color {
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let selectionIndex: Int = self.rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
         let isSelected = self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(selectionIndex)
         
         var isStickyCell = false
-        if isHeader, self.layoutManager.model.isHeaderSticky {
+        if self.isHeader, self.layoutManager.model.isHeaderSticky {
             isStickyCell = true
         } else if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
             isStickyCell = true
@@ -400,6 +402,20 @@ struct ItemView: View {
     @Binding var showBanner: Bool
     @Binding var toast: ToastMessage?
     
+    var isHeader: Bool {
+        self.rowIndex == 0 && self.layoutManager.model.hasHeader
+    }
+
+    var isStickyCell: Bool {
+        if self.isHeader, self.layoutManager.model.isHeaderSticky {
+            return true
+        }
+        if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
+            return true
+        }
+        return false
+    }
+    
     init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>, showToast: Binding<ToastMessage?>) {
         self.layoutManager = layoutManager
         self.layoutData = layoutData
@@ -420,7 +436,6 @@ struct ItemView: View {
     func makeBody(layoutData: LayoutData) -> some View {
         let dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
         let foregroundColor: Color? = dataItem.foregroundColor
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let cellWidth = layoutData.columnWidths[self.columnIndex] * self.layoutManager.scaleX
         let cellHeight = layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY
         let contentInset = layoutData.cellContentInsets(for: self.rowIndex, columnIndex: self.columnIndex)
@@ -429,7 +444,7 @@ struct ItemView: View {
         let baselineHeightOffset = (layoutData.firstBaselineHeights[self.rowIndex] - dataItem.firstBaselineHeight) * self.layoutManager.scaleY
         let imageWidth = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleX)
         let imageHeight = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleY)
-        let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(isHeader)
+        let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(self.isHeader)
         let fontSize: CGFloat = uifont.pointSize * self.layoutManager.scaleX
         let finalFont = Font(uifont.withSize(fontSize))
         
@@ -448,7 +463,7 @@ struct ItemView: View {
                     }
                     
                     // header is not editable
-                    if isHeader {
+                    if self.isHeader {
                         if self.layoutManager.currentCell != nil {
                             self.layoutManager.currentCell = nil
                         }
@@ -475,7 +490,7 @@ struct ItemView: View {
                     self.layoutManager.isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
                     self.showBanner = !self.layoutManager.isValid.0
                 } else {
-                    guard self.rowIndex >= 0, !isHeader else {
+                    guard self.rowIndex >= 0, !self.isHeader else {
                         return
                     }
                     
@@ -512,8 +527,16 @@ struct ItemView: View {
         .frame(width: cellWidth, height: cellHeight)
         .background(self.backgroundColorForSelectionState())
         .background(self.backgroundColorForCell())
+        .background(self.stickyOpaqueBaseColor())
         .contentShape(Rectangle())
         .gesture(tapGesture)
+    }
+    
+    /// Provides an opaque base color underneath sticky cells so that the
+    /// semi-transparent read-only fill (`.tertiaryFill`) does not reveal the
+    /// scrolling columns behind the sticky header/first column.
+    func stickyOpaqueBaseColor() -> Color {
+        self.isStickyCell ? self.layoutManager.model.backgroundColor : Color.clear
     }
     
     func theView(dataItem: DataTableItem, baselineHeightOffset: CGFloat, imageWidth: CGFloat, imageHeight: CGFloat, contentWidth: CGFloat, contentHeight: CGFloat, font: Font, foregroundColor: Color?) -> some View {
@@ -561,18 +584,10 @@ struct ItemView: View {
     }
 
     func backgroundColorForSelectionState() -> Color {
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let selectionIndex: Int = self.rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
         let isSelected = self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(selectionIndex)
         
-        var isStickyCell = false
-        if isHeader, self.layoutManager.model.isHeaderSticky {
-            isStickyCell = true
-        } else if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
-            isStickyCell = true
-        }
-        
-        if isStickyCell, isSelected {
+        if self.isStickyCell, isSelected {
             return Color.preferredColor(.informationBackground)
         } else {
             return Color.clear
@@ -581,18 +596,10 @@ struct ItemView: View {
     
     func backgroundColorForCell() -> Color {
         let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
-        
-        var isStickyCell = false
-        if isHeader, self.layoutManager.model.isHeaderSticky {
-            isStickyCell = true
-        } else if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
-            isStickyCell = true
-        }
         
         /// Background color for cells in the sticky header and column should not be clear
-        if isStickyCell {
-            if self.layoutManager.model.editMode == .inline, !isHeader, dataItem.isReadonly, dataItem.type != .image {
+        if self.isStickyCell {
+            if self.layoutManager.model.editMode == .inline, !self.isHeader, dataItem.isReadonly, dataItem.type != .image {
                 /// Read-only background color
                 return Color.preferredColor(.tertiaryFill)
             } else {
@@ -601,7 +608,7 @@ struct ItemView: View {
             }
         } else {
             /// Read-only background color for these cells only
-            if dataItem.isReadonly, dataItem.type != .image, !isHeader, self.layoutManager.model.editMode == .inline {
+            if dataItem.isReadonly, dataItem.type != .image, !self.isHeader, self.layoutManager.model.editMode == .inline {
                 return Color.preferredColor(.tertiaryFill)
             } else {
                 return Color.clear
