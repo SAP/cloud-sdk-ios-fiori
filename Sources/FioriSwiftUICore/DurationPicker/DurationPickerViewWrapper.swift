@@ -41,7 +41,6 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                     let currentHourRow = pickerView.selectedRow(inComponent: 0)
                     if currentHourRow != hourIndex {
                         pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
-                        pickerView.reloadComponent(1)
                     }
                     let expectedMinuteRows = minutesForHour(hourIndex).count
                     if pickerView.numberOfRows(inComponent: 1) != expectedMinuteRows {
