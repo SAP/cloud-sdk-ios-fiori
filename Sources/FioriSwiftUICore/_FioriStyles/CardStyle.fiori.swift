@@ -603,6 +603,9 @@ public enum CardTests {
             ChartView(CardTests.chartModel)
                 .frame(minWidth: 128)
                 .frame(height: 168)
+                .accessibilityLabel("Column chart: Top Products")
+                .accessibilityValue("Single Beds: Jan: 30, Feb: 22, Mar: 80, Apr: 70, May: 60, Jun: 64, Jul: 50, Aug: 20, Sep: 90, Oct: 80, Nov: 50, Dec: 16. Double Beds: Jan: 22, Feb: 30, Mar: 90, Apr: 80, May: 70, Jun: 32, Jul: 28, Aug: 36, Sep: 84, Oct: 70, Nov: 30, Dec: 32.")
+                .accessibilityHint("Chart showing monthly data for two product series")
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
