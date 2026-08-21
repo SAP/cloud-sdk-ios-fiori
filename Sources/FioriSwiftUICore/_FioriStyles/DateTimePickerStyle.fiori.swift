@@ -70,10 +70,24 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
             } else {
                 Divider().hidden()
             }
-            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
-                .foregroundStyle(self.getFontColor(configuration))
-                .font(.fiori(forTextStyle: .body))
-                .accessibilityLabel(self.getValueLabel(configuration))
+            
+            HStack(spacing: 4) {
+                ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                    .foregroundStyle(self.getFontColor(configuration))
+                    .font(.fiori(forTextStyle: .body))
+                    .accessibilityLabel(self.getValueLabel(configuration))
+                if configuration.controlState != .disabled,
+                   configuration.controlState != .readOnly,
+                   configuration.selectedDate != nil,
+                   configuration.showsClearAction
+                {
+                    configuration.clearAction
+                        .onSimultaneousTapGesture {
+                            configuration.selectedDate = nil
+                        }
+                        .contentShape(.accessibility, .rect.scale(1.2))
+                }
+            }
         }
         .accessibilityElement(children: .combine)
         .accessibilityHint(self.mainStackAccessibilityHint(configuration))
@@ -241,4 +255,108 @@ public enum DateTimePickerSkeletonLoadingPattern {
         pickerComponents: [.hourAndMinute],
         pickerVisible: .constant(false)
     )
+}
+
+public extension DateTimePicker {
+    /// Convenience initializer for `DateTimePicker`
+    /// - Parameters:
+    ///   - title: The title view for the date time picker.
+    ///   - valueLabel: The value view for the date time picker.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedDate: The date value being displayed and selected.
+    ///   - dateFormatter: The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    ///   - pickerComponents: The components shown in the date picker, default value shows date and time.
+    ///   - dateStyle: The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
+    ///   - timeStyle: The custom style for displaying the time. The default value is `.shortened`, showing for example, "4:29 PM" or "16:29".
+    ///   - noDateSelectedString: The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed.
+    ///   - hidesSeparator: This property indicates whether the separator is to be displayed. Default is false.
+    init(@ViewBuilder title: () -> any View,
+         @ViewBuilder valueLabel: () -> any View = { EmptyView() },
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         range: ClosedRange<Date>? = nil,
+         selectedDate: Binding<Date?> = .constant(nil),
+         dateFormatter: DateFormatter? = nil,
+         pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
+         dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
+         timeStyle: Date.FormatStyle.TimeStyle = .shortened,
+         noDateSelectedString: String? = nil,
+         pickerVisible: Binding<Bool>,
+         hidesSeparator: Bool = false)
+    {
+        self.init(title: title, valueLabel: valueLabel, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible, hidesSeparator: hidesSeparator, showsClearAction: false)
+    }
+    
+    /// Convenience initializer for `DateTimePicker`
+    /// - Parameters:
+    ///   - title: The title string for the date time picker.
+    ///   - valueLabel: The value string for the date time picker.
+    ///   - mandatoryFieldIndicator: The mandatory field indicator for the date time picker.
+    ///   - isRequired: This property indicates whether the mandatory field indicator is to be displayed.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedDate: The date value being displayed and selected.
+    ///   - dateFormatter: The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    ///   - pickerComponents: The components shown in the date picker, default value shows date and time.
+    ///   - dateStyle: The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
+    ///   - timeStyle: The custom style for displaying the time. The default value is `.shortened`, showing for example, "4:29 PM" or "16:29".
+    ///   - noDateSelectedString: The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed.
+    ///   - hidesSeparator: This property indicates whether the separator is to be displayed. Default is false.
+    init(title: AttributedString,
+         valueLabel: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         range: ClosedRange<Date>? = nil,
+         selectedDate: Binding<Date?>,
+         dateFormatter: DateFormatter? = nil,
+         pickerComponents: DatePicker.Components = [.date, .hourAndMinute],
+         dateStyle: Date.FormatStyle.DateStyle = .abbreviated,
+         timeStyle: Date.FormatStyle.TimeStyle = .shortened,
+         noDateSelectedString: String? = nil,
+         pickerVisible: Binding<Bool>,
+         hidesSeparator: Bool = false)
+    {
+        self.init(title: title, valueLabel: valueLabel, mandatoryFieldIndicator: mandatoryFieldIndicator, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible, hidesSeparator: hidesSeparator, showsClearAction: false)
+    }
+}
+
+public extension DateTimePickerConfiguration {
+    /// Convenience initializer for `DateTimePickerConfiguration`
+    /// - Parameters:
+    ///   - title: The title view for the date time picker.
+    ///   - valueLabel: The value view for the date time picker.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedDate: The date value being displayed and selected.
+    ///   - dateFormatter: The `DateFormatter` to be used to display the selected `Date`. Default formatter will use customized dateStyle and timeStyle.
+    ///   - pickerComponents: The components shown in the date picker, default value shows date and time.
+    ///   - dateStyle: The custom style for displaying the date. The default value is `.abbreviated`, showing for example, "Oct 21, 2015".
+    ///   - timeStyle: The custom style for displaying the time. The default value is `.shortened`, showing for example, "4:29 PM" or "16:29".
+    ///   - noDateSelectedString: The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed.
+    ///   - hidesSeparator: This property indicates whether the separator is to be displayed. Default is false.
+    init(title: Title,
+         valueLabel: ValueLabel,
+         controlState: ControlState,
+         errorMessage: AttributedString?,
+         range: ClosedRange<Date>?,
+         selectedDate: Binding<Date?>,
+         dateFormatter: DateFormatter?,
+         pickerComponents: DatePicker.Components,
+         dateStyle: Date.FormatStyle.DateStyle,
+         timeStyle: Date.FormatStyle.TimeStyle,
+         noDateSelectedString: String?,
+         pickerVisible: Binding<Bool>,
+         hidesSeparator: Bool)
+    {
+        self.init(title: title, valueLabel: valueLabel, controlState: controlState, errorMessage: errorMessage, range: range, selectedDate: selectedDate, dateFormatter: dateFormatter, pickerComponents: pickerComponents, dateStyle: dateStyle, timeStyle: timeStyle, noDateSelectedString: noDateSelectedString, pickerVisible: pickerVisible, hidesSeparator: hidesSeparator, showsClearAction: false, clearAction: .init(EmptyView()))
+    }
 }
