@@ -40,13 +40,11 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 if let hourIndex = hours.firstIndex(of: hour) {
                     let currentHourRow = pickerView.selectedRow(inComponent: 0)
                     if currentHourRow != hourIndex {
-                        context.coordinator.currentHourIndex = hourIndex
                         pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
                         pickerView.reloadComponent(1)
                     }
                     let expectedMinuteRows = minutesForHour(hourIndex).count
                     if pickerView.numberOfRows(inComponent: 1) != expectedMinuteRows {
-                        context.coordinator.currentHourIndex = hourIndex
                         pickerView.reloadComponent(1)
                     }
                     if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
@@ -81,7 +79,6 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         let minute = self.selection % 60
         
         if let hourIndex = hours.firstIndex(of: hour) {
-            context.coordinator.currentHourIndex = hourIndex
             pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
             if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
                 pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
@@ -108,7 +105,6 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent: DurationPickerViewWrapper
         let pickerFont = UIFont.preferredFioriFont(fixedSize: 22)
-        var currentHourIndex: Int = 0
         
         init(_ parent: DurationPickerViewWrapper) {
             self.parent = parent
@@ -123,7 +119,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours.count
             case 1:
-                return self.parent.minutesForHour(self.currentHourIndex).count
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                return self.parent.minutesForHour(hourIndex).count
             default:
                 return 0
             }
@@ -134,7 +131,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours[row].description
             case 1:
-                let minutes = self.parent.minutesForHour(self.currentHourIndex)
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                let minutes = self.parent.minutesForHour(hourIndex)
                 return minutes.count > row ? minutes[row].description : ""
             default:
                 return ""
@@ -144,7 +142,6 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             if component == 0 {
                 let hourIndex = pickerView.selectedRow(inComponent: 0)
-                self.currentHourIndex = hourIndex
                 var minuteRow = pickerView.selectedRow(inComponent: 1)
                 pickerView.reloadComponent(1)
                 let minutes = self.parent.minutesForHour(hourIndex)
@@ -188,7 +185,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
                 return view
             } else {
                 let view = self.setupMinuteView(label, forComponent: component)
-                let minutes = self.parent.minutesForHour(self.currentHourIndex)
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                let minutes = self.parent.minutesForHour(hourIndex)
                 if minutes.count > row {
                     view.accessibilityLabel = minutes[row].description + self.parent.minuteText
                 }
