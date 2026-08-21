@@ -56,9 +56,22 @@ public struct DateRangePickerBaseStyle: DateRangePickerStyle {
             } else {
                 Divider().hidden()
             }
-
-            ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
-                .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
+            
+            HStack(spacing: 4) {
+                ValueLabel(valueLabel: AttributedString(self.getValueLabel(configuration)))
+                    .accessibilityLabel(self.getValueAccessibilityLabelString(configuration))
+                if configuration.showsClearAction,
+                   configuration.controlState != .disabled,
+                   configuration.controlState != .readOnly,
+                   configuration.selectedRange != nil
+                {
+                    configuration.clearAction
+                        .onSimultaneousTapGesture {
+                            configuration.selectedRange = nil
+                        }
+                        .contentShape(.accessibility, .rect.scale(1.2))
+                }
+            }
         }
         .accessibilityElement(children: .combine)
         .accessibilityHint(self.mainStackAccessibilityHint(configuration))
@@ -161,5 +174,85 @@ extension DateRangePickerFioriStyle {
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+public extension DateRangePicker {
+    /// Convenience initializer for `DateRangePicker`
+    /// - Parameters:
+    ///   - title: The title view for the date range picker.
+    ///   - valueLabel: The value view for the date range picker.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedRange: The range of selected dates. Default is nil. It's continuous in ascending order.
+    ///   - rangeFormatter: Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
+    ///   - noRangeSelectedString: The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed or not.
+    init(@ViewBuilder title: () -> any View,
+         @ViewBuilder valueLabel: () -> any View = { EmptyView() },
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         range: Range<Date>? = nil,
+         selectedRange: Binding<ClosedRange<Date>?> = .constant(nil),
+         rangeFormatter: DateFormatter? = nil,
+         noRangeSelectedString: String? = nil,
+         pickerVisible: Binding<Bool>)
+    {
+        self.init(title: title, valueLabel: valueLabel, controlState: controlState, errorMessage: errorMessage, range: range, selectedRange: selectedRange, rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: pickerVisible, showsClearAction: false)
+    }
+    
+    /// Convenience initializer for `DateRangePicker`
+    /// - Parameters:
+    ///   - title: The title string for the date range picker.
+    ///   - valueLabel: The value string for the date range picker.
+    ///   - mandatoryFieldIndicator: The mandatory field indicator for the date range picker.
+    ///   - isRequired: This property indicates whether the mandatory field indicator is to be displayed.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedRange: The range of selected dates. Default is nil. It's continuous in ascending order.
+    ///   - rangeFormatter: Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
+    ///   - noRangeSelectedString: The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed or not.
+    init(title: AttributedString,
+         valueLabel: AttributedString? = nil,
+         mandatoryFieldIndicator: TextOrIcon? = .text("*"),
+         isRequired: Bool = false,
+         controlState: ControlState = .normal,
+         errorMessage: AttributedString? = nil,
+         range: Range<Date>? = nil,
+         selectedRange: Binding<ClosedRange<Date>?>,
+         rangeFormatter: DateFormatter? = nil,
+         noRangeSelectedString: String? = nil,
+         pickerVisible: Binding<Bool>)
+    {
+        self.init(title: title, valueLabel: valueLabel, mandatoryFieldIndicator: mandatoryFieldIndicator, isRequired: isRequired, controlState: controlState, errorMessage: errorMessage, range: range, selectedRange: selectedRange, rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: pickerVisible, showsClearAction: false)
+    }
+}
+
+public extension DateRangePickerConfiguration {
+    /// Convenience initializer for `DateRangePickerConfiguration`
+    /// - Parameters:
+    ///   - title: The title view for the date range picker.
+    ///   - valueLabel: The value view for the date range picker.
+    ///   - controlState: The `ControlState` of the form view. The default is `normal`.
+    ///   - errorMessage: The error message of the form view.
+    ///   - range: The inclusive range of selectable dates.
+    ///   - selectedRange: The range of selected dates. Default is nil. It's continuous in ascending order.
+    ///   - rangeFormatter: Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
+    ///   - noRangeSelectedString: The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
+    ///   - pickerVisible: This property indicates whether the picker is to be displayed or not.
+    init(title: Title,
+         valueLabel: ValueLabel,
+         controlState: ControlState,
+         errorMessage: AttributedString?,
+         range: Range<Date>?,
+         selectedRange: Binding<ClosedRange<Date>?>,
+         rangeFormatter: DateFormatter?,
+         noRangeSelectedString: String?,
+         pickerVisible: Binding<Bool>)
+    {
+        self.init(title: title, valueLabel: valueLabel, controlState: controlState, errorMessage: errorMessage, range: range, selectedRange: selectedRange, rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: pickerVisible, showsClearAction: false, clearAction: .init(EmptyView()))
     }
 }

@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+import FioriThemeManager
+
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
 /// ## Usage
 /// ```swift
@@ -54,6 +56,10 @@ public struct DateRangePicker {
     let noRangeSelectedString: String?
     /// This property indicates whether the picker is to be displayed or not.
     @Binding var pickerVisible: Bool
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    let showsClearAction: Bool
+    /// view for clear the value
+    let clearAction: any View
 
     @Environment(\.dateRangePickerStyle) var style
 
@@ -70,6 +76,8 @@ public struct DateRangePicker {
                 rangeFormatter: DateFormatter? = nil,
                 noRangeSelectedString: String? = nil,
                 pickerVisible: Binding<Bool>,
+                showsClearAction: Bool = false,
+                @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) },
                 componentIdentifier: String? = DateRangePicker.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -81,6 +89,8 @@ public struct DateRangePicker {
         self.rangeFormatter = rangeFormatter
         self.noRangeSelectedString = noRangeSelectedString
         self._pickerVisible = pickerVisible
+        self.showsClearAction = showsClearAction
+        self.clearAction = clearAction()
         self.componentIdentifier = componentIdentifier ?? DateRangePicker.identifier
     }
 }
@@ -100,11 +110,13 @@ public extension DateRangePicker {
          selectedRange: Binding<ClosedRange<Date>?>,
          rangeFormatter: DateFormatter? = nil,
          noRangeSelectedString: String? = nil,
-         pickerVisible: Binding<Bool>)
+         pickerVisible: Binding<Bool>,
+         showsClearAction: Bool = false,
+         @ViewBuilder clearAction: () -> any View = { FioriIcon.actions.sysCancel.foregroundColor(.gray) })
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedRange: selectedRange, rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: pickerVisible)
+        }, valueLabel: { OptionalText(valueLabel) }, controlState: controlState, errorMessage: errorMessage, range: range, selectedRange: selectedRange, rangeFormatter: rangeFormatter, noRangeSelectedString: noRangeSelectedString, pickerVisible: pickerVisible, showsClearAction: showsClearAction, clearAction: clearAction)
     }
 }
 
@@ -123,6 +135,8 @@ public extension DateRangePicker {
         self.rangeFormatter = configuration.rangeFormatter
         self.noRangeSelectedString = configuration.noRangeSelectedString
         self._pickerVisible = configuration.$pickerVisible
+        self.showsClearAction = configuration.showsClearAction
+        self.clearAction = configuration.clearAction
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -133,7 +147,7 @@ extension DateRangePicker: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedRange: self.$selectedRange, rangeFormatter: self.rangeFormatter, noRangeSelectedString: self.noRangeSelectedString, pickerVisible: self.$pickerVisible)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedRange: self.$selectedRange, rangeFormatter: self.rangeFormatter, noRangeSelectedString: self.noRangeSelectedString, pickerVisible: self.$pickerVisible, showsClearAction: self.showsClearAction, clearAction: .init(self.clearAction))).typeErased
                 .transformEnvironment(\.dateRangePickerStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -151,7 +165,7 @@ private extension DateRangePicker {
     }
 
     func defaultStyle() -> some View {
-        DateRangePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedRange: self.$selectedRange, rangeFormatter: self.rangeFormatter, noRangeSelectedString: self.noRangeSelectedString, pickerVisible: self.$pickerVisible))
+        DateRangePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedRange: self.$selectedRange, rangeFormatter: self.rangeFormatter, noRangeSelectedString: self.noRangeSelectedString, pickerVisible: self.$pickerVisible, showsClearAction: self.showsClearAction, clearAction: .init(self.clearAction)))
             .shouldApplyDefaultStyle(false)
             .dateRangePickerStyle(DateRangePickerFioriStyle.ContentFioriStyle())
             .typeErased

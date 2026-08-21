@@ -995,8 +995,9 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent, _StateLabelCom
 ///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
-    // The inclusive range of selectable dates.
+    /// The inclusive range of selectable dates.
     var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     // sourcery: defaultValue = ".constant(nil)"
@@ -1026,6 +1027,16 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: defaultValue = false
     /// This property indicates whether the separator is to be displayed. Default is false.
     var hidesSeparator: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    var showsClearAction: Bool { get }
+    
+    // sourcery: defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    /// view for clear the value
+    @ViewBuilder
+    var clearAction: () -> any View { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
@@ -1063,6 +1074,7 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 ///     .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     /// The inclusive range of selectable dates.
     var range: Range<Date>? { get }
@@ -1080,6 +1092,16 @@ protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _Mand
     // sourcery: @Binding
     /// This property indicates whether the picker is to be displayed or not.
     var pickerVisible: Bool { get set }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    var showsClearAction: Bool { get }
+    
+    // sourcery: defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    /// view for clear the value
+    @ViewBuilder
+    var clearAction: () -> any View { get }
 }
 
 // sourcery: CompositeComponent
