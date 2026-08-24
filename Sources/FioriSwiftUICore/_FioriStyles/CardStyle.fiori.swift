@@ -396,7 +396,7 @@ public struct CardCardStyle: CardStyle {
                     .inset(by: 0.3)
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: 26))
             .accessibilityElement(children: .contain)
             .accessibilityLabel("Card".localizedFioriString())
             .ifApply(self.shadowEffectConfiguration.showShadow) { content in
