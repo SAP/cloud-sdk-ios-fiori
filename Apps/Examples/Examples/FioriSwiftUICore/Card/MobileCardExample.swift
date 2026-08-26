@@ -431,7 +431,7 @@ public struct FioriCard<Content: View>: View {
                 .inset(by: 0.3)
                 .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 26))
         .shadow(color: Color.black.opacity(0.3).opacity(0.92), radius: 8, x: 0, y: 2)
     }
 }
