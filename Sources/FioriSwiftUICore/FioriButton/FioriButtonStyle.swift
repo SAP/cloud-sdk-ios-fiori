@@ -495,6 +495,8 @@ public struct FioriCustomizeGlassButtonStyle: FioriButtonStyle {
 
     public func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
         let foregroundColor: Color = self.glassEffectTintColor == nil ? .preferredColor(.primaryLabel) : .white
+        let glass: Glass = self.glassEffectTintColor
+            .map { .regular.tint($0).interactive() } ?? .regular.interactive()
         return self.containerView(configuration)
             .font(.fiori(forTextStyle: .body, weight: .semibold))
             .foregroundColor(foregroundColor)
@@ -502,12 +504,7 @@ public struct FioriCustomizeGlassButtonStyle: FioriButtonStyle {
             .padding(EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24))
             .frame(minWidth: 44, maxWidth: self.maxWidth, minHeight: self.minHeight)
             .contentShape(Capsule())
-            .ifApply(self.glassEffectTintColor != nil) {
-                $0.glassEffect(.regular.tint(self.glassEffectTintColor!).interactive(), in: Capsule())
-            }
-            .ifApply(self.glassEffectTintColor == nil) {
-                $0.glassEffect(.regular.interactive(), in: Capsule())
-            }
+            .glassEffect(glass, in: Capsule())
     }
 
     @ViewBuilder
