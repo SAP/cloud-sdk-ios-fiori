@@ -170,12 +170,19 @@ struct DynamicAuthenticationExample: View {
             }
         }
         .navigationBarItems(
-            leading: Button("Cancel") {
+            leading:
+            Button {
                 self.dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .foregroundStyle(.tint)
             },
-            trailing: Button("Done") {
-                print("Done tapped")
+            trailing:
+            Button {
                 self.dismiss()
+            } label: {
+                Image(systemName: "checkmark")
+                    .foregroundStyle(.tint)
             }
             .disabled(self.password.isEmpty || self.name.isEmpty || self.url.isEmpty || self.email.isEmpty || self.test1.isEmpty || self.test2.isEmpty || self.test3.isEmpty)
         )
@@ -213,7 +220,7 @@ struct AuthenticationExample: View {
             self.isPresentedBanner = true
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.messageType = .negative
+                self.messageType = .informative
                 self.verifyMessage = "Verify Successfully"
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
