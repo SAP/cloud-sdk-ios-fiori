@@ -356,6 +356,7 @@ public struct FioriGlassButtonStyle: FioriButtonStyle {
             .tint(config.foregroundColor)
             .padding(config.padding)
             .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
+            .contentShape(Rectangle())
             .ifApply(self.glassEffect == .tint, content: {
                 $0.glassEffect(.regular.tint(.preferredColor(.tintColor)))
             })
@@ -467,5 +468,61 @@ public struct AnyFioriButtonStyle: FioriButtonStyle {
     
     public func makeBody(configuration: Configuration) -> some View {
         self.view(configuration)
+    }
+}
+
+@available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *)
+@available(visionOS, unavailable)
+public struct FioriCustomizeGlassButtonStyle: FioriButtonStyle {
+    private let glassEffectTintColor: Color?
+    private let maxWidth: CGFloat?
+    private let minHeight: CGFloat?
+
+    /// Creates a customizable interactive glass button style.
+    /// - Parameters:
+    ///   - glassEffectTintColor: The tint color applied to the glass. Pass `nil`
+    ///     for an untinted (plain) glass. Defaults to the app tint color.
+    ///   - maxWidth: The maximum width of the button. Defaults to `nil`.
+    ///   - minHeight: The minimum height of the button. Defaults to `44`.
+    public init(glassEffectTintColor: Color? = .preferredColor(.tintColor),
+                maxWidth: CGFloat? = nil,
+                minHeight: CGFloat? = 44)
+    {
+        self.glassEffectTintColor = glassEffectTintColor
+        self.maxWidth = maxWidth
+        self.minHeight = minHeight
+    }
+
+    public func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
+        let foregroundColor: Color = self.glassEffectTintColor == nil ? .preferredColor(.primaryLabel) : .white
+        return self.containerView(configuration)
+            .font(.fiori(forTextStyle: .body, weight: .semibold))
+            .foregroundColor(foregroundColor)
+            .tint(foregroundColor)
+            .padding(EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24))
+            .frame(minWidth: 44, maxWidth: self.maxWidth, minHeight: self.minHeight)
+            .contentShape(Capsule())
+            .ifApply(self.glassEffectTintColor != nil) {
+                $0.glassEffect(.regular.tint(self.glassEffectTintColor!).interactive(), in: Capsule())
+            }
+            .ifApply(self.glassEffectTintColor == nil) {
+                $0.glassEffect(.regular.interactive(), in: Capsule())
+            }
+    }
+
+    @ViewBuilder
+    private func containerView(_ configuration: FioriButtonStyle.Configuration) -> some View {
+        let showImageView = configuration.image
+        let label = configuration.label
+        switch configuration.imagePosition {
+        case .top:
+            VStack(spacing: configuration.imageTitleSpacing) { showImageView; label }
+        case .leading:
+            HStack(spacing: configuration.imageTitleSpacing) { showImageView; label }
+        case .bottom:
+            VStack(spacing: configuration.imageTitleSpacing) { label; showImageView }
+        case .trailing:
+            HStack(spacing: configuration.imageTitleSpacing) { label; showImageView }
+        }
     }
 }

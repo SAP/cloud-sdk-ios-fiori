@@ -18,15 +18,26 @@ public struct WhatsNewListViewBaseStyle: WhatsNewListViewStyle {
                 VStack {
                     Spacer()
                     FioriButton(title: "Start", action: { _ in configuration.didFinish?() })
-                        .fioriButtonStyle(FioriPrimaryButtonStyle(200))
+                        .fioriButtonStyle(self.startButtonStyle())
                         .padding(.bottom, 34)
                 }
             }
-            .navigationBarItems(trailing: Button(NSLocalizedString("Close", comment: ""), action: {
+            .navigationBarItems(leading: ToolbarCloseIcon {
                 configuration.didClose?()
-            }))
+            })
             .navigationTitle("What's New")
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+
+    /// Returns an interactive tinted glass-effect button style on Liquid Glass
+    /// systems (iOS 26+), falling back to the primary Fiori button style on
+    /// earlier versions.
+    private func startButtonStyle() -> AnyFioriButtonStyle {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+            FioriCustomizeGlassButtonStyle(maxWidth: 200).eraseToAnyFioriButtonStyle()
+        } else {
+            FioriPrimaryButtonStyle(200).eraseToAnyFioriButtonStyle()
         }
     }
 }

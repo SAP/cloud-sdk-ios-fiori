@@ -70,7 +70,7 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
                         self.whatsNewPageDidFinish?()
                     }
                 })
-                .fioriButtonStyle(FioriPrimaryButtonStyle(201))
+                .fioriButtonStyle(self.startButtonStyle())
                 .padding(.bottom, 34)
                 .sizeReader { size in
                     self.buttonHeight = size.height
@@ -84,6 +84,17 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
             withAnimation(.linear(duration: 0)) {
                 self.actionButtonTitle = (self.whatsNewPageIndex.wrappedValue ?? 0) < self.pageList.count - 1 ? "Next" : "Start"
             }
+        }
+    }
+    
+    /// Returns an interactive tinted glass-effect button style on Liquid Glass
+    /// systems (iOS 26+), falling back to the primary Fiori button style on
+    /// earlier versions.
+    private func startButtonStyle() -> AnyFioriButtonStyle {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
+            FioriCustomizeGlassButtonStyle(maxWidth: 200).eraseToAnyFioriButtonStyle()
+        } else {
+            FioriPrimaryButtonStyle(200).eraseToAnyFioriButtonStyle()
         }
     }
 }

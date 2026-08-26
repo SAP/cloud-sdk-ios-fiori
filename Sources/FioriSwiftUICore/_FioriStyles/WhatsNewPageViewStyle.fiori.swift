@@ -9,9 +9,9 @@ public struct WhatsNewPageViewBaseStyle: WhatsNewPageViewStyle {
             configuration.whatsNewPages
                 .navigationTitle("What's New")
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(trailing: Button(NSLocalizedString("Close", comment: ""), action: {
+                .navigationBarItems(leading: ToolbarCloseIcon {
                     configuration.didClose?()
-                }))
+                })
         }
         .environment(\.whatsNewPageIndex, configuration.$currentIndex)
         .environment(\.whatsNewPageDidFinish, configuration.didFinish)
