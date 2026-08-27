@@ -155,8 +155,8 @@ struct CardFullWidthSingleButtonExample: View {
                                         .id(item.id)
                                 }
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: .preferredColor(.cardShadow), radius: 16)
+                            .clipShape(RoundedRectangle(cornerRadius: 26))
+                            .shadow(color: .preferredColor(.cardShadow), radius: 26)
                             .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                         }
                         .onAppear {
@@ -164,8 +164,8 @@ struct CardFullWidthSingleButtonExample: View {
                                 proxy.scrollTo(firstID, anchor: .leading)
                             }
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .shadow(color: .preferredColor(.cardShadow), radius: 16)
+                        .clipShape(RoundedRectangle(cornerRadius: 26))
+                        .shadow(color: .preferredColor(.cardShadow), radius: 26)
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
                     }
                 }

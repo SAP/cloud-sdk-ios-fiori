@@ -117,8 +117,11 @@ extension TextFieldFormViewFioriStyle {
                             }
                         }
                     }
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration)).background(self.isLoading ? .clear : self.getBackgroundColor(configuration)))
-                    .cornerRadius(8)
+                    .background(self.isLoading ? .clear : self.getBackgroundColor(configuration))
+                    .clipShape(.rect(cornerRadius: 8))
+                    .background {
+                        RoundedRectangle(cornerRadius: 8).stroke(self.getBorderColor(configuration), lineWidth: self.getBorderWidth(configuration))
+                    }
                 }
                 .textInputInfoViewStyle { config in
                     let isError = self.isErrorStyle(configuration)
