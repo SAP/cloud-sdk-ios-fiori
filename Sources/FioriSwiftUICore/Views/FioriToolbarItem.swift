@@ -89,17 +89,21 @@ struct FioriToolbarDemoView: View {
                         FioriToolbarItem.close
                             .withAction {}
                     }
-                    if #available(iOS 26.0, *) {
-                        ToolbarSpacer(.flexible, placement: .topBarLeading)
-                    }
+                    #if !os(iOS)
+                        if #available(iOS 26.0, *) {
+                            ToolbarSpacer(.flexible, placement: .topBarLeading)
+                        }
+                    #endif
                     ToolbarItem(placement: .topBarLeading) {
                         FioriToolbarItem.back
                             .withAction {}
                             .foregroundStyle(Color.red)
                     }
-                    if #available(iOS 26.0, *) {
-                        ToolbarSpacer(.flexible, placement: .topBarLeading)
-                    }
+                    #if !os(iOS)
+                        if #available(iOS 26.0, *) {
+                            ToolbarSpacer(.flexible, placement: .topBarLeading)
+                        }
+                    #endif
                     ToolbarItem(placement: .topBarLeading) {
                         FioriToolbarItem.textClose
                             .withAction {}
