@@ -22,9 +22,15 @@ public struct WhatsNewListViewBaseStyle: WhatsNewListViewStyle {
                         .padding(.bottom, 34)
                 }
             }
-            .navigationBarItems(leading: ToolbarCloseIcon {
-                configuration.didClose?()
-            })
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    FioriToolbarItem.close
+                        .withAction {
+                            configuration.didClose?()
+                        }
+                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                }
+            }
             .navigationTitle("What's New")
             .navigationBarTitleDisplayMode(.inline)
         }

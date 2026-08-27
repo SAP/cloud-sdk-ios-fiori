@@ -5,13 +5,21 @@ import SwiftUI
 // Base Layout style
 public struct WhatsNewPageViewBaseStyle: WhatsNewPageViewStyle {
     public func makeBody(_ configuration: WhatsNewPageViewConfiguration) -> some View {
-        NavigationView {
+        let didClose = configuration.didClose
+
+        return NavigationView {
             configuration.whatsNewPages
                 .navigationTitle("What's New")
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(leading: ToolbarCloseIcon {
-                    configuration.didClose?()
-                })
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        FioriToolbarItem.close
+                            .withAction {
+                                didClose?()
+                            }
+                            .foregroundStyle(Color.preferredColor(.primaryLabel))
+                    }
+                }
         }
         .environment(\.whatsNewPageIndex, configuration.$currentIndex)
         .environment(\.whatsNewPageDidFinish, configuration.didFinish)
