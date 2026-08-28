@@ -356,6 +356,7 @@ public struct FioriGlassButtonStyle: FioriButtonStyle {
             .tint(config.foregroundColor)
             .padding(config.padding)
             .frame(minWidth: 44, maxWidth: config.maxWidth, minHeight: config.minHeight)
+            .contentShape(Rectangle())
             .ifApply(self.glassEffect == .tint, content: {
                 $0.glassEffect(.regular.tint(.preferredColor(.tintColor)))
             })
