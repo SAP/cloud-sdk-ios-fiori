@@ -25,42 +25,49 @@ public extension WhatsNewPageList {
     }
 }
 
+/// Preference key used to communicate the measured height of the floating
+/// bottom bar (action button + page control) up the view hierarchy.
+private struct WhatsNewBottomBarHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
 public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
     let pageList: PageList
     @State var actionButtonTitle: AttributedString = "Next"
-    @State private var buttonHeight: CGFloat = 0
     @State private var isCompactMode: Bool = false
+    @State private var bottomBarHeight: CGFloat = 0
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.whatsNewPageIndex) var whatsNewPageIndex
     @Environment(\.whatsNewPageDidFinish) var whatsNewPageDidFinish
 
     init(pageList: PageList) {
         self.pageList = pageList
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.preferredColor(.primaryLabel))
-        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color.preferredColor(.quaternaryLabel))
     }
-    
+
     public var body: some View {
-        ZStack {
-            TabView(selection: self.whatsNewPageIndex) {
-                ForEach(0 ..< self.pageList.count, id: \.self) { index in
-                    ScrollView {
-                        VStack {
-                            self.pageList.view(at: index).typeErased
-                            Spacer()
-                        }
-                        .padding(.top, 52)
-                        .padding(.bottom, self.buttonHeight + 50)
+        TabView(selection: self.whatsNewPageIndex) {
+            ForEach(0 ..< self.pageList.count, id: \.self) { index in
+                ScrollView {
+                    VStack {
+                        self.pageList.view(at: index).typeErased
+                        Spacer()
                     }
-                    .padding(.horizontal, self.isCompactMode ? 32 : 72)
-                    .tag(index)
+                    .padding(.top, 52)
+                    // Reserve space at the bottom so the content can scroll
+                    // completely clear of the floating bottom bar.
+                    .padding(.bottom, self.bottomBarHeight)
                 }
+                .padding(.horizontal, self.isCompactMode ? 32 : 72)
+                .tag(index)
             }
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .never))
-            .animation(.easeInOut(duration: 1.0), value: self.whatsNewPageIndex.wrappedValue)
-            VStack {
-                Spacer()
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .animation(.easeInOut(duration: 1.0), value: self.whatsNewPageIndex.wrappedValue)
+        .overlay(alignment: .bottom) {
+            VStack(spacing: 16) {
                 FioriButton(title: self.actionButtonTitle, action: { _ in
                     if (self.whatsNewPageIndex.wrappedValue ?? 0) < self.pageList.count - 1 {
                         withAnimation {
@@ -71,11 +78,34 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
                     }
                 })
                 .fioriButtonStyle(.whatsNewPrimary())
-                .padding(.bottom, 34)
-                .sizeReader { size in
-                    self.buttonHeight = size.height
+
+                if self.pageList.count > 1 {
+                    FioriPageControl(
+                        numberOfPages: self.pageList.count,
+                        currentPage: Binding(
+                            get: { self.whatsNewPageIndex.wrappedValue ?? 0 },
+                            set: { newValue in
+                                withAnimation {
+                                    self.whatsNewPageIndex.wrappedValue = newValue
+                                }
+                            }
+                        )
+                    )
+                    .frame(width: 168, height: 44)
+                    .ifApplyGlassEffectContainer()
                 }
             }
+            .padding(.horizontal, self.isCompactMode ? 32 : 72)
+            .padding(.bottom, 34)
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .preference(key: WhatsNewBottomBarHeightKey.self, value: proxy.size.height)
+                }
+            )
+        }
+        .onPreferenceChange(WhatsNewBottomBarHeightKey.self) { height in
+            self.bottomBarHeight = height
         }
         .sizeReader { size in
             self.isCompactMode = size.width < 540
@@ -84,6 +114,17 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
             withAnimation(.linear(duration: 0)) {
                 self.actionButtonTitle = (self.whatsNewPageIndex.wrappedValue ?? 0) < self.pageList.count - 1 ? "Next" : "Start"
             }
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func ifApplyGlassEffectContainer() -> some View {
+        if #available(iOS 26.0, *), LiquidGlassHelper.usesLiquidGlassUI {
+            self.glassEffect(.regular, in: .rect(cornerRadius: 22))
+        } else {
+            self
         }
     }
 }
