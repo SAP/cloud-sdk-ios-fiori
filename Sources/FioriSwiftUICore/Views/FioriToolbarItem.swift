@@ -89,7 +89,7 @@ struct FioriToolbarDemoView: View {
                         FioriToolbarItem.close
                             .withAction {}
                     }
-                    #if !os(iOS)
+                    #if !os(visionOS)
                         if #available(iOS 26.0, *) {
                             ToolbarSpacer(.flexible, placement: .topBarLeading)
                         }
@@ -99,7 +99,7 @@ struct FioriToolbarDemoView: View {
                             .withAction {}
                             .foregroundStyle(Color.red)
                     }
-                    #if !os(iOS)
+                    #if !os(visionOS)
                         if #available(iOS 26.0, *) {
                             ToolbarSpacer(.flexible, placement: .topBarLeading)
                         }

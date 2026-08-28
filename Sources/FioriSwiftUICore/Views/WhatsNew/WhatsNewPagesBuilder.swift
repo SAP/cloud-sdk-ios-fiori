@@ -121,11 +121,15 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
 private extension View {
     @ViewBuilder
     func ifApplyGlassEffectContainer() -> some View {
-        if #available(iOS 26.0, *), LiquidGlassHelper.usesLiquidGlassUI {
-            self.glassEffect(.regular, in: .rect(cornerRadius: 22))
-        } else {
+        #if !os(visionOS)
+            if #available(iOS 26.0, *), LiquidGlassHelper.usesLiquidGlassUI {
+                self.glassEffect(.regular, in: .rect(cornerRadius: 22))
+            } else {
+                self
+            }
+        #else
             self
-        }
+        #endif
     }
 }
 
