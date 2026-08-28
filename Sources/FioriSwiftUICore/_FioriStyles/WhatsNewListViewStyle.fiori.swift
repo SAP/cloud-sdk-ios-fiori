@@ -18,13 +18,19 @@ public struct WhatsNewListViewBaseStyle: WhatsNewListViewStyle {
                 VStack {
                     Spacer()
                     FioriButton(title: "Start", action: { _ in configuration.didFinish?() })
-                        .fioriButtonStyle(FioriPrimaryButtonStyle(200))
+                        .fioriButtonStyle(.whatsNewPrimary())
                         .padding(.bottom, 34)
                 }
             }
-            .navigationBarItems(trailing: Button(NSLocalizedString("Close", comment: ""), action: {
-                configuration.didClose?()
-            }))
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    FioriToolbarItem.close
+                        .withAction {
+                            configuration.didClose?()
+                        }
+                        .foregroundStyle(Color.preferredColor(.primaryLabel))
+                }
+            }
             .navigationTitle("What's New")
             .navigationBarTitleDisplayMode(.inline)
         }
