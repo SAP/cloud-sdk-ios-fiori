@@ -100,10 +100,7 @@ public struct WhatsNewInnerView<PageList: WhatsNewPageList>: View {
             .background(
                 GeometryReader { proxy in
                     Color.clear
-                        .preference(
-                            key: WhatsNewBottomBarHeightKey.self,
-                            value: proxy.size.height + proxy.safeAreaInsets.bottom
-                        )
+                        .preference(key: WhatsNewBottomBarHeightKey.self, value: proxy.size.height)
                 }
             )
         }

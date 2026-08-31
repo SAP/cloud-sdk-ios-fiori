@@ -37,14 +37,7 @@ struct FioriToolbarItem: Hashable, Sendable {
     }
 
     func hash(into hasher: inout Hasher) {
-        switch self.style {
-        case .text(let text):
-            hasher.combine(0)
-            hasher.combine(text)
-        case .image(let imageName):
-            hasher.combine(1)
-            hasher.combine(imageName)
-        }
+        hasher.combine(0)
     }
 
     enum Style {
@@ -80,7 +73,7 @@ extension FioriToolbarItem: View {
     static let close = FioriToolbarItem(style: .image("xmark"))
     static let back = FioriToolbarItem(style: .image("chevron.backward"))
 
-    static let textClose = FioriToolbarItem(style: .text(NSLocalizedString("Close", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Close")))
+    static let textClose = FioriToolbarItem(style: .text("Close"))
 
     func withAction(_ action: @escaping @Sendable () -> Void) -> FioriToolbarItem {
         FioriToolbarItem(style: self.style, action: action)
