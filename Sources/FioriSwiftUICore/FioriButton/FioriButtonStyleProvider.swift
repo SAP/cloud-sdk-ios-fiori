@@ -4,7 +4,7 @@ import SwiftUI
 enum FioriButtonStyleProvider {
     static func getPlainButtonStyle(state: UIControl.State, isLoading: Bool = false) -> FioriButtonConfiguration {
         if isLoading {
-            return FioriButtonConfiguration(foregroundColor: .preferredColor(.secondaryBackground), backgroundColor: .preferredColor(.secondaryBackground), font: .fiori(forTextStyle: .callout), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            return FioriButtonConfiguration(foregroundColor: .preferredColor(.secondaryBackground), backgroundColor: .preferredColor(.secondaryBackground), font: .fiori(forTextStyle: .callout))
         }
         let backgroundColor: Color = .preferredColor(.primaryBackground)
         let foregroundColor: Color
