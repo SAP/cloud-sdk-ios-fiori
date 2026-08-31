@@ -17,7 +17,7 @@ enum FioriButtonStyleProvider {
             foregroundColor = .preferredColor(.separator)
         }
         
-        return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor, font: .fiori(forTextStyle: .callout), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor, font: .fiori(forTextStyle: .callout))
     }
     
     static func getPrimaryButtonStyle(state: UIControl.State, loadingState: FioriButtonLoadingState = .unspecified, isLoading: Bool = false) -> FioriButtonConfiguration {
