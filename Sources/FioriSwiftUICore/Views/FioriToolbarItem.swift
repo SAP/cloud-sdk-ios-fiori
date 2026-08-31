@@ -69,8 +69,8 @@ extension FioriToolbarItem: View {
             self.action?()
         } label: {
             switch self.style {
-            case .text(let text):
-                Text(text)
+            case .text(let key):
+                Text(NSLocalizedString(key, tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
             case .image(let imageName):
                 Image(systemName: imageName)
             }
@@ -80,7 +80,7 @@ extension FioriToolbarItem: View {
     static let close = FioriToolbarItem(style: .image("xmark"))
     static let back = FioriToolbarItem(style: .image("chevron.backward"))
 
-    static let textClose = FioriToolbarItem(style: .text(NSLocalizedString("Close", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Close")))
+    static let textClose = FioriToolbarItem(style: .text("Close"))
 
     func withAction(_ action: @escaping @Sendable () -> Void) -> FioriToolbarItem {
         FioriToolbarItem(style: self.style, action: action)
