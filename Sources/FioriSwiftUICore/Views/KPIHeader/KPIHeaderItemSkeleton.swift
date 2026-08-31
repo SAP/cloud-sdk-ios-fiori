@@ -28,7 +28,7 @@ struct KPIHeaderItemSkeleton: View {
     // — the same colors `ShimmerViewModifier.redactedForegroundColor` / `SkeletonLoadingContainer`
     // use.
     private var placeholderColor: Color {
-        Color.preferredColor(self.isAILoading ? .tintColor : .separator).opacity(0.3)
+        Color.preferredColor(self.isAILoading ? .tintColor : .separator)
     }
 
     var body: some View {
@@ -51,12 +51,15 @@ struct KPIHeaderItemSkeleton: View {
 
     @ViewBuilder
     private func progressPlaceholder(chartSize: KPIProgressItemSize) -> some View {
+        // The ring diameter matches the real KPIProgressItem, whose chart size is a fixed 130/104
+        // (KPIProgressItemBaseStyle.getFrameWidth) and does not scale with Dynamic Type.
         let diameter: CGFloat = chartSize == .large ? 130 : 104
         // The real item is measured (measuredSize) and drives the container height. Size the whole
-        // placeholder to that measured size so the ring and footnote are never clipped. The ring
-        // takes most of the height; a footnote block sits just below it.
+        // placeholder to that measured size so the ring and footnote are never clipped. Inner block
+        // sizes are derived proportionally so they adapt with the measured size.
         let totalHeight = self.measuredSize?.height ?? diameter
-        let ringSize = min(diameter, max(0, totalHeight - 14))
+        let footnoteHeight = max(8, totalHeight * 0.08)
+        let ringSize = min(diameter, max(0, totalHeight - footnoteHeight - 2))
         VStack(spacing: 2) {
             ZStack {
                 // The gray progress ring.
@@ -77,7 +80,7 @@ struct KPIHeaderItemSkeleton: View {
             // Footnote placeholder (below the ring), matching the real layout.
             RoundedRectangle(cornerRadius: 3)
                 .fill(self.placeholderColor)
-                .frame(width: ringSize * 0.7, height: 10)
+                .frame(width: ringSize * 0.7, height: footnoteHeight)
         }
         .frame(width: self.measuredSize?.width ?? diameter, height: totalHeight)
     }
@@ -85,17 +88,21 @@ struct KPIHeaderItemSkeleton: View {
     // MARK: - KPIItem
 
     private var kpiItemPlaceholder: some View {
-        VStack(spacing: 4) {
+        // Drive sizing from the measured item so the placeholder adapts to Dynamic Type / content.
+        // The metric block takes the upper portion, the caption block the lower portion.
+        let width = self.measuredSize?.width ?? 96
+        let height = self.measuredSize?.height ?? 48
+        return VStack(spacing: max(2, height * 0.08)) {
             // Metric placeholder.
             RoundedRectangle(cornerRadius: 4)
                 .fill(self.placeholderColor)
-                .frame(width: 96, height: 30)
+                .frame(width: width * 0.9, height: height * 0.55)
             // Caption placeholder.
             RoundedRectangle(cornerRadius: 3)
                 .fill(self.placeholderColor)
-                .frame(width: 72, height: 14)
+                .frame(width: width * 0.7, height: height * 0.25)
         }
-        .frame(maxWidth: 216)
+        .frame(width: width, height: height)
     }
 
     // MARK: - Custom view / fallback
