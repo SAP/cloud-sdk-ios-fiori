@@ -258,7 +258,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     // swiftlint:disable:next function_body_length
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
         VStack(spacing: 0, content: {
-            HStack {
+            ZStack {
                 if !configuration.title.isEmpty {
                     configuration.title
                 } else {
@@ -268,13 +268,14 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 }
                 
                 if self.isPhone {
-                    Spacer()
-                    
-                    configuration.closeAction
-                        .onSimultaneousTapGesture {
-                            self.dismiss(configuration)
-                        }
-                        .contentShape(.accessibility, .rect.scale(1.2))
+                    HStack {
+                        configuration.closeAction
+                            .onSimultaneousTapGesture {
+                                self.dismiss(configuration)
+                            }
+                            .contentShape(.accessibility, .rect.scale(1.2))
+                        Spacer()
+                    }
                 }
             }
             .padding(.leading, self.isPhone ? 16 : 0)
@@ -375,6 +376,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
                         0
                     })
+                    .alignmentGuide(.listRowSeparatorTrailing, computeValue: { dimension in
+                        dimension[.trailing]
+                    })
                 }
             }
             .background(Color.preferredColor(.primaryGroupedBackground))
@@ -393,7 +397,6 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 .frame(height: 0.01)
                 .opacity(0)
         })
-        .background(Color.preferredColor(.chrome))
         .onDisappear(perform: {
             self.timer?.invalidate()
             self.timer = nil

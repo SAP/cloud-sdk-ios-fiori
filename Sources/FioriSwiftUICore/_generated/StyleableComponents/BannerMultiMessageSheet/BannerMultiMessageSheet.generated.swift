@@ -28,7 +28,7 @@ public struct BannerMultiMessageSheet {
     fileprivate var _shouldApplyDefaultStyle = true
 
     public init(@ViewBuilder title: () -> any View,
-                @ViewBuilder closeAction: () -> any View = { FioriIcon.status.error },
+                @ViewBuilder closeAction: () -> any View = { Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) },
                 dismissAction: (() -> Void)? = nil,
                 removeAction: ((String, UUID?) -> Void)? = nil,
                 viewDetailAction: ((UUID) -> Void)? = nil,
@@ -55,7 +55,7 @@ public extension BannerMultiMessageSheet {
 
 public extension BannerMultiMessageSheet {
     init(title: AttributedString,
-         @ViewBuilder closeAction: () -> any View = { FioriIcon.status.error },
+         @ViewBuilder closeAction: () -> any View = { Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) },
          dismissAction: (() -> Void)? = nil,
          removeAction: ((String, UUID?) -> Void)? = nil,
          viewDetailAction: ((UUID) -> Void)? = nil,
