@@ -295,29 +295,6 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             List {
                 ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
                     Section {
-                        if configuration.turnOnSectionHeader {
-                            HStack {
-                                Text("\(element.category) (\(element.items.count))")
-                                    .font(.fiori(forTextStyle: .subheadline))
-                                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                                Spacer()
-                                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
-                                    if element.showClearAction {
-                                        Button {
-                                            self.removeCategoryAction(configuration, category: element.category)
-                                        } label: {
-                                            Text(_ClearActionDefault().actionText ?? "")
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                                        .foregroundStyle(Color.preferredColor(.tintColor))
-                                        .contentShape(.accessibility, .rect.scale(1.2))
-                                    }
-                                }
-                            }
-                            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        }
-                        
                         ForEach(element.items, id: \.id) { message in
                             
                             if !configuration.messageItemView(message.id).isEmpty {
@@ -364,25 +341,46 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                                     }
                             }
                         }
-                        
+                    } header: {
+                        if configuration.turnOnSectionHeader {
+                            HStack {
+                                Text("\(element.category) (\(element.items.count))")
+                                    .font(.fiori(forTextStyle: .subheadline))
+                                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                                Spacer()
+                                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
+                                    if element.showClearAction {
+                                        Button {
+                                            self.removeCategoryAction(configuration, category: element.category)
+                                        } label: {
+                                            Text(_ClearActionDefault().actionText ?? "")
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                        .foregroundStyle(Color.preferredColor(.tintColor))
+                                        .contentShape(.accessibility, .rect.scale(1.2))
+                                    }
+                                }
+                            }
+                            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                        }
                     } footer: {
                         if configuration.turnOnSectionHeader {
-                            Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                            Rectangle().fill(Color.clear)
                                 .frame(height: 30)
                         }
                     }
                     .listSectionSeparator(configuration.turnOnSectionHeader ? .hidden : .visible, edges: .bottom)
                     .listRowInsets(EdgeInsets())
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        0
+                        16
                     })
                     .alignmentGuide(.listRowSeparatorTrailing, computeValue: { dimension in
-                        dimension[.trailing]
+                        dimension[.trailing] - 16
                     })
                 }
             }
-            .background(Color.preferredColor(.primaryGroupedBackground))
-            .listStyle(.plain)
+            .listStyle(.insetGrouped)
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
             .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
