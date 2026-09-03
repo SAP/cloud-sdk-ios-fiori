@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-26]
+        os: [xcode-27]
         xcode: ['Xcode_27.0']
     runs-on: ${{ matrix.os }}
     permissions:
@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-26]
+        os: [xcode-27]
         xcode: ['Xcode_27.0']
     runs-on: ${{ matrix.os }}
     permissions:
@@ -72,7 +72,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-26]
+        os: [xcode-27]
         xcode: ['Xcode_27.0']
     runs-on: ${{ matrix.os }}
     permissions:
