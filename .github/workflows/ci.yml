@@ -21,10 +21,10 @@ jobs:
     - name: Install Platform Runtimes
       run: xcrun xcodebuild -downloadPlatform iOS
     - name: Build and Test
-      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.0' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" clean build test | xcpretty
+      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.0' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" -resultBundlePath TestResults.xcresult clean build test | xcpretty
 
     - name: Create code coverage report
-      run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
+      run: ./scripts/xccov-to-sonarqube-generic.sh TestResults.xcresult > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
       uses: actions/upload-artifact@v4
       with:
