@@ -12,6 +12,11 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     @State var cellTapped = false
     @State var singleSelection: Int?
     
+    /// Corner radius used for the swipe-revealed rounded corner.
+    private let rowCornerRadius: CGFloat = 16
+    
+    private let cellHorizontalInset: CGFloat = 32
+    
     init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true) {
         self.title = title
         self.listDataType = listDataType
@@ -27,6 +32,18 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         }
     }
     
+    @ViewBuilder
+    private func swipeRoundedTrailing(@ViewBuilder content: () -> some View) -> some View {
+        content()
+            .padding(.horizontal, self.cellHorizontalInset)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: self.rowCornerRadius, style: .continuous)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
+            .clipShape(RoundedRectangle(cornerRadius: self.rowCornerRadius, style: .continuous))
+    }
+    
     var body: some View {
         let listData = self.createInstance(typeThing: self.listDataType)
         
@@ -36,20 +53,21 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                     ForEach(0 ..< listData.numberOfRowsInSection(sectionIndex), id: \.self) { index in
                         if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
                             NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {
-                                listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                                self.swipeRoundedTrailing {
+                                    listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                                }
                             }
                         } else {
-                            listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                            self.swipeRoundedTrailing {
+                                listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                            }
                         }
                     }
                     .onDelete { indexSet in
                         print("delete \(indexSet)")
                     }
+                    .listRowInsets(EdgeInsets())
                 }
-            }
-            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-            .ifApply(self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) {
-                $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             }
             .objectItemStyle(.actionStyle(ObjectItemBorderedAction()))
         }
