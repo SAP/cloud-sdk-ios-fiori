@@ -464,7 +464,7 @@ protocol _ProgressIndicatorProtocol {
 }
 
 // sourcery: BaseComponent
-protocol _ProgressComponent {
+protocol _FioriProgressViewComponent {
     // sourcery: @ViewBuilder
     // sourcery: defaultValue = "ProgressView()"
     var progress: ProgressView<EmptyView, EmptyView> { get }

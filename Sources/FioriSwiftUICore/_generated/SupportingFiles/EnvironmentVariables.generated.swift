@@ -3027,23 +3027,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
-struct ProgressStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any ProgressStyle] = []
+struct FioriProgressViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FioriProgressViewStyle] = []
 }
 
 extension EnvironmentValues {
-    var progressStyle: any ProgressStyle {
-        self.progressStyleStack.last ?? .base
+    var fioriProgressViewStyle: any FioriProgressViewStyle {
+        self.fioriProgressViewStyleStack.last ?? .base
     }
 
-    var progressStyleStack: [any ProgressStyle] {
+    var fioriProgressViewStyleStack: [any FioriProgressViewStyle] {
         get {
-            self[ProgressStyleStackKey.self]
+            self[FioriProgressViewStyleStackKey.self]
         }
         set {
-            self[ProgressStyleStackKey.self] = newValue
+            self[FioriProgressViewStyleStackKey.self] = newValue
         }
     }
 }

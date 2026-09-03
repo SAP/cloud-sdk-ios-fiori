@@ -1,41 +1,6 @@
 import FioriCharts
 import SwiftUI
 
-public extension _ObjectHeader where Title == Text,
-    Subtitle == _ConditionalContent<Text, EmptyView>,
-    Tags == _ConditionalContent<TagStack, EmptyView>,
-    BodyText == _ConditionalContent<Text, EmptyView>,
-    Footnote == _ConditionalContent<Text, EmptyView>,
-    DescriptionText == _ConditionalContent<Text, EmptyView>,
-    Status == _ConditionalContent<TextOrIconView, EmptyView>,
-    Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
-    DetailImage == _ConditionalContent<Image, EmptyView>,
-    DetailContent == HeaderChart
-{
-    init(title: String,
-         subtitle: String? = nil,
-         tags: [String]? = nil,
-         bodyText: String? = nil,
-         footnote: String? = nil,
-         descriptionText: String? = nil,
-         status: TextOrIcon? = nil,
-         substatus: TextOrIcon? = nil,
-         detailImage: Image? = nil,
-         headerChart: HeaderChart)
-    {
-        self._title = Text(title)
-        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
-        self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
-        self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-        self._detailContent = headerChart
-    }
-}
-
 extension Fiori {
     enum _ObjectHeader {
         struct Title: ViewModifier {

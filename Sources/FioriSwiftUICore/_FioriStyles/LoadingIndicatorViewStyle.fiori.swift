@@ -127,11 +127,11 @@ extension LoadingIndicatorFioriStyle {
         }
     }
     
-    struct ProgressFioriStyle: ProgressStyle {
+    struct ProgressFioriStyle: FioriProgressViewStyle {
         let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
-    
-        func makeBody(_ configuration: ProgressConfiguration) -> some View {
-            Progress(configuration)
+
+        func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
+            FioriProgressView(configuration)
                 .accessibilityHidden(true)
         }
     }

@@ -1,5 +1,6 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+import FioriCharts
 import SwiftUI
 
 public struct _ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, DetailContent: View> {
@@ -64,6 +65,12 @@ public struct _ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: V
 			self._substatus = substatus()
 			self._detailImage = detailImage()
 			self._detailContent = detailContent()
+			self._rightViewSize = State(initialValue: CGSize(width: 120, height: 0))
+			self._leftViewSize = State(initialValue: CGSize(width: 740, height: 0))
+			self._statusViewSize = State(initialValue: .zero)
+			self._currentTabIndex = State(initialValue: 0)
+			self._middleViewSize = State(initialValue: CGSize(width: 312, height: 0))
+			self._mainViewSize = State(initialValue: .zero)
     }
 
     @ViewBuilder var title: some View {
@@ -190,6 +197,12 @@ extension _ObjectHeader where Title == Text,
 		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailContent = detailContent()
+		self._rightViewSize = State(initialValue: CGSize(width: 120, height: 0))
+		self._leftViewSize = State(initialValue: CGSize(width: 740, height: 0))
+		self._statusViewSize = State(initialValue: .zero)
+		self._currentTabIndex = State(initialValue: 0)
+		self._middleViewSize = State(initialValue: CGSize(width: 312, height: 0))
+		self._mainViewSize = State(initialValue: .zero)
 
 		isModelInit = true
 		isSubtitleNil = subtitle == nil ? true : false
@@ -200,5 +213,46 @@ extension _ObjectHeader where Title == Text,
 		isStatusNil = status == nil ? true : false
 		isSubstatusNil = substatus == nil ? true : false
 		isDetailImageNil = detailImage == nil ? true : false
+    }
+}
+
+public extension _ObjectHeader where Title == Text,
+    Subtitle == _ConditionalContent<Text, EmptyView>,
+    Tags == _ConditionalContent<TagStack, EmptyView>,
+    BodyText == _ConditionalContent<Text, EmptyView>,
+    Footnote == _ConditionalContent<Text, EmptyView>,
+    DescriptionText == _ConditionalContent<Text, EmptyView>,
+    Status == _ConditionalContent<TextOrIconView, EmptyView>,
+    Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
+    DetailImage == _ConditionalContent<Image, EmptyView>,
+    DetailContent == HeaderChart
+{
+    init(title: String,
+         subtitle: String? = nil,
+         tags: [String]? = nil,
+         bodyText: String? = nil,
+         footnote: String? = nil,
+         descriptionText: String? = nil,
+         status: TextOrIcon? = nil,
+         substatus: TextOrIcon? = nil,
+         detailImage: Image? = nil,
+         headerChart: HeaderChart)
+    {
+        self._title = Text(title)
+        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
+        self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
+        self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+        self._detailContent = headerChart
+        self._rightViewSize = State(initialValue: CGSize(width: 120, height: 0))
+        self._leftViewSize = State(initialValue: CGSize(width: 740, height: 0))
+        self._statusViewSize = State(initialValue: .zero)
+        self._currentTabIndex = State(initialValue: 0)
+        self._middleViewSize = State(initialValue: CGSize(width: 312, height: 0))
+        self._mainViewSize = State(initialValue: .zero)
     }
 }

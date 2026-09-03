@@ -4040,31 +4040,31 @@ public extension ProfileHeaderStyle {
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
-extension ModifiedStyle: ProgressStyle where Style: ProgressStyle {
-    public func makeBody(_ configuration: ProgressConfiguration) -> some View {
-        Progress(configuration)
-            .progressStyle(self.style)
+extension ModifiedStyle: FioriProgressViewStyle where Style: FioriProgressViewStyle {
+    public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
+        FioriProgressView(configuration)
+            .fioriProgressViewStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct ProgressStyleModifier<Style: ProgressStyle>: ViewModifier {
+public struct FioriProgressViewStyleModifier<Style: FioriProgressViewStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.progressStyle(self.style)
+        content.fioriProgressViewStyle(self.style)
     }
 }
 
-public extension ProgressStyle {
-    func modifier(_ modifier: some ViewModifier) -> some ProgressStyle {
+public extension FioriProgressViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FioriProgressViewStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some ProgressStyle) -> some ProgressStyle {
-        style.modifier(ProgressStyleModifier(style: self))
+    func concat(_ style: some FioriProgressViewStyle) -> some FioriProgressViewStyle {
+        style.modifier(FioriProgressViewStyleModifier(style: self))
     }
 }
 
