@@ -84,5 +84,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install Platform Runtimes for visionOS
+      run: xcrun xcodebuild -downloadPlatform visionOS
     - name: Run tests on Vision OS simulator
       run: set -o pipefail && make test_vision
