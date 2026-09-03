@@ -42,7 +42,7 @@ struct FilterFormOptionShapeKey: EnvironmentKey {
 }
 
 struct FilterFormOptionPadding: EnvironmentKey {
-    public static let defaultValue: EdgeInsets = .init(top: 4, leading: 4, bottom: 4, trailing: 4)
+    public static let defaultValue: EdgeInsets = .init(top: 12, leading: 20, bottom: 12, trailing: 20)
 }
 
 struct FilterFormOptionTitleSpacing: EnvironmentKey {
