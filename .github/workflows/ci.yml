@@ -17,9 +17,11 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - name: Install Platform Runtimes
       run: xcrun xcodebuild -downloadPlatform iOS
+    - name: Install xcpretty
+      run: gem install xcpretty
     - name: Build and Test
       run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.0' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" -resultBundlePath TestResults.xcresult clean build test | xcpretty
 
@@ -38,7 +40,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Get coverage from build job
@@ -63,7 +65,7 @@ jobs:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - name: Install Platform Runtimes for watchOS
       run: xcrun xcodebuild -downloadPlatform watchOS
     - name: Run tests on Apple Watch simulator
@@ -81,6 +83,6 @@ jobs:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - name: Run tests on Vision OS simulator
       run: set -o pipefail && make test_vision
