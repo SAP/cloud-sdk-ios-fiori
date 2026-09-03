@@ -35,7 +35,7 @@ jobs:
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v1.1
   CodeFormattingCheck:
-    runs-on: xcode-27
+    runs-on: macos-26
     permissions:
       contents: read
     env:
