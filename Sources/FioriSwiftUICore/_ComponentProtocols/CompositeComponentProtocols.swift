@@ -1242,8 +1242,8 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _BannerMultiMessageSheet: _TitleComponent {
     @ViewBuilder
-    // sourcery: defaultValue = "{ FioriIcon.status.error }"
-    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.status.error }"
+    // sourcery: defaultValue = "{ Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) }"
+    // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) }"
     var closeAction: (() -> any View)? { get }
     /// callback when this component want to dismiss itself
     var dismissAction: (() -> Void)? { get }
