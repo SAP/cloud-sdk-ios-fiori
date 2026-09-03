@@ -1318,7 +1318,7 @@ protocol _FilterFormViewComponent: _TitleComponent, _MandatoryField, _OptionsCom
 protocol _MandatoryField {}
 
 // sourcery: CompositeComponent
-protocol _LoadingIndicatorComponent: _TitleComponent, _ProgressComponent {
+protocol _LoadingIndicatorComponent: _TitleComponent, _FioriProgressViewComponent {
     // sourcery: defaultValue = 0
     /// The duration in seconds for which the loading indicator is shown. If set to 0, the loading indicator will be displayed continuously. The default is `0`.
     var duration: Double { get }

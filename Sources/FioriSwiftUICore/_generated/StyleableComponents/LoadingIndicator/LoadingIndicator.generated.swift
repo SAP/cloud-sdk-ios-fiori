@@ -25,7 +25,7 @@ public struct LoadingIndicator {
                 componentIdentifier: String? = LoadingIndicator.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
-        self.progress = Progress(progress: progress, componentIdentifier: componentIdentifier)
+        self.progress = FioriProgressView(progress: progress, componentIdentifier: componentIdentifier)
         self.duration = duration
         self._isPresented = isPresented
         self.isAIEnabled = isAIEnabled
