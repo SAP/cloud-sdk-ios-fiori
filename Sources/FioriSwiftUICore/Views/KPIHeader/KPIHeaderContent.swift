@@ -5,12 +5,13 @@ struct KPIHeaderContent<List: IndexedViewContainer>: View {
     typealias V = List.V
     let list: List
     var maxNumberOfItems = 4
-    
+
     @ObservedObject private var context = KPIHeaderContext<V>()
+    @Environment(\.isLoading) private var isLoading: Bool
     var count: Int {
         self.list.count
     }
-    
+
     var body: some View {
         Group {
             if self.context.isViewOrganized {
@@ -20,9 +21,22 @@ struct KPIHeaderContent<List: IndexedViewContainer>: View {
             }
         }
     }
-    
+
     func view(at index: Int) -> V {
         self.list.view(at: index)
+    }
+
+    /// The view used for the final (paged) display of a builder-provided item. While loading it is
+    /// replaced by a `KPIHeaderItemSkeleton` (fallback placeholder, since the concrete item type is
+    /// not known on this path), so each item gets its own placeholder and shimmer instead of one
+    /// shimmer sweeping across the whole header. The measurement path keeps using the real item.
+    @ViewBuilder
+    func displayItem(_ item: V) -> some View {
+        if self.isLoading {
+            KPIHeaderItemSkeleton(model: nil, measuredSize: nil)
+        } else {
+            item
+        }
     }
 }
 
@@ -32,11 +46,11 @@ extension KPIHeaderContent {
             ForEach(0 ..< self.context.organizedItems.count, id: \.self) { index in
                 let pageItems = self.context.organizedItems[index]
                 if pageItems.count == 1 {
-                    pageItems[0]
+                    self.displayItem(pageItems[0])
                 } else {
                     HStack(spacing: self.minItemSpacing) {
                         ForEach(0 ..< pageItems.count, id: \.self) { index in
-                            pageItems[index]
+                            self.displayItem(pageItems[index])
                         }
                     }
                 }
@@ -45,6 +59,8 @@ extension KPIHeaderContent {
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         .frame(minHeight: self.context.itemsMaxHeight)
+        // Disable paging/swiping while loading so the skeleton cannot be scrolled.
+        .allowsHitTesting(!self.isLoading)
         .onReceive(self.resizePublisher) { _ in
             self.context.reset()
         }

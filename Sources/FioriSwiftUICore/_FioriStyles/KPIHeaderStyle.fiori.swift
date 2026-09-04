@@ -8,25 +8,28 @@ public struct KPIHeaderBaseStyle: KPIHeaderStyle {
     @Environment(\.headerSeparator) private var separatorConfiguration
     @Environment(\.isLoading) var isLoading
     public func makeBody(_ configuration: KPIHeaderConfiguration) -> some View {
-        SkeletonLoadingContainer {
-            configuration.items
-                .ifApply(configuration.isPresented) { content in
-                    VStack {
-                        content
-                        configuration.bannerMessage
-                    }
+        // The skeleton is applied per item (see `KPIHeaderItemSkeleton`, used inside the item
+        // containers) so each item's shimmer flows on its own and every element gets its own
+        // placeholder. We intentionally do NOT wrap the whole header in a `SkeletonLoadingContainer`
+        // here: a container-level shimmer would sweep across the entire header as one block, and the
+        // container's `.redacted` cannot handle the progress ring / opaque custom fills correctly.
+        configuration.items
+            .ifApply(configuration.isPresented) { content in
+                VStack {
+                    content
+                    configuration.bannerMessage
                 }
-                .ifApply(self.separatorConfiguration.showSeparator) { content in
-                    VStack {
-                        content
-                        self.separatorConfiguration.color
-                            .frame(height: self.isLoading ? 0 : self.separatorConfiguration.lineWidth)
-                    }
+            }
+            .ifApply(self.separatorConfiguration.showSeparator) { content in
+                VStack {
+                    content
+                    self.separatorConfiguration.color
+                        .frame(height: self.isLoading ? 0 : self.separatorConfiguration.lineWidth)
                 }
-                .interItemSpacing(configuration.interItemSpacing)
-                .isItemOrderForced(configuration.isItemOrderForced)
-        }
-        .environment(\.isLoading, self.isLoading)
+            }
+            .interItemSpacing(configuration.interItemSpacing)
+            .isItemOrderForced(configuration.isItemOrderForced)
+            .environment(\.isLoading, self.isLoading)
     }
 }
 
