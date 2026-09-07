@@ -23,6 +23,7 @@ struct KPIContainerStack: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.isItemOrderForced) var isItemOrderForced: Bool
     @Environment(\.interItemSpacing) var interItemSpacing: CGFloat?
+    @Environment(\.isLoading) private var isLoading: Bool
     @ObservedObject var context = KPIHeaderContentContext()
     @State private var reArrangedItems: [KPIHeaderItemModel] = []
 
@@ -38,6 +39,12 @@ struct KPIContainerStack: View {
             } else {
                 self.calculateLayoutView()
             }
+        }
+        // When the item set changes (e.g. switching between real data and skeleton data with a
+        // different item count), reset so the layout is re-measured. Without this the header could
+        // keep the previously calculated layout and get stuck.
+        .onChange(of: self.items.count) {
+            self.context.reset()
         }
     }
     
@@ -81,6 +88,19 @@ struct KPIContainerStack: View {
             EmptyView()
         }
     }
+
+    /// The view used for the final (paged) display. While loading, each item is replaced by a
+    /// `KPIHeaderItemSkeleton` so it gets its own element-level placeholders and shimmer. The
+    /// measurement path keeps using `view(at:)` with the real item, so placeholder sizing matches
+    /// the loaded layout and no state branch is added that could get stuck.
+    @ViewBuilder
+    private func displayView(at index: Int) -> some View {
+        if self.isLoading {
+            KPIHeaderItemSkeleton(model: self.reArrangedItems[index], measuredSize: self.context.itemsSize[index])
+        } else {
+            self.view(at: index)
+        }
+    }
     
     @ViewBuilder
     private func headerContentTabViewGenerator() -> some View {
@@ -88,12 +108,12 @@ struct KPIContainerStack: View {
             ForEach(0 ..< min(self.context.organizedItemsIndexes.count, 4), id: \.self) { index in
                 let pageItems: [Int] = self.context.organizedItemsIndexes[index]
                 if pageItems.count == 1 {
-                    self.view(at: pageItems[0])
+                    self.displayView(at: pageItems[0])
                         .frame(width: self.widthOfHStackInOnePage(itemsIndex: pageItems), alignment: .center)
                 } else {
                     HStack(spacing: self.interItemSpacing ?? (self.horizontalSizeClass == .compact ? 40 : 48)) {
                         ForEach(0 ..< pageItems.count, id: \.self) { index in
-                            self.view(at: pageItems[index])
+                            self.displayView(at: pageItems[index])
                                 .frame(width: self.context.itemsSize[index]?.width)
                         }
                     }
@@ -106,11 +126,14 @@ struct KPIContainerStack: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
         .frame(minHeight: 24 + self.context.itemsMaxHeight + 24)
+        // While loading, disable paging/swiping so the skeleton cannot be scrolled and placeholder
+        // blocks never overlap after a swipe.
+        .allowsHitTesting(!self.isLoading)
         .onReceive(self.resizePublisher) { _ in
             self.context.reset()
         }
-        
-        if self.context.organizedItemsIndexes.count > 1 {
+
+        if self.context.organizedItemsIndexes.count > 1, !self.isLoading {
             PageIndicator(numberOfPages: self.context.organizedItemsIndexes.count, currentPage: self.$currentPage)
                 .padding(.top, 4)
                 .padding(.bottom, 8)
