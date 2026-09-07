@@ -11,10 +11,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     @Environment(\.userConsentFormDidAllow) var userConsentFormDidAllow
     
     public func makeBody(_ configuration: UserConsentFormConfiguration) -> some View {
-        VStack {
-            self.makeContent(configuration)
-            self.toolBar(configuration)
-        }
+        self.makeContent(configuration)
     }
     
     @ViewBuilder
@@ -29,17 +26,19 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                     self.navBarTrailingView(configuration)
                         .fixedSize()
                 }
+                self.toolBar(configuration)
             }
             .navigationTitle(self.navTitle(configuration))
             .alert(configuration: self.alertConfiguration(configuration), isPresented: self.$showAlert.0)
     }
     
-    @ViewBuilder
-    private func toolBar(_ configuration: UserConsentFormConfiguration) -> some View {
-        HStack {
+    @ToolbarContentBuilder
+    private func toolBar(_ configuration: UserConsentFormConfiguration) -> some ToolbarContent {
+        ToolbarItemGroup(placement: .bottomBar) {
             if self.pageIndex == configuration.userConsentPages.count - 1 {
                 if configuration.isRequired {
                     configuration.denyAction
+                        .fixedSize()
                         .onSimultaneousTapGesture {
                             if configuration.alertConfiguration?(.deny) != nil {
                                 self.showAlert = (true, .deny)
@@ -49,6 +48,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                         }
                 } else {
                     configuration.notNowAction
+                        .fixedSize()
                         .onSimultaneousTapGesture {
                             self.didDeny(configuration)?(configuration.isRequired)
                         }
@@ -57,12 +57,12 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                 Spacer()
                 
                 configuration.allowAction
+                    .fixedSize()
                     .onSimultaneousTapGesture {
                         self.didAllow(configuration)?()
                     }
             }
         }
-        .padding()
     }
     
     private func navTitle(_ configuration: UserConsentFormConfiguration) -> String {
