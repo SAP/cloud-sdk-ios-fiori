@@ -135,13 +135,15 @@ struct ShimmerViewModifier: ViewModifier {
                     Color.preferredColor(self.isTintColor ? .tintColor : .base2)
                         .blendMode(.plusLighter)
                         .mask(content)
-                    self.getLinearGradient(self.isTintColor)
-                        .offset(x: self.phase * width, y: 0)
-                        .blendMode(.plusLighter)
-                        .mask(content)
-                        .animation(self.isLoading
-                            ? Animation.linear(duration: 2).repeatForever(autoreverses: false)
-                            : .default, value: self.phase)
+                    
+                    TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+                        let elapsed = context.date.timeIntervalSinceReferenceDate
+                        let phase = CGFloat((elapsed.truncatingRemainder(dividingBy: 2.0) / 2.0) * 2 - 1)
+                        self.getLinearGradient(self.isTintColor)
+                            .offset(x: phase * width, y: 0)
+                            .blendMode(.plusLighter)
+                            .mask(content)
+                    }
                 }
             }
             .allowsHitTesting(false)
