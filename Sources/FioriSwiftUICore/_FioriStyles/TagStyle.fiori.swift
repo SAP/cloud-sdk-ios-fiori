@@ -15,12 +15,13 @@ public struct TagBaseStyle: TagStyle {
 public struct TagFioriStyle: TagStyle {
     @Environment(\.tagLimit) var tagLimit
     @Environment(\.tagStyle) var tagStyle
+    @Environment(\.isLoading) var isLoading
     @ViewBuilder
     public func makeBody(_ configuration: TagConfiguration) -> some View {
         Tag(configuration)
             .font(.fiori(forTextStyle: .footnote))
-            .foregroundStyle(Color.preferredColor(.accentLabel10))
-            .ifApply(!(self.tagStyle is OutlinedTagStyle), content: {
+            .foregroundStyle(Color.preferredColor(self.isLoading ? .separator : .accentLabel10))
+            .ifApply(!(self.tagStyle is OutlinedTagStyle) && !self.isLoading, content: {
                 $0.background(
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color.preferredColor(.accentBackground10))
