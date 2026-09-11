@@ -1554,7 +1554,7 @@ public enum ListPickerSearchBarDisplayMode {
 }
 
 struct ListPickerSearchBarDisplayModeKey: EnvironmentKey {
-    static let defaultValue: ListPickerSearchBarDisplayMode = .automatic
+    static let defaultValue: ListPickerSearchBarDisplayMode = .always
 }
 
 public extension EnvironmentValues {
