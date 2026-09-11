@@ -221,7 +221,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         v.padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 0)
                     })
                     .background(Color.preferredColor(.secondaryGroupedBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: self.isCompactStyle(configuration) ? 13 : 0))
+                    .clipShape(RoundedRectangle(cornerRadius: self.isCompactStyle(configuration) ? 26 : 0))
                     .padding(.top, self.isCompactStyle(configuration) ? 10 : 0)
                     .padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 20)
                 }

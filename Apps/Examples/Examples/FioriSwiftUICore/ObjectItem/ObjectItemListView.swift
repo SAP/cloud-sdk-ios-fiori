@@ -12,6 +12,14 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     @State var cellTapped = false
     @State var singleSelection: Int?
     
+    private var cellHorizontalInset: CGFloat {
+        (self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) ? 32 : 16
+    }
+    
+    private var cellVerticalInset: CGFloat {
+        (self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) ? 0 : 16
+    }
+    
     init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true) {
         self.title = title
         self.listDataType = listDataType
@@ -27,6 +35,17 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         }
     }
     
+    @ViewBuilder
+    private func swipeRoundedTrailing(@ViewBuilder content: () -> some View) -> some View {
+        content()
+            .padding(.horizontal, self.cellHorizontalInset)
+            .padding(.vertical, self.cellVerticalInset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+    
     var body: some View {
         let listData = self.createInstance(typeThing: self.listDataType)
         
@@ -34,22 +53,27 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
                 Section(header: Text(listData.titleForHeaderInSection(sectionIndex)).textCase(.none)) {
                     ForEach(0 ..< listData.numberOfRowsInSection(sectionIndex), id: \.self) { index in
-                        if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
-                            NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {
-                                listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                        Group {
+                            if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
+                                NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {
+                                    self.swipeRoundedTrailing {
+                                        listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                                    }
+                                }
+                            } else {
+                                self.swipeRoundedTrailing {
+                                    listData.cellForRow(IndexPath(row: index, section: sectionIndex))
+                                }
                             }
-                        } else {
-                            listData.cellForRow(IndexPath(row: index, section: sectionIndex))
                         }
+                        .listRowInsets(EdgeInsets())
+                        .alignmentGuide(.listRowSeparatorLeading) { _ in 16 }
+                        .alignmentGuide(.listRowSeparatorTrailing) { d in d.width - 16 }
                     }
                     .onDelete { indexSet in
                         print("delete \(indexSet)")
                     }
                 }
-            }
-            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-            .ifApply(self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) {
-                $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             }
             .objectItemStyle(.actionStyle(ObjectItemBorderedAction()))
         }
