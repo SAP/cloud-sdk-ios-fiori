@@ -33,7 +33,10 @@ struct ProfileHeaderAnimatableExample: View {
     
     var body: some View {
         if #available(iOS 26, *) {
-            list.scrollEdgeEffectStyle(.hard, for: .top)
+            list
+            #if !os(visionOS)
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            #endif
         } else {
             self.list
         }
