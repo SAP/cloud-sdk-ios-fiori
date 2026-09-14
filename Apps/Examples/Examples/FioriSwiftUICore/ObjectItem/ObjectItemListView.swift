@@ -53,15 +53,13 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
                 Section(header: Text(listData.titleForHeaderInSection(sectionIndex)).textCase(.none)) {
                     ForEach(0 ..< listData.numberOfRowsInSection(sectionIndex), id: \.self) { index in
-                        Group {
-                            if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
-                                NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {
-                                    self.swipeRoundedTrailing {
+                        self.swipeRoundedTrailing {
+                            Group {
+                                if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
+                                    NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {
                                         listData.cellForRow(IndexPath(row: index, section: sectionIndex))
                                     }
-                                }
-                            } else {
-                                self.swipeRoundedTrailing {
+                                } else {
                                     listData.cellForRow(IndexPath(row: index, section: sectionIndex))
                                 }
                             }
