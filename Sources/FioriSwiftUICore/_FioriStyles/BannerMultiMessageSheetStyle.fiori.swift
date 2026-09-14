@@ -358,13 +358,27 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 .listStyle(.insetGrouped)
                 .environment(\.defaultMinListRowHeight, 0)
                 .environment(\.defaultMinListHeaderHeight, 0)
-                .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                    DispatchQueue.main.async {
-                        if scrollView.contentSize.height != self.scrollContentHeight, !self.isPhone {
-                            self.scrollContentHeight = scrollView.contentSize.height
+                .ifApply(!self.isPhone) {
+                    if #available(iOS 18, visionOS 2, *) {
+                        $0.onScrollGeometryChange(for: CGFloat.self) { geo in
+                            geo.contentSize.height
+                        } action: { _, newHeight in
+                            if newHeight != self.scrollContentHeight {
+                                self.scrollContentHeight = newHeight
+                            }
                         }
+                        .typeErased
+                    } else {
+                        $0.modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                            DispatchQueue.main.async {
+                                if scrollView.contentSize.height != self.scrollContentHeight {
+                                    self.scrollContentHeight = scrollView.contentSize.height
+                                }
+                            }
+                        })
+                        .typeErased
                     }
-                })
+                }
                 // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
                 Text("\(self.refreshFlag ? "true" : "false")")
                     .frame(height: 0.01)
@@ -382,8 +396,15 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
             .onAppear {
                 self.resetDimensionSelectorTitles(configuration)
             }
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.safeAreaInsets.top
+            } action: { newValue in
+                if newValue > 0 {
+                    self.messageCountHeight = newValue
+                }
+            }
             .toolbar {
-                ToolbarItem(placement: .title) {
+                ToolbarItem(placement: .principal) {
                     if !configuration.title.isEmpty {
                         configuration.title
                     } else {

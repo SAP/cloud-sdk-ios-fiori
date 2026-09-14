@@ -1,4 +1,5 @@
 import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 struct ProfileHeaderStaticExample: View {
@@ -12,16 +13,16 @@ struct ProfileHeaderStaticExample: View {
         } else {
             HStack(spacing: 30) {
                 Button(action: {}, label: {
-                    Image(systemName: "mail")
+                    FioriIcon.actions.email
                         .frame(minWidth: 44, minHeight: 44)
                 })
                 Button(action: {}, label: {
-                    Image(systemName: "message")
+                    FioriIcon.actions.post
                         .frame(minWidth: 44, minHeight: 44)
                 })
                 
                 Button(action: {}, label: {
-                    Image(systemName: "phone")
+                    FioriIcon.actions.call
                         .frame(minWidth: 44, minHeight: 44)
                 })
             }
@@ -57,7 +58,10 @@ struct ProfileHeaderStaticExample: View {
     
     var body: some View {
         if #available(iOS 26, *) {
-            list.scrollEdgeEffectStyle(.hard, for: .top)
+            list
+            #if !os(visionOS)
+            .scrollEdgeEffectStyle(.hard, for: .top)
+            #endif
         } else {
             self.list
         }
