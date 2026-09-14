@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 /// Activity item predefined types
@@ -12,13 +13,13 @@ public enum ActivityItemType {
     public var icon: Image {
         switch self {
         case .phone:
-            return Image(systemName: "phone")
+            return FioriIcon.actions.call
         case .email:
-            return Image(systemName: "envelope")
+            return FioriIcon.actions.email
         case .message:
-            return Image(systemName: "message")
+            return FioriIcon.actions.post
         case .videoCall:
-            return Image(systemName: "video")
+            return FioriIcon.actions.video
         case .detail:
             return Image(systemName: "info.circle")
         case .custom(let image):
