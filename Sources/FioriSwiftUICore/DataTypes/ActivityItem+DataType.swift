@@ -21,7 +21,7 @@ public enum ActivityItemType {
         case .videoCall:
             return FioriIcon.actions.video
         case .detail:
-            return Image(systemName: "info.circle")
+            return FioriIcon.actions.hint
         case .custom(let image):
             return image
         }
