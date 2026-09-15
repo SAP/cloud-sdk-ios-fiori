@@ -112,7 +112,6 @@ extension FioriSliderFioriStyle {
                         return Color.clear
                     }
                 )
-                .background(Color.preferredColor(.cellBackground))
                 .environmentObject(self.stateObject)
                 .environmentObject(SliderModelObject(configuration: configuration, roundValueFormat: "%.\(configuration.decimalPlaces)f"))
                 .environment(\.roundValueFormat, "%.\(configuration.decimalPlaces)f")
