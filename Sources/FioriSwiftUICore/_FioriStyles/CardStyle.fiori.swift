@@ -321,9 +321,13 @@ extension CardFioriStyle {
     
     struct ActionFioriStyle: ActionStyle {
         let cardConfiguration: CardConfiguration
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
+                .ifApply(self.isLoading, content: {
+                    $0.opacity(0.5).fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: false))
+                })
             // Add default style for NewAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -332,9 +336,13 @@ extension CardFioriStyle {
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
         let cardConfiguration: CardConfiguration
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
+                .ifApply(self.isLoading, content: {
+                    $0.opacity(0.5).fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: false))
+                })
             // Add default style for SecondaryAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
