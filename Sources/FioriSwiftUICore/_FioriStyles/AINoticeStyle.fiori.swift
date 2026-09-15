@@ -72,12 +72,12 @@ struct AINoticeModifier: ViewModifier {
     @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
-        VStack {
+        VStack(spacing: 4, content: {
             content
             if self.isPresented {
                 AINotice(icon: self.icon, description: self.description, actionLabel: self.actionLabel, viewMoreAction: self.viewMoreAction)
             }
-        }
+        })
     }
 }
 
