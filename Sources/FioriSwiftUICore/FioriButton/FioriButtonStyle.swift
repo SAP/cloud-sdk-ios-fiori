@@ -191,6 +191,7 @@ public struct FioriSecondaryButtonStyle: FioriButtonStyle {
         self.maxWidth = maxWidth
         self.minHeight = minHeight
         self.loadingState = loadingState
+        self.isLoading = isLoading
     }
     
     public func makeBody(configuration: Configuration) -> some View {
