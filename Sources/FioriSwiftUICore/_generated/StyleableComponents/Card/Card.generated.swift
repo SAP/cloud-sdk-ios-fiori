@@ -20,7 +20,7 @@ import SwiftUI
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -87,7 +87,7 @@ import SwiftUI
 ///
 /// ```swift
 /// Card(mediaImage: Image("productThumbnail"),
-///      description: "Title",
+///      description: "Description",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
 ///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],

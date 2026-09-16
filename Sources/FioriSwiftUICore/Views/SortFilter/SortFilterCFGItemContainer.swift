@@ -728,7 +728,6 @@ extension SortFilterCFGItemContainer: View {
                 }
             })
             .frame(minHeight: self.orderPickerHeight > 0 ? self.orderPickerHeight : 88.0)
-            .background(Color.preferredColor(.primaryBackground))
             .foregroundColor(Color.preferredColor(.primaryLabel))
         }
     }

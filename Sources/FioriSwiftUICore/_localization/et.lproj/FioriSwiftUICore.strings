@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Väljaregistreerimise tunnus";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+ veel %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Tulemusi ei leitud";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Kontrollige, kas teie otsingusõnad on õigesti kirjutatud, või proovige mõnda muud otsingusõna.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Märkeruut";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Vähemalt %d märki";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Vähemalt %d kordumatut märki";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Vähemalt üks number";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Vähemalt üks suurtäht";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Vähemalt üks väiketäht";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Vähemalt üks erimärk";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Ainult numbrid";
+

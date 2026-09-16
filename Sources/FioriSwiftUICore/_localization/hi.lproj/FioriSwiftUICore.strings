@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "चेकआउट संकेतक";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d अधिक";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "कोई परिणाम नहीं मिले";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "किसी भी वर्तनी त्रुटि के लिए अपनी खोज जांचें या कोई भिन्न खोज शब्द आज़माएं.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "चेकबॉक्स";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "कम से कम %d वर्ण";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "कम से कम %d अद्वितीय वर्ण";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "कम से कम एक अंक";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "कम से कम एक अपरकेस अक्षर";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "कम से कम एक लोअरकेस अक्षर";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "कम से कम एक विशेष वर्ण";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "केवल अंक";
+

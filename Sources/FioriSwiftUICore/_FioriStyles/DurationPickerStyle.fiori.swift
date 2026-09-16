@@ -14,7 +14,8 @@ import SwiftUI
 // Base Layout style
 public struct DurationPickerBaseStyle: DurationPickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
+
     public func makeBody(_ configuration: DurationPickerConfiguration) -> some View {
         VStack {
             if self.dynamicTypeSize >= .accessibility3 {
@@ -26,9 +27,10 @@ public struct DurationPickerBaseStyle: DurationPickerStyle {
                 }
             }
             if configuration.pickerVisible {
-                Divider()
-                    .frame(height: 0.33)
-                    .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                if self.pickerSeparatorConfiguration.showSeparator {
+                    self.pickerSeparatorConfiguration.color
+                        .frame(height: self.pickerSeparatorConfiguration.lineWidth)
+                }
                 self.showPicker(configuration)
             }
         }

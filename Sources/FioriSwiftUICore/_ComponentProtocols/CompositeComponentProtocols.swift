@@ -206,7 +206,7 @@ protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent, _Ter
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -291,7 +291,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///         .aspectRatio(contentMode: .fill)
 ///         .frame(height: 145)
 /// } description: {
-///     Text("Title")
+///     Text("Description")
 /// } title: {
 ///     Text("Title that goes to two lines before truncating")
 /// } subtitle: {
@@ -358,7 +358,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 ///
 /// ```swift
 /// Card(mediaImage: Image("productThumbnail"),
-///      description: "Title",
+///      description: "Description",
 ///      title: "Title",
 ///      subtitle: "Subtitle",
 ///      icons: [TextOrIcon.icon(Image(systemName: "circle.fill"))],
@@ -995,8 +995,9 @@ protocol _SwitchViewComponent: _TitleComponent, _SwitchComponent, _StateLabelCom
 ///    .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
-    // The inclusive range of selectable dates.
+    /// The inclusive range of selectable dates.
     var range: ClosedRange<Date>? { get }
     // sourcery: @Binding
     // sourcery: defaultValue = ".constant(nil)"
@@ -1026,6 +1027,16 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
     // sourcery: defaultValue = false
     /// This property indicates whether the separator is to be displayed. Default is false.
     var hidesSeparator: Bool { get }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    var showsClearAction: Bool { get }
+    
+    // sourcery: defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    /// view for clear the value
+    @ViewBuilder
+    var clearAction: () -> any View { get }
 }
 
 /// `DateRangePicker`  provides a title and value label with Fiori styling and a `MultiDatePicker`.
@@ -1063,6 +1074,7 @@ protocol _DateTimePickerComponent: _TitleComponent, _ValueLabelComponent, _Manda
 ///     .environment(\.calendar, Calendar(identifier: .gregorian))
 /// ```
 // sourcery: CompositeComponent
+// sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _MandatoryField, _FormViewComponent {
     /// The inclusive range of selectable dates.
     var range: Range<Date>? { get }
@@ -1080,6 +1092,16 @@ protocol _DateRangePickerComponent: _TitleComponent, _ValueLabelComponent, _Mand
     // sourcery: @Binding
     /// This property indicates whether the picker is to be displayed or not.
     var pickerVisible: Bool { get set }
+    
+    // sourcery: defaultValue = false
+    /// This property indicates whether the clear action should be displayed. Default is false. When selectedDate is nil, the clear action will be hidden.
+    var showsClearAction: Bool { get }
+    
+    // sourcery: defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.actions.sysCancel.foregroundColor(.gray) }"
+    /// view for clear the value
+    @ViewBuilder
+    var clearAction: () -> any View { get }
 }
 
 // sourcery: CompositeComponent
@@ -1220,8 +1242,8 @@ protocol _ToastMessageComponent: _IconComponent, _TitleComponent {
 // sourcery: importFrameworks = ["FioriThemeManager"]
 protocol _BannerMultiMessageSheet: _TitleComponent {
     @ViewBuilder
-    // sourcery: defaultValue = "{ FioriIcon.status.error }"
-    // sourcery: resultBuilder.defaultValue = "{ FioriIcon.status.error }"
+    // sourcery: defaultValue = "{ Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) }"
+    // sourcery: resultBuilder.defaultValue = "{ Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) }"
     var closeAction: (() -> any View)? { get }
     /// callback when this component want to dismiss itself
     var dismissAction: (() -> Void)? { get }
@@ -2091,6 +2113,13 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     // sourcery: defaultValue = "nil"
     /// The maximum number of attachments
     var maxCount: Int? { get }
+    
+    // sourcery: defaultValue = "nil"
+    /// The maximum number of images allowed to be selected in a single album pick.
+    /// When set, the PhotosPicker's selection limit is the smaller of this value and the remaining count (maxCount - existing attachment count), ensuring the total never exceeds `maxCount`.
+    /// When `nil`, the selection limit falls back to the remaining count only.
+    /// If `maxCount` is also `nil` (no total limit), this value is used directly as the selection limit.
+    var maxPhotoSelectionCount: Int? { get }
     
     // sourcery: defaultValue = "BasicAttachmentDelegate()"
     /// App specific attachment processing logics for adding or deleting attachments.

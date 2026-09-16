@@ -32,9 +32,12 @@ public struct DateRangePickerConfiguration {
     public let rangeFormatter: DateFormatter?
     public let noRangeSelectedString: String?
     @Binding public var pickerVisible: Bool
+    public let showsClearAction: Bool
+    public let clearAction: ClearAction
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
+    public typealias ClearAction = ConfigurationViewWrapper
 }
 
 extension DateRangePickerConfiguration {

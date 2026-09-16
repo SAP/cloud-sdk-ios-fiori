@@ -5,6 +5,7 @@ import SwiftUI
 // Base Layout style
 public struct ValuePickerBaseStyle: ValuePickerStyle {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
     @State var valueString: AttributedString = .init("")
     @FocusState var isFocused: Bool
 
@@ -19,9 +20,10 @@ public struct ValuePickerBaseStyle: ValuePickerStyle {
                 }
             }
             if configuration.pickerVisible || configuration.alwaysShowPicker {
-                Divider()
-                    .frame(height: 0.3)
-                    .foregroundStyle(Color.preferredColor(.separatorOpaque))
+                if self.pickerSeparatorConfiguration.showSeparator {
+                    self.pickerSeparatorConfiguration.color
+                        .frame(height: self.pickerSeparatorConfiguration.lineWidth)
+                }
                 self.showPicker(configuration)
             }
         }

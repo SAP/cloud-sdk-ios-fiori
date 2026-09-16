@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Индикатор чек-аута";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+ еще %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Результаты не найдены";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Проверьте критерий поиска на орфографические ошибки или попробуйте другой критерий.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Флажок";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Минимум символов: %d";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Минимум различных символов: %d";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Минимум одна цифра";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Минимум одна прописная буква";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Минимум одна строчная буква";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Минимум один специальный символ";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Только цифры";
+

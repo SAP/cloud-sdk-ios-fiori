@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Δείκτης Checkout";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d περισσότερα";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Δεν Βρέθηκαν Αποτελέσματα";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Ελέγξτε την αναζήτησή σας για τυχόν ορθογραφικά λάθη ή δοκιμάστε έναν διαφορετικό όρο αναζήτησης.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Πλαίσιο επιλογής";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Τουλάχιστον %d χαρακτήρες";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Τουλάχιστον %d μοναδικοί χαρακτήρες";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Τουλάχιστον ένα ψηφίο";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Τουλάχιστον ένας κεφαλαίος χαρακτήρας";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Τουλάχιστον ένας πεζός χαρακτήρας";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Τουλάχιστον ένας ειδικός χαρακτήρας";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Μόνο ψηφία";
+

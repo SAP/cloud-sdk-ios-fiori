@@ -229,7 +229,7 @@ struct SPIExampleWithHeader: View {
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
+                        Text("All Steps(\(self.steps.count))")
                             .foregroundStyle(Color.preferredColor(.tintColor))
                         FioriIcon.actions.slimArrowRight
                             .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
@@ -321,7 +321,7 @@ struct SPIExampleWithoutName: View {
                                   stepItems: self.steps) {} action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
+                        Text("All Steps(\(self.steps.count))")
                             .foregroundStyle(Color.preferredColor(.tintColor))
                         FioriIcon.actions.slimArrowRight
                             .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
@@ -474,7 +474,7 @@ struct SPICustomStyleExample: View {
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
+                        Text("All Steps(\(self.steps.count))")
                         FioriIcon.actions.slimArrowRight
                             .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                             .foregroundStyle(Color.preferredColor(.separator))
@@ -590,7 +590,7 @@ struct FlexibleSPIExample: View {
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(self.steps.count)")
+                        Text("All Steps(\(self.steps.count))")
                             .foregroundStyle(Color.preferredColor(.tintColor))
                         FioriIcon.actions.slimArrowRight
                             .font(.fiori(forTextStyle: .subheadline, weight: .semibold))

@@ -11,6 +11,7 @@ public protocol TimelinePreviewItemModel: Identifiable {
     var formatter: DateFormatter? { get }
     var isFuture: Bool? { get set }
     var isCurrent: Bool? { get set }
+    var showsTodayText: Bool { get }
 }
 
 public extension TimelinePreviewItemModel {
@@ -23,6 +24,9 @@ public extension TimelinePreviewItemModel {
         f.dateFormat = "MMMM dd yyyy"
         return f
     }
+    
+    /// Defaults to `true`: today's items are shown as "Today, {date}".
+    var showsTodayText: Bool { true }
 }
 
 /// Extension to provide an initializer for `TimelinePreviewItem` from a `TimelinePreviewItemModel`.

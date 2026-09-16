@@ -7,12 +7,25 @@ struct DateRangePickerExample: View {
     @State private var customizedMandatoryIndicator = false
     @State private var showsErrorMessage = false
     @State private var showAINotice: Bool = false
+    @State private var isLoading: Bool = false
     @State private var pickerVisible0 = false
     @State private var pickerVisible1 = false
     @State private var pickerVisible2 = false
     @State private var pickerVisible3 = false
     @State private var pickerVisible4 = false
     @State private var pickerVisible5 = false
+    
+    @State private var showsClearAction = false
+    @State private var customizeSeparator = false
+    @State private var showSeparator = true
+    @State private var separatorColorIndex = 0
+    @State private var separatorLineWidth: CGFloat = 0.33
+    private let separatorColors: [(String, Color)] = [
+        ("Default", Color.preferredColor(.separatorOpaque)),
+        ("Red", .red),
+        ("Blue", .blue),
+        ("Green", .green)
+    ]
     
     // Limit the selectable dates from last seven days to next seven days
     private var limitDateRange: Range<Date> = Date(timeIntervalSinceNow: -60 * 60 * 24 * 7) ..< Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
@@ -82,37 +95,60 @@ struct DateRangePickerExample: View {
                 .tint(Color.preferredColor(.tintColor))
             Toggle("Picker Visible", isOn: self.managePickerVisibleBinding)
                 .tint(Color.preferredColor(.tintColor))
+            Toggle("Skeleton Loading", isOn: self.$isLoading)
+                .tint(Color.preferredColor(.tintColor))
+            Toggle("Show Clear Action", isOn: self.$showsClearAction)
+            
+            Section("Picker Separator") {
+                Toggle("Customize Separator", isOn: self.$customizeSeparator)
+                    .tint(Color.preferredColor(.tintColor))
+                if self.customizeSeparator {
+                    Toggle("Show Separator", isOn: self.$showSeparator)
+                        .tint(Color.preferredColor(.tintColor))
+                    Picker("Color", selection: self.$separatorColorIndex) {
+                        ForEach(0 ..< self.separatorColors.count, id: \.self) { index in
+                            Text(self.separatorColors[index].0).tag(index)
+                        }
+                    }
+                    Stepper(value: self.$separatorLineWidth, in: 0.33 ... 5.0, step: 0.33) {
+                        Text(String(format: "Line Width: %.2f", self.separatorLineWidth))
+                    }
+                }
+            }
             Section(header: Text("")) {
-                DateRangePicker(title: "Range Selection Long Title Long Title Long Title Long Title Long Title Long Title0", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange0, pickerVisible: self.$pickerVisible0)
+                DateRangePicker(title: "Range Selection Long Title Long Title Long Title Long Title Long Title Long Title0", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange0, pickerVisible: self.$pickerVisible0, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information error message."))
                     .informationViewStyle(.error)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 
-                DateRangePicker(title: "Range Selection1", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange1, pickerVisible: self.$pickerVisible1)
+                DateRangePicker(title: "Range Selection1", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange1, pickerVisible: self.$pickerVisible1, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
                     .informationViewStyle(.informational)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                     .titleStyle(CustomTitleStyle())
                     .valueLabelStyle(CustomValueLabelStyle())
                 
-                DateRangePicker(title: "Limit inclusive range of selectable dates", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, range: self.limitDateRange, selectedRange: self.$selectedRange2, noRangeSelectedString: "Please select range", pickerVisible: self.$pickerVisible2)
+                DateRangePicker(title: "Limit inclusive range of selectable dates", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, range: self.limitDateRange, selectedRange: self.$selectedRange2, noRangeSelectedString: "Please select range", pickerVisible: self.$pickerVisible2, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information warning message."))
                     .informationViewStyle(.warning)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 
-                DateRangePicker(title: "Customized Date Formatter", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange3, rangeFormatter: self.customizedDateFormatter, pickerVisible: self.$pickerVisible3)
+                DateRangePicker(title: "Customized Date Formatter", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange3, rangeFormatter: self.customizedDateFormatter, pickerVisible: self.$pickerVisible3, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
                     .informationViewStyle(.success)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
                 
-                DateRangePicker(title: "Custom Locale & Calendar", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange4, pickerVisible: self.$pickerVisible4)
-                    .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
-                    .informationViewStyle(.informational)
-                    .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
-                    .environment(\.locale, Locale(identifier: "zh-Hans"))
-                    .environment(\.calendar, Calendar(identifier: .gregorian))
+                DateRangePicker(title: "Custom Locale & Calendar, Customized Clear Action", mandatoryFieldIndicator: self.mandatoryFieldIndicator(), isRequired: self.isRequired, selectedRange: self.$selectedRange4, pickerVisible: self.$pickerVisible4, showsClearAction: self.showsClearAction) {
+                    Image(systemName: "xmark.square")
+                        .foregroundColor(.red)
+                }
+                .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information hint message."))
+                .informationViewStyle(.informational)
+                .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
+                .environment(\.locale, Locale(identifier: "zh-Hans"))
+                .environment(\.calendar, Calendar(identifier: .gregorian))
             
-                DateRangePicker(title: "Range Selection in Disabled Control State", mandatoryFieldIndicator: self.mandatoryFieldIndicator(true), isRequired: self.isRequired, controlState: .disabled, selectedRange: self.$selectedRange5, pickerVisible: self.$pickerVisible5)
+                DateRangePicker(title: "Range Selection in Disabled Control State", mandatoryFieldIndicator: self.mandatoryFieldIndicator(true), isRequired: self.isRequired, controlState: .disabled, selectedRange: self.$selectedRange5, pickerVisible: self.$pickerVisible5, showsClearAction: self.showsClearAction)
                     .informationView(isPresented: self.$showsErrorMessage, description: AttributedString("This is information success message."))
                     .informationViewStyle(.success)
                     .aiNoticeView(isPresented: self.$showAINotice, description: "AI Notice")
@@ -136,7 +172,11 @@ struct DateRangePickerExample: View {
         .onChange(of: self.selectedRange5) { _, newValue in
             print("selectedRange5 new Value:\(self.getValueLabel(newValue))")
         }
+        .environment(\.isLoading, self.isLoading)
         .navigationTitle("Date Range Picker")
+        .ifApply(self.customizeSeparator) {
+            $0.pickerSeparator(self.showSeparator, color: self.separatorColors[self.separatorColorIndex].1, lineWidth: self.separatorLineWidth)
+        }
     }
 
     private func getValueLabel(_ selectedRange: ClosedRange<Date>?) -> String {

@@ -27,6 +27,7 @@ public struct AttachmentGroupConfiguration {
     public let context: AttachmentContext
     @Binding public var attachments: [AttachmentInfo]
     public let maxCount: Int?
+    public let maxPhotoSelectionCount: Int?
     public let delegate: AttachmentDelegate
     public let controlState: ControlState
     @Binding public var errorMessage: AttributedString?

@@ -344,7 +344,11 @@ struct MobileCardExample: View {
     
     func toolBarFioriButtonStyle() -> some FioriButtonStyle {
         if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *) {
-            FioriGlassButtonStyle(glassEffect: .systemManaged).eraseToAnyFioriButtonStyle()
+            #if !os(visionOS)
+                FioriGlassButtonStyle(glassEffect: .systemManaged).eraseToAnyFioriButtonStyle()
+            #else
+                FioriPrimaryButtonStyle().eraseToAnyFioriButtonStyle()
+            #endif
         } else {
             FioriPrimaryButtonStyle().eraseToAnyFioriButtonStyle()
             // Fallback on earlier versions
@@ -431,7 +435,7 @@ public struct FioriCard<Content: View>: View {
                 .inset(by: 0.3)
                 .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 26))
         .shadow(color: Color.black.opacity(0.3).opacity(0.92), radius: 8, x: 0, y: 2)
     }
 }

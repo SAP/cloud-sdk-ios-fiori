@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "チェックアウト区分";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "%d 件追加";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "結果が見つかりません";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "誤った綴りで検索していないかどうかを確認するか、または別の検索語句を試してください。";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "チェックボックス";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "%d 文字以上";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "異なる文字が %d 文字以上";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "少なくとも 1 つの数字";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "少なくとも 1 つの大文字";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "少なくとも 1 つの小文字";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "少なくとも 1 つの特殊文字";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "数字のみ";
+

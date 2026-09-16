@@ -398,14 +398,16 @@ extension Counter: _ViewEmptyChecking {
 extension DateRangePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty
+            valueLabel.isEmpty &&
+            clearAction.isEmpty
     }
 }
 
 extension DateTimePicker: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            valueLabel.isEmpty
+            valueLabel.isEmpty &&
+            clearAction.isEmpty
     }
 }
 

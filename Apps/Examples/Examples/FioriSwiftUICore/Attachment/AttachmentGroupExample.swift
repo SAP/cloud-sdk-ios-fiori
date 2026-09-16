@@ -7,6 +7,7 @@ import SwiftUI
 struct AttachmentGroupExample: View {
     @State var attachmentInfo: [AttachmentInfo]
     @State private var maxCount: Int?
+    @State private var maxPhotoSelectionCount: Int?
     @State private var state: ControlState
     @State private var showOperations: Bool
     @State var images: [UIImage]
@@ -40,6 +41,7 @@ struct AttachmentGroupExample: View {
     init() {
         self.attachmentInfo = []
         self.maxCount = nil
+        self.maxPhotoSelectionCount = nil
         self.state = .normal
         self.opsAsMenu = true
         self.showOperations = false
@@ -228,6 +230,7 @@ struct AttachmentGroupExample: View {
             title: { Text("Attachments (\(self.attachmentInfo.count))") },
             attachments: self.$attachmentInfo,
             maxCount: self.maxCount,
+            maxPhotoSelectionCount: self.maxPhotoSelectionCount,
             delegate: self.useDemoDelegate ? MyAttachmentDelegateForInProgressAndErrorDemo() : BasicAttachmentDelegate(),
             controlState: self.state,
             errorMessage: self.$error,

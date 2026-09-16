@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Dangosydd Sgrin Talu";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d arall";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Heb Ddod o Hyd i Ganlyniadau";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Gwiriwch eich chwiliad am unrhyw wallau sillafu neu rhowch gynnig ar derm chwilio gwahanol.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Blwch ticio";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "O leiaf %d nod";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "O leiaf %d nod unigryw";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "O leiaf un digid";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "O leiaf un llythyren fawr";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "O leiaf un llythyren fach";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "O leiaf un nod arbennig";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Digidau'n unig";
+

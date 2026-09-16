@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "簽出指示碼";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "+%d 個其他項";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "找不到結果";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "請檢查搜尋拼字錯誤，或嘗試不同的搜尋條件。";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "核取方塊";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "至少 %d 個字元";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "至少 %d 個特殊字元";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "至少一個數字";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "至少一個大寫字母";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "至少一個小寫字母";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "至少一個特殊字元";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "僅數字";
+

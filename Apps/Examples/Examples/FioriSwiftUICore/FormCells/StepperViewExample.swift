@@ -15,6 +15,7 @@ struct StepperViewExample: View {
     
     @State var isDisabled: Bool = false
     @State var toggleDecrementActivate: Bool = true
+    @State var isLoading: Bool = false
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
@@ -31,6 +32,7 @@ struct StepperViewExample: View {
             Group {
                 Toggle("Disabled State", isOn: self.$isDisabled)
                 Toggle("Activate increment decrement button separately", isOn: self.$toggleDecrementActivate)
+                Toggle("Skeleton Loading", isOn: self.$isLoading)
                 StepperView(
                     title: { Text("Value") },
                     text: self.$normalStepValue,
@@ -149,6 +151,7 @@ struct StepperViewExample: View {
                 .disabled(self.isDisabled)
             }
             .padding(EdgeInsets(top: 9, leading: self.getPadding(), bottom: 11, trailing: self.getPadding()))
+            .environment(\.isLoading, self.isLoading)
 
             Spacer()
         }

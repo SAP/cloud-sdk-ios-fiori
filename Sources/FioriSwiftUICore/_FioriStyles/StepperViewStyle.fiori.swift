@@ -4,28 +4,32 @@ import SwiftUI
 
 // Base Layout style
 public struct StepperViewBaseStyle: StepperViewStyle {
+    @Environment(\.isLoading) var isLoading
+
     public func makeBody(_ configuration: StepperViewConfiguration) -> some View {
         @State var showDescription = !configuration.description.isEmpty
-        return VStack(spacing: 0) {
-            ViewThatFits(in: .horizontal) {
-                HStack(spacing: 0) {
-                    configuration.title
-                    Spacer().layoutPriority(1)
-                    configuration._stepperField
-                }
-                VStack(alignment: .leading, spacing: 0) {
-                    configuration.title
-                    HStack {
+        return SkeletonLoadingContainer {
+            VStack(spacing: 0) {
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 0) {
+                        configuration.title
                         Spacer().layoutPriority(1)
                         configuration._stepperField
                     }
+                    VStack(alignment: .leading, spacing: 0) {
+                        configuration.title
+                        HStack {
+                            Spacer().layoutPriority(1)
+                            configuration._stepperField
+                        }
+                    }
                 }
-            }
-            if showDescription {
-                HStack(spacing: 0) {
-                    configuration._informationView
-                    Spacer()
-                }.padding(.top, 4)
+                if showDescription {
+                    HStack(spacing: 0) {
+                        configuration._informationView
+                        Spacer()
+                    }.padding(.top, 4)
+                }
             }
         }
     }
@@ -42,10 +46,11 @@ extension StepperViewFioriStyle {
     struct TitleFioriStyle: TitleStyle {
         let stepperViewConfiguration: StepperViewConfiguration
         @Environment(\.isEnabled) var isEnabled: Bool
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : (self.isEnabled ? .primaryLabel : .separator)))
                 .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
                 .padding(EdgeInsets(top: 11, leading: 0, bottom: 11, trailing: 0))
                 .layoutPriority(1)
@@ -63,10 +68,11 @@ extension StepperViewFioriStyle {
     struct TextInputFieldFioriStyle: TextInputFieldStyle {
         let stepperViewConfiguration: StepperViewConfiguration
         @Environment(\.isEnabled) var isEnabled
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
             TextInputField(configuration)
-                .foregroundColor(.preferredColor(self.isEnabled ? .primaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : (self.isEnabled ? .primaryLabel : .separator)))
                 .font(.fiori(forTextStyle: .body))
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
                 .frame(minWidth: 44)
@@ -86,23 +92,25 @@ extension StepperViewFioriStyle {
     struct DescriptionFioriStyle: DescriptionStyle {
         let stepperViewConfiguration: StepperViewConfiguration
         @Environment(\.isEnabled) var isEnabled
+        @Environment(\.isLoading) var isLoading
 
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
                 .font(.fiori(forTextStyle: .footnote))
-                .foregroundColor(.preferredColor(self.isEnabled ? .tertiaryLabel : .separator))
+                .foregroundColor(.preferredColor(self.isLoading ? .separator : (self.isEnabled ? .tertiaryLabel : .separator)))
         }
     }
-    
+
     struct StepperFieldFioriStyle: StepperFieldStyle {
         let stepperViewConfiguration: StepperViewConfiguration
         @FocusState var isFocused: Bool
-    
+        @Environment(\.isLoading) var isLoading
+
         func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
             StepperField(configuration)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: self.isFocused ? 2 : 0.5)
+                        .stroke(lineWidth: self.isLoading ? 0 : (self.isFocused ? 2 : 0.5))
                         .foregroundColor(.preferredColor(self.isFocused ? .tintColor : .separator))
                 )
                 .focused(self.$isFocused)

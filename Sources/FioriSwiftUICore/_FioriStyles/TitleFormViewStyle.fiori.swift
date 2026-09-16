@@ -18,7 +18,7 @@ public struct TitleFormViewBaseStyle: TitleFormViewStyle {
             .textInputInfoView(isPresented: Binding(get: { self.isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration), counter: self.getCounterString(configuration))
             .padding(.top, -1)
             .padding(.bottom, self.isInfoViewNeeded(configuration) ? -12 : -1)
-            .accessibilityElement(children: .combine)
+            .accessibilityElement(children: .contain)
             .accessibilityHint(self.getAccessibilityHint(configuration, isFocused: self.isFocused))
             .disabled(configuration.controlState == .disabled)
         }

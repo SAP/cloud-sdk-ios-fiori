@@ -5,13 +5,16 @@ import SwiftUI
 /// The base layout style for `KeyValueFormView`.
 public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
     @Environment(\.isLoading) var isLoading
+    @Environment(\.isAccessibilityCombined) var isAccessibilityCombined
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
         SkeletonLoadingContainer {
             VStack(alignment: .leading) {
                 self.getTitle(configuration)
                 configuration._noteFormView
             }
-            .accessibilityElement(children: .combine)
+            .ifApply(self.isAccessibilityCombined, content: {
+                $0.accessibilityElement(children: .combine)
+            })
         }
     }
     

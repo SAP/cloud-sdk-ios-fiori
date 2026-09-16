@@ -262,157 +262,181 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
     
     // swiftlint:disable:next function_body_length
     public func makeBody(_ configuration: BannerMultiMessageSheetConfiguration) -> some View {
-        VStack(spacing: 0, content: {
-            HStack {
-                if !configuration.title.isEmpty {
-                    configuration.title
-                } else {
-                    Text(self.messageCountStr(configuration))
-                        .foregroundStyle(Color.preferredColor(.primaryLabel))
-                        .font(.fiori(forTextStyle: .headline, weight: .bold))
+        NavigationStack {
+            VStack(spacing: 0, content: {
+                DimensionSelector(titles: self.dimensionSelectorTitles, selectedIndex: self.$dimensionSelectorIndex)
+                    .sizeReader { size in
+                        self.dimensionSelectorHeight = size.height
+                    }
+                    .onChange(of: self.dimensionSelectorIndex) {
+                        self.categorySelect.categorySelectedIndex = self.dimensionSelectorIndex ?? 0
+                    }
+                List {
+                    ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
+                        Section {
+                            ForEach(element.items, id: \.id) { message in
+                                
+                                if !configuration.messageItemView(message.id).isEmpty {
+                                    AnyView(configuration.messageItemView(message.id))
+                                } else {
+                                    BannerMessage(icon: {
+                                        (message.icon ?? self.defaultIcon(message.messageType))
+                                            .typeErased
+                                            .accessibilityLabel(Text(message.typeDesc))
+                                            .contentShape(.accessibility, .rect.scale(1.2))
+                                    }, title: {
+                                        Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
+                                            .environment(\.openURL, OpenURLAction(handler: { url in
+                                                if url.absoluteString == self.viewDetailOpenUrlStr {
+                                                    self.showItemDetail(configuration, category: element.category, at: message.id)
+                                                }
+                                                return .handled
+                                            }))
+                                    }, closeAction: {
+                                        if message.showCloseAction {
+                                            FioriButton { state in
+                                                if state == .normal {
+                                                    self.removeItem(configuration, category: element.category, at: message.id)
+                                                }
+                                            } label: { _ in
+                                                Image(fioriName: "fiori.decline")
+                                            }
+                                        } else {
+                                            EmptyView()
+                                        }
+                                    }, topDivider: {
+                                        EmptyView()
+                                    }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                                        .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
+                                        .typeErased
+                                        .ifApply(message.messageType != .aiNotice && message.showSwipeDeleteAction) {
+                                            $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                                Button(role: .destructive) {
+                                                    self.removeItem(configuration, category: element.category, at: message.id)
+                                                } label: {
+                                                    Image(fioriName: "fiori.delete")
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        } header: {
+                            if configuration.turnOnSectionHeader {
+                                HStack {
+                                    Text("\(element.category) (\(element.items.count))")
+                                        .font(.fiori(forTextStyle: .subheadline))
+                                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                                    Spacer()
+                                    if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
+                                        if element.showClearAction {
+                                            Button {
+                                                self.removeCategoryAction(configuration, category: element.category)
+                                            } label: {
+                                                Text(_ClearActionDefault().actionText ?? "")
+                                            }
+                                            .buttonStyle(PlainButtonStyle())
+                                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                                            .foregroundStyle(Color.preferredColor(.tintColor))
+                                            .contentShape(.accessibility, .rect.scale(1.2))
+                                        }
+                                    }
+                                }
+                                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                                .textCase(nil)
+                            }
+                        } footer: {
+                            if configuration.turnOnSectionHeader {
+                                Rectangle().fill(Color.clear)
+                                    .frame(height: 30)
+                            }
+                        }
+                        .listSectionSeparator(configuration.turnOnSectionHeader ? .hidden : .visible, edges: .bottom)
+                        .listRowInsets(EdgeInsets())
+                        .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
+                            16
+                        })
+                        .alignmentGuide(.listRowSeparatorTrailing, computeValue: { dimension in
+                            dimension[.trailing] - 16
+                        })
+                    }
+                }
+                .listStyle(.insetGrouped)
+                .environment(\.defaultMinListRowHeight, 0)
+                .environment(\.defaultMinListHeaderHeight, 0)
+                .ifApply(!self.isPhone) {
+                    if #available(iOS 18, visionOS 2, *) {
+                        $0.onScrollGeometryChange(for: CGFloat.self) { geo in
+                            geo.contentSize.height
+                        } action: { _, newHeight in
+                            if newHeight != self.scrollContentHeight {
+                                self.scrollContentHeight = newHeight
+                            }
+                        }
+                        .typeErased
+                    } else {
+                        $0.modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
+                            DispatchQueue.main.async {
+                                if scrollView.contentSize.height != self.scrollContentHeight {
+                                    self.scrollContentHeight = scrollView.contentSize.height
+                                }
+                            }
+                        })
+                        .typeErased
+                    }
+                }
+                // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
+                Text("\(self.refreshFlag ? "true" : "false")")
+                    .frame(height: 0.01)
+                    .opacity(0)
+            })
+            .onDisappear(perform: {
+                self.timer?.invalidate()
+                self.timer = nil
+            })
+            .setOnChange(of: configuration.bannerMultiMessages) {
+                // when datasource is empty, dismiss in 2 seconds
+                self.scheduleDismissIfNeeded(configuration)
+                self.resetDimensionSelectorTitles(configuration)
+            }
+            .onAppear {
+                self.resetDimensionSelectorTitles(configuration)
+            }
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.safeAreaInsets.top
+            } action: { newValue in
+                if newValue > 0 {
+                    self.messageCountHeight = newValue
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if !configuration.title.isEmpty {
+                        configuration.title
+                    } else {
+                        Text(self.messageCountStr(configuration))
+                            .foregroundStyle(Color.preferredColor(.primaryLabel))
+                            .font(.fiori(forTextStyle: .headline, weight: .bold))
+                    }
                 }
                 
                 if self.isPhone {
-                    Spacer()
-                    
-                    configuration.closeAction
-                        .onSimultaneousTapGesture {
-                            self.dismiss(configuration)
-                        }
-                        .contentShape(.accessibility, .rect.scale(1.2))
-                }
-            }
-            .padding(.leading, self.isPhone ? 16 : 0)
-            .padding(.trailing, self.isPhone ? 18 : 0)
-            .padding(.top, 27)
-            .padding(.bottom, 16)
-            .sizeReader { size in
-                self.messageCountHeight = size.height
-            }
-            DimensionSelector(titles: self.dimensionSelectorTitles, selectedIndex: self.$dimensionSelectorIndex)
-                .sizeReader { size in
-                    self.dimensionSelectorHeight = size.height
-                }
-                .onChange(of: self.dimensionSelectorIndex) {
-                    self.categorySelect.categorySelectedIndex = self.dimensionSelectorIndex ?? 0
-                }
-            List {
-                ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
-                    Section {
-                        if configuration.turnOnSectionHeader {
-                            HStack {
-                                Text("\(element.category) (\(element.items.count))")
-                                    .font(.fiori(forTextStyle: .subheadline))
-                                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                                Spacer()
-                                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
-                                    if element.showClearAction {
-                                        Button {
-                                            self.removeCategoryAction(configuration, category: element.category)
-                                        } label: {
-                                            Text(_ClearActionDefault().actionText ?? "")
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                                        .foregroundStyle(Color.preferredColor(.tintColor))
-                                        .contentShape(.accessibility, .rect.scale(1.2))
-                                    }
+                    ToolbarItem(placement: .topBarLeading) {
+                        HStack {
+                            configuration.closeAction
+                                .onSimultaneousTapGesture {
+                                    self.dismiss(configuration)
                                 }
-                            }
-                            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        }
-                        
-                        ForEach(element.items, id: \.id) { message in
-                            
-                            if !configuration.messageItemView(message.id).isEmpty {
-                                AnyView(configuration.messageItemView(message.id))
-                            } else {
-                                BannerMessage(icon: {
-                                    (message.icon ?? self.defaultIcon(message.messageType))
-                                        .typeErased
-                                        .accessibilityLabel(Text(message.typeDesc))
-                                        .contentShape(.accessibility, .rect.scale(1.2))
-                                }, title: {
-                                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
-                                        .environment(\.openURL, OpenURLAction(handler: { url in
-                                            if url.absoluteString == self.viewDetailOpenUrlStr {
-                                                self.showItemDetail(configuration, category: element.category, at: message.id)
-                                            }
-                                            return .handled
-                                        }))
-                                }, closeAction: {
-                                    if message.showCloseAction {
-                                        FioriButton { state in
-                                            if state == .normal {
-                                                self.removeItem(configuration, category: element.category, at: message.id)
-                                            }
-                                        } label: { _ in
-                                            Image(fioriName: "fiori.decline")
-                                        }
-                                    } else {
-                                        EmptyView()
-                                    }
-                                }, topDivider: {
-                                    EmptyView()
-                                }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
-                                    .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
-                                    .typeErased
-                                    .ifApply(message.messageType != .aiNotice && message.showSwipeDeleteAction) {
-                                        $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                            Button(role: .destructive) {
-                                                self.removeItem(configuration, category: element.category, at: message.id)
-                                            } label: {
-                                                Image(fioriName: "fiori.delete")
-                                            }
-                                        }
-                                    }
-                            }
-                        }
-                        
-                    } footer: {
-                        if configuration.turnOnSectionHeader {
-                            Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                                .frame(height: 30)
+                                .contentShape(.accessibility, .rect.scale(1.2))
                         }
                     }
-                    .listSectionSeparator(configuration.turnOnSectionHeader ? .hidden : .visible, edges: .bottom)
-                    .listRowInsets(EdgeInsets())
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { _ in
-                        0
-                    })
+                    .hideSharedBackground()
                 }
             }
-            .background(Color.preferredColor(.primaryGroupedBackground))
-            .listStyle(.plain)
-            .environment(\.defaultMinListRowHeight, 0)
-            .environment(\.defaultMinListHeaderHeight, 0)
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    if scrollView.contentSize.height != self.scrollContentHeight, !self.isPhone {
-                        self.scrollContentHeight = scrollView.contentSize.height
-                    }
-                }
-            })
-            // workaround for forcing list refresh when second layer array modified in bannerMultiMessage.
-            Text("\(self.refreshFlag ? "true" : "false")")
-                .frame(height: 0.01)
-                .opacity(0)
-        })
-        .background(Color.preferredColor(.chrome))
-        .onDisappear(perform: {
-            self.dismissTask = nil
-        })
+            .navigationBarTitleDisplayMode(.inline)
+        }
         .frame(minWidth: !self.isPhone ? 393 : nil)
         .frame(height: self.popoverHeight)
         .animation(self.scrollContentHeight <= 40.0 ? nil : .spring, value: self.scrollContentHeight)
-        .setOnChange(of: configuration.bannerMultiMessages) {
-            // when datasource is empty, dismiss in 2 seconds
-            self.scheduleDismissIfNeeded(configuration)
-            self.resetDimensionSelectorTitles(configuration)
-        }
-        .onAppear {
-            self.resetDimensionSelectorTitles(configuration)
-        }
     }
 }
 

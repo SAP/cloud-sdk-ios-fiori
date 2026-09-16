@@ -321,9 +321,13 @@ extension CardFioriStyle {
     
     struct ActionFioriStyle: ActionStyle {
         let cardConfiguration: CardConfiguration
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
+                .ifApply(self.isLoading, content: {
+                    $0.opacity(0.5).fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: false))
+                })
             // Add default style for NewAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -332,9 +336,13 @@ extension CardFioriStyle {
     
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
         let cardConfiguration: CardConfiguration
+        @Environment(\.isLoading) var isLoading
         
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
+                .ifApply(self.isLoading, content: {
+                    $0.opacity(0.5).fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: false))
+                })
             // Add default style for SecondaryAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
@@ -396,7 +404,7 @@ public struct CardCardStyle: CardStyle {
                     .inset(by: 0.3)
                     .stroke(Color.preferredColor(.tertiaryLabel).opacity(0.24), lineWidth: 0.3)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: 26))
             .accessibilityElement(children: .contain)
             .accessibilityLabel("Card".localizedFioriString())
             .ifApply(self.shadowEffectConfiguration.showShadow) { content in
@@ -545,11 +553,15 @@ struct TagExample: View {
             Image(systemName: "bookmark")
                 .foregroundColor(.preferredColor(.tertiaryLabel))
         }
+        .accessibilityLabel("Bookmark")
     } row1: {
         HStack(spacing: 4) {
             Tag("Project").tagStyle(ColorTagStyle(textColor: .preferredColor(.blue9), fillColor: .preferredColor(.blue2)))
             Circle().frame(width: 2).foregroundColor(Color.preferredColor(.tertiaryLabel).opacity(0.9))
+                .accessibilityHidden(true)
             LabelItem(icon: Image(systemName: "calendar"), title: "1 Oct 2023 - 31 Oct 2023", alignment: .leading)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("1 Oct 2023 - 31 Oct 2023")
         }
     }
     
@@ -567,9 +579,10 @@ struct TagExample: View {
             .tagStyle(ColorTagStyle(textColor: .preferredColor(.grey9), fillColor: .preferredColor(.grey2)))
     } kpi: {
         VStack(alignment: .trailing) {
-            HStack(alignment: .bottom, spacing: 0) {
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
                 Text("$")
                     .font(.fiori(forTextStyle: .body, weight: .bold))
+                    .baselineOffset(2)
                 Text("90")
                     .font(.fiori(forTextStyle: .title2, weight: .bold))
             }
@@ -598,6 +611,9 @@ struct TagExample: View {
             ChartView(CardTests.chartModel)
                 .frame(minWidth: 128)
                 .frame(height: 168)
+                .accessibilityLabel("Column chart: Top Products")
+                .accessibilityValue("Single Beds: Jan: 30, Feb: 22, Mar: 80, Apr: 70, May: 60, Jun: 64, Jul: 50, Aug: 20, Sep: 90, Oct: 80, Nov: 50, Dec: 16. Double Beds: Jan: 22, Feb: 30, Mar: 90, Apr: 80, May: 70, Jun: 32, Jul: 28, Aug: 36, Sep: 84, Oct: 70, Nov: 30, Dec: 32.")
+                .accessibilityHint("Chart showing monthly data for two product series")
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
@@ -632,6 +648,9 @@ struct TagExample: View {
     } cardBody: {
         DataTable(model: CardTests.tableCard)
             .frame(height: 70)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Status table: Need Attention, Critical, Yesterday. Stable, Jul 5, 2021. Need Attention, Jul 4, 2021.")
+
     } action: {
         Button {
             print("Tapped")
@@ -692,6 +711,7 @@ struct TagExample: View {
         Image("ProfilePic")
     } headerAction: {
         FioriButton(title: "...")
+            .accessibilityLabel("More")
     } counter: {
         Text("1 of 3")
     } action: {
@@ -853,7 +873,7 @@ struct TagExample: View {
             .aspectRatio(contentMode: .fill)
             .frame(height: 345)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title that goes to two lines before truncating just like that")
     } detailImage: {
@@ -1113,7 +1133,7 @@ struct TagExample: View {
         Color.purple
             .frame(height: 84)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title")
     } subtitle: {
@@ -1172,7 +1192,7 @@ struct TagExample: View {
             .aspectRatio(contentMode: .fill)
             .frame(height: 145)
     } description: {
-        Text("Title")
+        Text("Description")
     } title: {
         Text("Title that goes to three lines before truncating just like that")
     } subtitle: {
@@ -1260,14 +1280,21 @@ struct TagExample: View {
             .foregroundColor(.preferredColor(.quaternaryLabel))
     } headerAction: {
         FioriButton(title: "...")
+            .accessibilityLabel("More")
     } counter: {
         Text("1 of 3")
     } action: {
         FioriButton(title: "Primary")
+            .accessibilityLabel("Primary")
+            .accessibilityHint("Primary action button")
     } secondaryAction: {
         FioriButton(title: "Secondary")
+            .accessibilityLabel("Secondary")
+            .accessibilityHint("Secondary action button")
     } tertiaryAction: {
         FioriButton(title: "Tertiary")
+            .accessibilityLabel("Tertiary")
+            .accessibilityHint("Tertiary action button")
     }
     
     static let sampleCard14 = Card(title: "Title",

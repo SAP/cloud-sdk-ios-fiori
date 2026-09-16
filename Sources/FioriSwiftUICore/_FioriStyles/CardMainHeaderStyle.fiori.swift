@@ -51,7 +51,7 @@ private struct CardMainHeaderView: View {
             }
 
             HStack(alignment: .top, spacing: 0) {
-                HStack(spacing: 8) {
+                HStack(alignment: .top, spacing: 8) {
                     if !self.configuration.icons.isEmpty {
                         self.configuration.icons
                             .accessibilityHidden(true)

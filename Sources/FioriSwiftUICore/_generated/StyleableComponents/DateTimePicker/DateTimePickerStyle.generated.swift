@@ -36,9 +36,12 @@ public struct DateTimePickerConfiguration {
     public let noDateSelectedString: String?
     @Binding public var pickerVisible: Bool
     public let hidesSeparator: Bool
+    public let showsClearAction: Bool
+    public let clearAction: ClearAction
 
     public typealias Title = ConfigurationViewWrapper
     public typealias ValueLabel = ConfigurationViewWrapper
+    public typealias ClearAction = ConfigurationViewWrapper
 }
 
 extension DateTimePickerConfiguration {

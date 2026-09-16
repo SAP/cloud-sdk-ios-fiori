@@ -718,3 +718,36 @@
 /* Checkout Indicator accessibility label: Checkout Indicator */
 "Checkout Indicator" = "Išregistravimo indikatorius";
 
+/* XMSG: More tag text shown when tags are truncated in MHStack, %d is the count of hidden tags */
+"+%d more" = "Dar %d";
+
+/* XTIT: The title of the empty state view */
+"No Results Found" = "Rezultatų nerasta";
+
+/* XTIT: The description of the empty state view */
+"Check your search for any spelling errors or try a different search term." = "Patikrinkite, ar paieškoje nėra rašybos klaidų, arba išbandykite kitą paieškos terminą.";
+
+/* XACT: The accessibility label for the checkbox */
+"Checkbox" = "Žymės langelis";
+
+/* XMSG: Passcode policy requirement - minimum length, %d is the required number of characters */
+"At least %d characters" = "Simbolių turi būti bent %d";
+
+/* XMSG: Passcode policy requirement - minimum number of unique characters, %d is the required count */
+"At least %d unique characters" = "Unikalių simbolių bent %d";
+
+/* XMSG: Passcode policy requirement - at least one digit */
+"At least one digit" = "Bent vienas skaitmuo";
+
+/* XMSG: Passcode policy requirement - at least one uppercase letter */
+"At least one uppercase letter" = "Bent viena didžioji raidė";
+
+/* XMSG: Passcode policy requirement - at least one lowercase letter */
+"At least one lowercase letter" = "Bent viena mažoji raidė";
+
+/* XMSG: Passcode policy requirement - at least one special character */
+"At least one special character" = "Bent vienas specialusis simbolis";
+
+/* XMSG: Passcode policy requirement - digits only */
+"Digits only" = "Tik skaitmenys";
+

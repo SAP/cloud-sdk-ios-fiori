@@ -135,13 +135,15 @@ struct ShimmerViewModifier: ViewModifier {
                     Color.preferredColor(self.isTintColor ? .tintColor : .base2)
                         .blendMode(.plusLighter)
                         .mask(content)
-                    self.getLinearGradient(self.isTintColor)
-                        .offset(x: self.phase * width, y: 0)
-                        .blendMode(.plusLighter)
-                        .mask(content)
-                        .animation(self.isLoading
-                            ? Animation.linear(duration: 2).repeatForever(autoreverses: false)
-                            : .default, value: self.phase)
+                    
+                    TimelineView(.animation(minimumInterval: 1.0 / 60.0)) { context in
+                        let elapsed = context.date.timeIntervalSinceReferenceDate
+                        let phase = CGFloat((elapsed.truncatingRemainder(dividingBy: 2.0) / 2.0) * 2 - 1)
+                        self.getLinearGradient(self.isTintColor)
+                            .offset(x: phase * width, y: 0)
+                            .blendMode(.plusLighter)
+                            .mask(content)
+                    }
                 }
             }
             .allowsHitTesting(false)
@@ -152,9 +154,10 @@ struct ShimmerViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         self.shimmerContent(content: content)
-            .accessibilityRepresentation {
+            .accessibilityHidden(self.isLoading)
+            .overlay {
                 if self.isLoading {
-                    content
+                    Color.clear
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(self.loadingAccLabel)
                         .accessibilityValue("")
@@ -162,8 +165,6 @@ struct ShimmerViewModifier: ViewModifier {
                         .accessibilityAddTraits(.isStaticText)
                         .disabled(true)
                         .allowsHitTesting(false)
-                } else {
-                    content
                 }
             }
     }
@@ -300,12 +301,24 @@ struct IsLoadingKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct IsAccessibilityCombinedKey: EnvironmentKey {
+    static let defaultValue: Bool = true
+}
+
 /// A custom environment key to manage loading state across views.
 public extension EnvironmentValues {
     /// A Boolean value indicating whether content is currently loading. It can be used to show the shimmer effect.
     var isLoading: Bool {
         get { self[IsLoadingKey.self] }
         set { self[IsLoadingKey.self] = newValue }
+    }
+}
+
+public extension EnvironmentValues {
+    /// A Boolean value indicating whether accessibility elements are combined into a single element. When `true`, child elements are combined. Default is `true`.
+    var isAccessibilityCombined: Bool {
+        get { self[IsAccessibilityCombinedKey.self] }
+        set { self[IsAccessibilityCombinedKey.self] = newValue }
     }
 }
 

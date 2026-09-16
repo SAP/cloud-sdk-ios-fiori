@@ -57,6 +57,7 @@ struct KeyValueFormViewExample: View {
                 List {
                     Text("Default KeyValueForm")
                     KeyValueFormView(title: self.key1, text: self.isLoading ? self.$valueText3 : self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
+                        .environment(\.isAccessibilityCombined, false)
                     
                     Text("Existing Text")
                         .italic()
