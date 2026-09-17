@@ -18,6 +18,7 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
         VStack(spacing: 0) {
             if configuration.resizesDetailImage {
                 getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+                    .padding(.bottom, 16)
             } else {
                 configuration.detailImage
                     .padding(.bottom, 16)
