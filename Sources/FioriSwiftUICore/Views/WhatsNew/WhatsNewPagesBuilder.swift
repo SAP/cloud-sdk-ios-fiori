@@ -28,7 +28,7 @@ public extension WhatsNewPageList {
 /// Preference key used to communicate the measured height of the floating
 /// bottom bar (action button + page control) up the view hierarchy.
 private struct WhatsNewBottomBarHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
+    static let defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
     }

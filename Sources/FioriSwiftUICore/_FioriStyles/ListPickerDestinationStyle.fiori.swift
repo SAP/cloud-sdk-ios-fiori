@@ -1510,7 +1510,7 @@ public struct ConfirmationDialogConfiguration: @unchecked Sendable {
 }
 
 struct ListPickerSearchResultsEmptyViewKey: EnvironmentKey {
-    static let defaultValue: () -> any View = {
+    nonisolated(unsafe) static let defaultValue: () -> any View = {
         IllustratedMessage(
             detailImage: {
                 FioriIcon.illustrations.noEntriesSmall
@@ -1546,7 +1546,7 @@ public extension View {
 }
 
 /// Display mode for the search bar in `ListPickerDestination`.
-public enum ListPickerSearchBarDisplayMode {
+public enum ListPickerSearchBarDisplayMode: Sendable {
     /// The search bar is hidden until the user scrolls. This is the default behavior.
     case automatic
     /// The search bar is always visible.

@@ -274,76 +274,9 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                 List {
                     ForEach(self.filteredBannerMultiMessages(configuration), id: \.id) { element in
                         Section {
-                            ForEach(element.items, id: \.id) { message in
-                                
-                                if !configuration.messageItemView(message.id).isEmpty {
-                                    AnyView(configuration.messageItemView(message.id))
-                                } else {
-                                    BannerMessage(icon: {
-                                        (message.icon ?? self.defaultIcon(message.messageType))
-                                            .typeErased
-                                            .accessibilityLabel(Text(message.typeDesc))
-                                            .contentShape(.accessibility, .rect.scale(1.2))
-                                    }, title: {
-                                        Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
-                                            .environment(\.openURL, OpenURLAction(handler: { url in
-                                                if url.absoluteString == self.viewDetailOpenUrlStr {
-                                                    self.showItemDetail(configuration, category: element.category, at: message.id)
-                                                }
-                                                return .handled
-                                            }))
-                                    }, closeAction: {
-                                        if message.showCloseAction {
-                                            FioriButton { state in
-                                                if state == .normal {
-                                                    self.removeItem(configuration, category: element.category, at: message.id)
-                                                }
-                                            } label: { _ in
-                                                Image(fioriName: "fiori.decline")
-                                            }
-                                        } else {
-                                            EmptyView()
-                                        }
-                                    }, topDivider: {
-                                        EmptyView()
-                                    }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
-                                        .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
-                                        .typeErased
-                                        .ifApply(message.messageType != .aiNotice && message.showSwipeDeleteAction) {
-                                            $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                                Button(role: .destructive) {
-                                                    self.removeItem(configuration, category: element.category, at: message.id)
-                                                } label: {
-                                                    Image(fioriName: "fiori.delete")
-                                                }
-                                            }
-                                        }
-                                }
-                            }
+                            self.sectionContent(element: element, configuration: configuration)
                         } header: {
-                            if configuration.turnOnSectionHeader {
-                                HStack {
-                                    Text("\(element.category) (\(element.items.count))")
-                                        .font(.fiori(forTextStyle: .subheadline))
-                                        .foregroundStyle(Color.preferredColor(.secondaryLabel))
-                                    Spacer()
-                                    if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
-                                        if element.showClearAction {
-                                            Button {
-                                                self.removeCategoryAction(configuration, category: element.category)
-                                            } label: {
-                                                Text(_ClearActionDefault().actionText ?? "")
-                                            }
-                                            .buttonStyle(PlainButtonStyle())
-                                            .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
-                                            .foregroundStyle(Color.preferredColor(.tintColor))
-                                            .contentShape(.accessibility, .rect.scale(1.2))
-                                        }
-                                    }
-                                }
-                                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                                .textCase(nil)
-                            }
+                            self.sectionHeader(element: element, configuration: configuration)
                         } footer: {
                             if configuration.turnOnSectionHeader {
                                 Rectangle().fill(Color.clear)
@@ -389,10 +322,10 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
                     .frame(height: 0.01)
                     .opacity(0)
             })
-            .onDisappear(perform: {
-                self.timer?.invalidate()
-                self.timer = nil
-            })
+            .onDisappear {
+                self.dismissTask?.cancel()
+                self.dismissTask = nil
+            }
             .setOnChange(of: configuration.bannerMultiMessages) {
                 // when datasource is empty, dismiss in 2 seconds
                 self.scheduleDismissIfNeeded(configuration)
@@ -437,6 +370,82 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         .frame(minWidth: !self.isPhone ? 393 : nil)
         .frame(height: self.popoverHeight)
         .animation(self.scrollContentHeight <= 40.0 ? nil : .spring, value: self.scrollContentHeight)
+    }
+
+    @ViewBuilder
+    func sectionHeader(element: BannerMessageListModel, configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        if configuration.turnOnSectionHeader {
+            HStack {
+                Text("\(element.category) (\(element.items.count))")
+                    .font(.fiori(forTextStyle: .subheadline))
+                    .foregroundStyle(Color.preferredColor(.secondaryLabel))
+                Spacer()
+                if element.items.count > 1 || (element.items.count == 1 && element.items.first(where: { $0.messageType == .aiNotice }) == nil) {
+                    if element.showClearAction {
+                        Button {
+                            self.removeCategoryAction(configuration, category: element.category)
+                        } label: {
+                            Text(_ClearActionDefault().actionText ?? "")
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .font(.fiori(forTextStyle: .subheadline, weight: .semibold))
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                        .contentShape(.accessibility, .rect.scale(1.2))
+                    }
+                }
+            }
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .textCase(nil)
+        }
+    }
+
+    @ViewBuilder
+    func sectionContent(element: BannerMessageListModel, configuration: BannerMultiMessageSheetConfiguration) -> some View {
+        ForEach(element.items, id: \.id) { message in
+            if !configuration.messageItemView(message.id).isEmpty {
+                AnyView(configuration.messageItemView(message.id))
+            } else {
+                BannerMessage(icon: {
+                    (message.icon ?? self.defaultIcon(message.messageType))
+                        .typeErased
+                        .accessibilityLabel(Text(message.typeDesc))
+                        .contentShape(.accessibility, .rect.scale(1.2))
+                }, title: {
+                    Text(self.attributedMessageTitle(title: message.title, typeDesc: message.typeDesc, showDetailLink: message.showDetailLink))
+                        .environment(\.openURL, OpenURLAction(handler: { url in
+                            if url.absoluteString == self.viewDetailOpenUrlStr {
+                                self.showItemDetail(configuration, category: element.category, at: message.id)
+                            }
+                            return .handled
+                        }))
+                }, closeAction: {
+                    if message.showCloseAction {
+                        FioriButton { state in
+                            if state == .normal {
+                                self.removeItem(configuration, category: element.category, at: message.id)
+                            }
+                        } label: { _ in
+                            Image(fioriName: "fiori.decline")
+                        }
+                    } else {
+                        EmptyView()
+                    }
+                }, topDivider: {
+                    EmptyView()
+                }, bannerTapAction: nil, alignment: .leading, hideSeparator: true, messageType: message.messageType)
+                    .bannerMessageStyle(self.bannerMessageStyle(message.messageType))
+                    .typeErased
+                    .ifApply(message.messageType != .aiNotice && message.showSwipeDeleteAction) {
+                        $0.swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                self.removeItem(configuration, category: element.category, at: message.id)
+                            } label: {
+                                Image(fioriName: "fiori.delete")
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 

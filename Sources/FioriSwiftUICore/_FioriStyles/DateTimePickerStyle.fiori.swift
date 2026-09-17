@@ -307,6 +307,7 @@ public extension DateTimePicker {
     ///   - noDateSelectedString: The text to be displayed when no date is selected. If this property is `nil`, the localized string “No date selected” will be used.
     ///   - pickerVisible: This property indicates whether the picker is to be displayed.
     ///   - hidesSeparator: This property indicates whether the separator is to be displayed. Default is false.
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
