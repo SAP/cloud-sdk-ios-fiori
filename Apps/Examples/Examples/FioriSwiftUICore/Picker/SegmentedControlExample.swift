@@ -52,30 +52,26 @@ struct SegmentedControlExample: View {
         }
     }
     
-    static var version: Int {
-        #if os(iOS)
-            #if canImport(os_availability_internal)
-                return Int(__IPHONE_OS_VERSION_MAX_ALLOWED)
-            #else
-                return Int.max
-            #endif
-        #else
-            return Int.max
-        #endif
+    static var hostAppXcodeVersion: Int {
+        guard let xcodeVersionString = Bundle.main.infoDictionary?["DTXcode"] as? String,
+              let xcodeVersion = Int(xcodeVersionString) else { return Int.max }
+        return xcodeVersion
     }
-    
+
     static var requiresDesignCompatibility: Bool {
         if let value = Bundle.main.infoDictionary?["UIDesignRequiresCompatibility"] as? Bool {
             return value
         }
         return false
     }
-    
+
     static var usesLiquidGlassUI: Bool {
-        if #available(iOS 26, *) {
+        if #available(iOS 27, *) {
+            return hostAppXcodeVersion >= 2700 || !requiresDesignCompatibility
+        } else if #available(iOS 26, *) {
             #if os(iOS)
                 // This will tell if project is built below Xcode 26 or liquid glass is disabled by 'UIDesignRequiresCompatibility', if yes, then we should not update component style.
-                return !(version < 260000 || requiresDesignCompatibility)
+                return !(hostAppXcodeVersion < 2600 || requiresDesignCompatibility)
             #else
                 return true
             #endif

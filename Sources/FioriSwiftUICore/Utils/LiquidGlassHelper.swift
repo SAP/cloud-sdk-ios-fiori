@@ -24,7 +24,7 @@ enum LiquidGlassHelper {
         } else if #available(iOS 26, *) {
             #if os(iOS)
                 // This will tell if project is built below Xcode 26 or liquid glass is disabled by 'UIDesignRequiresCompatibility', yes, then we should not update component style.
-                return !(hostAppXcodeVersion < 260000 || requiresDesignCompatibility)
+                return !(hostAppXcodeVersion < 2600 || requiresDesignCompatibility)
             #else
                 return true
             #endif
