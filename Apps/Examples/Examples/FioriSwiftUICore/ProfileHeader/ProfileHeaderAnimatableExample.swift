@@ -1,4 +1,5 @@
 import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 struct ProfileHeaderAnimatableExample: View {
@@ -14,16 +15,16 @@ struct ProfileHeaderAnimatableExample: View {
         }, animatable: true) {
             HStack(spacing: 30) {
                 Button(action: {}, label: {
-                    Image(systemName: "mail")
+                    FioriIcon.actions.email
                         .frame(minWidth: 44, minHeight: 44)
                 })
                 Button(action: {}, label: {
-                    Image(systemName: "message")
+                    FioriIcon.actions.post
                         .frame(minWidth: 44, minHeight: 44)
                 })
                 
                 Button(action: {}, label: {
-                    Image(systemName: "phone")
+                    FioriIcon.actions.call
                         .frame(minWidth: 44, minHeight: 44)
                 })
             }
