@@ -129,7 +129,7 @@ enum FioriButtonStyleProvider {
             default:
                 switch state {
                 case .normal:
-                    foregroundColor = .preferredColor(.tintColor2)
+                    foregroundColor = .preferredColor(.tintColor)
                     backgroundColor = .clear
                 case .highlighted, .selected:
                     foregroundColor = .preferredColor(.tintColorTapState)
