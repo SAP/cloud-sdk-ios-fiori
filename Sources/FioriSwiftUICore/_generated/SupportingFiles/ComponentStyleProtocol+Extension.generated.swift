@@ -5835,22 +5835,22 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorTitleStyle 
 }
 
 public struct LoadingIndicatorProgressStyle: LoadingIndicatorStyle {
-    let style: any ProgressStyle
+    let style: any FioriProgressViewStyle
 
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         LoadingIndicator(configuration)
-            .progressStyle(self.style)
+            .fioriProgressViewStyle(self.style)
             .typeErased
     }
 }
 
 public extension LoadingIndicatorStyle where Self == LoadingIndicatorProgressStyle {
-    static func progressStyle(_ style: some ProgressStyle) -> LoadingIndicatorProgressStyle {
+    static func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> LoadingIndicatorProgressStyle {
         LoadingIndicatorProgressStyle(style: style)
     }
 
-    static func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
-        let style = AnyProgressStyle(content)
+    static func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
+        let style = AnyFioriProgressViewStyle(content)
         return LoadingIndicatorProgressStyle(style: style)
     }
 }
@@ -7059,17 +7059,17 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
-public extension ProgressStyle where Self == ProgressBaseStyle {
-    static var base: ProgressBaseStyle {
-        ProgressBaseStyle()
+public extension FioriProgressViewStyle where Self == FioriProgressViewBaseStyle {
+    static var base: FioriProgressViewBaseStyle {
+        FioriProgressViewBaseStyle()
     }
 }
 
-public extension ProgressStyle where Self == ProgressFioriStyle {
-    static var fiori: ProgressFioriStyle {
-        ProgressFioriStyle()
+public extension FioriProgressViewStyle where Self == FioriProgressViewFioriStyle {
+    static var fiori: FioriProgressViewFioriStyle {
+        FioriProgressViewFioriStyle()
     }
 }
 

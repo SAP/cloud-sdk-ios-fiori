@@ -1,5 +1,4 @@
 import FioriSwiftUICore
-import Foundation
 import SwiftUI
 
 struct LoadingIndicatorExample: View {
@@ -46,7 +45,7 @@ struct LoadingIndicatorExample: View {
                                         .font(.system(size: 12))
                                         .rainbow()
                                 }, progress: {
-                                    Progress()
+                                    FioriProgressView()
                                 }, duration: 3, isPresented: self.$isPresented2, isAIEnabled: self.isAIStyle)
                                     .indicatorPosition(.top)
                                     .indicatorTint(Color.random)
@@ -102,7 +101,7 @@ struct LoadingIndicatorExample: View {
                                     .font(.system(size: 8))
                                     .foregroundStyle(Color.red)
                             }, progress: {
-                                Progress()
+                                FioriProgressView()
                             }, isPresented: self.$isPresented5, isAIEnabled: isAIStyle)
                                 .indicatorPosition(.top)
                                 .indicatorTint(Color.random)
@@ -115,7 +114,7 @@ struct LoadingIndicatorExample: View {
                                 .font(.largeTitle)
                                 .foregroundStyle(Color.green)
                         }, progress: {
-                            Progress()
+                            FioriProgressView()
                         }, isPresented: self.$isPresented4, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.trailing)
                             .indicatorTint(Color.random)

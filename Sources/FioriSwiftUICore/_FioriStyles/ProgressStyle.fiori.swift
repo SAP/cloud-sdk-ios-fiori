@@ -12,19 +12,19 @@ import SwiftUI
  */
 
 // Base Layout style
-public struct ProgressBaseStyle: ProgressStyle {
+public struct FioriProgressViewBaseStyle: FioriProgressViewStyle {
     @ViewBuilder
-    public func makeBody(_ configuration: ProgressConfiguration) -> some View {
+    public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
         // Add default layout here
         configuration.progress
     }
 }
 
 // Default fiori styles
-public struct ProgressFioriStyle: ProgressStyle {
+public struct FioriProgressViewFioriStyle: FioriProgressViewStyle {
     @ViewBuilder
-    public func makeBody(_ configuration: ProgressConfiguration) -> some View {
-        Progress(configuration)
+    public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
+        FioriProgressView(configuration)
         // Add default style here
         // .foregroundStyle(Color.preferredColor(<#fiori color#>))
         // .font(.fiori(forTextStyle: <#fiori font#>))
