@@ -1041,7 +1041,7 @@ extension ProfileHeader: _ViewEmptyChecking {
     }
 }
 
-extension Progress: _ViewEmptyChecking {
+extension FioriProgressView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         progress.isEmpty
     }

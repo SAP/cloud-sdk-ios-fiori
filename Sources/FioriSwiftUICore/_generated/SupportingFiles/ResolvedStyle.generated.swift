@@ -2307,19 +2307,19 @@ extension ProfileHeaderStyle {
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
-struct ResolvedProgressStyle<Style: ProgressStyle>: View {
+struct ResolvedFioriProgressViewStyle<Style: FioriProgressViewStyle>: View {
     let style: Style
-    let configuration: ProgressConfiguration
+    let configuration: FioriProgressViewConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-extension ProgressStyle {
-    func resolve(configuration: ProgressConfiguration) -> some View {
-        ResolvedProgressStyle(style: self, configuration: configuration)
+extension FioriProgressViewStyle {
+    func resolve(configuration: FioriProgressViewConfiguration) -> some View {
+        ResolvedFioriProgressViewStyle(style: self, configuration: configuration)
     }
 }
 

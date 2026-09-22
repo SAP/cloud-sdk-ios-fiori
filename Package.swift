@@ -68,7 +68,10 @@ let package = Package(
         ),
         .testTarget(
             name: "FioriSwiftUICoreTests",
-            dependencies: ["FioriSwiftUICore", "ViewInspector"],
+            dependencies: [
+                .target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS, .macCatalyst])),
+                .product(name: "ViewInspector", package: "ViewInspector", condition: .when(platforms: [.iOS, .macCatalyst]))
+            ],
             path: "Tests/FioriSwiftUITests/FioriSwiftUICore"
         )
     ]
