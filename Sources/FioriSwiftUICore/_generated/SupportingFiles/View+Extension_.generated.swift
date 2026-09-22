@@ -2451,18 +2451,18 @@ public extension View {
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
 public extension View {
-    func progressStyle(_ style: some ProgressStyle) -> some View {
-        self.transformEnvironment(\.progressStyleStack) { stack in
+    func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> some View {
+        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
             stack.append(style)
         }
     }
 
-    func progressStyle(@ViewBuilder content: @escaping (ProgressConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.progressStyleStack) { stack in
-            let style = AnyProgressStyle(content)
+    func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
+            let style = AnyFioriProgressViewStyle(content)
             stack.append(style)
         }
     }
