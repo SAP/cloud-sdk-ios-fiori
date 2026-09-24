@@ -165,9 +165,12 @@ struct OnBoardingWelcomeScreenExamples: View {
                 })
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Cancel".localizedFioriString()) {
+                        FioriButton { _ in
                             self.showWelcomeScreen = false
-                        }.fixedSize()
+                        } label: { _ in
+                            Text("Cancel".localizedFioriString())
+                        }
+                        .fioriButtonStyle(FioriNavigationButtonStyle()).fixedSize()
                     }
                 }
             }
