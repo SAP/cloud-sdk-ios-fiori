@@ -48,15 +48,4 @@ extension _SectionHeader: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _SectionHeader specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _SectionHeaderLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_SectionHeader(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

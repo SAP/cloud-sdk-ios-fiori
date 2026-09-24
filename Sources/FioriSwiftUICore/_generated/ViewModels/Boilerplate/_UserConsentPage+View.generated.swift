@@ -52,15 +52,4 @@ extension _UserConsentPage: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _UserConsentPage specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _UserConsentPageLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_UserConsentPage(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

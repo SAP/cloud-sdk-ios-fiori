@@ -7,36 +7,6 @@ import SwiftUI
 
 extension _ProgressIndicator: View {
     public var body: some View {
-        if #available(iOS 14.0, *) {
-            ProgressView(self._progressIndicatorText ?? "")
-        } else {
-            VStack {
-                ActivityIndicator(style: .medium)
-                if self._progressIndicatorText?.isEmpty == false {
-                    Text(self._progressIndicatorText ?? "")
-                        .font(.fiori(fixedSize: 11).weight(.regular))
-                        .foregroundColor(.preferredColor(.tertiaryLabel))
-                }
-            }
-        }
-    }
-}
-
-struct ActivityIndicator: UIViewRepresentable {
-    let style: UIActivityIndicatorView.Style
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        UIActivityIndicatorView(style: self.style)
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        uiView.startAnimating()
-    }
-}
-
-@available(iOS 14.0, *)
-struct ProgressIndicatorLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_ProgressIndicator(progressIndicatorText: "Loading..."))
+        ProgressView(self._progressIndicatorText ?? "")
     }
 }

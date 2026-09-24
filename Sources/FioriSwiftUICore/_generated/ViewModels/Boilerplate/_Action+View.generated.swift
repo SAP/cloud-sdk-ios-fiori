@@ -20,15 +20,4 @@ extension _Action: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _Action specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _ActionLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_Action(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

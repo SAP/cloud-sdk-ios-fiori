@@ -20,15 +20,4 @@ extension _DurationPicker: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _DurationPicker specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _DurationPickerLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_DurationPicker(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */
