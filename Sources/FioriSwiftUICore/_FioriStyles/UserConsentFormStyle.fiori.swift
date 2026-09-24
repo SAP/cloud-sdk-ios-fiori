@@ -4,7 +4,8 @@ import SwiftUI
 
 // Base Layout style
 public struct UserConsentFormBaseStyle: UserConsentFormStyle {
-    @State var showAlert: (Bool, UserConsentAlertType) = (false, .deny)
+    @State var showAlert = false
+    @State var alertType: UserConsentAlertType = .deny
     @State var pageIndex = 0
     @Environment(\.userConsentFormDidCancel) var userConsentFormDidCancel
     @Environment(\.userConsentFormDidDeny) var userConsentFormDidDeny
@@ -29,7 +30,7 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                 self.toolBar(configuration)
             }
             .navigationTitle(self.navTitle(configuration))
-            .alert(configuration: self.alertConfiguration(configuration), isPresented: self.$showAlert.0)
+            .alert(configuration: self.alertConfiguration(configuration), isPresented: self.$showAlert)
     }
     
     @ToolbarContentBuilder
@@ -41,7 +42,8 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
                         .fixedSize()
                         .onSimultaneousTapGesture {
                             if configuration.alertConfiguration?(.deny) != nil {
-                                self.showAlert = (true, .deny)
+                                self.showAlert = true
+                                self.alertType = .deny
                             } else {
                                 self.didDeny(configuration)?(configuration.isRequired)
                             }
@@ -80,7 +82,8 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
             configuration.cancelAction
                 .onSimultaneousTapGesture {
                     if configuration.alertConfiguration?(.cancel) != nil {
-                        self.showAlert = (true, .cancel)
+                        self.showAlert = true
+                        self.alertType = .cancel
                     } else {
                         configuration.didCancel?()
                     }
@@ -106,13 +109,13 @@ public struct UserConsentFormBaseStyle: UserConsentFormStyle {
     }
     
     func alertConfiguration(_ configuration: UserConsentFormConfiguration) -> AlertConfiguration {
-        guard let alertConfig = configuration.alertConfiguration?(self.showAlert.1) else {
+        guard let alertConfig = configuration.alertConfiguration?(self.alertType) else {
             fatalError("UserConsentForm: alert configuration cannot be nil")
         }
         
         var newAlertConfig = alertConfig
         
-        switch self.showAlert.1 {
+        switch self.alertType {
         case .deny:
             newAlertConfig.action._didSelectSetter {
                 self.didAllow(configuration)?()
