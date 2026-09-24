@@ -276,12 +276,3 @@ public extension View {
         self.environment(\.kpiProgressViewStyle, AnyKPIProgressViewStyle(style))
     }
 }
-
-@available(iOS 14.0, *)
-struct _KPIProgressItemLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_KPIProgressItem(data: .percent(0.88), subtitle: "Completed"),
-                    category: .control)
-    }
-}

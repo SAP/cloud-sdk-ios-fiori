@@ -21,12 +21,3 @@ extension _DurationPicker: View {
         return newSelf
     }
 }
-
-@available(iOS 14.0, macOS 11.0, *)
-struct DurationPickerLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_DurationPicker(selection: .constant(0)),
-                    category: .control)
-    }
-}

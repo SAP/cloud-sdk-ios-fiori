@@ -49,15 +49,4 @@ extension SearchableListView: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement SearchableListView specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct SearchableListViewLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(SearchableListView(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

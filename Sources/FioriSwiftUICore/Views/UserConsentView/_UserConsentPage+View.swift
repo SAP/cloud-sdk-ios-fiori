@@ -68,12 +68,3 @@ extension _UserConsentPage: View {
         .navigationBarBackButtonHidden(true)
     }
 }
-
-@available(iOS 14.0, *)
-struct _UserConsentPageLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: _Action(actionText: "Learn more about Data Privacy")),
-                    category: .control)
-    }
-}
