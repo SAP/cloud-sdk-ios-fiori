@@ -238,7 +238,7 @@ private extension Binding where Value == Set<UUID> {
     }
 }
 
-private extension Binding {
+private extension Binding where Value: Sendable {
     func toOptionalBinding() -> Binding<Value?> {
         Binding<Value?>(
             get: { self.wrappedValue },
@@ -1469,7 +1469,7 @@ private extension View {
 }
 
 struct HeightPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat?
+    static let defaultValue: CGFloat? = nil
 
     static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
         guard let nextValue = nextValue() else { return }

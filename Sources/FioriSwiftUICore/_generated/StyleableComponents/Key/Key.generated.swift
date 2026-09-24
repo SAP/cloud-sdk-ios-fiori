@@ -25,6 +25,7 @@ public extension Key {
 }
 
 public extension Key {
+    @MainActor
     init(key: AttributedString) {
         self.init(key: { Text(key) })
     }
@@ -64,6 +65,7 @@ private extension Key {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Key(.init(componentIdentifier: self.componentIdentifier, key: .init(self.key)))
             .shouldApplyDefaultStyle(false)

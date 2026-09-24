@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol JouleWelcomeScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol JouleWelcomeScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> Body
 }
 
 struct AnyJouleWelcomeScreenStyle: JouleWelcomeScreenStyle {
@@ -50,5 +50,15 @@ public struct JouleWelcomeScreenFioriStyle: JouleWelcomeScreenStyle {
             .titleStyle(TitleFioriStyle(jouleWelcomeScreenConfiguration: configuration))
             .footnoteStyle(FootnoteFioriStyle(jouleWelcomeScreenConfiguration: configuration))
             .messageContentStyle(MessageContentFioriStyle(jouleWelcomeScreenConfiguration: configuration))
+    }
+}
+
+struct JouleWelcomeScreenDefaultStyle: JouleWelcomeScreenStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: JouleWelcomeScreenConfiguration) -> some View {
+        JouleWelcomeScreen(configuration)
+            .jouleWelcomeScreenStyle(JouleWelcomeScreenFioriStyle())
+            .modifier(JouleWelcomeScreenStyleModifier(style: JouleWelcomeScreenBaseStyle()))
     }
 }

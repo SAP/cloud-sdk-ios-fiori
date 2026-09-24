@@ -2,15 +2,15 @@ import Foundation
 import SwiftUI
 
 struct UserConsentFormDidAllow: EnvironmentKey {
-    public static let defaultValue: (() -> Void)? = nil
+    public nonisolated(unsafe) static let defaultValue: (() -> Void)? = nil
 }
 
 struct UserConsentFormDidDeny: EnvironmentKey {
-    public static let defaultValue: ((Bool) -> Void)? = nil
+    public nonisolated(unsafe) static let defaultValue: ((Bool) -> Void)? = nil
 }
 
 struct UserConsentFormDidCancel: EnvironmentKey {
-    public static let defaultValue: (() -> Void)? = nil
+    public nonisolated(unsafe) static let defaultValue: (() -> Void)? = nil
 }
 
 extension EnvironmentValues {

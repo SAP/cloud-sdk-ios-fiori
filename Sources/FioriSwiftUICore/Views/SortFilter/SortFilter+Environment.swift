@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SortFilterOnModelUpdateAppCallbackKey: EnvironmentKey {
-    static let defaultValue: () -> Void = { print("default empty callback") }
+    nonisolated(unsafe) static let defaultValue: () -> Void = { print("default empty callback") }
 }
 
 extension EnvironmentValues {

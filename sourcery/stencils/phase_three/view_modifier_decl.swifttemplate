@@ -21,7 +21,7 @@ if !variables.isEmpty {
 import SwiftUI
 
 <%_ for variable in variables { -%>
-struct <%= variable.trimmedName.capitalizingFirst() %>ModifierKey: EnvironmentKey {
+@MainActor struct <%= variable.trimmedName.capitalizingFirst() %>ModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

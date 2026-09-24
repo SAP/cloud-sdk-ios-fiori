@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-public struct HexColor: Hashable {
+public struct HexColor: Hashable, Sendable {
     /// :nodoc:
     var colors: [ColorVariant: String]
     

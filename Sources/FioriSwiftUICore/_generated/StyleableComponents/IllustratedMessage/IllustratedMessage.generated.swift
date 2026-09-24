@@ -49,6 +49,7 @@ public extension IllustratedMessage {
 }
 
 public extension IllustratedMessage {
+    @MainActor
     init(detailImage: Image? = nil,
          title: AttributedString,
          description: AttributedString? = nil,
@@ -103,6 +104,7 @@ private extension IllustratedMessage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         IllustratedMessage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment))
             .shouldApplyDefaultStyle(false)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AllEntriesSectionTitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AllEntriesSectionTitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AllEntriesSectionTitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AllEntriesSectionTitleConfiguration) -> Body
 }
 
 struct AnyAllEntriesSectionTitleStyle: AllEntriesSectionTitleStyle {
@@ -31,5 +31,14 @@ public struct AllEntriesSectionTitleConfiguration {
 extension AllEntriesSectionTitleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AllEntriesSectionTitleDefaultStyle: AllEntriesSectionTitleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AllEntriesSectionTitleConfiguration) -> some View {
+        AllEntriesSectionTitle(configuration)
+            .allEntriesSectionTitleStyle(AllEntriesSectionTitleBaseStyle())
     }
 }

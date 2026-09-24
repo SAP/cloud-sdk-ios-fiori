@@ -1,7 +1,7 @@
 import Foundation
 
 /// A struct for providing color palette.
-public struct Palette: PaletteProvider {
+public struct Palette: PaletteProvider, Sendable {
     /// A function for getting `HexColor` from palette
     /// - Parameters:
     ///   - style: `ColorStyle` for which color definition is required.
@@ -20,11 +20,11 @@ public struct Palette: PaletteProvider {
     }
     
     /// :nodoc:
-    public init(_ palette: PaletteProvider) {
+    public init(_ palette: PaletteProvider & Sendable) {
         self._palette = palette
     }
     
-    private let _palette: PaletteProvider
+    private let _palette: any PaletteProvider & Sendable
 }
 
 extension Palette: Equatable {

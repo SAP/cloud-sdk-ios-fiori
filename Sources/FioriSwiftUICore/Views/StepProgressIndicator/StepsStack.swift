@@ -16,7 +16,7 @@ struct StepsStack: View {
     }
 }
 
-extension StepsStack: IndexedViewContainer {
+extension StepsStack: @preconcurrency IndexedViewContainer {
     /// :nodoc:
     public var count: Int {
         self.steps.count

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FootnoteStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FootnoteStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FootnoteConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FootnoteConfiguration) -> Body
 }
 
 struct AnyFootnoteStyle: FootnoteStyle {
@@ -31,5 +31,14 @@ public struct FootnoteConfiguration {
 extension FootnoteConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct FootnoteDefaultStyle: FootnoteStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FootnoteConfiguration) -> some View {
+        Footnote(configuration)
+            .footnoteStyle(FootnoteBaseStyle())
     }
 }

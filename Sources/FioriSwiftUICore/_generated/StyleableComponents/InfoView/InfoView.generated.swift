@@ -102,6 +102,7 @@ public extension InfoView {
 }
 
 public extension InfoView {
+    @MainActor
     init(title: AttributedString,
          descriptionText: AttributedString? = nil,
          action: FioriButton? = nil,
@@ -150,6 +151,7 @@ private extension InfoView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         InfoView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), action: .init(self.action), secondaryAction: .init(self.secondaryAction), loadingIndicator: .init(self.loadingIndicator)))
             .shouldApplyDefaultStyle(false)

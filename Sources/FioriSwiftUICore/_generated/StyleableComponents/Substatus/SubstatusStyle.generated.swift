@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SubstatusStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SubstatusStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SubstatusConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SubstatusConfiguration) -> Body
 }
 
 struct AnySubstatusStyle: SubstatusStyle {
@@ -31,5 +31,14 @@ public struct SubstatusConfiguration {
 extension SubstatusConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SubstatusDefaultStyle: SubstatusStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+        Substatus(configuration)
+            .substatusStyle(SubstatusBaseStyle())
     }
 }

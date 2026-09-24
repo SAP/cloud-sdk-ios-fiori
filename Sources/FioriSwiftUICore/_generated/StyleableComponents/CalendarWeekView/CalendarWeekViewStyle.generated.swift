@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CalendarWeekViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CalendarWeekViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CalendarWeekViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CalendarWeekViewConfiguration) -> Body
 }
 
 struct AnyCalendarWeekViewStyle: CalendarWeekViewStyle {
@@ -45,5 +45,15 @@ extension CalendarWeekViewConfiguration {
 public struct CalendarWeekViewFioriStyle: CalendarWeekViewStyle {
     public func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
         CalendarWeekView(configuration)
+    }
+}
+
+struct CalendarWeekViewDefaultStyle: CalendarWeekViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: CalendarWeekViewConfiguration) -> some View {
+        CalendarWeekView(configuration)
+            .calendarWeekViewStyle(CalendarWeekViewFioriStyle())
+            .modifier(CalendarWeekViewStyleModifier(style: CalendarWeekViewBaseStyle()))
     }
 }

@@ -58,6 +58,7 @@ private extension MessageContent {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         MessageContent(.init(componentIdentifier: self.componentIdentifier, messageContent: .init(self.messageContent)))
             .shouldApplyDefaultStyle(false)

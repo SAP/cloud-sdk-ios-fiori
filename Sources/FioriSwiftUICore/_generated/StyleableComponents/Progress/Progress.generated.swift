@@ -25,6 +25,7 @@ public extension FioriProgressView {
 }
 
 public extension FioriProgressView {
+    @MainActor
     init(progress: ProgressView<EmptyView, EmptyView> = ProgressView()) {
         self.init(progress: { progress })
     }
@@ -64,6 +65,7 @@ private extension FioriProgressView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         FioriProgressView(.init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress)))
             .shouldApplyDefaultStyle(false)

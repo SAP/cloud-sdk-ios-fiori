@@ -28,7 +28,7 @@ public extension WhatsNewPageList {
 /// Preference key used to communicate the measured height of the floating
 /// bottom bar (action button + page control) up the view hierarchy.
 private struct WhatsNewBottomBarHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
+    static let defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
     }
@@ -200,6 +200,7 @@ public struct WhatsNewPagePair<First: View, Second: WhatsNewPageList>: WhatsNewP
 /// Returns an instance of a view that is used internally by the WhatsNewPageView.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum WhatsNewPagesBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

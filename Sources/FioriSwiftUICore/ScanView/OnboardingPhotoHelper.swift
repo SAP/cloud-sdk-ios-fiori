@@ -3,10 +3,10 @@ import Combine
 import Foundation
 import PhotosUI
 import SwiftUI
-import Vision
+@preconcurrency import Vision
 import VisionKit
 
-class OnboardingPhotoHelper: ObservableObject {
+class OnboardingPhotoHelper: ObservableObject, @unchecked Sendable {
     @Published var photoPickerSelection: PhotosPickerItem? {
         didSet {
             if let photoPickerSelection {

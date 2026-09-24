@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ClearActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ClearActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ClearActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ClearActionConfiguration) -> Body
 }
 
 struct AnyClearActionStyle: ClearActionStyle {
@@ -31,5 +31,14 @@ public struct ClearActionConfiguration {
 extension ClearActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct ClearActionDefaultStyle: ClearActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ClearActionConfiguration) -> some View {
+        ClearAction(configuration)
+            .clearActionStyle(ClearActionBaseStyle())
     }
 }

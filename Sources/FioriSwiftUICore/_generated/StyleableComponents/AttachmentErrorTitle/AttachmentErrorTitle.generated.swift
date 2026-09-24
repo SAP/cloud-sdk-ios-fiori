@@ -25,6 +25,7 @@ public extension AttachmentErrorTitle {
 }
 
 public extension AttachmentErrorTitle {
+    @MainActor
     init(attachmentErrorTitle: AttributedString) {
         self.init(attachmentErrorTitle: { Text(attachmentErrorTitle) })
     }
@@ -64,6 +65,7 @@ private extension AttachmentErrorTitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AttachmentErrorTitle(.init(componentIdentifier: self.componentIdentifier, attachmentErrorTitle: .init(self.attachmentErrorTitle)))
             .shouldApplyDefaultStyle(false)

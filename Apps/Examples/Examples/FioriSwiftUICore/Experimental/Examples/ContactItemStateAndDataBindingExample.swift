@@ -71,7 +71,3 @@ extension EmailContactViewModel: TitleComponent, SubtitleComponent, DescriptionT
         self.lastEmailOn
     }
 }
-
-extension EmailContactViewModel {
-    static let mike = EmailContactViewModel()
-}

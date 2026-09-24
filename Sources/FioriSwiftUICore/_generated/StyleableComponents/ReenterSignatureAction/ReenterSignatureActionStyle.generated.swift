@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ReenterSignatureActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ReenterSignatureActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ReenterSignatureActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ReenterSignatureActionConfiguration) -> Body
 }
 
 struct AnyReenterSignatureActionStyle: ReenterSignatureActionStyle {
@@ -31,5 +31,14 @@ public struct ReenterSignatureActionConfiguration {
 extension ReenterSignatureActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct ReenterSignatureActionDefaultStyle: ReenterSignatureActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ReenterSignatureActionConfiguration) -> some View {
+        ReenterSignatureAction(configuration)
+            .reenterSignatureActionStyle(ReenterSignatureActionBaseStyle())
     }
 }

@@ -70,6 +70,7 @@ public extension RangeSliderControl {
 }
 
 public extension RangeSliderControl {
+    @MainActor
     init(lowerThumb: any Shape = Circle(),
          upperThumb: any Shape = Circle(),
          activeTrack: any Shape = Capsule(),
@@ -134,6 +135,7 @@ private extension RangeSliderControl {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         RangeSliderControl(.init(componentIdentifier: self.componentIdentifier, lowerThumb: .init(self.lowerThumb), upperThumb: .init(self.upperThumb), activeTrack: .init(self.activeTrack), inactiveTrack: .init(self.inactiveTrack), lowerValue: self.$lowerValue, upperValue: self.$upperValue, range: self.range, step: self.step, decimalPlaces: self.decimalPlaces, thumbHalfWidth: self.thumbHalfWidth, showsLowerThumb: self.showsLowerThumb, showsUpperThumb: self.showsUpperThumb, onRangeValueChange: self.onRangeValueChange))
             .shouldApplyDefaultStyle(false)

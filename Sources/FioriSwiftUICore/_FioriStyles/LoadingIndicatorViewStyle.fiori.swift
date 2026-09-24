@@ -195,7 +195,7 @@ public extension View {
 /// :nodoc:
 public extension LoadingIndicator {
     /// Position of the loading indicator
-    enum Layout {
+    enum Layout: Sendable {
         /// Leading position of the loading indicator
         case leading
         /// Trailing position of the loading indicator

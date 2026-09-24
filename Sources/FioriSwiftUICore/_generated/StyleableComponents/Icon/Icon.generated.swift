@@ -25,6 +25,7 @@ public extension Icon {
 }
 
 public extension Icon {
+    @MainActor
     init(icon: Image? = nil) {
         self.init(icon: { icon })
     }
@@ -64,6 +65,7 @@ private extension Icon {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Icon(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon)))
             .shouldApplyDefaultStyle(false)

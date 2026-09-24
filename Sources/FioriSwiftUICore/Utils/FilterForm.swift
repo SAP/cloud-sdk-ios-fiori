@@ -1,7 +1,7 @@
 import Foundation
 
 /// Size of `FUIFilterFormView` button
-public enum FilterButtonSize {
+public enum FilterButtonSize: Sendable {
     /// Items will be displayed in two columns, each column's width will be 50% of available space.
     case fixed
     /// Items will be displayed in sequence, each item size will be decided by its own content.

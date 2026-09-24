@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ColorVariant {
+public enum ColorVariant: Sendable {
     /// Light color variant, which is used when `.colorScheme` sets to `.dark` and `.userInterfaceLevel` sets to `.base`.
     case light
     /// Dark color variant, which is used when `.colorScheme` sets to `.light` and `.userInterfaceLevel` sets to `.base`.

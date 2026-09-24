@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WritingAssistantFormStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WritingAssistantFormStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WritingAssistantFormConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WritingAssistantFormConfiguration) -> Body
 }
 
 struct AnyWritingAssistantFormStyle: WritingAssistantFormStyle {
@@ -64,5 +64,15 @@ public struct WritingAssistantFormFioriStyle: WritingAssistantFormStyle {
             .upVoteActionStyle(UpVoteActionFioriStyle(writingAssistantFormConfiguration: configuration))
             .downVoteActionStyle(DownVoteActionFioriStyle(writingAssistantFormConfiguration: configuration))
             .footnoteStyle(FootnoteFioriStyle(writingAssistantFormConfiguration: configuration))
+    }
+}
+
+struct WritingAssistantFormDefaultStyle: WritingAssistantFormStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: WritingAssistantFormConfiguration) -> some View {
+        WritingAssistantForm(configuration)
+            .writingAssistantFormStyle(WritingAssistantFormFioriStyle())
+            .modifier(WritingAssistantFormStyleModifier(style: WritingAssistantFormBaseStyle()))
     }
 }

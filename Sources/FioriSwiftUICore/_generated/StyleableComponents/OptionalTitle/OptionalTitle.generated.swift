@@ -25,6 +25,7 @@ public extension OptionalTitle {
 }
 
 public extension OptionalTitle {
+    @MainActor
     init(optionalTitle: AttributedString?) {
         self.init(optionalTitle: { OptionalText(optionalTitle) })
     }
@@ -64,6 +65,7 @@ private extension OptionalTitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         OptionalTitle(.init(componentIdentifier: self.componentIdentifier, optionalTitle: .init(self.optionalTitle)))
             .shouldApplyDefaultStyle(false)

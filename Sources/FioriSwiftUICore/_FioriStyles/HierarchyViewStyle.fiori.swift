@@ -18,7 +18,10 @@ import SwiftUI
 public struct HierarchyViewBaseStyle: HierarchyViewStyle {
     @Environment(\.editMode) private var editMode
     @Environment(\.hierarchyItemSelectionMode) private var selectionMode
-    @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+    private var isMultiColumnLayout: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
     @Environment(\.hierarchyViewIsAsync) private var isAsync
     @EnvironmentObject private var modelObject: HierarchyViewModelObject
     
@@ -161,13 +164,15 @@ public struct HierarchyViewBaseStyle: HierarchyViewStyle {
 extension HierarchyViewFioriStyle {
     struct ContentFioriStyle: HierarchyViewStyle {
         @StateObject private var modelObject = HierarchyViewModelObject()
-        @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
+        private var isMultiColumnLayout: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+
         @Environment(\.hierarchyViewIsAsync) private var isAsync
         
         func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
             let hierarchyView = AnyView(HierarchyView(configuration, dataSource: configuration.dataSource))
                 .environmentObject(self.modelObject)
-                .environment(\.isHierarchyViewMultiColumnLayout, UIDevice.current.userInterfaceIdiom == .pad)
                 .environment(\.onCurrentHierarchyItemChange, self.modelObject.onCurrentActiveItemChange) // Let HierarchyIndicatorView have the opportunity to change the ID independently.
             
             return Group {

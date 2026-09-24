@@ -55,7 +55,7 @@ struct BannerMessageBackgroundColorKey: EnvironmentKey {
 }
 
 /// Calendar item control state.
-public enum CalendarItemControlState {
+public enum CalendarItemControlState: Sendable {
     /// Item is in normal state. Default.
     case normal
     /// Item is in selected state.
@@ -67,7 +67,7 @@ public enum CalendarItemControlState {
 }
 
 /// Calendar property reference, used to set the color of calendar item in different state, only support foregroundColor.
-public enum CalendarPropertyRef {
+public enum CalendarPropertyRef: Sendable {
     /// The day text of one date.
     case title
     /// The month header text.

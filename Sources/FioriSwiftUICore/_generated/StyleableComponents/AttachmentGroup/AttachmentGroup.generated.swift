@@ -123,6 +123,7 @@ public extension AttachmentGroup {
 }
 
 public extension AttachmentGroup {
+    @MainActor
     init(title: AttributedString,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
          isRequired: Bool = false,
@@ -187,6 +188,7 @@ private extension AttachmentGroup {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo))
             .shouldApplyDefaultStyle(false)

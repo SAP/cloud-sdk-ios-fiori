@@ -246,24 +246,28 @@ class FioriToolbarHandler: ObservableObject {
     var useFixedPadding: Bool = true
     var horizontalMargin: CGFloat = 40
     var defaultFixedPadding: CGFloat {
-        if LiquidGlassHelper.usesLiquidGlassUI, UIDevice.current.userInterfaceIdiom == .phone {
-            // more padding for iOS 26.
-            return 12
-        } else {
-            return 8
+        MainActor.assumeIsolated {
+            if LiquidGlassHelper.usesLiquidGlassUI, UIDevice.current.userInterfaceIdiom == .phone {
+                // more padding for iOS 26.
+                return 12
+            } else {
+                return 8
+            }
         }
     }
     
     var liquidGlassContainerPadding: CGFloat {
-        if LiquidGlassHelper.usesLiquidGlassUI {
-            // Liquid glass container need more padding for iOS 26.
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                return 10
+        MainActor.assumeIsolated {
+            if LiquidGlassHelper.usesLiquidGlassUI {
+                // Liquid glass container need more padding for iOS 26.
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    return 10
+                } else {
+                    return 8
+                }
             } else {
-                return 8
+                return 0
             }
-        } else {
-            return 0
         }
     }
     
@@ -282,6 +286,11 @@ class FioriToolbarHandler: ObservableObject {
     func calculateItemsSize(_ dynamicTypeSize: DynamicTypeSize? = nil) {
         guard self.totalItemsCount == self.itemsSize.count, self.containerSize.width > 0 else {
             return
+        }
+        // Cache main-actor-isolated UIDevice value once, on the main actor,
+        // so the rest of this method can run without main-actor isolation warnings.
+        let userInterfaceIdiom: UIUserInterfaceIdiom = MainActor.assumeIsolated {
+            UIDevice.current.userInterfaceIdiom
         }
         self.moreActionsIndex.removeAll()
         self.itemsWidth.removeAll()
@@ -369,7 +378,7 @@ class FioriToolbarHandler: ObservableObject {
                         if (index + 1) > self.numOfDisplayItems {
                             self.moreActionsIndex.append(item.key)
                         } else {
-                            if UIDevice.current.userInterfaceIdiom != .pad {
+                            if userInterfaceIdiom != .pad {
                                 self.itemsWidth.append((item.key, fixedItemWidth))
                                 currentWidth += fixedItemWidth + self.liquidGlassContainerPadding
                             } else {
@@ -409,7 +418,7 @@ class FioriToolbarHandler: ObservableObject {
                 }
                 self.itemsCurrentWidth = currentWidth
             } else {
-                if self.numOfDisplayItems > 0, UIDevice.current.userInterfaceIdiom != .pad {
+                if self.numOfDisplayItems > 0, userInterfaceIdiom != .pad {
                     let count = min(CGFloat(self.itemsSize.count), CGFloat(self.numOfDisplayItems))
                     let fixedItemWidth: CGFloat
                     let maxItemWidth = self.itemsSize.map(\.value.width).max() ?? 0

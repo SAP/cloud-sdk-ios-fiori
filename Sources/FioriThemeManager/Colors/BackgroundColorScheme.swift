@@ -7,7 +7,7 @@ import Foundation
 /// - deviceInverse: Use inversed device interface style for background scheme. Foreground colors are inverted based on user interface style settings on iOS/macOS. If the device setting is in *light* user interface style, foreground colors will be adjusted to use *dark* color variants.
 /// - lightConstant: Use constant light background scheme. Foreground colors should constantly use *light* variants regardless of user interface style settings on iOS/macOS.
 /// - darkConstant: Use constant dark background scheme. Foreground colors should constantly use *dark* variants regardless of user interface style settings on iOS/macOS.
-public enum BackgroundColorScheme: String, CaseIterable {
+public enum BackgroundColorScheme: String, CaseIterable, Sendable {
     /// - Use device interface style for background scheme, so foreground colors will be adjusted based on device background
     case device
     /// - Use inversed device interface style for background scheme, so foreground colors will be adjusted as opposite to device background

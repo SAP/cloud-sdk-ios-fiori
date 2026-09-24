@@ -25,6 +25,7 @@ public extension Avatars {
 }
 
 public extension Avatars {
+    @MainActor
     init(avatars: [TextOrIcon] = []) {
         self.init(avatars: { AvatarsListStack(avatars) })
     }
@@ -64,6 +65,7 @@ private extension Avatars {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Avatars(.init(componentIdentifier: self.componentIdentifier, avatars: .init(self.avatars)))
             .shouldApplyDefaultStyle(false)

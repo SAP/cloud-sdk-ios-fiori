@@ -4,7 +4,7 @@ import SwiftUI
 /// An environment key for configuring currency field behavior in SwiftUI views.
 struct CurrencyFieldKey: EnvironmentKey {
     /// The default value for the currency field configuration.
-    static let defaultValue = CurrencyFieldConfiguration(isCurrencyField: false, formatter: .numberFormat(NumberFormatter.currencyDefault))
+    nonisolated(unsafe) static let defaultValue = CurrencyFieldConfiguration(isCurrencyField: false, formatter: .numberFormat(NumberFormatter.currencyDefault))
 }
 
 extension EnvironmentValues {

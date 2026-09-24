@@ -134,6 +134,7 @@ private extension CalendarView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CalendarView(.init(componentIdentifier: self.componentIdentifier, model: self.model, titleChangeCallback: self.titleChangeCallback, customCalendarBackgroundColor: self.customCalendarBackgroundColor, customEventView: self.customEventView))
             .shouldApplyDefaultStyle(false)

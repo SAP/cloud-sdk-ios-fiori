@@ -59,6 +59,7 @@ public extension StepProgressIndicator {
 }
 
 public extension StepProgressIndicator {
+    @MainActor
     init(title: AttributedString,
          action: FioriButton? = nil,
          cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
@@ -107,6 +108,7 @@ private extension StepProgressIndicator {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         StepProgressIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), action: .init(self.action), cancelAction: .init(self.cancelAction), selection: self.$selection, steps: self.steps))
             .shouldApplyDefaultStyle(false)

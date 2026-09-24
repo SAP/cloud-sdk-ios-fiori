@@ -22,7 +22,7 @@ public enum StyleSheetParsingError: Error {
  ```
  */
 public struct StyleSheetSettings {
-    static var shared = StyleSheetSettings()
+    nonisolated(unsafe) static var shared = StyleSheetSettings()
     private init() {}
     
     private(set) var globalDefinitions = StyleSheetGlobalDefinitions()

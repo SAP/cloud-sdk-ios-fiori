@@ -55,6 +55,7 @@ public extension UserConsentForm {
 }
 
 public extension UserConsentForm {
+    @MainActor
     init(nextAction: FioriButton? = FioriButton { _ in Text("Next".localizedFioriString()) },
          cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          allowAction: FioriButton? = FioriButton { _ in Text("Allow".localizedFioriString()) },
@@ -115,6 +116,7 @@ private extension UserConsentForm {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         UserConsentForm(.init(componentIdentifier: self.componentIdentifier, nextAction: .init(self.nextAction), cancelAction: .init(self.cancelAction), allowAction: .init(self.allowAction), denyAction: .init(self.denyAction), notNowAction: .init(self.notNowAction), userConsentPages: self.userConsentPages, isRequired: self.isRequired, alertConfiguration: self.alertConfiguration, didAllow: self.didAllow, didDeny: self.didDeny, didCancel: self.didCancel))
             .shouldApplyDefaultStyle(false)

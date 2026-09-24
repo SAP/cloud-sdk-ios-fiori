@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol EULAViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol EULAViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: EULAViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: EULAViewConfiguration) -> Body
 }
 
 struct AnyEULAViewStyle: EULAViewStyle {
@@ -53,5 +53,15 @@ public struct EULAViewFioriStyle: EULAViewStyle {
             .agreeActionStyle(AgreeActionFioriStyle(eULAViewConfiguration: configuration))
             .disagreeActionStyle(DisagreeActionFioriStyle(eULAViewConfiguration: configuration))
             .cancelActionStyle(CancelActionFioriStyle(eULAViewConfiguration: configuration))
+    }
+}
+
+struct EULAViewDefaultStyle: EULAViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: EULAViewConfiguration) -> some View {
+        EULAView(configuration)
+            .eULAViewStyle(EULAViewFioriStyle())
+            .modifier(EULAViewStyleModifier(style: EULAViewBaseStyle()))
     }
 }

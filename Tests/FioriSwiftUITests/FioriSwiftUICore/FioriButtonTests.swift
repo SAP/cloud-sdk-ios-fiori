@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class FioriButtonTests: XCTestCase {
+@MainActor final class FioriButtonTests: XCTestCase {
     // MARK: - Initializer Tests
     
     func testInitializerDefaults() {

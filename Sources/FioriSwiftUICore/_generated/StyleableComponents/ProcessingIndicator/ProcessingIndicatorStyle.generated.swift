@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ProcessingIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ProcessingIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> Body
 }
 
 struct AnyProcessingIndicatorStyle: ProcessingIndicatorStyle {
@@ -38,5 +38,15 @@ public struct ProcessingIndicatorFioriStyle: ProcessingIndicatorStyle {
     public func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
         ProcessingIndicator(configuration)
             .optionalTitleStyle(OptionalTitleFioriStyle(processingIndicatorConfiguration: configuration))
+    }
+}
+
+struct ProcessingIndicatorDefaultStyle: ProcessingIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ProcessingIndicatorConfiguration) -> some View {
+        ProcessingIndicator(configuration)
+            .processingIndicatorStyle(ProcessingIndicatorFioriStyle())
+            .modifier(ProcessingIndicatorStyleModifier(style: ProcessingIndicatorBaseStyle()))
     }
 }

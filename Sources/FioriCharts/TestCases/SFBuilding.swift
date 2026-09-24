@@ -1,6 +1,6 @@
 import Foundation
 
-class SFBuilding {
+struct SFBuilding: Sendable {
     var pucCode: String
     var facility: String
     var bldgCategory: String

@@ -54,6 +54,7 @@ public extension BannerMultiMessageSheet {
 }
 
 public extension BannerMultiMessageSheet {
+    @MainActor
     init(title: AttributedString,
          @ViewBuilder closeAction: () -> any View = { Image(systemName: "xmark").padding(.horizontal, 7.5).padding(.vertical, 9).foregroundStyle(Color.preferredColor(.primaryLabel)).background(Circle().fill(Color.preferredColor(.tertiaryFill))) },
          dismissAction: (() -> Void)? = nil,
@@ -108,6 +109,7 @@ private extension BannerMultiMessageSheet {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         BannerMultiMessageSheet(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), closeAction: .init(self.closeAction), dismissAction: self.dismissAction, removeAction: self.removeAction, viewDetailAction: self.viewDetailAction, turnOnSectionHeader: self.turnOnSectionHeader, messageItemView: self.messageItemView, bannerMultiMessages: self.$bannerMultiMessages))
             .shouldApplyDefaultStyle(false)

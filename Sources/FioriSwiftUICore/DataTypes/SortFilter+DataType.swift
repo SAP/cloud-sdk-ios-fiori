@@ -597,15 +597,17 @@ extension UIEdgeInsets {
     /// This is useful for adjusting layout to avoid notches, home indicators, etc.
     ///
     /// - Returns: The safe area insets of the key window, or `.zero` if no key window is found.
-    static func getSafeAreaInsets() -> UIEdgeInsets {
-        guard let keyWindow = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive })
-            .flatMap({ $0 as? UIWindowScene })?.windows
-            .first(where: \.isKeyWindow)
-        else {
-            return .zero
+    nonisolated static func getSafeAreaInsets() -> UIEdgeInsets {
+        MainActor.assumeIsolated {
+            guard let keyWindow = UIApplication.shared.connectedScenes
+                .first(where: { $0.activationState == .foregroundActive })
+                .flatMap({ $0 as? UIWindowScene })?.windows
+                .first(where: { $0.isKeyWindow })
+            else {
+                return .zero
+            }
+            return keyWindow.safeAreaInsets
         }
-        return keyWindow.safeAreaInsets
     }
 }
 

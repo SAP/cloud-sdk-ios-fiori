@@ -91,6 +91,7 @@ public extension HierarchyItemView {
 }
 
 public extension HierarchyItemView {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -145,6 +146,7 @@ private extension HierarchyItemView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HierarchyItemView(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), icons: .init(self.icons), detailImage: .init(self.detailImage), status: .init(self.status), accessoryType: self.accessoryType, hierarchyIndicator: .init(self.hierarchyIndicator)))
             .shouldApplyDefaultStyle(false)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol InfoViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol InfoViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: InfoViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: InfoViewConfiguration) -> Body
 }
 
 struct AnyInfoViewStyle: InfoViewStyle {
@@ -49,5 +49,15 @@ public struct InfoViewFioriStyle: InfoViewStyle {
             .descriptionTextStyle(DescriptionTextFioriStyle(infoViewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(infoViewConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(infoViewConfiguration: configuration))
+    }
+}
+
+struct InfoViewDefaultStyle: InfoViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: InfoViewConfiguration) -> some View {
+        InfoView(configuration)
+            .infoViewStyle(InfoViewFioriStyle())
+            .modifier(InfoViewStyleModifier(style: InfoViewBaseStyle()))
     }
 }

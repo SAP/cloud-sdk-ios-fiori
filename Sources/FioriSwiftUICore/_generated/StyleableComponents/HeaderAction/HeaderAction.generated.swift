@@ -25,6 +25,7 @@ public extension HeaderAction {
 }
 
 public extension HeaderAction {
+    @MainActor
     init(headerAction: FioriButton? = nil) {
         self.init(headerAction: { headerAction })
     }
@@ -64,6 +65,7 @@ private extension HeaderAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HeaderAction(.init(componentIdentifier: self.componentIdentifier, headerAction: .init(self.headerAction)))
             .shouldApplyDefaultStyle(false)

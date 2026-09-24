@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentConfiguration) -> Body
 }
 
 struct AnyAttachmentStyle: AttachmentStyle {
@@ -49,5 +49,15 @@ public struct AttachmentFioriStyle: AttachmentStyle {
             .attachmentTitleStyle(AttachmentTitleFioriStyle(attachmentConfiguration: configuration))
             .attachmentSubtitleStyle(AttachmentSubtitleFioriStyle(attachmentConfiguration: configuration))
             .attachmentFootnoteStyle(AttachmentFootnoteFioriStyle(attachmentConfiguration: configuration))
+    }
+}
+
+struct AttachmentDefaultStyle: AttachmentStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentConfiguration) -> some View {
+        Attachment(configuration)
+            .attachmentStyle(AttachmentFioriStyle())
+            .modifier(AttachmentStyleModifier(style: AttachmentBaseStyle()))
     }
 }

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OptionsStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OptionsStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OptionsConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OptionsConfiguration) -> Body
 }
 
 struct AnyOptionsStyle: OptionsStyle {
@@ -29,5 +29,14 @@ public struct OptionsConfiguration {
 extension OptionsConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct OptionsDefaultStyle: OptionsStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OptionsConfiguration) -> some View {
+        Options(configuration)
+            .optionsStyle(OptionsBaseStyle())
     }
 }

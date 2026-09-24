@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentFootnoteStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentFootnoteStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentFootnoteConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentFootnoteConfiguration) -> Body
 }
 
 struct AnyAttachmentFootnoteStyle: AttachmentFootnoteStyle {
@@ -31,5 +31,14 @@ public struct AttachmentFootnoteConfiguration {
 extension AttachmentFootnoteConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AttachmentFootnoteDefaultStyle: AttachmentFootnoteStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentFootnoteConfiguration) -> some View {
+        AttachmentFootnote(configuration)
+            .attachmentFootnoteStyle(AttachmentFootnoteBaseStyle())
     }
 }

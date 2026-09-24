@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AINoticeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AINoticeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AINoticeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AINoticeConfiguration) -> Body
 }
 
 struct AnyAINoticeStyle: AINoticeStyle {
@@ -42,5 +42,15 @@ public struct AINoticeFioriStyle: AINoticeStyle {
     public func makeBody(_ configuration: AINoticeConfiguration) -> some View {
         AINotice(configuration)
             .iconStyle(IconFioriStyle(aINoticeConfiguration: configuration))
+    }
+}
+
+struct AINoticeDefaultStyle: AINoticeStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AINoticeConfiguration) -> some View {
+        AINotice(configuration)
+            .aINoticeStyle(AINoticeFioriStyle())
+            .modifier(AINoticeStyleModifier(style: AINoticeBaseStyle()))
     }
 }

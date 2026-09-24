@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 import XCTest
 
-final class FilterFeedbackBarButtonTests: XCTestCase {
+@MainActor final class FilterFeedbackBarButtonTests: XCTestCase {
     func testIdentifierConstant() {
         XCTAssertEqual(FilterFeedbackBarButton.identifier, "fiori_filterfeedbackbarbutton_component")
     }

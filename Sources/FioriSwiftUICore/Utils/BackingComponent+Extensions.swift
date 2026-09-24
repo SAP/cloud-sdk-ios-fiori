@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 extension AvatarStack {
+    @MainActor
     init(_ icons: [TextOrIcon]) {
         self.init(avatars: icons)
     }

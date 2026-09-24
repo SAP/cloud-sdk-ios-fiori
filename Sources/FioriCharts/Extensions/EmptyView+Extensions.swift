@@ -1,5 +1,5 @@
 import SwiftUI
 
 extension EmptyView {
-    static let any = AnyView(EmptyView())
+    nonisolated(unsafe) static let any = AnyView(EmptyView())
 }

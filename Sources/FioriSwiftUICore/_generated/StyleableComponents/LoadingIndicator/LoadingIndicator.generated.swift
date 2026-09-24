@@ -38,6 +38,7 @@ public extension LoadingIndicator {
 }
 
 public extension LoadingIndicator {
+    @MainActor
     init(title: AttributedString,
          progress: ProgressView<EmptyView, EmptyView> = ProgressView(),
          duration: Double = 0,
@@ -86,6 +87,7 @@ private extension LoadingIndicator {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         LoadingIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), progress: .init(self.progress), duration: self.duration, isPresented: self.$isPresented, isAIEnabled: self.isAIEnabled))
             .shouldApplyDefaultStyle(false)

@@ -28,6 +28,7 @@ public extension OffStarImage {
 }
 
 public extension OffStarImage {
+    @MainActor
     init(offStarImage: Image = FioriIcon.actions.unfavorite.renderingMode(.template).resizable()) {
         self.init(offStarImage: { offStarImage })
     }
@@ -67,6 +68,7 @@ private extension OffStarImage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         OffStarImage(.init(componentIdentifier: self.componentIdentifier, offStarImage: .init(self.offStarImage)))
             .shouldApplyDefaultStyle(false)

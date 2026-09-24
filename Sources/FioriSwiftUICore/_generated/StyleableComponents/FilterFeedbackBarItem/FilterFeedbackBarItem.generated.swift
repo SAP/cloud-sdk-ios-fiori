@@ -57,6 +57,7 @@ public extension FilterFeedbackBarItem {
 }
 
 public extension FilterFeedbackBarItem {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          accessoryIcon: Image? = nil,
@@ -105,6 +106,7 @@ private extension FilterFeedbackBarItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         FilterFeedbackBarItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), accessoryIcon: .init(self.accessoryIcon), isSelected: self.isSelected, spacing: self.spacing))
             .shouldApplyDefaultStyle(false)

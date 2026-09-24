@@ -58,6 +58,7 @@ private extension Switch {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Switch(.init(componentIdentifier: self.componentIdentifier, isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)

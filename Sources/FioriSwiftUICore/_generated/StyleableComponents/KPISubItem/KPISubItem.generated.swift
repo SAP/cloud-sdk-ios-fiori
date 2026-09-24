@@ -28,6 +28,7 @@ public extension KPISubItem {
 }
 
 public extension KPISubItem {
+    @MainActor
     init(kPISubItemValue: TextOrIcon? = nil,
          kPISubItemType: KPISubitemType = KPISubitemType.unit)
     {
@@ -70,6 +71,7 @@ private extension KPISubItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         KPISubItem(.init(componentIdentifier: self.componentIdentifier, kPISubItemValue: .init(self.kPISubItemValue), kPISubItemType: self.kPISubItemType))
             .shouldApplyDefaultStyle(false)

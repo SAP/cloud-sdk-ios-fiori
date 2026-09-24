@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ContactItemCompactExamples: ObjectItemListDataProtocol {
+struct ContactItemCompactExamples: @preconcurrency ObjectItemListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -26,6 +26,7 @@ struct ContactItemCompactExamples: ObjectItemListDataProtocol {
         false
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):

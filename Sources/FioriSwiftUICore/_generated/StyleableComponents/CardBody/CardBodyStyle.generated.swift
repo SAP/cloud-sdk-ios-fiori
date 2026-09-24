@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardBodyStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardBodyStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardBodyConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardBodyConfiguration) -> Body
 }
 
 struct AnyCardBodyStyle: CardBodyStyle {
@@ -31,5 +31,14 @@ public struct CardBodyConfiguration {
 extension CardBodyConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct CardBodyDefaultStyle: CardBodyStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: CardBodyConfiguration) -> some View {
+        CardBody(configuration)
+            .cardBodyStyle(CardBodyBaseStyle())
     }
 }

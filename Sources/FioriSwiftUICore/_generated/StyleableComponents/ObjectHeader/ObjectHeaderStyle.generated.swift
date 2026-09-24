@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ObjectHeaderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ObjectHeaderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ObjectHeaderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ObjectHeaderConfiguration) -> Body
 }
 
 struct AnyObjectHeaderStyle: ObjectHeaderStyle {
@@ -65,5 +65,15 @@ public struct ObjectHeaderFioriStyle: ObjectHeaderStyle {
             .substatusStyle(SubstatusFioriStyle(objectHeaderConfiguration: configuration))
             .detailImageStyle(DetailImageFioriStyle(objectHeaderConfiguration: configuration))
             .detailContentStyle(DetailContentFioriStyle(objectHeaderConfiguration: configuration))
+    }
+}
+
+struct ObjectHeaderDefaultStyle: ObjectHeaderStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ObjectHeaderConfiguration) -> some View {
+        ObjectHeader(configuration)
+            .objectHeaderStyle(ObjectHeaderFioriStyle())
+            .modifier(ObjectHeaderStyleModifier(style: ObjectHeaderBaseStyle()))
     }
 }

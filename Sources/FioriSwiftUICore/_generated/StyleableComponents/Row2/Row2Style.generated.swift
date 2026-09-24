@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol Row2Style: DynamicProperty {
+@MainActor @preconcurrency public protocol Row2Style: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: Row2Configuration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: Row2Configuration) -> Body
 }
 
 struct AnyRow2Style: Row2Style {
@@ -31,5 +31,14 @@ public struct Row2Configuration {
 extension Row2Configuration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct Row2DefaultStyle: Row2Style {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: Row2Configuration) -> some View {
+        Row2(configuration)
+            .row2Style(Row2BaseStyle())
     }
 }

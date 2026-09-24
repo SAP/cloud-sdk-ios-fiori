@@ -58,6 +58,7 @@ private extension MoreActionOverflow {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         MoreActionOverflow(.init(componentIdentifier: self.componentIdentifier, moreActionOverflow: .init(self.moreActionOverflow)))
             .shouldApplyDefaultStyle(false)

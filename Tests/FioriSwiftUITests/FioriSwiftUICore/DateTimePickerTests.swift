@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class DateTimePickerTests: XCTestCase {
+@MainActor final class DateTimePickerTests: XCTestCase {
     func testPrimaryInitializer() {
         let dateBinding = Binding<Date?>(get: { Date() }, set: { _ in })
         let visibilityBinding = Binding<Bool>(get: { false }, set: { _ in })

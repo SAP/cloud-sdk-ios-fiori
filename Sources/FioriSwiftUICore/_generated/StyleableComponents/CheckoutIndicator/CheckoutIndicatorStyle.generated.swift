@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CheckoutIndicatorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CheckoutIndicatorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> Body
 }
 
 struct AnyCheckoutIndicatorStyle: CheckoutIndicatorStyle {
@@ -29,5 +29,14 @@ public struct CheckoutIndicatorConfiguration {
 extension CheckoutIndicatorConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct CheckoutIndicatorDefaultStyle: CheckoutIndicatorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: CheckoutIndicatorConfiguration) -> some View {
+        CheckoutIndicator(configuration)
+            .checkoutIndicatorStyle(CheckoutIndicatorBaseStyle())
     }
 }

@@ -139,7 +139,7 @@ extension _ObjectHeader: View {
      The middle container(Analytics/description/ additional info) will take 2nd priority within the boundary of its max width of 312.
      The width of the left container (Image, object title and additional info) will be determined by the remaining space, with a max of 740px and a min of 445.
      */
-    var regularView: some View {
+    @MainActor var regularView: some View {
         HStack(alignment: .top) {
             if !isDetailImageEmptyView {
                 detailImage
@@ -190,11 +190,11 @@ extension _ObjectHeader: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    var leftViewInRegular: some View {
+    @MainActor var leftViewInRegular: some View {
         VStack(alignment: .leading, spacing: 3) {
             title
-                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned {
+                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { [isBaselineAligned] dimension in
+                    if isBaselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]
@@ -212,7 +212,7 @@ extension _ObjectHeader: View {
         }
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     var middleViewInRegular: some View {
         if !self.isDetailContentEmpty {
             VStack {
@@ -222,8 +222,8 @@ extension _ObjectHeader: View {
             }
         } else if !isDescriptionTextEmptyView {
             descriptionText
-                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned {
+                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { [isBaselineAligned] dimension in
+                    if isBaselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]
@@ -236,12 +236,12 @@ extension _ObjectHeader: View {
         }
     }
     
-    var rightViewInRegular: some View {
+    @MainActor var rightViewInRegular: some View {
         VStack(alignment: .trailing, spacing: 2) {
             status
                 .multilineTextAlignment(.trailing)
-                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { dimension in
-                    if self.isBaselineAligned {
+                .alignmentGuide(.iconStackAlignmentGuide, computeValue: { [isBaselineAligned] dimension in
+                    if isBaselineAligned {
                         return dimension[VerticalAlignment.firstTextBaseline]
                     } else {
                         return dimension[.top]
@@ -305,7 +305,7 @@ extension _ObjectHeader: View {
         }
     }
     
-    var compactView: some View {
+    @MainActor var compactView: some View {
         VStack {
             if self.numberOfTabs == 1 {
                 Spacer().frame(height: 8)
@@ -524,7 +524,7 @@ extension _ObjectHeader: View {
 struct SizePreferenceKey: PreferenceKey {
     typealias Value = CGSize
     
-    static var defaultValue: CGSize = .zero
+    static let defaultValue: CGSize = .zero
     
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = CGSize(width: max(value.width, nextValue().width),
@@ -535,7 +535,7 @@ struct SizePreferenceKey: PreferenceKey {
 struct BoundPreferenceKey: PreferenceKey {
     typealias Value = CGRect
     
-    static var defaultValue: CGRect = .zero
+    static let defaultValue: CGRect = .zero
     
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
         let size = CGSize(width: max(value.size.width, nextValue().size.width),

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AuthenticationStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AuthenticationStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AuthenticationConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AuthenticationConfiguration) -> Body
 }
 
 struct AnyAuthenticationStyle: AuthenticationStyle {
@@ -52,5 +52,15 @@ public struct AuthenticationFioriStyle: AuthenticationStyle {
             .subtitleStyle(SubtitleFioriStyle(authenticationConfiguration: configuration))
             .authInputStyle(AuthInputFioriStyle(authenticationConfiguration: configuration))
             .signInActionStyle(SignInActionFioriStyle(authenticationConfiguration: configuration))
+    }
+}
+
+struct AuthenticationDefaultStyle: AuthenticationStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AuthenticationConfiguration) -> some View {
+        Authentication(configuration)
+            .authenticationStyle(AuthenticationFioriStyle())
+            .modifier(AuthenticationStyleModifier(style: AuthenticationBaseStyle()))
     }
 }

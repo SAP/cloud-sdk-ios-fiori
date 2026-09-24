@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SideBarListItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SideBarListItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SideBarListItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SideBarListItemConfiguration) -> Body
 }
 
 struct AnySideBarListItemStyle: SideBarListItemStyle {
@@ -54,5 +54,15 @@ public struct SideBarListItemFioriStyle: SideBarListItemStyle {
             .subtitleStyle(SubtitleFioriStyle(sideBarListItemConfiguration: configuration))
             .accessoryIconStyle(AccessoryIconFioriStyle(sideBarListItemConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(sideBarListItemConfiguration: configuration))
+    }
+}
+
+struct SideBarListItemDefaultStyle: SideBarListItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
+        SideBarListItem(configuration)
+            .sideBarListItemStyle(SideBarListItemFioriStyle())
+            .modifier(SideBarListItemStyleModifier(style: SideBarListItemBaseStyle()))
     }
 }

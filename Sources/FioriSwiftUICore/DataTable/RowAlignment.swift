@@ -1,6 +1,6 @@
 import Foundation
 
-public enum RowAlignment {
+public enum RowAlignment: Sendable {
     /// texts are aligned with baseline
     case baseline
     

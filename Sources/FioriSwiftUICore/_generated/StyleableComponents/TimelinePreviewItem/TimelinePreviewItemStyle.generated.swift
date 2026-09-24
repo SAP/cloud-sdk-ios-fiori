@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelinePreviewItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelinePreviewItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> Body
 }
 
 struct AnyTimelinePreviewItemStyle: TimelinePreviewItemStyle {
@@ -49,5 +49,15 @@ public struct TimelinePreviewItemFioriStyle: TimelinePreviewItemStyle {
             .iconStyle(IconFioriStyle(timelinePreviewItemConfiguration: configuration))
             .timelineNodeStyle(TimelineNodeFioriStyle(timelinePreviewItemConfiguration: configuration))
             .timestampStyle(TimestampFioriStyle(timelinePreviewItemConfiguration: configuration))
+    }
+}
+
+struct TimelinePreviewItemDefaultStyle: TimelinePreviewItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelinePreviewItemConfiguration) -> some View {
+        TimelinePreviewItem(configuration)
+            .timelinePreviewItemStyle(TimelinePreviewItemFioriStyle())
+            .modifier(TimelinePreviewItemStyleModifier(style: TimelinePreviewItemBaseStyle()))
     }
 }

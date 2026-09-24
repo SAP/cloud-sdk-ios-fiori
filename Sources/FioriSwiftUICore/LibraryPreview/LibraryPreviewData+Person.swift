@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 public extension LibraryPreviewData {
-    struct Person: Decodable, Hashable, Equatable {
+    struct Person: Decodable, Hashable, Equatable, Sendable {
         let UserName: String
         let FirstName: String
         let LastName: String

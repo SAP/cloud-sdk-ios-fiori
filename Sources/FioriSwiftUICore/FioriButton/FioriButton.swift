@@ -55,7 +55,7 @@ import SwiftUI
 ///     }
 ///
 ///  To apply these styles to a `Button`, use `PrimaryButtonStyle`, `SecondaryButtonStyle`, and `TertiaryButtonStyle` instead.
-public struct FioriButton: View {
+public nonisolated struct FioriButton: View {
     let action: ((UIControl.State) -> Void)?
     let label: (UIControl.State) -> any View
     let isSelectionPersistent: Bool
@@ -149,7 +149,7 @@ public struct FioriButton: View {
     }
 
     /// The content of the button.
-    public var body: some View {
+    @MainActor public var body: some View {
         // For menu use case, fioriButton should be based on Button
         if #available(iOS 26.0, *) {
             VStack {
@@ -186,7 +186,7 @@ public struct FioriButton: View {
     // only handle once when gesture onChanged
     @State private var isHandledDragGestureOnChanged = false
     
-    func createGesture(_ size: CGSize) -> some Gesture {
+    @MainActor func createGesture(_ size: CGSize) -> some Gesture {
         let touchArea = CGRect(origin: .zero, size: size).insetBy(dx: 0, dy: -self.touchAreaInset)
         var isCancelled = false
         

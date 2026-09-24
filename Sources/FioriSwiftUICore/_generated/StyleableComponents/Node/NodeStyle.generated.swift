@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol NodeStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol NodeStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NodeConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: NodeConfiguration) -> Body
 }
 
 struct AnyNodeStyle: NodeStyle {
@@ -31,5 +31,14 @@ public struct NodeConfiguration {
 extension NodeConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct NodeDefaultStyle: NodeStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: NodeConfiguration) -> some View {
+        Node(configuration)
+            .nodeStyle(NodeBaseStyle())
     }
 }

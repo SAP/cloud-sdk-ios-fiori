@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ContactItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ContactItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ContactItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ContactItemConfiguration) -> Body
 }
 
 struct AnyContactItemStyle: ContactItemStyle {
@@ -50,5 +50,15 @@ public struct ContactItemFioriStyle: ContactItemStyle {
             .descriptionStyle(DescriptionFioriStyle(contactItemConfiguration: configuration))
             .detailImageStyle(DetailImageFioriStyle(contactItemConfiguration: configuration))
             .activityItemsStyle(ActivityItemsFioriStyle(contactItemConfiguration: configuration))
+    }
+}
+
+struct ContactItemDefaultStyle: ContactItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ContactItemConfiguration) -> some View {
+        ContactItem(configuration)
+            .contactItemStyle(ContactItemFioriStyle())
+            .modifier(ContactItemStyleModifier(style: ContactItemBaseStyle()))
     }
 }

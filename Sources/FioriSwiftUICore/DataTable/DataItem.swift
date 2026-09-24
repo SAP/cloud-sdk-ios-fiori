@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// An enum representing the different item styles that a `DataTable` can have.
-public enum DataItemType: Int, CaseIterable {
+public enum DataItemType: Int, CaseIterable, Sendable {
     /// Indicating this row item represents a text.
     case text
     

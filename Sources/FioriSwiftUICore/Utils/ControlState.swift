@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Data types for `ControlState`. Equivalent to `UIControl.State`.
-public struct ControlState: OptionSet {
+public struct ControlState: OptionSet, Sendable {
     public let rawValue: UInt
     
     /// Initialization

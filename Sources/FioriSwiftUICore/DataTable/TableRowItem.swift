@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// Data structure for each row in the DataTable
-public struct TableRowItem: Equatable {
+public struct TableRowItem: Equatable, @unchecked Sendable {
     /// Leading accessory items.
     public let leadingAccessories: [AccessoryItem]
     /// Trailing accessory item.
@@ -100,7 +100,7 @@ public struct TableRowItem: Equatable {
 }
 
 /// Accessory item type.
-public enum AccessoryItem: Equatable {
+public enum AccessoryItem: Equatable, @unchecked Sendable {
     case button(AccessoryButton)
     case icon(Image)
     
@@ -118,7 +118,7 @@ public enum AccessoryItem: Equatable {
 }
 
 /// Button for accessory item.
-public struct AccessoryButton: Equatable {
+public struct AccessoryButton: Equatable, @unchecked Sendable {
     /// Image for button.
     public let image: Image?
     /// Title for button.

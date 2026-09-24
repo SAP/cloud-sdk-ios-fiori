@@ -27,7 +27,7 @@ struct PopoverModifier<PopView: View>: ViewModifier {
         }
     }
 
-    func onIsPresentedChange(_ newValue: Bool, window: UIWindow?) {
+    @MainActor func onIsPresentedChange(_ newValue: Bool, window: UIWindow?) {
         if newValue {
             let popover = Popover(popView: AnyView(popView()), isPresented: $isPresented)
             popover.context.sourceFrame = self.sourceFrame

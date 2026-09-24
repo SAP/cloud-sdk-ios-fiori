@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TextInputFieldStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TextInputFieldStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TextInputFieldConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TextInputFieldConfiguration) -> Body
 }
 
 struct AnyTextInputFieldStyle: TextInputFieldStyle {
@@ -37,5 +37,15 @@ extension TextInputFieldConfiguration {
 public struct TextInputFieldFioriStyle: TextInputFieldStyle {
     public func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
         TextInputField(configuration)
+    }
+}
+
+struct TextInputFieldDefaultStyle: TextInputFieldStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TextInputFieldConfiguration) -> some View {
+        TextInputField(configuration)
+            .textInputFieldStyle(TextInputFieldFioriStyle())
+            .modifier(TextInputFieldStyleModifier(style: TextInputFieldBaseStyle()))
     }
 }

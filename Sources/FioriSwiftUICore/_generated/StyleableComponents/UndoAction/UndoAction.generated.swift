@@ -27,6 +27,7 @@ public extension UndoAction {
 }
 
 public extension UndoAction {
+    @MainActor
     init(undoAction: FioriButton? = FioriButton._undoButton) {
         self.init(undoAction: { undoAction })
     }
@@ -66,6 +67,7 @@ private extension UndoAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         UndoAction(.init(componentIdentifier: self.componentIdentifier, undoAction: .init(self.undoAction)))
             .shouldApplyDefaultStyle(false)

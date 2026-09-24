@@ -25,6 +25,7 @@ public extension Subtitle {
 }
 
 public extension Subtitle {
+    @MainActor
     init(subtitle: AttributedString? = nil) {
         self.init(subtitle: { OptionalText(subtitle) })
     }
@@ -64,6 +65,7 @@ private extension Subtitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Subtitle(.init(componentIdentifier: self.componentIdentifier, subtitle: .init(self.subtitle)))
             .shouldApplyDefaultStyle(false)

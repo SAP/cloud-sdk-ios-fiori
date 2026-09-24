@@ -90,6 +90,7 @@ public extension CardMainHeader {
 }
 
 public extension CardMainHeader {
+    @MainActor
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          icons: [TextOrIcon] = [],
@@ -144,6 +145,7 @@ private extension CardMainHeader {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CardMainHeader(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), flexItem: .init(self.flexItem), flexItemPosition: self.flexItemPosition))
             .shouldApplyDefaultStyle(false)

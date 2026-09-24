@@ -90,6 +90,7 @@ public extension HierarchyIndicator {
 }
 
 public extension HierarchyIndicator {
+    @MainActor
     init(title: AttributedString,
          icon: Image? = nil,
          isMultiline: Bool = true,
@@ -140,6 +141,7 @@ private extension HierarchyIndicator {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         HierarchyIndicator(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), icon: .init(self.icon), isMultiline: self.isMultiline, isSelected: self.isSelected, isClickable: self.isClickable, onClick: self.onClick))
             .shouldApplyDefaultStyle(false)

@@ -25,6 +25,7 @@ public extension SubAttribute {
 }
 
 public extension SubAttribute {
+    @MainActor
     init(subAttribute: AttributedString? = nil) {
         self.init(subAttribute: { OptionalText(subAttribute) })
     }
@@ -64,6 +65,7 @@ private extension SubAttribute {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SubAttribute(.init(componentIdentifier: self.componentIdentifier, subAttribute: .init(self.subAttribute)))
             .shouldApplyDefaultStyle(false)

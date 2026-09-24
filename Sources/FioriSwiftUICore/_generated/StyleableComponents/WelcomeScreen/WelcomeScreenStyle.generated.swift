@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WelcomeScreenStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WelcomeScreenStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WelcomeScreenConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WelcomeScreenConfiguration) -> Body
 }
 
 struct AnyWelcomeScreenStyle: WelcomeScreenStyle {
@@ -67,5 +67,15 @@ public struct WelcomeScreenFioriStyle: WelcomeScreenStyle {
             .footnoteStyle(FootnoteFioriStyle(welcomeScreenConfiguration: configuration))
             .actionStyle(ActionFioriStyle(welcomeScreenConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(welcomeScreenConfiguration: configuration))
+    }
+}
+
+struct WelcomeScreenDefaultStyle: WelcomeScreenStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: WelcomeScreenConfiguration) -> some View {
+        WelcomeScreen(configuration)
+            .welcomeScreenStyle(WelcomeScreenFioriStyle())
+            .modifier(WelcomeScreenStyleModifier(style: WelcomeScreenBaseStyle()))
     }
 }

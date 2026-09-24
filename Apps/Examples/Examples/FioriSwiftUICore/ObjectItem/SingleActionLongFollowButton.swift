@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
+struct SingleActionLongFollowButton: @preconcurrency ObjectItemListDataProtocol {
     var isLongText = true
     
     init(cellTapped: Binding<Bool>) {}
@@ -35,6 +35,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
         false
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         let longText = "TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP "
         let longHeadline = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor."

@@ -58,6 +58,7 @@ private extension KPIContent {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         KPIContent(.init(componentIdentifier: self.componentIdentifier, kPIContent: .init(self.kPIContent)))
             .shouldApplyDefaultStyle(false)

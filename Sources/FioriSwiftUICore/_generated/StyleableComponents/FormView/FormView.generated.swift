@@ -64,6 +64,7 @@ private extension FormView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         FormView(.init(componentIdentifier: self.componentIdentifier, controlState: self.controlState, errorMessage: self.errorMessage))
             .shouldApplyDefaultStyle(false)

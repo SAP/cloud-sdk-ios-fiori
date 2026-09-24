@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentWithErrorStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentWithErrorStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> Body
 }
 
 struct AnyAttachmentWithErrorStyle: AttachmentWithErrorStyle {
@@ -41,5 +41,15 @@ public struct AttachmentWithErrorFioriStyle: AttachmentWithErrorStyle {
     public func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
         AttachmentWithError(configuration)
             .attachmentErrorTitleStyle(AttachmentErrorTitleFioriStyle(attachmentWithErrorConfiguration: configuration))
+    }
+}
+
+struct AttachmentWithErrorDefaultStyle: AttachmentWithErrorStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentWithErrorConfiguration) -> some View {
+        AttachmentWithError(configuration)
+            .attachmentWithErrorStyle(AttachmentWithErrorFioriStyle())
+            .modifier(AttachmentWithErrorStyleModifier(style: AttachmentWithErrorBaseStyle()))
     }
 }

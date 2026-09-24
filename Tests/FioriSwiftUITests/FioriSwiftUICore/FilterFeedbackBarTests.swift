@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 import XCTest
 
-final class FilterFeedbackBarTests: XCTestCase {
+@MainActor final class FilterFeedbackBarTests: XCTestCase {
     func testDefaultUI() throws {
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBorderWidth, 1)
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemFont, .system(.body))

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OnboardingScanViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OnboardingScanViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OnboardingScanViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OnboardingScanViewConfiguration) -> Body
 }
 
 struct AnyOnboardingScanViewStyle: OnboardingScanViewStyle {
@@ -42,5 +42,15 @@ extension OnboardingScanViewConfiguration {
 public struct OnboardingScanViewFioriStyle: OnboardingScanViewStyle {
     public func makeBody(_ configuration: OnboardingScanViewConfiguration) -> some View {
         OnboardingScanView(configuration)
+    }
+}
+
+struct OnboardingScanViewDefaultStyle: OnboardingScanViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OnboardingScanViewConfiguration) -> some View {
+        OnboardingScanView(configuration)
+            .onboardingScanViewStyle(OnboardingScanViewFioriStyle())
+            .modifier(OnboardingScanViewStyleModifier(style: OnboardingScanViewBaseStyle()))
     }
 }

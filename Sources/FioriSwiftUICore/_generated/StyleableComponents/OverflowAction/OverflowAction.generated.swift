@@ -25,6 +25,7 @@ public extension OverflowAction {
 }
 
 public extension OverflowAction {
+    @MainActor
     init(overflowAction: FioriButton? = FioriButton { _ in Image(systemName: "ellipsis") }) {
         self.init(overflowAction: { overflowAction })
     }
@@ -64,6 +65,7 @@ private extension OverflowAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         OverflowAction(.init(componentIdentifier: self.componentIdentifier, overflowAction: .init(self.overflowAction)))
             .shouldApplyDefaultStyle(false)

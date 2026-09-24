@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AccessoryViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AccessoryViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AccessoryViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AccessoryViewConfiguration) -> Body
 }
 
 struct AnyAccessoryViewStyle: AccessoryViewStyle {
@@ -29,5 +29,14 @@ public struct AccessoryViewConfiguration {
 extension AccessoryViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct AccessoryViewDefaultStyle: AccessoryViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AccessoryViewConfiguration) -> some View {
+        AccessoryView(configuration)
+            .accessoryViewStyle(AccessoryViewBaseStyle())
     }
 }

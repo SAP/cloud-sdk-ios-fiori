@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol BodyTextStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol BodyTextStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: BodyTextConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: BodyTextConfiguration) -> Body
 }
 
 struct AnyBodyTextStyle: BodyTextStyle {
@@ -31,5 +31,14 @@ public struct BodyTextConfiguration {
 extension BodyTextConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct BodyTextDefaultStyle: BodyTextStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: BodyTextConfiguration) -> some View {
+        BodyText(configuration)
+            .bodyTextStyle(BodyTextBaseStyle())
     }
 }

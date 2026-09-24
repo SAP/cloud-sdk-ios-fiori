@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol RangeSliderControlStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol RangeSliderControlStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: RangeSliderControlConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: RangeSliderControlConfiguration) -> Body
 }
 
 struct AnyRangeSliderControlStyle: RangeSliderControlStyle {
@@ -56,5 +56,15 @@ public struct RangeSliderControlFioriStyle: RangeSliderControlStyle {
             .upperThumbStyle(UpperThumbFioriStyle(rangeSliderControlConfiguration: configuration))
             .activeTrackStyle(ActiveTrackFioriStyle(rangeSliderControlConfiguration: configuration))
             .inactiveTrackStyle(InactiveTrackFioriStyle(rangeSliderControlConfiguration: configuration))
+    }
+}
+
+struct RangeSliderControlDefaultStyle: RangeSliderControlStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: RangeSliderControlConfiguration) -> some View {
+        RangeSliderControl(configuration)
+            .rangeSliderControlStyle(RangeSliderControlFioriStyle())
+            .modifier(RangeSliderControlStyleModifier(style: RangeSliderControlBaseStyle()))
     }
 }

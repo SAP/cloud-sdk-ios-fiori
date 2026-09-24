@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HierarchyViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HierarchyViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HierarchyViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HierarchyViewConfiguration) -> Body
 }
 
 struct AnyHierarchyViewStyle: HierarchyViewStyle {
@@ -41,5 +41,15 @@ extension HierarchyViewConfiguration {
 public struct HierarchyViewFioriStyle: HierarchyViewStyle {
     public func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
         HierarchyView(configuration)
+    }
+}
+
+struct HierarchyViewDefaultStyle: HierarchyViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
+        HierarchyView(configuration)
+            .hierarchyViewStyle(HierarchyViewFioriStyle())
+            .modifier(HierarchyViewStyleModifier(style: HierarchyViewBaseStyle()))
     }
 }

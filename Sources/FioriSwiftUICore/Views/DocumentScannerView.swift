@@ -3,13 +3,13 @@ import SwiftUI
 import VisionKit
 
 /// Define the possible output formats for the scanned document
-public enum ScanOutputFormat {
+public enum ScanOutputFormat: Sendable {
     case images
     case pdf
 }
 
 /// Define the possible output types: either an array of images or a PDF document
-public enum ScanOutput {
+public enum ScanOutput: @unchecked Sendable {
     case images([UIImage])
     case pdf(PDFDocument)
 }
@@ -18,7 +18,7 @@ public enum ScanOutput {
 /// Note that VisionKit doesn't currently provide a public API to customize the scan view's appearance or behavior.
 public struct DocumentScannerView: UIViewControllerRepresentable {
     /// A type alias for a completion handler that takes a Result object containing either a ScanOutput or an Error as its argument
-    public typealias ScanCompletion = (Result<ScanOutput, Error>) -> Void
+    public typealias ScanCompletion = @Sendable (Result<ScanOutput, Error>) -> Void
     /// Callback to be executed when the scan is complete, with a Result object indicating success or failure
     public var onCompletion: ScanCompletion
     /// Desired output format for the scanned document
@@ -53,7 +53,7 @@ public struct DocumentScannerView: UIViewControllerRepresentable {
 
 /// Coordinator class to handle the delegate methods of the VNDocumentCameraViewController
 public extension DocumentScannerView {
-    class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
+    class Coordinator: NSObject, @preconcurrency VNDocumentCameraViewControllerDelegate, @unchecked Sendable {
         var parent: DocumentScannerView
         
         init(_ parent: DocumentScannerView) {
@@ -61,7 +61,7 @@ public extension DocumentScannerView {
         }
         
         /// Handle the completion of the scan
-        public func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+        @MainActor public func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
             let images = (0 ..< scan.pageCount).compactMap { scan.imageOfPage(at: $0) }
             
             /// Process the images based on the desired output format
@@ -83,13 +83,13 @@ public extension DocumentScannerView {
         }
         
         /// Handle the cancellation of the scan
-        public func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
+        @MainActor public func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
             self.parent.onCompletion(.failure(NSError(domain: "DocumentScannerView", code: 1, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("User cancelled the scan", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")])))
             controller.dismiss(animated: true)
         }
         
         /// Handle errors during the scan process
-        public func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
+        @MainActor public func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
             self.parent.onCompletion(.failure(error))
             controller.dismiss(animated: true)
         }
@@ -98,7 +98,7 @@ public extension DocumentScannerView {
 
 /// Create a PDF document from an array of images
 extension DocumentScannerView.Coordinator {
-    private func createPDF(from images: [UIImage], completion: @escaping (Result<PDFDocument, Error>) -> Void) {
+    private func createPDF(from images: [UIImage], completion: @escaping @Sendable (Result<PDFDocument, Error>) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 /// Create a new PDF document

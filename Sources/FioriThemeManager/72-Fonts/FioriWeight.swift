@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 public extension Font {
-    struct FioriWeight: Hashable {
+    struct FioriWeight: Hashable, Sendable {
         let rawValue: String
         
         public static let ultraLight: FioriWeight = .init(rawValue: "com.sap.sdk.ios.FioriSwiftUI.FioriWeight.ultraLight")

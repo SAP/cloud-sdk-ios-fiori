@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol OffStarImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol OffStarImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: OffStarImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: OffStarImageConfiguration) -> Body
 }
 
 struct AnyOffStarImageStyle: OffStarImageStyle {
@@ -31,5 +31,14 @@ public struct OffStarImageConfiguration {
 extension OffStarImageConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct OffStarImageDefaultStyle: OffStarImageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: OffStarImageConfiguration) -> some View {
+        OffStarImage(configuration)
+            .offStarImageStyle(OffStarImageBaseStyle())
     }
 }

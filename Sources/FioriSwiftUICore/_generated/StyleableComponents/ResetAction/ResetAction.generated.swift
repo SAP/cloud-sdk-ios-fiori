@@ -25,6 +25,7 @@ public extension ResetAction {
 }
 
 public extension ResetAction {
+    @MainActor
     init(resetAction: FioriButton? = FioriButton { _ in Text("Reset".localizedFioriString()) }) {
         self.init(resetAction: { resetAction })
     }
@@ -64,6 +65,7 @@ private extension ResetAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ResetAction(.init(componentIdentifier: self.componentIdentifier, resetAction: .init(self.resetAction)))
             .shouldApplyDefaultStyle(false)

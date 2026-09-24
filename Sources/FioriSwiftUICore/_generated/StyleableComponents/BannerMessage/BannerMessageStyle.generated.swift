@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol BannerMessageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol BannerMessageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: BannerMessageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: BannerMessageConfiguration) -> Body
 }
 
 struct AnyBannerMessageStyle: BannerMessageStyle {
@@ -53,5 +53,15 @@ public struct BannerMessageFioriStyle: BannerMessageStyle {
             .titleStyle(TitleFioriStyle(bannerMessageConfiguration: configuration))
             .closeActionStyle(CloseActionFioriStyle(bannerMessageConfiguration: configuration))
             .topDividerStyle(TopDividerFioriStyle(bannerMessageConfiguration: configuration))
+    }
+}
+
+struct BannerMessageDefaultStyle: BannerMessageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: BannerMessageConfiguration) -> some View {
+        BannerMessage(configuration)
+            .bannerMessageStyle(BannerMessageFioriStyle())
+            .modifier(BannerMessageStyleModifier(style: BannerMessageBaseStyle()))
     }
 }

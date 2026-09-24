@@ -193,11 +193,11 @@ final class HierarchyDataSource: @MainActor HierarchyViewDataSource, ObservableO
     }
 
     func numberOfChildrenAsync(for id: String) async throws -> Int {
-        guard let _ = model.getObject(for: id) else {
+        guard let _ = await model.getObject(for: id) else {
             preconditionFailure("Object with String: \(id) does not exist in model")
         }
 
-        if let objectChildren = model.getObject(for: id)?.children {
+        if let objectChildren = await model.getObject(for: id)?.children {
             return objectChildren.count
         }
 
@@ -206,12 +206,12 @@ final class HierarchyDataSource: @MainActor HierarchyViewDataSource, ObservableO
     }
     
     func parentIDAsync(for id: String) async throws -> String? {
-        guard let _ = model.getObject(for: id) else {
+        guard let _ = await model.getObject(for: id) else {
             preconditionFailure("Object with String: \(id) does not exist in model")
         }
 
-        if let parent = model.getObject(for: id)?.parent {
-            self.model.updateCache(objects: [parent])
+        if let parent = await model.getObject(for: id)?.parent {
+            await self.model.updateCache(objects: [parent])
             return parent.uuid
         }
 
@@ -224,7 +224,7 @@ final class HierarchyDataSource: @MainActor HierarchyViewDataSource, ObservableO
     }
     
     func itemTitleAsync(for id: String) async throws -> String? {
-        self.model.getObject(for: id)?.name
+        await self.model.getObject(for: id)?.name
     }
 }
 
@@ -339,7 +339,7 @@ class HierarchyViewModel {
 
 // MARK: - Data Model
 
-class BusinessObject {
+class BusinessObject: @unchecked Sendable {
     var name: String?
     var type: String?
     var location: String?

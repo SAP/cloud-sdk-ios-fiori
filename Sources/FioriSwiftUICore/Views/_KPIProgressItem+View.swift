@@ -61,7 +61,7 @@ extension _KPIProgressItem: View {
         .gesture(self.createGesture())
     }
     
-    private func createGesture() -> some Gesture {
+    @MainActor private func createGesture() -> some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { _ in
                 isPressed = true
@@ -259,7 +259,7 @@ struct FioriCircularProgressView: View {
 }
 
 struct KPIProgressViewStyleKey: EnvironmentKey {
-    public static let defaultValue = AnyKPIProgressViewStyle(FioriCircularProgressViewStyle())
+    public nonisolated(unsafe) static let defaultValue = AnyKPIProgressViewStyle(FioriCircularProgressViewStyle())
 }
 
 public extension EnvironmentValues {
