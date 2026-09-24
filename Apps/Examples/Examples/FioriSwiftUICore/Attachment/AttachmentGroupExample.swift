@@ -5,28 +5,28 @@ import PhotosUI
 import SwiftUI
 
 struct AttachmentGroupExample: View {
-    @State var attachmentInfo: [AttachmentInfo]
-    @State private var maxCount: Int?
-    @State private var maxPhotoSelectionCount: Int?
-    @State private var state: ControlState
-    @State private var showOperations: Bool
-    @State var images: [UIImage]
-    @State var selectedPhotos: [PhotosPickerItem]
-    @State var showWriteAndUploadView: Bool
+    @State var attachmentInfo: [AttachmentInfo] = []
+    @State private var maxCount: Int? = nil
+    @State private var maxPhotoSelectionCount: Int? = nil
+    @State private var state: ControlState = .normal
+    @State private var showOperations: Bool = false
+    @State var images: [UIImage] = []
+    @State var selectedPhotos: [PhotosPickerItem] = []
+    @State var showWriteAndUploadView: Bool = false
     @State private var opsAsMenu = true
     @State private var showConfiguraton = false
     @State var previewURL: URL? = nil
-    @State private var defaultThumbnail: Bool
-    @State private var defaultGridLayout: Bool
-    @State private var defaultPreview: Bool
-    @State private var error: AttributedString?
-    @State private var appWithoutError: Bool
+    @State private var defaultThumbnail: Bool = true
+    @State private var defaultGridLayout: Bool = true
+    @State private var defaultPreview: Bool = true
+    @State private var error: AttributedString? = nil
+    @State private var appWithoutError: Bool = true
     @State var photoFilters: [PHPickerFilter] = []
     @State var fileFilters: [UTType] = []
-    @State private var bulkProcessingDisabled: Bool
-    @State private var showExtranInfo: Bool
-    @State private var useDemoDelegate: Bool
-    @State private var showDefaultThumbnailWithPreview: Bool
+    @State private var bulkProcessingDisabled: Bool = false
+    @State private var showExtranInfo: Bool = false
+    @State private var useDemoDelegate: Bool = false
+    @State private var showDefaultThumbnailWithPreview: Bool = false
 
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {

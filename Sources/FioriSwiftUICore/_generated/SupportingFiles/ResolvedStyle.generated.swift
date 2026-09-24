@@ -2307,19 +2307,19 @@ import SwiftUI
     }
 }
 
-// MARK: ProgressStyle
+// MARK: FioriProgressViewStyle
 
-@MainActor struct ResolvedProgressStyle<Style: ProgressStyle>: View {
+@MainActor struct ResolvedFioriProgressViewStyle<Style: FioriProgressViewStyle>: View {
     let style: Style
-    let configuration: ProgressConfiguration
+    let configuration: FioriProgressViewConfiguration
     var body: some View {
         self.style.makeBody(self.configuration)
     }
 }
 
-@MainActor extension ProgressStyle {
-    func resolve(configuration: ProgressConfiguration) -> some View {
-        ResolvedProgressStyle(style: self, configuration: configuration)
+@MainActor extension FioriProgressViewStyle {
+    func resolve(configuration: FioriProgressViewConfiguration) -> some View {
+        ResolvedFioriProgressViewStyle(style: self, configuration: configuration)
     }
 }
 

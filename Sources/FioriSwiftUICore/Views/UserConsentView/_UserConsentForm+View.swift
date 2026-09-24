@@ -54,17 +54,17 @@ extension _UserConsentForm: View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
             .navigationBarTitle(self.navTitle)
-            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert.0)
+            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert)
     }
     
     var alertConfiguration: AlertConfiguration {
-        guard let alertConfig = _alertConfiguration?(_showAlert.1) else {
+        guard let alertConfig = _alertConfiguration?(_alertType) else {
             fatalError("UserConsentForm: alert configuration cannot be nil")
         }
         
         var newAlertConfig = alertConfig
         
-        switch _showAlert.1 {
+        switch _alertType {
         case .deny:
             newAlertConfig.action._didSelectSetter {
                 self.didAllow?()
@@ -92,7 +92,8 @@ extension _UserConsentForm: View {
                     denyAction
                         .onSimultaneousTapGesture {
                             if _alertConfiguration?(.deny) != nil {
-                                self._showAlert = (true, .deny)
+                                self._showAlert = true
+                                self._alertType = .deny
                             } else {
                                 self.didDeny?(_isRequired)
                             }
@@ -122,7 +123,8 @@ extension _UserConsentForm: View {
             cancelAction
                 .onSimultaneousTapGesture {
                     if _alertConfiguration?(.cancel) != nil {
-                        self._showAlert = (true, .cancel)
+                        self._showAlert = true
+                        self._alertType = .cancel
                     } else {
                         self.didCancel?()
                     }

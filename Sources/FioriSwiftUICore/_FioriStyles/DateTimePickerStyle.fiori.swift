@@ -10,6 +10,7 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
     @Environment(\.pickerSeparator) private var pickerSeparatorConfiguration
 
     @State private var selectedDate: Date = .now
+    @AccessibilityFocusState private var isPickerFocused: Bool
 
     public func makeBody(_ configuration: DateTimePickerConfiguration) -> some View {
         SkeletonLoadingContainer {
@@ -37,8 +38,20 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                                     .padding(.top, 14)
                             }
                             self.showPicker(configuration)
+                                .accessibilityFocused(self.$isPickerFocused)
                         }
                         .transition(.opacity.combined(with: .scale(scale: 1.0, anchor: .top)))
+                        .onAppear {
+                            // The calendar is inserted inline (not as a sheet/popover), so VoiceOver does
+                            // not move focus into it automatically. Move focus into the picker and announce
+                            // it once the 0.3s expand animation has settled, otherwise the element is not yet
+                            // stable in the accessibility tree and the focus request is dropped.
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                self.isPickerFocused = true
+                                UIAccessibility.post(notification: .screenChanged, argument: nil)
+                                UIAccessibility.post(notification: .announcement, argument: "CalendarOpenedKey".localizedFioriString())
+                            }
+                        }
                     }
                 }
                 .animation(.easeInOut(duration: 0.3), value: configuration.pickerVisible)
