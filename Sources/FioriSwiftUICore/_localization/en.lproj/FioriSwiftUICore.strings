@@ -690,6 +690,9 @@
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Double tap to collapse";
 
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Calendar opened, select a date";
+
 /*XTIT: On state for switch*/
 "Switch On" = "On";
 

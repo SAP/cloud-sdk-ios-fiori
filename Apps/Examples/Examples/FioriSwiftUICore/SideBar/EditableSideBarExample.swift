@@ -279,7 +279,7 @@ struct DeviceDetailView: View {
             .navigationTitle(device.name)
             .navigationBarTitleDisplayMode(.inline)
         } else {
-            Group {}
+            EmptyView()
         }
     }
 }
