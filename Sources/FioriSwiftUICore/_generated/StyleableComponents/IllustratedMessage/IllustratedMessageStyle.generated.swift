@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -29,6 +29,7 @@ public struct IllustratedMessageConfiguration {
     public let action: Action
     public let secondaryAction: SecondaryAction
     public let detailImageSize: IllustratedMessage.DetailImageSize?
+    public let resizesDetailImage: Bool
     public let isActionVerticallyAligned: Bool
     public let contentAlignment: HorizontalAlignment
 

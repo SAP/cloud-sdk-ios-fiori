@@ -16,8 +16,13 @@ public extension IllustratedMessage {
 public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
-            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
-                .padding(.bottom, 16)
+            if configuration.resizesDetailImage {
+                getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+                    .padding(.bottom, 16)
+            } else {
+                configuration.detailImage
+                    .padding(.bottom, 16)
+            }
             configuration.title
                 .multilineTextAlignment(.center)
             configuration.description
@@ -110,7 +115,11 @@ public struct IllustratedMessageVerticalLayoutStyle: IllustratedMessageStyle {
 public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         HStack(spacing: 16) {
-            getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+            if configuration.resizesDetailImage {
+                getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+            } else {
+                configuration.detailImage
+            }
             VStack(alignment: configuration.contentAlignment, spacing: 4) {
                 configuration.title
                     .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
@@ -144,7 +153,11 @@ public struct IllustratedMessageMixedLayoutStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 16) {
-                getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+                if configuration.resizesDetailImage {
+                    getResizedDetailImage(detailImage: configuration.detailImage, size: configuration.detailImageSize ?? IllustratedMessage.DetailImageSize.medium)
+                } else {
+                    configuration.detailImage
+                }
                 VStack(alignment: configuration.contentAlignment, spacing: 4) {
                     configuration.title
                         .multilineTextAlignment(getTextAlignment(configuration.contentAlignment))
