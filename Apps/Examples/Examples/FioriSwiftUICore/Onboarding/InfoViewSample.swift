@@ -63,8 +63,14 @@ struct InfoViewSample: View {
         .task {
             // Wait for a few seconds, then hide the loading indicator
             // and switch to the InfoView without the loading indicator.
-            try? await Task.sleep(nanoseconds: 3 * 1_000_000_000)
-            self.showLoadingView = false
+            do {
+                try await Task.sleep(nanoseconds: 3 * 1000000000)
+                self.showLoadingView = false
+            } catch is CancellationError {
+                return
+            } catch {
+                return
+            }
         }
     }
 }
@@ -103,8 +109,15 @@ struct InfoViewWithLoadingLabel: View {
         .task {
             // Wait for a few seconds, then hide the loading indicator
             // and switch to the InfoView without the loading indicator.
-            try? await Task.sleep(nanoseconds: 3 * 1_000_000_000)
-            self.showLoadingView = false
+            do {
+                try await Task.sleep(nanoseconds: 3 * 1000000000)
+                self.showLoadingView = false
+            } catch is CancellationError {
+                return
+            } catch {
+                return
+            }
+
         }
     }
 }
@@ -142,8 +155,15 @@ struct InfoViewCustomized: View {
         .task {
             // Wait for a few seconds, then hide the loading indicator
             // and switch to the InfoView without the loading indicator.
-            try? await Task.sleep(nanoseconds: 3 * 1_000_000_000)
-            self.showLoadingView = false
+            do {
+                try await Task.sleep(nanoseconds: 3 * 1000000000)
+                self.showLoadingView = false
+            } catch is CancellationError {
+                return
+            } catch {
+                return
+            }
+
         }
     }
 }
