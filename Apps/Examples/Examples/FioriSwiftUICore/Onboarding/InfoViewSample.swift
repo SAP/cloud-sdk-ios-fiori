@@ -39,19 +39,38 @@ extension InfoViewDataModel {
 }
 
 struct InfoViewSample: View {
+    @State var showLoadingView: Bool = true
     private var model = InfoViewDataModel()
     
     public init() {}
     
     var body: some View {
         VStack {
-            let loadingIndicator = LoadingIndicator(title: "", isPresented: .constant(true))
-            
-            InfoView(title: AttributedString(self.model.title), descriptionText: AttributedString(self.model.descriptionText ?? ""), action: FioriButton(title: "Next", action: { _ in
-                print("InfoView Primary button clicked")
-            }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
-                print("InfoView secondary button clicked")
-            }), loadingIndicator: loadingIndicator)
+            if self.showLoadingView {
+                // Initially only show the title and the loading indicator.
+                let loadingIndicator = LoadingIndicator(title: "", isPresented: self.$showLoadingView)
+                
+                InfoView(title: AttributedString(self.model.title), loadingIndicator: loadingIndicator)
+            } else {
+                // After a few seconds, show the full InfoView without the loading indicator.
+                InfoView(title: AttributedString(self.model.title), descriptionText: AttributedString(self.model.descriptionText ?? ""), action: FioriButton(title: "Next", action: { _ in
+                    print("InfoView Primary button clicked")
+                }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
+                    print("InfoView secondary button clicked")
+                }))
+            }
+        }
+        .task {
+            // Wait for a few seconds, then hide the loading indicator
+            // and switch to the InfoView without the loading indicator.
+            do {
+                try await Task.sleep(nanoseconds: 3 * 1000000000)
+                self.showLoadingView = false
+            } catch is CancellationError {
+                return
+            } catch {
+                return
+            }
         }
     }
 }
@@ -66,42 +85,71 @@ struct InfoViewWithLoadingLabel: View {
     
     var body: some View {
         VStack {
-            let loadingIndicator = LoadingIndicator(title: {
-                Text(AttributedString(self.model.loadingIndicatorText ?? ""))
-                    .font(.fiori(forTextStyle: .body))
-            }, progress: { ProgressView() }, isPresented: $showLoadingView)
-            
-            InfoView(title: AttributedString(self.model.title), descriptionText: AttributedString(self.model.descriptionText ?? ""), action: FioriButton(title: "Next", action: { _ in
-                print("InfoView Primary button clicked")
-            }), secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
-                print("InfoView secondary button clicked")
-            }), loadingIndicator: loadingIndicator)
+            if self.showLoadingView {
+                // Initially only show the title and the loading indicator.
+                let loadingIndicator = LoadingIndicator(title: {
+                    Text(AttributedString(self.model.loadingIndicatorText ?? ""))
+                        .font(.fiori(forTextStyle: .body))
+                }, progress: { ProgressView() }, isPresented: self.$showLoadingView)
+                
+                InfoView(title: { Text(AttributedString(self.model.title)) },
+                         loadingIndicator: { loadingIndicator })
+            } else {
+                // After a few seconds, show the full InfoView without the loading indicator.
+                InfoView(title: AttributedString(self.model.title),
+                         descriptionText: AttributedString(self.model.descriptionText ?? ""),
+                         action: FioriButton(title: "Next", action: { _ in
+                             print("InfoView Primary button clicked")
+                         }),
+                         secondaryAction: FioriButton(title: "Start Tutorial", action: { _ in
+                             print("InfoView secondary button clicked")
+                         }))
+            }
+        }
+        .task {
+            // Wait for a few seconds, then hide the loading indicator
+            // and switch to the InfoView without the loading indicator.
+            try? await Task.sleep(nanoseconds: 3 * 1000000000)
+            self.showLoadingView = false
         }
     }
 }
 
 struct InfoViewCustomized: View {
+    @State var showLoadingView: Bool = true
     private var model = InfoViewDataModel()
     
     public init() {}
     
     var body: some View {
         VStack {
-            let loadingIndicator = LoadingIndicator(title: { Text("") }, progress: { ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .red)) }, isPresented: .constant(true))
-            
-            InfoView(title: { Text(AttributedString(self.model.title)) },
-                     descriptionText: { Text(AttributedString(self.model.descriptionText ?? "")).foregroundColor(.blue) },
-                     action: {
-                         FioriButton(title: "Next") { _ in
-                             print("InfoView Primary button clicked")
-                         }
-                     },
-                     secondaryAction: {
-                         Button("Start Tutorial") {
-                             print("InfoView secondary button clicked")
-                         }
-                     },
-                     loadingIndicator: { loadingIndicator })
+            if self.showLoadingView {
+                // Initially only show the title and the loading indicator.
+                let loadingIndicator = LoadingIndicator(title: { Text("") }, progress: { ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .red)) }, isPresented: self.$showLoadingView)
+                
+                InfoView(title: { Text(AttributedString(self.model.title)) },
+                         loadingIndicator: { loadingIndicator })
+            } else {
+                // After a few seconds, show the full InfoView without the loading indicator.
+                InfoView(title: { Text(AttributedString(self.model.title)) },
+                         descriptionText: { Text(AttributedString(self.model.descriptionText ?? "")).foregroundColor(.blue) },
+                         action: {
+                             FioriButton(title: "Next") { _ in
+                                 print("InfoView Primary button clicked")
+                             }
+                         },
+                         secondaryAction: {
+                             Button("Start Tutorial") {
+                                 print("InfoView secondary button clicked")
+                             }
+                         })
+            }
+        }
+        .task {
+            // Wait for a few seconds, then hide the loading indicator
+            // and switch to the InfoView without the loading indicator.
+            try? await Task.sleep(nanoseconds: 3 * 1000000000)
+            self.showLoadingView = false
         }
     }
 }
