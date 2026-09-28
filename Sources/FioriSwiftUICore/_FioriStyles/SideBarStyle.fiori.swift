@@ -147,11 +147,13 @@ public struct SideBarBaseStyle: SideBarStyle {
 
     private func isSectionCollapsed(for item: SideBarItemModel, in visibleItems: [SideBarItemModel]) -> Bool {
         guard let index = visibleItems.firstIndex(of: item) else { return false }
-        for n in stride(from: index - 1, through: 0, by: -1) {
-            if visibleItems[n].isSection {
-                return self.collapsedSections.contains(where: { $0 == visibleItems[n].id })
-            }
+
+        for n in stride(from: index - 1, through: 0, by: -1)
+            where visibleItems[n].isSection
+        {
+            return self.collapsedSections.contains(where: { $0 == visibleItems[n].id })
         }
+
         return false
     }
 
