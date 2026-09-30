@@ -93,7 +93,7 @@ class WritingAssistantContext: NSObject, ObservableObject {
         self.feedbackVoteState == .upVote
     }
     
-    @State private var task: Task<Void, Never>? = nil
+    private var task: Task<Void, Never>? = nil
     
     var textIsChanged: Bool {
         self.displayedValue != self.originalValue

@@ -60,15 +60,4 @@ extension _HeaderChart: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _HeaderChart specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _HeaderChartLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_HeaderChart(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

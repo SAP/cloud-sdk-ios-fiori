@@ -20,15 +20,4 @@ extension TagStack: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement TagStack specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct TagStackLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(TagStack(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

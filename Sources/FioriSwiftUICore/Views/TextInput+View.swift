@@ -24,7 +24,6 @@ struct TextFieldClearButton: ViewModifier {
     }
 }
 
-@available(iOS 14.0, *)
 struct BottomTextFieldStyle: TextFieldStyle {
     let color1 = Color.preferredColor(.primaryLabel).opacity(0)
     let color2 = Color.preferredColor(.primaryLabel).opacity(0.15)
