@@ -1,4 +1,5 @@
 import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 struct SizeOption: Identifiable {
@@ -48,6 +49,7 @@ struct IllustratedMessageExample: View {
     @State var selectedLayoutAxis: LayoutAxis?
     @State var selectedWidth: CGFloat = sizeOptions[2].value
     @State var selectedHeight: CGFloat = sizeOptions[2].value
+    @State var resizesDetailImage: Bool = true
     @State var showSecondButton: Bool = false
     @State var isActionButtonVertical: Bool = false
     @State var actionButtonWidth: ButtonWidthMode?
@@ -93,6 +95,7 @@ struct IllustratedMessageExample: View {
                 }
                 Toggle("Shows the 2nd Action Button", isOn: self.$showSecondButton)
                 Toggle("Action Button vertical Aligned", isOn: self.$isActionButtonVertical)
+                Toggle("Resizes Detail Image", isOn: self.$resizesDetailImage)
             }
             
             ForEach((0 ... 7).reversed(), id: \.self) { subcomponentConfiguration in
@@ -106,7 +109,7 @@ struct IllustratedMessageExample: View {
                         Text(self.generateCaptionText(hasImage, hasDescription, hasAction)).font(.fiori(forTextStyle: .caption1))
                         IllustratedMessage(detailImage: {
                             hasImage ?
-                                Image("wheel")
+                                FioriIcon.illustrations.addPeopleToCalendarMedium
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 : nil
@@ -121,7 +124,7 @@ struct IllustratedMessageExample: View {
                             }
                         }, secondaryAction: {
                             hasAction && self.showSecondButton ? FioriButton(title: "Secondary Action", action: { _ in print("Tapped Secondary Action") }) : nil
-                        }, detailImageSize: self.selectedDetailImageSize, isActionVerticallyAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
+                        }, detailImageSize: self.selectedDetailImageSize, resizesDetailImage: self.resizesDetailImage, isActionVerticallyAligned: self.isActionButtonVertical, contentAlignment: self.contentStackAlignment.alignment)
                             .frame(width: self.selectedWidth, height: self.selectedHeight)
                             .background(Color.preferredColor(.secondaryBackground))
                             .ifApply(self.selectedLayoutAxis == .vertical) { $0.illustratedMessageStyle(.vertical) }

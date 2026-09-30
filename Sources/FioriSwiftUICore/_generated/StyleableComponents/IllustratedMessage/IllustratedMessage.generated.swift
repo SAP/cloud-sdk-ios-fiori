@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -11,6 +11,8 @@ public struct IllustratedMessage {
     let secondaryAction: any View
     /// Specifies the size of the detailImage. This value should be an enum from the DetailImageSize set.
     let detailImageSize: IllustratedMessage.DetailImageSize?
+    /// Determines whether the detail image is automatically resized to the size specified by `detailImageSize`. When `false`, the image is rendered at its intrinsic size. The default value is `true`.
+    let resizesDetailImage: Bool
     /// Determines the layout of the action buttons. If set to true, the buttons will be arranged vertically. If set to false, they will be arranged horizontally. The default value is false.
     let isActionVerticallyAligned: Bool
     /// Determines the alignment of the title, description and the action buttons in the horizontal mode. The default value e is `.leading`.
@@ -28,6 +30,7 @@ public struct IllustratedMessage {
                 @ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() },
                 detailImageSize: IllustratedMessage.DetailImageSize? = nil,
+                resizesDetailImage: Bool = true,
                 isActionVerticallyAligned: Bool = false,
                 contentAlignment: HorizontalAlignment = .leading,
                 componentIdentifier: String? = IllustratedMessage.identifier)
@@ -38,6 +41,7 @@ public struct IllustratedMessage {
         self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self.secondaryAction = SecondaryAction(secondaryAction: secondaryAction, componentIdentifier: componentIdentifier)
         self.detailImageSize = detailImageSize
+        self.resizesDetailImage = resizesDetailImage
         self.isActionVerticallyAligned = isActionVerticallyAligned
         self.contentAlignment = contentAlignment
         self.componentIdentifier = componentIdentifier ?? IllustratedMessage.identifier
@@ -55,10 +59,11 @@ public extension IllustratedMessage {
          action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil,
          detailImageSize: IllustratedMessage.DetailImageSize? = nil,
+         resizesDetailImage: Bool = true,
          isActionVerticallyAligned: Bool = false,
          contentAlignment: HorizontalAlignment = .leading)
     {
-        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment)
+        self.init(detailImage: { detailImage }, title: { Text(title) }, description: { OptionalText(description) }, action: { action }, secondaryAction: { secondaryAction }, detailImageSize: detailImageSize, resizesDetailImage: resizesDetailImage, isActionVerticallyAligned: isActionVerticallyAligned, contentAlignment: contentAlignment)
     }
 }
 
@@ -74,6 +79,7 @@ public extension IllustratedMessage {
         self.action = configuration.action
         self.secondaryAction = configuration.secondaryAction
         self.detailImageSize = configuration.detailImageSize
+        self.resizesDetailImage = configuration.resizesDetailImage
         self.isActionVerticallyAligned = configuration.isActionVerticallyAligned
         self.contentAlignment = configuration.contentAlignment
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
@@ -86,7 +92,7 @@ extension IllustratedMessage: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, resizesDetailImage: self.resizesDetailImage, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment)).typeErased
                 .transformEnvironment(\.illustratedMessageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -104,7 +110,7 @@ private extension IllustratedMessage {
     }
 
     func defaultStyle() -> some View {
-        IllustratedMessage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment))
+        IllustratedMessage(.init(componentIdentifier: self.componentIdentifier, detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, resizesDetailImage: self.resizesDetailImage, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment))
             .shouldApplyDefaultStyle(false)
             .illustratedMessageStyle(IllustratedMessageFioriStyle.ContentFioriStyle())
             .typeErased
