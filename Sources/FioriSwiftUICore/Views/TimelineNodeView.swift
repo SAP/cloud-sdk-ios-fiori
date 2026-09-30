@@ -32,7 +32,7 @@ public struct TimelineNodeView: View {
 }
 
 /// The status of a timeline node
-public enum TimelineNodeType {
+public enum TimelineNodeType: Sendable {
     /// timeline event before start
     case beforeStart
     /// timeline event start

@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class TimelinePreviewItemTests: XCTestCase {
+@MainActor final class TimelinePreviewItemTests: XCTestCase {
     // MARK: - TimelinePreviewItem Basic Initialization Tests
     
     func testTimelinePreviewItem_BasicInitialization() {

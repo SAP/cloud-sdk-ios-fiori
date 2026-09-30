@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HeaderChartStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HeaderChartStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HeaderChartConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HeaderChartConfiguration) -> Body
 }
 
 struct AnyHeaderChartStyle: HeaderChartStyle {
@@ -52,5 +52,15 @@ public struct HeaderChartFioriStyle: HeaderChartStyle {
             .trendStyle(TrendFioriStyle(headerChartConfiguration: configuration))
             .trendImageStyle(TrendImageFioriStyle(headerChartConfiguration: configuration))
             .kpiStyle(KpiFioriStyle(headerChartConfiguration: configuration))
+    }
+}
+
+struct HeaderChartDefaultStyle: HeaderChartStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: HeaderChartConfiguration) -> some View {
+        HeaderChart(configuration)
+            .headerChartStyle(HeaderChartFioriStyle())
+            .modifier(HeaderChartStyleModifier(style: HeaderChartBaseStyle()))
     }
 }

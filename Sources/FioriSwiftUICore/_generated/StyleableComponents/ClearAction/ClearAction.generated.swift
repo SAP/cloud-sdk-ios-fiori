@@ -25,6 +25,7 @@ public extension ClearAction {
 }
 
 public extension ClearAction {
+    @MainActor
     init(clearAction: FioriButton? = FioriButton { _ in Text("Clear".localizedFioriString()) }) {
         self.init(clearAction: { clearAction })
     }
@@ -64,6 +65,7 @@ private extension ClearAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ClearAction(.init(componentIdentifier: self.componentIdentifier, clearAction: .init(self.clearAction)))
             .shouldApplyDefaultStyle(false)

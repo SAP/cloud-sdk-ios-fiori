@@ -25,6 +25,7 @@ public extension AttachmentTitle {
 }
 
 public extension AttachmentTitle {
+    @MainActor
     init(attachmentTitle: AttributedString) {
         self.init(attachmentTitle: { Text(attachmentTitle) })
     }
@@ -64,6 +65,7 @@ private extension AttachmentTitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AttachmentTitle(.init(componentIdentifier: self.componentIdentifier, attachmentTitle: .init(self.attachmentTitle)))
             .shouldApplyDefaultStyle(false)

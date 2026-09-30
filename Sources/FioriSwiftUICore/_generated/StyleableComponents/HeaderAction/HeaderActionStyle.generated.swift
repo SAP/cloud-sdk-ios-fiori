@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol HeaderActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol HeaderActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: HeaderActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: HeaderActionConfiguration) -> Body
 }
 
 struct AnyHeaderActionStyle: HeaderActionStyle {
@@ -31,5 +31,14 @@ public struct HeaderActionConfiguration {
 extension HeaderActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct HeaderActionDefaultStyle: HeaderActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
+        HeaderAction(configuration)
+            .headerActionStyle(HeaderActionBaseStyle())
     }
 }

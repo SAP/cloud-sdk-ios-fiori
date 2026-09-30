@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SubtitleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SubtitleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SubtitleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SubtitleConfiguration) -> Body
 }
 
 struct AnySubtitleStyle: SubtitleStyle {
@@ -31,5 +31,14 @@ public struct SubtitleConfiguration {
 extension SubtitleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SubtitleDefaultStyle: SubtitleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SubtitleConfiguration) -> some View {
+        Subtitle(configuration)
+            .subtitleStyle(SubtitleBaseStyle())
     }
 }

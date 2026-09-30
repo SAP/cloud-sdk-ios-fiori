@@ -25,6 +25,7 @@ public extension TrendImage {
 }
 
 public extension TrendImage {
+    @MainActor
     init(trendImage: Image? = nil) {
         self.init(trendImage: { trendImage })
     }
@@ -64,6 +65,7 @@ private extension TrendImage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TrendImage(.init(componentIdentifier: self.componentIdentifier, trendImage: .init(self.trendImage)))
             .shouldApplyDefaultStyle(false)

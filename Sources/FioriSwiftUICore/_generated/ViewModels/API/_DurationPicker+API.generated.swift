@@ -11,7 +11,7 @@ public struct _DurationPicker {
 	var _minuteInterval: Int
 	var _measurementFormatter: MeasurementFormatter
 	
-    public init(model: _DurationPickerModel) {
+    @MainActor public init(model: _DurationPickerModel) {
         self.init(selection: Binding<Int>(get: { model.selection }, set: { model.selection = $0 }), maximumMinutes: model.maximumMinutes, minimumMinutes: model.minimumMinutes, minuteInterval: model.minuteInterval, measurementFormatter: model.measurementFormatter)
     }
 

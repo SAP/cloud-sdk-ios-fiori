@@ -3,9 +3,9 @@ import SwiftUI
 
 #if swift(>=5.3)
     @available(iOS 14.0, *)
-    struct LibraryContent: LibraryContentProvider {
+    @MainActor struct LibraryContent: @preconcurrency LibraryContentProvider {
         @LibraryContentBuilder
-        var views: [LibraryItem] {
+        @MainActor var views: [LibraryItem] {
             LibraryItem(
                 ChartView(ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90]], titlesForCategory: [["2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00"]])),
                 title: "Stock Chart"

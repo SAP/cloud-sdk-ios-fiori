@@ -115,11 +115,11 @@ extension FilterFeedbackBarItemContainer: View {
 }
 
 struct FilterFeedbackBarFullConfigurationItemKey: EnvironmentKey {
-    public static var defaultValue: FilterFeedbackBarFullConfigurationItem = .none
+    public static let defaultValue: FilterFeedbackBarFullConfigurationItem = .none
 }
 
 /// Filter feedback bar item for displaying full configuration list
-public struct FilterFeedbackBarFullConfigurationItem {
+public struct FilterFeedbackBarFullConfigurationItem: Sendable {
     /// Name/title of the button
     public let name: String?
     /// SF icon name of the button
@@ -128,7 +128,7 @@ public struct FilterFeedbackBarFullConfigurationItem {
     public let position: Position
     
     /// Location of the button
-    public enum Position {
+    public enum Position: Sendable {
         /// Disaplay the button as the first one
         case leading
         /// Display the button as the last one
@@ -138,7 +138,7 @@ public struct FilterFeedbackBarFullConfigurationItem {
     }
     
     /// Name/title and icon of the button
-    public enum ItemContent {
+    public enum ItemContent: Sendable {
         /// Name of the button
         case name(String)
         /// Icon of the button
@@ -170,7 +170,7 @@ public struct FilterFeedbackBarFullConfigurationItem {
     }
     
     /// No button for full configuration
-    static var none = FilterFeedbackBarFullConfigurationItem(position: Position.none)
+    static let none = FilterFeedbackBarFullConfigurationItem(position: Position.none)
 }
 
 extension EnvironmentValues {

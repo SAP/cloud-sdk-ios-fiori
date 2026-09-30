@@ -104,6 +104,7 @@ public extension RatingControl {
 }
 
 public extension RatingControl {
+    @MainActor
     init(valueLabel: AttributedString? = nil,
          onStarImage: Image = FioriIcon.actions.favorite.renderingMode(.template).resizable(),
          offStarImage: Image = FioriIcon.actions.unfavorite.renderingMode(.template).resizable(),
@@ -180,6 +181,7 @@ private extension RatingControl {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         RatingControl(.init(componentIdentifier: self.componentIdentifier, valueLabel: .init(self.valueLabel), onStarImage: .init(self.onStarImage), offStarImage: .init(self.offStarImage), halfStarImage: .init(self.halfStarImage), reviewCountLabel: .init(self.reviewCountLabel), rating: self.$rating, ratingControlStyle: self.ratingControlStyle, ratingBounds: self.ratingBounds, itemSize: self.itemSize, interItemSpacing: self.interItemSpacing, ratingValueFormat: self.ratingValueFormat, showsValueLabel: self.showsValueLabel, averageRating: self.averageRating, averageRatingFormat: self.averageRatingFormat, reviewCount: self.reviewCount, reviewCountFormat: self.reviewCountFormat, reviewCountCeiling: self.reviewCountCeiling, reviewCountCeilingFormat: self.reviewCountCeilingFormat, showsReviewCountLabel: self.showsReviewCountLabel))
             .shouldApplyDefaultStyle(false)

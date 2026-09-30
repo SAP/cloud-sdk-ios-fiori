@@ -84,7 +84,7 @@ extension EnvironmentValues {
 
 /// Configuration for the separator used inside picker components such as
 /// `DurationPicker`, `DateTimePicker`, `ValuePicker` and `DateRangePicker`.
-public struct PickerSeparatorConfiguration {
+public struct PickerSeparatorConfiguration: Sendable {
     /// Whether to show the separator.
     public let showSeparator: Bool
 

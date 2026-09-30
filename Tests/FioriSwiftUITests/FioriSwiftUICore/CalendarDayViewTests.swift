@@ -8,7 +8,7 @@
 import SwiftUI
 import XCTest
 
-final class CalendarDayViewTests: XCTestCase {
+@MainActor final class CalendarDayViewTests: XCTestCase {
     func testCalendarDayView_DefaultInitialization() {
         let dayView = CalendarDayView(title: "28")
         XCTAssertNotNil(dayView)

@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol InnerCircleStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol InnerCircleStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: InnerCircleConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: InnerCircleConfiguration) -> Body
 }
 
 struct AnyInnerCircleStyle: InnerCircleStyle {
@@ -31,5 +31,14 @@ public struct InnerCircleConfiguration {
 extension InnerCircleConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct InnerCircleDefaultStyle: InnerCircleStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: InnerCircleConfiguration) -> some View {
+        InnerCircle(configuration)
+            .innerCircleStyle(InnerCircleBaseStyle())
     }
 }

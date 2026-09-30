@@ -2,7 +2,7 @@ import Foundation
 
 @available(*, deprecated, message: "Intentionally used for backward compatibility.")
 @available(watchOS, unavailable)
-struct PaletteV5: PaletteProvider {
+struct PaletteV5: PaletteProvider, Sendable {
     /// :nodoc:
     public let uuid = UUID()
     

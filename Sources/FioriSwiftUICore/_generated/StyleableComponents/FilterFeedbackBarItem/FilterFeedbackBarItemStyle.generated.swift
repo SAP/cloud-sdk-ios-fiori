@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FilterFeedbackBarItemStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FilterFeedbackBarItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> Body
 }
 
 struct AnyFilterFeedbackBarItemStyle: FilterFeedbackBarItemStyle {
@@ -46,5 +46,15 @@ public struct FilterFeedbackBarItemFioriStyle: FilterFeedbackBarItemStyle {
             .iconStyle(IconFioriStyle(filterFeedbackBarItemConfiguration: configuration))
             .titleStyle(TitleFioriStyle(filterFeedbackBarItemConfiguration: configuration))
             .accessoryIconStyle(AccessoryIconFioriStyle(filterFeedbackBarItemConfiguration: configuration))
+    }
+}
+
+struct FilterFeedbackBarItemDefaultStyle: FilterFeedbackBarItemStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
+        FilterFeedbackBarItem(configuration)
+            .filterFeedbackBarItemStyle(FilterFeedbackBarItemFioriStyle())
+            .modifier(FilterFeedbackBarItemStyleModifier(style: FilterFeedbackBarItemBaseStyle()))
     }
 }

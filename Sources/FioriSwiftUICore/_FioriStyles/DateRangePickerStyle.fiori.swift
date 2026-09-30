@@ -215,6 +215,7 @@ public extension DateRangePicker {
     ///   - rangeFormatter: Range date formatter. The default date formatter conforms system setting, it uses short date type in compact screen and uses long date type in regular screen.
     ///   - noRangeSelectedString: The text to be displayed when no range is selected. If this property is `nil`, the localized string “No range selected” will be used.
     ///   - pickerVisible: This property indicates whether the picker is to be displayed or not.
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),

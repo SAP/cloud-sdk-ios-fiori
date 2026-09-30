@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TimelineMarkerStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TimelineMarkerStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TimelineMarkerConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TimelineMarkerConfiguration) -> Body
 }
 
 struct AnyTimelineMarkerStyle: TimelineMarkerStyle {
@@ -54,5 +54,15 @@ public struct TimelineMarkerFioriStyle: TimelineMarkerStyle {
             .timelineNodeStyle(TimelineNodeFioriStyle(timelineMarkerConfiguration: configuration))
             .iconStyle(IconFioriStyle(timelineMarkerConfiguration: configuration))
             .titleStyle(TitleFioriStyle(timelineMarkerConfiguration: configuration))
+    }
+}
+
+struct TimelineMarkerDefaultStyle: TimelineMarkerStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TimelineMarkerConfiguration) -> some View {
+        TimelineMarker(configuration)
+            .timelineMarkerStyle(TimelineMarkerFioriStyle())
+            .modifier(TimelineMarkerStyleModifier(style: TimelineMarkerBaseStyle()))
     }
 }

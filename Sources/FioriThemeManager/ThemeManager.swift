@@ -21,7 +21,7 @@ import UIKit
  */
 public class ThemeManager {
     /// Singleton instance shared by all application components.
-    public static let shared = ThemeManager()
+    public nonisolated(unsafe) static let shared = ThemeManager()
     
     private init() {}
     

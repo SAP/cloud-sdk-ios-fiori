@@ -5,7 +5,7 @@ protocol NumberFormatterProvider {
     var numberFormatter: NumberFormatter { get }
 }
 
-extension KPIProgressExample: NumberFormatterProvider {
+extension KPIProgressExample: @preconcurrency NumberFormatterProvider {
     var numberFormatter: NumberFormatter {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal

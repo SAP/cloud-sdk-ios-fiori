@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 
 /// An enum for different version of `Palette`.
-public enum PaletteVersion: Int {
+public enum PaletteVersion: Int, Sendable {
     /// First snapshotted palette, from SAP Fiori SDK version 3.0 SP01
     @available(watchOS, unavailable)
     case v3_x

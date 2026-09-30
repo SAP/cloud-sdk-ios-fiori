@@ -5,7 +5,7 @@ import UIKit
 /// :nodoc:
 public extension FioriButton {
     /// Not for developers, back button used in navigation bar top leading action.
-    static let _backButton = FioriButton { _ in
+    nonisolated(unsafe) static let _backButton = FioriButton { _ in
         HStack {
             Image(systemName: "chevron.backward")
             Text("Back".localizedFioriString())
@@ -13,7 +13,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _writingAssistantButton = FioriButton { _ in
+    nonisolated(unsafe) static let _writingAssistantButton = FioriButton { _ in
         HStack {
             FioriIcon.actions.ai
             Text("Writing Assistant".localizedFioriString())
@@ -23,7 +23,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _undoButton = FioriButton { _ in
+    nonisolated(unsafe) static let _undoButton = FioriButton { _ in
         HStack {
             FioriIcon.actions.undo
             Text("Undo".localizedFioriString())
@@ -31,7 +31,7 @@ public extension FioriButton {
     }
     
     /// Not for developers
-    static let _redoButton = FioriButton { _ in
+    nonisolated(unsafe) static let _redoButton = FioriButton { _ in
         HStack {
             Text("Redo".localizedFioriString())
             FioriIcon.actions.redo
@@ -84,15 +84,15 @@ public enum WAHelperAction: Equatable {
 }
 
 struct WAHelperActionKey: EnvironmentKey {
-    static let defaultValue: Binding<WAHelperAction> = .constant(.none)
+    nonisolated(unsafe) static let defaultValue: Binding<WAHelperAction> = .constant(.none)
 }
 
 struct WASheetHeightUpdatedKey: EnvironmentKey {
-    static let defaultValue: ((CGFloat) -> Void)? = nil
+    nonisolated(unsafe) static let defaultValue: ((CGFloat) -> Void)? = nil
 }
 
 struct WAAuthorizationKey: EnvironmentKey {
-    static let defaultValue: (() async -> Bool)? = nil
+    nonisolated(unsafe) static let defaultValue: (() async -> Bool)? = nil
 }
 
 struct WAShowPanelKey: EnvironmentKey {

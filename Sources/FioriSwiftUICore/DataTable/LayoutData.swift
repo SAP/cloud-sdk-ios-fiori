@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 // swiftlint:disable file_length
-class LayoutData {
+class LayoutData: @unchecked Sendable {
     var size: CGSize = .zero
     
     var sizeClass: UserInterfaceSizeClass = .compact
@@ -673,21 +673,6 @@ class LayoutData {
         self.allDataItems = ld.allDataItems
         self.firstBaselineHeights = ld.firstBaselineHeights
         self.numOfErrors = ld.numOfErrors
-    }
-    
-    func multipleLineTextSize(text: String, font: UIFont, numberOfLines: Int, width: CGFloat) -> CGSize {
-        let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: width, height: 2000)
-        label.text = text
-        label.font = font
-        label.numberOfLines = numberOfLines
-        label.textColor = .black
-        
-        let sizeToFit = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let tmpTextSize = label.sizeThatFits(sizeToFit)
-        let textSize = CGSize(width: max(1, min(width, tmpTextSize.width)), height: tmpTextSize.height)
-    
-        return textSize
     }
 }
 

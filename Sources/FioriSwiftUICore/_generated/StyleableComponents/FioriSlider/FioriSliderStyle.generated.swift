@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FioriSliderStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FioriSliderStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FioriSliderConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FioriSliderConfiguration) -> Body
 }
 
 struct AnyFioriSliderStyle: FioriSliderStyle {
@@ -86,5 +86,15 @@ public struct FioriSliderFioriStyle: FioriSliderStyle {
             .trailingAccessoryStyle(TrailingAccessoryFioriStyle(fioriSliderConfiguration: configuration))
             .rangeSliderControlStyle(RangeSliderControlFioriStyle(fioriSliderConfiguration: configuration))
             .informationViewStyle(InformationViewFioriStyle(fioriSliderConfiguration: configuration))
+    }
+}
+
+struct FioriSliderDefaultStyle: FioriSliderStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FioriSliderConfiguration) -> some View {
+        FioriSlider(configuration)
+            .fioriSliderStyle(FioriSliderFioriStyle())
+            .modifier(FioriSliderStyleModifier(style: FioriSliderBaseStyle()))
     }
 }

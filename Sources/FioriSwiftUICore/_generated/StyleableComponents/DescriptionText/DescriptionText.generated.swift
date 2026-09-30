@@ -25,6 +25,7 @@ public extension DescriptionText {
 }
 
 public extension DescriptionText {
+    @MainActor
     init(descriptionText: AttributedString? = nil) {
         self.init(descriptionText: { OptionalText(descriptionText) })
     }
@@ -64,6 +65,7 @@ private extension DescriptionText {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DescriptionText(.init(componentIdentifier: self.componentIdentifier, descriptionText: .init(self.descriptionText)))
             .shouldApplyDefaultStyle(false)

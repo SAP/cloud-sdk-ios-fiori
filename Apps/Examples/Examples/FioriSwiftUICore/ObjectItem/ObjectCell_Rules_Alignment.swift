@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
+struct ObjectCell_Rules_Alignment: @preconcurrency ObjectItemListDataProtocol {
     @State private var isShowingDetailView: Bool = false
     
     init(cellTapped: Binding<Bool>) {}
@@ -62,6 +62,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
         }
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         let oi: any View
         switch (indexPath.section, indexPath.row) {

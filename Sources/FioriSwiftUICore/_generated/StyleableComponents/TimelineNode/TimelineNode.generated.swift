@@ -25,6 +25,7 @@ public extension TimelineNode {
 }
 
 public extension TimelineNode {
+    @MainActor
     init(timelineNode: TimelineNodeType) {
         self.init(timelineNode: { TimelineNodeView(timelineNode) })
     }
@@ -64,6 +65,7 @@ private extension TimelineNode {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TimelineNode(.init(componentIdentifier: self.componentIdentifier, timelineNode: .init(self.timelineNode)))
             .shouldApplyDefaultStyle(false)

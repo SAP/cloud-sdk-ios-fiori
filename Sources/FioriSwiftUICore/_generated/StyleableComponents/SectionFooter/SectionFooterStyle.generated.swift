@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SectionFooterStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SectionFooterStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SectionFooterConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SectionFooterConfiguration) -> Body
 }
 
 struct AnySectionFooterStyle: SectionFooterStyle {
@@ -43,5 +43,15 @@ public struct SectionFooterFioriStyle: SectionFooterStyle {
         SectionFooter(configuration)
             .titleStyle(TitleFioriStyle(sectionFooterConfiguration: configuration))
             .attributeStyle(AttributeFioriStyle(sectionFooterConfiguration: configuration))
+    }
+}
+
+struct SectionFooterDefaultStyle: SectionFooterStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SectionFooterConfiguration) -> some View {
+        SectionFooter(configuration)
+            .sectionFooterStyle(SectionFooterFioriStyle())
+            .modifier(SectionFooterStyleModifier(style: SectionFooterBaseStyle()))
     }
 }

@@ -21,7 +21,7 @@ struct ObjectItemActionButtonStyle: FioriButtonStyle {
     }
 }
 
-struct SingleActionProfiles: ObjectItemListDataProtocol {
+struct SingleActionProfiles: @preconcurrency ObjectItemListDataProtocol {
     @Binding var cellTapped: Bool
     
     init(cellTapped: Binding<Bool>) {
@@ -60,7 +60,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
         false
     }
     
-    //    @ViewBuilder
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         let oi: any View
         switch (indexPath.section, indexPath.row) {

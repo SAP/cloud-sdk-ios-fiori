@@ -112,7 +112,7 @@ public struct _DoneActionDefault: _ActionModel {
     public init() {}
 }
 
-public let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> AlertConfiguration? = { alertType in
+public nonisolated(unsafe) let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> AlertConfiguration? = { alertType in
     switch alertType {
     case .deny:
         return AlertConfiguration(title: NSLocalizedString("Without consent you will not be able to continue onboarding.", comment: ""), action: AlertConfiguration.Action(label: NSLocalizedString("Give Consent", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))

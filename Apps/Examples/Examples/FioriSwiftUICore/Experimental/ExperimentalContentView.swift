@@ -4,7 +4,7 @@ struct ExperimentalContentView: View {
     private var experiments: [Experiment] = [
         .init(view: ContactItemInitViewBuilderExample().asAnyView, label: "@ViewBuilder-based initializer (ContactItem)"),
         .init(view: ContactItemInitModelExample().asAnyView, label: "ViewModel-based initializer (ContactItem)"),
-        .init(view: ContactItemStateAndDataBindingExample(model: EmailContactViewModel.mike).asAnyView, label: "Example: State and Data Binding (ContactItem)"),
+        .init(view: ContactItemStateAndDataBindingExample(model: EmailContactViewModel()).asAnyView, label: "Example: State and Data Binding (ContactItem)"),
         .init(view: ContactItemActionItemsExample().asAnyView, label: "🧪 View - Action Items"),
         .init(view: StylingModifierExample().asAnyView, label: "🔬 Styling (Modifier)")
     ]

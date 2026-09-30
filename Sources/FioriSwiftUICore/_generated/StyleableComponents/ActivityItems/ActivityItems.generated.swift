@@ -35,6 +35,7 @@ public extension ActivityItems {
 }
 
 public extension ActivityItems {
+    @MainActor
     init(activityItems: [ActivityItemDataType] = []) {
         self.init(activityItems: { ActivityItemsListStack(activityItems) })
     }
@@ -74,6 +75,7 @@ private extension ActivityItems {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ActivityItems(.init(componentIdentifier: self.componentIdentifier, activityItems: .init(self.activityItems)))
             .shouldApplyDefaultStyle(false)

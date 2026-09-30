@@ -50,6 +50,7 @@ public extension ActivationScreen {
 }
 
 public extension ActivationScreen {
+    @MainActor
     init(title: AttributedString,
          descriptionText: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -104,6 +105,7 @@ private extension ActivationScreen {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ActivationScreen(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), descriptionText: .init(self.descriptionText), footnote: .init(self.footnote), action: .init(self.action), secondaryAction: .init(self.secondaryAction), illustratedMessage: .init(self.illustratedMessage), inputText: self.$inputText, showsIllustratedMessage: self.showsIllustratedMessage))
             .shouldApplyDefaultStyle(false)

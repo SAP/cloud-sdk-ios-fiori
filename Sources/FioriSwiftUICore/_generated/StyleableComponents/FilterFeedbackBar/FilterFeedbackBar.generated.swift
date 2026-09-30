@@ -46,6 +46,7 @@ public extension FilterFeedbackBar {
 }
 
 public extension FilterFeedbackBar {
+    @MainActor
     init(items: Binding<[[SortFilterItem]]>,
          onUpdate: (() -> Void)? = nil)
     {
@@ -88,6 +89,7 @@ private extension FilterFeedbackBar {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         FilterFeedbackBar(.init(componentIdentifier: self.componentIdentifier, items: .init(self.items), onUpdate: self.onUpdate))
             .shouldApplyDefaultStyle(false)

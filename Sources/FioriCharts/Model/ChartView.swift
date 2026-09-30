@@ -105,7 +105,7 @@ public extension ChartView where Content == EmptyView {
 }
 
 struct ChartSeriesShapeStyleEnvironmentKey: EnvironmentKey {
-    static let defaultValue: [Int: AnyShapeStyle] = [:]
+    nonisolated(unsafe) static let defaultValue: [Int: AnyShapeStyle] = [:]
 }
 
 extension EnvironmentValues {
@@ -121,7 +121,7 @@ extension EnvironmentValues {
 }
 
 struct ChartCategoryShapeStyleEnvironmentKey: EnvironmentKey {
-    static let defaultValue: [Int: [Int: AnyShapeStyle]] = [:]
+    nonisolated(unsafe) static let defaultValue: [Int: [Int: AnyShapeStyle]] = [:]
 }
 
 extension EnvironmentValues {

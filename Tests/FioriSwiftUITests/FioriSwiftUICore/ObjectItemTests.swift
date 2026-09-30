@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class ObjectItemTests: XCTestCase {
+@MainActor final class ObjectItemTests: XCTestCase {
     // MARK: - Basic Initialization Tests
     
     func testObjectItem_DefaultInitialization() {

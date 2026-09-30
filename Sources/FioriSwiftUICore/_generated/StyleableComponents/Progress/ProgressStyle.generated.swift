@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FioriProgressViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FioriProgressViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FioriProgressViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FioriProgressViewConfiguration) -> Body
 }
 
 struct AnyFioriProgressViewStyle: FioriProgressViewStyle {
@@ -31,5 +31,14 @@ public struct FioriProgressViewConfiguration {
 extension FioriProgressViewConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct FioriProgressViewDefaultStyle: FioriProgressViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
+        FioriProgressView(configuration)
+            .fioriProgressViewStyle(FioriProgressViewBaseStyle())
     }
 }

@@ -25,6 +25,7 @@ public extension SaveAction {
 }
 
 public extension SaveAction {
+    @MainActor
     init(saveAction: FioriButton? = FioriButton { _ in Text("Save".localizedFioriString()) }) {
         self.init(saveAction: { saveAction })
     }
@@ -64,6 +65,7 @@ private extension SaveAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SaveAction(.init(componentIdentifier: self.componentIdentifier, saveAction: .init(self.saveAction)))
             .shouldApplyDefaultStyle(false)

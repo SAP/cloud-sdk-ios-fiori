@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol KeyValueFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol KeyValueFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: KeyValueFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: KeyValueFormViewConfiguration) -> Body
 }
 
 struct AnyKeyValueFormViewStyle: KeyValueFormViewStyle {
@@ -56,5 +56,15 @@ public struct KeyValueFormViewFioriStyle: KeyValueFormViewStyle {
             .textViewStyle(TextViewFioriStyle(keyValueFormViewConfiguration: configuration))
             .placeholderStyle(PlaceholderFioriStyle(keyValueFormViewConfiguration: configuration))
             .noteFormViewStyle(NoteFormViewFioriStyle(keyValueFormViewConfiguration: configuration))
+    }
+}
+
+struct KeyValueFormViewDefaultStyle: KeyValueFormViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
+        KeyValueFormView(configuration)
+            .keyValueFormViewStyle(KeyValueFormViewFioriStyle())
+            .modifier(KeyValueFormViewStyleModifier(style: KeyValueFormViewBaseStyle()))
     }
 }

@@ -5,7 +5,7 @@ import XCTest
 // If using ViewInspector, uncomment the next line and ensure it's added as a test dependency
 // import ViewInspector
 
-final class BannerMessageStyleTests: XCTestCase {
+@MainActor final class BannerMessageStyleTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createTestConfiguration(
@@ -703,7 +703,7 @@ final class BannerMessageStyleTests: XCTestCase {
 
 // MARK: - Integration Tests
 
-final class BannerMessageStyleIntegrationTests: XCTestCase {
+@MainActor final class BannerMessageStyleIntegrationTests: XCTestCase {
     func testBannerMessageStyle_ProtocolConformance() {
         // Test that all styles conform to BannerMessageStyle protocol
         let baseStyle: any BannerMessageStyle = BannerMessageBaseStyle()

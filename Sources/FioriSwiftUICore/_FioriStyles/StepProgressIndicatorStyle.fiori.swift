@@ -16,7 +16,7 @@ public extension EnvironmentValues {
 }
 
 /// :nodoc:
-public extension StepProgressIndicator {
+@MainActor public extension StepProgressIndicator {
     init(selection: Binding<String>,
          @ViewBuilder title: () -> any View = { EmptyView() },
          @ViewBuilder action: () -> any View = { EmptyView() },

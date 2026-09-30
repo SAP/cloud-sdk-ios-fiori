@@ -63,16 +63,18 @@ struct DocumentScannerViewExample: View {
         .navigationTitle("Document Scanner")
         .fullScreenCover(isPresented: self.$isScannerPresented) {
             DocumentScannerView(onCompletion: { result in
-                switch result {
-                case .success(.images(let images)):
-                    self.scannedImages = images
-                    self.pdfDocument = nil
-                case .success(.pdf(let pdf)):
-                    self.pdfDocument = pdf
-                    self.pdfIdentifier += 1
-                    self.scannedImages = []
-                case .failure(let error):
-                    print("Failed to scan: \(error)")
+                Task { @MainActor in
+                    switch result {
+                    case .success(.images(let images)):
+                        self.scannedImages = images
+                        self.pdfDocument = nil
+                    case .success(.pdf(let pdf)):
+                        self.pdfDocument = pdf
+                        self.pdfIdentifier += 1
+                        self.scannedImages = []
+                    case .failure(let error):
+                        print("Failed to scan: \(error)")
+                    }
                 }
             }, outputFormat: self.isPDFDocument ? .pdf : .images)
                 .edgesIgnoringSafeArea(.all)

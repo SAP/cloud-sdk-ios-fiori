@@ -10,7 +10,7 @@ struct TableListView: View {
         }
     }
     
-    func makeBody(in rect: CGRect) -> some View {
+    @MainActor func makeBody(in rect: CGRect) -> some View {
         let views = self.layoutManager.getListItems()
         
         return VStack(alignment: .leading, spacing: 0) {

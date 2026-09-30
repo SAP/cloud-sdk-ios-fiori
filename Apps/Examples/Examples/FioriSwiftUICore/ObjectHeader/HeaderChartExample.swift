@@ -2,7 +2,7 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
-struct HeaderChartExample: ListDataProtocol {
+struct HeaderChartExample: @preconcurrency ListDataProtocol {
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
@@ -30,6 +30,7 @@ struct HeaderChartExample: ListDataProtocol {
         false
     }
     
+    @MainActor
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         let chartModel = ChartModel(chartType: .line,
                                     data: [[10, 30, 45, 55, 40, 70, 80]],

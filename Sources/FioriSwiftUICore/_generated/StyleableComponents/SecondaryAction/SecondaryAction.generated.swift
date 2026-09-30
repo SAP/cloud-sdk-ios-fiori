@@ -25,6 +25,7 @@ public extension SecondaryAction {
 }
 
 public extension SecondaryAction {
+    @MainActor
     init(secondaryAction: FioriButton? = nil) {
         self.init(secondaryAction: { secondaryAction })
     }
@@ -64,6 +65,7 @@ private extension SecondaryAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SecondaryAction(.init(componentIdentifier: self.componentIdentifier, secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)

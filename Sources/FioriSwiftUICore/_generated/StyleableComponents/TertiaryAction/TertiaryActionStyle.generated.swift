@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TertiaryActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TertiaryActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TertiaryActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TertiaryActionConfiguration) -> Body
 }
 
 struct AnyTertiaryActionStyle: TertiaryActionStyle {
@@ -31,5 +31,14 @@ public struct TertiaryActionConfiguration {
 extension TertiaryActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct TertiaryActionDefaultStyle: TertiaryActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TertiaryActionConfiguration) -> some View {
+        TertiaryAction(configuration)
+            .tertiaryActionStyle(TertiaryActionBaseStyle())
     }
 }

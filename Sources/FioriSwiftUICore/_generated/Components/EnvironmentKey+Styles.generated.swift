@@ -2,218 +2,194 @@
 // DO NOT EDIT
 import SwiftUI
 
-struct TitleModifierKey: EnvironmentKey {
+@MainActor struct TitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SubtitleModifierKey: EnvironmentKey {
+@MainActor struct SubtitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TagsModifierKey: EnvironmentKey {
+@MainActor struct TagsModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct FootnoteModifierKey: EnvironmentKey {
+@MainActor struct FootnoteModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct DescriptionTextModifierKey: EnvironmentKey {
+@MainActor struct DescriptionTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct DetailImageModifierKey: EnvironmentKey {
+@MainActor struct DetailImageModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct AttributeModifierKey: EnvironmentKey {
+@MainActor struct AttributeModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SecondaryAttributeModifierKey: EnvironmentKey {
+@MainActor struct SecondaryAttributeModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TimestampModifierKey: EnvironmentKey {
+@MainActor struct TimestampModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SecondaryTimestampModifierKey: EnvironmentKey {
+@MainActor struct SecondaryTimestampModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TrendModifierKey: EnvironmentKey {
+@MainActor struct TrendModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TrendImageModifierKey: EnvironmentKey {
+@MainActor struct TrendImageModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct StatusModifierKey: EnvironmentKey {
+@MainActor struct StatusModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SubstatusModifierKey: EnvironmentKey {
+@MainActor struct SubstatusModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct BodyTextModifierKey: EnvironmentKey {
+@MainActor struct BodyTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct BodyAttributedTextModifierKey: EnvironmentKey {
+@MainActor struct BodyAttributedTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct IconModifierKey: EnvironmentKey {
+@MainActor struct IconModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct AccessoryIconModifierKey: EnvironmentKey {
+@MainActor struct AccessoryIconModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct IconsModifierKey: EnvironmentKey {
+@MainActor struct IconsModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionTitleModifierKey: EnvironmentKey {
+@MainActor struct ActionTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct FirstActionTitleModifierKey: EnvironmentKey {
+@MainActor struct FirstActionTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SecondActionTitleModifierKey: EnvironmentKey {
+@MainActor struct SecondActionTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SeriesTitlesModifierKey: EnvironmentKey {
+@MainActor struct SeriesTitlesModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct KeyModifierKey: EnvironmentKey {
+@MainActor struct KeyModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ValueModifierKey: EnvironmentKey {
+@MainActor struct ValueModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ValuesModifierKey: EnvironmentKey {
+@MainActor struct ValuesModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ValueAxisTitleModifierKey: EnvironmentKey {
+@MainActor struct ValueAxisTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SecondaryValuesAxisTitleModifierKey: EnvironmentKey {
+@MainActor struct SecondaryValuesAxisTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct CategoryAxisTitleModifierKey: EnvironmentKey {
+@MainActor struct CategoryAxisTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct EmptyTextModifierKey: EnvironmentKey {
+@MainActor struct EmptyTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct KpiModifierKey: EnvironmentKey {
+@MainActor struct KpiModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct PlaceholderModifierKey: EnvironmentKey {
+@MainActor struct PlaceholderModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct LowerBoundTitleModifierKey: EnvironmentKey {
+@MainActor struct LowerBoundTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct UpperBoundTitleModifierKey: EnvironmentKey {
+@MainActor struct UpperBoundTitleModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct AvatarsModifierKey: EnvironmentKey {
+@MainActor struct AvatarsModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct FootnoteIconsModifierKey: EnvironmentKey {
+@MainActor struct FootnoteIconsModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct LeftIconModifierKey: EnvironmentKey {
+@MainActor struct LeftIconModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct RightIconModifierKey: EnvironmentKey {
+@MainActor struct RightIconModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionItemsModifierKey: EnvironmentKey {
+@MainActor struct ActionItemsModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionTextModifierKey: EnvironmentKey {
+@MainActor struct ActionTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ProgressIndicatorTextModifierKey: EnvironmentKey {
+@MainActor struct ProgressIndicatorTextModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TextInputValueModifierKey: EnvironmentKey {
+@MainActor struct CancelActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct CancelActionModifierKey: EnvironmentKey {
+@MainActor struct DoneActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct DoneActionModifierKey: EnvironmentKey {
+@MainActor struct NextActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ActionModifierKey: EnvironmentKey {
+@MainActor struct AllowActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct SecondaryActionModifierKey: EnvironmentKey {
+@MainActor struct DenyActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct TextInputModifierKey: EnvironmentKey {
+@MainActor struct NotNowActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct ItemsModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct ResetActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct ApplyActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct NextActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct AllowActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct DenyActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct NotNowActionModifierKey: EnvironmentKey {
+@MainActor struct ActionModifierKey: @preconcurrency EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }

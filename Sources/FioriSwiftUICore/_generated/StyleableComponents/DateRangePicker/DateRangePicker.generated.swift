@@ -100,6 +100,7 @@ public extension DateRangePicker {
 }
 
 public extension DateRangePicker {
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
@@ -164,6 +165,7 @@ private extension DateRangePicker {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DateRangePicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, range: self.range, selectedRange: self.$selectedRange, rangeFormatter: self.rangeFormatter, noRangeSelectedString: self.noRangeSelectedString, pickerVisible: self.$pickerVisible, showsClearAction: self.showsClearAction, clearAction: .init(self.clearAction)))
             .shouldApplyDefaultStyle(false)

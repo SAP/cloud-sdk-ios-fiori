@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol ToastMessageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol ToastMessageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: ToastMessageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: ToastMessageConfiguration) -> Body
 }
 
 struct AnyToastMessageStyle: ToastMessageStyle {
@@ -52,5 +52,15 @@ public struct ToastMessageFioriStyle: ToastMessageStyle {
         ToastMessage(configuration)
             .iconStyle(IconFioriStyle(toastMessageConfiguration: configuration))
             .titleStyle(TitleFioriStyle(toastMessageConfiguration: configuration))
+    }
+}
+
+struct ToastMessageDefaultStyle: ToastMessageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: ToastMessageConfiguration) -> some View {
+        ToastMessage(configuration)
+            .toastMessageStyle(ToastMessageFioriStyle())
+            .modifier(ToastMessageStyleModifier(style: ToastMessageBaseStyle()))
     }
 }
