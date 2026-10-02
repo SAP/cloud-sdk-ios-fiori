@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ProgressStyleModifier Structure Reference</title>
+    <title>FioriProgressViewFioriStyle Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ProgressStyleModifier" class="dashAnchor"></a>
-    <a title="ProgressStyleModifier Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/FioriProgressViewFioriStyle" class="dashAnchor"></a>
+    <a title="FioriProgressViewFioriStyle Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -31,7 +31,7 @@
             <img id="carat" src="../img/carat.png" alt=""/>
             <a href="../Structs.html">Structures</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            ProgressStyleModifier Structure Reference
+            FioriProgressViewFioriStyle Structure Reference
           </span>
         </p>
       </div>
@@ -41,12 +41,11 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>ProgressStyleModifier</h1>
+              <h1>FioriProgressViewFioriStyle</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProgressStyleModifier</span><span class="o">&lt;</span><span class="kt">Style</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ViewModifier</span> <span class="k">where</span> <span class="kt">Style</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ProgressStyle.html">ProgressStyle</a></span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FioriProgressViewFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a></span></code></pre>
 
                   </div>
                 </div>
@@ -59,9 +58,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI12ViewModifierP4body7content4BodyQzAA01_cD8_ContentVyxG_tF"></a>
-                      <a name="//apple_ref/swift/Method/body(content:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI12ViewModifierP4body7content4BodyQzAA01_cD8_ContentVyxG_tF">body(content:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore0a12ProgressViewA5StyleV8makeBodyyQrAA0adE13ConfigurationVF"></a>
+                      <a name="//apple_ref/swift/Method/makeBody(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore0a12ProgressViewA5StyleV8makeBodyyQrAA0adE13ConfigurationVF">makeBody(_:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -69,14 +68,15 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          
+                          <p>Undocumented</p>
+
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">body</span><span class="p">(</span><span class="nv">content</span><span class="p">:</span> <span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -781,6 +781,9 @@
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1067,9 +1070,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
@@ -3129,7 +3129,22 @@
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -4701,18 +4716,6 @@
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/Progress.html">Progress</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -4753,9 +4756,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -6599,8 +6599,8 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-08-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
     </div>
