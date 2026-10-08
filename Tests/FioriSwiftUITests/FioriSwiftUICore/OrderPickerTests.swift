@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 import XCTest
 
-final class OrderPickerTests: XCTestCase {
+@MainActor final class OrderPickerTests: XCTestCase {
     @EnvironmentObject var modelObject: OrderPickerModelObject
     
     struct CustomOrderPickerStyle: OrderPickerStyle {

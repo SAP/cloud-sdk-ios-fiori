@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol AttachmentButtonImageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol AttachmentButtonImageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> Body
 }
 
 struct AnyAttachmentButtonImageStyle: AttachmentButtonImageStyle {
@@ -38,5 +38,15 @@ extension AttachmentButtonImageConfiguration {
 public struct AttachmentButtonImageFioriStyle: AttachmentButtonImageStyle {
     public func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> some View {
         AttachmentButtonImage(configuration)
+    }
+}
+
+struct AttachmentButtonImageDefaultStyle: AttachmentButtonImageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: AttachmentButtonImageConfiguration) -> some View {
+        AttachmentButtonImage(configuration)
+            .attachmentButtonImageStyle(AttachmentButtonImageFioriStyle())
+            .modifier(AttachmentButtonImageStyleModifier(style: AttachmentButtonImageBaseStyle()))
     }
 }

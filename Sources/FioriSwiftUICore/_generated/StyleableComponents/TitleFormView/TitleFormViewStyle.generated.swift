@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol TitleFormViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol TitleFormViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: TitleFormViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: TitleFormViewConfiguration) -> Body
 }
 
 struct AnyTitleFormViewStyle: TitleFormViewStyle {
@@ -53,5 +53,15 @@ public struct TitleFormViewFioriStyle: TitleFormViewStyle {
             .placeholderStyle(PlaceholderFioriStyle(titleFormViewConfiguration: configuration))
             .placeholderTextFieldStyle(PlaceholderTextFieldFioriStyle(titleFormViewConfiguration: configuration))
             .formViewStyle(FormViewFioriStyle(titleFormViewConfiguration: configuration))
+    }
+}
+
+struct TitleFormViewDefaultStyle: TitleFormViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: TitleFormViewConfiguration) -> some View {
+        TitleFormView(configuration)
+            .titleFormViewStyle(TitleFormViewFioriStyle())
+            .modifier(TitleFormViewStyleModifier(style: TitleFormViewBaseStyle()))
     }
 }

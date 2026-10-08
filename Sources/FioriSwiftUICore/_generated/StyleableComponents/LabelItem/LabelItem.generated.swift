@@ -32,6 +32,7 @@ public extension LabelItem {
 }
 
 public extension LabelItem {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          alignment: HorizontalAlignment? = nil)
@@ -76,6 +77,7 @@ private extension LabelItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         LabelItem(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), alignment: self.alignment))
             .shouldApplyDefaultStyle(false)

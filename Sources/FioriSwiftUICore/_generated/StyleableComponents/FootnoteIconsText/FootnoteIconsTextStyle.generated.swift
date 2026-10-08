@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FootnoteIconsTextStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FootnoteIconsTextStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> Body
 }
 
 struct AnyFootnoteIconsTextStyle: FootnoteIconsTextStyle {
@@ -31,5 +31,14 @@ public struct FootnoteIconsTextConfiguration {
 extension FootnoteIconsTextConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct FootnoteIconsTextDefaultStyle: FootnoteIconsTextStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FootnoteIconsTextConfiguration) -> some View {
+        FootnoteIconsText(configuration)
+            .footnoteIconsTextStyle(FootnoteIconsTextBaseStyle())
     }
 }

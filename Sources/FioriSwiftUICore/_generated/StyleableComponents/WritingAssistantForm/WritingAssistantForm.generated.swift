@@ -57,6 +57,7 @@ public extension WritingAssistantForm {
 }
 
 public extension WritingAssistantForm {
+    @MainActor
     init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          doneAction: FioriButton? = FioriButton { _ in Text("Done".localizedFioriString()) },
          closeAction: FioriButton? = FioriButton { _ in Image(fioriName: "fiori.decline") },
@@ -117,6 +118,7 @@ private extension WritingAssistantForm {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         WritingAssistantForm(.init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction), doneAction: .init(self.doneAction), closeAction: .init(self.closeAction), backAction: .init(self.backAction), undoAction: .init(self.undoAction), redoAction: .init(self.redoAction), upVoteAction: .init(self.upVoteAction), downVoteAction: .init(self.downVoteAction), footnote: .init(self.footnote), text: self.$text, menus: self.menus))
             .shouldApplyDefaultStyle(false)

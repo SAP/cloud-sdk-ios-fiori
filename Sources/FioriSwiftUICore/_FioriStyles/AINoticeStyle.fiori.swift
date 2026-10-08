@@ -96,7 +96,7 @@ public extension View {
 }
 
 struct AINoticeKey: EnvironmentKey {
-    static let defaultValue = AINoticeItemConfiguration(
+    nonisolated(unsafe) static let defaultValue = AINoticeItemConfiguration(
         isPresented: .constant(false),
         icon: nil,
         description: nil,

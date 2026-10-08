@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol UserConsentPageStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol UserConsentPageStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: UserConsentPageConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: UserConsentPageConfiguration) -> Body
 }
 
 struct AnyUserConsentPageStyle: UserConsentPageStyle {
@@ -44,5 +44,15 @@ public struct UserConsentPageFioriStyle: UserConsentPageStyle {
             .titleStyle(TitleFioriStyle(userConsentPageConfiguration: configuration))
             .bodyTextStyle(BodyTextFioriStyle(userConsentPageConfiguration: configuration))
             .actionStyle(ActionFioriStyle(userConsentPageConfiguration: configuration))
+    }
+}
+
+struct UserConsentPageDefaultStyle: UserConsentPageStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: UserConsentPageConfiguration) -> some View {
+        UserConsentPage(configuration)
+            .userConsentPageStyle(UserConsentPageFioriStyle())
+            .modifier(UserConsentPageStyleModifier(style: UserConsentPageBaseStyle()))
     }
 }

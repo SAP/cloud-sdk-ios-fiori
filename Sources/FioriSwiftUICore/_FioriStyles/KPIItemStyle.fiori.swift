@@ -113,7 +113,7 @@ extension KPIItemFioriStyle {
 }
 
 /// Different sizes of KPIItem. The default is .small
-public enum KPIItemSize {
+public enum KPIItemSize: Sendable {
     /// Smaller size item.
     case small
     /// Medium size item.
@@ -123,7 +123,7 @@ public enum KPIItemSize {
 }
 
 /// KPIItem takes 3 types of subitem
-public enum KPISubitemType {
+public enum KPISubitemType: Sendable {
     /// the unit information for the metric displayed
     case unit
     /// an icon may be displayed to the left/right of a metric
@@ -132,7 +132,7 @@ public enum KPISubitemType {
     case metric
 }
 
-public protocol KPISubItemModel: Identifiable {
+public protocol KPISubItemModel: Identifiable, Sendable {
     /// Unique step ID.
     var id: UUID { get }
     var kPISubItemValue: TextOrIcon { get }
@@ -141,7 +141,7 @@ public protocol KPISubItemModel: Identifiable {
 
 /// Extension to provide an initializer for `KPIViewSubItem` from a `KPIViewSubItemModel
 public extension KPISubItem {
-    init(model: any KPISubItemModel) {
+    @MainActor init(model: any KPISubItemModel) {
         self.init(kPISubItemValue: model.kPISubItemValue, kPISubItemType: model.kPISubItemType)
     }
 }

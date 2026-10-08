@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class KeyValueItemTests: XCTestCase {
+@MainActor final class KeyValueItemTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createTestConfiguration(
@@ -297,7 +297,7 @@ final class KeyValueItemTests: XCTestCase {
 
 // MARK: - KeyValueItemConfiguration Tests
 
-final class KeyValueItemConfigurationTests: XCTestCase {
+@MainActor final class KeyValueItemConfigurationTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createTestConfiguration(
@@ -400,7 +400,7 @@ final class KeyValueItemConfigurationTests: XCTestCase {
 
 // MARK: - KeyValueItemStyle Tests
 
-final class KeyValueItemStyleTests: XCTestCase {
+@MainActor final class KeyValueItemStyleTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createTestConfiguration(
@@ -749,7 +749,7 @@ final class KeyValueItemStyleTests: XCTestCase {
 
 // MARK: - Integration Tests
 
-final class KeyValueItemIntegrationTests: XCTestCase {
+@MainActor final class KeyValueItemIntegrationTests: XCTestCase {
     func testKeyValueItemStyle_ProtocolConformance() {
         // Test that all styles conform to KeyValueItemStyle protocol
         let baseStyle: any KeyValueItemStyle = KeyValueItemBaseStyle()

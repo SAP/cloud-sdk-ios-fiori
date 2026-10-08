@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-protocol DemoViewStyle: DynamicProperty {
+@MainActor @preconcurrency protocol DemoViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: DemoViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: DemoViewConfiguration) -> Body
 }
 
 struct AnyDemoViewStyle: DemoViewStyle {
@@ -49,5 +49,15 @@ struct DemoViewFioriStyle: DemoViewStyle {
             .statusStyle(StatusFioriStyle(demoViewConfiguration: configuration))
             .actionStyle(ActionFioriStyle(demoViewConfiguration: configuration))
             .switchStyle(SwitchFioriStyle(demoViewConfiguration: configuration))
+    }
+}
+
+struct DemoViewDefaultStyle: DemoViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .demoViewStyle(DemoViewFioriStyle())
+            .modifier(DemoViewStyleModifier(style: DemoViewBaseStyle()))
     }
 }

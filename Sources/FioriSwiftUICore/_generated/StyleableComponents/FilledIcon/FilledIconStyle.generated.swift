@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol FilledIconStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol FilledIconStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: FilledIconConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: FilledIconConfiguration) -> Body
 }
 
 struct AnyFilledIconStyle: FilledIconStyle {
@@ -31,5 +31,14 @@ public struct FilledIconConfiguration {
 extension FilledIconConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct FilledIconDefaultStyle: FilledIconStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: FilledIconConfiguration) -> some View {
+        FilledIcon(configuration)
+            .filledIconStyle(FilledIconBaseStyle())
     }
 }

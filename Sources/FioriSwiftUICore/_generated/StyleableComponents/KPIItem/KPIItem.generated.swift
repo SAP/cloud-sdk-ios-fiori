@@ -59,6 +59,7 @@ public extension KPIItem {
 }
 
 public extension KPIItem {
+    @MainActor
     init(kpiCaption: AttributedString? = nil,
          items: [any KPISubItemModel] = [],
          proposedViewSize: KPIItemSize = .small,
@@ -105,6 +106,7 @@ private extension KPIItem {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         KPIItem(.init(componentIdentifier: self.componentIdentifier, kpiCaption: .init(self.kpiCaption), items: self.items, proposedViewSize: self.proposedViewSize, alignment: self.alignment))
             .shouldApplyDefaultStyle(false)

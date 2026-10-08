@@ -68,6 +68,7 @@ public extension DurationPicker {
 }
 
 public extension DurationPicker {
+    @MainActor
     init(title: AttributedString,
          valueLabel: AttributedString? = nil,
          mandatoryFieldIndicator: TextOrIcon? = .text("*"),
@@ -130,6 +131,7 @@ private extension DurationPicker {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         DurationPicker(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), valueLabel: .init(self.valueLabel), controlState: self.controlState, errorMessage: self.errorMessage, selection: self.$selection, maximumMinutes: self.maximumMinutes, minimumMinutes: self.minimumMinutes, minuteInterval: self.minuteInterval, measurementFormatter: self.measurementFormatter, pickerVisible: self.$pickerVisible))
             .shouldApplyDefaultStyle(false)

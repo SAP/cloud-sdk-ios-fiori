@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SecondaryTimestampStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SecondaryTimestampStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SecondaryTimestampConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SecondaryTimestampConfiguration) -> Body
 }
 
 struct AnySecondaryTimestampStyle: SecondaryTimestampStyle {
@@ -31,5 +31,14 @@ public struct SecondaryTimestampConfiguration {
 extension SecondaryTimestampConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct SecondaryTimestampDefaultStyle: SecondaryTimestampStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SecondaryTimestampConfiguration) -> some View {
+        SecondaryTimestamp(configuration)
+            .secondaryTimestampStyle(SecondaryTimestampBaseStyle())
     }
 }

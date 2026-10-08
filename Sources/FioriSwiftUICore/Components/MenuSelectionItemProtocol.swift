@@ -7,7 +7,7 @@ public protocol MenuSelectionItemProtocol {
 }
 
 public extension MenuSelectionItem {
-    init(model: MenuSelectionItemProtocol, action: (() -> Void)? = nil) {
+    @MainActor init(model: MenuSelectionItemProtocol, action: (() -> Void)? = nil) {
         self.init(icon: model.icon, title: model.title, action: action)
     }
 }

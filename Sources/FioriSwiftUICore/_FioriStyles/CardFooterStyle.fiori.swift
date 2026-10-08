@@ -16,7 +16,7 @@ public extension EnvironmentValues {
 }
 
 /// CardFooter button width mode
-public enum CardFooterButtonWidthMode: Int {
+public enum CardFooterButtonWidthMode: Int, Sendable {
     /// auto size based on card footer's width. When it is regular size class, up to 3 buttons are shown with intrinsic width; when it is compact size class, up to 2 buttons are shown with equal width.
     case auto
     
@@ -368,7 +368,7 @@ extension CardFooterFioriStyle {
 }
 
 /// Card Tests
-public enum CardFooterTests {
+@MainActor public enum CardFooterTests {
     static let footer0 = CardFooter(action: FioriButton(title: "Primary"))
     static let footer1 = CardFooter(secondaryAction: FioriButton(title: "Secondary"))
     static let footer2 = CardFooter(tertiaryAction: FioriButton(title: "Tertiary"))

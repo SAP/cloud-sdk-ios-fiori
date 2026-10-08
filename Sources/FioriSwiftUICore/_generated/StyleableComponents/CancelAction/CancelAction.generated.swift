@@ -25,6 +25,7 @@ public extension CancelAction {
 }
 
 public extension CancelAction {
+    @MainActor
     init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) }) {
         self.init(cancelAction: { cancelAction })
     }
@@ -64,6 +65,7 @@ private extension CancelAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         CancelAction(.init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction)))
             .shouldApplyDefaultStyle(false)

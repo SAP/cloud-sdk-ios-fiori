@@ -58,7 +58,7 @@ extension SearchableListView: View {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-public extension SearchableListView where CancelActionView == _ConditionalContent<_Action, EmptyView>,
+@MainActor public extension SearchableListView where CancelActionView == _ConditionalContent<_Action, EmptyView>,
     DoneActionView == _ConditionalContent<_Action, EmptyView>
 {
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.

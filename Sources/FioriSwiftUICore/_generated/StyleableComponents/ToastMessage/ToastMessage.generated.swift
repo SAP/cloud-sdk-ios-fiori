@@ -74,6 +74,7 @@ public extension ToastMessage {
 }
 
 public extension ToastMessage {
+    @MainActor
     init(icon: Image? = nil,
          title: AttributedString,
          duration: Double = 1,
@@ -138,6 +139,7 @@ private extension ToastMessage {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ToastMessage(.init(componentIdentifier: self.componentIdentifier, icon: .init(self.icon), title: .init(self.title), duration: self.duration, position: self.position, spacing: self.spacing, cornerRadius: self.cornerRadius, backgroundColor: self.backgroundColor, borderWidth: self.borderWidth, borderColor: self.borderColor, borderWidthIC: self.borderWidthIC, borderColorIC: self.borderColorIC, shadow: self.shadow, accessibilityMessage: self.accessibilityMessage))
             .shouldApplyDefaultStyle(false)

@@ -48,6 +48,7 @@ public extension ListPickerDestination {
 }
 
 public extension ListPickerDestination {
+    @MainActor
     init(cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
          applyAction: FioriButton? = FioriButton { _ in Text("Apply".localizedFioriString()) },
          selectedEntriesSectionTitle: AttributedString? = AttributedString("Selected".localizedFioriString()),
@@ -102,6 +103,7 @@ private extension ListPickerDestination {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         ListPickerDestination(.init(componentIdentifier: self.componentIdentifier, cancelAction: .init(self.cancelAction), applyAction: .init(self.applyAction), selectedEntriesSectionTitle: .init(self.selectedEntriesSectionTitle), selectAllAction: .init(self.selectAllAction), deselectAllAction: .init(self.deselectAllAction), allEntriesSectionTitle: .init(self.allEntriesSectionTitle), listPickerContent: .init(self.listPickerContent), prompt: .init(self.prompt)))
             .shouldApplyDefaultStyle(false)

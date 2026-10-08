@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// Step items data model for `StepProgressIndicator` with a default style.
-public protocol StepItem {
+public protocol StepItem: Sendable {
     /// Unique step ID.
     var id: String { get }
     /// Step title.

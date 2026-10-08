@@ -25,6 +25,7 @@ public extension AvatarsTitle {
 }
 
 public extension AvatarsTitle {
+    @MainActor
     init(avatarsTitle: AttributedString? = nil) {
         self.init(avatarsTitle: { OptionalText(avatarsTitle) })
     }
@@ -64,6 +65,7 @@ private extension AvatarsTitle {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         AvatarsTitle(.init(componentIdentifier: self.componentIdentifier, avatarsTitle: .init(self.avatarsTitle)))
             .shouldApplyDefaultStyle(false)

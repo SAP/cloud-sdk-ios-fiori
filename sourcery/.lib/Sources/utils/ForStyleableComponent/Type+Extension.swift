@@ -7,15 +7,15 @@ extension Type {
         \(importStatement)
         \(docText)
         \(accessLevelDecl)struct \(componentName) {
-            \(allStoredVariables.propertyListDecl)
+        	\(allStoredVariables.propertyListDecl)
         
-            @Environment(\\.\(componentName.lowercasingFirst())Style) var style
+        	@Environment(\\.\(componentName.lowercasingFirst())Style) var style
         
-            var componentIdentifier: String = \(componentName).identifier
+        	var componentIdentifier: String = \(componentName).identifier
         
-            fileprivate var _shouldApplyDefaultStyle = true
+        	fileprivate var _shouldApplyDefaultStyle = true
         
-            \(self.viewBuilderInit)
+        	\(self.viewBuilderInit)
         }
         
         \(self.identifierExtension)
@@ -29,73 +29,74 @@ extension Type {
         \(self.privateHelperExtension)
         """
     }
-    
+
     var viewBuilderInit: String {
         """
         public init(\(allStoredVariables.viewBuilderInitParams), \ncomponentIdentifier: String? = \(componentName).identifier) {
-            \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
-            self.componentIdentifier = componentIdentifier ?? \(componentName).identifier
+        	\(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
+        	self.componentIdentifier = componentIdentifier ?? \(componentName).identifier
         }
         """
     }
-    
+
     var identifierExtension: String {
         """
         extension \(componentName) {
-            public static let identifier = "fiori_\(componentName.lowercased())_component"
+        	public static let identifier = "fiori_\(componentName.lowercased())_component"
         }
         """
     }
-    
+
     var dataInitExtension: String {
         if self.resultBuilderVariables.isEmpty {
             return ""
         }
-        
+
         return """
         \(accessLevelDecl)extension \(componentName) {
-            init(\(allStoredVariables.dataInitParams)) {
-                \(allStoredVariables.dataInitBody)
-            }
+        	@MainActor
+        	init(\(allStoredVariables.dataInitParams)) {
+        		\(allStoredVariables.dataInitBody)
+        	}
         }
         """
     }
-    
+
     var configurationInitExtension: String {
         """
         \(accessLevelDecl)extension \(componentName) {
-            init(_ configuration: \(configurationName)) {
-                self.init(configuration, shouldApplyDefaultStyle: false)
-            }
+        	init(_ configuration: \(configurationName)) {
+        		self.init(configuration, shouldApplyDefaultStyle: false)
+        	}
         
-            internal init(_ configuration: \(configurationName), shouldApplyDefaultStyle: Bool) {
-                \(allStoredVariables.configurationInitBody)
-                self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
-                self.componentIdentifier = configuration.componentIdentifier
-            }
+        	internal init(_ configuration: \(configurationName), shouldApplyDefaultStyle: Bool) {
+        		\(allStoredVariables.configurationInitBody)
+        		self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
+        		self.componentIdentifier = configuration.componentIdentifier
+        	}
         }
         """
     }
-    
+
     var viewBodyExtension: String {
         """
         extension \(componentName): View {
-            public var body: some View {
-                if _shouldApplyDefaultStyle {
-                    self.defaultStyle()
-                } else {
-                    style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, \(allStoredVariables.configurationInitArgs))).typeErased
-                        .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
-                            if !stack.isEmpty {
-                                stack.removeLast()
-                            }
-                        }
-                }
-            }
+        	public var body: some View {
+        		if _shouldApplyDefaultStyle {
+        			self.defaultStyle()
+        		} else {
+        			style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, \(allStoredVariables.configurationInitArgs))).typeErased
+        				.transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
+        					if !stack.isEmpty {
+        						stack.removeLast()
+        					}
+        				}
+        		}
+        	}
         }
         """
     }
-    
+
     var privateHelperExtension: String {
         let initDecl = "\(componentName)(.init(componentIdentifier: self.componentIdentifier, \(allStoredVariables.configurationInitArgs)))"
         let fioriStyle: String
@@ -120,31 +121,32 @@ extension Type {
         case .none:
             return ""
         }
-        
+
         return """
         private extension \(componentName) {
-            func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
-                var s = self
-                s._shouldApplyDefaultStyle = bool
-                return s
-            }
+        	func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
+        		var s = self
+        		s._shouldApplyDefaultStyle = bool
+        		return s
+        	}
         
-            func defaultStyle() -> some View {
-                \(initDecl)
-                .shouldApplyDefaultStyle(false)
-                .\(styleProtocolName.lowercasingFirst())(\(fioriStyle))
-                .typeErased
-            }
+        	@MainActor
+        	func defaultStyle() -> some View {
+        		\(initDecl)
+        		.shouldApplyDefaultStyle(false)
+        		.\(styleProtocolName.lowercasingFirst())(\(fioriStyle))
+        		.typeErased
+        	}
         }
         """
     }
-    
+
     var viewEmptyCheckingExtension: String {
         """
         extension \(componentName): _ViewEmptyChecking {
-            public var isEmpty: Bool {
-                \(allStoredVariables.viewEmptyCheckingBody)
-            }
+        	public var isEmpty: Bool {
+        		\(allStoredVariables.viewEmptyCheckingBody)
+        	}
         }
         """
     }
@@ -162,6 +164,8 @@ extension Type {
             \(self.configurationDecl)
             
             \(self.configurationExtension)
+            
+            \(self.defaultStyleDecl)
             """
         case .composite:
             return """
@@ -174,41 +178,43 @@ extension Type {
             \(self.configurationExtension)
             
             \(self.fioriStyleDecl)
+            
+            \(self.defaultStyleDecl)
             """
         case .none:
             return ""
         }
     }
-    
+
     var configurationDecl: String {
         """
         \(accessLevelDecl)struct \(componentName)Configuration {
-            public var componentIdentifier: String = "fiori_\(componentName.lowercased())_component"
-            \(allStoredVariables.configurationPropertyListDecl)
+        	public var componentIdentifier: String = "fiori_\(componentName.lowercased())_component"
+        	\(allStoredVariables.configurationPropertyListDecl)
         }
         """
     }
-    
+
     var configurationExtension: String {
         """
         extension \(componentName)Configuration {
-            func isDirectChild(_ componentIdentifier: String) -> Bool {
-                return componentIdentifier == self.componentIdentifier
-            }
+        	func isDirectChild(_ componentIdentifier: String) -> Bool {
+        		return componentIdentifier == self.componentIdentifier
+        	}
         }
         """
     }
-    
+
     var styleProtocolDecl: String {
         """
-        \(accessLevelDecl)protocol \(styleProtocolName): DynamicProperty {
-            associatedtype Body: View
+        @MainActor @preconcurrency \(accessLevelDecl)protocol \(styleProtocolName): DynamicProperty {
+        	associatedtype Body: View
 
-            func makeBody(_ configuration: \(configurationName)) -> Body
+        	@MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: \(configurationName)) -> Body
         }
         """
     }
-    
+
     var styleProtocolExtensions: String {
         switch componentType {
         case .base:
@@ -216,15 +222,15 @@ extension Type {
             // MARK: \(styleProtocolName)
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
-                static var base: \(baseStyleName) {
-                    \(baseStyleName)()
-                }
+            	static var base: \(baseStyleName) {
+            		\(baseStyleName)()
+            	}
             }
 
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(fioriStyleName) {
-                static var fiori: \(fioriStyleName) {
-                    \(fioriStyleName)()
-                }
+            	static var fiori: \(fioriStyleName) {
+            		\(fioriStyleName)()
+            	}
             }
             """
         case .composite:
@@ -232,15 +238,15 @@ extension Type {
             // MARK: \(styleProtocolName)
             
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(baseStyleName) {
-                static var base: \(baseStyleName) {
-                    \(baseStyleName)()
-                }
+            	static var base: \(baseStyleName) {
+            		\(baseStyleName)()
+            	}
             }
 
             \(accessLevelDecl)extension \(styleProtocolName) where Self == \(fioriStyleName) {
-                static var fiori: \(fioriStyleName) {
-                    \(fioriStyleName)()
-                }
+            	static var fiori: \(fioriStyleName) {
+            		\(fioriStyleName)()
+            	}
             }
             
             \(self.childComponentStyleExtentionList)
@@ -249,60 +255,93 @@ extension Type {
             return ""
         }
     }
-    
+
     var childComponentStyleExtentionList: String {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
-        
+
         return protocols.map { type in
             let baseComponentStyleDecl = "\(self.componentName)\(type.styleProtocolName)"
             let styleModifierFuncName = "\(type.styleProtocolName.lowercasingFirst())"
             let styleModifierExpr = ".\(styleModifierFuncName)"
             return """
             \(accessLevelDecl)struct \(baseComponentStyleDecl): \(self.styleProtocolName) {
-                let style: any \(type.styleProtocolName)
+            	let style: any \(type.styleProtocolName)
             
-                public func makeBody(_ configuration: \(self.configurationName)) -> some View {
-                    \(self.componentName)(configuration)
-                        \(styleModifierExpr)(self.style)
-                        .typeErased
-                }
+            	public func makeBody(_ configuration: \(self.configurationName)) -> some View {
+            		\(self.componentName)(configuration)
+            			\(styleModifierExpr)(self.style)
+            			.typeErased
+            	}
             }
             
             \(accessLevelDecl)extension \(self.styleProtocolName) where Self == \(baseComponentStyleDecl) {
-                static func \(styleModifierFuncName)<Style: \(type.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
-                    \(baseComponentStyleDecl)(style: style)
-                }
+            	static func \(styleModifierFuncName)<Style: \(type.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
+            		\(baseComponentStyleDecl)(style: style)
+            	}
             
-                static func \(styleModifierFuncName)(@ViewBuilder content: @escaping (\(type.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
-                    let style = Any\(type.styleProtocolName)(content)
-                    return \(baseComponentStyleDecl)(style: style)
-                }
+            	@MainActor static func \(styleModifierFuncName)(@ViewBuilder content: @escaping (\(type.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
+            		let style = Any\(type.styleProtocolName)(content)
+            		return \(baseComponentStyleDecl)(style: style)
+            	}
             }
             """
         }
         .joined(separator: "\n\n")
     }
-    
+
     var fioriStyleDecl: String {
         """
         \(accessLevelDecl)struct \(fioriStyleName): \(styleProtocolName) {
-            public func makeBody(_ configuration: \(configurationName)) -> some View {
-                \(componentName)(configuration)
-                    \(self.componentFioriStyleModifierList)
-            }
+        	public func makeBody(_ configuration: \(configurationName)) -> some View {
+        		\(componentName)(configuration)
+        			\(self.componentFioriStyleModifierList)
+        	}
         }
         """
     }
-    
+
+    var defaultStyleName: String {
+        "\(componentName)DefaultStyle"
+    }
+
+    var defaultStyleDecl: String {
+        let body: String
+        switch componentType {
+        case .base:
+            body = """
+            \(componentName)(configuration)
+            	.\(styleProtocolName.lowercasingFirst())(\(baseStyleName)())
+            """
+        case .composite:
+            body = """
+            \(componentName)(configuration)
+            	.\(styleProtocolName.lowercasingFirst())(\(fioriStyleName)())
+            	.modifier(\(styleModifierName)(style: \(baseStyleName)()))
+            """
+        case .none:
+            return ""
+        }
+
+        return """
+        struct \(self.defaultStyleName): \(styleProtocolName) {
+        	nonisolated init() {}
+
+        	func makeBody(_ configuration: \(configurationName)) -> some View {
+        		\(body)
+        	}
+        }
+        """
+    }
+
     var componentFioriStyleModifierList: String {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
-        
+
         return protocols.map { type in
             ".\(type.styleProtocolName.lowercasingFirst())(\(type.fioriStyleName)(\(self.configurationName.lowercasingFirst()): configuration))"
         }
         .joined(separator: "\n")
     }
-    
+
     var styleProtocolImplementations: String {
         switch componentType {
         case .base:
@@ -318,22 +357,22 @@ extension Type {
 
             // Base Layout style
             \(accessLevelDecl)struct \(baseStyleName): \(styleProtocolName) {
-                @ViewBuilder
-                public func makeBody(_ configuration: \(configurationName)) -> some View {
-                    // Add default layout here
-                    \(allStoredVariables.configurationResultBuilderPropertyListDecl)
-                }
+            	@ViewBuilder
+            	public func makeBody(_ configuration: \(configurationName)) -> some View {
+            		// Add default layout here
+            		\(allStoredVariables.configurationResultBuilderPropertyListDecl)
+            	}
             }
 
             // Default fiori styles
             \(accessLevelDecl)struct \(fioriStyleName): \(styleProtocolName) {
-                @ViewBuilder
-                public func makeBody(_ configuration: \(configurationName)) -> some View {
-                    \(componentName)(configuration)
-                        // Add default style here
-                        //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-                        //.font(.fiori(forTextStyle: <#fiori font#>))
-                }
+            	@ViewBuilder
+            	public func makeBody(_ configuration: \(configurationName)) -> some View {
+            		\(componentName)(configuration)
+            			// Add default style here
+            			//.foregroundStyle(Color.preferredColor(<#fiori color#>))
+            			//.font(.fiori(forTextStyle: <#fiori font#>))
+            	}
             }
             """
             .commented()
@@ -350,17 +389,17 @@ extension Type {
 
             // Base Layout style
             \(accessLevelDecl)struct \(baseStyleName): \(styleProtocolName) {
-                public func makeBody(_ configuration: \(configurationName)) -> some View {
-                    // Add default layout here
-                    \(allStoredVariables.configurationResultBuilderPropertyListDecl)
-                }
+            	public func makeBody(_ configuration: \(configurationName)) -> some View {
+            		// Add default layout here
+            		\(allStoredVariables.configurationResultBuilderPropertyListDecl)
+            	}
             }
             
             // Default fiori styles
             extension \(fioriStyleName) {
-                \(self.compositeComponentContentFioriStyleDecl)
+            	\(self.compositeComponentContentFioriStyleDecl)
             
-                \(self.compositeComponentFioriStyleDeclList)
+            	\(self.compositeComponentFioriStyleDeclList)
             }
             """
             .commented()
@@ -368,183 +407,183 @@ extension Type {
             return ""
         }
     }
-    
+
     var compositeComponentContentFioriStyleDecl: String {
         """
         struct ContentFioriStyle: \(self.styleProtocolName) {
-            func makeBody(_ configuration: \(self.configurationName)) -> some View {
-                \(self.componentName)(configuration)
-                // Add default style for its content
-                //.background()
-            }
+        	func makeBody(_ configuration: \(self.configurationName)) -> some View {
+        		\(self.componentName)(configuration)
+        		// Add default style for its content
+        		//.background()
+        	}
         }
         """
     }
-    
+
     var compositeComponentFioriStyleDeclList: String {
         let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
-        
+
         return protocols.map { type in
             """
             struct \(type.fioriStyleName): \(type.styleProtocolName) {
-                let \(self.configurationName.lowercasingFirst()): \(self.configurationName)
+            	let \(self.configurationName.lowercasingFirst()): \(self.configurationName)
             
-                func makeBody(_ configuration: \(type.configurationName)) -> some View {
-                    \(type.componentName)(configuration)
-                    // Add default style for \(type.componentName)
-                    //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-                    //.font(.fiori(forTextStyle: <#fiori font#>))
-                }
+            	func makeBody(_ configuration: \(type.configurationName)) -> some View {
+            		\(type.componentName)(configuration)
+            		// Add default style for \(type.componentName)
+            		//.foregroundStyle(Color.preferredColor(<#fiori color#>))
+            		//.font(.fiori(forTextStyle: <#fiori font#>))
+            	}
             }
             """
         }
         .joined(separator: "\n\n")
     }
-    
+
     var styleTypeEraserDecl: String {
         """
         struct Any\(styleProtocolName): \(styleProtocolName) {
-            let content: (\(configurationName)) -> any View
+        	let content: (\(configurationName)) -> any View
         
-            init(@ViewBuilder _ content: @escaping (\(configurationName)) -> any View) {
-                self.content = content
-            }
+        	init(@ViewBuilder _ content: @escaping (\(configurationName)) -> any View) {
+        		self.content = content
+        	}
         
-            public func makeBody(_ configuration: \(configurationName)) -> some View {
-                self.content(configuration).typeErased
-            }
+        	public func makeBody(_ configuration: \(configurationName)) -> some View {
+        		self.content(configuration).typeErased
+        	}
         }
         """
     }
-    
+
     var resolvedStyleDecl: String {
         """
         // MARK: \(styleProtocolName)
         
-        struct Resolved\(styleProtocolName)<Style: \(styleProtocolName)>: View {
-            let style: Style
-            let configuration: \(configurationName)
-            var body: some View {
-                style.makeBody(configuration)
-            }
+        @MainActor struct Resolved\(styleProtocolName)<Style: \(styleProtocolName)>: View {
+        	let style: Style
+        	let configuration: \(configurationName)
+        	var body: some View {
+        		style.makeBody(configuration)
+        	}
         }
         
-        extension \(styleProtocolName) {
-            func resolve(configuration: \(configurationName)) -> some View {
-                Resolved\(styleProtocolName)(style: self, configuration: configuration)
-            }
+        @MainActor extension \(styleProtocolName) {
+        	func resolve(configuration: \(configurationName)) -> some View {
+        		Resolved\(styleProtocolName)(style: self, configuration: configuration)
+        	}
         }
         """
     }
-    
+
     var styleStackKeyDecl: String {
         let defaultStyle: String
         switch componentType {
         case .base:
-            defaultStyle = ".base"
+            defaultStyle = "\(self.defaultStyleName)()"
         case .composite:
-            defaultStyle = ".base.concat(.fiori)"
+            defaultStyle = "\(self.defaultStyleName)()"
         case .none:
             return ""
         }
-        
+
         return """
         // MARK: \(styleProtocolName)
         
         struct \(styleProtocolName)StackKey: EnvironmentKey {
-            static let defaultValue: [any \(styleProtocolName)] = []
+        	nonisolated(unsafe) static let defaultValue: [any \(styleProtocolName)] = []
         }
         
         extension EnvironmentValues {
-            var \(styleProtocolName.lowercasingFirst()): any \(styleProtocolName) {
-                \(styleStackVariableName).last ?? \(defaultStyle)
-            }
+        	var \(styleProtocolName.lowercasingFirst()): any \(styleProtocolName) {
+        		\(styleStackVariableName).last ?? \(defaultStyle)
+        	}
 
-            var \(styleStackVariableName): [any \(styleProtocolName)] {
-                get {
-                    self[\(styleStackKeyName).self]
-                }
-                set {
-                    self[\(styleStackKeyName).self] = newValue
-                }
-            }
+        	var \(styleStackVariableName): [any \(styleProtocolName)] {
+        		get {
+        			self[\(styleStackKeyName).self]
+        		}
+        		set {
+        			self[\(styleStackKeyName).self] = newValue
+        		}
+        	}
         }
         """
     }
-    
+
     var styleModifierDecl: String {
         """
         // MARK: \(styleProtocolName)
         
         extension ModifiedStyle: \(styleProtocolName) where Style: \(styleProtocolName) {
-            \(accessLevelDecl)func makeBody(_ configuration: \(configurationName)) -> some View {
-                \(componentName)(configuration)
-                    .\(styleProtocolName.lowercasingFirst())(self.style)
-                    .modifier(self.modifier)
-            }
+        	\(accessLevelDecl)func makeBody(_ configuration: \(configurationName)) -> some View {
+        		\(componentName)(configuration)
+        			.\(styleProtocolName.lowercasingFirst())(self.style)
+        			.modifier(self.modifier)
+        	}
         }
         
         \(accessLevelDecl)struct \(styleModifierName)<Style: \(styleProtocolName)>: ViewModifier {
-            let style: Style
+        	let style: Style
         
-            public func body(content: Content) -> some View {
-                content.\(styleProtocolName.lowercasingFirst())(self.style)
-            }
+        	public func body(content: Content) -> some View {
+        		content.\(styleProtocolName.lowercasingFirst())(self.style)
+        	}
         }
         
         \(accessLevelDecl)extension \(styleProtocolName) {
-            func modifier(_ modifier: some ViewModifier) -> some \(styleProtocolName) {
-                ModifiedStyle(style: self, modifier: modifier)
-            }
+        	func modifier(_ modifier: some ViewModifier) -> some \(styleProtocolName) {
+        		ModifiedStyle(style: self, modifier: modifier)
+        	}
         
-            func concat(_ style: some \(styleProtocolName)) -> some \(styleProtocolName) {
-                style.modifier(\(styleModifierName)(style: self))
-            }
+        	func concat(_ style: some \(styleProtocolName)) -> some \(styleProtocolName) {
+        		style.modifier(\(styleModifierName)(style: self))
+        	}
         }
         """
     }
-    
+
     var styleViewExtensionDecl: String {
         """
         // MARK: \(styleProtocolName)
         
         \(accessLevelDecl)extension View {
-            func \(styleProtocolName.lowercasingFirst())(_ style: some \(styleProtocolName)) -> some View {
-                self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
-                    stack.append(style)
-                }
-            }
+        	func \(styleProtocolName.lowercasingFirst())(_ style: some \(styleProtocolName)) -> some View {
+        		self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
+        			stack.append(style)
+        		}
+        	}
         
-            func \(styleProtocolName.lowercasingFirst())(@ViewBuilder content: @escaping (\(configurationName)) -> some View) -> some View {
-                self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
-                    let style = Any\(styleProtocolName)(content)
-                    stack.append(style)
-                }
-            }
+        	func \(styleProtocolName.lowercasingFirst())(@ViewBuilder content: @escaping (\(configurationName)) -> some View) -> some View {
+        		self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
+        			let style = Any\(styleProtocolName)(content)
+        			stack.append(style)
+        		}
+        	}
         }
         """
     }
-    
+
     var configurationExtensionDecl: String {
         let protocols = self.parentCompositeComponentProtocols + self.parentBaseComponentProtocols.filter { !$0.allStoredVariables.filter { !$0.isResultBuilder }.isEmpty }
         if protocols.isEmpty {
             return ""
         }
-        
+
         let memberList = protocols.map { type in
             """
             var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
-                \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)), shouldApplyDefaultStyle: true)
+            	\(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)), shouldApplyDefaultStyle: true)
             }
             """
         }
         .joined(separator: "\n\n")
-        
+
         return """
         // MARK: \(self.configurationName)
         
-        extension \(self.configurationName) {
-            \(memberList)
+        @MainActor extension \(self.configurationName) {
+        	\(memberList)
         }
         """
     }
@@ -554,31 +593,31 @@ extension Type {
     var configurationName: String {
         "\(componentName)Configuration"
     }
-    
+
     var styleProtocolName: String {
         "\(componentName)Style"
     }
-    
+
     var baseStyleName: String {
         "\(componentName)BaseStyle"
     }
-    
+
     var fioriStyleName: String {
         "\(componentName)FioriStyle"
     }
-    
+
     var styleModifierName: String {
         "\(self.styleProtocolName)Modifier"
     }
-    
+
     var styleStackKeyName: String {
         "\(self.styleProtocolName)StackKey"
     }
-    
+
     var styleStackVariableName: String {
         "\(self.styleProtocolName.lowercasingFirst())Stack"
     }
-    
+
     var styleStackKeyPathExpr: String {
         "\\.\(self.styleStackVariableName)"
     }
@@ -590,7 +629,7 @@ extension Type {
         case composite
         case none
     }
-    
+
     var componentType: ComponentType {
         if self.isBaseComponent {
             return .base
@@ -600,23 +639,23 @@ extension Type {
             return .none
         }
     }
-    
+
     var accessLevelDecl: String {
         self.isInternalComponent ? "" : "public "
     }
-    
+
     var isComponent: Bool {
         self.isBaseComponent || self.isCompositeComponent
     }
-    
+
     var isBaseComponent: Bool {
         annotations.isBaseComponent
     }
-    
+
     var isCompositeComponent: Bool {
         annotations.isCompositeComponent
     }
-    
+
     var isInternalComponent: Bool {
         annotations.isInternalComponent
     }
@@ -627,17 +666,17 @@ extension Type {
     var conformingBaseComponentProtocols: [Type] {
         self.conformingComponentProtocols.filter { $0.componentType == .base }
     }
-    
+
     // Composite component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
     var parentCompositeComponentProtocols: [Type] {
         self.directInheritedTypes.filter { $0.componentType == .composite }
     }
-    
+
     // Base component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
     var parentBaseComponentProtocols: [Type] {
         self.directInheritedTypes.filter { $0.componentType == .base }
     }
-    
+
     // All base and composite component protocols in the inheritance chain
     var conformingComponentProtocols: [Type] {
         var protocols: [Type] = []
@@ -647,17 +686,17 @@ extension Type {
         }
         return protocols
     }
-    
+
     private func traverse(_ type: Type, _ root: Type, _ result: inout [Type], _ set: inout Set<Type>) {
         if set.contains(type) {
             fatalError("Protocol \(root.name) implements \(type.name) twice in its declaration, which is not allowed.")
         }
-        
+
         if type.isComponent {
             result.append(type)
             set.insert(type)
         }
-        
+
         for p in type.directInheritedTypes {
             self.traverse(p, root, &result, &set)
         }

@@ -180,6 +180,7 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum IconBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

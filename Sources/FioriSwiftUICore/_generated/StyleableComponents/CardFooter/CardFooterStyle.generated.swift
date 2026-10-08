@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol CardFooterStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol CardFooterStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: CardFooterConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: CardFooterConfiguration) -> Body
 }
 
 struct AnyCardFooterStyle: CardFooterStyle {
@@ -47,5 +47,15 @@ public struct CardFooterFioriStyle: CardFooterStyle {
             .secondaryActionStyle(SecondaryActionFioriStyle(cardFooterConfiguration: configuration))
             .tertiaryActionStyle(TertiaryActionFioriStyle(cardFooterConfiguration: configuration))
             .overflowActionStyle(OverflowActionFioriStyle(cardFooterConfiguration: configuration))
+    }
+}
+
+struct CardFooterDefaultStyle: CardFooterStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .cardFooterStyle(CardFooterFioriStyle())
+            .modifier(CardFooterStyleModifier(style: CardFooterBaseStyle()))
     }
 }

@@ -5,7 +5,7 @@ import XCTest
 // If using ViewInspector, uncomment the next line and ensure it's added as a test dependency
 // import ViewInspector
 
-final class BannerMessageTests: XCTestCase {
+@MainActor final class BannerMessageTests: XCTestCase {
     // MARK: - Basic Initialization Tests
     
     func testBannerMessage_DefaultInitialization() {

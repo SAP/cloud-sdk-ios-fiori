@@ -58,6 +58,7 @@ private extension TextView {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TextView(.init(componentIdentifier: self.componentIdentifier, text: self.$text))
             .shouldApplyDefaultStyle(false)

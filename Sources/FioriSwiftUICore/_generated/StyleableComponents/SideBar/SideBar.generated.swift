@@ -190,6 +190,7 @@ private extension SideBar {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SideBar(.init(componentIdentifier: self.componentIdentifier, isEditing: self.$isEditing, queryString: self.$queryString, data: self.$data, selection: self.$selection, title: self.title, footer: .init(self.footer), editButton: .init(self.editButton), destination: self.destination, item: self.item, onDataChange: self.onDataChange, isUsedInSplitView: self.isUsedInSplitView))
             .shouldApplyDefaultStyle(false)

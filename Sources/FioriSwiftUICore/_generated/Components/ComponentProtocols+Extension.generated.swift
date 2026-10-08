@@ -240,12 +240,6 @@ public extension TagsComponent {
     }
 }
 
-public extension TextInputComponent {
-    var onCommit: (() -> Void)? {
-        return nil
-    }
-}
-
 public extension TimestampComponent {
     var timestamp: String? {
         return nil

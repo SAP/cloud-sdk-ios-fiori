@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol WritingAssistantActionStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol WritingAssistantActionStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: WritingAssistantActionConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: WritingAssistantActionConfiguration) -> Body
 }
 
 struct AnyWritingAssistantActionStyle: WritingAssistantActionStyle {
@@ -31,5 +31,14 @@ public struct WritingAssistantActionConfiguration {
 extension WritingAssistantActionConfiguration {
     func isDirectChild(_ componentIdentifier: String) -> Bool {
         componentIdentifier == self.componentIdentifier
+    }
+}
+
+struct WritingAssistantActionDefaultStyle: WritingAssistantActionStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: WritingAssistantActionConfiguration) -> some View {
+        WritingAssistantAction(configuration)
+            .writingAssistantActionStyle(WritingAssistantActionBaseStyle())
     }
 }

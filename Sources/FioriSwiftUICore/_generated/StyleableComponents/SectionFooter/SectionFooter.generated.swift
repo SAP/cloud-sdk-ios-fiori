@@ -36,6 +36,7 @@ public extension SectionFooter {
 }
 
 public extension SectionFooter {
+    @MainActor
     init(title: AttributedString,
          attribute: AttributedString? = nil,
          sectionFooterStyle: SectionHeaderFooterStyle = .title,
@@ -82,6 +83,7 @@ private extension SectionFooter {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SectionFooter(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), attribute: .init(self.attribute), sectionFooterStyle: self.sectionFooterStyle, didSelectHandler: self.didSelectHandler))
             .shouldApplyDefaultStyle(false)

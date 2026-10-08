@@ -228,10 +228,3 @@ public protocol DurationPickerComponent : AnyObject {
 public protocol ProgressIndicatorComponent {
     var progressIndicatorText: String? { get }
 }
-
-public protocol TextInputComponent : AnyObject {
-	// sourcery: bindingPropertyOptional=.constant("")
-    var textInputValue: String { get set }
-	// sourcery: no_view
-    var onCommit: (() -> Void)? { get }
-}

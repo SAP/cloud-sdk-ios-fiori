@@ -3,7 +3,7 @@ import FioriThemeManager
 import SwiftUI
 import XCTest
 
-final class ObjectHeaderTests: XCTestCase {
+@MainActor final class ObjectHeaderTests: XCTestCase {
     // MARK: - Basic Initialization Tests
     
     func testObjectHeader_DefaultInitialization() {

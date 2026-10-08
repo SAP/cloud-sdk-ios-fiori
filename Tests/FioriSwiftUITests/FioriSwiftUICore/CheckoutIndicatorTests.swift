@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class CheckoutIndicatorTests: XCTestCase {
+@MainActor final class CheckoutIndicatorTests: XCTestCase {
     // MARK: - Basic Initialization Tests
     
     func testInitWithInProgressState() {

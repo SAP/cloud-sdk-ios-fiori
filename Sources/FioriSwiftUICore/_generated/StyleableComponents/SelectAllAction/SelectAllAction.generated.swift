@@ -25,6 +25,7 @@ public extension SelectAllAction {
 }
 
 public extension SelectAllAction {
+    @MainActor
     init(selectAllAction: FioriButton? = FioriButton { _ in Text("Select All".localizedFioriString()) }) {
         self.init(selectAllAction: { selectAllAction })
     }
@@ -64,6 +65,7 @@ private extension SelectAllAction {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         SelectAllAction(.init(componentIdentifier: self.componentIdentifier, selectAllAction: .init(self.selectAllAction)))
             .shouldApplyDefaultStyle(false)

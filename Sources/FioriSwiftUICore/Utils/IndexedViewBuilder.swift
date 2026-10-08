@@ -82,6 +82,7 @@ public struct PairView<First: View, Second: IndexedViewContainer>: IndexedViewCo
 /// A custom view builder that return instance of type `IndexedViewContainer`.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @resultBuilder
+@MainActor @preconcurrency
 public enum IndexedViewBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> some IndexedViewContainer {

@@ -62,6 +62,7 @@ private extension TextInput {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         TextInput(.init(componentIdentifier: self.componentIdentifier, textInputValue: self.$textInputValue, onCommit: self.onCommit))
             .shouldApplyDefaultStyle(false)

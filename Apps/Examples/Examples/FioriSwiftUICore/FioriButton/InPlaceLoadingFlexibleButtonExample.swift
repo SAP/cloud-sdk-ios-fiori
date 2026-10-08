@@ -32,10 +32,11 @@ struct InPlaceLoadingFlexibleButtonExample: View {
             self.dismiss()
             return
         }
-        
-        _ = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false, block: { _ in
+
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(timeInterval))
             self.updateDataSource()
-        })
+        }
     }
     
     func titleStr(_ loadingState: FioriButtonLoadingState) -> AttributedString {

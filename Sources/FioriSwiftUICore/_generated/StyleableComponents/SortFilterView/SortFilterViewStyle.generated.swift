@@ -3,10 +3,10 @@
 import Foundation
 import SwiftUI
 
-public protocol SortFilterViewStyle: DynamicProperty {
+@MainActor @preconcurrency public protocol SortFilterViewStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: SortFilterViewConfiguration) -> Body
+    @MainActor @ViewBuilder @preconcurrency func makeBody(_ configuration: SortFilterViewConfiguration) -> Body
 }
 
 struct AnySortFilterViewStyle: SortFilterViewStyle {
@@ -51,5 +51,15 @@ public struct SortFilterViewFioriStyle: SortFilterViewStyle {
             .cancelActionStyle(CancelActionFioriStyle(sortFilterViewConfiguration: configuration))
             .applyActionStyle(ApplyActionFioriStyle(sortFilterViewConfiguration: configuration))
             .resetActionStyle(ResetActionFioriStyle(sortFilterViewConfiguration: configuration))
+    }
+}
+
+struct SortFilterViewDefaultStyle: SortFilterViewStyle {
+    nonisolated init() {}
+
+    func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
+        SortFilterView(configuration)
+            .sortFilterViewStyle(SortFilterViewFioriStyle())
+            .modifier(SortFilterViewStyleModifier(style: SortFilterViewBaseStyle()))
     }
 }

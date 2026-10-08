@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class KeyValueItemFioriStyleTests: XCTestCase {
+@MainActor final class KeyValueItemFioriStyleTests: XCTestCase {
     // MARK: - Helper Methods
     
     private func createTestConfiguration(

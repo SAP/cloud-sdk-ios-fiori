@@ -1,6 +1,6 @@
 import SwiftUI
 
-public enum ColorStyle: String, CaseIterable {
+public enum ColorStyle: String, CaseIterable, Sendable {
     // MARK: - Fiori Next Core Colors (116 Colors)
     
     // Core 1: Greys (1 - 11)
@@ -1613,7 +1613,7 @@ public enum ColorStyle: String, CaseIterable {
     case backgroundBase
     
     #if !os(watchOS)
-        public static var allCases: [ColorStyle] = [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6,
+        public static let allCases: [ColorStyle] = [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6,
                                                     .grey7, .grey8, .grey9, .grey10, .grey11, .blue1,
                                                     .blue2, .blue3, .blue4, .blue5, .blue6, .blue7,
                                                     .blue8, .blue9, .blue10, .blue11, .teal1, .teal2,
@@ -1658,7 +1658,7 @@ public enum ColorStyle: String, CaseIterable {
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6,
                                                     .esriEdit, .jouleBrand, .jouleAccent1, .jouleAccent2, .jouleAccent3, .jouleGradient1, .jouleGradient2, .jouleSelectedFill, .jouleSelectedLabel]
     #else
-        public static var allCases: [ColorStyle] = [.primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel, .primaryBackground, .secondaryBackground, .tertiaryBackground, .tintColor, .tintColorTapState, .negativeLabel, .negativeLabelTapState, .criticalLabel, .criticalLabelTapState, .positiveLabel, .positiveLabelTapState, .separator, .separatorOpaque, .accent1, .accent2, .accent3, .accent4, .accent5, .accent6, .accent7, .accent8, .accent9]
+        public static let allCases: [ColorStyle] = [.primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel, .primaryBackground, .secondaryBackground, .tertiaryBackground, .tintColor, .tintColorTapState, .negativeLabel, .negativeLabelTapState, .criticalLabel, .criticalLabelTapState, .positiveLabel, .positiveLabelTapState, .separator, .separatorOpaque, .accent1, .accent2, .accent3, .accent4, .accent5, .accent6, .accent7, .accent8, .accent9]
     #endif
 }
 

@@ -2,7 +2,7 @@
 import SwiftUI
 import XCTest
 
-final class TextInputFieldTests: XCTestCase {
+@MainActor final class TextInputFieldTests: XCTestCase {
     func testBasicRendering() {
         let textBinding = Binding<String>(get: { "" }, set: { _ in })
 

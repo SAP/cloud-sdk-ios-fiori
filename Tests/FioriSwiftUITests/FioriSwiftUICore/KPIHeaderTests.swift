@@ -15,7 +15,7 @@ struct KPISubItemModelImpl: KPISubItemModel {
     }
 }
 
-final class KPIHeaderTests: XCTestCase {
+@MainActor final class KPIHeaderTests: XCTestCase {
     var data: [KPIHeaderItemModel] = [
         KPIItem(kpiCaption: "small", items: [KPISubItemModelImpl(kPISubItemValue: .text("123"), kPISubItemType: .metric)], proposedViewSize: .small, alignment: .center),
         KPIProgressItem(kpiCaption: "Downloading", data: .constant(KPIItemData.percent(0.65))),

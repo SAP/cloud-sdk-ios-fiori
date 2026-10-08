@@ -25,6 +25,7 @@ public extension Substatus {
 }
 
 public extension Substatus {
+    @MainActor
     init(substatus: TextOrIcon? = nil) {
         self.init(substatus: { TextOrIconView(substatus) })
     }
@@ -64,6 +65,7 @@ private extension Substatus {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         Substatus(.init(componentIdentifier: self.componentIdentifier, substatus: .init(self.substatus)))
             .shouldApplyDefaultStyle(false)

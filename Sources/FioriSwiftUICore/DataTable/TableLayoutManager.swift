@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-class TableLayoutManager: ObservableObject {
+class TableLayoutManager: ObservableObject, @unchecked Sendable {
     let maxScaleAllowed: CGFloat = 4
     let minScaleAllowed: CGFloat = 0.5
     

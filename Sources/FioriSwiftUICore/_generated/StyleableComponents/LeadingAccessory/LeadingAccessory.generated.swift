@@ -58,6 +58,7 @@ private extension LeadingAccessory {
         return s
     }
 
+    @MainActor
     func defaultStyle() -> some View {
         LeadingAccessory(.init(componentIdentifier: self.componentIdentifier, leadingAccessory: .init(self.leadingAccessory)))
             .shouldApplyDefaultStyle(false)
