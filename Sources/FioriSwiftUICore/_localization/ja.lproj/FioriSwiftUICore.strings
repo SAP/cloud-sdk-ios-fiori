@@ -665,7 +665,7 @@
 "Undo change" = "変更を元に戻す";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "変更をやり直す";
+"Redo change" = "変更をやり直す";
 
 /* XBUT: Close button title */
 "Close" = "閉じる";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "ダブルタップして折りたたむ";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "カレンダを開きました。日付を選択してください";
 
 /* XTIT: On state for switch */
 "Switch On" = "オン";

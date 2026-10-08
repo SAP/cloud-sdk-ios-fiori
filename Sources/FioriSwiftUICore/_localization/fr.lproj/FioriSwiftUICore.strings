@@ -665,7 +665,7 @@
 "Undo change" = "Annuler la modification";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Restaurer la modification";
+"Redo change" = "Rétablir la modification";
 
 /* XBUT: Close button title */
 "Close" = "Fermer";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Toucher deux fois pour réduire";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Calendrier ouvert : sélectionner une date";
 
 /* XTIT: On state for switch */
 "Switch On" = "Activé";

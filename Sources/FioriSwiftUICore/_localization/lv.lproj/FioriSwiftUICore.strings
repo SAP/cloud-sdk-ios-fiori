@@ -665,7 +665,7 @@
 "Undo change" = "Atsaukt izmaiņas";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Atcelt izmaiņu atsaukšanu";
+"Redo change" = "Atcelt atsaukšanu izmaiņām";
 
 /* XBUT: Close button title */
 "Close" = "Aizvērt";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Veiciet dubultskārienu, lai sakļautu";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalendārs atvērts, atlasiet datumu";
 
 /* XTIT: On state for switch */
 "Switch On" = "Iesl.";

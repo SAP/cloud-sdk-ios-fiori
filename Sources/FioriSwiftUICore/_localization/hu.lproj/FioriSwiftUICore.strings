@@ -665,7 +665,7 @@
 "Undo change" = "Módosítás visszavonása";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Módosítás visszaállítása";
+"Redo change" = "Módosítás ismétlése";
 
 /* XBUT: Close button title */
 "Close" = "Bezárás";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Dupla koppintás visszazáráshoz";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Naptár megnyitva, válasszon dátumot";
 
 /* XTIT: On state for switch */
 "Switch On" = "Be";

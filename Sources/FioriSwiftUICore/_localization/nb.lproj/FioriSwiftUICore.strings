@@ -665,7 +665,7 @@
 "Undo change" = "Angre endring";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Gjenta endring";
+"Redo change" = "Gjenta endring";
 
 /* XBUT: Close button title */
 "Close" = "Lukk";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Dobbelttrykk for å komprimere";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalender åpnet, velg en dato";
 
 /* XTIT: On state for switch */
 "Switch On" = "På";
