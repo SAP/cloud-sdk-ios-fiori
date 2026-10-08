@@ -323,7 +323,9 @@ public class CalendarModel {
         if let startWeekDay = calendar.dateComponents([.weekday], from: start).weekday,
            let endWeekDay = calendar.dateComponents([.weekday], from: end).weekday
         {
-            additionalOffset = endWeekDay < startWeekDay ? 1 : 0
+            let fixedStartWeekDay = startWeekDay + (startWeekDay < self.calendar.firstWeekday ? 7 : 0)
+            let fixedEndWeekDay = endWeekDay + (endWeekDay < self.calendar.firstWeekday ? 7 : 0)
+            additionalOffset = fixedEndWeekDay < fixedStartWeekDay ? 1 : 0
         }
         
         return abs(weekComponents.weekOfYear ?? 0) + additionalOffset
