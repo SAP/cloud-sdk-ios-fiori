@@ -55,14 +55,3 @@ extension _UserConsentView: View {
             }
     }
 }
-
-// FIXME: - Implement UserConsentView specific LibraryContentProvider
-
-// @available(iOS 14.0, *)
-// struct UserConsentViewLibraryContent: LibraryContentProvider {
-//    @LibraryContentBuilder
-//    var views: [LibraryItem] {
-//        LibraryItem(UserConsentView(model: LibraryPreviewData.Person.laurelosborn),
-//                    category: .control)
-//    }
-// }

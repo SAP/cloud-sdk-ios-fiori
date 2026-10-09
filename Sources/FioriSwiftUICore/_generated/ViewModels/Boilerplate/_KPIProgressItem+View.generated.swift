@@ -52,15 +52,4 @@ extension _KPIProgressItem: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _KPIProgressItem specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _KPIProgressItemLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_KPIProgressItem(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

@@ -200,14 +200,3 @@ public enum UserConsentAlertType {
     /// Deny action
     case deny
 }
-
-// FIXME: - Implement UserConsentForm specific LibraryContentProvider
-
-// @available(iOS 14.0, *)
-// struct UserConsentFormLibraryContent: LibraryContentProvider {
-//    @LibraryContentBuilder
-//    var views: [LibraryItem] {
-//        LibraryItem(UserConsentForm(model: LibraryPreviewData.Person.laurelosborn),
-//                    category: .control)
-//    }
-// }
