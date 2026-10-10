@@ -154,7 +154,7 @@ struct ShimmerViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         self.shimmerContent(content: content)
-            .accessibilityHidden(self.isLoading)
+            .accessibilityElement(children: .contain)
             .overlay {
                 if self.isLoading {
                     Color.clear
@@ -163,7 +163,6 @@ struct ShimmerViewModifier: ViewModifier {
                         .accessibilityValue("")
                         .accessibilityHint("")
                         .accessibilityAddTraits(.isStaticText)
-                        .disabled(true)
                         .allowsHitTesting(false)
                 }
             }
