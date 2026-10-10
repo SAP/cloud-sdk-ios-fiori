@@ -665,7 +665,7 @@
 "Undo change" = "Dad-wneud y newid";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Ail-wneud y newid";
+"Redo change" = "Ail-wneud newid";
 
 /* XBUT: Close button title */
 "Close" = "Cau";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Tapiwch ddwywaith i gwympo";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Wedi agor y calendr, dewiswch ddyddiad";
 
 /* XTIT: On state for switch */
 "Switch On" = "Ymlaen";

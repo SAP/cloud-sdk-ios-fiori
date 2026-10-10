@@ -665,7 +665,7 @@
 "Undo change" = "Võta muudatus tagasi";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Tee muudatus uuesti";
+"Redo change" = "Tee muudatus uuesti";
 
 /* XBUT: Close button title */
 "Close" = "Sule";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Ahendamiseks topeltpuudutage";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalender on avatud, valige kuupäev";
 
 /* XTIT: On state for switch */
 "Switch On" = "Sees";

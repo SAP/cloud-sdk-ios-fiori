@@ -665,7 +665,7 @@
 "Undo change" = "เลิกทำการเปลี่ยนแปลง";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "ทำซ้ำการเปลี่ยนแปลง";
+"Redo change" = "ทำซ้ำการเปลี่ยนแปลง";
 
 /* XBUT: Close button title */
 "Close" = "ปิด";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "แตะสองครั้งเพื่อย่อรวม";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "เปิดปฏิทินแล้ว ให้เลือกวันที่";
 
 /* XTIT: On state for switch */
 "Switch On" = "เปิด";

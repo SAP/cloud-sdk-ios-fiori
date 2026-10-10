@@ -665,7 +665,7 @@
 "Undo change" = "Wijziging ongedaan maken";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Wijziging herhalen";
+"Redo change" = "Wijziging herstellen";
 
 /* XBUT: Close button title */
 "Close" = "Sluiten";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Tweemaal tikken om te verbergen";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalender geopend, selecteer een datum";
 
 /* XTIT: On state for switch */
 "Switch On" = "Aan";

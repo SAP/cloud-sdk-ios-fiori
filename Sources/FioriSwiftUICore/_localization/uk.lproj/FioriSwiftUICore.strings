@@ -644,7 +644,7 @@
 "Double tap to activate" = "Торкніться двічі, щоб активувати";
 
 /* XMSG: Writing assistant options entry cell hint for accessibility */
-"Open to see %@ options" = "Відкрити, щоб побачити опції %@";
+"Open to see %@ options" = "Відкрити, щоб побачити %@ опцій";
 
 /* XMSG: Writing assistant undo announcement */
 "Undo to Version %d of %d" = "Скасувати до версії %d %d";
@@ -665,7 +665,7 @@
 "Undo change" = "Скасувати зміну";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Повторити зміну";
+"Redo change" = "Повторити зміну";
 
 /* XBUT: Close button title */
 "Close" = "Закрити";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Двічі торкніться, щоб згорнути";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Календар відкрито, виберіть дату";
 
 /* XTIT: On state for switch */
 "Switch On" = "Увімк";

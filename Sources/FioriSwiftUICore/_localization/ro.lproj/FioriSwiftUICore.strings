@@ -665,7 +665,7 @@
 "Undo change" = "Renunțare la modificare";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Restaurare modificare";
+"Redo change" = "Restaurare modificare";
 
 /* XBUT: Close button title */
 "Close" = "Închidere";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Atingeți de două ori pentru comprimare";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Calendar deschis, selectați o dată";
 
 /* XTIT: On state for switch */
 "Switch On" = "Activat";
