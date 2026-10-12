@@ -153,23 +153,21 @@ struct ShimmerViewModifier: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        let shimmeredContent = self.shimmerContent(content: content)
-        
-        return Group {
-            if self.isLoading {
-                shimmeredContent
-                    .accessibilityHidden(true)
-                    .overlay {
-                        Color.clear
-                            .accessibilityElement(children: .ignore)
-                            .accessibilityLabel(self.loadingAccLabel)
-                            .accessibilityAddTraits(.isStaticText)
-                            .allowsHitTesting(false)
-                    }
-            } else {
-                shimmeredContent
+        self.shimmerContent(content: content)
+            .accessibilityElement(children: self.isLoading ? .ignore : .contain)
+            .accessibilityHidden(self.isLoading)
+            .overlay {
+                if self.isLoading {
+                    Color.clear
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(self.loadingAccLabel)
+                        .accessibilityValue("")
+                        .accessibilityHint("")
+                        .accessibilityAddTraits(.isStaticText)
+                        .disabled(true)
+                        .allowsHitTesting(false)
+                }
             }
-        }
     }
     
     func shimmerContent(content: Content) -> some View {
