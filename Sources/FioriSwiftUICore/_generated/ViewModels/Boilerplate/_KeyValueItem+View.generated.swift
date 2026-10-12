@@ -48,15 +48,4 @@ extension _KeyValueItem: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _KeyValueItem specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _KeyValueItemLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_KeyValueItem(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

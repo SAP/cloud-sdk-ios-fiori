@@ -107,7 +107,6 @@ public extension Font {
     ///
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A condensed font with fixed size.
-    @available(iOS 14.0, *)
     @available(*, deprecated, message: "Use UIFont.fiori(fixedSize:) with isCondensed parameter set to true")
     static func fioriCondensed(fixedSize: CGFloat, weight: Font.FioriWeight = .regular) -> Font {
         var font: Font
