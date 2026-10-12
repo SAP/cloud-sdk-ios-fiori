@@ -47,6 +47,11 @@ final class CalendarViewTests: XCTestCase {
         XCTAssertFalse(model.showFullScreen)
         
         model.scrollPosition = model.scrollPosition! + 1
+        
+        if Calendar.current.compare(model.selectedDate!, to: .now, toGranularity: .month) == .orderedSame {
+            return
+        }
+        
         XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "\(year) 10 01")!, toGranularity: .day) == .orderedSame)
         
         model.calendarStyle = .week

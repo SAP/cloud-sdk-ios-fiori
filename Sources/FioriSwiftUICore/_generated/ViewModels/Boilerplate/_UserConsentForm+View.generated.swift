@@ -60,15 +60,4 @@ extension _UserConsentForm: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _UserConsentForm specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _UserConsentFormLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_UserConsentForm(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

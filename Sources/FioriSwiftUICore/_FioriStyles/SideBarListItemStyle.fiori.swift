@@ -21,10 +21,6 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
     
     public func makeBody(_ configuration: SideBarListItemConfiguration) -> some View {
         Group {
-            let dragImage = Image(systemName: "line.horizontal.3")
-                .font(.fiori(forTextStyle: .title3))
-                .foregroundStyle(Color.preferredColor(.secondaryLabel))
-            
             if self.sizeCategory.isAccessibilityCategory {
                 VStack {
                     HStack(spacing: 11) {
@@ -45,7 +41,6 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                         } else if SideBarUtility.isEditing(self.modelObject, self.editMode?.wrappedValue) {
                             configuration._switch
                                 .frame(width: 60 * self.scale, height: 22 * self.scale)
-                            dragImage
                         }
                     }
                 }
@@ -68,7 +63,6 @@ public struct SideBarListItemBaseStyle: SideBarListItemStyle {
                             .frame(width: 50, height: 35)
                             .toggleStyle(SwitchToggleStyle(tint: Color.preferredColor(.tintColor)))
                             .opacity(1.0)
-                        dragImage
                     }
                 }
             }

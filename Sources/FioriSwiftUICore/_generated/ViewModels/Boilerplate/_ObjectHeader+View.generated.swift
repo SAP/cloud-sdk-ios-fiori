@@ -76,15 +76,4 @@ extension _ObjectHeader: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement _ObjectHeader specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct _ObjectHeaderLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(_ObjectHeader(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */

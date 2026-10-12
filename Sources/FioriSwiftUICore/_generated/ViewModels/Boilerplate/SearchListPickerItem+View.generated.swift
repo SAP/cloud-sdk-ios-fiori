@@ -20,15 +20,4 @@ extension SearchListPickerItem: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement SearchListPickerItem specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct SearchListPickerItemLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(SearchListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */
