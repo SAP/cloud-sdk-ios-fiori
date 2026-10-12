@@ -53,6 +53,11 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .background {
+                if !self.sizeHandler.needLayoutSubviews {
+                    self.sizeCheckView()
+                }
+            }
             .toolbar {
                 if LiquidGlassHelper.usesLiquidGlassUI {
                     #if !os(visionOS)
@@ -63,11 +68,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                         }
                     #endif
                     ToolbarItemGroup(placement: .bottomBar) {
-                        if self.sizeHandler.needLayoutSubviews {
-                            self.toolbarContent()
-                        } else {
-                            self.sizeCheckView()
-                        }
+                        self.toolbarContent()
                     }
                 } else {
                     ToolbarItemGroup(placement: .bottomBar) {
@@ -75,12 +76,8 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
                             Spacer()
                                 .frame(width: 500)
                         }
-                        if self.sizeHandler.needLayoutSubviews {
-                            HStack(spacing: 0) {
-                                self.toolbarContent()
-                            }
-                        } else {
-                            self.sizeCheckView()
+                        HStack(spacing: 0) {
+                            self.toolbarContent()
                         }
                     }
                 }
@@ -145,6 +142,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             }
             ForEach(0 ..< self.items.count, id: \.self) { index in
                 self.items.view(at: index)
+                    .fixedSize()
                     .sizeReader { size in
                         self.sizeHandler.itemsSize[index] = CGSize(width: ceil(size.width), height: ceil(size.height))
                     }
