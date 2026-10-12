@@ -1,3 +1,4 @@
+import CoreLocation
 import FioriSwiftUICore
 import FioriThemeManager
 import OSLog
@@ -27,6 +28,7 @@ struct AttachmentGroupExample: View {
     @State private var showExtranInfo: Bool = false
     @State private var useDemoDelegate: Bool = false
     @State private var showDefaultThumbnailWithPreview: Bool = false
+    @State private var locationCaptureMode: LocationCaptureMode = .disabled
 
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {
@@ -61,6 +63,7 @@ struct AttachmentGroupExample: View {
         self.showExtranInfo = false
         self.useDemoDelegate = false
         self.showDefaultThumbnailWithPreview = false
+        self.locationCaptureMode = .disabled
     }
     
     var body: some View {
@@ -188,6 +191,11 @@ struct AttachmentGroupExample: View {
 
                         Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
                         
+                        Toggle(self.locationCaptureMode != .disabled ? "Location Capture Enabled" : "Location Capture Disabled", isOn: Binding(
+                            get: { self.locationCaptureMode != .disabled },
+                            set: { self.locationCaptureMode = $0 ? .enabled(accuracy: .hundredMeters) : .disabled }
+                        ))
+
                         FilterCFG(photoFilters: self.$photoFilters, fileFilters: self.$fileFilters)
                         Spacer()
                     }
@@ -279,7 +287,8 @@ struct AttachmentGroupExample: View {
                 print("Custom preview: \(newValue)")
                 self.previewURL = newValue
             },
-            defaultAttachmentExtraInfo: self.showExtranInfo ? { MyExtraInfo.random() } : nil
+            defaultAttachmentExtraInfo: self.showExtranInfo ? { MyExtraInfo.random() } : nil,
+            locationCaptureMode: self.locationCaptureMode
         )
         #if os(iOS)
         .ifApply(!self.defaultPreview) {
@@ -687,7 +696,12 @@ class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
         super.init()
     }
     
-    override func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    override func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+        if let location {
+            print("Received location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        } else {
+            print("No location provided")
+        }
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
