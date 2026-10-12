@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>FioriProgressViewConfiguration Structure Reference</title>
+    <title>Progress Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/FioriProgressViewConfiguration" class="dashAnchor"></a>
-    <a title="FioriProgressViewConfiguration Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/Progress" class="dashAnchor"></a>
+    <a title="Progress Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -31,7 +31,7 @@
             <img id="carat" src="../img/carat.png" alt=""/>
             <a href="../Structs.html">Structures</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            FioriProgressViewConfiguration Structure Reference
+            Progress Structure Reference
           </span>
         </p>
       </div>
@@ -41,11 +41,13 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>FioriProgressViewConfiguration</h1>
+              <h1>Progress</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FioriProgressViewConfiguration</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Progress</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Progress</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Progress</span><span class="p">:</span> <span class="n"><a href="../Protocols/_ViewEmptyChecking.html">_ViewEmptyChecking</a></span></code></pre>
 
                   </div>
                 </div>
@@ -58,9 +60,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore0A25ProgressViewConfigurationV19componentIdentifierSSvp"></a>
-                      <a name="//apple_ref/swift/Property/componentIdentifier" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore0A25ProgressViewConfigurationV19componentIdentifierSSvp">componentIdentifier</a>
+                      <a name="/s:16FioriSwiftUICore8ProgressV8progress19componentIdentifierAC0B2UI4View_pyXE_SSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(progress:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore8ProgressV8progress19componentIdentifierAC0B2UI4View_pyXE_SSSgtcfc">init(progress:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -75,7 +77,8 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">progress</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span><span class="p">,</span>
+            <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">Progress</span><span class="o">.</span><span class="n"><a href="../Structs/Progress.html#/s:16FioriSwiftUICore8ProgressV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -85,9 +88,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore0A25ProgressViewConfigurationV8progressAA0fE7WrapperVvp"></a>
-                      <a name="//apple_ref/swift/Property/progress" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore0A25ProgressViewConfigurationV8progressAA0fE7WrapperVvp">progress</a>
+                      <a name="/s:16FioriSwiftUICore8ProgressV10identifierSSvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/identifier" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore8ProgressV10identifierSSvpZ">identifier</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -102,7 +105,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Structs/FioriProgressViewConfiguration.html#/s:16FioriSwiftUICore0A25ProgressViewConfigurationV0adE0a">FioriProgressView</a></span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                           </div>
                         </div>
@@ -112,9 +115,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore0A25ProgressViewConfigurationV0adE0a"></a>
-                      <a name="//apple_ref/swift/Alias/FioriProgressView" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore0A25ProgressViewConfigurationV0adE0a">FioriProgressView</a>
+                      <a name="/s:16FioriSwiftUICore8ProgressV8progressAC0B2UI0D4ViewVyAE05EmptyG0VAIG_tcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(progress:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore8ProgressV8progressAC0B2UI0D4ViewVyAE05EmptyG0VAIG_tcfc">init(progress:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -129,7 +132,88 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">FioriProgressView</span> <span class="o">=</span> <span class="kt"><a href="../Structs/ConfigurationViewWrapper.html">ConfigurationViewWrapper</a></span></code></pre>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">progress</span><span class="p">:</span> <span class="kt">ProgressView</span><span class="o">&lt;</span><span class="kt">EmptyView</span><span class="p">,</span> <span class="kt">EmptyView</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">ProgressView</span><span class="p">())</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore8ProgressVyAcA0D13ConfigurationVcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore8ProgressVyAcA0D13ConfigurationVcfc">init(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP4body4BodyQzvp"></a>
+                      <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP4body4BodyQzvp">body</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore8ProgressV7isEmptySbvp"></a>
+                      <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore8ProgressV7isEmptySbvp">isEmpty</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -834,9 +918,6 @@
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1123,6 +1204,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
@@ -3182,22 +3266,7 @@
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -4769,6 +4838,18 @@
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Progress.html">Progress</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -4809,6 +4890,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -6652,7 +6736,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-08)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
