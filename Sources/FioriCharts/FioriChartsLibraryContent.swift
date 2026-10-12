@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 #if swift(>=5.3)
-    @available(iOS 14.0, *)
     struct LibraryContent: LibraryContentProvider {
         @LibraryContentBuilder
         var views: [LibraryItem] {

@@ -20,15 +20,4 @@ extension IconStack: View {
         <# View body #>
     }
 }
-
-// FIXME: - Implement IconStack specific LibraryContentProvider
-
-@available(iOS 14.0, macOS 11.0, *)
-struct IconStackLibraryContent: LibraryContentProvider {
-    @LibraryContentBuilder
-    var views: [LibraryItem] {
-        LibraryItem(IconStack(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
-    }
-}
 */
