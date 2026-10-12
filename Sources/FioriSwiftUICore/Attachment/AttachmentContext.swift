@@ -1,7 +1,10 @@
+import AVFoundation
+import CoreLocation
 import OSLog
 import PDFKit
 import PhotosUI
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Attachment Context facilitates hierarchical components, i.e. AttachmentGroup and Attachment work together, for example
 /// setting and displaying error message and showing and dismissing file picker.
@@ -74,123 +77,141 @@ open class AttachmentContext {
 
     private var activeUploadCount = 0
 
+    /// Controls the location capture behavior for attachments.
+    /// Default is `.disabled`. When enabled, extracts location from asset metadata
+    /// and captures device location for camera photos or videos.
+    public var locationCaptureMode: LocationCaptureMode = .disabled {
+        didSet {
+            if oldValue != self.locationCaptureMode {
+                self._locationService = nil
+            }
+        }
+    }
+
+    private var _locationService: AttachmentLocationService?
+
+    private var locationService: AttachmentLocationService {
+        if let service = _locationService {
+            return service
+        }
+        let service = AttachmentLocationService(locationCaptureMode: self.locationCaptureMode)
+        self._locationService = service
+        return service
+    }
+
     /// Initializes a new attachment context with default settings.
     ///
     /// This initializer creates a new instance of `AttachmentContext` with the following default state:
     public init() {}
     
     func upload(contentFrom provider: NSItemProvider) {
-        guard let configuration else {
-            os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
-            return
-        }
-        var uploadingAttachmentInfo: AttachmentInfo?
-        
-        self.delegate?.upload(contentFrom: provider) { url in
-            self.activeUploadCount += 1
-            uploadingAttachmentInfo = .uploading(sourceURL: url)
-            if let uploadingAttachmentInfo {
-                configuration.attachments.append(uploadingAttachmentInfo)
-            }
-        } onCompletion: { url, error in
-            DispatchQueue.main.async {
-                defer {
-                    if uploadingAttachmentInfo != nil {
-                        self.activeUploadCount -= 1
-                    }
-                }
-                if let uploadingAttachmentInfo {
-                    if let error {
-                        if let attachmentError = error as? AttachmentError {
-                            switch attachmentError {
-                            case .failedToUploadAttachment(let errorMessage):
-                                configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: errorMessage) : $0 }
-                            default:
-                                break
-                            }
-                        } else {
-                            configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: error.localizedDescription) : $0 }
-                        }
-                    } else {
-                        guard let url else { return }
-                        configuration.errorMessage = nil
-                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
-                    }
-                } else {
-                    if let error {
-                        if let attachmentError = error as? AttachmentError {
-                            switch attachmentError {
-                            case .failedToUploadAttachment(let errorMessage):
-                                configuration.errorMessage = AttributedString(errorMessage)
-                            default:
-                                break
-                            }
-                        } else {
-                            configuration.errorMessage = AttributedString(error.localizedDescription)
-                        }
-                    } else {
-                        guard let url, let uploadingAttachmentInfo else { return }
-                        configuration.errorMessage = nil
-                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
-                    }
-                }
-            }
-        }
+        self.activeUploadCount += 1
+        self.upload(contentFrom: provider, location: nil)
     }
     
     func upload(photoPickerItems: [PhotosPickerItem]) {
-        for item in photoPickerItems {
-            os_log("Upload item identifier: %@", log: OSLog.coreLogger, type: .debug, "\(item.itemIdentifier ?? "N/A")")
-            os_log("Item content types: %@", log: OSLog.coreLogger, type: .debug, "\(item.supportedContentTypes)")
-            item.loadTransferable(type: Data.self) { result in
-                switch result {
-                case .success(let data):
-                    if let data {
+        guard !photoPickerItems.isEmpty else { return }
+
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+
+            for item in photoPickerItems {
+                os_log("Upload item identifier: %@", log: OSLog.coreLogger, type: .debug, "\(item.itemIdentifier ?? "N/A")")
+                os_log("Item content types: %@", log: OSLog.coreLogger, type: .debug, "\(item.supportedContentTypes)")
+
+                self.activeUploadCount += 1
+
+                var location: CLLocation?
+                if case .enabled = self.locationCaptureMode {
+                    location = await self.locationService.extractLocation(fromAssetIdentifier: item.itemIdentifier)
+                }
+
+                do {
+                    if let data = try await item.loadTransferable(type: Data.self) {
                         let provider = NSItemProvider()
                         // first supported uttype identifier
                         provider.registerDataRepresentation(forTypeIdentifier: item.supportedContentTypes[0].identifier, visibility: .ownProcess) { completionHandler in
                             completionHandler(data, nil)
                             return Foundation.Progress()
                         }
-                        self.upload(contentFrom: provider)
+                        self.upload(contentFrom: provider, location: location)
+                    } else {
+                        self.activeUploadCount -= 1
                     }
-                case .failure(let error):
+                } catch {
+                    self.activeUploadCount -= 1
                     self.configuration?.errorMessage = AttributedString(error.localizedDescription)
                     os_log("Error loading item: %@", log: OSLog.coreLogger, type: .error, "\(error)")
-                    return
                 }
             }
         }
     }
-    
-    func upload(images: [UIImage?]) {
-        for item in images {
-            guard let item else {
-                self.configuration?.errorMessage = AttributedString("No image data available.")
-                return
+
+    func upload(cameraImage: UIImage?) {
+        guard let image = cameraImage else {
+            self.configuration?.errorMessage = AttributedString("No image data available.")
+            return
+        }
+
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+
+            self.activeUploadCount += 1
+
+            var location: CLLocation?
+            if case .enabled = self.locationCaptureMode {
+                location = await self.locationService.getCurrentLocation()
             }
-            
-            if let data = item.jpegData(compressionQuality: 1.0) {
+
+            if let data = image.jpegData(compressionQuality: 1.0) {
                 let provider = NSItemProvider()
-                // first supported uttype identifier
                 provider.registerDataRepresentation(forTypeIdentifier: UTType.jpeg.identifier, visibility: .ownProcess) { completionHandler in
                     completionHandler(data, nil)
                     return Foundation.Progress()
                 }
-                self.upload(contentFrom: provider)
+                self.upload(contentFrom: provider, location: location)
+            } else {
+                self.activeUploadCount -= 1
+            }
+        }
+    }
+
+    func upload(scannedImages: [UIImage?]) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+
+            for item in scannedImages {
+                guard let item else {
+                    self.configuration?.errorMessage = AttributedString("No image data available.")
+                    continue
+                }
+
+                self.activeUploadCount += 1
+
+                if let data = item.jpegData(compressionQuality: 1.0) {
+                    let provider = NSItemProvider()
+                    provider.registerDataRepresentation(forTypeIdentifier: UTType.jpeg.identifier, visibility: .ownProcess) { completionHandler in
+                        completionHandler(data, nil)
+                        return Foundation.Progress()
+                    }
+                    self.upload(contentFrom: provider, location: nil)
+                } else {
+                    self.activeUploadCount -= 1
+                }
             }
         }
     }
     
     func upload(pdfDocument: PDFDocument) {
         if let data = pdfDocument.dataRepresentation() {
+            self.activeUploadCount += 1
             let provider = NSItemProvider()
             // first supported uttype identifier
             provider.registerDataRepresentation(forTypeIdentifier: UTType.pdf.identifier, visibility: .ownProcess) { completionHandler in
                 completionHandler(data, nil)
                 return Foundation.Progress()
             }
-            self.upload(contentFrom: provider)
+            self.upload(contentFrom: provider, location: nil)
         }
     }
 
@@ -199,16 +220,26 @@ open class AttachmentContext {
             self.configuration?.errorMessage = AttributedString("Video file not available.")
             return
         }
-        do {
-            let data = try Data(contentsOf: movieUrl)
-            let provider = NSItemProvider()
-            provider.registerDataRepresentation(forTypeIdentifier: UTType.mpeg4Movie.identifier, visibility: .ownProcess) { completionHandler in
-                completionHandler(data, nil)
-                return Foundation.Progress()
+        Task { @MainActor in
+            self.activeUploadCount += 1
+
+            var location: CLLocation?
+            if case .enabled = self.locationCaptureMode {
+                location = await self.locationService.getCurrentLocation()
             }
-            self.upload(contentFrom: provider)
-        } catch {
-            self.configuration?.errorMessage = AttributedString(error.localizedDescription)
+
+            do {
+                let data = try Data(contentsOf: movieUrl)
+                let provider = NSItemProvider()
+                provider.registerDataRepresentation(forTypeIdentifier: UTType.mpeg4Movie.identifier, visibility: .ownProcess) { completionHandler in
+                    completionHandler(data, nil)
+                    return Foundation.Progress()
+                }
+                self.upload(contentFrom: provider, location: location)
+            } catch {
+                self.activeUploadCount -= 1
+                self.configuration?.errorMessage = AttributedString(error.localizedDescription)
+            }
         }
     }
     
@@ -251,5 +282,69 @@ open class AttachmentContext {
         } else {
             self.configuration?.attachments.removeAll(where: { $0.primaryURL == attachment })
         }
+    }
+}
+
+private extension AttachmentContext {
+    func upload(contentFrom provider: NSItemProvider, location: CLLocation?) {
+        guard let configuration else {
+            os_log("AttachmentConfiguration is not initialized, yet. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
+            self.activeUploadCount -= 1
+            return
+        }
+        guard let delegate else {
+            os_log("AttachmentDelegate is not set. Please check code/usage.", log: OSLog.coreLogger, type: .debug)
+            self.activeUploadCount -= 1
+            return
+        }
+        var uploadingAttachmentInfo: AttachmentInfo?
+
+        delegate.upload(contentFrom: provider, location: location, onStarting: { url in
+            uploadingAttachmentInfo = .uploading(sourceURL: url)
+            if let uploadingAttachmentInfo {
+                configuration.attachments.append(uploadingAttachmentInfo)
+            }
+        }, onCompletion: { url, error in
+            DispatchQueue.main.async {
+                defer {
+                    self.activeUploadCount -= 1
+                }
+                if let uploadingAttachmentInfo {
+                    if let error {
+                        if let attachmentError = error as? AttachmentError {
+                            switch attachmentError {
+                            case .failedToUploadAttachment(let errorMessage):
+                                configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: errorMessage) : $0 }
+                            default:
+                                break
+                            }
+                        } else {
+                            configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .error(sourceURL: $0.primaryURL, message: error.localizedDescription) : $0 }
+                        }
+                    } else {
+                        guard let url else { return }
+                        configuration.errorMessage = nil
+                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
+                    }
+                } else {
+                    if let error {
+                        if let attachmentError = error as? AttachmentError {
+                            switch attachmentError {
+                            case .failedToUploadAttachment(let errorMessage):
+                                configuration.errorMessage = AttributedString(errorMessage)
+                            default:
+                                break
+                            }
+                        } else {
+                            configuration.errorMessage = AttributedString(error.localizedDescription)
+                        }
+                    } else {
+                        guard let url, let uploadingAttachmentInfo else { return }
+                        configuration.errorMessage = nil
+                        configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
+                    }
+                }
+            }
+        })
     }
 }
