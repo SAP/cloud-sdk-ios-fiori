@@ -665,7 +665,7 @@
 "Undo change" = "בטל שינוי";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "בצע שינוי מחדש";
+"Redo change" = "בצע שינויים מחדש";
 
 /* XBUT: Close button title */
 "Close" = "סגור";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "הקש פעמיים לצמצום";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "לוח שנה נפתח, בחר תאריך";
 
 /* XTIT: On state for switch */
 "Switch On" = "פועל";

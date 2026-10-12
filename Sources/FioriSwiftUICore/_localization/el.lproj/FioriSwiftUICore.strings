@@ -665,7 +665,7 @@
 "Undo change" = "Αναίρεση αλλαγής";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Επανεκτέλεση αλλαγής";
+"Redo change" = "Επανάληψη αλλαγής";
 
 /* XBUT: Close button title */
 "Close" = "Κλείσιμο";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Διπλό άγγιγμα για σύμπτυξη";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Ημερολόγιο άνοιξε, επιλέξτε ημερομηνία";
 
 /* XTIT: On state for switch */
 "Switch On" = "Ενεργό";
