@@ -4,6 +4,8 @@ import SwiftUI
 
 // Base Layout style
 public struct InfoViewBaseStyle: InfoViewStyle {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
         ZStack {
             VStack {
@@ -29,8 +31,8 @@ public struct InfoViewBaseStyle: InfoViewStyle {
                 }
                 .padding(.top, 2)
                 .padding(.bottom, 2)
-                .padding(.leading, getInfoViewLeftPadding())
-                .padding(.trailing, getInfoViewLeftPadding())
+                .padding(.leading, getInfoViewLeftPadding(horizontalSizeClass: self.horizontalSizeClass))
+                .padding(.trailing, getInfoViewLeftPadding(horizontalSizeClass: self.horizontalSizeClass))
                 .scrollIndicators(.hidden)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -120,15 +122,11 @@ extension InfoViewFioriStyle {
     }
 }
 
-func getInfoViewLeftPadding() -> CGFloat {
+private func getInfoViewLeftPadding(horizontalSizeClass: UserInterfaceSizeClass?) -> CGFloat {
     var margin: CGFloat = 35
     #if !os(visionOS)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if UIDevice.current.orientation.isPortrait {
-                margin = 157
-            } else {
-                margin = 296
-            }
+        if horizontalSizeClass == .regular {
+            margin = 157
         }
     #else
         margin = 40

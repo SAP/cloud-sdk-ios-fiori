@@ -108,7 +108,7 @@ struct PopoverSizeModifier<PopoverContent: View>: ViewModifier {
         }
         
         func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-            if UIDevice.current.userInterfaceIdiom == .phone {
+            if controller.traitCollection.horizontalSizeClass == .compact {
                 return .automatic
             }
             return .none

@@ -163,11 +163,12 @@ extension HierarchyViewFioriStyle {
         @StateObject private var modelObject = HierarchyViewModelObject()
         @Environment(\.isHierarchyViewMultiColumnLayout) private var isMultiColumnLayout
         @Environment(\.hierarchyViewIsAsync) private var isAsync
-        
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
         func makeBody(_ configuration: HierarchyViewConfiguration) -> some View {
             let hierarchyView = AnyView(HierarchyView(configuration, dataSource: configuration.dataSource))
                 .environmentObject(self.modelObject)
-                .environment(\.isHierarchyViewMultiColumnLayout, UIDevice.current.userInterfaceIdiom == .pad)
+                .environment(\.isHierarchyViewMultiColumnLayout, self.horizontalSizeClass == .regular)
                 .environment(\.onCurrentHierarchyItemChange, self.modelObject.onCurrentActiveItemChange) // Let HierarchyIndicatorView have the opportunity to change the ID independently.
             
             return Group {
