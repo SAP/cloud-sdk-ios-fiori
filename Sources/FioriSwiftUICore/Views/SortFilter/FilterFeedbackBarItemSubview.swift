@@ -104,7 +104,7 @@ struct SliderMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -374,7 +374,7 @@ struct PickerMenuItem: View {
                 })
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -491,7 +491,7 @@ struct PickerMenuItem: View {
                 })
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone) {
+            .ifApply(self.horizontalSizeClass != .compact) {
                 $0.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -644,7 +644,7 @@ struct DateTimeMenuItem: View {
     }
         
     var body: some View {
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if self.horizontalSizeClass == .compact {
             self.phoneView()
         } else {
             self.padView()
@@ -739,7 +739,7 @@ struct DateTimeMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -810,7 +810,7 @@ struct DateTimeMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -964,7 +964,7 @@ struct StepperMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -1061,7 +1061,7 @@ struct TitleMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -1258,7 +1258,7 @@ struct DurationPickerMenuItem: View {
                 }
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -1355,7 +1355,7 @@ struct OrderPickerMenuItem: View {
                 })
                 .preferredColorScheme(self.colorScheme)
             }
-            .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+            .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
                     Color.clear
                         .onAppear {
@@ -1377,6 +1377,7 @@ struct FullCFGMenuItem: View {
     @State var isSheetVisible = false
     @State var barItemFrame: CGRect = .zero
     @AccessibilityFocusState private var isBarItemFocused: Bool
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.colorScheme) private var colorScheme
     var onUpdate: () -> Void
     
@@ -1403,7 +1404,7 @@ struct FullCFGMenuItem: View {
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
                 self.sortConfigurationView()
-                    .ifApply(UIDevice.current.userInterfaceIdiom != .phone) {
+                    .ifApply(self.horizontalSizeClass != .compact) {
                         $0.background(GeometryReader { geometry in
                             Color.clear
                                 .onAppear {

@@ -36,16 +36,18 @@ public class OnboardingScanConfirmViewContext {
 public struct OnboardingScanConfirmView: View {
     var context = OnboardingScanConfirmViewContext()
     var hcpServer: String = ""
-    let isPhone = UIDevice.current.userInterfaceIdiom == .phone
     private var defaultContinueButtonWidth: CGFloat = 201.0
-    
+
     @State var titleTopPadding: CGFloat = 54.0
     @State var continueButtonTopPadding: CGFloat = 92.0
     @State var continueButtonWidth: CGFloat = 201.0
     @Environment(\.sizeCategory) private var sizeCategory
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State var availableWidth = 0.0
     @State var availableHeight = 0.0
-    
+
+    var isPhone: Bool { self.horizontalSizeClass == .compact }
+
     var didTapContinue: (() -> Void)?
     
     /// Create `OnboardingScanConfirmView`
@@ -174,7 +176,7 @@ extension OnboardingScanConfirmView {
     }
     
     func isIphoneExceptIphoneSE(width: CGFloat, height: CGFloat) -> Bool {
-        UIDevice.current.userInterfaceIdiom == .phone && !self.isIphoneSE(width: width, height: height)
+        self.isPhone && !self.isIphoneSE(width: width, height: height)
     }
     
     func getTitleWidth(width: CGFloat, height: CGFloat) -> CGFloat {
