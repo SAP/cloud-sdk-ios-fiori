@@ -56,6 +56,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
             .background {
                 if !self.sizeHandler.needLayoutSubviews {
                     self.sizeCheckView()
+                        .hidden()
                 }
             }
             .toolbar {
