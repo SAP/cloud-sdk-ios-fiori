@@ -13,7 +13,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     @State private var sheetContentHeight: CGFloat = 0
     @State private var hasInitialMeasurement: Bool = false
     @State private var bottomHeight: CGFloat = 0
-    @State private var navigationBarHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? 67 : 50.0
+    @State private var navigationBarHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? 74 : 56.0
 
     @State private var scrollViewHeight: CGFloat? = nil
     @State private var subScrollViewHeight: CGFloat = 0
