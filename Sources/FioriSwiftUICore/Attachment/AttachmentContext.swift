@@ -66,9 +66,13 @@ open class AttachmentContext {
     
     /// Indicates whether an attachment is currently being uploaded.
     ///
-    /// This flag is toggled during the upload process and can be observed to show loading indicators
-    /// or disable certain UI interactions during an ongoing upload.
-    public var isUploading = false
+    /// This property is derived from the active upload count. Use it to show loading indicators
+    /// or disable UI interactions during active uploads.
+    public var isUploading: Bool {
+        self.activeUploadCount > 0
+    }
+
+    private var activeUploadCount = 0
 
     /// Initializes a new attachment context with default settings.
     ///
@@ -83,15 +87,19 @@ open class AttachmentContext {
         var uploadingAttachmentInfo: AttachmentInfo?
         
         self.delegate?.upload(contentFrom: provider) { url in
-            self.isUploading.toggle()
+            self.activeUploadCount += 1
             uploadingAttachmentInfo = .uploading(sourceURL: url)
             if let uploadingAttachmentInfo {
                 configuration.attachments.append(uploadingAttachmentInfo)
             }
         } onCompletion: { url, error in
-            defer { self.isUploading.toggle() }
-            if let uploadingAttachmentInfo {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                defer {
+                    if uploadingAttachmentInfo != nil {
+                        self.activeUploadCount -= 1
+                    }
+                }
+                if let uploadingAttachmentInfo {
                     if let error {
                         if let attachmentError = error as? AttachmentError {
                             switch attachmentError {
@@ -108,9 +116,7 @@ open class AttachmentContext {
                         configuration.errorMessage = nil
                         configuration.attachments = configuration.attachments.map { $0 == uploadingAttachmentInfo ? .uploaded(destinationURL: url, sourceURL: $0.primaryURL, extraInfo: self.onDefaultExtraInfo?()) : $0 }
                     }
-                }
-            } else {
-                DispatchQueue.main.async {
+                } else {
                     if let error {
                         if let attachmentError = error as? AttachmentError {
                             switch attachmentError {
