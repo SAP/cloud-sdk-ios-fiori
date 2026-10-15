@@ -86,105 +86,105 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 133,
+      "line": 132,
       "symbol": "Font.FioriTextStyle.largeTitle",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 134,
+      "line": 133,
       "symbol": "Font.FioriTextStyle.title1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 134,
+      "line": 133,
       "symbol": "Font.FioriTextStyle.title2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 134,
+      "line": 133,
       "symbol": "Font.FioriTextStyle.title3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 135,
+      "line": 134,
       "symbol": "Font.FioriTextStyle.headline",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 135,
+      "line": 134,
       "symbol": "Font.FioriTextStyle.subheadline",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 136,
+      "line": 135,
       "symbol": "Font.FioriTextStyle.body",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 137,
+      "line": 136,
       "symbol": "Font.FioriTextStyle.callout",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 138,
+      "line": 137,
       "symbol": "Font.FioriTextStyle.footnote",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 139,
+      "line": 138,
       "symbol": "Font.FioriTextStyle.caption1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 139,
+      "line": 138,
       "symbol": "Font.FioriTextStyle.caption2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 140,
+      "line": 139,
       "symbol": "Font.FioriTextStyle.extraLargeTitle",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 140,
+      "line": 139,
       "symbol": "Font.FioriTextStyle.extraLargeTitle2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 141,
+      "line": 140,
       "symbol": "Font.FioriTextStyle.KPI",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/72-Fonts/Font+Fiori.swift",
-      "line": 141,
+      "line": 140,
       "symbol": "Font.FioriTextStyle.largeKPI",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
