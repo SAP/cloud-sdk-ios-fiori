@@ -23,7 +23,7 @@ jobs:
     - name: Install xcpretty
       run: gem install xcpretty
     - name: Build and Test
-      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone,OS=27.0' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" -resultBundlePath TestResults.xcresult clean build test | xcpretty
+      run: set -o pipefail && xcodebuild -parallel-testing-enabled NO -verbose -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17,OS=27.0' ARCHS=arm64 OTHER_SWIFT_FLAGS="-Xfrontend -solver-expression-time-threshold=500 -Xfrontend -warn-long-function-bodies=50" -resultBundlePath TestResults.xcresult clean build test | xcpretty
 
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh TestResults.xcresult > sonarqube-generic-coverage.xml
