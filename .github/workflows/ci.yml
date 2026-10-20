@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [xcode-27]
-        xcode: ['Xcode_27.0']
+        xcode: ['Xcode_27.1']
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [xcode-27]
-        xcode: ['Xcode_27.0']
+        xcode: ['Xcode_27.1']
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -75,7 +75,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [xcode-27]
-        xcode: ['Xcode_27.0']
+        xcode: ['Xcode_27.1']
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
