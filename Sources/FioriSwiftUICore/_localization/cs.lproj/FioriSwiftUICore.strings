@@ -665,7 +665,7 @@
 "Undo change" = "Vrátit změnu";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Opakovat změnu";
+"Redo change" = "Opakovat změnu";
 
 /* XBUT: Close button title */
 "Close" = "Zavřít";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Poklepáním sbalte";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalendář je otevřený, vyberte datum";
 
 /* XTIT: On state for switch */
 "Switch On" = "Zapnuto";

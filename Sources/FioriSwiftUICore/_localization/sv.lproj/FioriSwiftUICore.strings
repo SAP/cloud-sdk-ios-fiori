@@ -617,7 +617,7 @@
 "Disabled date" = "Datum har inaktiverats";
 
 /* XMSG: Drag tips in .expandable style, used in voiceOver in calendar view */
-"Handle to switch from month view to week view" = "Handtag för att byta från månadsvy till veckovy";
+"Handle to switch from month view to week view" = "Reglage för att byta från månadsvy till veckovy";
 
 /* XMSG: Accessibility label for card container */
 "Card" = "Kort";
@@ -665,7 +665,7 @@
 "Undo change" = "Ångra ändring";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "Gör om ändring";
+"Redo change" = "Gör om ändring";
 
 /* XBUT: Close button title */
 "Close" = "Stäng";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "Dubbelknacka för att komprimera";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "Kalender öppnad, välj ett datum";
 
 /* XTIT: On state for switch */
 "Switch On" = "På";

@@ -665,7 +665,7 @@
 "Undo change" = "변경 취소";
 
 /* XBUT: Writing assistant redo accessibility label */
-"Rodo change" = "변경 재실행";
+"Redo change" = "변경 재실행";
 
 /* XBUT: Close button title */
 "Close" = "닫기";
@@ -702,6 +702,9 @@
 
 /* XBUT: title for picker form cell to collapse */
 "DoubleTapToCollapseKey" = "두 번 탭하여 접기";
+
+/* XMSG: VoiceOver announcement posted when the DateTimePicker calendar flyout opens */
+"CalendarOpenedKey" = "달력이 열렸습니다. 일자를 선택하십시오.";
 
 /* XTIT: On state for switch */
 "Switch On" = "켬";
