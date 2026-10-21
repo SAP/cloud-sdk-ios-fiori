@@ -106,7 +106,6 @@ struct BuildTimelinePreviewItem: View {
                 TimelinePreviewItem(title: AttributedString(item.title), icon: item.icon, timelineNode: item.timelineNode, timestamp: dateAttributedString, isFuture: isFuture, nodeType: item.timelineNode)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(fullA11yLabel)
-                    .accessibilityAddTraits(.isButton)
             }
         }
         .accessibilityElement(children: .contain)
