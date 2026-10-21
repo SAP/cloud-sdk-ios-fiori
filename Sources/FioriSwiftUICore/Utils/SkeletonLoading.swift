@@ -151,9 +151,10 @@ struct ShimmerViewModifier: ViewModifier {
             EmptyView()
         }
     }
-
+    
     func body(content: Content) -> some View {
         self.shimmerContent(content: content)
+            .accessibilityElement(children: self.isLoading ? .ignore : .contain)
             .accessibilityHidden(self.isLoading)
             .overlay {
                 if self.isLoading {
