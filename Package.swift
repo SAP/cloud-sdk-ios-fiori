@@ -11,17 +11,14 @@ let package = Package(
     products: [
         .library(
             name: "FioriSwiftUI",
-            type: .dynamic,
             targets: ["FioriSwiftUI"]
         ),
         .library(
             name: "FioriCharts",
-            type: .dynamic,
             targets: ["FioriCharts"]
         ),
         .library(
             name: "FioriThemeManager",
-            type: .dynamic,
             targets: ["FioriThemeManager"]
         )
     ],
