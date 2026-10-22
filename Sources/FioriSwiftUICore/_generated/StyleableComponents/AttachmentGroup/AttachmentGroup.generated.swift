@@ -83,6 +83,10 @@ public struct AttachmentGroup {
     let onPreview: ((URL) -> Void)?
     /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
     let defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)?
+    /// Controls location capture behavior for attachments.
+    /// When enabled with an accuracy value, captures device location when media is selected or captured.
+    /// Higher accuracy levels consume more battery. Default is `.disabled`.
+    let locationCaptureMode: LocationCaptureMode
 
     @Environment(\.attachmentGroupStyle) var style
 
@@ -101,6 +105,7 @@ public struct AttachmentGroup {
                 @ViewBuilder operations: () -> any View = { EmptyView() },
                 onPreview: ((URL) -> Void)? = nil,
                 defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? = nil,
+                locationCaptureMode: LocationCaptureMode = .disabled,
                 componentIdentifier: String? = AttachmentGroup.identifier)
     {
         self.title = Title(title: title, componentIdentifier: componentIdentifier)
@@ -114,6 +119,7 @@ public struct AttachmentGroup {
         self.operations = operations()
         self.onPreview = onPreview
         self.defaultAttachmentExtraInfo = defaultAttachmentExtraInfo
+        self.locationCaptureMode = locationCaptureMode
         self.componentIdentifier = componentIdentifier ?? AttachmentGroup.identifier
     }
 }
@@ -135,11 +141,12 @@ public extension AttachmentGroup {
          errorMessage: Binding<AttributedString?>,
          @ViewBuilder operations: () -> any View = { EmptyView() },
          onPreview: ((URL) -> Void)? = nil,
-         defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? = nil)
+         defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? = nil,
+         locationCaptureMode: LocationCaptureMode = .disabled)
     {
         self.init(title: {
             TextWithMandatoryFieldIndicator(text: title, isRequired: isRequired, mandatoryFieldIndicator: mandatoryFieldIndicator)
-        }, context: context, attachments: attachments, maxCount: maxCount, maxPhotoSelectionCount: maxPhotoSelectionCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, defaultAttachmentExtraInfo: defaultAttachmentExtraInfo)
+        }, context: context, attachments: attachments, maxCount: maxCount, maxPhotoSelectionCount: maxPhotoSelectionCount, delegate: delegate, controlState: controlState, errorMessage: errorMessage, operations: operations, onPreview: onPreview, defaultAttachmentExtraInfo: defaultAttachmentExtraInfo, locationCaptureMode: locationCaptureMode)
     }
 }
 
@@ -160,6 +167,7 @@ public extension AttachmentGroup {
         self.operations = configuration.operations
         self.onPreview = configuration.onPreview
         self.defaultAttachmentExtraInfo = configuration.defaultAttachmentExtraInfo
+        self.locationCaptureMode = configuration.locationCaptureMode
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -170,7 +178,7 @@ extension AttachmentGroup: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo)).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo, locationCaptureMode: self.locationCaptureMode)).typeErased
                 .transformEnvironment(\.attachmentGroupStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -188,7 +196,7 @@ private extension AttachmentGroup {
     }
 
     func defaultStyle() -> some View {
-        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo))
+        AttachmentGroup(.init(componentIdentifier: self.componentIdentifier, title: .init(self.title), context: self.context, attachments: self.$attachments, maxCount: self.maxCount, maxPhotoSelectionCount: self.maxPhotoSelectionCount, delegate: self.delegate, controlState: self.controlState, errorMessage: self.$errorMessage, operations: .init(self.operations), onPreview: self.onPreview, defaultAttachmentExtraInfo: self.defaultAttachmentExtraInfo, locationCaptureMode: self.locationCaptureMode))
             .shouldApplyDefaultStyle(false)
             .attachmentGroupStyle(AttachmentGroupFioriStyle.ContentFioriStyle())
             .typeErased

@@ -151,12 +151,14 @@ public struct DefaultOperationsModifier: ViewModifier {
         }()
 
         return PhotosPicker(
-            "Pick a photo",
             selection: self.$selectedPhotos,
             maxSelectionCount: maxSelectionCount,
             selectionBehavior: .ordered,
-            matching: self.context.photoSelectionFilter.isEmpty ? nil : .all(of: self.context.photoSelectionFilter)
-        )
+            matching: self.context.photoSelectionFilter.isEmpty ? nil : .all(of: self.context.photoSelectionFilter),
+            photoLibrary: .shared()
+        ) {
+            Text("Pick a photo")
+        }
         .photosPickerStyle(.inline)
     }
     

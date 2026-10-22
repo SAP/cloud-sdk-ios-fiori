@@ -2145,6 +2145,12 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     
     /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
     var defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? { get }
+
+    // sourcery: defaultValue = ".disabled"
+    /// Controls location capture behavior for attachments.
+    /// When enabled with an accuracy value, captures device location when media is selected or captured.
+    /// Higher accuracy levels consume more battery. Default is `.disabled`.
+    var locationCaptureMode: LocationCaptureMode { get }
 }
 
 /// `AttachmentThumbnail` is a specialized UI component that renders previews for attachment files asynchronously.

@@ -94,6 +94,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                 configuration.context.delegate = configuration.delegate
                 configuration.context.configuration = configuration
                 configuration.context.onDefaultExtraInfo = configuration.defaultAttachmentExtraInfo
+                configuration.context.locationCaptureMode = configuration.locationCaptureMode
                 return configuration.context
             }()
         )
