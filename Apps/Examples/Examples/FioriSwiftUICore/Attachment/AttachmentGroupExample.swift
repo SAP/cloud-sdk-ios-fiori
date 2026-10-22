@@ -66,6 +66,14 @@ struct AttachmentGroupExample: View {
     var body: some View {
         ScrollView {
             VStack {
+                if self.attachmentInfo.isUploading {
+                    HStack {
+                        ProgressView()
+                        Text("Uploading...")
+                    }
+                    .padding()
+                }
+
                 if self.showDefaultThumbnailWithPreview {
                     self.attachments()
                         .attachmentThumbnailStyle(AttachmentThumbnailWithPreviewStyle())
