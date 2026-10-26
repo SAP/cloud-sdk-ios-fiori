@@ -672,7 +672,7 @@ struct HierarchyIDChangeKey: EnvironmentKey {
 }
 
 struct HierarchyViewMultiColumnLayoutKey: EnvironmentKey {
-    static let defaultValue: Bool = false
+    static let defaultValue: Bool = UIDevice.current.userInterfaceIdiom == .pad
 }
 
 struct HierarchyViewMultiColumnIndex: EnvironmentKey {

@@ -123,7 +123,7 @@ struct WATextInputModifier: ViewModifier {
                 if newValue, self.context.logKeyboardChanged, !self.context.isInWAFlow {
                     self.context.updateInWAFlow(self.isTextInputFocused)
                 } else if !newValue, self.context.logKeyboardChanged {
-                    guard self.horizontalSizeClass == .compact else { return }
+                    guard UIDevice.current.userInterfaceIdiom == .phone else { return }
                     self.context.updateInWAFlow(false)
                 }
             }
@@ -321,7 +321,7 @@ struct WATextInputModifier: ViewModifier {
             .presentationDragIndicator(.hidden)
             .disabled(self.context.inProgress)
             .toastMessage(isPresented: self.$context.showFeedbackSuccessToast, title: self.toastMessage, duration: 3, accessibilityMessage: self.toastMessage)
-            .ifApply(self.horizontalSizeClass == .compact) {
+            .ifApply(UIDevice.isIPhone) {
                 $0.presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
             }
             .background(
