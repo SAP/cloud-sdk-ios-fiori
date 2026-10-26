@@ -6,6 +6,10 @@ import SwiftUI
 public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
     @FocusState var isFocused: Bool
     @Environment(\.isEnabled) private var isEnabled
+    /// Optional external focus binding supplied via `.textFieldFormViewFocused(_:)` / `.titleFormViewFocused(_:)`.
+    /// Kept in sync with the internal focus state so consumers can host their own keyboard toolbar and
+    /// dismiss the keyboard (the number/decimal keyboard used in currency mode has no Return/Done key).
+    @Environment(\.textFieldFocusBinding) private var externalFocusBinding
 
     public func makeBody(_ configuration: PlaceholderTextFieldConfiguration) -> some View {
         let showClear = self.isFocused
@@ -47,9 +51,19 @@ public struct PlaceholderTextFieldBaseStyle: PlaceholderTextFieldStyle {
             .accessibilityHidden(!accessible)
         }
         .accessibilityElement(children: .contain)
-        .onChange(of: self.isFocused) { _, _ in
+        .onChange(of: self.isFocused) { _, newValue in
             DispatchQueue.main.async {
                 UIAccessibility.post(notification: .layoutChanged, argument: nil)
+            }
+            // Mirror the internal focus state out so consumers can drive their own keyboard toolbar.
+            if self.externalFocusBinding?.wrappedValue != newValue {
+                self.externalFocusBinding?.wrappedValue = newValue
+            }
+        }
+        .onChange(of: self.externalFocusBinding?.wrappedValue) { _, newValue in
+            // Allow consumers to dismiss the keyboard by setting their binding to false.
+            if newValue == false, self.isFocused {
+                self.isFocused = false
             }
         }
         .onChange(of: configuration.text.isEmpty) { _, _ in

@@ -165,3 +165,49 @@ public extension StepperViewStyle where Self == StepperViewFocusedStyle {
         StepperViewFocusedStyle()
     }
 }
+
+public extension View {
+    /// Binds the focus state of a `StepperView` / `StepperField`'s numeric text field to an external binding.
+    ///
+    /// The number and decimal keyboards have no Return/Done key, so the field cannot otherwise be
+    /// dismissed. Pass a `@State var` binding here to:
+    /// - observe when the field becomes/resigns first responder (the binding is written `true`/`false`), and
+    /// - dismiss the keyboard programmatically by setting the binding to `false`.
+    ///
+    /// This lets you host your own keyboard toolbar on the view and show a Done button only while editing:
+    /// ```swift
+    /// @State private var isEditing = false
+    ///
+    /// StepperView(title: { Text("Value") }, text: $value, stepRange: 0 ... 100)
+    ///     .stepperFieldFocused($isEditing)
+    ///     .toolbar {
+    ///         ToolbarItemGroup(placement: .keyboard) {
+    ///             if isEditing {
+    ///                 Button { isEditing = false } label: { Text("Done") }
+    ///                 Spacer()
+    ///             }
+    ///         }
+    ///     }
+    /// ```
+    /// - Parameter binding: A binding kept in sync with the field's focus state.
+    func stepperFieldFocused(_ binding: Binding<Bool>) -> some View {
+        self.environment(\.stepperFieldFocusBinding, binding)
+    }
+}
+
+struct StepperFieldFocusBindingKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool>? = nil
+}
+
+extension EnvironmentValues {
+    /// An optional external binding that mirrors the focus state of the stepper's numeric text field.
+    ///
+    /// Set via `.stepperFieldFocused(_:)`. The component keeps this binding in sync with its internal
+    /// focus state: it writes `true`/`false` as the field gains or loses focus, and setting it to `false`
+    /// programmatically resigns the field's first responder (dismissing the number/decimal keyboard,
+    /// which otherwise has no Return/Done key).
+    var stepperFieldFocusBinding: Binding<Bool>? {
+        get { self[StepperFieldFocusBindingKey.self] }
+        set { self[StepperFieldFocusBindingKey.self] = newValue }
+    }
+}
