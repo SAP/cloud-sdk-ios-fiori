@@ -355,7 +355,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
             } else {
                 EmptyView()
             }
-        default:
+        case .processing, .uploading, .error:
             EmptyView()
         }
     }
@@ -370,7 +370,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                 },
                 set: {
                     switch configuration.attachmentInfo {
-                    case .uploading, .error:
+                    case .processing, .uploading, .error:
                         return
                     case .uploaded:
                         configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -399,7 +399,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             return
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -460,7 +460,7 @@ struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
                     controlState: configuration.controlState,
                     onExtraInfoChange: { newValue in
                         switch configuration.attachments[index] {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             break
                         case .uploaded(let destinationURL, let sourceURL, _):
                             configuration.attachments[index] = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: newValue)
@@ -571,7 +571,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             break
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -597,7 +597,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             return
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))

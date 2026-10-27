@@ -160,7 +160,9 @@ open class AttachmentContext {
 
             var location: CLLocation?
             if case .enabled = self.locationCaptureMode {
+                self.configuration?.attachments.append(.processing())
                 location = await self.locationService.getCurrentLocation()
+                self.configuration?.attachments.removeAll { $0 == .processing() }
             }
 
             if let data = image.jpegData(compressionQuality: 1.0) {
@@ -225,7 +227,9 @@ open class AttachmentContext {
 
             var location: CLLocation?
             if case .enabled = self.locationCaptureMode {
+                self.configuration?.attachments.append(.processing())
                 location = await self.locationService.getCurrentLocation()
+                self.configuration?.attachments.removeAll { $0 == .processing() }
             }
 
             do {

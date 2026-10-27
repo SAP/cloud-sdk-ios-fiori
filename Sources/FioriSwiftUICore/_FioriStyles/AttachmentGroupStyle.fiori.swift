@@ -58,7 +58,7 @@ public struct AttachmentGroupBaseStyle: AttachmentGroupStyle {
                             self.showingConfirmation.toggle()
                         case .error:
                             configuration.context.delete(attachment: info.primaryURL)
-                        case .uploading:
+                        case .processing, .uploading:
                             return
                         }
                     }
