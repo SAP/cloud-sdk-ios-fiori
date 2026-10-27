@@ -405,6 +405,7 @@ struct BannerMessageModifier: ViewModifier {
     @State private var showingMessageDetail: Bool = false
     
     @Environment(\.isBannerMessagePersistent) var isBannerMessagePersistent
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     init(icon: (any View)? = nil, title: (any View)? = nil, isPresented: Binding<Bool>, pushContentDown: Binding<Bool>, bannerTapped: (() -> Void)? = nil, viewDetailAction: ((UUID) -> Void)? = nil, alignment: HorizontalAlignment, hideSeparator: Bool, hidesCloseAction: Bool = false, messageType: BannerMultiMessageType, turnOnSectionHeader: Bool, showDetailLink: Bool, bannerMultiMessages: Binding<[BannerMessageListModel]>) {
         self.icon = icon
@@ -514,7 +515,7 @@ struct BannerMessageModifier: ViewModifier {
                         if url.absoluteString == "ViewDetails" {
                             self.showingMessageDetail = true
                             
-                            if UIDevice.current.userInterfaceIdiom == .phone,
+                            if self.horizontalSizeClass == .compact,
                                !self.isBannerMessagePersistent
                             {
                                 self.isPresented = false
@@ -522,8 +523,8 @@ struct BannerMessageModifier: ViewModifier {
                         }
                         return .handled
                     }))
-                    .frame(minWidth: (UIDevice.current.userInterfaceIdiom != .phone && self.alignment != .center) ? 393 : nil, alignment: .leading)
-                    .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: {
+                    .frame(minWidth: (self.horizontalSizeClass != .compact && self.alignment != .center) ? 393 : nil, alignment: .leading)
+                    .ifApply(self.horizontalSizeClass != .compact, content: {
                         $0.popover(isPresented: self.$showingMessageDetail) {
                             self.bannerMultiMessageSheet
                                 .presentationDetents([.medium, .large])
@@ -563,7 +564,7 @@ struct BannerMessageModifier: ViewModifier {
                         .transition(.move(edge: .top).combined(with: .opacity))
                 }
                 content
-                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                    .ifApply(self.horizontalSizeClass == .compact, content: {
                         $0.popover(isPresented: self.$showingMessageDetail) {
                             self.bannerMultiMessageSheet
                                 .presentationDetents([.medium, .large])
@@ -582,7 +583,7 @@ struct BannerMessageModifier: ViewModifier {
                     }
                 }
                 .animation(.easeInOut, value: self.isPresented)
-                .ifApply(UIDevice.current.userInterfaceIdiom == .phone, content: {
+                .ifApply(self.horizontalSizeClass == .compact, content: {
                     $0.popover(isPresented: self.$showingMessageDetail) {
                         self.bannerMultiMessageSheet
                             .presentationDetents([.medium, .large])
