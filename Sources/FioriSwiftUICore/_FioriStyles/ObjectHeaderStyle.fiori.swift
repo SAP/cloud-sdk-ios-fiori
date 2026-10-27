@@ -2,6 +2,8 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 // Base Layout style
 public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @Environment(\.sizeCategory) var sizeCategory
@@ -688,7 +690,7 @@ public enum ObjectHeaderAdditionalInfoAlignment {
     /// edge of the detail image. This is the default behavior.
     case alignWithTitle
 
-    /// Tags, body text, and footnote align with the container's leading edge —
+    /// body text, and footnote align with the container's leading edge —
     /// the same edge as the detail image — instead of indenting under the title.
     case leadingEdge
 }
