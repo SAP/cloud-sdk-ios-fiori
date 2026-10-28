@@ -90,7 +90,7 @@ struct InfoViewWithLoadingLabel: View {
                 let loadingIndicator = LoadingIndicator(title: {
                     Text(AttributedString(self.model.loadingIndicatorText ?? ""))
                         .font(.fiori(forTextStyle: .body))
-                }, progress: { ProgressView() }, isPresented: self.$showLoadingView)
+                }, fioriProgressView: { ProgressView() }, isPresented: self.$showLoadingView)
                 
                 InfoView(title: { Text(AttributedString(self.model.title)) },
                          loadingIndicator: { loadingIndicator })
@@ -125,7 +125,7 @@ struct InfoViewCustomized: View {
         VStack {
             if self.showLoadingView {
                 // Initially only show the title and the loading indicator.
-                let loadingIndicator = LoadingIndicator(title: { Text("") }, progress: { ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .red)) }, isPresented: self.$showLoadingView)
+                let loadingIndicator = LoadingIndicator(title: { Text("") }, fioriProgressView: { ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .red)) }, isPresented: self.$showLoadingView)
                 
                 InfoView(title: { Text(AttributedString(self.model.title)) },
                          loadingIndicator: { loadingIndicator })
