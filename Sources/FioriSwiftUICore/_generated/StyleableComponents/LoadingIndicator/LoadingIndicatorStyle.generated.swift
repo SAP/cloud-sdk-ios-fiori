@@ -24,7 +24,7 @@ struct AnyLoadingIndicatorStyle: LoadingIndicatorStyle {
 public struct LoadingIndicatorConfiguration {
     public var componentIdentifier: String = "fiori_loadingindicator_component"
     public let title: Title
-    public let progress: FioriProgressView
+    public let fioriProgressView: FioriProgressView
     public let duration: Double
     @Binding public var isPresented: Bool
     public let isAIEnabled: Bool
@@ -43,6 +43,6 @@ public struct LoadingIndicatorFioriStyle: LoadingIndicatorStyle {
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
         LoadingIndicator(configuration)
             .titleStyle(TitleFioriStyle(loadingIndicatorConfiguration: configuration))
-            .fioriProgressViewStyle(ProgressFioriStyle(loadingIndicatorConfiguration: configuration))
+            .fioriProgressViewStyle(FioriProgressViewFioriStyle(loadingIndicatorConfiguration: configuration))
     }
 }

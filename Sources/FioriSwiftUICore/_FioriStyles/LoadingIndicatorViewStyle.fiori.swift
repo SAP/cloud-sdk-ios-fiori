@@ -30,7 +30,7 @@ public struct LoadingIndicatorBaseStyle: LoadingIndicatorStyle {
     }
 
     private func makeBodyForProgressView(_ configuration: LoadingIndicatorConfiguration) -> some View {
-        configuration.progress
+        configuration.fioriProgressView
             .tint(self.tint)
             .controlSize(self.controlSize)
     }
@@ -127,7 +127,7 @@ extension LoadingIndicatorFioriStyle {
         }
     }
     
-    struct ProgressFioriStyle: FioriProgressViewStyle {
+    struct FioriProgressViewFioriStyle: FioriProgressViewStyle {
         let loadingIndicatorConfiguration: LoadingIndicatorConfiguration
 
         func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
@@ -204,5 +204,28 @@ public extension LoadingIndicator {
         case top
         /// Bottom position of the loading indicator
         case bottom
+    }
+}
+
+public extension LoadingIndicator {
+    @available(*, unavailable, renamed: "init(title:fioriProgressView:duration:isPresented:isAIEnabled:componentIdentifier:)")
+    init(@ViewBuilder title: () -> any View,
+         @ViewBuilder progress: () -> any View = { ProgressView() },
+         duration: Double = 0,
+         isPresented: Binding<Bool>,
+         isAIEnabled: Bool = false,
+         componentIdentifier: String? = LoadingIndicator.identifier)
+    {
+        self.init(title: title, fioriProgressView: progress, duration: duration, isPresented: isPresented, isAIEnabled: isAIEnabled, componentIdentifier: componentIdentifier)
+    }
+    
+    @available(*, unavailable, renamed: "init(title:fioriProgressView:duration:isPresented:isAIEnabled:componentIdentifier:)")
+    init(title: AttributedString,
+         progress: ProgressView<EmptyView, EmptyView> = ProgressView(),
+         duration: Double = 0,
+         isPresented: Binding<Bool>,
+         isAIEnabled: Bool = false)
+    {
+        self.init(title: title, fioriProgressView: progress, duration: duration, isPresented: isPresented, isAIEnabled: isAIEnabled)
     }
 }

@@ -1578,6 +1578,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FioriProgressViewStyle
+
+struct FioriProgressViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FioriProgressViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var fioriProgressViewStyle: any FioriProgressViewStyle {
+        self.fioriProgressViewStyleStack.last ?? .base
+    }
+
+    var fioriProgressViewStyleStack: [any FioriProgressViewStyle] {
+        get {
+            self[FioriProgressViewStyleStackKey.self]
+        }
+        set {
+            self[FioriProgressViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 struct FioriSliderStyleStackKey: EnvironmentKey {
@@ -3023,27 +3044,6 @@ extension EnvironmentValues {
         }
         set {
             self[ProfileHeaderStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: FioriProgressViewStyle
-
-struct FioriProgressViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any FioriProgressViewStyle] = []
-}
-
-extension EnvironmentValues {
-    var fioriProgressViewStyle: any FioriProgressViewStyle {
-        self.fioriProgressViewStyleStack.last ?? .base
-    }
-
-    var fioriProgressViewStyleStack: [any FioriProgressViewStyle] {
-        get {
-            self[FioriProgressViewStyleStackKey.self]
-        }
-        set {
-            self[FioriProgressViewStyleStackKey.self] = newValue
         }
     }
 }

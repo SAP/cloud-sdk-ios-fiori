@@ -44,7 +44,7 @@ struct LoadingIndicatorExample: View {
                                     Text(" delay/show/dismiss")
                                         .font(.system(size: 12))
                                         .rainbow()
-                                }, progress: {
+                                }, fioriProgressView: {
                                     FioriProgressView()
                                 }, duration: 3, isPresented: self.$isPresented2, isAIEnabled: self.isAIStyle)
                                     .indicatorPosition(.top)
@@ -100,7 +100,7 @@ struct LoadingIndicatorExample: View {
                                 Text("top indicator")
                                     .font(.system(size: 8))
                                     .foregroundStyle(Color.red)
-                            }, progress: {
+                            }, fioriProgressView: {
                                 FioriProgressView()
                             }, isPresented: self.$isPresented5, isAIEnabled: isAIStyle)
                                 .indicatorPosition(.top)
@@ -113,7 +113,7 @@ struct LoadingIndicatorExample: View {
                             Text("trailing indicator")
                                 .font(.largeTitle)
                                 .foregroundStyle(Color.green)
-                        }, progress: {
+                        }, fioriProgressView: {
                             FioriProgressView()
                         }, isPresented: self.$isPresented4, isAIEnabled: self.isAIStyle)
                             .indicatorPosition(.trailing)
