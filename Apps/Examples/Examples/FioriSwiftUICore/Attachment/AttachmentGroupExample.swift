@@ -1,3 +1,4 @@
+import CoreLocation
 import FioriSwiftUICore
 import FioriThemeManager
 import OSLog
@@ -27,6 +28,7 @@ struct AttachmentGroupExample: View {
     @State private var showExtranInfo: Bool = false
     @State private var useDemoDelegate: Bool = false
     @State private var showDefaultThumbnailWithPreview: Bool = false
+    @State private var locationCaptureMode: LocationCaptureMode = .disabled
 
     var shouldShowPreview: Binding<Bool> {
         Binding<Bool> {
@@ -61,6 +63,7 @@ struct AttachmentGroupExample: View {
         self.showExtranInfo = false
         self.useDemoDelegate = false
         self.showDefaultThumbnailWithPreview = false
+        self.locationCaptureMode = .disabled
     }
     
     var body: some View {
@@ -188,6 +191,11 @@ struct AttachmentGroupExample: View {
 
                         Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
                         
+                        Toggle(self.locationCaptureMode != .disabled ? "Location Capture Enabled" : "Location Capture Disabled", isOn: Binding(
+                            get: { self.locationCaptureMode != .disabled },
+                            set: { self.locationCaptureMode = $0 ? .enabled(accuracy: .hundredMeters) : .disabled }
+                        ))
+
                         FilterCFG(photoFilters: self.$photoFilters, fileFilters: self.$fileFilters)
                         Spacer()
                     }
@@ -279,7 +287,8 @@ struct AttachmentGroupExample: View {
                 print("Custom preview: \(newValue)")
                 self.previewURL = newValue
             },
-            defaultAttachmentExtraInfo: self.showExtranInfo ? { MyExtraInfo.random() } : nil
+            defaultAttachmentExtraInfo: self.showExtranInfo ? { MyExtraInfo.random() } : nil,
+            locationCaptureMode: self.locationCaptureMode
         )
         #if os(iOS)
         .ifApply(!self.defaultPreview) {
@@ -346,7 +355,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
             } else {
                 EmptyView()
             }
-        default:
+        case .processing, .uploading, .error:
             EmptyView()
         }
     }
@@ -361,7 +370,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                 },
                 set: {
                     switch configuration.attachmentInfo {
-                    case .uploading, .error:
+                    case .processing, .uploading, .error:
                         return
                     case .uploaded:
                         configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -390,7 +399,7 @@ struct MyAttachmentThumbnailMaskStyle: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             return
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -451,7 +460,7 @@ struct MyAttachmentGroupListStyle: AttachmentGroupStyle {
                     controlState: configuration.controlState,
                     onExtraInfoChange: { newValue in
                         switch configuration.attachments[index] {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             break
                         case .uploaded(let destinationURL, let sourceURL, _):
                             configuration.attachments[index] = .uploaded(destinationURL: destinationURL, sourceURL: sourceURL, extraInfo: newValue)
@@ -562,7 +571,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             break
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -588,7 +597,7 @@ struct MyAttachmentStyleForListLayout: AttachmentStyle {
                     },
                     set: {
                         switch configuration.attachmentInfo {
-                        case .uploading, .error:
+                        case .processing, .uploading, .error:
                             return
                         case .uploaded:
                             configuration.onExtraInfoChange?(MyExtraInfo.create(extraInfo: $0))
@@ -687,7 +696,12 @@ class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
         super.init()
     }
     
-    override func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    override func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+        if let location {
+            print("Received location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        } else {
+            print("No location provided")
+        }
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {
