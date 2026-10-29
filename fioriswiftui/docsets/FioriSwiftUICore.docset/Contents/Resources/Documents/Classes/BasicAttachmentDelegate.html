@@ -183,7 +183,35 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="n">contentFrom</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">NSItemProvider</span><span class="p">,</span> <span class="nv">onStarting</span><span class="p">:</span> <span class="p">((</span><span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">URL</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use upload(contentFrom:location:onStarting:onCompletion:﹚ instead"</span><span class="p">)</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="n">contentFrom</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">NSItemProvider</span><span class="p">,</span> <span class="nv">onStarting</span><span class="p">:</span> <span class="p">((</span><span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">URL</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:16FioriSwiftUICore23BasicAttachmentDelegateC6upload11contentFrom8location10onStarting0K10CompletionySo14NSItemProviderC_So10CLLocationCSgy10Foundation3URLVcSgyAPSg_s5Error_pSgtctF"></a>
+                      <a name="//apple_ref/swift/Method/upload(contentFrom:location:onStarting:onCompletion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore23BasicAttachmentDelegateC6upload11contentFrom8location10onStarting0K10CompletionySo14NSItemProviderC_So10CLLocationCSgy10Foundation3URLVcSgyAPSg_s5Error_pSgtctF">upload(contentFrom:<wbr>location:<wbr>onStarting:<wbr>onCompletion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Upload an attachment, content of which is provided by an NSItemProvider asynchronously, with optional location metadata.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="n">contentFrom</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">NSItemProvider</span><span class="p">,</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">?,</span> <span class="nv">onStarting</span><span class="p">:</span> <span class="p">((</span><span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">URL</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -529,6 +557,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LocationCaptureMode.html">LocationCaptureMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LocationCaptureMode/LocationAccuracy.html">– LocationAccuracy</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
@@ -6784,7 +6818,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-28)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

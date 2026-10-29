@@ -72,7 +72,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/Attachment/BasicAttachmentDelegate.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "BasicAttachmentDelegate.init(localFolderName:onPreparation:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -12763,28 +12763,28 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroup.generated.swift",
-      "line": 93,
-      "symbol": "AttachmentGroup.init(title:context:attachments:maxCount:maxPhotoSelectionCount:delegate:controlState:errorMessage:operations:onPreview:defaultAttachmentExtraInfo:componentIdentifier:)",
+      "line": 97,
+      "symbol": "AttachmentGroup.init(title:context:attachments:maxCount:maxPhotoSelectionCount:delegate:controlState:errorMessage:operations:onPreview:defaultAttachmentExtraInfo:locationCaptureMode:componentIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroup.generated.swift",
-      "line": 122,
+      "line": 128,
       "symbol": "AttachmentGroup.identifier",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroup.generated.swift",
-      "line": 126,
-      "symbol": "AttachmentGroup.init(title:mandatoryFieldIndicator:isRequired:context:attachments:maxCount:maxPhotoSelectionCount:delegate:controlState:errorMessage:operations:onPreview:defaultAttachmentExtraInfo:)",
+      "line": 132,
+      "symbol": "AttachmentGroup.init(title:mandatoryFieldIndicator:isRequired:context:attachments:maxCount:maxPhotoSelectionCount:delegate:controlState:errorMessage:operations:onPreview:defaultAttachmentExtraInfo:locationCaptureMode:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroup.generated.swift",
-      "line": 147,
+      "line": 154,
       "symbol": "AttachmentGroup.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -12903,28 +12903,35 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroupStyle.generated.swift",
-      "line": 38,
+      "line": 37,
+      "symbol": "AttachmentGroupConfiguration.locationCaptureMode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroupStyle.generated.swift",
+      "line": 39,
       "symbol": "AttachmentGroupConfiguration.Title",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroupStyle.generated.swift",
-      "line": 39,
+      "line": 40,
       "symbol": "AttachmentGroupConfiguration.Operations",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroupStyle.generated.swift",
-      "line": 48,
+      "line": 49,
       "symbol": "AttachmentGroupFioriStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/AttachmentGroup/AttachmentGroupStyle.generated.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "AttachmentGroupFioriStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
