@@ -9,7 +9,7 @@ options:
   groupSortPosition: top
   generateEmptyDirectories: true
   deploymentTarget:
-    iOS: "18.0"
+    iOS: "26.0"
     visionOS: "2.0"
     watchOS: "9.0"
 
