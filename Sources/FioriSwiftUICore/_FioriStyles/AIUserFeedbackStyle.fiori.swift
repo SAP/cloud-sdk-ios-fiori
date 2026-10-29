@@ -65,9 +65,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     
     var navigationBarHeight: CGFloat {
         if LiquidGlassHelper.usesLiquidGlassUI {
-            return UIDevice.current.userInterfaceIdiom != .phone ? 67 : 74
+            return UIDevice.isIPad ? 67 : 74
         } else {
-            return UIDevice.current.userInterfaceIdiom != .phone ? 50.0 : 56.0
+            return UIDevice.isIPad ? 50.0 : 56.0
         }
     }
     
@@ -132,10 +132,10 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .presentationBackgroundInteraction(configuration.isBackgroundInteractionEnabled ? self.backgroundInteractionPresentationDetent() : .automatic)
                     .presentationDetents([.height(self.detentHeight + self.navigationBarHeight), .height(213.0), .medium, .large], selection: self.$detentSelection)
             })
-            .ifApply(UIDevice.current.userInterfaceIdiom == .pad) { v in
+            .ifApply(UIDevice.isIPad) { v in
                 v.presentationDragIndicator(.hidden)
                     .presentationDetents([.height(self.detentHeight + self.navigationBarHeight)])
-                    .frame(idealHeight: self.detentHeight + self.navigationBarHeight)
+                    .fixedSize(horizontal: false, vertical: true)
             }
     }
     
@@ -187,11 +187,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                 .descriptionStyle(self.illustratedMessageDescriptionStyle)
                                 .typeErased
                                 .frame(maxWidth: .infinity)
-                            
+
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
                             }
-                            
+
                             if self.isShowSubmitButton {
                                 self.submitButton(configuration)
                                     .onSimultaneousTapGesture {
@@ -216,7 +216,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         })
                         .padding([.top, .bottom], 16)
                     }
-                    .frame(minHeight: (self.horizontalSizeClass == .compact || configuration.displayMode != .inspector) ? self.scrollViewHeight - (self.isCompactStyle(configuration) ? 10 : 0) : nil)
+                    .frame(minHeight: (!UIDevice.isIPad && (self.horizontalSizeClass == .compact || configuration.displayMode != .inspector)) ? self.scrollViewHeight - (self.isCompactStyle(configuration) ? 10 : 0) : nil)
                     .ifApply(self.shouldShowFeedbackDetail, content: { v in
                         v.padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 0)
                     })
@@ -227,6 +227,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 }
             }
             .defaultScrollAnchor(.top)
+            .ifApply(UIDevice.isIPad) { v in
+                v.fixedSize(horizontal: false, vertical: true)
+            }
         }
         .background(GeometryReader { geometry in
             Color.clear

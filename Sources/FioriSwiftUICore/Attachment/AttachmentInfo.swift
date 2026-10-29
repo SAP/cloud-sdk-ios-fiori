@@ -2,7 +2,8 @@ import SwiftUI
 
 /// Represents the state of an attachment in the attachment flow.
 ///
-/// `AttachmentInfo` tracks the lifecycle of an attachment through three states:
+/// `AttachmentInfo` tracks the lifecycle of an attachment through four states:
+/// - `.processing`: The attachment is being prepared for upload (for example, fetching location)
 /// - `.uploading`: The attachment is in the process of being uploaded
 /// - `.uploaded`: The attachment has been successfully uploaded
 /// - `.error`: An error occurred during the attachment process
@@ -10,10 +11,13 @@ public enum AttachmentInfo: Identifiable, Hashable {
     /// The unique identifier for the attachment.
     ///
     /// This property returns the appropriate URL based on the current state:
+    /// - For `.processing` state: Returns the processing URL
     /// - For `.uploading` and `.error` states: Returns the source URL
     /// - For `.uploaded` state: Returns the destination URL
     public var id: URL {
         switch self {
+        case .processing(let sourceURL):
+            return sourceURL
         case .uploading(let sourceURL):
             return sourceURL
         case .uploaded(let destinationURL, _, _):
@@ -22,7 +26,14 @@ public enum AttachmentInfo: Identifiable, Hashable {
             return sourceURL
         }
     }
-    
+
+    /// Represents an attachment that is being prepared for upload (for example, fetching location).
+    ///
+    /// This state indicates that the attachment capture has started but the upload
+    /// has not yet begun. This typically occurs when location data is being acquired
+    /// for camera captures before the actual upload starts.
+    case processing(sourceURL: URL = URL(fileURLWithPath: "/Processing"))
+
     /// Represents an attachment that is currently being uploaded.
     ///
     /// - Parameter sourceURL: The local URL of the attachment being uploaded
@@ -51,6 +62,8 @@ public enum AttachmentInfo: Identifiable, Hashable {
     /// - Returns: `true` if the attachment infos are equal, `false` otherwise
     public static func == (lhs: AttachmentInfo, rhs: AttachmentInfo) -> Bool {
         switch (lhs, rhs) {
+        case (.processing(let lURL), .processing(let rURL)):
+            return lURL == rURL
         case (.uploading(let lURL), .uploading(let rURL)):
             return lURL == rURL
         case (.uploaded(let lURL, let lsURL, let lInfo), .uploaded(let rURL, let rsURL, let rInfo)):
@@ -70,12 +83,15 @@ public enum AttachmentInfo: Identifiable, Hashable {
             return false
         }
     }
-    
+
     /// Hashes the essential components of this value by feeding them into the given hasher.
     ///
     /// - Parameter hasher: The hasher to use when combining the components of this instance
     public func hash(into hasher: inout Hasher) {
         switch self {
+        case .processing(let sourceURL):
+            hasher.combine(-1)
+            hasher.combine(sourceURL)
         case .uploading(let sourceURL):
             hasher.combine(0)
             hasher.combine(sourceURL)
@@ -100,10 +116,13 @@ public extension AttachmentInfo {
     /// Returns the primary URL associated with this attachment.
     ///
     /// Depending on the state:
+    /// - For `.processing`: Returns the processing URL
     /// - For `.uploaded`: Returns the destination URL
     /// - For `.uploading` and `.error`: Returns the source URL
     var primaryURL: URL {
         switch self {
+        case .processing(let url):
+            return url
         case .uploaded(let url, _, _):
             return url
         case .uploading(let url):
@@ -112,7 +131,7 @@ public extension AttachmentInfo {
             return url
         }
     }
-    
+
     /// Returns the file name of the attachment.
     ///
     /// This value is extracted from the last path component of the primary URL.
@@ -133,14 +152,15 @@ public extension AttachmentInfo {
 }
 
 public extension [AttachmentInfo] {
-    /// Indicates whether any attachment in the array is currently uploading.
+    /// Indicates whether any attachment in the array is currently uploading or processing.
     ///
-    /// - Returns: `true` if at least one attachment is in `.uploading` state, `false` otherwise
+    /// - Returns: `true` if at least one attachment is in `.processing` or `.uploading` state, `false` otherwise
     var isUploading: Bool {
         self.contains { info in
-            if case .uploading = info {
+            switch info {
+            case .processing, .uploading:
                 return true
-            } else {
+            case .uploaded, .error:
                 return false
             }
         }

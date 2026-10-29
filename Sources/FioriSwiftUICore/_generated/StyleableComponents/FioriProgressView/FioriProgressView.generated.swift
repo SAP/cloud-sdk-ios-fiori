@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 public struct FioriProgressView {
-    let progress: any View
+    let fioriProgressView: any View
 
     @Environment(\.fioriProgressViewStyle) var style
 
@@ -12,21 +12,21 @@ public struct FioriProgressView {
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder progress: () -> any View,
+    public init(@ViewBuilder fioriProgressView: () -> any View = { ProgressView() },
                 componentIdentifier: String? = FioriProgressView.identifier)
     {
-        self.progress = progress()
+        self.fioriProgressView = fioriProgressView()
         self.componentIdentifier = componentIdentifier ?? FioriProgressView.identifier
     }
 }
 
 public extension FioriProgressView {
-    static let identifier = "fiori_progress_component"
+    static let identifier = "fiori_fioriprogressview_component"
 }
 
 public extension FioriProgressView {
-    init(progress: ProgressView<EmptyView, EmptyView> = ProgressView()) {
-        self.init(progress: { progress })
+    init(fioriProgressView: ProgressView<EmptyView, EmptyView> = ProgressView()) {
+        self.init(fioriProgressView: { fioriProgressView })
     }
 }
 
@@ -36,7 +36,7 @@ public extension FioriProgressView {
     }
 
     internal init(_ configuration: FioriProgressViewConfiguration, shouldApplyDefaultStyle: Bool) {
-        self.progress = configuration.progress
+        self.fioriProgressView = configuration.fioriProgressView
         self._shouldApplyDefaultStyle = shouldApplyDefaultStyle
         self.componentIdentifier = configuration.componentIdentifier
     }
@@ -47,7 +47,7 @@ extension FioriProgressView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, fioriProgressView: .init(self.fioriProgressView))).typeErased
                 .transformEnvironment(\.fioriProgressViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -65,7 +65,7 @@ private extension FioriProgressView {
     }
 
     func defaultStyle() -> some View {
-        FioriProgressView(.init(componentIdentifier: self.componentIdentifier, progress: .init(self.progress)))
+        FioriProgressView(.init(componentIdentifier: self.componentIdentifier, fioriProgressView: .init(self.fioriProgressView)))
             .shouldApplyDefaultStyle(false)
             .fioriProgressViewStyle(.fiori)
             .typeErased

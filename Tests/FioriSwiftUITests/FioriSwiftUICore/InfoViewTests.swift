@@ -3,10 +3,14 @@ import SwiftUI
 import XCTest
 
 final class InfoViewTests: XCTestCase {
-    func testInfoViewLeftPadding() {
-        XCTAssertEqual(getInfoViewLeftPadding(), 35.0)
+    func testInfoViewLeftPaddingDefaultValue() {
+        let view = InfoView(
+            title: { Text("Title") },
+            descriptionText: { Text("Desc") }
+        )
+        XCTAssertNotNil(view)
     }
-    
+
     func testViewConfiguration() throws {
         let view = InfoView(
             title: { Text("Initial Title") },

@@ -68,7 +68,7 @@ public struct DefaultOperationsModifier: ViewModifier {
         #if os(iOS)
             .fullScreenCover(isPresented: self.showCamera) {
                 CameraView { uiImage in
-                    self.context.upload(images: [uiImage])
+                    self.context.upload(cameraImage: uiImage)
                 } onSaveVideo: { movieUrl in
                     self.context.upload(movieUrl: movieUrl)
                 }
@@ -88,7 +88,7 @@ public struct DefaultOperationsModifier: ViewModifier {
                 self.imageScanner
             }
             .onChange(of: self.scannedImages) { _, _ in
-                self.context.upload(images: self.scannedImages)
+                self.context.upload(scannedImages: self.scannedImages)
                 self.scannedImages.removeAll()
             }
     }
@@ -151,12 +151,14 @@ public struct DefaultOperationsModifier: ViewModifier {
         }()
 
         return PhotosPicker(
-            "Pick a photo",
             selection: self.$selectedPhotos,
             maxSelectionCount: maxSelectionCount,
             selectionBehavior: .ordered,
-            matching: self.context.photoSelectionFilter.isEmpty ? nil : .all(of: self.context.photoSelectionFilter)
-        )
+            matching: self.context.photoSelectionFilter.isEmpty ? nil : .all(of: self.context.photoSelectionFilter),
+            photoLibrary: .shared()
+        ) {
+            Text("Pick a photo")
+        }
         .photosPickerStyle(.inline)
     }
     
