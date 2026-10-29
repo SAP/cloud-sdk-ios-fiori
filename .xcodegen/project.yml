@@ -10,8 +10,8 @@ options:
   generateEmptyDirectories: true
   deploymentTarget:
     iOS: "26.0"
-    visionOS: "2.0"
-    watchOS: "9.0"
+    visionOS: "26.0"
+    watchOS: "26.0"
 
 ############
 # Targets
