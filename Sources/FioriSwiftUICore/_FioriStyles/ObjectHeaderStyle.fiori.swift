@@ -2,6 +2,8 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
+
 // Base Layout style
 public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     @Environment(\.sizeCategory) var sizeCategory
@@ -46,7 +48,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
     
     @ViewBuilder
     func regularView(_ configuration: ObjectHeaderConfiguration) -> some View {
-        if self.additionalInfoAlignment == .leadingEdge, !configuration.detailImage.isEmpty {
+        if self.additionalInfoAlignment == .leadingEdge {
             self.regularViewLeadingEdge(configuration)
         } else {
             self.regularViewDefault(configuration)
@@ -94,34 +96,57 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    @ViewBuilder
     func regularViewLeadingEdge(_ configuration: ObjectHeaderConfiguration) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(alignment: .top) {
-                configuration.detailImage
-                    .frame(width: 70, height: 70)
-                    .cornerRadius(6)
-                    .clipped()
-                    .padding(.trailing)
-
+        let hasDetailContent = !configuration.detailContent.isEmpty
+        
+        if hasDetailContent {
+            HStack(alignment: .iconStackAlignmentGuide) {
+                self.leadingEdgeLeftColumn(configuration)
+                    .layoutPriority(0)
+                    .frame(minWidth: 120, maxWidth: 740, alignment: .leading)
+                
+                Spacer(minLength: 48)
+                
+                self.middleViewInRegular(configuration)
+                    .layoutPriority(1)
+                    .onGeometryChange(for: CGSize.self, of: { proxy in
+                        proxy.size
+                    }, action: { newValue in
+                        self.middleViewSize = newValue
+                    })
+                    .frame(width: min(312, self.middleViewSize.width))
+                
+                self.rightViewInRegular(configuration)
+                    .layoutPriority(2)
+                    .onGeometryChange(for: CGSize.self, of: { proxy in
+                        proxy.size
+                    }, action: { newValue in
+                        self.rightViewSize = newValue
+                    })
+                    .frame(width: min(120, self.rightViewSize.width))
+                    .padding(.leading, 40)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } else {
+            VStack(alignment: .objectHeaderLeadingEdge, spacing: 16) {
                 HStack(alignment: .iconStackAlignmentGuide) {
-                    HStack {
+                    HStack(alignment: .top) {
+                        configuration.detailImage
+                            .frame(width: 70, height: 70)
+                            .cornerRadius(6)
+                            .clipped()
+                            .padding(.trailing)
+                            .alignmentGuide(.objectHeaderLeadingEdge) { dimension in
+                                dimension[.leading]
+                            }
+                        
                         self.titleAndSubtitleLeftViewInRegular(configuration)
+                        
                         Spacer(minLength: 0)
                     }
                     .layoutPriority(0)
-                    .frame(minWidth: 120, maxWidth: 740)
-
-                    Spacer(minLength: 48)
-
-                    self.middleViewInRegular(configuration)
-                        .layoutPriority(1)
-                        .onGeometryChange(for: CGSize.self, of: { proxy in
-                            proxy.size
-                        }, action: { newValue in
-                            self.middleViewSize = newValue
-                        })
-                        .frame(width: min(312, self.middleViewSize.width))
-
+                    
                     self.rightViewInRegular(configuration)
                         .layoutPriority(2)
                         .onGeometryChange(for: CGSize.self, of: { proxy in
@@ -132,15 +157,59 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                         .frame(width: min(120, self.rightViewSize.width))
                         .padding(.leading, 40)
                 }
+                
+                if !self.isLeadingEdgeAdditionalTextEmpty(configuration) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        configuration.bodyText
+                        configuration.footnote
+                        configuration.descriptionText
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .alignmentGuide(.objectHeaderLeadingEdge) { dimension in
+                        dimension[.leading]
+                    }
+                }
             }
-
-            if !configuration.detailContent.isEmpty || !configuration.descriptionText.isEmpty, !self.isAdditionalInfoViewEmpty(configuration) {
-                self.additionalInfoView(configuration)
-            } else if !configuration.detailContent.isEmpty, self.isAdditionalInfoViewEmpty(configuration), !configuration.descriptionText.isEmpty {
-                configuration.descriptionText
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
+    func leadingEdgeLeftColumn(_ configuration: ObjectHeaderConfiguration) -> some View {
+        let hasAdditionalText = !self.isLeadingEdgeAdditionalTextEmpty(configuration)
+        
+        return VStack(alignment: .objectHeaderLeadingEdge, spacing: 16) {
+            HStack(alignment: .top) {
+                configuration.detailImage
+                    .frame(width: 70, height: 70)
+                    .cornerRadius(6)
+                    .clipped()
+                    .padding(.trailing)
+                    .alignmentGuide(.objectHeaderLeadingEdge) { dimension in
+                        dimension[.leading]
+                    }
+                
+                self.titleAndSubtitleLeftViewInRegular(configuration)
+                
+                Spacer(minLength: 0)
+            }
+            
+            if hasAdditionalText {
+                VStack(alignment: .leading, spacing: 4) {
+                    configuration.bodyText
+                    configuration.footnote
+                    configuration.descriptionText
+                }
+                .alignmentGuide(.objectHeaderLeadingEdge) { dimension in
+                    dimension[.leading]
+                }
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    func isLeadingEdgeAdditionalTextEmpty(_ configuration: ObjectHeaderConfiguration) -> Bool {
+        configuration.bodyText.isEmpty
+            && configuration.footnote.isEmpty
+            && configuration.descriptionText.isEmpty
     }
 
     func titleAndSubtitleLeftViewInRegular(_ configuration: ObjectHeaderConfiguration) -> some View {
@@ -155,6 +224,7 @@ public struct ObjectHeaderBaseStyle: ObjectHeaderStyle {
                     }
                 })
             configuration.subtitle
+            configuration.tags
         }
     }
     
@@ -620,7 +690,7 @@ public enum ObjectHeaderAdditionalInfoAlignment {
     /// edge of the detail image. This is the default behavior.
     case alignWithTitle
 
-    /// Tags, body text, and footnote align with the container's leading edge —
+    /// body text, and footnote align with the container's leading edge —
     /// the same edge as the detail image — instead of indenting under the title.
     case leadingEdge
 }
@@ -716,4 +786,14 @@ public enum ObjectHeaderSkeletonLoadingPattern {
     }, detailImage: {
         Image("rw").resizable()
     })
+}
+
+extension HorizontalAlignment {
+    private struct ObjectHeaderLeadingEdge: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[HorizontalAlignment.leading]
+        }
+    }
+
+    static let objectHeaderLeadingEdge = HorizontalAlignment(ObjectHeaderLeadingEdge.self)
 }
