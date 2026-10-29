@@ -1278,6 +1278,23 @@ public extension View {
     }
 }
 
+// MARK: FioriProgressViewStyle
+
+public extension View {
+    func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> some View {
+        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+
+    func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
+            let style = AnyFioriProgressViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension View {
@@ -2446,23 +2463,6 @@ public extension View {
     func profileHeaderStyle(@ViewBuilder content: @escaping (ProfileHeaderConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.profileHeaderStyleStack) { stack in
             let style = AnyProfileHeaderStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: FioriProgressViewStyle
-
-public extension View {
-    func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> some View {
-        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-
-    func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.fioriProgressViewStyleStack) { stack in
-            let style = AnyFioriProgressViewStyle(content)
             stack.append(style)
         }
     }

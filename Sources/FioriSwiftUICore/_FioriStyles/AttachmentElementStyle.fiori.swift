@@ -8,7 +8,7 @@ public struct AttachmentElementBaseStyle: AttachmentElementStyle {
     public func makeBody(_ configuration: AttachmentElementConfiguration) -> some View {
         Group {
             switch configuration.attachmentInfo {
-            case .uploading:
+            case .processing, .uploading:
                 if configuration.controlState == .normal {
                     AttachmentInProgress(
                         attachmentInProgressTitle: {
@@ -19,7 +19,7 @@ public struct AttachmentElementBaseStyle: AttachmentElementStyle {
                         onDelete: configuration.onDelete
                     )
                 }
-                
+
             case .uploaded:
                 self.makeAttachemnt(of: configuration)
                 

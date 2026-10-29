@@ -16,6 +16,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
     @State private var isTorchOn: Bool = false
     @State private var isInvalidateScanResult: Bool = false
     @State private var isConfirmationViewShown: Bool = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @StateObject private var scannerManager = BarcodeScannerManager(
         recognizedDataTypes: Set([.barcode()]),
@@ -283,7 +284,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
         }
         .accessibilityLabel(self.isQuickPickerPresented ? "down arrow" : "up arrow")
         .fioriButtonStyle(OnboardingGrayButtonStyle())
-        .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 36.0 : 52.0)
+        .frame(width: 44.0, height: self.horizontalSizeClass == .compact ? 36.0 : 52.0)
     }
     
     func photoLibraryButton() -> some View {
@@ -304,7 +305,7 @@ public struct OnboardingScanViewBaseStyle: OnboardingScanViewStyle {
         }
         .fioriButtonStyle(OnboardingGrayButtonStyle())
         .photosPicker(isPresented: self.$isPhotoPickerPresented, selection: self.$helper.photoPickerSelection, matching: .images, preferredItemEncoding: .automatic)
-        .frame(width: 44.0, height: UIDevice.current.userInterfaceIdiom == .phone ? 47.0 : 63.0)
+        .frame(width: 44.0, height: self.horizontalSizeClass == .compact ? 47.0 : 63.0)
     }
 }
 
