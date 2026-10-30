@@ -16,7 +16,7 @@ struct StepperViewExample: View {
     @State var isDisabled: Bool = false
     @State var toggleDecrementActivate: Bool = true
     @State var isLoading: Bool = false
-    
+    @State var isEditing: Bool = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var newStyle: any InformationViewStyle {
@@ -39,6 +39,22 @@ struct StepperViewExample: View {
                     stepRange: -10 ... 100,
                     description: { Text("Hint Text") }
                 )
+                // Pass through the field's focus state so this view can host its own keyboard
+                // toolbar. The number keyboard has no Return/Done key, so we add a localized Done
+                // button on the leading edge and dismiss the keyboard by setting isEditing = false.
+                .stepperFieldFocused(self.$isEditing)
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        if self.isEditing {
+                            Button {
+                                self.isEditing = false
+                            } label: {
+                                Text("Done")
+                            }
+                            Spacer()
+                        }
+                    }
+                }
                 .disabled(self.isDisabled)
                 
                 StepperView(

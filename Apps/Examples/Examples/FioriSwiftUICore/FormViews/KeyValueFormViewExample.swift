@@ -46,6 +46,7 @@ struct KeyValueFormViewExample: View {
     @State var showList = true
     @State var isLoading: Bool = false
     @FocusState private var isFocused: Bool
+    @State private var isEditing: Bool = false
     
     var body: some View {
         VStack {
@@ -58,6 +59,22 @@ struct KeyValueFormViewExample: View {
                     Text("Default KeyValueForm")
                     KeyValueFormView(title: self.key1, text: self.isLoading ? self.$valueText3 : self.$valueText1, placeholder: "KeyValueFormView", errorMessage: self.getErrorMessage(), maxTextLength: self.getMaxTextLength(), hintText: self.getHintText(), isCharCountEnabled: self.showsCharCount, allowsBeyondLimit: self.allowsBeyondLimit, isRequired: self.isRequired)
                         .environment(\.isAccessibilityCombined, false)
+                        // Pass through the editor's focus so this view can host its own keyboard
+                        // toolbar. The multi-line editor's Return key inserts a newline, so a Done
+                        // button is the way to dismiss the keyboard.
+                        .keyValueFormViewFocused(self.$isEditing)
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                if self.isEditing {
+                                    Button {
+                                        self.isEditing = false
+                                    } label: {
+                                        Text("Done")
+                                    }
+                                    Spacer()
+                                }
+                            }
+                        }
                     
                     Text("Existing Text")
                         .italic()

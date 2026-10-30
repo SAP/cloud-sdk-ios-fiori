@@ -6,11 +6,27 @@ import SwiftUI
 public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
     @FocusState var isFocused: Bool
     @State var isKeyboardShown: Bool = false
+    /// Optional external focus binding supplied via `.noteFormViewFocused(_:)` / `.keyValueFormViewFocused(_:)`.
+    /// Kept in sync with the internal focus state so consumers can host their own keyboard toolbar and
+    /// dismiss the keyboard (the multi-line editor's Return key inserts a newline instead of dismissing).
+    @Environment(\.textEditorFocusBinding) private var externalFocusBinding
 
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         ZStack(alignment: .topLeading) {
             configuration._textView.body
                 .focused(self.$isFocused)
+                .onChange(of: self.isFocused) { _, newValue in
+                    // Mirror the internal focus state out so consumers can drive their own keyboard toolbar.
+                    if self.externalFocusBinding?.wrappedValue != newValue {
+                        self.externalFocusBinding?.wrappedValue = newValue
+                    }
+                }
+                .onChange(of: self.externalFocusBinding?.wrappedValue) { _, newValue in
+                    // Allow consumers to dismiss the keyboard by setting their binding to false.
+                    if newValue == false, self.isFocused {
+                        self.isFocused = false
+                    }
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.isKeyboardShown = false

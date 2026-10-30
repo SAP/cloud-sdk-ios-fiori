@@ -300,3 +300,53 @@ public extension View {
         environment(\.noteFormViewScrollingEnabled, enabled)
     }
 }
+
+// MARK: - NoteFormView Focus
+
+public extension View {
+    /// Binds the focus state of a `NoteFormView`'s text editor to an external binding.
+    ///
+    /// The multi-line text editor's Return key inserts a newline rather than dismissing the keyboard,
+    /// so there is no built-in way to resign first responder. Pass a `@State var` binding here to:
+    /// - observe when the editor becomes/resigns first responder (the binding is written `true`/`false`), and
+    /// - dismiss the keyboard programmatically by setting the binding to `false`.
+    ///
+    /// This lets you host your own keyboard toolbar with a Done button:
+    /// ```swift
+    /// @State private var isEditing = false
+    ///
+    /// NoteFormView(text: $text, placeholder: "Enter text")
+    ///     .noteFormViewFocused($isEditing)
+    ///     .toolbar {
+    ///         ToolbarItemGroup(placement: .keyboard) {
+    ///             if isEditing {
+    ///                 Button { isEditing = false } label: { Text("Done") }
+    ///                 Spacer()
+    ///             }
+    ///         }
+    ///     }
+    /// ```
+    /// - Parameter binding: A binding kept in sync with the editor's focus state.
+    func noteFormViewFocused(_ binding: Binding<Bool>) -> some View {
+        environment(\.textEditorFocusBinding, binding)
+    }
+}
+
+struct TextEditorFocusBindingKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool>? = nil
+}
+
+extension EnvironmentValues {
+    /// An optional external binding that mirrors the focus state of the shared text editor
+    /// (used by `NoteFormView` and, transitively, `KeyValueFormView`).
+    ///
+    /// Set via `.noteFormViewFocused(_:)` / `.keyValueFormViewFocused(_:)`. The component keeps this
+    /// binding in sync with its internal focus state: it writes `true`/`false` as the editor gains or
+    /// loses focus, and setting it to `false` programmatically resigns the editor's first responder.
+    /// This lets consumers host their own keyboard toolbar (e.g. a Done button) to dismiss the keyboard —
+    /// the multi-line text editor's Return key inserts a newline rather than dismissing.
+    var textEditorFocusBinding: Binding<Bool>? {
+        get { self[TextEditorFocusBindingKey.self] }
+        set { self[TextEditorFocusBindingKey.self] = newValue }
+    }
+}

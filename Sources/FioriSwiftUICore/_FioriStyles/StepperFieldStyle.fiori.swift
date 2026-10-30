@@ -19,7 +19,11 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
     @State private var previousValue: String = ""
     @State private var pendingText: String = ""
     @FocusState private var isFocused: Bool
-    
+    /// Optional external focus binding supplied via `.stepperFieldFocused(_:)`. Kept in sync with
+    /// the internal focus state so consumers can observe editing and programmatically dismiss the
+    /// number/decimal keyboard (which has no Return/Done key) — e.g. from their own keyboard toolbar.
+    @Environment(\.stepperFieldFocusBinding) private var externalFocusBinding
+
     public func makeBody(_ configuration: StepperFieldConfiguration) -> some View {
         HStack(spacing: 0) {
             configuration.decrementAction
@@ -63,6 +67,19 @@ public struct StepperFieldBaseStyle: StepperFieldStyle {
                 }
                 .onSubmit {
                     self.isFocused = false
+                }
+                .onChange(of: self.isFocused) { _, newValue in
+                    // Mirror the internal focus state out so consumers can drive their own
+                    // keyboard toolbar (e.g. show a Done button only while editing).
+                    if self.externalFocusBinding?.wrappedValue != newValue {
+                        self.externalFocusBinding?.wrappedValue = newValue
+                    }
+                }
+                .onChange(of: self.externalFocusBinding?.wrappedValue) { _, newValue in
+                    // Allow consumers to dismiss the keyboard by setting their binding to false.
+                    if newValue == false, self.isFocused {
+                        self.isFocused = false
+                    }
                 }
                 .onAppear {
                     let initialText = configuration.$text.wrappedValue
