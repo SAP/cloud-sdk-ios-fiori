@@ -662,9 +662,11 @@ protocol _MenuSelectionItemComponent: _IconComponent, _TitleComponent {
 protocol _MenuSelectionComponent: _ActionComponent {
     // sourcery: @Binding
     var isExpanded: Bool { get }
+    
+    /// A closure that returns the list of views to display as menu items. Defaults to an empty array when not provided.
     // sourcery: defaultValue = "{ [] }"
     // sourcery: resultBuilder.defaultValue = "{ [] }"
-    var items: () -> [any View] { get }
+    var menuItems: () -> [any View] { get }
 }
 
 // sourcery: CompositeComponent

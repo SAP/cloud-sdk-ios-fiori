@@ -16,24 +16,3 @@ public extension MenuSelection {
         }
     }
 }
-
-struct _MenuSelectionContainer: View {
-    let items: [MenuSelectionItemProtocol]
-    let actionHandler: ((MenuSelectionItemProtocol) -> Void)?
-    
-    init(_ items: [MenuSelectionItemProtocol],
-         actionHandler: ((MenuSelectionItemProtocol) -> Void)? = nil)
-    {
-        self.items = items
-        self.actionHandler = actionHandler
-    }
-    
-    var body: some View {
-        ForEach(self.items.indices, id: \.self) {
-            let item = self.items[$0]
-            MenuSelectionItem(model: item) {
-                self.actionHandler?(item)
-            }
-        }
-    }
-}

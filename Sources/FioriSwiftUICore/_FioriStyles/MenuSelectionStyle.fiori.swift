@@ -22,7 +22,7 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     
     public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         VStack(alignment: .leading) {
-            let items = configuration.items()
+            let items = configuration.menuItems()
             let isListCollapsed = self.maxNumberOfItems > 0 && !configuration.isExpanded && items.count > self.maxNumberOfItems
             
             self.makeItemsBody(items, isListCollapsed: isListCollapsed)
@@ -77,6 +77,44 @@ extension MenuSelectionFioriStyle {
             Action(configuration)
                 // Add default style for Action
                 .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .negative))
+        }
+    }
+}
+
+public extension MenuSelection {
+    /// Creates a `MenuSelection` with a custom action view and expandable item list.
+    ///
+    /// - Important: This initializer is unavailable. Use ``init(action:isExpanded:menuItems:componentIdentifier:)`` instead.
+    ///
+    /// - Parameters:
+    ///   - action: A view builder that produces the view used as the trigger for expanding the menu.
+    ///   - isExpanded: A binding to a Boolean value that controls whether the menu is expanded.
+    ///   - items: A view builder that produces the menu's item views. This parameter is ignored in the replacement initializer.
+    ///   - componentIdentifier: An optional string that identifies this component instance. Defaults to ``MenuSelection/identifier``.
+    @available(*, unavailable, message: "Use init(action:isExpanded:menuItems:componentIdentifier:) instead")
+    init(@ViewBuilder action: () -> any View = { EmptyView() },
+         isExpanded: Binding<Bool>,
+         @ViewBuilder items: () -> any View = { EmptyView() },
+         componentIdentifier: String? = MenuSelection.identifier)
+    {
+        self.init(action: action, isExpanded: isExpanded, menuItems: { [] }, componentIdentifier: componentIdentifier)
+    }
+
+    /// Creates a `MenuSelection` with a `FioriButton` action and a list of menu items.
+    ///
+    /// - Important: This initializer is unavailable. Use ``init(action:isExpanded:items:actionHandler:)`` instead.
+    ///
+    /// - Parameters:
+    ///   - action: An optional `FioriButton` used as the trigger for expanding the menu. Defaults to `nil`.
+    ///   - isExpanded: A binding to a Boolean value that controls whether the menu is expanded.
+    ///   - items: An array of items conforming to `MenuSelectionItemProtocol` to display in the menu. Defaults to an empty array.
+    @available(*, unavailable, message: "Use init(action:isExpanded:items:actionHandler:) instead")
+    init(action: FioriButton? = nil,
+         isExpanded: Binding<Bool>,
+         items: [MenuSelectionItemProtocol] = [])
+    {
+        self.init(action: action, isExpanded: isExpanded, items: items) { _ in
+            // Do nothing
         }
     }
 }
