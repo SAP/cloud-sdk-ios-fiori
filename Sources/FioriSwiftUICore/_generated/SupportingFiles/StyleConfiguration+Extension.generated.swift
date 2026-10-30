@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.3.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -9,7 +9,7 @@ import SwiftUI
 
 extension AIUserFeedbackConfiguration {
     var _illustratedMessage: IllustratedMessage {
-        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment), shouldApplyDefaultStyle: true)
+        IllustratedMessage(.init(detailImage: .init(self.detailImage), title: .init(self.title), description: .init(self.description), action: .init(self.action), secondaryAction: .init(self.secondaryAction), detailImageSize: self.detailImageSize, resizesDetailImage: self.resizesDetailImage, isActionVerticallyAligned: self.isActionVerticallyAligned, contentAlignment: self.contentAlignment), shouldApplyDefaultStyle: true)
     }
 }
 
