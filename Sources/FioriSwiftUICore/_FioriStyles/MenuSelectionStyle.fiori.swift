@@ -16,58 +16,47 @@ import SwiftUI
 
 // Base Layout style
 public struct MenuSelectionBaseStyle: MenuSelectionStyle {
-    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
-        _VariadicView.Tree(MenuSelectionViewLayout(configuration: configuration)) {
-            configuration.items
-        }
-    }
-}
-
-struct MenuSelectionViewLayout: _VariadicView_MultiViewRoot {
-    let configuration: MenuSelectionConfiguration
-    
     @Environment(\.maxNumberOfItems) var maxNumberOfItems
     @Environment(\.locale) var locale
     @Environment(\.isLoading) var isLoading
     
-    func body(children: _VariadicView.Children) -> some View {
+    public func makeBody(_ configuration: MenuSelectionConfiguration) -> some View {
         VStack(alignment: .leading) {
-            let isListCollapsed = self.maxNumberOfItems > 0 && !self.configuration.isExpanded && children.count > self.maxNumberOfItems
+            let items = configuration.menuItems()
+            let isListCollapsed = self.maxNumberOfItems > 0 && !configuration.isExpanded && items.count > self.maxNumberOfItems
             
-            self.makeItemsBody(children, isListCollapsed: isListCollapsed)
+            self.makeItemsBody(items, isListCollapsed: isListCollapsed)
             
             if isListCollapsed {
                 Group {
-                    if self.configuration.action.isEmpty {
-                        self.defaultAction(children)
+                    if configuration.action.isEmpty {
+                        self.defaultAction(items)
                     } else {
-                        self.configuration.action
+                        configuration.action
                     }
                 }
                 .onSimultaneousTapGesture {
-                    self.configuration.isExpanded = true
+                    configuration.isExpanded = true
                 }
             }
         }
     }
-
-    func defaultAction(_ children: _VariadicView.Children) -> some View {
-        // `children.count` is the total unfiltered count, as _VariadicView always provides all children.
-        FioriButton(title: .init("View All (%d)", args: children.count, locale: self.locale))
+    
+    func defaultAction(_ items: [any View]) -> some View {
+        FioriButton(title: .init("View All (%d)", args: items.count, locale: self.locale))
             .fioriButtonStyle(FioriSecondaryButtonStyle(colorStyle: .normal, isLoading: self.isLoading))
             .environment(\.isEnabled, true)
             .accessibilityIdentifier("FioriSwiftUICore.MenuSelection.ViewAllButton")
     }
     
-    @ViewBuilder
-    func makeItemsBody(_ children: _VariadicView.Children, isListCollapsed: Bool) -> some View {
-        let limitedNumberOfItems = !isListCollapsed ? 0 : self.maxNumberOfItems
-        if limitedNumberOfItems <= 0 {
-            children
-        } else {
-            ForEach(0 ..< min(limitedNumberOfItems, children.count), id: \.self) {
-                children[$0]
-            }
+    func makeItemsBody(_ items: [any View], isListCollapsed: Bool) -> some View {
+        let limitedCount: Int = {
+            let limit = isListCollapsed ? self.maxNumberOfItems : 0
+            return (limit <= 0) ? items.count : min(limit, items.count)
+        }()
+
+        return ForEach(Array(items.prefix(limitedCount).enumerated()), id: \.offset) {
+            $0.element.typeErased
         }
     }
 }
@@ -93,9 +82,47 @@ extension MenuSelectionFioriStyle {
     }
 }
 
+public extension MenuSelection {
+    /// Creates a `MenuSelection` with a custom action view and expandable item list.
+    ///
+    /// - Important: This initializer is unavailable. Use ``init(action:isExpanded:menuItems:componentIdentifier:)`` instead.
+    ///
+    /// - Parameters:
+    ///   - action: A view builder that produces the view used as the trigger for expanding the menu.
+    ///   - isExpanded: A binding to a Boolean value that controls whether the menu is expanded.
+    ///   - items: A view builder that produces the menu's item views. This parameter is ignored in the replacement initializer.
+    ///   - componentIdentifier: An optional string that identifies this component instance. Defaults to ``MenuSelection/identifier``.
+    @available(*, unavailable, message: "Use init(action:isExpanded:menuItems:componentIdentifier:) instead")
+    init(@ViewBuilder action: () -> any View = { EmptyView() },
+         isExpanded: Binding<Bool>,
+         @ViewBuilder items: () -> any View = { EmptyView() },
+         componentIdentifier: String? = MenuSelection.identifier)
+    {
+        self.init(action: action, isExpanded: isExpanded, menuItems: { [] }, componentIdentifier: componentIdentifier)
+    }
+
+    /// Creates a `MenuSelection` with a `FioriButton` action and a list of menu items.
+    ///
+    /// - Important: This initializer is unavailable. Use ``init(action:isExpanded:items:actionHandler:)`` instead.
+    ///
+    /// - Parameters:
+    ///   - action: An optional `FioriButton` used as the trigger for expanding the menu. Defaults to `nil`.
+    ///   - isExpanded: A binding to a Boolean value that controls whether the menu is expanded.
+    ///   - items: An array of items conforming to `MenuSelectionItemProtocol` to display in the menu. Defaults to an empty array.
+    @available(*, unavailable, message: "Use init(action:isExpanded:items:actionHandler:) instead")
+    init(action: FioriButton? = nil,
+         isExpanded: Binding<Bool>,
+         items: [MenuSelectionItemProtocol] = [])
+    {
+        self.init(action: action, isExpanded: isExpanded, items: items) { _ in
+            // Do nothing
+        }
+    }
+}
+
 #Preview(body: {
     MenuSelection(isExpanded: .constant(false)) {
-        ForEach(0 ..< 10) {
+        (0 ..< 10).map {
             Text("Item \($0)")
         }
     }
@@ -105,7 +132,7 @@ extension MenuSelectionFioriStyle {
 
 #Preview(body: {
     MenuSelection(isExpanded: .constant(true)) {
-        ForEach(0 ..< 10) {
+        (0 ..< 10).map {
             Text("Item \($0)")
         }
     }
@@ -128,14 +155,18 @@ private let models = [
 ]
 
 #Preview(body: {
-    MenuSelection(isExpanded: .constant(false), items: models)
-        .environment(\.maxNumberOfItems, 3)
-        .padding()
+    MenuSelection(isExpanded: .constant(false), items: models, actionHandler: { _ in
+        // do nothing
+    })
+    .environment(\.maxNumberOfItems, 3)
+    .padding()
 })
 
 #Preview("Disabled State") {
-    MenuSelection(isExpanded: .constant(false), items: models)
-        .environment(\.maxNumberOfItems, 3)
-        .padding()
-        .disabled(true)
+    MenuSelection(isExpanded: .constant(false), items: models, actionHandler: { _ in
+        // do nothing
+    })
+    .environment(\.maxNumberOfItems, 3)
+    .padding()
+    .disabled(true)
 }

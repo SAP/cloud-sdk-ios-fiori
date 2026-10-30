@@ -25,10 +25,9 @@ public struct MenuSelectionConfiguration {
     public var componentIdentifier: String = "fiori_menuselection_component"
     public let action: Action
     @Binding public var isExpanded: Bool
-    public let items: Items
+    public let menuItems: () -> [any View]
 
     public typealias Action = ConfigurationViewWrapper
-    public typealias Items = ConfigurationViewWrapper
 }
 
 extension MenuSelectionConfiguration {
