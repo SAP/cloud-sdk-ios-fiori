@@ -50,12 +50,13 @@ public struct MenuSelectionBaseStyle: MenuSelectionStyle {
     }
     
     func makeItemsBody(_ items: [any View], isListCollapsed: Bool) -> some View {
-        var limitedNumberOfItems = !isListCollapsed ? 0 : self.maxNumberOfItems
-        limitedNumberOfItems = limitedNumberOfItems <= 0 ? items.count : limitedNumberOfItems
-        
-        return ForEach(0 ..< min(limitedNumberOfItems, items.count), id: \.self) {
-            items[$0]
-                .typeErased
+        let limitedCount: Int = {
+            let limit = isListCollapsed ? self.maxNumberOfItems : 0
+            return (limit <= 0) ? items.count : min(limit, items.count)
+        }()
+
+        return ForEach(Array(items.prefix(limitedCount).enumerated()), id: \.offset) {
+            $0.element.typeErased
         }
     }
 }
