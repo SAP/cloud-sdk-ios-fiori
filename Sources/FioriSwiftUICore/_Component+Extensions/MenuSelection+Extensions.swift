@@ -7,7 +7,13 @@ public extension MenuSelection {
          items: [MenuSelectionItemProtocol] = [],
          actionHandler: @escaping (MenuSelectionItemProtocol) -> Void)
     {
-        self.init(action: { action }, isExpanded: isExpanded, items: { _MenuSelectionContainer(items, actionHandler: actionHandler) })
+        self.init(action: { action }, isExpanded: isExpanded) {
+            items.map { item in
+                MenuSelectionItem(model: item) {
+                    actionHandler(item)
+                }
+            }
+        }
     }
 }
 

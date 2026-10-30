@@ -877,8 +877,7 @@ extension MediaImage: _ViewEmptyChecking {
 
 extension MenuSelection: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        action.isEmpty &&
-            items.isEmpty
+        action.isEmpty
     }
 }
 

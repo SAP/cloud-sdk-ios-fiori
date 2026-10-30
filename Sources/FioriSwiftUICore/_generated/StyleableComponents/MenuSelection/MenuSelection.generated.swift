@@ -6,7 +6,7 @@ import SwiftUI
 public struct MenuSelection {
     let action: any View
     @Binding var isExpanded: Bool
-    let items: any View
+    let items: () -> [any View]
 
     @Environment(\.menuSelectionStyle) var style
 
@@ -16,12 +16,12 @@ public struct MenuSelection {
 
     public init(@ViewBuilder action: () -> any View = { EmptyView() },
                 isExpanded: Binding<Bool>,
-                @ViewBuilder items: () -> any View = { EmptyView() },
+                items: @escaping () -> [any View] = { [] },
                 componentIdentifier: String? = MenuSelection.identifier)
     {
         self.action = Action(action: action, componentIdentifier: componentIdentifier)
         self._isExpanded = isExpanded
-        self.items = items()
+        self.items = items
         self.componentIdentifier = componentIdentifier ?? MenuSelection.identifier
     }
 }
@@ -33,9 +33,9 @@ public extension MenuSelection {
 public extension MenuSelection {
     init(action: FioriButton? = nil,
          isExpanded: Binding<Bool>,
-         items: [MenuSelectionItemProtocol] = [])
+         items: @escaping () -> [any View] = { [] })
     {
-        self.init(action: { action }, isExpanded: isExpanded, items: { _MenuSelectionContainer(items) })
+        self.init(action: { action }, isExpanded: isExpanded, items: items)
     }
 }
 
@@ -58,7 +58,7 @@ extension MenuSelection: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items))).typeErased
+            self.style.resolve(configuration: .init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: self.items)).typeErased
                 .transformEnvironment(\.menuSelectionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -76,7 +76,7 @@ private extension MenuSelection {
     }
 
     func defaultStyle() -> some View {
-        MenuSelection(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: .init(self.items)))
+        MenuSelection(.init(componentIdentifier: self.componentIdentifier, action: .init(self.action), isExpanded: self.$isExpanded, items: self.items))
             .shouldApplyDefaultStyle(false)
             .menuSelectionStyle(MenuSelectionFioriStyle.ContentFioriStyle())
             .typeErased

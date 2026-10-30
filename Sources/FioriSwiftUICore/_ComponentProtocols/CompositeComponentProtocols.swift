@@ -662,8 +662,9 @@ protocol _MenuSelectionItemComponent: _IconComponent, _TitleComponent {
 protocol _MenuSelectionComponent: _ActionComponent {
     // sourcery: @Binding
     var isExpanded: Bool { get }
-    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = _MenuSelectionContainer
-    var items: [MenuSelectionItemProtocol] { get }
+    // sourcery: defaultValue = "{ [] }"
+    // sourcery: resultBuilder.defaultValue = "{ [] }"
+    var items: () -> [any View] { get }
 }
 
 // sourcery: CompositeComponent
