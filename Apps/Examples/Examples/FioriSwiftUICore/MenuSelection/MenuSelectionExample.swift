@@ -11,7 +11,7 @@ struct MenuSelectionExample: View {
             ScrollViewReader { scrollView in
                 ScrollView {
                     MenuSelection(isExpanded: self.$isExpanded) {
-                        ForEach(0 ..< 50) { i in
+                        (0 ..< 50).map { i in
                             MenuSelectionItem(icon: Image(systemName: "square"), title: AttributedString("Menu Item \(i)")) {
                                 print("select item \(i)")
                             }
