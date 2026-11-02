@@ -60,9 +60,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded5items19componentIdentifierAC0B2UI4View_pyXE_AH7BindingVySbGAhI_pyXESSSgtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(action:isExpanded:items:componentIdentifier:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded5items19componentIdentifierAC0B2UI4View_pyXE_AH7BindingVySbGAhI_pyXESSSgtcfc">init(action:<wbr>isExpanded:<wbr>items:<wbr>componentIdentifier:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded9menuItems19componentIdentifierAC0B2UI4View_pyXE_AH7BindingVySbGSayAhI_pGycSSSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(action:isExpanded:menuItems:componentIdentifier:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded9menuItems19componentIdentifierAC0B2UI4View_pyXE_AH7BindingVySbGSayAhI_pGycSSSgtcfc">init(action:<wbr>isExpanded:<wbr>menuItems:<wbr>componentIdentifier:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -79,7 +79,7 @@
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">action</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
             <span class="nv">isExpanded</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
-            <span class="kd">@ViewBuilder</span> <span class="nv">items</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">any</span> <span class="kt">View</span> <span class="o">=</span> <span class="p">{</span> <span class="kt">EmptyView</span><span class="p">()</span> <span class="p">},</span>
+            <span class="nv">menuItems</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">any</span> <span class="kt">View</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[]</span> <span class="p">},</span>
             <span class="nv">componentIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">MenuSelection</span><span class="o">.</span><span class="n"><a href="../Structs/MenuSelection.html#/s:16FioriSwiftUICore13MenuSelectionV10identifierSSvpZ">identifier</a></span><span class="p">)</span></code></pre>
 
                           </div>
@@ -147,9 +147,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded5itemsAcA0A6ButtonVSg_0B2UI7BindingVySbGSayAA0dE12ItemProtocol_pGtcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(action:isExpanded:items:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded5itemsAcA0A6ButtonVSg_0B2UI7BindingVySbGSayAA0dE12ItemProtocol_pGtcfc">init(action:<wbr>isExpanded:<wbr>items:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded9menuItemsAcA0A6ButtonVSg_0B2UI7BindingVySbGSayAJ4View_pGyctcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(action:isExpanded:menuItems:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore13MenuSelectionV6action10isExpanded9menuItemsAcA0A6ButtonVSg_0B2UI7BindingVySbGSayAJ4View_pGyctcfc">init(action:<wbr>isExpanded:<wbr>menuItems:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -166,7 +166,7 @@
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Structs/FioriButton.html">FioriButton</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
      <span class="nv">isExpanded</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
-     <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/MenuSelectionItemProtocol.html">MenuSelectionItemProtocol</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+     <span class="nv">menuItems</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">any</span> <span class="kt">View</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[]</span> <span class="p">})</span></code></pre>
 
                           </div>
                         </div>
@@ -6773,7 +6773,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-10-29)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
