@@ -2108,6 +2108,34 @@ public extension FilterFormViewStyle {
     }
 }
 
+// MARK: FioriProgressViewStyle
+
+extension ModifiedStyle: FioriProgressViewStyle where Style: FioriProgressViewStyle {
+    public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
+        FioriProgressView(configuration)
+            .fioriProgressViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FioriProgressViewStyleModifier<Style: FioriProgressViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.fioriProgressViewStyle(self.style)
+    }
+}
+
+public extension FioriProgressViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FioriProgressViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FioriProgressViewStyle) -> some FioriProgressViewStyle {
+        style.modifier(FioriProgressViewStyleModifier(style: self))
+    }
+}
+
 // MARK: FioriSliderStyle
 
 extension ModifiedStyle: FioriSliderStyle where Style: FioriSliderStyle {
@@ -4037,34 +4065,6 @@ public extension ProfileHeaderStyle {
 
     func concat(_ style: some ProfileHeaderStyle) -> some ProfileHeaderStyle {
         style.modifier(ProfileHeaderStyleModifier(style: self))
-    }
-}
-
-// MARK: FioriProgressViewStyle
-
-extension ModifiedStyle: FioriProgressViewStyle where Style: FioriProgressViewStyle {
-    public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
-        FioriProgressView(configuration)
-            .fioriProgressViewStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct FioriProgressViewStyleModifier<Style: FioriProgressViewStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.fioriProgressViewStyle(self.style)
-    }
-}
-
-public extension FioriProgressViewStyle {
-    func modifier(_ modifier: some ViewModifier) -> some FioriProgressViewStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some FioriProgressViewStyle) -> some FioriProgressViewStyle {
-        style.modifier(FioriProgressViewStyleModifier(style: self))
     }
 }
 

@@ -662,8 +662,11 @@ protocol _MenuSelectionItemComponent: _IconComponent, _TitleComponent {
 protocol _MenuSelectionComponent: _ActionComponent {
     // sourcery: @Binding
     var isExpanded: Bool { get }
-    // sourcery: resultBuilder.name = @ViewBuilder, resultBuilder.backingComponent = _MenuSelectionContainer
-    var items: [MenuSelectionItemProtocol] { get }
+    
+    /// A closure that returns the list of views to display as menu items. Defaults to an empty array when not provided.
+    // sourcery: defaultValue = "{ [] }"
+    // sourcery: resultBuilder.defaultValue = "{ [] }"
+    var menuItems: () -> [any View] { get }
 }
 
 // sourcery: CompositeComponent
@@ -2145,6 +2148,12 @@ protocol _AttachmentGroupComponent: _TitleComponent, _MandatoryField {
     
     /// Allows apps to provide extra info, which is to be used in custom AttachmentStyle
     var defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)? { get }
+
+    // sourcery: defaultValue = ".disabled"
+    /// Controls location capture behavior for attachments.
+    /// When enabled with an accuracy value, captures device location when media is selected or captured.
+    /// Higher accuracy levels consume more battery. Default is `.disabled`.
+    var locationCaptureMode: LocationCaptureMode { get }
 }
 
 /// `AttachmentThumbnail` is a specialized UI component that renders previews for attachment files asynchronously.

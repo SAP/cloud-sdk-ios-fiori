@@ -39,6 +39,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Our application needs permission to access camera for document scanning.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is captured with attachments for geo-tagging.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Our application needs permission to access microphone for video and speech recording.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

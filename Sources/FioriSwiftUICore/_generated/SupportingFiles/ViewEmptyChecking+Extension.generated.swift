@@ -543,6 +543,12 @@ extension FilterFormView: _ViewEmptyChecking {
     }
 }
 
+extension FioriProgressView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        fioriProgressView.isEmpty
+    }
+}
+
 extension FioriSlider: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
@@ -853,7 +859,7 @@ extension ListPickerItem: _ViewEmptyChecking {
 extension LoadingIndicator: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty &&
-            progress.isEmpty
+            fioriProgressView.isEmpty
     }
 }
 
@@ -871,8 +877,7 @@ extension MediaImage: _ViewEmptyChecking {
 
 extension MenuSelection: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        action.isEmpty &&
-            items.isEmpty
+        action.isEmpty
     }
 }
 
@@ -1038,12 +1043,6 @@ extension ProfileHeader: _ViewEmptyChecking {
             subtitle.isEmpty &&
             description.isEmpty &&
             detailContent.isEmpty
-    }
-}
-
-extension FioriProgressView: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        progress.isEmpty
     }
 }
 

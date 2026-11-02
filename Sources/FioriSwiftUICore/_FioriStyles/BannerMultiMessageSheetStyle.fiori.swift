@@ -122,7 +122,7 @@ public struct BannerMultiMessageSheetBaseStyle: BannerMultiMessageSheetStyle {
         let contentHeight = self.messageCountHeight + self.dimensionSelectorHeight + self.scrollContentHeight
         return !self.isPhone ? min(contentHeight, 380.0) : nil
     }
-    
+
     private var isPhone: Bool {
         UIDevice.current.userInterfaceIdiom == .phone
     }

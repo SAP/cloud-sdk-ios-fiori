@@ -16,7 +16,7 @@ public struct FioriProgressViewBaseStyle: FioriProgressViewStyle {
     @ViewBuilder
     public func makeBody(_ configuration: FioriProgressViewConfiguration) -> some View {
         // Add default layout here
-        configuration.progress
+        configuration.fioriProgressView
     }
 }
 
@@ -28,5 +28,19 @@ public struct FioriProgressViewFioriStyle: FioriProgressViewStyle {
         // Add default style here
         // .foregroundStyle(Color.preferredColor(<#fiori color#>))
         // .font(.fiori(forTextStyle: <#fiori font#>))
+    }
+}
+
+public extension FioriProgressView {
+    @available(*, unavailable, renamed: "init(fioriProgressView:componentIdentifier:)")
+    init(@ViewBuilder progress: () -> any View,
+         componentIdentifier: String? = FioriProgressView.identifier)
+    {
+        self.init(fioriProgressView: progress, componentIdentifier: componentIdentifier)
+    }
+    
+    @available(*, unavailable, renamed: "init(fioriProgressView:)")
+    init(progress: ProgressView<EmptyView, EmptyView> = ProgressView()) {
+        self.init(fioriProgressView: progress)
     }
 }

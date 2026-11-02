@@ -4,39 +4,44 @@ import SwiftUI
 
 // Base Layout style
 public struct InfoViewBaseStyle: InfoViewStyle {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     public func makeBody(_ configuration: InfoViewConfiguration) -> some View {
-        ZStack {
-            VStack {
-                ScrollView(.vertical) {
-                    VStack {
-                        configuration.title
-                        #if os(visionOS)
-                            .padding(.bottom, -16)
-                        #endif
-                        configuration.descriptionText
-                            .padding(.top, 16)
-                        #if !os(visionOS)
-                            .padding(.bottom, 250)
-                        #else
-                            .padding(.bottom, 16)
-                        #endif
-                        configuration.action
-                        #if os(visionOS)
-                            .padding(.bottom, 16)
-                        #endif
-                        configuration.secondaryAction
+        GeometryReader { geo in
+            let isLandscape = geo.size.width > geo.size.height
+            ZStack {
+                VStack {
+                    ScrollView(.vertical) {
+                        VStack {
+                            configuration.title
+                            #if os(visionOS)
+                                .padding(.bottom, -16)
+                            #endif
+                            configuration.descriptionText
+                                .padding(.top, 16)
+                            #if !os(visionOS)
+                                .padding(.bottom, 250)
+                            #else
+                                .padding(.bottom, 16)
+                            #endif
+                            configuration.action
+                            #if os(visionOS)
+                                .padding(.bottom, 16)
+                            #endif
+                            configuration.secondaryAction
+                        }
                     }
+                    .padding(.top, 2)
+                    .padding(.bottom, 2)
+                    .padding(.leading, getInfoViewLeftPadding(horizontalSizeClass: self.horizontalSizeClass, isLandscape: isLandscape))
+                    .padding(.trailing, getInfoViewLeftPadding(horizontalSizeClass: self.horizontalSizeClass, isLandscape: isLandscape))
+                    .scrollIndicators(.hidden)
                 }
-                .padding(.top, 2)
-                .padding(.bottom, 2)
-                .padding(.leading, getInfoViewLeftPadding())
-                .padding(.trailing, getInfoViewLeftPadding())
-                .scrollIndicators(.hidden)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            configuration.loadingIndicator
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                configuration.loadingIndicator
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
     }
 }
@@ -120,15 +125,11 @@ extension InfoViewFioriStyle {
     }
 }
 
-func getInfoViewLeftPadding() -> CGFloat {
+private func getInfoViewLeftPadding(horizontalSizeClass: UserInterfaceSizeClass?, isLandscape: Bool) -> CGFloat {
     var margin: CGFloat = 35
     #if !os(visionOS)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if UIDevice.current.orientation.isPortrait {
-                margin = 157
-            } else {
-                margin = 296
-            }
+        if horizontalSizeClass == .regular {
+            margin = isLandscape ? 296 : 157
         }
     #else
         margin = 40

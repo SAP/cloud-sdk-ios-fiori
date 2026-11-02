@@ -3636,6 +3636,20 @@ public extension FilterFormViewStyle where Self == FilterFormViewFormViewStyle {
     }
 }
 
+// MARK: FioriProgressViewStyle
+
+public extension FioriProgressViewStyle where Self == FioriProgressViewBaseStyle {
+    static var base: FioriProgressViewBaseStyle {
+        FioriProgressViewBaseStyle()
+    }
+}
+
+public extension FioriProgressViewStyle where Self == FioriProgressViewFioriStyle {
+    static var fiori: FioriProgressViewFioriStyle {
+        FioriProgressViewFioriStyle()
+    }
+}
+
 // MARK: FioriSliderStyle
 
 public extension FioriSliderStyle where Self == FioriSliderBaseStyle {
@@ -5834,7 +5848,7 @@ public extension LoadingIndicatorStyle where Self == LoadingIndicatorTitleStyle 
     }
 }
 
-public struct LoadingIndicatorProgressStyle: LoadingIndicatorStyle {
+public struct LoadingIndicatorFioriProgressViewStyle: LoadingIndicatorStyle {
     let style: any FioriProgressViewStyle
 
     public func makeBody(_ configuration: LoadingIndicatorConfiguration) -> some View {
@@ -5844,14 +5858,14 @@ public struct LoadingIndicatorProgressStyle: LoadingIndicatorStyle {
     }
 }
 
-public extension LoadingIndicatorStyle where Self == LoadingIndicatorProgressStyle {
-    static func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> LoadingIndicatorProgressStyle {
-        LoadingIndicatorProgressStyle(style: style)
+public extension LoadingIndicatorStyle where Self == LoadingIndicatorFioriProgressViewStyle {
+    static func fioriProgressViewStyle(_ style: some FioriProgressViewStyle) -> LoadingIndicatorFioriProgressViewStyle {
+        LoadingIndicatorFioriProgressViewStyle(style: style)
     }
 
-    static func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> LoadingIndicatorProgressStyle {
+    static func fioriProgressViewStyle(@ViewBuilder content: @escaping (FioriProgressViewConfiguration) -> some View) -> LoadingIndicatorFioriProgressViewStyle {
         let style = AnyFioriProgressViewStyle(content)
-        return LoadingIndicatorProgressStyle(style: style)
+        return LoadingIndicatorFioriProgressViewStyle(style: style)
     }
 }
 
@@ -7056,20 +7070,6 @@ public extension ProfileHeaderStyle where Self == ProfileHeaderDescriptionStyle 
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ProfileHeaderDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return ProfileHeaderDescriptionStyle(style: style)
-    }
-}
-
-// MARK: FioriProgressViewStyle
-
-public extension FioriProgressViewStyle where Self == FioriProgressViewBaseStyle {
-    static var base: FioriProgressViewBaseStyle {
-        FioriProgressViewBaseStyle()
-    }
-}
-
-public extension FioriProgressViewStyle where Self == FioriProgressViewFioriStyle {
-    static var fiori: FioriProgressViewFioriStyle {
-        FioriProgressViewFioriStyle()
     }
 }
 

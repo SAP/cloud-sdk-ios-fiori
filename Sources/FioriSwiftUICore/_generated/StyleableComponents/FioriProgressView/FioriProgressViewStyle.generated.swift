@@ -22,8 +22,8 @@ struct AnyFioriProgressViewStyle: FioriProgressViewStyle {
 }
 
 public struct FioriProgressViewConfiguration {
-    public var componentIdentifier: String = "fiori_progress_component"
-    public let progress: FioriProgressView
+    public var componentIdentifier: String = "fiori_fioriprogressview_component"
+    public let fioriProgressView: FioriProgressView
 
     public typealias FioriProgressView = ConfigurationViewWrapper
 }
