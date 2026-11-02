@@ -115,6 +115,14 @@ public struct DateTimePickerBaseStyle: DateTimePickerStyle {
                 {
                     configuration.selectedDate = self.selectedDate
                 }
+                // When the picker is about to open, dismiss any active keyboard so a
+                // preceding text field resigns focus — mirroring native UIDatePicker,
+                // which takes over first responder and implicitly resigns the previous one.
+                if !configuration.pickerVisible {
+                    #if canImport(UIKit)
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    #endif
+                }
                 configuration.pickerVisible.toggle()
             })
         }
