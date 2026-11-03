@@ -34,17 +34,17 @@ struct FilterFeedbackBarItemCornerRadius: EnvironmentKey {
 }
 
 struct FilterFeedbackBarItemBackgroundSelectedFillColor: EnvironmentKey {
-    public static let defaultValue: Color = .clear
+    public static let defaultValue: Color = LiquidGlassHelper.usesLiquidGlassUI ? .preferredColor(.tintColor) : .clear
 }
 
 struct FilterFeedbackBarItemBackgroundUnselectedFillColor: EnvironmentKey {
-    public static let defaultValue: Color = .preferredColor(.tertiaryFill)
+    public static let defaultValue: Color = LiquidGlassHelper.usesLiquidGlassUI ? .clear : .preferredColor(.tertiaryFill)
 }
 
 struct FilterFeedbackBarItemBackgroundSelectedStrokeColor: EnvironmentKey {
     #if !os(visionOS)
         /// default filter feedbackbar foreground color
-        public static let defaultValue: Color = .preferredColor(.tintColor)
+        public static let defaultValue: Color = LiquidGlassHelper.usesLiquidGlassUI ? .clear : .preferredColor(.tintColor)
     #else
         /// default filter feedbackbar foreground color
         public static let defaultValue: Color = .preferredColor(.primaryLabel)
@@ -52,7 +52,7 @@ struct FilterFeedbackBarItemBackgroundSelectedStrokeColor: EnvironmentKey {
 }
 
 struct FilterFeedbackBarItemBackgroundUnselectedStrokeColor: EnvironmentKey {
-    public static let defaultValue: Color = .preferredColor(.separatorOpaque)
+    public static let defaultValue: Color = LiquidGlassHelper.usesLiquidGlassUI ? .clear : .preferredColor(.separatorOpaque)
 }
 
 struct FilterFeedbackBarItemBorderWidth: EnvironmentKey {

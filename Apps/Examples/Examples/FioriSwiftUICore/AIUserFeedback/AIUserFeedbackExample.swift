@@ -290,12 +290,33 @@ struct AIUserFeedbackExample: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        self.isNavigationPresented.toggle()
-                    } label: {
-                        Text("Cancel")
+                    if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, *) {
+                        Button {
+                            self.isNavigationPresented.toggle()
+                        } label: {
+                            if LiquidGlassHelper.usesLiquidGlassUI {
+                                Image(systemName: "xmark")
+                            } else {
+                                Text("Cancel")
+                            }
+                        }
+                        .font(.fiori(forTextStyle: .body, weight: .medium))
+                        .foregroundColor(Color.preferredColor(.secondaryLabel))
+                        .frame(minWidth: 44, minHeight: 44)
+                        #if os(visionOS)
+                            .glassBackgroundEffect(in: .circle)
+                        #else
+                            .glassEffect(in: .circle)
+                        #endif
+                    } else {
+                        Button {
+                            self.isNavigationPresented.toggle()
+                        } label: {
+                            Text("Cancel")
+                        }
                     }
                 }
+                .hideSharedBackground()
                 ToolbarItem(placement: .principal) {
                     Text("Push Example")
                         .foregroundColor(Color.preferredColor(.primaryLabel))

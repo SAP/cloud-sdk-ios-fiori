@@ -187,12 +187,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                 .descriptionStyle(self.illustratedMessageDescriptionStyle)
                                 .typeErased
                                 .frame(maxWidth: .infinity)
-
+                            
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
                             }
-
-                            if self.isShowSubmitButton {
+                            
+                            if self.isShowSubmitButton, !LiquidGlassHelper.usesLiquidGlassUI {
                                 self.submitButton(configuration)
                                     .onSimultaneousTapGesture {
                                         self.onSubmitAction(configuration)
@@ -252,6 +252,18 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                     .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
                     .accessibilityAddTraits(.isHeader)
+            }
+            if self.isShowSubmitButton, LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, *) {
+                ToolbarItem(placement: .bottomBar) {
+                    self.submitButton(configuration)
+                        .onSimultaneousTapGesture {
+                            self.onSubmitAction(configuration)
+                        }
+                        .disabled(configuration.submitButtonState == .disabled)
+                }
+                #if !os(visionOS)
+                .sharedBackgroundVisibility(.hidden)
+                #endif
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -360,10 +372,34 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         if configuration.submitAction.isEmpty {
             if configuration.submitButtonState == .inProgress {
                 FioriButton { _ in Text("Loading...".localizedFioriString()) }
-                    .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        #if !os(visionOS)
+                            if #available(iOS 26.0, watchOS 26.0, *) {
+                                return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                    .typeErased
+                            }
+                        #endif
+                        return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                            .typeErased
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                    })
             } else {
                 FioriButton { _ in Text("Submit".localizedFioriString()) }
-                    .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        #if !os(visionOS)
+                            if #available(iOS 26.0, watchOS 26.0, *) {
+                                return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                    .typeErased
+                            }
+                        #endif
+                        return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                            .typeErased
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                    })
             }
         } else {
             configuration.submitAction
@@ -377,22 +413,23 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 FioriButton { _ in
                     HStack {
                         Image(systemName: "chevron.backward")
-                        Text("Back".localizedFioriString())
-                            .font(.fiori(forTextStyle: .body, weight: .semibold))
+                        if !LiquidGlassHelper.usesLiquidGlassUI {
+                            Text("Back".localizedFioriString())
+                                .font(.fiori(forTextStyle: .body, weight: .semibold))
+                        }
                     }
                 }
-                .fioriButtonStyle(FioriNavigationButtonStyle())
-                .fixedSize()
+                .fioriButtonStyle(self.cancelFioriButtonStyle())
                 .onSimultaneousTapGesture {
                     configuration.onCancel?()
                     self.dismiss()
                 }
             }
+            .hideSharedBackground()
         } else {
             ToolbarItem(placement: .topBarLeading) {
                 configuration.cancelAction
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .fixedSize()
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                     .onSimultaneousTapGesture {
                         configuration.onCancel?()
                         switch configuration.displayMode {
@@ -405,6 +442,21 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         }
                     }
             }
+            .hideSharedBackground()
+        }
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
         }
     }
     

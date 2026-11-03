@@ -13,7 +13,7 @@ import SwiftUI
 
 #if !os(visionOS)
     /// default filter feedbackbar foreground color
-    public let DefaultFilterFeedbackBarItemForegroundColor = Color.preferredColor(.tintColor)
+    public let DefaultFilterFeedbackBarItemForegroundColor = LiquidGlassHelper.usesLiquidGlassUI ? Color.preferredColor(.quinaryLabel) : Color.preferredColor(.tintColor)
 #else
     /// default filter feedbackbar foreground color
     public let DefaultFilterFeedbackBarItemForegroundColor = Color.preferredColor(.primaryLabel)
@@ -35,24 +35,57 @@ public struct FilterFeedbackBarItemBaseStyle: FilterFeedbackBarItemStyle {
     @Environment(\.filterFeedbackBarItemBackgroundUnselectedStrokeColor) var unselectedStokeColor
     @Environment(\.filterFeedbackBarItemBorderWidth) var borderWidth
     
+    func defaultFontWeight(_ configuration: FilterFeedbackBarItemConfiguration, isSelected: Bool) -> Font.Weight? {
+        if LiquidGlassHelper.usesLiquidGlassUI, isSelected {
+            .semibold
+        } else {
+            nil
+        }
+    }
+    
     public func makeBody(_ configuration: FilterFeedbackBarItemConfiguration) -> some View {
         // Add default layout here
-        HStack(spacing: self.spacing) {
-            configuration.icon
-            configuration.title
-            configuration.accessoryIcon
+        ZStack {
+            // Keeping the item to have the same width whether it's selected or not.
+            HStack(spacing: self.spacing) {
+                configuration.icon
+                configuration.title
+                configuration.accessoryIcon
+            }
+            .font(self.font)
+            .fontWeight(self.defaultFontWeight(configuration, isSelected: true))
+            .opacity(0)
+            
+            HStack(spacing: self.spacing) {
+                configuration.icon
+                configuration.title
+                configuration.accessoryIcon
+            }
+            .font(self.font)
+            .fontWeight(self.defaultFontWeight(configuration, isSelected: configuration.isSelected))
         }
-        .font(self.font)
         .foregroundStyle(configuration.isSelected ? self.selectedForegroundColor : self.unselectedForegroundColor)
         .padding(self.padding)
         .frame(maxWidth: self.maxWidth > 0 ? self.maxWidth : nil, minHeight: self.minHeight)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: self.cornerRadius)
-                    .fill(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor)
-                    .strokeBorder(configuration.isSelected ? self.selectedStokeColor : self.unselectedStokeColor, lineWidth: self.borderWidth)
+        .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: self.cornerRadius)
+                        .fill(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor)
+                        .strokeBorder(configuration.isSelected ? self.selectedStokeColor : self.unselectedStokeColor, lineWidth: self.borderWidth)
+                }
+            )
+        })
+        #if !os(visionOS)
+        .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+            if #available(iOS 26.0, watchOS 26.0, *) {
+                $0.glassEffect(.regular.tint(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor))
+                    .typeErased
+            } else {
+                $0.typeErased
             }
-        )
+        })
+        #endif
     }
 }
 

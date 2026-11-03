@@ -3209,7 +3209,12 @@ protocol _OrderPickerComponent: _OptionalTitleComponent {
 /// }
 /// ```
 // sourcery: CompositeComponent
-protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionComponent, _CancelActionComponent {
+protocol _AIUserFeedbackComponent: _IllustratedMessageComponent, _SubmitActionComponent {
+    // sourcery: @ViewBuilder
+    // sourcery: defaultValue = "FioriButton { _ in if LiquidGlassHelper.usesLiquidGlassUI { Image(systemName: "xmark") } else { Text("Cancel".localizedFioriString()) } }"
+    // sourcery: resultBuilder.defaultValue = "{ FioriButton { _ in if LiquidGlassHelper.usesLiquidGlassUI { Image(systemName: "xmark") } else { Text("Cancel".localizedFioriString()) } } }"
+    var cancelAction: FioriButton? { get }
+    
     var navigationTitle: AttributedString? { get }
     
     /// The view for selecting the reasons for negative feedback.

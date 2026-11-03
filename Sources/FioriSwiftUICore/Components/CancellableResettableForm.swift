@@ -10,10 +10,10 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     var resetAction: ResetAction
     var applyAction: ApplyAction
     let calculateScrollView: Bool
+    let isSearchable: Bool
     @State private var sheetContentHeight: CGFloat = 0
     @State private var hasInitialMeasurement: Bool = false
-    @State private var bottomHeight: CGFloat = 0
-    @State private var navigationBarHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? 74 : 56.0
+    @State private var bottomHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? 52 : 0
 
     @State private var scrollViewHeight: CGFloat? = nil
     @State private var subScrollViewHeight: CGFloat = 0
@@ -35,7 +35,20 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 @ViewBuilder applyAction: () -> ApplyAction,
                 @ViewBuilder components: () -> Components)
     {
+        self.init(calculateScrollView: calculateScrollView, isSearchable: false, dynamicDetentHeight: dynamicDetentHeight, title: title, cancelAction: cancelAction, resetAction: resetAction, applyAction: applyAction, components: components)
+    }
+    
+    public init(calculateScrollView: Bool = false,
+                isSearchable: Bool = false,
+                dynamicDetentHeight: Binding<CGFloat> = .constant(0),
+                @ViewBuilder title: () -> Title,
+                @ViewBuilder cancelAction: () -> CancelAction,
+                @ViewBuilder resetAction: () -> ResetAction,
+                @ViewBuilder applyAction: () -> ApplyAction,
+                @ViewBuilder components: () -> Components)
+    {
         self.calculateScrollView = calculateScrollView
+        self.isSearchable = isSearchable
         self.title = title()
         self.cancelAction = cancelAction()
         self.resetAction = resetAction()
@@ -43,10 +56,23 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
         self.components = components()
     }
     
+    var navigationBarHeight: CGFloat {
+        var topBarHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? (self.horizontalSizeClass == .regular ? 67 : 74) : (self.horizontalSizeClass == .regular ? 50.0 : 56.0)
+        
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            if UIDevice.current.userInterfaceIdiom == .vision {
+                topBarHeight = 92
+            }
+        }
+        topBarHeight += (self.isSearchable ? 56 : 0)
+        return topBarHeight
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.preferredColor(.secondaryGroupedBackground)
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: { $0.opacity(0) })
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     self.components
@@ -59,10 +85,9 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                         .ifApply(self.calculateScrollView) {
                             if #available(iOS 18, *) {
                                 return $0.onScrollGeometryChange(for: [Double].self) { geo in
-                                    [geo.contentSize.height,
-                                     geo.contentInsets.top]
+                                    [geo.contentSize.height]
                                 } action: { _, newValue in
-                                    self.scrollViewHeight = max(newValue.reduce(0, +), 88)
+                                    self.scrollViewHeight = max(newValue.reduce(0, +), 88) + self.navigationBarHeight
                                 }
                                 .typeErased
                             } else {
@@ -106,17 +131,19 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                                 }.typeErased
                             }
                         }
-                    VStack(spacing: 0) {
-                        self.applyAction
-                            .accessibilityIdentifier("Apply")
-                        Spacer().frame(height: self.horizontalSizeClass == .regular ? 16 : 6)
-                    }
-                    .background {
-                        GeometryReader { proxy in
-                            Color.clear
-                                .task {
-                                    self.bottomHeight = proxy.size.height
-                                }
+                    if !LiquidGlassHelper.usesLiquidGlassUI {
+                        VStack(spacing: 0) {
+                            self.applyAction
+                                .accessibilityIdentifier("Apply")
+                            Spacer().frame(height: self.horizontalSizeClass == .regular ? 16 : 6)
+                        }
+                        .background {
+                            GeometryReader { proxy in
+                                Color.clear
+                                    .task {
+                                        self.bottomHeight = proxy.size.height
+                                    }
+                            }
                         }
                     }
                 }
@@ -131,11 +158,20 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                         .fixedSize()
                         .accessibilityIdentifier("Cancel")
                 }.hideSharedBackground()
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: LiquidGlassHelper.usesLiquidGlassUI ? .bottomBar : .topBarTrailing) {
                     self.resetAction
                         .fixedSize()
                         .accessibilityIdentifier("Reset")
                 }.hideSharedBackground()
+                
+                if LiquidGlassHelper.usesLiquidGlassUI {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        self.applyAction
+                            .fixedSize()
+                            .accessibilityIdentifier("Apply")
+                    }
+                    .hideSharedBackground()
+                }
             }
         }
         .frame(idealWidth: self.popoverIdealWidth, idealHeight: self.hasIdealHeight ? self.idealHeight() : nil)
@@ -152,7 +188,6 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             )
             .background(WindowTraitReader { sizeClass in
                 self.horizontalSizeClass = sizeClass
-                self.navigationBarHeight = LiquidGlassHelper.usesLiquidGlassUI ? (sizeClass == .regular ? 67 : 74) : (sizeClass == .regular ? 50.0 : 56.0)
             })
     }
     
@@ -163,7 +198,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             } else {
                 let halfScreenHeight = self.presentingViewHeight / 2
                 if #available(iOS 26.0, *) {
-                    return [.height(scrollViewHeight + self.bottomHeight), .medium, .large]
+                    return [.height(scrollViewHeight + self.bottomHeight), .large]
                 } else if scrollViewHeight + self.bottomHeight > halfScreenHeight {
                     return [.medium, .fraction(0.999)]
                 } else {
@@ -380,7 +415,25 @@ private struct WindowTraitReader: UIViewControllerRepresentable {
     }
 }
 
-extension ToolbarContent {
+public extension ToolbarContent {
+    /// Hides the shared background of a toolbar item introduced in iOS 26 / macOS 26
+    /// under the Liquid Glass design system.
+    ///
+    /// In iOS 26 and macOS 26, toolbar items that share the same placement area are
+    /// grouped together and rendered on a common "shared background" material by default.
+    /// This modifier opts a specific toolbar item out of that grouped appearance,
+    /// making its background invisible while keeping the item itself fully interactive.
+    ///
+    /// This is typically used for toolbar buttons (e.g., Cancel, Reset) that should
+    /// appear as plain text or icon controls without the pill-shaped glass background.
+    ///
+    /// On older OS versions and on visionOS, this modifier has no visual effect and
+    /// returns `self` unchanged, so it is safe to call unconditionally.
+    ///
+    /// - Parameter visibility: The desired visibility of the shared background.
+    ///   Defaults to `.hidden`.
+    /// - Returns: A toolbar content view with the shared background visibility applied
+    ///   on supported platforms, or the original content on unsupported platforms.
     func hideSharedBackground(_ visibility: Visibility = .hidden) -> some ToolbarContent {
         if #available(iOS 26.0, macOS 26.0, *) {
             #if !os(visionOS)

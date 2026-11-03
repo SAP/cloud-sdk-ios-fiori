@@ -11,8 +11,9 @@ public struct DimensionSegmentBaseStyle: DimensionSegmentStyle {
     
     public func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
         configuration.title
-            .padding(EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6))
+            .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
             .modifier(SegmentFrame(segmentWidthMode: self.modelObject.segmentWidthMode, width: self.getSegmentWidth()))
+            .frame(minWidth: 54)
     }
         
     func getSegmentWidth() -> CGFloat? {
@@ -53,12 +54,27 @@ extension DimensionSegmentFioriStyle {
         func makeBody(_ configuration: DimensionSegmentConfiguration) -> some View {
             let isEnabledSelected = self.isEnabled && configuration.isSelected
             return DimensionSegment(configuration)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .inset(by: (isEnabledSelected ? 1 : 0.33) / 2.0)
-                        .stroke(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled ? (configuration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.separator)) : Color.preferredColor(.secondaryFill)), lineWidth: isEnabledSelected ? 1 : 0.33)
-                )
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.isLoading ? Color.preferredColor(.separator) : (isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill))))
+                .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                    $0.background(
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .inset(by: (isEnabledSelected ? 1 : 0.33) / 2.0)
+                            .stroke(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled ? (configuration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.separator)) : Color.preferredColor(.secondaryFill)), lineWidth: isEnabledSelected ? 1 : 0.33)
+                    )
+                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.isLoading ? Color.preferredColor(.separator) : (isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill))))
+                })
+                .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
+                    if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+                        $0
+                        #if !os(visionOS)
+                        .glassEffect(.regular.tint(isEnabledSelected ? .preferredColor(.tintColor) : .clear))
+                        #else
+                        .glassBackgroundEffect()
+                        #endif
+                        .typeErased
+                    } else {
+                        $0.typeErased
+                    }
+                }
         }
     }
 
@@ -67,10 +83,23 @@ extension DimensionSegmentFioriStyle {
         @Environment(\.isEnabled) var isEnabled
         @Environment(\.isLoading) var isLoading
         
+        var selectedForegroundColor: Color {
+            if LiquidGlassHelper.usesLiquidGlassUI {
+                #if !os(visionOS)
+                    .preferredColor(.quinaryLabel)
+                #else
+                    .preferredColor(.tintColor)
+                #endif
+            } else {
+                .preferredColor(.tintColor)
+            }
+        }
+        
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-                .font(Font.fiori(forTextStyle: .subheadline))
-                .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? Color.preferredColor(.tintColor) : Color.preferredColor(.secondaryLabel)))
+                .font(Font.fiori(forTextStyle: .body))
+                .fontWeight(self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? .semibold : nil)
+                .foregroundColor(self.isLoading ? Color.preferredColor(.separator) : (self.isEnabled && self.dimensionSegmentConfiguration.isSelected ? self.selectedForegroundColor : Color.preferredColor(.secondaryLabel)))
         }
     }
 }

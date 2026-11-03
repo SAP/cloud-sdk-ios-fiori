@@ -39,9 +39,9 @@ extension SortFilterCFGItemContainer: View {
                             .padding([.leading, .trailing], self.horizontalSizeClass == .regular ? 13 : 16)
                     }
                     #if !os(visionOS)
-                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                            .frame(height: 30)
-                            .listRowInsets(EdgeInsets())
+//                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+//                            .frame(height: 30)
+//                            .listRowInsets(EdgeInsets())
                     #endif
                 }
                 .listSectionSeparator(.hidden, edges: .all)
@@ -54,61 +54,61 @@ extension SortFilterCFGItemContainer: View {
             }
         }
         .listRowSpacing(0)
-        .listStyle(.plain)
-        #if !os(visionOS)
-            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-        #else
-            .listRowBackground(Color.clear)
-        #endif
-            .environment(\.defaultMinListRowHeight, 0)
-            .environment(\.defaultMinListHeaderHeight, 0)
-            .setOnChange(of: self._items) {
-                self.checkUpdateButtonState()
-            }
-            .onAppear {
-                self.context.isPickerListShown = false
-                self.context.isSearchBarHidden = true
+        .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.insetGrouped)
+        })
+        .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.plain)
+        })
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
+        .setOnChange(of: self._items) {
+            self.checkUpdateButtonState()
+        }
+        .onAppear {
+            self.context.isPickerListShown = false
+            self.context.isSearchBarHidden = true
             
-                self.context.handleCancel = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            self._items[r][c].cancel()
-                        }
+            self.context.handleCancel = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].cancel()
                     }
                 }
-
-                self.context.handleReset = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            switch self._items[r][c] {
-                            case .picker:
-                                var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
-                                switch pickerItem.resetButtonConfiguration.type {
-                                case .reset:
-                                    pickerItem.reset()
-                                case .clearAll:
-                                    pickerItem.clearAll()
-                                case .deactivate:
-                                    pickerItem.deactivate()
-                                    self._items[r][c].picker = pickerItem
-                                }
-                            default:
-                                self._items[r][c].reset()
-                            }
-                        }
-                    }
-                }
-
-                self.context.handleApply = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            self._items[r][c].apply()
-                        }
-                    }
-                }
-
-                self.checkUpdateButtonState()
             }
+
+            self.context.handleReset = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        switch self._items[r][c] {
+                        case .picker:
+                            var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
+                            switch pickerItem.resetButtonConfiguration.type {
+                            case .reset:
+                                pickerItem.reset()
+                            case .clearAll:
+                                pickerItem.clearAll()
+                            case .deactivate:
+                                pickerItem.deactivate()
+                                self._items[r][c].picker = pickerItem
+                            }
+                        default:
+                            self._items[r][c].reset()
+                        }
+                    }
+                }
+            }
+
+            self.context.handleApply = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].apply()
+                    }
+                }
+            }
+
+            self.checkUpdateButtonState()
+        }
     }
     
     func checkUpdateButtonState() {
@@ -209,11 +209,6 @@ extension SortFilterCFGItemContainer: View {
                     self.sortFilterContentHeight.wrappedValue = 0
                 }
         })
-        #if !os(visionOS)
-        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-        #else
-        .listRowBackground(Color.clear)
-        #endif
         .frame(minHeight: 44)
     }
     
