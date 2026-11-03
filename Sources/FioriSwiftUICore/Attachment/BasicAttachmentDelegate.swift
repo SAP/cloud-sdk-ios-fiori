@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import UniformTypeIdentifiers
 
@@ -35,7 +36,13 @@ open class BasicAttachmentDelegate: AttachmentDelegate {
     }
     
     /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously.
-    open func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+    @available(*, deprecated, message: "Use upload(contentFrom:location:onStarting:onCompletion:) instead")
+    open func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, Error?) -> Void) {
+        self.upload(contentFrom: provider, location: nil, onStarting: onStarting, onCompletion: onCompletion)
+    }
+
+    /// Upload an attachment, content of which is provided by an NSItemProvider asynchronously, with optional location metadata.
+    open func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, Error?) -> Void) {
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
                 if let url {

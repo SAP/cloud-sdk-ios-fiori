@@ -34,6 +34,7 @@ public struct AttachmentGroupConfiguration {
     public let operations: Operations
     public let onPreview: ((URL) -> Void)?
     public let defaultAttachmentExtraInfo: (() -> any AttachmentExtraInfo)?
+    public let locationCaptureMode: LocationCaptureMode
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Operations = ConfigurationViewWrapper

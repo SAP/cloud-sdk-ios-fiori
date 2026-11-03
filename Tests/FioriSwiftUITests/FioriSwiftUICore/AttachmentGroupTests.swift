@@ -1,3 +1,4 @@
+import CoreLocation
 @testable import FioriSwiftUICore
 import SwiftUI
 import XCTest
@@ -9,10 +10,10 @@ final class AttachmentGroupTests: XCTestCase {
     var destinationURL1: URL!
     var destinationURL2: URL!
     
-    // Test attachments
+    /// Test attachments
     var testAttachments: [AttachmentInfo]!
     
-    // Mock delegate
+    /// Mock delegate
     var mockDelegate: MockAttachmentDelegate!
     
     override func setUpWithError() throws {
@@ -45,24 +46,26 @@ final class AttachmentGroupTests: XCTestCase {
     
     // MARK: - Test Helpers
     
-    // Mock Attachment Extra Info
+    /// Mock Attachment Extra Info
     struct MockAttachmentExtraInfo: AttachmentExtraInfo {
         let id: Int
         let description: String
     }
     
-    // Mock Attachment Delegate
+    /// Mock Attachment Delegate
     class MockAttachmentDelegate: AttachmentDelegate {
         func delete(url: URL, onCompletion: @escaping (URL, (any Error)?) -> Void) {}
-        
+
         func upload(contentFrom provider: NSItemProvider, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, (any Error)?) -> Void) {}
-        
+
+        func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)?, onCompletion: @escaping (URL?, (any Error)?) -> Void) {}
+
         var uploadCalled = false
         var downloadCalled = false
         var deleteCalled = false
         var capturedURL: URL?
         var capturedItemProvider: NSItemProvider?
-        
+
         func upload(from itemProvider: NSItemProvider, completionHandler: @escaping (Result<AttachmentInfo, Error>) -> Void) {
             self.uploadCalled = true
             self.capturedItemProvider = itemProvider
@@ -70,14 +73,14 @@ final class AttachmentGroupTests: XCTestCase {
             let result = AttachmentInfo.uploaded(destinationURL: URL(fileURLWithPath: "/mock/upload/result.pdf"), sourceURL: URL(fileURLWithPath: "/mock/source.pdf"))
             completionHandler(.success(result))
         }
-        
+
         func download(from url: URL, completionHandler: @escaping (Result<URL, Error>) -> Void) {
             self.downloadCalled = true
             self.capturedURL = url
             // Simulate successful download
             completionHandler(.success(URL(fileURLWithPath: "/mock/download/result.pdf")))
         }
-        
+
         func delete(attachmentInfo: AttachmentInfo, completionHandler: @escaping (Result<Void, Error>) -> Void) {
             self.deleteCalled = true
             // Simulate successful deletion
@@ -85,7 +88,7 @@ final class AttachmentGroupTests: XCTestCase {
         }
     }
     
-    // Create a test instance of AttachmentGroup
+    /// Create a test instance of AttachmentGroup
     private func createAttachmentGroup(
         attachments: [AttachmentInfo] = [],
         maxCount: Int? = nil,
