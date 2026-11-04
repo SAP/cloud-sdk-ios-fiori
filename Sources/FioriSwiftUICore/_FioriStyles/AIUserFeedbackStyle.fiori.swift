@@ -240,10 +240,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.scrollViewHeight = geometry.size.height
                 }
         })
-        .toolbarBackground(self.isCompactStyle(configuration) ? .visible : .automatic, for: .navigationBar)
-        .toolbarBackground(Color.preferredColor(.chromeSecondary), for: .navigationBar)
+        .toolbarBackground(.hidden, for: .navigationBar, .bottomBar)
         .ifApply(self.isCompactStyle(configuration), content: { v in
-            v.background(Color.preferredColor(.primaryGroupedBackground))
+            v.background(
+                Color.preferredColor(.primaryGroupedBackground)
+                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone && configuration.displayMode == .sheet, content: { $0.opacity(0) })
+            )
         })
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

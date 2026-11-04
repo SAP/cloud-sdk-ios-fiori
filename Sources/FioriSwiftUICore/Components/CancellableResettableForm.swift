@@ -13,7 +13,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     let isSearchable: Bool
     @State private var sheetContentHeight: CGFloat = 0
     @State private var hasInitialMeasurement: Bool = false
-    @State private var bottomHeight: CGFloat = LiquidGlassHelper.usesLiquidGlassUI ? 52 : 0
+    @State private var applyButtonHeight: CGFloat = 0
 
     @State private var scrollViewHeight: CGFloat? = nil
     @State private var subScrollViewHeight: CGFloat = 0
@@ -24,7 +24,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     #if !os(visionOS)
         private let popoverIdealWidth = 393.0
     #else
-        private let popoverIdealWidth = 480.0
+        private let popoverIdealWidth = 520.0
     #endif
     
     public init(calculateScrollView: Bool = false,
@@ -64,15 +64,23 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                 topBarHeight = 92
             }
         }
-        topBarHeight += (self.isSearchable ? 56 : 0)
+        topBarHeight += (self.isSearchable ? (self.horizontalSizeClass == .regular ? 64 : 56) : 0)
         return topBarHeight
+    }
+    
+    var bottomHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            self.horizontalSizeClass == .regular ? 64 : 52
+        } else {
+            self.applyButtonHeight
+        }
     }
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.preferredColor(.secondaryGroupedBackground)
-                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: { $0.opacity(0) })
+                Color.preferredColor(.primaryGroupedBackground)
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI && UIDevice.current.userInterfaceIdiom == .phone, content: { $0.opacity(0) })
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     self.components
@@ -141,7 +149,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                             GeometryReader { proxy in
                                 Color.clear
                                     .task {
-                                        self.bottomHeight = proxy.size.height
+                                        self.applyButtonHeight = proxy.size.height
                                     }
                             }
                         }
