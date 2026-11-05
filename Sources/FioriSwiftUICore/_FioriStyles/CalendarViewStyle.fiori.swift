@@ -17,9 +17,7 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
     let calendar = Calendar.autoupdatingCurrent
     
     @State var weekViewHeight: CGFloat = 60
-    
-    @State var availableWidth: CGFloat = 16
-    
+
     @Environment(\.customLanguageId) var customLanguageId
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
@@ -33,56 +31,71 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
                     .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: 0, trailing: paddingOffset))
                 
                 if configuration.model.calendarStyle == .week || (configuration.model.calendarStyle == .expandable && !configuration.model.isExpanded && !configuration.model.isDragging) {
-                    ScrollView(.horizontal, showsIndicators: false, content: {
-                        LazyHStack {
-                            ForEach(0 ..< configuration.model.weeks.count, id: \.self) { index in
-                                let info = configuration.model.weeks[index]
-                                CalendarWeekView(calendarStyle: configuration.model.calendarStyle, weekInfo: info, startDate: configuration.model.startDate, endDate: configuration.model.endDate, selectedDate: configuration.model.selectedDate, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
-                                    self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
-                                }, customEventView: configuration.customEventView)
-                                    .frame(width: self.availableWidth - paddingOffset * 2)
-                                    .fioriSizeReader { size in
-                                        DispatchQueue.main.async {
-                                            self.weekViewHeight = size.height
-                                        }
-                                    }
-                            }
-                        }
-                        .scrollTargetLayout()
-                    })
-                    .scrollPosition(id: Binding<Int?>(get: { configuration.model.weekViewScrollPosition }, set: { configuration.model.weekViewScrollPosition = $0 }), anchor: .leading)
-                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-                    .scrollBounceBehavior(.always)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8.0)
-                            .fill(configuration.fillBackgroundColor)
-                    )
-                    .frame(width: self.availableWidth - paddingOffset * 2, height: self.weekViewHeight)
-                    .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
-                } else if configuration.model.calendarStyle == .expandable {
-                    ScrollView(.horizontal, showsIndicators: false, content: {
-                        LazyHStack {
-                            ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
-                                let monthModel = configuration.model.months[index]
-                                CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: configuration.model.showsMonthHeader, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
-                                    self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
-                                }, customEventView: configuration.customEventView)
-                                    .frame(width: self.availableWidth - paddingOffset * 2)
-                                    .fioriSizeReader { newValue in
-                                        if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
+                    // See the `.expandable` branch below: derive page width from a height-bounded
+                    // GeometryReader so the week pager reflows when the container shrinks.
+                    GeometryReader { geo in
+                        let pageWidth = geo.size.width
+                        ScrollView(.horizontal, showsIndicators: false, content: {
+                            LazyHStack {
+                                ForEach(0 ..< configuration.model.weeks.count, id: \.self) { index in
+                                    let info = configuration.model.weeks[index]
+                                    CalendarWeekView(calendarStyle: configuration.model.calendarStyle, weekInfo: info, startDate: configuration.model.startDate, endDate: configuration.model.endDate, selectedDate: configuration.model.selectedDate, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                        self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
+                                    }, customEventView: configuration.customEventView)
+                                        .frame(width: pageWidth)
+                                        .fioriSizeReader { size in
                                             DispatchQueue.main.async {
-                                                configuration.model.monthViewHeight = newValue.height
+                                                self.weekViewHeight = size.height
                                             }
                                         }
-                                    }
+                                }
                             }
-                        }
-                        .scrollTargetLayout()
-                    })
-                    .scrollPosition(id: self.$scrollPosition, anchor: .leading)
-                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-                    .scrollBounceBehavior(.always)
-                    .frame(width: self.availableWidth - paddingOffset * 2)
+                            .scrollTargetLayout()
+                        })
+                        .scrollPosition(id: Binding<Int?>(get: { configuration.model.weekViewScrollPosition }, set: { configuration.model.weekViewScrollPosition = $0 }), anchor: .leading)
+                        .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                        .scrollBounceBehavior(.always)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8.0)
+                                .fill(configuration.fillBackgroundColor)
+                        )
+                        .frame(width: pageWidth)
+                    }
+                    .frame(height: self.weekViewHeight)
+                    .padding(EdgeInsets(top: 0, leading: paddingOffset, bottom: paddingOffset, trailing: paddingOffset))
+                } else if configuration.model.calendarStyle == .expandable {
+                    // Derive the page width from a GeometryReader proposed by the VStack/ZStack
+                    // chain (which tracks the true container width in both directions) rather
+                    // than from a fixed-width ScrollView, which would otherwise pin itself to a
+                    // stale width and prevent reflow when the container shrinks (iPhone Duo
+                    // folding outer → inner). The GeometryReader is bounded by the enclosing
+                    // `.frame(height:)`, so it does not become vertically greedy.
+                    GeometryReader { geo in
+                        let pageWidth = geo.size.width
+                        ScrollView(.horizontal, showsIndicators: false, content: {
+                            LazyHStack {
+                                ForEach(0 ..< configuration.model.months.count, id: \.self) { index in
+                                    let monthModel = configuration.model.months[index]
+                                    CalendarMonthView(calendarStyle: configuration.model.calendarStyle, model: monthModel, startDate: configuration.model.startDate, endDate: configuration.model.endDate, showsMonthHeader: configuration.model.showsMonthHeader, showsOutOfMonthDates: configuration.model.showsOutOfMonthDates, selectedDate: configuration.model.selectedDate, selectedDates: configuration.model.selectedDates, selectedRange: configuration.model.selectedRange, disabledDates: configuration.model.disabledDates, dayTappedCallback: { date, dayViewState in
+                                        self.handleDayViewTapGesture(date, state: dayViewState, configuration: configuration)
+                                    }, customEventView: configuration.customEventView)
+                                        .frame(width: pageWidth)
+                                        .fioriSizeReader { newValue in
+                                            if abs(configuration.model.monthViewHeight - newValue.height) > 0.1 {
+                                                DispatchQueue.main.async {
+                                                    configuration.model.monthViewHeight = newValue.height
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                            .scrollTargetLayout()
+                        })
+                        .scrollPosition(id: self.$scrollPosition, anchor: .leading)
+                        .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                        .scrollBounceBehavior(.always)
+                        .frame(width: pageWidth)
+                    }
                     .frame(height: {
                         if configuration.model.isDragging, configuration.model.currentMonthOriginHeight > 0 {
                             return configuration.model.currentMonthOriginHeight
@@ -173,14 +186,6 @@ public struct CalendarViewBaseStyle: CalendarViewStyle {
             }
             .setOnChange(of: self.scrollPosition) {
                 configuration.model.scrollPosition = self.scrollPosition
-            }
-            .fioriSizeReader { size in
-                let availableWidth = max(paddingOffset * 2, size.width)
-                if abs(self.availableWidth - availableWidth) > 0.1 {
-                    DispatchQueue.main.async {
-                        self.availableWidth = availableWidth
-                    }
-                }
             }
             .fioriScrollOffsetReader { point in
                 if point.y == 0,
