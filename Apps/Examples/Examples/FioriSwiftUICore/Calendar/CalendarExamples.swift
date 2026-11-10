@@ -67,7 +67,8 @@ struct CalendarExamples: View {
                 }
                 NavigationLink("Persistent, PreselectDate: Mar 23, 2015") {
                     CalendarPersistentPreselectDateTestExample(
-                        startDate: self.fm.date(from: "2015 01 01"),
+                        startDate: self.fm.date(from: "2000 01 01"),
+                        endDate: self.fm.date(from: "2035 01 01"),
                         selectedDate: self.fm.date(from: "2015 03 23"),
                     )
                     .environmentObject(self.settings)
