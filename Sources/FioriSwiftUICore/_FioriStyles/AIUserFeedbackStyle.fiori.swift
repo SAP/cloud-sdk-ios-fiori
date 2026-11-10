@@ -71,6 +71,16 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         }
     }
     
+    var bottomBarHeight: CGFloat {
+        var result: CGFloat
+        if LiquidGlassHelper.usesLiquidGlassUI, self.isShowSubmitButton {
+            result = self.horizontalSizeClass == .regular ? 64 : 52
+        } else {
+            result = 0
+        }
+        return result
+    }
+    
     public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
         Group {
             if configuration.displayMode == .inline {
@@ -130,13 +140,17 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             .ifApply(configuration.displayMode != .push && self.horizontalSizeClass == .compact, content: { v in
                 v.presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(configuration.isBackgroundInteractionEnabled ? self.backgroundInteractionPresentationDetent() : .automatic)
-                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight), .height(213.0), .medium, .large], selection: self.$detentSelection)
+                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight), .height(213.0), .medium, .large], selection: self.$detentSelection)
             })
             .ifApply(UIDevice.isIPad) { v in
-                v.presentationDragIndicator(.hidden)
-                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight)])
-                    .fixedSize(horizontal: false, vertical: true)
+                v.frame(idealHeight: self.idealHeight())
+                    .presentationDragIndicator(.hidden)
+                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight)])
             }
+    }
+    
+    func idealHeight() -> CGFloat {
+        self.detentHeight + self.navigationBarHeight + self.bottomBarHeight
     }
     
     func additionalHeightInVertical(_ configuration: AIUserFeedbackConfiguration) -> CGFloat {
@@ -174,7 +188,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                 Color.clear
                                     .onAppear {
                                         self.detentHeight = proxy.size.height
-                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight)
                                     }
                             }
                         )
@@ -204,12 +218,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                             Color.clear
                                 .onAppear {
                                     self.detentHeight = geometry.size.height + self.additionalHeightInVertical(configuration)
-                                    self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                    self.detentSelection = .height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight)
                                 }
                                 .onChange(of: geometry.size.height) {
                                     if self.shouldApplyDetentHeight {
                                         self.detentHeight = geometry.size.height + self.additionalHeightInVertical(configuration)
-                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight)
                                         self.shouldApplyDetentHeight = false
                                     }
                                 }
@@ -224,6 +238,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .clipShape(RoundedRectangle(cornerRadius: self.isCompactStyle(configuration) ? 26 : 0))
                     .padding(.top, self.isCompactStyle(configuration) ? 10 : 0)
                     .padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 20)
+                    .ifApply(!self.shouldShowFeedbackDetail) {
+                        $0.padding(.bottom, 20)
+                    }
                 }
             }
             .defaultScrollAnchor(.top)
@@ -244,7 +261,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         .ifApply(self.isCompactStyle(configuration), content: { v in
             v.background(
                 Color.preferredColor(.primaryGroupedBackground)
-                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone && configuration.displayMode == .sheet, content: { $0.opacity(0) })
+                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone && configuration.displayMode != .push, content: { $0.opacity(0) })
             )
         })
         .navigationBarTitleDisplayMode(.inline)
@@ -494,11 +511,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     func backgroundInteractionPresentationDetent() -> PresentationBackgroundInteraction {
-        if self.detentHeight + self.navigationBarHeight < self.mediumPresentationDetentHeight() {
+        if self.detentHeight + self.navigationBarHeight + self.bottomBarHeight < self.mediumPresentationDetentHeight() {
             return PresentationBackgroundInteraction.enabled(upThrough: .medium)
         }
         
-        return PresentationBackgroundInteraction.enabled(upThrough: PresentationDetent.height(self.detentHeight + self.navigationBarHeight))
+        return PresentationBackgroundInteraction.enabled(upThrough: PresentationDetent.height(self.detentHeight + self.navigationBarHeight + self.bottomBarHeight))
     }
     
     /// PresentationDetent.medium is approximately half the height of the screen.

@@ -285,8 +285,17 @@ struct AIUserFeedbackExample: View {
                     }
                 })
             }
+            .background(GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        self.feedbackHeight = geometry.size.height
+                    }
+                    .onChange(of: geometry.size.height) {
+                        self.feedbackHeight = geometry.size.height
+                    }
+            })
             .padding(.horizontal, 20)
-            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar, .bottomBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -324,13 +333,45 @@ struct AIUserFeedbackExample: View {
                 }
             }
             .navigationDestination(isPresented: self.$isFeedbackPushed) {
-                self.showFeedback(mode: .push)
+                GeometryReader { _ in
+                    self.showFeedback(mode: .push)
+                        .background(GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    self.feedbackHeight = geometry.size.height + self.bottomBarHeight
+                                }
+                                .onChange(of: geometry.size.height) {
+                                    self.feedbackHeight = geometry.size.height + self.bottomBarHeight
+                                }
+                        })
+                }
             }
         }
         .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-            v.frame(width: 393.0, height: 400.0)
+            v.frame(width: 393.0)
+                .frame(minHeight: max(self.feedbackHeight + self.bottomBarHeight, 400))
         })
-        .presentationDetents([.medium])
+        .presentationDetents([.height(max(self.feedbackHeight + self.bottomBarHeight, 400)), .large])
+    }
+    
+    @State private var feedbackHeight: CGFloat = 0
+    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var bottomBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            self.horizontalSizeClass == .regular ? 64 : 52
+        } else {
+            0
+        }
+    }
+    
+    var navigationBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            return UIDevice.current.userInterfaceIdiom == .pad ? 67 : 74
+        } else {
+            return UIDevice.current.userInterfaceIdiom == .pad ? 50.0 : 56.0
+        }
     }
     
     // Provide FioriButton instances as computed properties so the action closures can return them (or nil) and thus trigger default logic when nil is returned.
