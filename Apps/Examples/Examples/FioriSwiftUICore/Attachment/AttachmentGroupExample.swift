@@ -190,7 +190,7 @@ struct AttachmentGroupExample: View {
                         }
 
                         Toggle(self.appWithoutError ? "No App Error" : "Somehow, App Caused An Error", isOn: self.$appWithoutError)
-                        
+
                         Toggle(self.locationCaptureMode != .disabled ? "Location Capture Enabled" : "Location Capture Disabled", isOn: Binding(
                             get: { self.locationCaptureMode != .disabled },
                             set: { self.locationCaptureMode = $0 ? .enabled(accuracy: .hundredMeters) : .disabled }
@@ -247,7 +247,7 @@ struct AttachmentGroupExample: View {
             attachments: self.$attachmentInfo,
             maxCount: self.maxCount,
             maxPhotoSelectionCount: self.maxPhotoSelectionCount,
-            delegate: self.useDemoDelegate ? MyAttachmentDelegateForInProgressAndErrorDemo() : BasicAttachmentDelegate(),
+            delegate: self.createDelegate(),
             controlState: self.state,
             errorMessage: self.$error,
             operations: {
@@ -311,6 +311,14 @@ struct AttachmentGroupExample: View {
         }
         .ifApply(!self.defaultGridLayout) {
             $0.attachmentGroupStyle(MyAttachmentGroupListStyle())
+        }
+    }
+
+    func createDelegate() -> AttachmentDelegate {
+        if self.useDemoDelegate {
+            return MyAttachmentDelegateForInProgressAndErrorDemo()
+        } else {
+            return LocationCapturingDelegate()
         }
     }
 }
@@ -692,15 +700,11 @@ extension MyExtraInfo {
 }
 
 class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
-    public init() {
-        super.init()
-    }
-    
     override func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
         if let location {
             print("Received location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
         } else {
-            print("No location provided")
+            print("No location provided (location capture may be disabled)")
         }
         if let identifier = provider.registeredTypeIdentifiers.first {
             provider.loadFileRepresentation(forTypeIdentifier: identifier) { url, _ in
@@ -723,5 +727,18 @@ class MyAttachmentDelegateForInProgressAndErrorDemo: BasicAttachmentDelegate {
         } else {
             onCompletion(nil, AttachmentError.failedToUploadAttachment("Failed to get type identifier of the provider."))
         }
+    }
+}
+
+/// Delegate that logs captured location to console
+class LocationCapturingDelegate: BasicAttachmentDelegate {
+    override func upload(contentFrom provider: NSItemProvider, location: CLLocation?, onStarting: ((URL) -> Void)? = nil, onCompletion: @escaping (URL?, Error?) -> Void) {
+        if let location {
+            print("Received location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        } else {
+            print("No location provided (location capture may be disabled)")
+        }
+
+        super.upload(contentFrom: provider, location: location, onStarting: onStarting, onCompletion: onCompletion)
     }
 }
