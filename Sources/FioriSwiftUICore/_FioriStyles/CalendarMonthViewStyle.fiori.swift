@@ -67,8 +67,9 @@ extension CalendarMonthViewFioriStyle {
 extension CalendarMonthView: Equatable {
     /// Used for compare to avoid redundant view refresh
     func selectedDatesInCurrentMonth() -> Set<Date> {
+        let calendar = Calendar.autoupdatingCurrent
         let compareDateInCurrentMonth: ((Date) -> Bool) = { date in
-            let components = Calendar.autoupdatingCurrent.dateComponents([.year, .month], from: date)
+            let components = calendar.dateComponents([.year, .month], from: date)
             if let year = components.year,
                let month = components.month,
                model.year == year,
@@ -78,7 +79,7 @@ extension CalendarMonthView: Equatable {
             }
             return false
         }
-        
+
         var dates: Set<Date> = []
         if self.calendarStyle == .datesSelection {
             if let selectedDates {
@@ -89,10 +90,28 @@ extension CalendarMonthView: Equatable {
                 }
             }
         } else if self.calendarStyle == .rangeSelection, let selectedRange {
-            let interval: TimeInterval = 24 * 60 * 60
-            for date in stride(from: selectedRange.lowerBound, through: selectedRange.upperBound, by: interval) {
-                if compareDateInCurrentMonth(date) {
-                    dates.insert(date)
+            // Only stride over the days of this month that overlap the selected
+            // range, instead of the whole range. For large ranges the previous
+            // implementation walked every day of the range for every visible
+            // month view on each diff, which made scrolling very laggy
+            // (IOSSDKBUG-2482).
+            var components = DateComponents()
+            components.year = self.model.year
+            components.month = self.model.month
+            components.day = 1
+            if let monthStart = calendar.date(from: components),
+               let monthRange = calendar.range(of: .day, in: .month, for: monthStart),
+               let monthEnd = calendar.date(byAdding: .day, value: monthRange.count - 1, to: monthStart)
+            {
+                let lowerBound = max(monthStart, selectedRange.lowerBound)
+                let upperBound = min(monthEnd, selectedRange.upperBound)
+                if lowerBound <= upperBound {
+                    let interval: TimeInterval = 24 * 60 * 60
+                    for date in stride(from: lowerBound, through: upperBound, by: interval) {
+                        if compareDateInCurrentMonth(date) {
+                            dates.insert(date)
+                        }
+                    }
                 }
             }
         } else if let selectedDate, compareDateInCurrentMonth(selectedDate) {
