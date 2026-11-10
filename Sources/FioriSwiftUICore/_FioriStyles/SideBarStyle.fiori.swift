@@ -24,22 +24,13 @@ public struct SideBarBaseStyle: SideBarStyle {
     
     public func makeBody(_ configuration: SideBarConfiguration) -> some View {
         Group {
-            // See issue HCPSDKFIORIUIKIT-3047, With the iOS 26 Liquid Glass style, the Sidebar does not display fully vertically on the iPad in Portrait mode.
-            // It seems that the primary column's width in NavigationSplitView or UINavigationSplitViewControoler has changed, making the original fixed width of the sidebar (288 + 16 + 16) unusable.
-            // To resolve this issue, we need to implement a flexible width that fits the available content space of its parent.
-            
-            // Additionally, we also expose some environment keys, such as isSidebarAutoWidth, sidebarWidth, sidebarLeadingPadding, and sidebarTrailingPadding, to allow consumers to customize the sidebar's width for different use cases.
             if !configuration.isUsedInSplitView {
                 GeometryReader { geometry in
                     VStack(spacing: 0, content: {
-                        ScrollView(.vertical, showsIndicators: false, content: {
-                            LazyVStack(spacing: 0) {
-                                self.buildSideBarList(configuration)
-                            }
+                        self.buildSideBarList(configuration)
                             .padding(EdgeInsets(top: 0, leading: self.leadingPadding, bottom: 0, trailing: self.trailingPadding))
                             .background(Color.preferredColor(.secondaryBackground))
-                        })
-                        
+
                         configuration.footer.typeErased
                     })
                     .frame(width: self.isAutoWidth ? geometry.size.width : self.sidebarWidth)
@@ -53,17 +44,14 @@ public struct SideBarBaseStyle: SideBarStyle {
                         configuration.data.append(contentsOf: self.modelObject.refreshItems())
                     }
                 }
-    
+                
                 // with iOS 26 Liquid Glass style, the Sidebar can't display totally on iPad with Portrait mode. It seems like the width of primary is changed in NavigationSplitView.
                 GeometryReader { geometry in
                     VStack(spacing: 0, content: {
-                        ScrollView(.vertical, showsIndicators: false, content: {
-                            LazyVStack(spacing: 0) {
-                                self.buildSideBarList(configuration)
-                            }
+                        self.buildSideBarList(configuration)
                             .padding(EdgeInsets(top: 0, leading: self.leadingPadding, bottom: 0, trailing: self.trailingPadding))
-                        }).background(Color.preferredColor(.secondaryBackground))
-        
+                            .background(Color.preferredColor(.secondaryBackground))
+
                         configuration.footer.typeErased
                     })
                     .frame(width: self.isAutoWidth ? geometry.size.width : self.sidebarWidth)
@@ -84,43 +72,93 @@ public struct SideBarBaseStyle: SideBarStyle {
     }
     
     func buildSideBarList(_ configuration: SideBarConfiguration) -> some View {
-        ForEach(Array(self.modelObject.filterItems().enumerated()), id: \.element.id) { _, item in
-            if item.isSection { // Section header
-                let onDisclosureGroupToggled = {
-                    // handle the section expand/collapse
-                    if !self.collapsedSections.contains(where: { $0 == item.id }) {
-                        self.collapsedSections.append(item.id)
-                    } else {
-                        self.collapsedSections.removeAll(where: { $0 == item.id })
-                    }
+        let visibleItems = self.getVisibleItems()
+        return List {
+            ForEach(Array(visibleItems.enumerated()), id: \.element.id) { _, item in
+                if item.isSection {
+                    self.buildSectionHeader(configuration, item)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.preferredColor(.secondaryBackground))
+                        .moveDisabled(true)
+                } else if self.modelObject.isChildrenItem(item), self.isSectionCollapsed(for: item, in: visibleItems) {
+                    EmptyView()
+                } else {
+                    self.buildSideBarItem(configuration, item)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.preferredColor(.secondaryBackground))
                 }
-                DisclosureGroup(item.title,
-                                isExpanded: Binding<Bool>(
-                                    get: { !self.collapsedSections.contains(where: { $0 == item.id }) },
-                                    set: { isExpanded in
-                                        if isExpanded { self.collapsedSections.removeAll(where: { $0 == item.id }) } else { self.collapsedSections.append(item.id) }
-                                    }
-                                )) {
-                    if let sectionItems = self.modelObject.fetchChildrenItems(item) { // Get all children item of the section
-                        ForEach(sectionItems) { childrenItem in
-                            self.buildSideBarItem(configuration, childrenItem)
-                        }
-                    }
-                }
-                .disclosureGroupStyle(SideBarListSectionDisclosureStyle(onDisclosureGroupToggled: onDisclosureGroupToggled))
-                .onTapGesture {
-                    onDisclosureGroupToggled()
-                }
-                .onDrop(of: [.text], delegate: SideBarDropDelegate(toItem: item, modelObject: self.modelObject)) // The section header can't be dragged but it was allow to put a item under it. E,g, Drag a item to empty section
-            } else if !self.modelObject.isChildrenItem(item) { // The item is not section header and its children
-                self.buildSideBarItem(configuration, item)
+            }
+            .onMove { source, destination in
+                self.performMove(source: source, destination: destination, in: visibleItems)
             }
         }
+        .listStyle(.plain)
+        .environment(\.defaultMinListRowHeight, 44)
     }
-    
-    /**
-     * Build the row item for side bar item. The isFlatList and parentIndex parameter was used for non-flat list source during drag and drop for method buildNestedSideBarList
-     */
+
+    private func getVisibleItems() -> [SideBarItemModel] {
+        let allItems = self.modelObject.filterItems()
+        var result: [SideBarItemModel] = []
+        var currentSectionId: UUID? = nil
+        
+        for item in allItems {
+            if item.isSection {
+                currentSectionId = item.id
+                result.append(item)
+            } else {
+                let isSectionCollapsed = currentSectionId.map { self.collapsedSections.contains($0) } ?? false
+                if !isSectionCollapsed {
+                    result.append(item)
+                }
+            }
+        }
+        
+        return result
+    }
+
+    // MARK: - Section header
+
+    func buildSectionHeader(_ configuration: SideBarConfiguration, _ item: SideBarItemModel) -> some View {
+        let onDisclosureGroupToggled = {
+            if !self.collapsedSections.contains(where: { $0 == item.id }) {
+                self.collapsedSections.append(item.id)
+            } else {
+                self.collapsedSections.removeAll(where: { $0 == item.id })
+            }
+        }
+
+        return DisclosureGroup(item.title,
+                               isExpanded: Binding<Bool>(
+                                   get: { !self.collapsedSections.contains(where: { $0 == item.id }) },
+                                   set: { isExpanded in
+                                       if isExpanded { self.collapsedSections.removeAll(where: { $0 == item.id }) } else { self.collapsedSections.append(item.id) }
+                                   }
+                               )) {
+            EmptyView()
+        }
+        .disclosureGroupStyle(SideBarListSectionDisclosureStyle(onDisclosureGroupToggled: onDisclosureGroupToggled))
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onDisclosureGroupToggled()
+        }
+    }
+
+    private func isSectionCollapsed(for item: SideBarItemModel, in visibleItems: [SideBarItemModel]) -> Bool {
+        guard let index = visibleItems.firstIndex(of: item) else { return false }
+
+        for n in stride(from: index - 1, through: 0, by: -1)
+            where visibleItems[n].isSection
+        {
+            return self.collapsedSections.contains(where: { $0 == visibleItems[n].id })
+        }
+
+        return false
+    }
+
+    // MARK: - Row item
+
     func buildSideBarItem(_ configuration: SideBarConfiguration, _ item: SideBarItemModel) -> some View {
         Group {
             if let index = self.modelObject.flatListItems.firstIndex(of: item) {
@@ -154,29 +192,47 @@ public struct SideBarBaseStyle: SideBarStyle {
                 } else if configuration.isEditing { // For edit-mode
                     configuration.item(bindableItem).typeErased
                         .background(Color.preferredColor(.secondaryBackground))
-                        .simultaneousGesture(TapGesture().onEnded {}) // To capture the Tap Gesture on the Item Row in Edit mode and to do nothing to avoid the Tap Gesture was captured by section expending logic
-                        .background(Color.white)
-                        .overlay(
-                            DraggingItemCornerShape(radius: 8)
-                                .stroke(Color("light-gray"), lineWidth: 4)
-                        )
-                        .clipShape(DraggingItemCornerShape(radius: 8))
-                        .contentShape([.dragPreview], DraggingItemCornerShape(radius: 8))
-                        .overlay(self.modelObject.draggingItem == item && self.modelObject.isDragging ? .white : .clear)
-                        .onDrag {
-                            self.modelObject.draggingItem = item
-                            return NSItemProvider(object: NSString(string: item.id.uuidString))
-                        }
-                        .onDrop(of: [.text], delegate: SideBarDropDelegate(toItem: item, modelObject: self.modelObject))
+                        .simultaneousGesture(TapGesture().onEnded {})
                         .accessibilityAction {
-                            if configuration.isEditing {
-                                bindableItem.wrappedValue.isInvisible.toggle()
-                            }
+                            bindableItem.wrappedValue.isInvisible.toggle()
                         }
                 }
             } else {
                 EmptyView()
             }
+        }
+    }
+
+    // MARK: - Move mapping
+
+    private func performMove(source: IndexSet, destination: Int, in visibleItems: [SideBarItemModel]) {
+        let movedItems: [SideBarItemModel] = source.map { visibleItems[$0] }
+        guard !movedItems.isEmpty else { return }
+
+        let anchorItem: SideBarItemModel?
+        if destination >= visibleItems.count {
+            anchorItem = nil
+        } else {
+            var idx = destination
+            while idx < visibleItems.count, movedItems.contains(visibleItems[idx]) {
+                idx += 1
+            }
+            anchorItem = (idx < visibleItems.count) ? visibleItems[idx] : nil
+        }
+
+        withAnimation {
+            for m in movedItems {
+                if let fi = self.modelObject.flatListItems.firstIndex(of: m) {
+                    self.modelObject.flatListItems.remove(at: fi)
+                }
+            }
+            let insertAt: Int
+            if let anchor = anchorItem, let ai = self.modelObject.flatListItems.firstIndex(of: anchor) {
+                insertAt = ai
+            } else {
+                insertAt = self.modelObject.flatListItems.count
+            }
+            self.modelObject.flatListItems.insert(contentsOf: movedItems, at: insertAt)
         }
     }
 }
@@ -273,9 +329,6 @@ class SideBarModelObject: ObservableObject {
     
     @Published var queryString: String
     
-    @Published var isDragging = false
-    var draggingItem: SideBarItemModel?
-    
     var configuration: SideBarConfiguration
     
     public init(items: [SideBarItemModel], queryString: String, configuration: SideBarConfiguration) {
@@ -364,33 +417,7 @@ class SideBarModelObject: ObservableObject {
             return self.flatListItems.filter { item in item.isSection || item.title.localizedCaseInsensitiveContains(self.queryString) }
         }
     }
-    
-    /**
-     * Fetch all children items of the given section header item from the flat list
-     */
-    func fetchChildrenItems(_ section: SideBarItemModel) -> [SideBarItemModel]? {
-        if let sectionIndex = self.filterItems().firstIndex(of: section) {
-            var items: [SideBarItemModel] = []
-            if (sectionIndex + 1) <= self.filterItems().count - 1 {
-                for index in sectionIndex + 1 ... self.filterItems().count - 1 { // Loop all items after the section until find another section
-                    let item = self.filterItems()[index]
-                    if !item.isSection { // The item belongs to the current section if it has no any child, otherwise, it is another section header item
-                        items.append(item)
-                    } else {
-                        break
-                    }
-                }
-            }
-            
-            if items.isEmpty {
-                return nil
-            } else {
-                return items
-            }
-        }
-        return nil
-    }
-    
+
     /**
      * Check if the given item is a child of section header in flat list
      */
@@ -446,59 +473,6 @@ private struct SideBarListSectionDisclosureStyle: DisclosureGroupStyle {
         .accessibilityAction {
             self.onDisclosureGroupToggled()
         }
-        
-        if configuration.isExpanded {
-            configuration.content
-                .padding(.leading, 0)
-                .disclosureGroupStyle(self)
-        }
-    }
-}
-
-private struct SideBarDropDelegate: DropDelegate {
-    let toItem: SideBarItemModel
-    var modelObject: SideBarModelObject
-    
-    /// Drop finished work
-    func performDrop(info: DropInfo) -> Bool {
-        self.modelObject.draggingItem = nil
-        self.modelObject.isDragging = false
-        return true
-    }
-    
-    /// Moving style without "+" icon
-    func dropUpdated(info: DropInfo) -> DropProposal? {
-        DropProposal(operation: .move)
-    }
-    
-    /// Object is dragged off of the onDrop view.
-    func dropExited(info: DropInfo) {
-        self.modelObject.isDragging = false
-    }
-    
-    /// Object is dragged over the onDrop view.
-    func dropEntered(info: DropInfo) {
-        self.modelObject.isDragging = true
-        
-        guard let dragItem = modelObject.draggingItem, dragItem != toItem else { return }
-        
-        guard let fromIndex = modelObject.flatListItems.firstIndex(of: dragItem),
-              let toIndex = modelObject.flatListItems.firstIndex(of: toItem) else { return }
-        withAnimation {
-            self.modelObject.flatListItems.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
-        }
-    }
-}
-
-private struct DraggingItemCornerShape: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect,
-                                byRoundingCorners: corners,
-                                cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
     }
 }
 
