@@ -118,8 +118,15 @@ struct HorizontalIconsHStack: Layout {
                               proposal: ProposedViewSize(CGSize(width: subviewSize.width, height: subviewSize.height)))
                 xOffset += (subviewSize.width + self.spacing)
             } else {
-                let maxOffset = CGFloat.greatestFiniteMagnitude
-                let offScreen = CGPoint(x: maxOffset, y: maxOffset)
+                // Move overflowing subviews out of the visible area. These subviews
+                // have a fixed `.frame(width:height:)`, so a zero-size proposal would
+                // not shrink them — they must be positioned off-screen instead.
+                // Use a bounded off-screen offset rather than `greatestFiniteMagnitude`:
+                // during navigation transitions SwiftUI interpolates/transforms the
+                // subview's clip (mask) layer geometry, and an extreme coordinate can
+                // overflow to `inf`, producing a `NaN` CALayer position that crashes
+                // with CALayerInvalidGeometry.
+                let offScreen = CGPoint(x: bounds.minX - 10000, y: bounds.minY - 10000)
                 subview.place(at: offScreen, proposal: .unspecified)
             }
         }
