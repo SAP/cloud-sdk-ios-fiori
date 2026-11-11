@@ -200,17 +200,21 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     }
     
     func presentationDetent() -> Set<PresentationDetent> {
-        if self.calculateScrollView, let scrollViewHeight {
+        if self.calculateScrollView {
             if self.subScrollViewHeight > 0 {
                 return [.height(self.subScrollViewHeight), .large]
             } else {
-                let halfScreenHeight = self.presentingViewHeight / 2
-                if #available(iOS 26.0, *) {
-                    return [.height(scrollViewHeight + self.bottomHeight), .large]
-                } else if scrollViewHeight + self.bottomHeight > halfScreenHeight {
-                    return [.medium, .fraction(0.999)]
+                if let scrollViewHeight, scrollViewHeight > self.navigationBarHeight {
+                    let halfScreenHeight = self.presentingViewHeight / 2
+                    if #available(iOS 26.0, *) {
+                        return [.height(scrollViewHeight + self.bottomHeight), .large]
+                    } else if scrollViewHeight + self.bottomHeight > halfScreenHeight {
+                        return [.medium, .fraction(0.999)]
+                    } else {
+                        return [.height(scrollViewHeight + self.bottomHeight), .fraction(0.999)]
+                    }
                 } else {
-                    return [.height(scrollViewHeight + self.bottomHeight), .fraction(0.999)]
+                    return [.large]
                 }
             }
         } else {
