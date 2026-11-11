@@ -95,7 +95,12 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                                 return $0.onScrollGeometryChange(for: [Double].self) { geo in
                                     [geo.contentSize.height]
                                 } action: { _, newValue in
-                                    self.scrollViewHeight = max(newValue.reduce(0, +), 88) + self.navigationBarHeight
+                                    let newScrollViewHeight = max(newValue.reduce(0, +), 88) + self.navigationBarHeight
+                                    if let scrollViewHeight {
+                                        self.scrollViewHeight = max(newScrollViewHeight, scrollViewHeight)
+                                    } else {
+                                        self.scrollViewHeight = newScrollViewHeight
+                                    }
                                 }
                                 .typeErased
                             } else {
@@ -204,7 +209,10 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
             if self.subScrollViewHeight > 0 {
                 return [.height(self.subScrollViewHeight), .large]
             } else {
-                if let scrollViewHeight, scrollViewHeight > self.navigationBarHeight {
+                if let scrollViewHeight,
+                   scrollViewHeight > self.navigationBarHeight,
+                   scrollViewHeight + self.bottomHeight < self.presentingViewHeight * 0.7
+                {
                     let halfScreenHeight = self.presentingViewHeight / 2
                     if #available(iOS 26.0, *) {
                         return [.height(scrollViewHeight + self.bottomHeight), .large]

@@ -5,7 +5,6 @@ import SwiftUI
 public struct SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.sortFilterContentHeight) var sortFilterContentHeight
     
     @Binding var _items: [[SortFilterItem]]
     /// The frame of the view toggle to show this view.
@@ -205,9 +204,6 @@ extension SortFilterCFGItemContainer: View {
             }
         }, axis: .horizontal, destination: {
             self.listPickerDestination(row: r, column: c)
-                .onDisappear {
-                    self.sortFilterContentHeight.wrappedValue = 0
-                }
         })
         .frame(minHeight: 44)
     }
@@ -265,12 +261,6 @@ extension SortFilterCFGItemContainer: View {
                     self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
-                    self.sortFilterContentHeight.wrappedValue = calculateHeight
-                }
-            })
             .selectedEntriesSectionTitleStyle { _ in
                 if self._items[r][c].picker.allowsDisplaySelectionCount {
                     Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
@@ -326,12 +316,6 @@ extension SortFilterCFGItemContainer: View {
                     self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
-                    self.sortFilterContentHeight.wrappedValue = calculateHeight
-                }
-            })
             .selectedEntriesSectionTitleStyle { _ in
                 if self._items[r][c].picker.allowsDisplaySelectionCount {
                     Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
@@ -501,7 +485,6 @@ extension SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
             if self._items[r][c].datetime.components.contains(.hourAndMinute) {
                 HStack {
                     Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -515,7 +498,6 @@ extension SortFilterCFGItemContainer: View {
                     )
                     .labelsHidden()
                 }
-                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
             }
             if self._items[r][c].datetime.components.contains(.date) {
                 DatePicker(
@@ -525,7 +507,6 @@ extension SortFilterCFGItemContainer: View {
                 )
                 .datePickerStyle(.graphical)
                 .labelsHidden()
-                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
                 .clipped()
             }
         }
