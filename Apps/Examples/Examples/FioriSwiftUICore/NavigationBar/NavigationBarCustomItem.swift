@@ -23,8 +23,6 @@ struct NavigationBarCustomItem: View {
                 }
             }
             .navigationTitle("Custom Bar Item")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(.thinMaterial, for: .navigationBar)
     }
 }
 
