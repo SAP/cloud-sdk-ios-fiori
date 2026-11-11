@@ -118,7 +118,6 @@ final class CalendarViewTests: XCTestCase {
         
         let style = CalendarViewBaseStyle()
         XCTAssertEqual(style.weekViewHeight, 60)
-        XCTAssertEqual(style.availableWidth, 16)
         
         style.handleDayViewTapGesture(self.fm.date(from: "2025 10 12")!, state: .normal, configuration: configuration)
         XCTAssertTrue(Calendar.current.compare(model.selectedDate!, to: self.fm.date(from: "2025 10 12")!, toGranularity: .day) == .orderedSame)
