@@ -285,8 +285,8 @@ struct AIUserFeedbackExample: View {
                     }
                 })
             }
-            .padding(.horizontal, 20)
-            .toolbarBackground(.visible, for: .navigationBar)
+            .padding(20)
+            .toolbarBackgroundVisibility(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
