@@ -15,6 +15,7 @@ struct CurrencyInputExampleView: View {
     @State private var isRequired: Bool = true
     @State private var isoCode: String = "USD"
     @State private var showingOptions = false
+    @State private var isEditing: Bool = false
     
     let currencyToLocale: [String: String] = [
         "USD": "en_US", // US Dollar - English (United States)
@@ -57,6 +58,22 @@ struct CurrencyInputExampleView: View {
                         .currencyField(formatter: .numberFormat(NumberFormatter(localeIdentifier: self.currencyToLocale[self.isoCode]!, maxFractionDigits: 2)))
                         .onChange(of: self.isoCode) {
                             self.usdAmount = ""
+                        }
+                        // The currency field uses a decimal keyboard with no Return/Done key.
+                        // Pass through its focus so this view can host a keyboard toolbar with a
+                        // Done button and dismiss the keyboard by setting isEditing = false.
+                        .textFieldFormViewFocused(self.$isEditing)
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                if self.isEditing {
+                                    Button {
+                                        self.isEditing = false
+                                    } label: {
+                                        Text("Done")
+                                    }
+                                    Spacer()
+                                }
+                            }
                         }
                         
                         Text("Default currencyField()")

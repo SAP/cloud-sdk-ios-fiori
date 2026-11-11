@@ -159,9 +159,59 @@ extension TitleFormViewFioriStyle {
 
     struct FormViewFioriStyle: FormViewStyle {
         let titleFormViewConfiguration: TitleFormViewConfiguration
-        
+
         func makeBody(_ configuration: FormViewConfiguration) -> some View {
             FormView(configuration)
         }
+    }
+}
+
+// MARK: - TitleFormView Focus
+
+public extension View {
+    /// Binds the focus state of a `TitleFormView`'s text field to an external binding.
+    ///
+    /// Pass a `@State var` binding here to:
+    /// - observe when the field becomes/resigns first responder (the binding is written `true`/`false`), and
+    /// - dismiss the keyboard programmatically by setting the binding to `false`.
+    ///
+    /// This lets you host your own keyboard toolbar with a Done button — useful when the field uses a
+    /// number/decimal keyboard that has no Return/Done key:
+    /// ```swift
+    /// @State private var isEditing = false
+    ///
+    /// TitleFormView(text: $text, placeholder: "Enter text")
+    ///     .titleFormViewFocused($isEditing)
+    ///     .toolbar {
+    ///         ToolbarItemGroup(placement: .keyboard) {
+    ///             if isEditing {
+    ///                 Button { isEditing = false } label: { Text("Done") }
+    ///                 Spacer()
+    ///             }
+    ///         }
+    ///     }
+    /// ```
+    /// - Parameter binding: A binding kept in sync with the field's focus state.
+    func titleFormViewFocused(_ binding: Binding<Bool>) -> some View {
+        environment(\.textFieldFocusBinding, binding)
+    }
+}
+
+struct TextFieldFocusBindingKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool>? = nil
+}
+
+extension EnvironmentValues {
+    /// An optional external binding that mirrors the focus state of the shared single-line text field
+    /// (used by `TitleFormView` and, transitively, `TextFieldFormView`, including its currency mode).
+    ///
+    /// Set via `.titleFormViewFocused(_:)` / `.textFieldFormViewFocused(_:)`. The component keeps this
+    /// binding in sync with its internal focus state: it writes `true`/`false` as the field gains or
+    /// loses focus, and setting it to `false` programmatically resigns the field's first responder.
+    /// This lets consumers host their own keyboard toolbar (e.g. a Done button) to dismiss the keyboard —
+    /// the number/decimal keyboard used in currency mode has no Return/Done key.
+    var textFieldFocusBinding: Binding<Bool>? {
+        get { self[TextFieldFocusBindingKey.self] }
+        set { self[TextFieldFocusBindingKey.self] = newValue }
     }
 }

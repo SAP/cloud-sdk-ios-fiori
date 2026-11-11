@@ -399,3 +399,35 @@ extension View {
         }
     }
 }
+
+// MARK: - TextFieldFormView Focus
+
+public extension View {
+    /// Binds the focus state of a `TextFieldFormView`'s text field to an external binding.
+    ///
+    /// This is especially useful in currency mode, where the field uses a decimal keyboard that has
+    /// no Return/Done key and cannot otherwise be dismissed. Pass a `@State var` binding here to:
+    /// - observe when the field becomes/resigns first responder (the binding is written `true`/`false`), and
+    /// - dismiss the keyboard programmatically by setting the binding to `false`.
+    ///
+    /// This lets you host your own keyboard toolbar with a Done button:
+    /// ```swift
+    /// @State private var isEditing = false
+    ///
+    /// TextFieldFormView(text: $amount, placeholder: "Amount")
+    ///     .currencyField(...)
+    ///     .textFieldFormViewFocused($isEditing)
+    ///     .toolbar {
+    ///         ToolbarItemGroup(placement: .keyboard) {
+    ///             if isEditing {
+    ///                 Button { isEditing = false } label: { Text("Done") }
+    ///                 Spacer()
+    ///             }
+    ///         }
+    ///     }
+    /// ```
+    /// - Parameter binding: A binding kept in sync with the field's focus state.
+    func textFieldFormViewFocused(_ binding: Binding<Bool>) -> some View {
+        environment(\.textFieldFocusBinding, binding)
+    }
+}
