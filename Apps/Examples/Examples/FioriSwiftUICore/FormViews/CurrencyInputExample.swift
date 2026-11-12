@@ -64,16 +64,18 @@ struct CurrencyInputExampleView: View {
                         // Done button and dismiss the keyboard by setting isEditing = false.
                         .textFieldFormViewFocused(self.$isEditing)
                         .toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                if self.isEditing {
-                                    Button {
-                                        self.isEditing = false
-                                    } label: {
-                                        Text("Done")
+                            #if !os(visionOS)
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    if self.isEditing {
+                                        Button {
+                                            self.isEditing = false
+                                        } label: {
+                                            Text("Done")
+                                        }
+                                        Spacer()
                                     }
-                                    Spacer()
                                 }
-                            }
+                            #endif
                         }
                         
                         Text("Default currencyField()")
