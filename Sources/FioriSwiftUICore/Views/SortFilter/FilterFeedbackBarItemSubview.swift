@@ -2021,10 +2021,8 @@ struct FullCFGMenuItem: View {
     var isResetButtonEnabled: Bool {
         var isResetButtonEnabled = false
         
-        for item in self.items.joined() {
-            if !isResetButtonEnabled, !item.isOriginal {
-                isResetButtonEnabled = true
-            }
+        for item in self.items.joined() where !isResetButtonEnabled && !item.isOriginal {
+            isResetButtonEnabled = true
         }
         return isResetButtonEnabled
     }
@@ -2077,7 +2075,7 @@ struct FullCFGMenuItem: View {
                 .disabled(!self.isResetButtonEnabled)
                 .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
                     if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
-                        $0.fioriButtonStyle(self.resetFioriButtonStyle(!self.isResetButtonEnabled,)).typeErased
+                        $0.fioriButtonStyle(self.resetFioriButtonStyle(!self.isResetButtonEnabled)).typeErased
                     } else {
                         $0.typeErased
                     }

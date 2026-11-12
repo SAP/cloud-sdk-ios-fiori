@@ -55,6 +55,7 @@ public struct FilterFeedbackBarItemBaseStyle: FilterFeedbackBarItemStyle {
             .font(self.font)
             .fontWeight(self.defaultFontWeight(configuration, isSelected: true))
             .opacity(0)
+            .accessibilityHidden(true)
             
             HStack(spacing: self.spacing) {
                 configuration.icon

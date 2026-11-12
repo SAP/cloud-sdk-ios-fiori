@@ -338,10 +338,10 @@ struct AIUserFeedbackExample: View {
                         .background(GeometryReader { geometry in
                             Color.clear
                                 .onAppear {
-                                    self.feedbackHeight = geometry.size.height + self.bottomBarHeight
+                                    self.feedbackHeight = geometry.size.height
                                 }
                                 .onChange(of: geometry.size.height) {
-                                    self.feedbackHeight = geometry.size.height + self.bottomBarHeight
+                                    self.feedbackHeight = geometry.size.height
                                 }
                         })
                 }
