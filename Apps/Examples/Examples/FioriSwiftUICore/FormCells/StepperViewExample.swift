@@ -44,16 +44,18 @@ struct StepperViewExample: View {
                 // button on the leading edge and dismiss the keyboard by setting isEditing = false.
                 .stepperFieldFocused(self.$isEditing)
                 .toolbar {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        if self.isEditing {
-                            Button {
-                                self.isEditing = false
-                            } label: {
-                                Text("Done")
+                    #if !os(visionOS)
+                        ToolbarItemGroup(placement: .keyboard) {
+                            if self.isEditing {
+                                Button {
+                                    self.isEditing = false
+                                } label: {
+                                    Text("Done")
+                                }
+                                Spacer()
                             }
-                            Spacer()
                         }
-                    }
+                    #endif
                 }
                 .disabled(self.isDisabled)
                 

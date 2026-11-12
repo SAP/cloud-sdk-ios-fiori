@@ -64,16 +64,18 @@ struct KeyValueFormViewExample: View {
                         // button is the way to dismiss the keyboard.
                         .keyValueFormViewFocused(self.$isEditing)
                         .toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                if self.isEditing {
-                                    Button {
-                                        self.isEditing = false
-                                    } label: {
-                                        Text("Done")
+                            #if !os(visionOS)
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    if self.isEditing {
+                                        Button {
+                                            self.isEditing = false
+                                        } label: {
+                                            Text("Done")
+                                        }
+                                        Spacer()
                                     }
-                                    Spacer()
                                 }
-                            }
+                            #endif
                         }
                     
                     Text("Existing Text")
