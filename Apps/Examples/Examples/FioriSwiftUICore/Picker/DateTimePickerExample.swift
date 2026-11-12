@@ -28,6 +28,12 @@ struct DateTimePickerExample: View {
     @State var customizedPickerVisible = false
     @State var limitedDatePickerVisible = false
     
+    // IOSSDKBUG-2462: text field + date picker in the same view, to verify the
+    // keyboard dismisses when the picker opens.
+    @State var focusReproText: String = ""
+    @State var focusReproDate: Date? = .now
+    @State var focusReproPickerVisible = false
+
     @State var separatedRangeStartDate: Date? = .now
     @State var separatedRangeStartPickerVisible = false
     @State var separatedRangeEndDate: Date? = .now
@@ -91,6 +97,13 @@ struct DateTimePickerExample: View {
     
     var body: some View {
         List {
+            Section {
+                KeyValueFormView(title: "Text Area", text: self.$focusReproText, placeholder: "Tap to show keyboard")
+                DateTimePicker(title: "Date Field", selectedDate: self.$focusReproDate, pickerVisible: self.$focusReproPickerVisible)
+            } header: {
+                Text("IOSSDKBUG-2462: tap text area → keyboard appears → tap date field → keyboard should dismiss")
+                    .textCase(.none)
+            }
             Toggle("Mandatory Field", isOn: self.$isRequired)
             Toggle("Show Error/Hint message", isOn: self.$showsErrorMessage)
             Toggle("AI Notice", isOn: self.$showAINotice)
