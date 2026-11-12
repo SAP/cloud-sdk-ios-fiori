@@ -3698,7 +3698,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/CalendarViewStyle.fiori.swift",
-      "line": 27,
+      "line": 25,
       "symbol": "CalendarViewBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -6022,14 +6022,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/PlaceholderTextEditorStyle.fiori.swift",
-      "line": 10,
+      "line": 14,
       "symbol": "PlaceholderTextEditorBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/PlaceholderTextFieldStyle.fiori.swift",
-      "line": 10,
+      "line": 14,
       "symbol": "PlaceholderTextFieldBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -6050,14 +6050,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/ProfileHeaderStyle.fiori.swift",
-      "line": 51,
+      "line": 65,
       "symbol": "ProfileHeaderBaseStyle",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/ProfileHeaderStyle.fiori.swift",
-      "line": 82,
+      "line": 96,
       "symbol": "ProfileHeaderBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -6834,7 +6834,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_FioriStyles/StepperFieldStyle.fiori.swift",
-      "line": 23,
+      "line": 27,
       "symbol": "StepperFieldBaseStyle.makeBody(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -19336,7 +19336,7 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriSwiftUICore/_generated/StyleableComponents/DateTimePicker/DateTimePickerStyle.generated.swift",
-      "line": 343,
+      "line": 351,
       "symbol": "DateTimePickerConfiguration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
