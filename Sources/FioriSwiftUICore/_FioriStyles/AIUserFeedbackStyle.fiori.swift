@@ -258,9 +258,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             }
             .frame(idealHeight: self.detentHeight > 0 ? self.idealHeight : nil)
             .defaultScrollAnchor(.top)
-//            .ifApply(self.horizontalSizeClass == .regular) { v in
-//                v.fixedSize(horizontal: false, vertical: true)
-//            }
+            .ifApply(UIDevice.current.userInterfaceIdiom == .pad) { v in
+                v.fixedSize(horizontal: false, vertical: true)
+            }
         }
         .background(GeometryReader { geometry in
             Color.clear
