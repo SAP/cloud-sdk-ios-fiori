@@ -288,10 +288,10 @@ struct AIUserFeedbackExample: View {
             .background(GeometryReader { geometry in
                 Color.clear
                     .onAppear {
-                        self.feedbackHeight = geometry.size.height
+                        self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
                     }
                     .onChange(of: geometry.size.height) {
-                        self.feedbackHeight = geometry.size.height
+                        self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
                     }
             })
             .padding(.horizontal, 20)
@@ -333,25 +333,34 @@ struct AIUserFeedbackExample: View {
                 }
             }
             .navigationDestination(isPresented: self.$isFeedbackPushed) {
-                GeometryReader { _ in
-                    self.showFeedback(mode: .push)
-                        .background(GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    self.feedbackHeight = geometry.size.height
-                                }
-                                .onChange(of: geometry.size.height) {
-                                    self.feedbackHeight = geometry.size.height
-                                }
-                        })
-                }
+                self.showFeedback(mode: .push)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                            }
+                    })
             }
         }
         .ifApply(self.horizontalSizeClass != .compact, content: { v in
             v.frame(width: 393.0)
-                .frame(minHeight: max(self.feedbackHeight + self.bottomBarHeight, 400))
+                .frame(minHeight: self.feedbackHeight > 0 ? nil : 400)
         })
-        .presentationDetents([.height(max(self.feedbackHeight + self.bottomBarHeight, 400)), .large])
+        .frame(idealHeight: self.feedbackHeight > 0 ? self.idealHeight : nil)
+//        .presentationDetents({
+//            if self.feedbackHeight > 0 {
+//                [.height(self.idealHeight), .large]
+//            } else {
+//                [.large]
+//            }
+//        }())
+    }
+    
+    var idealHeight: CGFloat {
+        self.feedbackHeight + self.bottomBarHeight + self.navigationBarHeight
     }
     
     @State private var feedbackHeight: CGFloat = 0

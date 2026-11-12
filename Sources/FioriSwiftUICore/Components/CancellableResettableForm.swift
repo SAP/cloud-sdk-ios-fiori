@@ -386,7 +386,7 @@ private struct PresentingViewHeightReader: UIViewControllerRepresentable {
 }
 
 // This is used to get window traits, cause horizontal size class is always compact in popover.
-private struct WindowTraitReader: UIViewControllerRepresentable {
+struct WindowTraitReader: UIViewControllerRepresentable {
     let onChange: (UserInterfaceSizeClass) -> Void
     func makeUIViewController(context: Context) -> WindowViewController { WindowViewController(onChange: self.onChange) }
     func updateUIViewController(_ uiViewController: WindowViewController, context: Context) {}
