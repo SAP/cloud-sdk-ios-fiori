@@ -70,7 +70,8 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
     
     var bottomHeight: CGFloat {
         if LiquidGlassHelper.usesLiquidGlassUI {
-            self.horizontalSizeClass == .regular ? 64 : 52
+            // The extra value 18 is used to iPhone Duo.
+            self.horizontalSizeClass == .regular ? (64 + 18) : 52
         } else {
             self.applyButtonHeight
         }
@@ -80,7 +81,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
         NavigationStack {
             ZStack {
                 Color.preferredColor(.primaryGroupedBackground)
-                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI && UIDevice.current.userInterfaceIdiom == .phone, content: { $0.opacity(0) })
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI && self.horizontalSizeClass == .compact, content: { $0.opacity(0) })
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     self.components

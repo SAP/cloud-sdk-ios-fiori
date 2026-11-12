@@ -261,7 +261,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         .ifApply(self.isCompactStyle(configuration), content: { v in
             v.background(
                 Color.preferredColor(.primaryGroupedBackground)
-                    .ifApply(UIDevice.current.userInterfaceIdiom == .phone && configuration.displayMode != .push, content: { $0.opacity(0) })
+                    .ifApply(self.horizontalSizeClass == .compact && configuration.displayMode != .push, content: { $0.opacity(0) })
             )
         })
         .navigationBarTitleDisplayMode(.inline)

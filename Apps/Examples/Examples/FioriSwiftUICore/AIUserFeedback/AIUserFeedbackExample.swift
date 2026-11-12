@@ -347,7 +347,7 @@ struct AIUserFeedbackExample: View {
                 }
             }
         }
-        .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
+        .ifApply(self.horizontalSizeClass != .compact, content: { v in
             v.frame(width: 393.0)
                 .frame(minHeight: max(self.feedbackHeight + self.bottomBarHeight, 400))
         })
@@ -368,9 +368,9 @@ struct AIUserFeedbackExample: View {
     
     var navigationBarHeight: CGFloat {
         if LiquidGlassHelper.usesLiquidGlassUI {
-            return UIDevice.current.userInterfaceIdiom == .pad ? 67 : 74
+            return self.horizontalSizeClass == .regular ? 67 : 74
         } else {
-            return UIDevice.current.userInterfaceIdiom == .pad ? 50.0 : 56.0
+            return self.horizontalSizeClass == .regular ? 50.0 : 56.0
         }
     }
     
