@@ -37,11 +37,6 @@ extension SortFilterCFGItemContainer: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .padding([.leading, .trailing], self.horizontalSizeClass == .regular ? 13 : 16)
                     }
-                    #if !os(visionOS)
-//                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-//                            .frame(height: 30)
-//                            .listRowInsets(EdgeInsets())
-                    #endif
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
