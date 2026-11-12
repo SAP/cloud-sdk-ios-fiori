@@ -1,7 +1,6 @@
 import FioriThemeManager
 import SwiftUI
 
-@available(iOS 26.0, watchOS 26.0, visionOS 26.0, *)
 struct FilterFeedbackGlassButtonStyle: FioriButtonStyle {
     enum GlassEffectShape {
         case normal
@@ -214,7 +213,7 @@ struct SliderMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -228,7 +227,7 @@ struct SliderMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -242,7 +241,7 @@ struct SliderMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -649,12 +648,8 @@ struct PickerMenuItem: View {
                     })
                     .fioriButtonStyle(self.applyFioriButtonStyle())
                 }, components: {
-                    if #available(iOS 26.0, *) {
-                        self.configListPickerDestination()
-                            .searchPresentationToolbarBehavior(.avoidHidingContent)
-                    } else {
-                        self.configListPickerDestination()
-                    }
+                    self.configListPickerDestination()
+                        .searchPresentationToolbarBehavior(.avoidHidingContent)
                 })
                 .preferredColorScheme(self.colorScheme)
             }
@@ -674,7 +669,7 @@ struct PickerMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -688,7 +683,7 @@ struct PickerMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -702,7 +697,7 @@ struct PickerMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -992,7 +987,7 @@ struct DateTimeMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1006,7 +1001,7 @@ struct DateTimeMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1020,7 +1015,7 @@ struct DateTimeMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -1291,7 +1286,7 @@ struct StepperMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1305,7 +1300,7 @@ struct StepperMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1319,7 +1314,7 @@ struct StepperMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -1452,7 +1447,7 @@ struct TitleMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1466,7 +1461,7 @@ struct TitleMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1480,7 +1475,7 @@ struct TitleMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -1618,7 +1613,7 @@ struct NoteMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1632,7 +1627,7 @@ struct NoteMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1646,7 +1641,7 @@ struct NoteMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -1776,7 +1771,7 @@ struct DurationPickerMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1790,7 +1785,7 @@ struct DurationPickerMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1804,7 +1799,7 @@ struct DurationPickerMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -1925,7 +1920,7 @@ struct OrderPickerMenuItem: View {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),
@@ -1939,7 +1934,7 @@ struct OrderPickerMenuItem: View {
     }
     
     func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
                 font: .fiori(forTextStyle: .body, weight: .semibold),
@@ -1953,7 +1948,7 @@ struct OrderPickerMenuItem: View {
     }
     
     func applyFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 glassEffectTintColor: .preferredColor(.tintColor),
                 foregroundColor: .white,
@@ -2047,11 +2042,7 @@ struct FullCFGMenuItem: View {
                     }
                 })
                 .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
-                    if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
-                        $0.fioriButtonStyle(self.cancelFioriButtonStyle()).typeErased
-                    } else {
-                        $0.typeErased
-                    }
+                    $0.fioriButtonStyle(self.cancelFioriButtonStyle()).typeErased
                 }
             }, applyAction: {
                 FioriButton(label: { _ in
@@ -2062,11 +2053,7 @@ struct FullCFGMenuItem: View {
                     }
                 })
                 .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
-                    if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
-                        $0.fioriButtonStyle(self.applyFioriButtonStyle()).typeErased
-                    } else {
-                        $0.typeErased
-                    }
+                    $0.fioriButtonStyle(self.applyFioriButtonStyle()).typeErased
                 }
             }, resetAction: {
                 FioriButton(label: { _ in
@@ -2074,11 +2061,7 @@ struct FullCFGMenuItem: View {
                 })
                 .disabled(!self.isResetButtonEnabled)
                 .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
-                    if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
-                        $0.fioriButtonStyle(self.resetFioriButtonStyle(!self.isResetButtonEnabled)).typeErased
-                    } else {
-                        $0.typeErased
-                    }
+                    $0.fioriButtonStyle(self.resetFioriButtonStyle(!self.isResetButtonEnabled)).typeErased
                 }
             },
             items: self.$items,
@@ -2105,7 +2088,6 @@ struct FullCFGMenuItem: View {
         .environment(\.sortFilterBarItemFrame, self.barItemFrame)
     }
     
-    @available(iOS 26.0, watchOS 26.0, visionOS 26.0, *)
     func cancelFioriButtonStyle() -> any FioriButtonStyle {
         FilterFeedbackGlassButtonStyle(
             foregroundColor: .preferredColor(.secondaryLabel),
@@ -2114,7 +2096,6 @@ struct FullCFGMenuItem: View {
         )
     }
     
-    @available(iOS 26.0, watchOS 26.0, visionOS 26.0, *)
     func resetFioriButtonStyle(_ disabled: Bool = false) -> any FioriButtonStyle {
         FilterFeedbackGlassButtonStyle(
             foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
@@ -2123,7 +2104,6 @@ struct FullCFGMenuItem: View {
         )
     }
     
-    @available(iOS 26.0, watchOS 26.0, visionOS 26.0, *)
     func applyFioriButtonStyle() -> any FioriButtonStyle {
         FilterFeedbackGlassButtonStyle(
             glassEffectTintColor: .preferredColor(.tintColor),

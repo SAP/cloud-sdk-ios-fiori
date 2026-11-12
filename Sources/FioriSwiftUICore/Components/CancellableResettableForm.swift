@@ -214,14 +214,7 @@ struct CancellableResettableDialogNavigationForm<Title: View, CancelAction: View
                    scrollViewHeight > self.navigationBarHeight,
                    scrollViewHeight + self.bottomHeight < self.presentingViewHeight * 0.7
                 {
-                    let halfScreenHeight = self.presentingViewHeight / 2
-                    if #available(iOS 26.0, *) {
-                        return [.height(scrollViewHeight + self.bottomHeight), .large]
-                    } else if scrollViewHeight + self.bottomHeight > halfScreenHeight {
-                        return [.medium, .fraction(0.999)]
-                    } else {
-                        return [.height(scrollViewHeight + self.bottomHeight), .fraction(0.999)]
-                    }
+                    return [.height(scrollViewHeight + self.bottomHeight), .large]
                 } else {
                     return [.large]
                 }
@@ -456,14 +449,10 @@ public extension ToolbarContent {
     /// - Returns: A toolbar content view with the shared background visibility applied
     ///   on supported platforms, or the original content on unsupported platforms.
     func hideSharedBackground(_ visibility: Visibility = .hidden) -> some ToolbarContent {
-        if #available(iOS 26.0, macOS 26.0, *) {
-            #if !os(visionOS)
-                return self.sharedBackgroundVisibility(visibility)
-            #else
-                return self
-            #endif
-        } else {
+        #if !os(visionOS)
+            return self.sharedBackgroundVisibility(visibility)
+        #else
             return self
-        }
+        #endif
     }
 }

@@ -15,10 +15,10 @@ public struct FilterFeedbackBarItemContainer {
 
 extension FilterFeedbackBarItemContainer: View {
     public var body: some View {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             #if !os(visionOS)
                 GlassEffectContainer(spacing: 0) {
-                    contentView
+                    self.contentView
                 }
             #else
                 self.contentView

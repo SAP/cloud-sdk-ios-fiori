@@ -63,17 +63,12 @@ extension DimensionSegmentFioriStyle {
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.isLoading ? Color.preferredColor(.separator) : (isEnabledSelected ? Color.preferredColor(.secondaryGroupedBackground) : Color.preferredColor(.tertiaryFill))))
                 })
                 .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
-                    if #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
-                        $0
-                        #if !os(visionOS)
-                        .glassEffect(.regular.tint(isEnabledSelected ? .preferredColor(.tintColor) : .clear))
-                        #else
-                        .glassBackgroundEffect()
-                        #endif
-                        .typeErased
-                    } else {
-                        $0.typeErased
-                    }
+                    $0
+                    #if !os(visionOS)
+                    .glassEffect(.regular.tint(isEnabledSelected ? .preferredColor(.tintColor) : .clear))
+                    #else
+                    .glassBackgroundEffect()
+                    #endif
                 }
         }
     }

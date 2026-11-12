@@ -272,7 +272,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
                     .accessibilityAddTraits(.isHeader)
             }
-            if self.isShowSubmitButton, LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, *) {
+            if self.isShowSubmitButton, LiquidGlassHelper.usesLiquidGlassUI {
                 ToolbarItem(placement: .bottomBar) {
                     self.submitButton(configuration)
                         .onSimultaneousTapGesture {
@@ -393,13 +393,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 FioriButton { _ in Text("Loading...".localizedFioriString()) }
                     .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
                         #if !os(visionOS)
-                            if #available(iOS 26.0, watchOS 26.0, *) {
-                                return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
-                                    .typeErased
-                            }
+                            return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                .typeErased
+                        #else
+                            return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                                .typeErased
                         #endif
-                        return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
-                            .typeErased
                     })
                     .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
                         $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
@@ -408,13 +407,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 FioriButton { _ in Text("Submit".localizedFioriString()) }
                     .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
                         #if !os(visionOS)
-                            if #available(iOS 26.0, watchOS 26.0, *) {
-                                return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
-                                    .typeErased
-                            }
+                            return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                .typeErased
+                        #else
+                            return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                                .typeErased
                         #endif
-                        return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
-                            .typeErased
                     })
                     .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
                         $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
@@ -466,7 +464,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
-        if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, watchOS 26.0, visionOS 26.0, *) {
+        if LiquidGlassHelper.usesLiquidGlassUI {
             FilterFeedbackGlassButtonStyle(
                 foregroundColor: .preferredColor(.secondaryLabel),
                 font: .fiori(forTextStyle: .body, weight: .medium),

@@ -79,12 +79,7 @@ public struct FilterFeedbackBarItemBaseStyle: FilterFeedbackBarItemStyle {
         })
         #if !os(visionOS)
         .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
-            if #available(iOS 26.0, watchOS 26.0, *) {
-                $0.glassEffect(.regular.tint(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor))
-                    .typeErased
-            } else {
-                $0.typeErased
-            }
+            $0.glassEffect(.regular.tint(configuration.isSelected ? self.selectedFillColor : self.unselectedFillColor))
         })
         #endif
     }

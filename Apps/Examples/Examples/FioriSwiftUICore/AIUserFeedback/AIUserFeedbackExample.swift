@@ -299,7 +299,7 @@ struct AIUserFeedbackExample: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if LiquidGlassHelper.usesLiquidGlassUI, #available(iOS 26.0, *) {
+                    if LiquidGlassHelper.usesLiquidGlassUI {
                         Button {
                             self.isNavigationPresented.toggle()
                         } label: {
