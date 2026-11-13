@@ -39,7 +39,7 @@ public enum AIUserFeedbackVoteState {
 
 // Base Layout style
 public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State var horizontalSizeClass: UserInterfaceSizeClass = .compact
     @Environment(\.dismiss) private var dismiss
     @State var shouldShowFeedbackDetail = false
     @State var submitRequestFailed = false
@@ -65,10 +65,20 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     
     var navigationBarHeight: CGFloat {
         if LiquidGlassHelper.usesLiquidGlassUI {
-            return UIDevice.isIPad ? 67 : 74
+            return self.horizontalSizeClass == .regular ? 67 : 74
         } else {
-            return UIDevice.isIPad ? 50.0 : 56.0
+            return self.horizontalSizeClass == .regular ? 50.0 : 56.0
         }
+    }
+    
+    var bottomBarHeight: CGFloat {
+        var result: CGFloat
+        if LiquidGlassHelper.usesLiquidGlassUI, self.isShowSubmitButton {
+            result = self.horizontalSizeClass == .regular ? 64 : 52
+        } else {
+            result = 0
+        }
+        return result
     }
     
     public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
@@ -79,6 +89,9 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 self.normalAIUserFeedbackView(configuration)
             }
         }
+        .background(WindowTraitReader { sizeClass in
+            self.horizontalSizeClass = sizeClass
+        })
     }
     
     @ViewBuilder
@@ -130,17 +143,32 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
             .ifApply(configuration.displayMode != .push && self.horizontalSizeClass == .compact, content: { v in
                 v.presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(configuration.isBackgroundInteractionEnabled ? self.backgroundInteractionPresentationDetent() : .automatic)
-                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight), .height(213.0), .medium, .large], selection: self.$detentSelection)
+                    .presentationDetents({
+                        if self.detentHeight > 0 {
+                            [.height(self.idealHeight), .large]
+                        } else {
+                            [.large]
+                        }
+                    }(), selection: self.$detentSelection)
             })
-            .ifApply(UIDevice.isIPad) { v in
+            .ifApply(self.horizontalSizeClass == .regular) { v in
                 v.presentationDragIndicator(.hidden)
-                    .presentationDetents([.height(self.detentHeight + self.navigationBarHeight)])
-                    .fixedSize(horizontal: false, vertical: true)
+                    .presentationDetents({
+                        if self.detentHeight > 0 {
+                            [.height(self.idealHeight), .large]
+                        } else {
+                            [.large]
+                        }
+                    }())
             }
     }
     
+    var idealHeight: CGFloat {
+        self.detentHeight + self.navigationBarHeight + self.bottomBarHeight
+    }
+    
     func additionalHeightInVertical(_ configuration: AIUserFeedbackConfiguration) -> CGFloat {
-        (self.isCompactStyle(configuration) ? 10 : 0) + 16 + 16
+        (self.isCompactStyle(configuration) ? 10 : 0) + 16 + 16 + (!self.shouldShowFeedbackDetail ? 20 : 0)
     }
     
     func isCompactStyle(_ configuration: AIUserFeedbackConfiguration) -> Bool {
@@ -174,7 +202,7 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                 Color.clear
                                     .onAppear {
                                         self.detentHeight = proxy.size.height
-                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                        self.detentSelection = .height(self.idealHeight)
                                     }
                             }
                         )
@@ -187,12 +215,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                                 .descriptionStyle(self.illustratedMessageDescriptionStyle)
                                 .typeErased
                                 .frame(maxWidth: .infinity)
-
+                            
                             if self.shouldShowFeedbackDetail {
                                 self.feedbackDetailView(configuration)
                             }
-
-                            if self.isShowSubmitButton {
+                            
+                            if self.isShowSubmitButton, !LiquidGlassHelper.usesLiquidGlassUI {
                                 self.submitButton(configuration)
                                     .onSimultaneousTapGesture {
                                         self.onSubmitAction(configuration)
@@ -204,19 +232,18 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                             Color.clear
                                 .onAppear {
                                     self.detentHeight = geometry.size.height + self.additionalHeightInVertical(configuration)
-                                    self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                    self.detentSelection = .height(self.idealHeight)
                                 }
                                 .onChange(of: geometry.size.height) {
                                     if self.shouldApplyDetentHeight {
                                         self.detentHeight = geometry.size.height + self.additionalHeightInVertical(configuration)
-                                        self.detentSelection = .height(self.detentHeight + self.navigationBarHeight)
+                                        self.detentSelection = .height(self.idealHeight)
                                         self.shouldApplyDetentHeight = false
                                     }
                                 }
                         })
                         .padding([.top, .bottom], 16)
                     }
-                    .frame(minHeight: (!UIDevice.isIPad && (self.horizontalSizeClass == .compact || configuration.displayMode != .inspector)) ? self.scrollViewHeight - (self.isCompactStyle(configuration) ? 10 : 0) : nil)
                     .ifApply(self.shouldShowFeedbackDetail, content: { v in
                         v.padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 0)
                     })
@@ -224,10 +251,14 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .clipShape(RoundedRectangle(cornerRadius: self.isCompactStyle(configuration) ? 26 : 0))
                     .padding(.top, self.isCompactStyle(configuration) ? 10 : 0)
                     .padding([.leading, .trailing], self.isCompactStyle(configuration) ? 16 : 20)
+                    .ifApply(!self.shouldShowFeedbackDetail) {
+                        $0.padding(.bottom, 20)
+                    }
                 }
             }
+            .frame(idealHeight: self.detentHeight > 0 ? self.idealHeight : nil)
             .defaultScrollAnchor(.top)
-            .ifApply(UIDevice.isIPad) { v in
+            .ifApply(UIDevice.current.userInterfaceIdiom == .pad) { v in
                 v.fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -240,10 +271,12 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     self.scrollViewHeight = geometry.size.height
                 }
         })
-        .toolbarBackground(self.isCompactStyle(configuration) ? .visible : .automatic, for: .navigationBar)
-        .toolbarBackground(Color.preferredColor(.chromeSecondary), for: .navigationBar)
+        .toolbarBackground(.hidden, for: .navigationBar, .bottomBar)
         .ifApply(self.isCompactStyle(configuration), content: { v in
-            v.background(Color.preferredColor(.primaryGroupedBackground))
+            v.background(
+                Color.preferredColor(.primaryGroupedBackground)
+                    .ifApply(self.horizontalSizeClass == .compact && configuration.displayMode != .push, content: { $0.opacity(0) })
+            )
         })
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -252,6 +285,18 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                     .font(Font.fiori(forTextStyle: .subheadline, weight: .black))
                     .accessibilityAddTraits(.isHeader)
+            }
+            if self.isShowSubmitButton, LiquidGlassHelper.usesLiquidGlassUI {
+                ToolbarItem(placement: .bottomBar) {
+                    self.submitButton(configuration)
+                        .onSimultaneousTapGesture {
+                            self.onSubmitAction(configuration)
+                        }
+                        .disabled(configuration.submitButtonState == .disabled)
+                }
+                #if !os(visionOS)
+                .sharedBackgroundVisibility(.hidden)
+                #endif
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -360,10 +405,32 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
         if configuration.submitAction.isEmpty {
             if configuration.submitButtonState == .inProgress {
                 FioriButton { _ in Text("Loading...".localizedFioriString()) }
-                    .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        #if !os(visionOS)
+                            return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                .typeErased
+                        #else
+                            return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                                .typeErased
+                        #endif
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .processing))
+                    })
             } else {
                 FioriButton { _ in Text("Submit".localizedFioriString()) }
-                    .fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        #if !os(visionOS)
+                            return $0.fioriButtonStyle(FioriGlassButtonStyle(glassEffect: .tint, maxWidth: .infinity))
+                                .typeErased
+                        #else
+                            return $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                                .typeErased
+                        #endif
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.fioriButtonStyle(FioriSecondaryButtonStyle(maxWidth: .infinity, loadingState: .unspecified))
+                    })
             }
         } else {
             configuration.submitAction
@@ -377,22 +444,23 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                 FioriButton { _ in
                     HStack {
                         Image(systemName: "chevron.backward")
-                        Text("Back".localizedFioriString())
-                            .font(.fiori(forTextStyle: .body, weight: .semibold))
+                        if !LiquidGlassHelper.usesLiquidGlassUI {
+                            Text("Back".localizedFioriString())
+                                .font(.fiori(forTextStyle: .body, weight: .semibold))
+                        }
                     }
                 }
-                .fioriButtonStyle(FioriNavigationButtonStyle())
-                .fixedSize()
+                .fioriButtonStyle(self.cancelFioriButtonStyle())
                 .onSimultaneousTapGesture {
                     configuration.onCancel?()
                     self.dismiss()
                 }
             }
+            .hideSharedBackground()
         } else {
             ToolbarItem(placement: .topBarLeading) {
                 configuration.cancelAction
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .fixedSize()
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                     .onSimultaneousTapGesture {
                         configuration.onCancel?()
                         switch configuration.displayMode {
@@ -405,6 +473,21 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
                         }
                     }
             }
+            .hideSharedBackground()
+        }
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
         }
     }
     
@@ -440,11 +523,11 @@ public struct AIUserFeedbackBaseStyle: AIUserFeedbackStyle {
     }
     
     func backgroundInteractionPresentationDetent() -> PresentationBackgroundInteraction {
-        if self.detentHeight + self.navigationBarHeight < self.mediumPresentationDetentHeight() {
+        if self.idealHeight < self.mediumPresentationDetentHeight() {
             return PresentationBackgroundInteraction.enabled(upThrough: .medium)
         }
         
-        return PresentationBackgroundInteraction.enabled(upThrough: PresentationDetent.height(self.detentHeight + self.navigationBarHeight))
+        return PresentationBackgroundInteraction.enabled(upThrough: PresentationDetent.height(self.idealHeight))
     }
     
     /// PresentationDetent.medium is approximately half the height of the screen.

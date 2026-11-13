@@ -895,7 +895,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                             .padding([.leading, .trailing], 16)
                             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                             .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                dimensions[.leading] - 16
+                                dimensions[.leading] - (LiquidGlassHelper.usesLiquidGlassUI ? 0 : 16)
                             }
                             .background(Color.preferredColor(.secondaryGroupedBackground))
                         
@@ -903,13 +903,15 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
                         
                             #if !os(visionOS)
-                                Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                                    .frame(height: 30)
-                                    .listRowInsets(EdgeInsets())
-                                    .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                        dimensions[.leading] - 16
-                                    }
-                                    .accessibilityHidden(true)
+                                if !LiquidGlassHelper.usesLiquidGlassUI {
+                                    Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
+                                        .frame(height: 30)
+                                        .listRowInsets(EdgeInsets())
+                                        .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                                            dimensions[.leading] - 16
+                                        }
+                                        .accessibilityHidden(true)
+                                }
                             #endif
                         }
                     }.textCase(.none)
@@ -925,7 +927,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 .padding([.leading, .trailing], 16)
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                    dimensions[.leading] - 16
+                                    dimensions[.leading] - (LiquidGlassHelper.usesLiquidGlassUI ? 0 : 16)
                                 }
                                 .background(Color.preferredColor(.secondaryGroupedBackground))
                         
@@ -956,7 +958,7 @@ struct ListPickerDestinationContent<Data: RandomAccessCollection, ID: Hashable, 
                                 .padding([.leading, .trailing], 16)
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 .alignmentGuide(.listRowSeparatorLeading) { dimensions in
-                                    dimensions[.leading] - 16
+                                    dimensions[.leading] - (LiquidGlassHelper.usesLiquidGlassUI ? 0 : 16)
                                 }
                                 .background(Color.preferredColor(.secondaryGroupedBackground))
                             }

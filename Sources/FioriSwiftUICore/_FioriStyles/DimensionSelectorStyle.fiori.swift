@@ -42,7 +42,14 @@ public struct DimensionSelectorBaseStyle: DimensionSelectorStyle {
                 let segmentView: AnyView = if !segment.isEmpty {
                     AnyView(segment)
                 } else {
-                    AnyView(DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: configuration.selectedIndex == index))
+                    ZStack {
+                        // Keeping the item to have the same width whether it's selected or not.
+                        DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: true)
+                            .opacity(0)
+                        
+                        DimensionSegment(title: AttributedString(configuration.titles[index]), isSelected: configuration.selectedIndex == index)
+                    }
+                    .typeErased
                 }
                 Button(action: {
                     self.segmentTapped(configuration, for: index)

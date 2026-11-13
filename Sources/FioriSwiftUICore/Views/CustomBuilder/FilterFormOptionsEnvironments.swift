@@ -38,7 +38,7 @@ struct FilterFormOptionCornerRadius: EnvironmentKey {
 }
 
 struct FilterFormOptionShapeKey: EnvironmentKey {
-    public static let defaultValue: FilterFormOptionShape? = nil
+    public static let defaultValue: FilterFormOptionShape? = LiquidGlassHelper.usesLiquidGlassUI ? .capsule : nil
 }
 
 struct FilterFormOptionPadding: EnvironmentKey {

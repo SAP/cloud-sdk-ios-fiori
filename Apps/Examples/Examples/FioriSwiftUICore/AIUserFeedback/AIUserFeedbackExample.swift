@@ -285,17 +285,47 @@ struct AIUserFeedbackExample: View {
                     }
                 })
             }
-            .padding(20)
-            .toolbarBackgroundVisibility(.visible, for: .navigationBar)
+            .background(GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                    }
+                    .onChange(of: geometry.size.height) {
+                        self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                    }
+            })
+            .padding(.horizontal, 20)
+            .toolbarBackground(.hidden, for: .navigationBar, .bottomBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        self.isNavigationPresented.toggle()
-                    } label: {
-                        Text("Cancel")
+                    if LiquidGlassHelper.usesLiquidGlassUI {
+                        Button {
+                            self.isNavigationPresented.toggle()
+                        } label: {
+                            if LiquidGlassHelper.usesLiquidGlassUI {
+                                Image(systemName: "xmark")
+                            } else {
+                                Text("Cancel")
+                            }
+                        }
+                        .font(.fiori(forTextStyle: .body, weight: .medium))
+                        .foregroundColor(Color.preferredColor(.secondaryLabel))
+                        .frame(minWidth: 44, minHeight: 44)
+                        #if os(visionOS)
+                            .glassBackgroundEffect(in: .circle)
+                        #else
+                            .glassEffect(in: .circle)
+                        #endif
+                    } else {
+                        Button {
+                            self.isNavigationPresented.toggle()
+                        } label: {
+                            Text("Cancel")
+                        }
                     }
                 }
+                .hideSharedBackground()
                 ToolbarItem(placement: .principal) {
                     Text("Push Example")
                         .foregroundColor(Color.preferredColor(.primaryLabel))
@@ -304,12 +334,53 @@ struct AIUserFeedbackExample: View {
             }
             .navigationDestination(isPresented: self.$isFeedbackPushed) {
                 self.showFeedback(mode: .push)
+                    .background(GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                self.feedbackHeight = max(geometry.size.height, self.feedbackHeight)
+                            }
+                    })
             }
         }
-        .ifApply(UIDevice.current.userInterfaceIdiom != .phone, content: { v in
-            v.frame(width: 393.0, height: 400.0)
+        .ifApply(self.horizontalSizeClass != .compact, content: { v in
+            v.frame(width: 393.0)
+                .frame(minHeight: self.feedbackHeight > 0 ? nil : 400)
         })
-        .presentationDetents([.medium])
+        .frame(idealHeight: self.feedbackHeight > 0 ? self.idealHeight : nil)
+//        .presentationDetents({
+//            if self.feedbackHeight > 0 {
+//                [.height(self.idealHeight), .large]
+//            } else {
+//                [.large]
+//            }
+//        }())
+    }
+    
+    var idealHeight: CGFloat {
+        self.feedbackHeight + self.bottomBarHeight + self.navigationBarHeight
+    }
+    
+    @State private var feedbackHeight: CGFloat = 0
+    
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var bottomBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            self.horizontalSizeClass == .regular ? 64 : 52
+        } else {
+            0
+        }
+    }
+    
+    var navigationBarHeight: CGFloat {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            return self.horizontalSizeClass == .regular ? 67 : 74
+        } else {
+            return self.horizontalSizeClass == .regular ? 50.0 : 56.0
+        }
     }
     
     // Provide FioriButton instances as computed properties so the action closures can return them (or nil) and thus trigger default logic when nil is returned.
