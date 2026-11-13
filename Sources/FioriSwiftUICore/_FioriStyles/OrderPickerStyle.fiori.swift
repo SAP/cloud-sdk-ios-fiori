@@ -22,11 +22,18 @@ public struct OrderPickerBaseStyle: OrderPickerStyle {
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel(item.wrappedValue.description)
                     .accessibilityAddTraits(.isButton)
-                    .listRowBackground(item.wrappedValue.customListRowBackground ?? Color.clear)
+                    .listRowBackground(item.wrappedValue.customListRowBackground ?? Color.preferredColor(.secondaryGroupedBackground))
                 }.onMove(perform: self.moveItems)
             }
         }
-        .listStyle(.plain)
+        .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.insetGrouped)
+        })
+        .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.plain)
+        })
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
         .environment(\.editMode, .constant(.active))
     }
     

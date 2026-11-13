@@ -178,27 +178,6 @@ public extension AIUserFeedbackStyle where Self == AIUserFeedbackSubmitActionSty
     }
 }
 
-public struct AIUserFeedbackCancelActionStyle: AIUserFeedbackStyle {
-    let style: any CancelActionStyle
-
-    public func makeBody(_ configuration: AIUserFeedbackConfiguration) -> some View {
-        AIUserFeedback(configuration)
-            .cancelActionStyle(self.style)
-            .typeErased
-    }
-}
-
-public extension AIUserFeedbackStyle where Self == AIUserFeedbackCancelActionStyle {
-    static func cancelActionStyle(_ style: some CancelActionStyle) -> AIUserFeedbackCancelActionStyle {
-        AIUserFeedbackCancelActionStyle(style: style)
-    }
-
-    static func cancelActionStyle(@ViewBuilder content: @escaping (CancelActionConfiguration) -> some View) -> AIUserFeedbackCancelActionStyle {
-        let style = AnyCancelActionStyle(content)
-        return AIUserFeedbackCancelActionStyle(style: style)
-    }
-}
-
 public struct AIUserFeedbackIllustratedMessageStyle: AIUserFeedbackStyle {
     let style: any IllustratedMessageStyle
 

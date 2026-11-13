@@ -1,4 +1,75 @@
+import FioriThemeManager
 import SwiftUI
+
+struct FilterFeedbackGlassButtonStyle: FioriButtonStyle {
+    enum GlassEffectShape {
+        case normal
+        case circle
+    }
+    
+    private let glassEffectTintColor: Color?
+    private let foregroundColor: Color?
+    private let font: Font
+    private let shape: GlassEffectShape
+
+    init(glassEffectTintColor: Color? = nil, foregroundColor: Color? = nil, font: Font = .fiori(forTextStyle: .body, weight: .medium), shape: GlassEffectShape) {
+        self.glassEffectTintColor = glassEffectTintColor
+        self.foregroundColor = foregroundColor
+        self.font = font
+        self.shape = shape
+    }
+
+    func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
+        self.containerView(configuration)
+            .font(self.font)
+            .foregroundColor(self.foregroundColor)
+            .ifApply(self.shape == .normal) {
+                $0.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .frame(minHeight: 38)
+                #if !os(visionOS)
+                    .glassEffect(.regular.tint(self.glassEffectTintColor))
+                #else
+                    .glassBackgroundEffect()
+                #endif
+            }
+            .ifApply(self.shape == .circle) {
+                $0.frame(minWidth: 44, minHeight: 44)
+                #if !os(visionOS)
+                    .glassEffect(.regular.tint(self.glassEffectTintColor), in: .circle)
+                #else
+                    .glassBackgroundEffect(in: .circle)
+                #endif
+            }
+    }
+
+    @ViewBuilder
+    func containerView(_ configuration: FioriButtonStyle.Configuration) -> some View {
+        let showImageView = configuration.image
+        let label = configuration.label
+        switch configuration.imagePosition {
+        case .top:
+            VStack(spacing: configuration.imageTitleSpacing, content: {
+                showImageView
+                label
+            })
+        case .leading:
+            HStack(spacing: configuration.imageTitleSpacing, content: {
+                showImageView
+                label
+            })
+        case .bottom:
+            VStack(spacing: configuration.imageTitleSpacing, content: {
+                label
+                showImageView
+            })
+        case .trailing:
+            HStack(spacing: configuration.imageTitleSpacing, content: {
+                label
+                showImageView
+            })
+        }
+    }
+}
 
 struct FilterFeedbackMenuItem: View {
     @Binding var item: SortFilterItem.PickerItem
@@ -57,17 +128,22 @@ struct SliderMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -79,28 +155,45 @@ struct SliderMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
-                    })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(self.onErrorMessage == "", self.horizontalSizeClass))
-                } components: {
-                    self.sliderView()
-                        .padding([.leading, .trailing], 8)
-                        .onAppear {
-                            if self.item.sliderMode == .single {
-                                self.item.workingValue = self.item.value ?? self.item.minimumValue
-                            } else {
-                                self.item.workingLowerValue = self.item.lowerValue ?? self.item.minimumValue
-                                self.item.workingUpperValue = self.item.upperValue ?? self.item.maximumValue
-                            }
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
                         }
+                    })
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
+                } components: {
+                    List {
+                        self.sliderView()
+                            .onAppear {
+                                if self.item.sliderMode == .single {
+                                    self.item.workingValue = self.item.value ?? self.item.minimumValue
+                                } else {
+                                    self.item.workingLowerValue = self.item.lowerValue ?? self.item.minimumValue
+                                    self.item.workingUpperValue = self.item.upperValue ?? self.item.maximumValue
+                                }
+                            }
+                            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                            .listSectionSeparator(.hidden)
+                    }
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.insetGrouped)
+                            .listSectionSpacing(0)
+                            .contentMargins(.top, 16)
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.plain)
+                    })
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 }
                 .preferredColorScheme(self.colorScheme)
             }
@@ -117,6 +210,49 @@ struct SliderMenuItem: View {
                         }
                 })
             })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(self.onErrorMessage == "", self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
     
     private func sliderView() -> some View {
@@ -322,9 +458,13 @@ struct PickerMenuItem: View {
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 }, resetAction: {
                     if self.item.resetButtonConfiguration.isHidden {
                         EmptyView()
@@ -343,7 +483,7 @@ struct PickerMenuItem: View {
                         }, label: { _ in
                             Text(self.item.resetButtonConfiguration.title)
                         })
-                        .fioriButtonStyle(FioriNavigationButtonStyle())
+                        .fioriButtonStyle(self.resetFioriButtonStyle(self.resetButtonDisable()))
                         .disabled(self.resetButtonDisable())
                     }
                 }, applyAction: {
@@ -352,11 +492,15 @@ struct PickerMenuItem: View {
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 }, components: {
-                    ScrollView(.vertical) {
+                    List {
                         FilterFormView(title: {
                             if let title = self.item.title, !title.isEmpty {
                                 Text(title)
@@ -368,9 +512,18 @@ struct PickerMenuItem: View {
                         }, options: self.item.valueOptions.map { AttributedString($0) }, isEnabled: true, allowsMultipleSelection: self.item.allowsMultipleSelection, allowsEmptySelection: self.item.allowsEmptySelection, value: self.$item.workingValue, buttonSize: self.item.itemLayout == .flexible ? .flexible : .fixed, isSingleLine: false) { _ in
                         }
                         .filterFormOptionsLineSpacing(10)
-                        .padding([.leading, .trailing], 16)
-                        .padding(.bottom, 10)
+                        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
                     }
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.insetGrouped)
+                            .listSectionSpacing(0)
+                            .contentMargins(.top, 16)
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.plain)
+                    })
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 })
                 .preferredColorScheme(self.colorScheme)
             }
@@ -446,16 +599,20 @@ struct PickerMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true, isSearchable: !self.item.isSearchBarHidden, title: {
                     SortFilterItemTitle(title: self.item.name)
                 }, cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 }, resetAction: {
                     if self.item.resetButtonConfiguration.isHidden {
                         EmptyView()
@@ -474,7 +631,7 @@ struct PickerMenuItem: View {
                         }, label: { _ in
                             Text(self.item.resetButtonConfiguration.title)
                         })
-                        .fioriButtonStyle(FioriNavigationButtonStyle())
+                        .fioriButtonStyle(self.resetFioriButtonStyle(self.resetButtonDisable()))
                         .disabled(self.resetButtonDisable())
                     }
                 }, applyAction: {
@@ -483,11 +640,16 @@ struct PickerMenuItem: View {
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 }, components: {
                     self.configListPickerDestination()
+                        .searchPresentationToolbarBehavior(.avoidHidingContent)
                 })
                 .preferredColorScheme(self.colorScheme)
             }
@@ -504,6 +666,49 @@ struct PickerMenuItem: View {
                         }
                 })
             }
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
     
     private func resetButtonDisable() -> Bool {
@@ -538,9 +743,9 @@ struct PickerMenuItem: View {
 
         let rowContentBuilder: (SortFilterItem.PickerItem.ValueOptionModel) -> AnyView = { e in
             if let provider = self.item.configuration?.rowContentProvider {
-                return AnyView(provider(e.index).destinationRowBackgroundColor(.clear))
+                return AnyView(provider(e.index).destinationRowBackgroundColor(.preferredColor(.secondaryGroupedBackground)))
             } else {
-                return AnyView(Text(e.value).destinationRowBackgroundColor(.clear))
+                return AnyView(Text(e.value).destinationRowBackgroundColor(.preferredColor(.secondaryGroupedBackground)))
             }
         }
 
@@ -581,8 +786,12 @@ struct PickerMenuItem: View {
         return listPickerDestination
             .disableEntriesSection(self.item.disableListEntriesSection)
             .disableContentSection(self.item.disableListContentSection)
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
+            .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                $0.listStyle(.insetGrouped)
+            })
+            .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                $0.listStyle(.plain)
+            })
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
             .isFilterFeedbackBarListPickerStyle(true)
@@ -652,35 +861,49 @@ struct DateTimeMenuItem: View {
     }
     
     private func datePickerView() -> some View {
-        VStack {
-            if self.item.components.contains(.hourAndMinute) {
-                HStack {
-                    Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                        .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
-                        .foregroundColor(Color.preferredColor(.primaryLabel))
-                    Spacer()
+        List {
+            VStack {
+                if self.item.components.contains(.hourAndMinute) {
+                    HStack {
+                        Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                            .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                            .foregroundColor(Color.preferredColor(.primaryLabel))
+                        Spacer()
+                        DatePicker(
+                            "",
+                            selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
+                            displayedComponents: [.hourAndMinute]
+                        )
+                        .labelsHidden()
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding([.leading, .trailing], 16)
+                    .frame(minHeight: 40)
+                }
+                if self.item.components.contains(.date) {
                     DatePicker(
-                        "",
+                        self.item.label,
                         selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                        displayedComponents: [.hourAndMinute]
+                        displayedComponents: [.date]
                     )
+                    .datePickerStyle(.graphical)
                     .labelsHidden()
                     .fixedSize(horizontal: false, vertical: true)
                 }
-                .padding([.leading, .trailing], 16)
-                .frame(minHeight: 40)
             }
-            if self.item.components.contains(.date) {
-                DatePicker(
-                    self.item.label,
-                    selection: Binding<Date>(get: { self.item.workingValue ?? Date() }, set: { self.item.workingValue = $0 }),
-                    displayedComponents: [.date]
-                )
-                .datePickerStyle(.graphical)
-                .labelsHidden()
-                .fixedSize(horizontal: false, vertical: true)
-            }
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+            .listSectionSeparator(.hidden)
         }
+        .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.insetGrouped)
+                .listSectionSpacing(0)
+                .contentMargins(.top, 16)
+        })
+        .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.plain)
+        })
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
     }
     
     private func phoneView() -> some View {
@@ -698,17 +921,22 @@ struct DateTimeMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -720,17 +948,21 @@ struct DateTimeMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 } components: {
                     self.datePickerView()
                         .onAppear {
@@ -753,6 +985,49 @@ struct DateTimeMenuItem: View {
                 })
             })
     }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
 
     private func padView() -> some View {
         FilterFeedbackBarItem(icon: icon(name: self.item.icon, isVisible: true), title: AttributedString(self.item.label), accessoryIcon: Image(systemName: "chevron.down"), isSelected: self.item.isChecked)
@@ -769,17 +1044,22 @@ struct DateTimeMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -791,17 +1071,21 @@ struct DateTimeMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 } components: {
                     self.datePickerView()
                         .onAppear {
@@ -885,17 +1169,22 @@ struct StepperMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -907,60 +1196,77 @@ struct StepperMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         self.item.apply()
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
-                    })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
-                } components: {
-                    StepperView(
-                        title: { Text(self.item.stepperTitle) },
-                        text: Binding<String>(get: {
-                            let v = self.item.workingValue ?? self.item.stepRange.lowerBound
-                            return self.item.isDecimalSupported
-                                ? String(describing: v)
-                                : String(describing: Int(v))
-                        }, set: { newText in
-                            if newText.isEmpty {
-                                self.item.workingValue = nil
-                            } else {
-                                self.item.workingValue = Double(newText)
-                            }
-                        }),
-                        step: self.item.step,
-                        stepRange: self.item.stepRange,
-                        isDecimalSupported: self.item.isDecimalSupported,
-                        icon: {
-                            if let stepperIcon = self.item.stepperIcon {
-                                Image(uiImage: stepperIcon)
-                            } else {
-                                EmptyView()
-                            }
-                        },
-                        description: {
-                            if let description = self.item.description {
-                                Text(description)
-                            } else {
-                                EmptyView()
-                            }
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
                         }
-                    )
-                    .padding(.horizontal)
-                    .ifApply(!self.item.decrementActionActive) { v in
-                        v.decrementActionStyle(.deactivate)
+                    })
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
+                } components: {
+                    List {
+                        StepperView(
+                            title: { Text(self.item.stepperTitle) },
+                            text: Binding<String>(get: {
+                                let v = self.item.workingValue ?? self.item.stepRange.lowerBound
+                                return self.item.isDecimalSupported
+                                    ? String(describing: v)
+                                    : String(describing: Int(v))
+                            }, set: { newText in
+                                if newText.isEmpty {
+                                    self.item.workingValue = nil
+                                } else {
+                                    self.item.workingValue = Double(newText)
+                                }
+                            }),
+                            step: self.item.step,
+                            stepRange: self.item.stepRange,
+                            isDecimalSupported: self.item.isDecimalSupported,
+                            icon: {
+                                if let stepperIcon = self.item.stepperIcon {
+                                    Image(uiImage: stepperIcon)
+                                } else {
+                                    EmptyView()
+                                }
+                            },
+                            description: {
+                                if let description = self.item.description {
+                                    Text(description)
+                                } else {
+                                    EmptyView()
+                                }
+                            }
+                        )
+                        .ifApply(!self.item.decrementActionActive) { v in
+                            v.decrementActionStyle(.deactivate)
+                        }
+                        .ifApply(!self.item.incrementActionActive) { v in
+                            v.incrementActionStyle(.deactivate)
+                        }
+                        .onAppear {
+                            self.item.workingValue = self.item.value ?? self.item.stepRange.lowerBound
+                        }
+                        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                        .listSectionSeparator(.hidden)
                     }
-                    .ifApply(!self.item.incrementActionActive) { v in
-                        v.incrementActionStyle(.deactivate)
-                    }
-                    .onAppear {
-                        self.item.workingValue = self.item.value ?? self.item.stepRange.lowerBound
-                    }
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.insetGrouped)
+                            .listSectionSpacing(0)
+                            .contentMargins(.top, 16)
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.plain)
+                    })
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 }
                 .preferredColorScheme(self.colorScheme)
             }
@@ -977,6 +1283,49 @@ struct StepperMenuItem: View {
                         }
                 })
             })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
 }
 
@@ -1009,17 +1358,22 @@ struct TitleMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -1031,8 +1385,8 @@ struct TitleMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -1040,24 +1394,40 @@ struct TitleMenuItem: View {
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 } components: {
-                    TitleFormView(text: self.$item.workingText,
-                                  isSecureEnabled: self.item.isSecureEnabled,
-                                  placeholder: self.item.placeholder?.attributedString,
-                                  controlState: self.item.controlState,
-                                  errorMessage: self.item.errorMessage?.attributedString,
-                                  maxTextLength: self.item.maxTextLength,
-                                  hintText: self.item.hintText?.attributedString,
-                                  hidesReadOnlyHint: self.item.hidesReadOnlyHint,
-                                  isCharCountEnabled: self.item.isCharCountEnabled,
-                                  allowsBeyondLimit: self.item.allowsBeyondLimit,
-                                  charCountReachLimitMessage: self.item.charCountReachLimitMessage,
-                                  charCountBeyondLimitMsg: self.item.charCountBeyondLimitMsg)
-                        .padding([.leading, .trailing], 16)
-                        .padding(.bottom, 8)
+                    List {
+                        TitleFormView(text: self.$item.workingText,
+                                      isSecureEnabled: self.item.isSecureEnabled,
+                                      placeholder: self.item.placeholder?.attributedString,
+                                      controlState: self.item.controlState,
+                                      errorMessage: self.item.errorMessage?.attributedString,
+                                      maxTextLength: self.item.maxTextLength,
+                                      hintText: self.item.hintText?.attributedString,
+                                      hidesReadOnlyHint: self.item.hidesReadOnlyHint,
+                                      isCharCountEnabled: self.item.isCharCountEnabled,
+                                      allowsBeyondLimit: self.item.allowsBeyondLimit,
+                                      charCountReachLimitMessage: self.item.charCountReachLimitMessage,
+                                      charCountBeyondLimitMsg: self.item.charCountBeyondLimitMsg)
+                            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                            .listSectionSeparator(.hidden)
+                    }
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.insetGrouped)
+                            .listSectionSpacing(0)
+                            .contentMargins(.top, 16)
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.plain)
+                    })
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 }
                 .preferredColorScheme(self.colorScheme)
             }
@@ -1074,6 +1444,49 @@ struct TitleMenuItem: View {
                         }
                 })
             })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
 }
 
@@ -1125,17 +1538,22 @@ struct NoteMenuItem: View {
     
     @ViewBuilder
     var popoverContent: some View {
-        CancellableResettableDialogNavigationForm {
+        CancellableResettableDialogNavigationForm(calculateScrollView: true, title: {
             SortFilterItemTitle(title: self.item.name)
-        } cancelAction: {
+        }, cancelAction: {
             FioriButton(action: { _ in
                 self.item.cancel()
                 self.isSheetVisible.toggle()
             }, label: { _ in
-                Text("Cancel".localizedFioriString())
+                if LiquidGlassHelper.usesLiquidGlassUI {
+                    Image(systemName: "xmark")
+                } else {
+                    Text("Cancel".localizedFioriString())
+                }
             })
-            .fioriButtonStyle(FioriNavigationButtonStyle())
-        } resetAction: {
+            .fioriButtonStyle(self.cancelFioriButtonStyle())
+        }, resetAction: {
+            let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
             FioriButton(action: { _ in
                 if self.item.resetButtonConfiguration.type == .deactivate {
                     self.item.deactivate()
@@ -1147,20 +1565,24 @@ struct NoteMenuItem: View {
             }, label: { _ in
                 Text(self.item.resetButtonConfiguration.title)
             })
-            .fioriButtonStyle(FioriNavigationButtonStyle())
-            .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
-        } applyAction: {
+            .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+            .disabled(disabled)
+        }, applyAction: {
             FioriButton(action: { _ in
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 self.item.apply()
                 self.onUpdate()
                 self.isSheetVisible.toggle()
             }, label: { _ in
-                Text("Apply".localizedFioriString())
+                if LiquidGlassHelper.usesLiquidGlassUI {
+                    Image(systemName: "checkmark")
+                } else {
+                    Text("Apply".localizedFioriString())
+                }
             })
-            .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
-        } components: {
-            ScrollView(.vertical) {
+            .fioriButtonStyle(self.applyFioriButtonStyle())
+        }, components: {
+            List {
                 NoteFormView(text: self.$item.workingText,
                              placeholder: self.item.placeholder?.attributedString,
                              controlState: self.item.controlState,
@@ -1174,8 +1596,62 @@ struct NoteMenuItem: View {
                              allowsBeyondLimit: self.item.allowsBeyondLimit,
                              charCountReachLimitMessage: self.item.charCountReachLimitMessage,
                              charCountBeyondLimitMsg: self.item.charCountBeyondLimitMsg)
-                    .padding([.leading, .trailing], 16)
+                    .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                    .listSectionSeparator(.hidden)
             }
+            .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                $0.listStyle(.insetGrouped)
+                    .listSectionSpacing(0)
+                    .contentMargins(.top, 16)
+            })
+            .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                $0.listStyle(.plain)
+            })
+            .environment(\.defaultMinListRowHeight, 0)
+            .environment(\.defaultMinListHeaderHeight, 0)
+        })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
         }
     }
 }
@@ -1209,17 +1685,22 @@ struct DurationPickerMenuItem: View {
                 }
             }
             .popover(isPresented: self.$isSheetVisible, arrowEdge: self.barItemFrame.arrowDirection()) {
-                CancellableResettableDialogNavigationForm {
+                CancellableResettableDialogNavigationForm(calculateScrollView: true) {
                     SortFilterItemTitle(title: self.item.name)
                 } cancelAction: {
                     FioriButton(action: { _ in
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 } resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -1231,8 +1712,8 @@ struct DurationPickerMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 } applyAction: {
                     FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -1240,21 +1721,37 @@ struct DurationPickerMenuItem: View {
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
-                    })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
-                } components: {
-                    DurationPickerViewWrapper(selection: Binding<Int>(
-                        get: { self.item.workingValue ?? 0 },
-                        set: { self.item.workingValue = $0 }
-                    ), maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
-                        .frame(height: 204)
-                        .foregroundColor(Color.preferredColor(.primaryLabel))
-                        .padding([.leading, .trailing], 16)
-                        .padding(.bottom, 8)
-                        .onAppear {
-                            self.item.workingValue = self.item.value
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
                         }
+                    })
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
+                } components: {
+                    List {
+                        DurationPickerViewWrapper(selection: Binding<Int>(
+                            get: { self.item.workingValue ?? 0 },
+                            set: { self.item.workingValue = $0 }
+                        ), maximumMinutes: self.item.maximumMinutes, minimumMinutes: self.item.minimumMinutes, minuteInterval: self.item.minuteInterval, measurementFormatter: self.item.measurementFormatter)
+                            .frame(height: 204)
+                            .foregroundColor(Color.preferredColor(.primaryLabel))
+                            .onAppear {
+                                self.item.workingValue = self.item.value
+                            }
+                            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+                            .listSectionSeparator(.hidden)
+                    }
+                    .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.insetGrouped)
+                            .listSectionSpacing(0)
+                            .contentMargins(.top, 16)
+                    })
+                    .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+                        $0.listStyle(.plain)
+                    })
+                    .environment(\.defaultMinListRowHeight, 0)
+                    .environment(\.defaultMinListHeaderHeight, 0)
                 }
                 .preferredColorScheme(self.colorScheme)
             }
@@ -1271,6 +1768,49 @@ struct DurationPickerMenuItem: View {
                         }
                 })
             })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
 }
 
@@ -1310,10 +1850,15 @@ struct OrderPickerMenuItem: View {
                         self.item.cancel()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Cancel".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "xmark")
+                        } else {
+                            Text("Cancel".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
+                    .fioriButtonStyle(self.cancelFioriButtonStyle())
                 }, resetAction: {
+                    let disabled = (self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
                     FioriButton(action: { _ in
                         if self.item.resetButtonConfiguration.type == .deactivate {
                             self.item.deactivate()
@@ -1325,8 +1870,8 @@ struct OrderPickerMenuItem: View {
                     }, label: { _ in
                         Text(self.item.resetButtonConfiguration.title)
                     })
-                    .fioriButtonStyle(FioriNavigationButtonStyle())
-                    .disabled(self.item.resetButtonConfiguration.type == .deactivate ? !self.item.isChecked : self.item.isOriginal)
+                    .fioriButtonStyle(self.resetFioriButtonStyle(disabled))
+                    .disabled(disabled)
                 }, applyAction: {
                     FioriButton(action: { _ in
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -1334,9 +1879,13 @@ struct OrderPickerMenuItem: View {
                         self.onUpdate()
                         self.isSheetVisible.toggle()
                     }, label: { _ in
-                        Text("Apply".localizedFioriString())
+                        if LiquidGlassHelper.usesLiquidGlassUI {
+                            Image(systemName: "checkmark")
+                        } else {
+                            Text("Apply".localizedFioriString())
+                        }
                     })
-                    .fioriButtonStyle(SortFilterApplyButtonStyle(true, self.horizontalSizeClass))
+                    .fioriButtonStyle(self.applyFioriButtonStyle())
                 }, components: {
                     OrderPicker(
                         optionalTitle: self.item.title,
@@ -1347,7 +1896,7 @@ struct OrderPickerMenuItem: View {
                         },
                         controlState: self.item.controlState
                     )
-                    .padding(.bottom, 8)
+                    .padding(.bottom, LiquidGlassHelper.usesLiquidGlassUI ? 0 : 8)
                     .onAppear {
                         self.item.workingValue = self.item.value
                         self.item.workingIsInactive = false
@@ -1368,6 +1917,49 @@ struct OrderPickerMenuItem: View {
                         }
                 })
             })
+    }
+    
+    func cancelFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(.secondaryLabel),
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+                font: .fiori(forTextStyle: .body, weight: .semibold),
+                shape: .normal
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            FioriNavigationButtonStyle()
+                .eraseToAnyFioriButtonStyle()
+        }
+    }
+    
+    func applyFioriButtonStyle() -> some FioriButtonStyle {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            FilterFeedbackGlassButtonStyle(
+                glassEffectTintColor: .preferredColor(.tintColor),
+                foregroundColor: .white,
+                font: .fiori(forTextStyle: .body, weight: .medium),
+                shape: .circle
+            )
+            .eraseToAnyFioriButtonStyle()
+        } else {
+            SortFilterApplyButtonStyle(true, self.horizontalSizeClass)
+                .eraseToAnyFioriButtonStyle()
+        }
     }
 }
 
@@ -1421,6 +2013,15 @@ struct FullCFGMenuItem: View {
             }
     }
     
+    var isResetButtonEnabled: Bool {
+        var isResetButtonEnabled = false
+        
+        for item in self.items.joined() where !isResetButtonEnabled && !item.isOriginal {
+            isResetButtonEnabled = true
+        }
+        return isResetButtonEnabled
+    }
+    
     private func sortConfigurationView() -> some View {
         SortFilterView(
             title: {
@@ -1431,6 +2032,36 @@ struct FullCFGMenuItem: View {
                         .multilineTextAlignment(.center)
                 } else {
                     EmptyView()
+                }
+            }, cancelAction: {
+                FioriButton(label: { _ in
+                    if LiquidGlassHelper.usesLiquidGlassUI {
+                        Image(systemName: "xmark")
+                    } else {
+                        Text("Cancel".localizedFioriString())
+                    }
+                })
+                .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
+                    $0.fioriButtonStyle(self.cancelFioriButtonStyle()).typeErased
+                }
+            }, applyAction: {
+                FioriButton(label: { _ in
+                    if LiquidGlassHelper.usesLiquidGlassUI {
+                        Image(systemName: "checkmark")
+                    } else {
+                        Text("Apply".localizedFioriString())
+                    }
+                })
+                .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
+                    $0.fioriButtonStyle(self.applyFioriButtonStyle()).typeErased
+                }
+            }, resetAction: {
+                FioriButton(label: { _ in
+                    Text("Reset".localizedFioriString())
+                })
+                .disabled(!self.isResetButtonEnabled)
+                .ifApply(LiquidGlassHelper.usesLiquidGlassUI) {
+                    $0.fioriButtonStyle(self.resetFioriButtonStyle(!self.isResetButtonEnabled)).typeErased
                 }
             },
             items: self.$items,
@@ -1455,6 +2086,31 @@ struct FullCFGMenuItem: View {
             }
         )
         .environment(\.sortFilterBarItemFrame, self.barItemFrame)
+    }
+    
+    func cancelFioriButtonStyle() -> any FioriButtonStyle {
+        FilterFeedbackGlassButtonStyle(
+            foregroundColor: .preferredColor(.secondaryLabel),
+            font: .fiori(forTextStyle: .body, weight: .medium),
+            shape: .circle
+        )
+    }
+    
+    func resetFioriButtonStyle(_ disabled: Bool = false) -> any FioriButtonStyle {
+        FilterFeedbackGlassButtonStyle(
+            foregroundColor: .preferredColor(disabled ? .quaternaryLabel : .tintColor),
+            font: .fiori(forTextStyle: .body, weight: .semibold),
+            shape: .normal
+        )
+    }
+    
+    func applyFioriButtonStyle() -> any FioriButtonStyle {
+        FilterFeedbackGlassButtonStyle(
+            glassEffectTintColor: .preferredColor(.tintColor),
+            foregroundColor: .white,
+            font: .fiori(forTextStyle: .body, weight: .medium),
+            shape: .circle
+        )
     }
 }
 

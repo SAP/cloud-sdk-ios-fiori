@@ -15,6 +15,20 @@ public struct FilterFeedbackBarItemContainer {
 
 extension FilterFeedbackBarItemContainer: View {
     public var body: some View {
+        if LiquidGlassHelper.usesLiquidGlassUI {
+            #if !os(visionOS)
+                GlassEffectContainer(spacing: 0) {
+                    self.contentView
+                }
+            #else
+                self.contentView
+            #endif
+        } else {
+            self.contentView
+        }
+    }
+    
+    public var contentView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 if self.fullCFGButton.position == .leading {
