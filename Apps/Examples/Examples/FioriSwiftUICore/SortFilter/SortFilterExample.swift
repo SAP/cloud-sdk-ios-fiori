@@ -56,7 +56,7 @@ struct SortFilterExample: View {
         ],
         [
             .title(item: .init(name: "Title", text: "This is default text.", placeholder: "Please input", maxTextLength: 20, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit", resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true),
-            .note(item: .init(name: "Note", text: "This is default text.", placeholder: "Please input", maxTextLength: 200, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: false)
+            .note(item: .init(name: "Note", text: "This is default text.", placeholder: "Please input", maxTextLength: 200, isCharCountEnabled: true, charCountBeyondLimitMsg: "Char count beyond limit"), showsOnFilterFeedbackBar: true)
         ],
         [.durationPicker(item: .init(name: "Duration", value: 0, maximumMinutes: 505, minimumMinutes: 0, minuteInterval: 1, resetButtonConfiguration: FilterFeedbackBarResetButtonConfiguration(with: .deactivate, title: "deactivate")), showsOnFilterFeedbackBar: true)],
         [.orderPicker(item: .init(name: "OrderPicker", title: nil, value: [

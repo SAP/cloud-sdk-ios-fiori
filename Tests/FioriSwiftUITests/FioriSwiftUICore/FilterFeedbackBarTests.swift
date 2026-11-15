@@ -14,14 +14,14 @@ final class FilterFeedbackBarTests: XCTestCase {
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemMaxWidth, 0)
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemMinHeight, 38)
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemCornerRadius, 10)
-        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedFillColor.resolve(in: EnvironmentValues()), Color.clear.resolve(in: EnvironmentValues()))
-        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundUnselectedFillColor.resolve(in: EnvironmentValues()), Color.preferredColor(.tertiaryFill).resolve(in: EnvironmentValues()))
+        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedFillColor.resolve(in: EnvironmentValues()), (LiquidGlassHelper.usesLiquidGlassUI ? Color.preferredColor(.tintColor) : Color.clear).resolve(in: EnvironmentValues()))
+        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundUnselectedFillColor.resolve(in: EnvironmentValues()), (LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.tertiaryFill)).resolve(in: EnvironmentValues()))
         #if !os(visionOS)
-            XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedStrokeColor.resolve(in: EnvironmentValues()), Color.preferredColor(.tintColor).resolve(in: EnvironmentValues()))
+            XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedStrokeColor.resolve(in: EnvironmentValues()), (LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : .preferredColor(.tintColor)).resolve(in: EnvironmentValues()))
         #else
-            XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedFillColor.resolve(in: EnvironmentValues()), Color.preferredColor(.primaryLabel).resolve(in: EnvironmentValues()))
+            XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundSelectedFillColor.resolve(in: EnvironmentValues()), (LiquidGlassHelper.usesLiquidGlassUI ? .preferredColor(.tintColor) : .clear).resolve(in: EnvironmentValues()))
         #endif
-        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundUnselectedStrokeColor.resolve(in: EnvironmentValues()), Color.preferredColor(.separatorOpaque).resolve(in: EnvironmentValues()))
+        XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBackgroundUnselectedStrokeColor.resolve(in: EnvironmentValues()), (LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.separatorOpaque)).resolve(in: EnvironmentValues()))
         XCTAssertEqual(EnvironmentValues().filterFeedbackBarItemBorderWidth, 1)
     }
 

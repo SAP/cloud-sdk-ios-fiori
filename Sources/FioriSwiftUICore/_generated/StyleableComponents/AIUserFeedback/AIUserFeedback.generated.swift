@@ -99,7 +99,7 @@ public struct AIUserFeedback {
                 isActionVerticallyAligned: Bool = false,
                 contentAlignment: HorizontalAlignment = .leading,
                 @ViewBuilder submitAction: () -> any View = { EmptyView() },
-                @ViewBuilder cancelAction: () -> any View = { FioriButton { _ in Text("Cancel".localizedFioriString()) } },
+                @ViewBuilder cancelAction: () -> any View = { FioriButton { _ in if LiquidGlassHelper.usesLiquidGlassUI { Image(systemName: "xmark") } else { Text("Cancel".localizedFioriString()) } } },
                 navigationTitle: AttributedString? = nil,
                 filterFormView: FilterFormView? = nil,
                 keyValueFormView: KeyValueFormView? = nil,
@@ -123,7 +123,7 @@ public struct AIUserFeedback {
         self.isActionVerticallyAligned = isActionVerticallyAligned
         self.contentAlignment = contentAlignment
         self.submitAction = SubmitAction(submitAction: submitAction, componentIdentifier: componentIdentifier)
-        self.cancelAction = CancelAction(cancelAction: cancelAction, componentIdentifier: componentIdentifier)
+        self.cancelAction = cancelAction()
         self.navigationTitle = navigationTitle
         self.filterFormView = filterFormView
         self.keyValueFormView = keyValueFormView
@@ -154,7 +154,7 @@ public extension AIUserFeedback {
          isActionVerticallyAligned: Bool = false,
          contentAlignment: HorizontalAlignment = .leading,
          submitAction: FioriButton? = nil,
-         cancelAction: FioriButton? = FioriButton { _ in Text("Cancel".localizedFioriString()) },
+         cancelAction: FioriButton? = FioriButton { _ in if LiquidGlassHelper.usesLiquidGlassUI { Image(systemName: "xmark") } else { Text("Cancel".localizedFioriString()) } },
          navigationTitle: AttributedString? = nil,
          filterFormView: FilterFormView? = nil,
          keyValueFormView: KeyValueFormView? = nil,

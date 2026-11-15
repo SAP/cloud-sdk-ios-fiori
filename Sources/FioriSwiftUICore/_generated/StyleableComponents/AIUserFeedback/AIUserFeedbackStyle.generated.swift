@@ -71,7 +71,6 @@ public struct AIUserFeedbackFioriStyle: AIUserFeedbackStyle {
             .actionStyle(ActionFioriStyle(aIUserFeedbackConfiguration: configuration))
             .secondaryActionStyle(SecondaryActionFioriStyle(aIUserFeedbackConfiguration: configuration))
             .submitActionStyle(SubmitActionFioriStyle(aIUserFeedbackConfiguration: configuration))
-            .cancelActionStyle(CancelActionFioriStyle(aIUserFeedbackConfiguration: configuration))
             .illustratedMessageStyle(IllustratedMessageFioriStyle(aIUserFeedbackConfiguration: configuration))
     }
 }

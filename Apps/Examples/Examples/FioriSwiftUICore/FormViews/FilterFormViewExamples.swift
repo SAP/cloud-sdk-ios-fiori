@@ -110,18 +110,18 @@ struct FilterFormViewExamples: View {
                 .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
                 .filterFormOptionAttributes([
                     .enabledUnselected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.separator),
-                        .foregroundColor: Color.preferredColor(.tertiaryLabel),
+                        .foregroundColor: Color.preferredColor(.secondaryLabel),
                         .backgroundColor: Color.preferredColor(.tertiaryFill),
-                        .font: Font.system(.body)
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline)
                     ],
                     .enabledSelected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.tintColor),
                         .foregroundColor: Color.preferredColor(.tintColor),
-                        .backgroundColor: Color.preferredColor(.secondaryGroupedBackground),
-                        .font: Font.system(.body)
+                        .backgroundColor: Color.preferredColor(.tintColor3),
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline, weight: .semibold)
                     ]
                 ])
             
@@ -134,18 +134,18 @@ struct FilterFormViewExamples: View {
                 .filterFormOptionsLineSpacing(10)
                 .filterFormOptionAttributes([
                     .enabledUnselected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.separator),
-                        .foregroundColor: Color.preferredColor(.tertiaryLabel),
+                        .foregroundColor: Color.preferredColor(.secondaryLabel),
                         .backgroundColor: Color.preferredColor(.tertiaryFill),
-                        .font: Font.system(.body)
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline)
                     ],
                     .enabledSelected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.tintColor),
                         .foregroundColor: Color.preferredColor(.tintColor),
-                        .backgroundColor: Color.preferredColor(.secondaryGroupedBackground),
-                        .font: Font.system(.body)
+                        .backgroundColor: Color.preferredColor(.tintColor3),
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline, weight: .semibold)
                     ]
                 ])
             
@@ -160,18 +160,18 @@ struct FilterFormViewExamples: View {
                 .filterFormOptionPadding(EdgeInsets(top: 4, leading: 9, bottom: 4, trailing: 9))
                 .filterFormOptionAttributes([
                     .enabledUnselected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.separator),
-                        .foregroundColor: Color.preferredColor(.tertiaryLabel),
+                        .foregroundColor: Color.preferredColor(.secondaryLabel),
                         .backgroundColor: Color.preferredColor(.tertiaryFill),
-                        .font: Font.system(.body)
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline)
                     ],
                     .enabledSelected: [
-                        .strokeWidth: 1.0,
-                        .strokeColor: Color.preferredColor(.tintColor),
                         .foregroundColor: Color.preferredColor(.tintColor),
-                        .backgroundColor: Color.preferredColor(.secondaryGroupedBackground),
-                        .font: Font.system(.body)
+                        .backgroundColor: Color.preferredColor(.tintColor3),
+                        .strokeColor: Color.clear,
+                        .strokeWidth: 0,
+                        .font: Font.fiori(forTextStyle: .subheadline, weight: .semibold)
                     ]
                 ])
         }
