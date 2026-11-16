@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ToolbarContent Extension Reference</title>
+    <title>ProgressFioriStyle Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/ToolbarContent" class="dashAnchor"></a>
-    <a title="ToolbarContent Extension Reference"></a>
+    <a name="//apple_ref/swift/Struct/ProgressFioriStyle" class="dashAnchor"></a>
+    <a title="ProgressFioriStyle Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -29,9 +29,9 @@
           <span class="no-mobile">
             <a href="../index.html">FioriSwiftUICore</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            <a href="../Extensions.html">Extensions</a>
+            <a href="../Structs.html">Structures</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            SwiftUI.ToolbarContent Extension Reference
+            ProgressFioriStyle Structure Reference
           </span>
         </p>
       </div>
@@ -41,15 +41,16 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>ToolbarContent</h1>
+              <h1>ProgressFioriStyle</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">ToolbarContent</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProgressFioriStyle</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ProgressStyle.html">ProgressStyle</a></span></code></pre>
 
                   </div>
                 </div>
-              
+              <p>Undocumented</p>
+
             </section>
             <section class="section task-group-section">
               <div class="task-group">
@@ -57,9 +58,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:7SwiftUI14ToolbarContentP05FioriA6UICoreE20hideSharedBackgroundyQrAA10VisibilityOF"></a>
-                      <a name="//apple_ref/swift/Method/hideSharedBackground(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI14ToolbarContentP05FioriA6UICoreE20hideSharedBackgroundyQrAA10VisibilityOF">hideSharedBackground(_:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore08ProgressA5StyleV8makeBodyyQrAA0D13ConfigurationVF"></a>
+                      <a name="//apple_ref/swift/Method/makeBody(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore08ProgressA5StyleV8makeBodyyQrAA0D13ConfigurationVF">makeBody(_:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -67,54 +68,17 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Hides the shared background of a toolbar item introduced in iOS 26 / macOS 26
-under the Liquid Glass design system.</p>
-
-<p>In iOS 26 and macOS 26, toolbar items that share the same placement area are
-grouped together and rendered on a common &ldquo;shared background&rdquo; material by default.
-This modifier opts a specific toolbar item out of that grouped appearance,
-making its background invisible while keeping the item itself fully interactive.</p>
-
-<p>This is typically used for toolbar buttons (e.g., Cancel, Reset) that should
-appear as plain text or icon controls without the pill-shaped glass background.</p>
-
-<p>On older OS versions and on visionOS, this modifier has no visual effect and
-returns <code>self</code> unchanged, so it is safe to call unconditionally.</p>
+                          <p>Undocumented</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">hideSharedBackground</span><span class="p">(</span><span class="n">_</span> <span class="nv">visibility</span><span class="p">:</span> <span class="kt">Visibility</span> <span class="o">=</span> <span class="o">.</span><span class="n">hidden</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">ToolbarContent</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>visibility</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>The desired visibility of the shared background.
-Defaults to <code>.hidden</code>.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div>
-                          <h4>Return Value</h4>
-                          <p>A toolbar content view with the shared background visibility applied
-on supported platforms, or the original content on unsupported platforms.</p>
                         </div>
                       </section>
                     </div>
@@ -376,16 +340,7 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/LiquidGlassHelper.html">LiquidGlassHelper</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode.html">LocationCaptureMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode/LocationAccuracy.html">– LocationAccuracy</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
@@ -526,9 +481,6 @@ on supported platforms, or the original content on unsupported platforms.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/String.html">String</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Extensions/ToolbarContent.html">ToolbarContent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UIFont.html">UIFont</a>
@@ -829,9 +781,6 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1120,6 +1069,9 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1295,6 +1247,9 @@ on supported platforms, or the original content on unsupported platforms.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextFieldFormViewStyle.html">TextFieldFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TextInputComponent.html">TextInputComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a>
@@ -1513,6 +1468,9 @@ on supported platforms, or the original content on unsupported platforms.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackBaseStyle.html">AIUserFeedbackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackCancelActionStyle.html">AIUserFeedbackCancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackConfiguration.html">AIUserFeedbackConfiguration</a>
@@ -3171,22 +3129,7 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -4161,10 +4104,10 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriProgressViewStyle.html">LoadingIndicatorFioriProgressViewStyle</a>
+                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
+                  <a href="../Structs/LoadingIndicatorProgressStyle.html">LoadingIndicatorProgressStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
@@ -4758,6 +4701,18 @@ on supported platforms, or the original content on unsupported platforms.</p>
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Progress.html">Progress</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -4798,6 +4753,9 @@ on supported platforms, or the original content on unsupported platforms.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -6641,7 +6599,7 @@ on supported platforms, or the original content on unsupported platforms.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

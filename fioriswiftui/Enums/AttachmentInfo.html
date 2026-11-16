@@ -51,10 +51,9 @@
                 </div>
               <p>Represents the state of an attachment in the attachment flow.</p>
 
-<p><code>AttachmentInfo</code> tracks the lifecycle of an attachment through four states:</p>
+<p><code>AttachmentInfo</code> tracks the lifecycle of an attachment through three states:</p>
 
 <ul>
-<li><code>.processing</code>: The attachment is being prepared for upload (for example, fetching location)</li>
 <li><code>.uploading</code>: The attachment is in the process of being uploaded</li>
 <li><code>.uploaded</code>: The attachment has been successfully uploaded</li>
 <li><code>.error</code>: An error occurred during the attachment process</li>
@@ -82,7 +81,6 @@
 <p>This property returns the appropriate URL based on the current state:</p>
 
 <ul>
-<li>For <code>.processing</code> state: Returns the processing URL</li>
 <li>For <code>.uploading</code> and <code>.error</code> states: Returns the source URL</li>
 <li>For <code>.uploaded</code> state: Returns the destination URL</li>
 </ul>
@@ -93,37 +91,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">URL</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:16FioriSwiftUICore14AttachmentInfoO10processingyAC10Foundation3URLV_tcACmF"></a>
-                      <a name="//apple_ref/swift/Element/processing(sourceURL:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore14AttachmentInfoO10processingyAC10Foundation3URLV_tcACmF">processing(sourceURL:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Represents an attachment that is being prepared for upload (for example, fetching location).</p>
-
-<p>This state indicates that the attachment capture has started but the upload
-has not yet begun. This typically occurs when location data is being acquired
-for camera captures before the actual upload starts.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">processing</span><span class="p">(</span><span class="nv">sourceURL</span><span class="p">:</span> <span class="kt">URL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">fileURLWithPath</span><span class="p">:</span> <span class="s">"/Processing"</span><span class="p">))</span></code></pre>
 
                           </div>
                         </div>
@@ -430,7 +397,6 @@ for camera captures before the actual upload starts.</p>
 <p>Depending on the state:</p>
 
 <ul>
-<li>For <code>.processing</code>: Returns the processing URL</li>
 <li>For <code>.uploaded</code>: Returns the destination URL</li>
 <li>For <code>.uploading</code> and <code>.error</code>: Returns the source URL</li>
 </ul>
@@ -764,16 +730,7 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/LiquidGlassHelper.html">LiquidGlassHelper</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode.html">LocationCaptureMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode/LocationAccuracy.html">– LocationAccuracy</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
@@ -914,9 +871,6 @@ for camera captures before the actual upload starts.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/String.html">String</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Extensions/ToolbarContent.html">ToolbarContent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UIFont.html">UIFont</a>
@@ -1217,9 +1171,6 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1508,6 +1459,9 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1683,6 +1637,9 @@ for camera captures before the actual upload starts.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextFieldFormViewStyle.html">TextFieldFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TextInputComponent.html">TextInputComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a>
@@ -1901,6 +1858,9 @@ for camera captures before the actual upload starts.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackBaseStyle.html">AIUserFeedbackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackCancelActionStyle.html">AIUserFeedbackCancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackConfiguration.html">AIUserFeedbackConfiguration</a>
@@ -3559,22 +3519,7 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -4549,10 +4494,10 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriProgressViewStyle.html">LoadingIndicatorFioriProgressViewStyle</a>
+                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
+                  <a href="../Structs/LoadingIndicatorProgressStyle.html">LoadingIndicatorProgressStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
@@ -5146,6 +5091,18 @@ for camera captures before the actual upload starts.</p>
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Progress.html">Progress</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -5186,6 +5143,9 @@ for camera captures before the actual upload starts.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -7029,7 +6989,7 @@ for camera captures before the actual upload starts.</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>

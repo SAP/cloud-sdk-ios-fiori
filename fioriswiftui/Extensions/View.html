@@ -5623,90 +5623,6 @@ Supports <code>.roundedRectangle(cornerRadius)</code> or <code>.capsule</code>.<
               </div>
               <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/KeyValueFormView%20Focus"></a>
-                  <a name="//apple_ref/swift/Section/KeyValueFormView Focus" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/KeyValueFormView%20Focus"></a>
-                    <h3 class="section-name"><span>KeyValueFormView Focus</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE012keyValueFormC7FocusedyQrAA7BindingVySbGF"></a>
-                      <a name="//apple_ref/swift/Method/keyValueFormViewFocused(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE012keyValueFormC7FocusedyQrAA7BindingVySbGF">keyValueFormViewFocused(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Binds the focus state of a <code><a href="../Structs/KeyValueFormView.html">KeyValueFormView</a></code>&lsquo;s text editor to an external binding.</p>
-
-<p><code><a href="../Structs/KeyValueFormView.html">KeyValueFormView</a></code> embeds a multi-line text editor whose Return key inserts a newline rather
-than dismissing the keyboard, so there is no built-in way to resign first responder. Pass a
-<code>@State var</code> binding here to:</p>
-
-<ul>
-<li>observe when the editor becomes/resigns first responder (the binding is written <code>true</code>/<code>false</code>), and</li>
-<li>dismiss the keyboard programmatically by setting the binding to <code>false</code>.</li>
-</ul>
-
-<p>This lets you host your own keyboard toolbar with a Done button:</p>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isEditing</span> <span class="o">=</span> <span class="kc">false</span>
-
-<span class="kt">KeyValueFormView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Notes"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter text"</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">keyValueFormViewFocused</span><span class="p">(</span><span class="err">$</span><span class="n">isEditing</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">toolbar</span> <span class="p">{</span>
-        <span class="kt">ToolbarItemGroup</span><span class="p">(</span><span class="nv">placement</span><span class="p">:</span> <span class="o">.</span><span class="n">keyboard</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">isEditing</span> <span class="p">{</span>
-                <span class="kt">Button</span> <span class="p">{</span> <span class="n">isEditing</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
-                <span class="kt">Spacer</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">keyValueFormViewFocused</span><span class="p">(</span><span class="n">_</span> <span class="nv">binding</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>binding</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>A binding kept in sync with the editor&rsquo;s focus state.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
                   <a name="/Tint%20color%20environment%20key"></a>
                   <a name="//apple_ref/swift/Section/Tint color environment key" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -6566,89 +6482,6 @@ uncommitted changes (i.e. the user has toggled selections without tapping Apply)
                       </section>
                     </div>
                   </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/NoteFormView%20Focus"></a>
-                  <a name="//apple_ref/swift/Section/NoteFormView Focus" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/NoteFormView%20Focus"></a>
-                    <h3 class="section-name"><span>NoteFormView Focus</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE08noteFormC7FocusedyQrAA7BindingVySbGF"></a>
-                      <a name="//apple_ref/swift/Method/noteFormViewFocused(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE08noteFormC7FocusedyQrAA7BindingVySbGF">noteFormViewFocused(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Binds the focus state of a <code><a href="../Structs/NoteFormView.html">NoteFormView</a></code>&lsquo;s text editor to an external binding.</p>
-
-<p>The multi-line text editor&rsquo;s Return key inserts a newline rather than dismissing the keyboard,
-so there is no built-in way to resign first responder. Pass a <code>@State var</code> binding here to:</p>
-
-<ul>
-<li>observe when the editor becomes/resigns first responder (the binding is written <code>true</code>/<code>false</code>), and</li>
-<li>dismiss the keyboard programmatically by setting the binding to <code>false</code>.</li>
-</ul>
-
-<p>This lets you host your own keyboard toolbar with a Done button:</p>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isEditing</span> <span class="o">=</span> <span class="kc">false</span>
-
-<span class="kt">NoteFormView</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter text"</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">noteFormViewFocused</span><span class="p">(</span><span class="err">$</span><span class="n">isEditing</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">toolbar</span> <span class="p">{</span>
-        <span class="kt">ToolbarItemGroup</span><span class="p">(</span><span class="nv">placement</span><span class="p">:</span> <span class="o">.</span><span class="n">keyboard</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">isEditing</span> <span class="p">{</span>
-                <span class="kt">Button</span> <span class="p">{</span> <span class="n">isEditing</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
-                <span class="kt">Spacer</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">noteFormViewFocused</span><span class="p">(</span><span class="n">_</span> <span class="nv">binding</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>binding</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>A binding kept in sync with the editor&rsquo;s focus state.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
                   <li class="item">
                     <div>
                       <code>
@@ -6707,76 +6540,6 @@ the container&rsquo;s leading edge (the detail image&rsquo;s left edge).</p>
                         <div>
                           <h4>Return Value</h4>
                           <p>A view with the applied alignment configuration.</p>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE19stepperFieldFocusedyQrAA7BindingVySbGF"></a>
-                      <a name="//apple_ref/swift/Method/stepperFieldFocused(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE19stepperFieldFocusedyQrAA7BindingVySbGF">stepperFieldFocused(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Binds the focus state of a <code><a href="../Structs/StepperView.html">StepperView</a></code> / <code><a href="../Structs/StepperField.html">StepperField</a></code>&lsquo;s numeric text field to an external binding.</p>
-
-<p>The number and decimal keyboards have no Return/Done key, so the field cannot otherwise be
-dismissed. Pass a <code>@State var</code> binding here to:</p>
-
-<ul>
-<li>observe when the field becomes/resigns first responder (the binding is written <code>true</code>/<code>false</code>), and</li>
-<li>dismiss the keyboard programmatically by setting the binding to <code>false</code>.</li>
-</ul>
-
-<p>This lets you host your own keyboard toolbar on the view and show a Done button only while editing:</p>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isEditing</span> <span class="o">=</span> <span class="kc">false</span>
-
-<span class="kt">StepperView</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Value"</span><span class="p">)</span> <span class="p">},</span> <span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">value</span><span class="p">,</span> <span class="nv">stepRange</span><span class="p">:</span> <span class="mi">0</span> <span class="o">...</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">stepperFieldFocused</span><span class="p">(</span><span class="err">$</span><span class="n">isEditing</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">toolbar</span> <span class="p">{</span>
-        <span class="kt">ToolbarItemGroup</span><span class="p">(</span><span class="nv">placement</span><span class="p">:</span> <span class="o">.</span><span class="n">keyboard</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">isEditing</span> <span class="p">{</span>
-                <span class="kt">Button</span> <span class="p">{</span> <span class="n">isEditing</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
-                <span class="kt">Spacer</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">stepperFieldFocused</span><span class="p">(</span><span class="n">_</span> <span class="nv">binding</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>binding</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>A binding kept in sync with the field&rsquo;s focus state.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
                         </div>
                       </section>
                     </div>
@@ -6996,173 +6759,6 @@ and returns a custom view to display as the &ldquo;more&rdquo; indicator.</p>
                         <div>
                           <h4>Return Value</h4>
                           <p>A view with a customized &ldquo;more tags&rdquo; indicator.</p>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/TextFieldFormView%20Focus"></a>
-                  <a name="//apple_ref/swift/Section/TextFieldFormView Focus" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/TextFieldFormView%20Focus"></a>
-                    <h3 class="section-name"><span>TextFieldFormView Focus</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013textFieldFormC7FocusedyQrAA7BindingVySbGF"></a>
-                      <a name="//apple_ref/swift/Method/textFieldFormViewFocused(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013textFieldFormC7FocusedyQrAA7BindingVySbGF">textFieldFormViewFocused(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Binds the focus state of a <code><a href="../Structs/TextFieldFormView.html">TextFieldFormView</a></code>&lsquo;s text field to an external binding.</p>
-
-<p>This is especially useful in currency mode, where the field uses a decimal keyboard that has
-no Return/Done key and cannot otherwise be dismissed. Pass a <code>@State var</code> binding here to:</p>
-
-<ul>
-<li>observe when the field becomes/resigns first responder (the binding is written <code>true</code>/<code>false</code>), and</li>
-<li>dismiss the keyboard programmatically by setting the binding to <code>false</code>.</li>
-</ul>
-
-<p>This lets you host your own keyboard toolbar with a Done button:</p>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isEditing</span> <span class="o">=</span> <span class="kc">false</span>
-
-<span class="kt">TextFieldFormView</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">amount</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Amount"</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">currencyField</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">textFieldFormViewFocused</span><span class="p">(</span><span class="err">$</span><span class="n">isEditing</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">toolbar</span> <span class="p">{</span>
-        <span class="kt">ToolbarItemGroup</span><span class="p">(</span><span class="nv">placement</span><span class="p">:</span> <span class="o">.</span><span class="n">keyboard</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">isEditing</span> <span class="p">{</span>
-                <span class="kt">Button</span> <span class="p">{</span> <span class="n">isEditing</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
-                <span class="kt">Spacer</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">textFieldFormViewFocused</span><span class="p">(</span><span class="n">_</span> <span class="nv">binding</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>binding</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>A binding kept in sync with the field&rsquo;s focus state.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/TitleFormView%20Focus"></a>
-                  <a name="//apple_ref/swift/Section/TitleFormView Focus" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/TitleFormView%20Focus"></a>
-                    <h3 class="section-name"><span>TitleFormView Focus</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE09titleFormC7FocusedyQrAA7BindingVySbGF"></a>
-                      <a name="//apple_ref/swift/Method/titleFormViewFocused(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE09titleFormC7FocusedyQrAA7BindingVySbGF">titleFormViewFocused(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Binds the focus state of a <code><a href="../Structs/TitleFormView.html">TitleFormView</a></code>&lsquo;s text field to an external binding.</p>
-
-<p>Pass a <code>@State var</code> binding here to:</p>
-
-<ul>
-<li>observe when the field becomes/resigns first responder (the binding is written <code>true</code>/<code>false</code>), and</li>
-<li>dismiss the keyboard programmatically by setting the binding to <code>false</code>.</li>
-</ul>
-
-<p>This lets you host your own keyboard toolbar with a Done button — useful when the field uses a
-number/decimal keyboard that has no Return/Done key:</p>
-<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">isEditing</span> <span class="o">=</span> <span class="kc">false</span>
-
-<span class="kt">TitleFormView</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">,</span> <span class="nv">placeholder</span><span class="p">:</span> <span class="s">"Enter text"</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">titleFormViewFocused</span><span class="p">(</span><span class="err">$</span><span class="n">isEditing</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">toolbar</span> <span class="p">{</span>
-        <span class="kt">ToolbarItemGroup</span><span class="p">(</span><span class="nv">placement</span><span class="p">:</span> <span class="o">.</span><span class="n">keyboard</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="n">isEditing</span> <span class="p">{</span>
-                <span class="kt">Button</span> <span class="p">{</span> <span class="n">isEditing</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span> <span class="nv">label</span><span class="p">:</span> <span class="p">{</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span> <span class="p">}</span>
-                <span class="kt">Spacer</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">titleFormViewFocused</span><span class="p">(</span><span class="n">_</span> <span class="nv">binding</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                        <div>
-                          <h4>Parameters</h4>
-                          <table class="graybox">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <code>
-                                  <em>binding</em>
-                                  </code>
-                                </td>
-                                <td>
-                                  <div>
-                                    <p>A binding kept in sync with the field&rsquo;s focus state.</p>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
                         </div>
                       </section>
                     </div>
@@ -9692,6 +9288,35 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE22textInputValueModifieryQrqd__AA01_cI8_ContentVyAD03AnycI0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/textInputValueModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE22textInputValueModifieryQrqd__AA01_cI8_ContentVyAD03AnycI0VGcAaBRd__lF">textInputValueModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">textInputValueModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE20cancelActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
                       <a name="//apple_ref/swift/Method/cancelActionModifier(_:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE20cancelActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">cancelActionModifier(_:<wbr>)</a>
@@ -9741,6 +9366,180 @@ number/decimal keyboard that has no Return/Done key:</p>
                             <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
 <span class="kd">@MainActor</span>
 <span class="kd">func</span> <span class="n">doneActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE14actionModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/actionModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE14actionModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF">actionModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">actionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE23secondaryActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/secondaryActionModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE23secondaryActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">secondaryActionModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">secondaryActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE17textInputModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/textInputModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE17textInputModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">textInputModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">textInputModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE13itemsModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/itemsModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE13itemsModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF">itemsModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">itemsModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE19resetActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/resetActionModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE19resetActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">resetActionModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">resetActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE19applyActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/applyActionModifier(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE19applyActionModifieryQrqd__AA01_cH8_ContentVyAD03AnycH0VGcAaBRd__lF">applyActionModifier(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="n">applyActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -9857,35 +9656,6 @@ number/decimal keyboard that has no Return/Done key:</p>
                             <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
 <span class="kd">@MainActor</span>
 <span class="kd">func</span> <span class="n">notNowActionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE14actionModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/actionModifier(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE14actionModifieryQrqd__AA01_cG8_ContentVyAD03AnycG0VGcAaBRd__lF">actionModifier(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">actionModifier</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/AnyViewModifier.html">AnyViewModifier</a></span><span class="o">.</span><span class="kt">Content</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -15002,75 +14772,6 @@ number/decimal keyboard that has no Return/Done key:</p>
               </div>
               <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/FioriProgressViewStyle"></a>
-                  <a name="//apple_ref/swift/Section/FioriProgressViewStyle" class="dashAnchor"></a>
-                  <div class="section-name-container">
-                    <a class="section-name-link" href="#/FioriProgressViewStyle"></a>
-                    <h3 class="section-name"><span>FioriProgressViewStyle</span>
-</h3>
-                  </div>
-                </div>
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013fioriProgressC5StyleyQrqd__AD0dgcH0Rd__lF"></a>
-                      <a name="//apple_ref/swift/Method/fioriProgressViewStyle(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013fioriProgressC5StyleyQrqd__AD0dgcH0Rd__lF">fioriProgressViewStyle(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">fioriProgressViewStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE013fioriProgressC5Style7contentQrqd__AD0dgC13ConfigurationVc_tAaBRd__lF"></a>
-                      <a name="//apple_ref/swift/Method/fioriProgressViewStyle(content:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE013fioriProgressC5Style7contentQrqd__AD0dgC13ConfigurationVc_tAaBRd__lF">fioriProgressViewStyle(content:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="nf">fioriProgressViewStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
-                <div class="task-name-container">
                   <a name="/FioriSliderStyle"></a>
                   <a name="//apple_ref/swift/Section/FioriSliderStyle" class="dashAnchor"></a>
                   <div class="section-name-container">
@@ -19822,6 +19523,75 @@ number/decimal keyboard that has no Return/Done key:</p>
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">@MainActor</span>
 <span class="kd">func</span> <span class="nf">profileHeaderStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/ProfileHeaderConfiguration.html">ProfileHeaderConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/ProgressStyle"></a>
+                  <a name="//apple_ref/swift/Section/ProgressStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/ProgressStyle"></a>
+                    <h3 class="section-name"><span>ProgressStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE13progressStyleyQrqd__AD08ProgressG0Rd__lF"></a>
+                      <a name="//apple_ref/swift/Method/progressStyle(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE13progressStyleyQrqd__AD08ProgressG0Rd__lF">progressStyle(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">progressStyle</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kd">some</span> <span class="kt"><a href="../Protocols/ProgressStyle.html">ProgressStyle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP05FioriA6UICoreE13progressStyle7contentQrqd__AD21ProgressConfigurationVc_tAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/progressStyle(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP05FioriA6UICoreE13progressStyle7contentQrqd__AD21ProgressConfigurationVc_tAaBRd__lF">progressStyle(content:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">func</span> <span class="nf">progressStyle</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                           </div>
                         </div>
@@ -25605,16 +25375,7 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/LiquidGlassHelper.html">LiquidGlassHelper</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode.html">LocationCaptureMode</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Enums/LocationCaptureMode/LocationAccuracy.html">– LocationAccuracy</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
@@ -25755,9 +25516,6 @@ number/decimal keyboard that has no Return/Done key:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/String.html">String</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Extensions/ToolbarContent.html">ToolbarContent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UIFont.html">UIFont</a>
@@ -26058,9 +25816,6 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -26349,6 +26104,9 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -26524,6 +26282,9 @@ number/decimal keyboard that has no Return/Done key:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextFieldFormViewStyle.html">TextFieldFormViewStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/TextInputComponent.html">TextInputComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a>
@@ -26742,6 +26503,9 @@ number/decimal keyboard that has no Return/Done key:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackBaseStyle.html">AIUserFeedbackBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/AIUserFeedbackCancelActionStyle.html">AIUserFeedbackCancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackConfiguration.html">AIUserFeedbackConfiguration</a>
@@ -28400,22 +28164,7 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -29390,10 +29139,10 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriProgressViewStyle.html">LoadingIndicatorFioriProgressViewStyle</a>
+                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
+                  <a href="../Structs/LoadingIndicatorProgressStyle.html">LoadingIndicatorProgressStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
@@ -29987,6 +29736,18 @@ number/decimal keyboard that has no Return/Done key:</p>
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Progress.html">Progress</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -30027,6 +29788,9 @@ number/decimal keyboard that has no Return/Done key:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -31870,7 +31634,7 @@ number/decimal keyboard that has no Return/Done key:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-14)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-16)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
