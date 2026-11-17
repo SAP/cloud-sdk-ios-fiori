@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LoadingIndicatorProgressStyle Structure Reference</title>
+    <title>LiquidGlassHelper Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/LoadingIndicatorProgressStyle" class="dashAnchor"></a>
-    <a title="LoadingIndicatorProgressStyle Structure Reference"></a>
+    <a name="//apple_ref/swift/Enum/LiquidGlassHelper" class="dashAnchor"></a>
+    <a title="LiquidGlassHelper Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -29,9 +29,9 @@
           <span class="no-mobile">
             <a href="../index.html">FioriSwiftUICore</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            <a href="../Structs.html">Structures</a>
+            <a href="../Enums.html">Enumerations</a>
             <img id="carat" src="../img/carat.png" alt=""/>
-            LoadingIndicatorProgressStyle Structure Reference
+            LiquidGlassHelper Enumeration Reference
           </span>
         </p>
       </div>
@@ -41,15 +41,16 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>LoadingIndicatorProgressStyle</h1>
+              <h1>LiquidGlassHelper</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LoadingIndicatorProgressStyle</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LoadingIndicatorStyle.html">LoadingIndicatorStyle</a></span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LiquidGlassHelper</span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p>A helper utility that determines whether modern Liquid Glass UI treatments
+should be adopted based on system availability, Xcode build version, and compatibility flags.</p>
 
             </section>
             <section class="section task-group-section">
@@ -58,9 +59,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:16FioriSwiftUICore29LoadingIndicatorProgressStyleV8makeBodyyQrAA0dE13ConfigurationVF"></a>
-                      <a name="//apple_ref/swift/Method/makeBody(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:16FioriSwiftUICore29LoadingIndicatorProgressStyleV8makeBodyyQrAA0dE13ConfigurationVF">makeBody(_:<wbr>)</a>
+                      <a name="/s:16FioriSwiftUICore17LiquidGlassHelperO04usesdE2UISbvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/usesLiquidGlassUI" class="dashAnchor"></a>
+                      <a class="token" href="#/s:16FioriSwiftUICore17LiquidGlassHelperO04usesdE2UISbvpZ">usesLiquidGlassUI</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -68,14 +69,24 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>A Boolean value indicating whether components should render using Liquid Glass UI effects.</p>
+
+<p>This property evaluates OS availability and compatibility configurations:</p>
+
+<ul>
+<li><strong>iOS 27 / watchOS 27+</strong>: Evaluates <code>hostAppXcodeVersion</code>. <code>UIDesignRequiresCompatibility</code>
+is only honored when compiled with Xcode 26 (<code>DTXcode &lt; 2700</code>). Apps built with Xcode 27+
+have the flag ignored and will return <code>true</code>.</li>
+<li><strong>iOS 26 / watchOS 26</strong>: Returns <code>true</code> unless <code>UIDesignRequiresCompatibility</code> is set on iOS.</li>
+<li><strong>Older OS versions</strong>: Always returns <code>false</code>.</li>
+</ul>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">usesLiquidGlassUI</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -339,7 +350,16 @@
                   <a href="../Enums/LibraryPreviewData/Person.html">– Person</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/LiquidGlassHelper.html">LiquidGlassHelper</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/ListPickerSearchBarDisplayMode.html">ListPickerSearchBarDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LocationCaptureMode.html">LocationCaptureMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/LocationCaptureMode/LocationAccuracy.html">– LocationAccuracy</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ObjectHeaderAdditionalInfoAlignment.html">ObjectHeaderAdditionalInfoAlignment</a>
@@ -480,6 +500,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/String.html">String</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/ToolbarContent.html">ToolbarContent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UIFont.html">UIFont</a>
@@ -780,6 +803,9 @@
                   <a href="../Protocols/FioriButtonStyle.html">FioriButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/FioriProgressViewStyle.html">FioriProgressViewStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/FioriSliderStyle.html">FioriSliderStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1068,9 +1094,6 @@
                   <a href="../Protocols/ProgressIndicatorStyle.html">ProgressIndicatorStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/ProgressStyle.html">ProgressStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/PromptStyle.html">PromptStyle</a>
                 </li>
                 <li class="nav-group-task">
@@ -1246,9 +1269,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextFieldFormViewStyle.html">TextFieldFormViewStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/TextInputComponent.html">TextInputComponent</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/TextInputFieldStyle.html">TextInputFieldStyle</a>
@@ -1467,9 +1487,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackBaseStyle.html">AIUserFeedbackBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/AIUserFeedbackCancelActionStyle.html">AIUserFeedbackCancelActionStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/AIUserFeedbackConfiguration.html">AIUserFeedbackConfiguration</a>
@@ -3128,7 +3145,22 @@
                   <a href="../Structs/FioriPrimaryButtonStyle.html">FioriPrimaryButtonStyle</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressView.html">FioriProgressView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewBaseStyle.html">FioriProgressViewBaseStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewConfiguration.html">FioriProgressViewConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewFioriStyle.html">FioriProgressViewFioriStyle</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/FioriProgressViewStyleConfiguration.html">FioriProgressViewStyleConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FioriProgressViewStyleModifier.html">FioriProgressViewStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FioriSecondaryButtonStyle.html">FioriSecondaryButtonStyle</a>
@@ -4103,10 +4135,10 @@
                   <a href="../Structs/LoadingIndicatorConfiguration.html">LoadingIndicatorConfiguration</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
+                  <a href="../Structs/LoadingIndicatorFioriProgressViewStyle.html">LoadingIndicatorFioriProgressViewStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LoadingIndicatorProgressStyle.html">LoadingIndicatorProgressStyle</a>
+                  <a href="../Structs/LoadingIndicatorFioriStyle.html">LoadingIndicatorFioriStyle</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LoadingIndicatorStyleModifier.html">LoadingIndicatorStyleModifier</a>
@@ -4700,18 +4732,6 @@
                   <a href="../Structs/ProfileHeaderTitleStyle.html">ProfileHeaderTitleStyle</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/Progress.html">Progress</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressBaseStyle.html">ProgressBaseStyle</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressConfiguration.html">ProgressConfiguration</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressFioriStyle.html">ProgressFioriStyle</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicator.html">ProgressIndicator</a>
                 </li>
                 <li class="nav-group-task">
@@ -4752,9 +4772,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ProgressIndicatorStyleModifier.html">ProgressIndicatorStyleModifier</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/ProgressStyleModifier.html">ProgressStyleModifier</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Prompt.html">Prompt</a>
@@ -6598,7 +6615,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-16)</p>
+          <p>&copy; 2026 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2026-11-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
