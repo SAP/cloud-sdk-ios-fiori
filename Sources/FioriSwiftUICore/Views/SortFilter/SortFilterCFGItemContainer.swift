@@ -5,7 +5,6 @@ import SwiftUI
 public struct SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.sortFilterContentHeight) var sortFilterContentHeight
     
     @Binding var _items: [[SortFilterItem]]
     /// The frame of the view toggle to show this view.
@@ -38,11 +37,6 @@ extension SortFilterCFGItemContainer: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .padding([.leading, .trailing], self.horizontalSizeClass == .regular ? 13 : 16)
                     }
-                    #if !os(visionOS)
-                        Rectangle().fill(Color.preferredColor(.primaryGroupedBackground))
-                            .frame(height: 30)
-                            .listRowInsets(EdgeInsets())
-                    #endif
                 }
                 .listSectionSeparator(.hidden, edges: .all)
                 .listRowInsets(EdgeInsets())
@@ -54,61 +48,61 @@ extension SortFilterCFGItemContainer: View {
             }
         }
         .listRowSpacing(0)
-        .listStyle(.plain)
-        #if !os(visionOS)
-            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-        #else
-            .listRowBackground(Color.clear)
-        #endif
-            .environment(\.defaultMinListRowHeight, 0)
-            .environment(\.defaultMinListHeaderHeight, 0)
-            .setOnChange(of: self._items) {
-                self.checkUpdateButtonState()
-            }
-            .onAppear {
-                self.context.isPickerListShown = false
-                self.context.isSearchBarHidden = true
+        .ifApply(LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.insetGrouped)
+        })
+        .ifApply(!LiquidGlassHelper.usesLiquidGlassUI, content: {
+            $0.listStyle(.plain)
+        })
+        .environment(\.defaultMinListRowHeight, 0)
+        .environment(\.defaultMinListHeaderHeight, 0)
+        .setOnChange(of: self._items) {
+            self.checkUpdateButtonState()
+        }
+        .onAppear {
+            self.context.isPickerListShown = false
+            self.context.isSearchBarHidden = true
             
-                self.context.handleCancel = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            self._items[r][c].cancel()
-                        }
+            self.context.handleCancel = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].cancel()
                     }
                 }
-
-                self.context.handleReset = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            switch self._items[r][c] {
-                            case .picker:
-                                var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
-                                switch pickerItem.resetButtonConfiguration.type {
-                                case .reset:
-                                    pickerItem.reset()
-                                case .clearAll:
-                                    pickerItem.clearAll()
-                                case .deactivate:
-                                    pickerItem.deactivate()
-                                    self._items[r][c].picker = pickerItem
-                                }
-                            default:
-                                self._items[r][c].reset()
-                            }
-                        }
-                    }
-                }
-
-                self.context.handleApply = {
-                    for r in 0 ..< self._items.count {
-                        for c in 0 ..< self._items[r].count {
-                            self._items[r][c].apply()
-                        }
-                    }
-                }
-
-                self.checkUpdateButtonState()
             }
+
+            self.context.handleReset = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        switch self._items[r][c] {
+                        case .picker:
+                            var pickerItem: SortFilterItem.PickerItem = self._items[r][c].picker
+                            switch pickerItem.resetButtonConfiguration.type {
+                            case .reset:
+                                pickerItem.reset()
+                            case .clearAll:
+                                pickerItem.clearAll()
+                            case .deactivate:
+                                pickerItem.deactivate()
+                                self._items[r][c].picker = pickerItem
+                            }
+                        default:
+                            self._items[r][c].reset()
+                        }
+                    }
+                }
+            }
+
+            self.context.handleApply = {
+                for r in 0 ..< self._items.count {
+                    for c in 0 ..< self._items[r].count {
+                        self._items[r][c].apply()
+                    }
+                }
+            }
+
+            self.checkUpdateButtonState()
+        }
     }
     
     func checkUpdateButtonState() {
@@ -205,15 +199,7 @@ extension SortFilterCFGItemContainer: View {
             }
         }, axis: .horizontal, destination: {
             self.listPickerDestination(row: r, column: c)
-                .onDisappear {
-                    self.sortFilterContentHeight.wrappedValue = 0
-                }
         })
-        #if !os(visionOS)
-        .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-        #else
-        .listRowBackground(Color.clear)
-        #endif
         .frame(minHeight: 44)
     }
     
@@ -270,12 +256,6 @@ extension SortFilterCFGItemContainer: View {
                     self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
-                    self.sortFilterContentHeight.wrappedValue = calculateHeight
-                }
-            })
             .selectedEntriesSectionTitleStyle { _ in
                 if self._items[r][c].picker.allowsDisplaySelectionCount {
                     Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
@@ -331,12 +311,6 @@ extension SortFilterCFGItemContainer: View {
                     self._items[r][c].picker.uuidValueOptions.filter { $0.id == selectedId }.map(\.index)
                 }
             }
-            .modifier(FioriIntrospectModifier<UIScrollView> { scrollView in
-                DispatchQueue.main.async {
-                    let calculateHeight = max(scrollView.contentSize.height + scrollView.adjustedContentInset.top, 88)
-                    self.sortFilterContentHeight.wrappedValue = calculateHeight
-                }
-            })
             .selectedEntriesSectionTitleStyle { _ in
                 if self._items[r][c].picker.allowsDisplaySelectionCount {
                     Text(NSLocalizedString("Selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") + " " + "(\(self._items[r][c].picker.workingValue.count))")
@@ -506,7 +480,6 @@ extension SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
             if self._items[r][c].datetime.components.contains(.hourAndMinute) {
                 HStack {
                     Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
@@ -520,7 +493,6 @@ extension SortFilterCFGItemContainer: View {
                     )
                     .labelsHidden()
                 }
-                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
             }
             if self._items[r][c].datetime.components.contains(.date) {
                 DatePicker(
@@ -530,7 +502,6 @@ extension SortFilterCFGItemContainer: View {
                 )
                 .datePickerStyle(.graphical)
                 .labelsHidden()
-                .padding(.horizontal, self.horizontalSizeClass == .regular ? 13 : 16)
                 .clipped()
             }
         }

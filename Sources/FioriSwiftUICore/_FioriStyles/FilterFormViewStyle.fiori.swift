@@ -24,30 +24,30 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
         .enabledUnselected: [
             .foregroundColor: Color.preferredColor(.secondaryLabel),
             .backgroundColor: Color.preferredColor(.tertiaryFill),
-            .strokeColor: Color.preferredColor(.separator),
-            .strokeWidth: 0.5,
+            .strokeColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.separator),
+            .strokeWidth: LiquidGlassHelper.usesLiquidGlassUI ? 0 : 0.5,
             .font: Font.fiori(forTextStyle: .subheadline)
         ],
         .enabledSelected: [
             .foregroundColor: Color.preferredColor(.tintColor),
-            .backgroundColor: Color.clear,
-            .strokeColor: Color.preferredColor(.tintColor),
-            .strokeWidth: 1.0,
-            .font: Font.fiori(forTextStyle: .subheadline)
+            .backgroundColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.preferredColor(.tintColor3) : .clear,
+            .strokeColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.tintColor),
+            .strokeWidth: LiquidGlassHelper.usesLiquidGlassUI ? 0 : 1.0,
+            .font: Font.fiori(forTextStyle: .subheadline, weight: LiquidGlassHelper.usesLiquidGlassUI ? .semibold : .regular)
         ],
         .disabledUnselected: [
             .foregroundColor: Color.preferredColor(.quaternaryLabel),
             .backgroundColor: Color.preferredColor(.quaternaryFill),
-            .strokeColor: Color.preferredColor(.quaternaryLabel),
-            .strokeWidth: 0.5,
+            .strokeColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.quaternaryLabel),
+            .strokeWidth: LiquidGlassHelper.usesLiquidGlassUI ? 0 : 0.5,
             .font: Font.fiori(forTextStyle: .subheadline)
         ],
         .disabledSelected: [
             .foregroundColor: Color.preferredColor(.quaternaryLabel),
-            .backgroundColor: Color.clear,
-            .strokeColor: Color.preferredColor(.quaternaryLabel),
-            .strokeWidth: 1.0,
-            .font: Font.fiori(forTextStyle: .subheadline)
+            .backgroundColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.preferredColor(.tintColor3) : .clear,
+            .strokeColor: LiquidGlassHelper.usesLiquidGlassUI ? Color.clear : Color.preferredColor(.quaternaryLabel),
+            .strokeWidth: LiquidGlassHelper.usesLiquidGlassUI ? 0 : 1.0,
+            .font: Font.fiori(forTextStyle: .subheadline, weight: LiquidGlassHelper.usesLiquidGlassUI ? .semibold : .regular)
         ]
     ]
     
@@ -121,6 +121,7 @@ public struct FilterFormViewBaseStyle: FilterFormViewStyle {
                         Text(option)
                             .lineLimit(configuration.numberOfLines)
                     })
+                    .font(self.optionsAttributesFont(true, isEnabled: configuration.isEnabled))
                     .opacity(0)
 
                     HStack(alignment: .center, spacing: self.filterFormOptionTitleSpacing, content: {

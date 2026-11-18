@@ -92,9 +92,41 @@ extension KeyValueFormViewFioriStyle {
 
     struct NoteFormViewFioriStyle: NoteFormViewStyle {
         let keyValueFormViewConfiguration: KeyValueFormViewConfiguration
-        
+
         func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
             NoteFormView(configuration)
         }
+    }
+}
+
+// MARK: - KeyValueFormView Focus
+
+public extension View {
+    /// Binds the focus state of a `KeyValueFormView`'s text editor to an external binding.
+    ///
+    /// `KeyValueFormView` embeds a multi-line text editor whose Return key inserts a newline rather
+    /// than dismissing the keyboard, so there is no built-in way to resign first responder. Pass a
+    /// `@State var` binding here to:
+    /// - observe when the editor becomes/resigns first responder (the binding is written `true`/`false`), and
+    /// - dismiss the keyboard programmatically by setting the binding to `false`.
+    ///
+    /// This lets you host your own keyboard toolbar with a Done button:
+    /// ```swift
+    /// @State private var isEditing = false
+    ///
+    /// KeyValueFormView(title: "Notes", text: $text, placeholder: "Enter text")
+    ///     .keyValueFormViewFocused($isEditing)
+    ///     .toolbar {
+    ///         ToolbarItemGroup(placement: .keyboard) {
+    ///             if isEditing {
+    ///                 Button { isEditing = false } label: { Text("Done") }
+    ///                 Spacer()
+    ///             }
+    ///         }
+    ///     }
+    /// ```
+    /// - Parameter binding: A binding kept in sync with the editor's focus state.
+    func keyValueFormViewFocused(_ binding: Binding<Bool>) -> some View {
+        environment(\.textEditorFocusBinding, binding)
     }
 }

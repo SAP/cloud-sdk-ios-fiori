@@ -18,9 +18,23 @@ import SwiftUI
         }
     }
 
-    var animatable = false
+    var animatable = false {
+        didSet {
+            // When animation is disabled (e.g. in the regular size class), reset to the
+            // fully-expanded state so a stale progress value never leaks into a static layout.
+            // Dispatched async because `animatable` is assigned during a view update, and
+            // publishing `transitionProgress` synchronously there is not allowed.
+            if !self.animatable, self.transitionProgress != 0 {
+                DispatchQueue.main.async {
+                    self.lastProgress = 0
+                    self.transitionProgress = 0
+                }
+            }
+        }
+    }
+
     var contentOffsetSubscription: AnyCancellable?
-    
+
     private var lastProgress: CGFloat = 0
     
     func validatedProgress() {
@@ -106,7 +120,9 @@ public struct ProfileHeaderBaseStyle: ProfileHeaderStyle {
                 DispatchQueue.main.async {
                     self.viewModel.adjustedContentInsetTop = scrollView.adjustedContentInset.top
                 }
-                self.viewModel.animatable = configuration.animatable
+                // The collapse/expand animation is only intended for the compact size class.
+                // In regular layout the header stays static, so gate `animatable` on the size class.
+                self.viewModel.animatable = configuration.animatable && self.horizontalSizeClass != .regular
                 if self.viewModel.contentOffsetSubscription == nil {
                     self.viewModel.contentOffsetSubscription = scrollView.publisher(for: \.contentOffset)
                         .sink { [weak viewModel] contentOffset in
