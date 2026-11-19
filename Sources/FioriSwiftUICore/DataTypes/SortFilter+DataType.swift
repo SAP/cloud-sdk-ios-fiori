@@ -918,6 +918,11 @@ public extension SortFilterItem {
         
         mutating func cancel() {
             self.workingValue = self.value.map { $0 }
+            
+            let workingValueArray = self.value.flatMap { originalValue in
+                self.uuidValueOptions.filter { $0.index == originalValue }.map(\.id)
+            }
+            self.workingValueSet = Set(workingValueArray)
         }
         
         mutating func reset() {

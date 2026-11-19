@@ -46,6 +46,10 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
             SortFilterCFGItemContainer(items: configuration.$items, btnFrame: self.sortFilterBarItemFrame)
                 .environmentObject(self.context)
         })
+        .onDisappear {
+            self.context.handleCancel?()
+            configuration.onCancel?()
+        }
         #if os(visionOS)
         .background(Color.clear)
         #endif
