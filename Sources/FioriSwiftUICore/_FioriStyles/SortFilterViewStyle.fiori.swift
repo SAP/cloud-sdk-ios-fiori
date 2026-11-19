@@ -16,6 +16,8 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
     @StateObject var context: SortFilterContext = .init()
     @Environment(\.dismiss) var dismiss
     @Environment(\.sortFilterBarItemFrame) var sortFilterBarItemFrame
+    
+    @State private var cancelActionTapped: Bool = false
 
     public func makeBody(_ configuration: SortFilterViewConfiguration) -> some View {
         // Add default layout here
@@ -24,6 +26,7 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
         }, cancelAction: {
             configuration.cancelAction
                 .onSimultaneousTapGesture {
+                    self.cancelActionTapped = true
                     self.context.handleCancel?()
                     configuration.onCancel?()
                     self.dismiss()
@@ -47,8 +50,10 @@ public struct SortFilterViewBaseStyle: SortFilterViewStyle {
                 .environmentObject(self.context)
         })
         .onDisappear {
-            self.context.handleCancel?()
-            configuration.onCancel?()
+            if !self.cancelActionTapped {
+                self.context.handleCancel?()
+                configuration.onCancel?()
+            }
         }
         #if os(visionOS)
         .background(Color.clear)
