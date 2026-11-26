@@ -526,6 +526,9 @@ struct PickerMenuItem: View {
                     .environment(\.defaultMinListHeaderHeight, 0)
                 })
                 .preferredColorScheme(self.colorScheme)
+                .onDisappear {
+                    self.item.cancel()
+                }
             }
             .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
@@ -652,6 +655,9 @@ struct PickerMenuItem: View {
                         .searchPresentationToolbarBehavior(.avoidHidingContent)
                 })
                 .preferredColorScheme(self.colorScheme)
+                .onDisappear {
+                    self.item.cancel()
+                }
             }
             .ifApply(self.horizontalSizeClass != .compact) {
                 $0.background(GeometryReader { geometry in
@@ -1430,6 +1436,9 @@ struct TitleMenuItem: View {
                     .environment(\.defaultMinListHeaderHeight, 0)
                 }
                 .preferredColorScheme(self.colorScheme)
+                .onDisappear {
+                    self.item.cancel()
+                }
             }
             .ifApply(self.horizontalSizeClass != .compact, content: { v in
                 v.background(GeometryReader { geometry in
@@ -1610,6 +1619,9 @@ struct NoteMenuItem: View {
             .environment(\.defaultMinListRowHeight, 0)
             .environment(\.defaultMinListHeaderHeight, 0)
         })
+        .onDisappear {
+            self.item.cancel()
+        }
     }
     
     func cancelFioriButtonStyle() -> some FioriButtonStyle {
