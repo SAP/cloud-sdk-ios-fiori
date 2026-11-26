@@ -40,31 +40,20 @@ struct InternalWAForm: View {
             }
         }
         .toolbar {
-            if #available(iOS 26.0, *) {
-                ToolbarItem(placement: .topBarLeading) {
-                    self.topLeadingButton()
-                        .fixedSize()
-                }
-                #if !os(visionOS)
-                .sharedBackgroundVisibility(.hidden)
-                #endif
-                ToolbarItem(placement: .topBarTrailing) {
-                    self.topTrailingButton()
-                        .fixedSize()
-                }
-                #if !os(visionOS)
-                .sharedBackgroundVisibility(.hidden)
-                #endif
-            } else {
-                ToolbarItem(placement: .topBarLeading) {
-                    self.topLeadingButton()
-                        .fixedSize()
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    self.topTrailingButton()
-                        .fixedSize()
-                }
+            ToolbarItem(placement: .topBarLeading) {
+                self.topLeadingButton()
+                    .fixedSize()
             }
+            #if !os(visionOS)
+            .sharedBackgroundVisibility(.hidden)
+            #endif
+            ToolbarItem(placement: .topBarTrailing) {
+                self.topTrailingButton()
+                    .fixedSize()
+            }
+            #if !os(visionOS)
+            .sharedBackgroundVisibility(.hidden)
+            #endif
         }
         .navigationBarBackButtonHidden()
         .toolbarBackground(Color.preferredColor(.header, background: self.backgroundColorScheme), for: .navigationBar)
