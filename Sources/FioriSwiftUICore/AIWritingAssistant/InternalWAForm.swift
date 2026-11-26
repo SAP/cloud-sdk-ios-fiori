@@ -40,31 +40,7 @@ struct InternalWAForm: View {
             }
         }
         .toolbar {
-            if #available(iOS 26.0, *) {
-                ToolbarItem(placement: .topBarLeading) {
-                    self.topLeadingButton()
-                        .fixedSize()
-                }
-                #if !os(visionOS)
-                .sharedBackgroundVisibility(.hidden)
-                #endif
-                ToolbarItem(placement: .topBarTrailing) {
-                    self.topTrailingButton()
-                        .fixedSize()
-                }
-                #if !os(visionOS)
-                .sharedBackgroundVisibility(.hidden)
-                #endif
-            } else {
-                ToolbarItem(placement: .topBarLeading) {
-                    self.topLeadingButton()
-                        .fixedSize()
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    self.topTrailingButton()
-                        .fixedSize()
-                }
-            }
+            self.toolbarContent
         }
         .navigationBarBackButtonHidden()
         .toolbarBackground(Color.preferredColor(.header, background: self.backgroundColorScheme), for: .navigationBar)
@@ -113,6 +89,35 @@ struct InternalWAForm: View {
         }, message: {
             Text("Do you want to undo the edits made by the Writing Assistant and revert the text to its original state?".localizedFioriString())
         })
+    }
+    
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ToolbarItem(placement: .topBarLeading) {
+                self.topLeadingButton()
+                    .fixedSize()
+            }
+            #if !os(visionOS)
+            .sharedBackgroundVisibility(.hidden)
+            #endif
+            ToolbarItem(placement: .topBarTrailing) {
+                self.topTrailingButton()
+                    .fixedSize()
+            }
+            #if !os(visionOS)
+            .sharedBackgroundVisibility(.hidden)
+            #endif
+        } else {
+            ToolbarItem(placement: .topBarLeading) {
+                self.topLeadingButton()
+                    .fixedSize()
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                self.topTrailingButton()
+                    .fixedSize()
+            }
+        }
     }
     
     @ViewBuilder var listContent: some View {
